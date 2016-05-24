@@ -1,0 +1,33 @@
+<div class="login-wrapper">
+
+    ${ getMessages() }
+    
+    <article class="data-block login">
+
+        <header>
+            <h2>${ translate:text( "bo_adm150") }</h2>
+        </header>
+
+        <section>
+            <form method="post" id="loginForm" action="${ url:page("user/login") }" autocomplete="off" class="form-horizontal">
+		    <div class="control-group ${ if isNotValid("user") then do }error${ end }">
+		        <label class="control-label" for="user">${ translate:text( "bo_adm151") }</label>
+		        <div class="controls">${ render("user") }</div>
+		    </div>
+		    <div class="control-group ${ if isNotValid("password") then do }error${ end }">
+		        <label class="control-label" for="password">${ translate:text( "bo_adm152") }</label>
+		        <div class="controls">${ render("password") }</div>
+		    </div>
+            <div class="control-group ${ if isNotValid("language") then do }error${ end }">
+                <label class="control-label" for="language">${ translate:text( "bo_elem165") }</label>
+                <div class="controls">${ render("language") }</div>
+            </div>
+		    <div class="controls">
+		        ${ render("submit", "class=btn btn-primary") }
+		    </div>
+            </form>
+        </section>
+
+    </article>
+
+</div>

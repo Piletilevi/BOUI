@@ -1,0 +1,244 @@
+<script type="text/javascript" src="${url:static( "js/knockout/knockout-3.2.0.min.js" )}"></script>
+
+<section class="page-header">
+
+    <h1>${ translate:text("meny_09") }</h1>
+    
+</section>
+
+${ getMessages() }
+
+<!-- Grid row -->
+<div class="row-fluid">
+
+    <article class="data-block">
+        <section id="mainSection">
+	        <form method="post" id="dateStartForm" action="${ url:page("sellDate/doStartDate") }" autocomplete="off" class="form-horizontal" onsubmit="return formSubmit();">
+	            <div class="span6">
+                    ${ render("blankSerialNumber") }
+	                <div class="control-group ${ if isNotValid("blankSerialNumber") then do }error${ end }">
+	                    <label class="control-label" for="blankSerialNumberSelect">${ translate:text( "bo_adm587") }</label>
+	                    <div class="controls">
+				             ${ if hasNotCheckDay() then do }
+ 							 <select class="span9" id="blankSerialNumberSelect" data-bind="foreach: serials">
+							     <option data-bind="value: id, text: name, attr: {'selected': typeof(selected) !== 'undefined' ? selected : null}"></option>            
+							 </select>
+                             ${ end }
+                             ${ if hasCheckDay() then do }
+                             <select class="span9" id="blankSerialNumberSelect" disabled>
+                                 <option>${ getCheckDaySerialNumber() }</option>            
+                             </select>
+                             ${ end }
+	                    </div>
+	                </div>
+	                <div class="control-group ${ if isNotValid("blankNumber") then do }error${ end }">
+	                    <label class="control-label" for="blankNumber">${ translate:text( "bo_elem072") }</label>
+	                    <div class="controls">${ render("blankNumber", "class=span9" ) }</div>
+	                </div>
+	                <div class="control-group ${ if isNotValid("comments") then do }error${ end }">
+	                    <label class="control-label" for="comments">${ translate:text( "bo_elem100") }</label>
+	                    <div class="controls">${ render("comments", "class=input-xlarge,rows=5") }</div>
+	                </div>
+	            </div>
+                <div class="span6">
+	                <div class="control-group">
+	                    <label class="control-label" for="salespoint">${ translate:text( "bo_elem040") }</label>
+	                    <div class="controls">${ render("salespoint") }</div>
+	                </div>
+	                <div class="control-group">
+	                    <label class="control-label" for="user">${ translate:text( "bo_elem042") }</label>
+	                    <div class="controls">${ render("user") }</div>
+	                </div>
+	                <div class="control-group">
+	                    <label class="control-label" for="datetime">${ translate:text( "bo_elem020") }</label>
+	                    <div class="controls">${ render("datetime") }</div>
+	                </div>
+                </div>
+                <div style="clear:both;">&nbsp;</div>
+                ${ if hasNotCheckDay() then do }
+	            <div class="controls">
+	                ${ render("submit", "class=btn btn-primary") }
+	            </div>
+	            ${ end }
+	        </form>
+            
+            ${ if hasCheckDates() then do }
+            <div class="controls">
+	             <table class="table" id="sectorsTable">
+	                 <thead>
+	                     <tr>
+	                         <th>${ translate:text("bo_elem042") }</th>
+	                         <th>${ translate:text("bo_elem020") }</th>
+	                         <th>${ translate:text("bo_day002") }</th>
+                             <th>${ translate:text("bo_day003") }</th>
+                             <th>${ translate:text("bo_day004") }</th>
+                             ${ if user:isRussia() then do }
+	                             <th>${ translate:text("bo_day005") }</th>
+	                             <th>${ translate:text("bo_day006") }</th>
+	                             <th>${ translate:text("bo_day007") }</th>
+                             ${ end }
+	                     </tr>
+	                 </thead>
+	                 <tbody>
+	                     ${ while nextCheckDates() do }
+	                     <tr>
+	                         <td>${ getSeller() }</td>
+                             <td>${ getSellDate() }</td>
+                             <td>${ getStartTime() }</td>
+                             <td>${ getStartNumber() }</td>
+                             <td>${ getEndNumber() }</td>
+                             ${ if user:isRussia() then do }
+	                             <td>${ getSerialNumber() }</td>
+	                             <td>${ getSerialNumberInterval() }</td>
+	                             <td>${ getLastUsedNumber() }</td>
+                             ${ end }
+	                     </tr>
+	                     ${ end }
+	                 </tbody>
+	             </table>
+            </div>
+	        ${ end }
+        </section>
+    </article>
+
+</div>
+<!-- /Grid row -->
+
+
+${ if hasNotCheckDay() then do }
+<script type="text/javascript">
+    var serial = function (data) {
+        return {
+            id: ko.observable(data.id),
+            code: ko.observable(data.code),
+            startNumber: ko.observable(data.startNumber),
+            endNumber: ko.observable(data.endNumber),
+            nextNumber: ko.observable(data.nextNumber),
+            comments: ko.observable(data.comments),
+            name: ko.observable(data.code + ': ' + data.startNumber + ' - ' + data.endNumber),
+            selected: ko.observable($("#blankSerialNumber").val() == data.id),
+        };
+    };
+
+    var emptySerial = function () {
+        return {
+            id: ko.observable(""),
+            name: "..."
+        };
+    };
+
+    var viewModel = {
+      serials : ko.observable(),
+      load: function () {
+          $.getJSON('${ url:page("api/serials") }',
+               function(result) { 
+                  if (result) {
+                      var data = result.ttSerial;
+                      var arr = [];
+                      
+                      arr.push(new emptySerial());
+
+                      $.each(data, function (i) {
+                        arr.push(new serial(data[i]));
+                      });
+                      
+                      viewModel.serials(arr);
+                  }
+            }
+          );
+      },
+      getSerialData: function(id) {
+          var arr = viewModel.serials();
+          var serial = null;
+          $.each(arr, function (i) {
+              if (arr[i].id() == id) {
+                serial = arr[i];
+              }
+          });
+          return serial;
+      },
+    };
+
+    var forceSubmit = function() {
+	    $('#dateStartForm').removeAttr('onsubmit');
+	    $('#dateStartForm').unbind('submit');
+	    $("#submit").click();
+    }
+
+    var formSubmit = function() {
+        var choosenSerialId = $("#blankSerialNumber").val();
+        var resultStatus = true;
+        
+        $.ajaxSetup({
+            async: false
+        });
+        if (choosenSerialId) {
+            resultStatus = false;   
+            $.getJSON('${ url:page("api/checkDayCheckNumber") }',
+                function(result) { 
+                    if (result) {
+                       if (result.checkNumber && result.checkNumber > 0 && choosenSerialId != result.checkNumber++) {
+				            bootbox.dialog({
+				              message: "${ translate:text("bo_dayerr001") }",
+				              title: "${ translate:text("bo_dayerr010") }",
+				              buttons: {
+				                yes: {
+				                  label: "${ translate:text("bo_elem141") }",
+				                  className: "btn-primary",
+				                  callback: function() {
+				                  }
+				                },
+				                no: {
+				                  label: "${ translate:text("bo_elem142") }",
+				                  className: "btn",
+				                  callback: function() {
+				                     forceSubmit();
+				                  }
+				                },
+				              }
+				            });
+                       } else {
+                            resultStatus = true;
+                       }
+                    } else {
+                        resultStatus = true; 
+                    }
+                }
+            );
+        }
+        $.ajaxSetup({
+            async: true
+        });
+        return resultStatus;
+    }
+
+    ko.applyBindings(viewModel);
+    viewModel.load();
+    
+    $(document).ready(function(){
+        $("#blankNumber").keypress(function (e) {
+            if (String.fromCharCode(e.keyCode).match(/[^0-9]/g)) return false;
+        });
+		
+		$("#blankSerialNumberSelect").on('change', function (e) {
+		    var valueSelected = this.value;
+            var choosenSerial = viewModel.getSerialData(valueSelected);
+            
+            if (choosenSerial) {
+	           $("#blankSerialNumber").val(choosenSerial.id());
+               if (!$("#blankNumber").val()) {
+                   $("#blankNumber").val(choosenSerial.nextNumber());
+               }
+	           if (!$("#comments").val()) {
+	               $("#comments").val(choosenSerial.comments());
+	           }
+	        } else {
+	           $("#blankSerialNumber").val("");
+	           $("#blankNumber").val("");
+	           $("#comments").val("");
+	        }
+		}); 
+    });
+</script>
+${ end }
+      

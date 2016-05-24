@@ -1,0 +1,113 @@
+<section class="page-header">
+
+    <h1>${ translate:text("meny_10") }</h1>
+    
+</section>
+
+${ getMessages() }
+
+<!-- Grid row -->
+<div class="row-fluid">
+
+    <article class="data-block">
+        <section id="mainSection">
+            <form method="post" id="dateStartForm" action="${ url:page("sellDate/doEndDate") }" autocomplete="off" class="form-horizontal">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label" for="blankSerialNumberSelect">${ translate:text( "bo_adm587") }</label>
+                        <div class="controls">
+                           <select class="span9" id="blankSerialNumberSelect" disabled>
+                               <option>${ getCheckDaySerialNumber() }</option>            
+                           </select>
+                        </div>
+                    </div>
+                    <div class="control-group ${ if isNotValid("lastNumber") then do }error${ end }">
+                        <label class="control-label" for="blankNumber">${ translate:text( "bo_day007") }</label>
+                        <div class="controls">${ render("lastNumber", "class=span9" ) }</div>
+                    </div>
+                    <div class="control-group ${ if isNotValid("blankNumber") then do }error${ end }">
+                        <label class="control-label" for="blankNumber">${ translate:text( "bo_elem072") }</label>
+                        <div class="controls">${ render("blankNumber", "class=span9" ) }</div>
+                    </div>
+                    <div class="control-group ${ if isNotValid("balance") then do }error${ end }">
+                        <label class="control-label" for="balance">${ translate:text( "bo_day001") }</label>
+                        <div class="controls">${ render("balance", "class=span9" ) }</div>
+                    </div>
+                    <div class="control-group ${ if isNotValid("comments") then do }error${ end }">
+                        <label class="control-label" for="comments">${ translate:text( "bo_elem100") }</label>
+                        <div class="controls">${ render("comments", "class=input-xlarge,rows=5") }</div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label" for="salespoint">${ translate:text( "bo_elem040") }</label>
+                        <div class="controls">${ render("salespoint") }</div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="user">${ translate:text( "bo_elem042") }</label>
+                        <div class="controls">${ render("user") }</div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="datetime">${ translate:text( "bo_elem020") }</label>
+                        <div class="controls">${ render("datetime") }</div>
+                    </div>
+                </div>
+                <div style="clear:both;">&nbsp;</div>
+                ${ if hasNotCheckDay() then do }
+                <div class="controls">
+                    ${ render("submit", "class=btn btn-primary") }
+                </div>
+                ${ end }
+            </form>
+            
+            ${ if hasCheckDates() then do }
+            <div class="controls">
+                 <table class="table" id="sectorsTable">
+                     <thead>
+                         <tr>
+                             <th>${ translate:text("bo_elem042") }</th>
+                             <th>${ translate:text("bo_elem020") }</th>
+                             <th>${ translate:text("bo_day002") }</th>
+                             <th>${ translate:text("bo_day003") }</th>
+                             <th>${ translate:text("bo_day004") }</th>
+                             ${ if user:isRussia() then do }
+                                 <th>${ translate:text("bo_day005") }</th>
+                                 <th>${ translate:text("bo_day006") }</th>
+                                 <th>${ translate:text("bo_day007") }</th>
+                             ${ end }
+                         </tr>
+                     </thead>
+                     <tbody>
+                         ${ while nextCheckDates() do }
+                         <tr>
+                             <td>${ getSeller() }</td>
+                             <td>${ getSellDate() }</td>
+                             <td>${ getStartTime() }</td>
+                             <td>${ getStartNumber() }</td>
+                             <td>${ getEndNumber() }</td>
+                             ${ if user:isRussia() then do }
+                                 <td>${ getSerialNumber() }</td>
+                                 <td>${ getSerialNumberInterval() }</td>
+                                 <td>${ getLastUsedNumber() }</td>
+                             ${ end }
+                         </tr>
+                         ${ end }
+                     </tbody>
+                 </table>
+            </div>
+            ${ end }
+        </section>
+    </article>
+
+</div>
+<!-- /Grid row -->
+
+${ if hasCheckDay() then do }
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#balance").keypress(function (e) {
+            if (String.fromCharCode(e.keyCode).match(/[^0-9]/g)) return false;
+        });
+    });
+</script>
+${ end }

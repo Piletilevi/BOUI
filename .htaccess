@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	
+	RewriteCond %{REQUEST_FILENAME} !\.(gif|png|jpg|jpeg|jfif|bmp|svg|eot|woff|css|js)$ [NC]
+	RewriteRule  ^$ /cgi-bin/cgiip.exe/WService=plevi/index.html [L]
+
+	RewriteCond %{REQUEST_FILENAME} !\.(gif|png|jpg|jpeg|jfif|bmp|svg|eot|woff|css|js)$ [NC]
+	RewriteRule  (.*) /cgi-bin/cgiip.exe/WService=plevi/$1 [L]
+
+	ErrorDocument 404 /piletilevi/error/404 
+	ErrorDocument 500 /piletilevi/error/500 
+</IfModule>
