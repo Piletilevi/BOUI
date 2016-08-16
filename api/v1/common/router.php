@@ -1,7 +1,7 @@
 <?php 
 
 $app->get('/session', function() {
-	$sessionHandler = new PiletilevSessionHandler();
+	$sessionHandler = new PiletileviSessionHandler();
     $session = $sessionHandler->getSession();
     $response["user"] = $session['user'];
     
@@ -39,7 +39,7 @@ $app->post('/login', function() use ($app) {
 });
 
 $app->get('/logout', function() {
-    $sessionHandler = new PiletilevSessionHandler();
+    $sessionHandler = new PiletileviSessionHandler();
     $session = $sessionHandler->destroySession();
     $response["status"] = "info";
     $response["message"] = "Logged out successfully";
