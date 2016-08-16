@@ -1,6 +1,6 @@
 <?php
 
-class PiletilevSessionHandler {
+class PiletileviSessionHandler {
 
 	public function getSession(){
 		if (!isset($_SESSION)) {
