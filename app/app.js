@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'bo']);
+var app = angular.module('boApp', ['ngRoute', 'ngAnimate', 'bo']);
 
 app.config(['$routeProvider',
   function ($routeProvider) {
@@ -40,7 +40,6 @@ app.config(['$routeProvider',
                 } else {
                     var nextUrl = next.$$route.originalPath;
                     if (nextUrl == '/login') {
-
                     } else {
                         $location.path("/login");
                     }
