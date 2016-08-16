@@ -7,6 +7,14 @@ namespace Composer\Autoload;
 class ComposerStaticInit2e3a373787dc82374402aec81b80f734
 {
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Slim\\HttpCache\\' => 15,
+        ),
+        'P' => 
+        array (
+            'Psr\\Http\\Message\\' => 17,
+        ),
         'F' => 
         array (
             'Firebase\\JWT\\' => 13,
@@ -14,6 +22,14 @@ class ComposerStaticInit2e3a373787dc82374402aec81b80f734
     );
 
     public static $prefixDirsPsr4 = array (
+        'Slim\\HttpCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/slim/http-cache/src',
+        ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
@@ -26,6 +42,13 @@ class ComposerStaticInit2e3a373787dc82374402aec81b80f734
             'Slim' => 
             array (
                 0 => __DIR__ . '/..' . '/slim/slim',
+            ),
+        ),
+        'P' => 
+        array (
+            'Pimple' => 
+            array (
+                0 => __DIR__ . '/..' . '/pimple/pimple/src',
             ),
         ),
         'H' => 

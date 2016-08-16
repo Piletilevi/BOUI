@@ -2,6 +2,7 @@
     "require": {
         "slim/slim": "^2.6",
 		"firebase/php-jwt": "^3.0",
-		"nategood/httpful": "*"
+		"nategood/httpful": "*",
+        "slim/http-cache": "^0.3.0"
 	}
 }
