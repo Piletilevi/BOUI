@@ -1,0 +1,148 @@
+.logo img {
+    margin-top: -10px;
+}
+
+.centered_tabs {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.centered_tabs > li {
+    float: none;
+    display: inline-block;
+}
+
+@media (max-width: 767px) {
+    .links_block {
+       text-align: center;
+    }
+
+    .logo {
+        position: absolute;
+        left: 50%;
+        margin-left: -85px;
+    }
+}
+
+@media (min-width: 992px) {
+    #filter {
+        display: block!important;
+    }
+}
+
+@media (min-width: 768px) {
+    .language_dropdown {
+        margin-right: -15px;
+    }
+
+    .office_dropdown {
+        margin-top: 8px;
+    }
+
+    .navbar-nav > li > a.user_dropdown {
+        padding: 0 15px;
+        line-height: 50px;
+    }
+
+    .navbar-nav > li > a.user_dropdown .user_name {
+        max-width: 85px;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1;
+        text-align: right;
+        padding-right: 5px;
+    }
+}
+
+
+.event_title,
+.news_title {
+    margin-top: 0;
+}
+
+.inline_dropdown {
+    display: inline-block;
+}
+
+.navbar-toggle {
+    float: left;
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+.header_additional_icons {
+    float: right;
+    margin-right: 8px;
+    margin-bottom: 0;
+}
+
+.header_additional_icons > li {
+    float: left;
+}
+
+.news_arrow {
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    margin-top: -0.5em;
+}
+
+.sub_events > .panel {
+    margin-top: 10px;
+}
+
+.event_toggle {
+    cursor: pointer;
+}
+
+.event_toggle:hover {
+    text-decoration: none;
+}
+
+.event_toggle .glyphicon-triangle-right {
+    display: none;
+}
+
+.event_toggle.collapsed .glyphicon-triangle-right {
+    display: inline-block;
+}
+
+.event_toggle.collapsed .glyphicon-triangle-bottom {
+    display: none;
+}
+
+.btn-inverse {
+    background-color: transparent;
+    border-color: #fff;
+    color: #fff;
+}
+
+.btn-inverse.focus,
+.btn-inverse:focus,
+.btn-inverse:hover {
+    color: #fff;
+}
+
+.navbar {
+    margin-bottom: 5px;
+}
+
+.nav-pills > li > a {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.percent_block {
+    padding-top: 1.3em;
+}
+
+.print_button {
+    cursor: pointer;
+}
+
+@media print {
+    .sub_menu,
+    header {
+        display: none;
+    }
+}
