@@ -14,7 +14,28 @@ class PiletileviApi {
 
 		return $this->send( "/user/login", $data );
 	}
-	
+	public function languages() {
+
+		return $this->get( "/language/languages" );
+	}
+
+	/**
+	 * @param $url
+	 * @param $data [] -query params
+	 * @return mixed
+	 */
+	private function get($url, $data = array()){
+		$papiConfig = $this->getPapiConfig();
+		$envConfig = $this->getEnvConfig();
+		$query ="?";
+		$query .= http_build_query($data);
+		$url .= $query;
+
+		$uri = $this->getBasePath().$url;
+		error_log($uri);
+		$response = \Httpful\Request::getQuick($uri);
+		return  json_decode($response->__toString());
+	}
 	private function send($url, $data) {
 
 		$papiConfig = $this->getPapiConfig();

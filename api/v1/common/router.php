@@ -52,9 +52,14 @@ $app->get(
     '/languages', function() {
     $piletileviApi = new PiletileviApi();
     $languages = $piletileviApi->languages();
-    $response["status"] = "info";
-    $response["message"] = "Logged out successfully";
-    $response["languages"] = $languages;
+
+    $response["status"] = "success";
+    $response["message"] = "Got languages";
+    foreach ($languages->data as $language){
+
+      $response["languages"][]= $language->code;
+    }
+
 
     DataHandler::response(200, $response);
 });

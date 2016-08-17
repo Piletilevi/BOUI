@@ -9,6 +9,7 @@ class ComposerStaticInit2e3a373787dc82374402aec81b80f734
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
+            'Slim\\Logger\\' => 12,
             'Slim\\HttpCache\\' => 15,
         ),
         'P' => 
@@ -22,6 +23,10 @@ class ComposerStaticInit2e3a373787dc82374402aec81b80f734
     );
 
     public static $prefixDirsPsr4 = array (
+        'Slim\\Logger\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/slim/logger',
+        ),
         'Slim\\HttpCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/http-cache/src',

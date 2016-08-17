@@ -30,6 +30,7 @@ app.config(['$routeProvider',
   }])
     .run(function ($rootScope, $location, Data) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
+            $rootScope.languages=getLanguages(Data);
             $rootScope.authenticated = false;
             Data.get('session').then(function (results) {
                 if (results.user) {
@@ -47,3 +48,12 @@ app.config(['$routeProvider',
             });
         });
     });
+
+function getLanguages(Data){
+    Data.get('languages').then(
+        function(results){
+            return results;
+        }
+    )
+
+}
