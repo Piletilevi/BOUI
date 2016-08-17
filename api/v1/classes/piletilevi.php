@@ -32,7 +32,7 @@ class PiletileviApi {
 		$url .= $query;
 
 		$uri = $this->getBasePath().$url;
-		
+
 		$response = \Httpful\Request::getQuick($uri);
 		return  json_decode($response->__toString());
 	}

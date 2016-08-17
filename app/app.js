@@ -30,7 +30,12 @@ app.config(['$routeProvider',
   }])
     .run(function ($rootScope, $location, Data) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
-            $rootScope.languages=getLanguages(Data);
+            $rootScope.languages = getLanguages(Data);
+            $rootScope.language = 'EST';
+            $rootScope.setLangValue =
+                function(lang) {
+                    $rootScope.language = lang;
+                }
             $rootScope.authenticated = false;
             Data.get('session').then(function (results) {
                 if (results.user) {

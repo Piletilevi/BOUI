@@ -69,11 +69,12 @@
                             </ul>
                         </li>
                         <li class="dropdown language_dropdown">
-                            <a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ENG<span class="caret"></span></a>
+                            <a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{language}}<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href>ENG</a></li>
-                                <li><a href>EST</a></li>
-                                <li><a href>RUS</a></li>
+                                <ul>
+                                    <li ng-repeat="lang in languages" ng-click="setLangValue(lang)"><a href>{{lang}}</a></li>
+                                </ul>
+
                             </ul>
                         </li>
                     </ul>
