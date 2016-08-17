@@ -1,5 +1,6 @@
+/api/config.php
 # Logs
-logs
+#logs
 *.log
 npm-debug.log*
 
@@ -32,4 +33,3 @@ node_modules
 # Optional REPL history
 .node_repl_history
 /.idea
-/api/config.php

@@ -1,3 +1,5 @@
+
+
 var app = angular.module('boApp', ['ngRoute', 'ngAnimate', 'bo']);
 
 app.config(['$routeProvider',
@@ -28,10 +30,18 @@ app.config(['$routeProvider',
                 redirectTo: '/login'
             });
   }])
-    .run(function ($rootScope, $location, Data) {
+    .run(function ($rootScope, $location,$log , Data) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
-            $rootScope.languages = getLanguages(Data);
-            $rootScope.language = 'EST';
+            $rootScope.$log = $log;
+             Data.get('languages').then(function(results){
+                    if (results.status == "success") {
+                        $rootScope.$log.log(results);
+                        $rootScope.languages = results.languages;
+                        $rootScope.language =  $rootScope.languages[0];
+                    }
+                });
+            $rootScope.$log.log($rootScope.languages);
+
             $rootScope.setLangValue =
                 function(lang) {
                     $rootScope.language = lang;
@@ -54,11 +64,5 @@ app.config(['$routeProvider',
         });
     });
 
-function getLanguages(Data){
-    Data.get('languages').then(
-        function(results){
-            return results;
-        }
-    )
 
-}
+

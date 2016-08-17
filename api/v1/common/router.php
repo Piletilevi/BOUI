@@ -57,7 +57,7 @@ $app->get(
     $response["message"] = "Got languages";
     foreach ($languages->data as $language){
 
-      $response["languages"][]= $language->code;
+      $response["languages"][]= $language;
     }
 
 
