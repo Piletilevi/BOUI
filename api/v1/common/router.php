@@ -47,4 +47,16 @@ $app->get('/logout', function() {
 	DataHandler::response(200, $response);
 });
 
+
+$app->get(
+    '/languages', function() {
+    $piletileviApi = new PiletileviApi();
+    $languages = $piletileviApi->languages();
+    $response["status"] = "info";
+    $response["message"] = "Logged out successfully";
+    $response["languages"] = $languages;
+
+    DataHandler::response(200, $response);
+});
+
 ?>
