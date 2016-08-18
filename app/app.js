@@ -61,6 +61,7 @@ app.config(['$routeProvider',
 						$rootScope.setLangValue($rootScope.languages[0]);
 					}
 				});
+
 			$rootScope.$log.log($rootScope.languages);
 
 			$rootScope.authenticated = false;
@@ -68,9 +69,7 @@ app.config(['$routeProvider',
 			Data.get('session').then(function (results) {
 				if (results.user) {
 					$rootScope.authenticated = true;
-					$rootScope.uid = results.user.id;
-					$rootScope.name = results.user.name;
-					$rootScope.username = results.user.userId;
+					$rootScope.user = results.user;
 				} else {
 					var nextUrl = next.$$route.originalPath;
 					if (nextUrl == '/login') {
