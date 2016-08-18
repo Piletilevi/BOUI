@@ -1,6 +1,8 @@
+'use strict';
 
+angular.module('boApp', ['ngRoute','ngSanitize','ngAnimate','ngSanitize','bo','pascalprecht.translate']);
 
-var app = angular.module('boApp', ['ngRoute','ngSanitize','ngAnimate','ngSanitize','bo','pascalprecht.translate']);
+var app = angular.module('boApp');
 
 
 
@@ -41,22 +43,22 @@ app.config(['$routeProvider',
         when('/login', {
             title: 'Login',
             templateUrl: 'views/login.html',
-            controller: 'auth.controller'
+			controller: 'AuthController'
         })
             .when('/logout', {
                 title: 'Logout',
                 templateUrl: 'views/login.html',
-                controller: 'auth.controller'
+				controller: 'AuthController'
             })
             .when('/dashboard', {
                 title: 'Dashboard',
                 templateUrl: 'views/dashboard.html',
-                controller: 'auth.controller'
+				controller: 'AuthController'
             })
             .when('/', {
                 title: 'Login',
                 templateUrl: 'views/login.html',
-                controller: 'auth.controller',
+				controller: 'AuthController',
                 role: '0'
             })
             .otherwise({
@@ -70,7 +72,8 @@ app.config(['$routeProvider',
                 function(lang) {
                     $rootScope.language = lang;
                     $translate.use(lang.code);
-            }
+				}
+
              Data.get('languages').then(function(results){
                     if (results.status == "success") {
                         //$rootScope.$log.log(results);
@@ -78,16 +81,15 @@ app.config(['$routeProvider',
                         $rootScope.setLangValue($rootScope.languages[0]);
                     }
                 });
+
             $rootScope.$log.log($rootScope.languages);
 
+			$rootScope.authenticated = false;
 
-            $rootScope.authenticated = false;
             Data.get('session').then(function (results) {
                 if (results.user) {
                     $rootScope.authenticated = true;
-                    $rootScope.uid = results.user.id;
-                    $rootScope.name = results.user.name;
-                    $rootScope.username = results.user.userId;
+					$rootScope.user = results.user;
                 } else {
                     var nextUrl = next.$$route.originalPath;
                     if (nextUrl == '/login') {
@@ -98,6 +100,3 @@ app.config(['$routeProvider',
             });
         });
     });
-
-
-
