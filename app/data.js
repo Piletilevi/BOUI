@@ -1,32 +1,37 @@
-app.factory("Data", ['$http', 'bo',
-    function ($http, bo) { // This service connects to our REST API
+(function() {
+    'use strict';
 
-        var serviceBase = 'api/v1/';
+	app.factory("Data", ['$http', 'bo',
+		function ($http, bo) { // This service connects to our REST API
 
-        var obj = {};
-        obj.page = function (data) {
-            bo.pop(data.status, "", data.message, 10000, 'trustedHtml');
-        }
-        obj.get = function (q) {
-            return $http.get(serviceBase + q).then(function (results) {
-                return results.data;
-            });
-        };
-        obj.post = function (q, object) {
-            return $http.post(serviceBase + q, object).then(function (results) {
-				return results.data;
-            });
-        };
-        obj.put = function (q, object) {
-            return $http.put(serviceBase + q, object).then(function (results) {
-                return results.data;
-            });
-        };
-        obj.delete = function (q) {
-            return $http.delete(serviceBase + q).then(function (results) {
-                return results.data;
-            });
-        };
+			var serviceBase = 'api/v1/';
 
-        return obj;
-}]);
+			var obj = {};
+			obj.page = function (data) {
+				bo.pop(data.status, "", data.message, 10000, 'trustedHtml');
+			}
+			obj.get = function (q) {
+				return $http.get(serviceBase + q).then(function (results) {
+					return results.data;
+				});
+			};
+			obj.post = function (q, object) {
+				return $http.post(serviceBase + q, object).then(function (results) {
+					return results.data;
+				});
+			};
+			obj.put = function (q, object) {
+				return $http.put(serviceBase + q, object).then(function (results) {
+					return results.data;
+				});
+			};
+			obj.delete = function (q) {
+				return $http.delete(serviceBase + q).then(function (results) {
+					return results.data;
+				});
+			};
+
+			return obj;
+	}]);
+
+})();
