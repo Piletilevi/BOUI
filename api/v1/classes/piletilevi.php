@@ -18,7 +18,12 @@ class PiletileviApi {
 
 		return $this->get( "/language/languages" );
 	}
+	public function translations($languageId) {
 
+		$data = array("languageid" => $languageId);
+
+		return $this->send( "/language/translations", $data );
+	}
 	/**
 	 * @param $url
 	 * @param $data [] -query params

@@ -1,4 +1,5 @@
-<?php 
+<?php
+use \Slim\Logger\DateTimeFileWriter;
 
 $app->get('/session', function() {
 	$sessionHandler = new PiletileviSessionHandler();
@@ -50,6 +51,7 @@ $app->get('/logout', function() {
 
 $app->get(
     '/languages', function() {
+
     $piletileviApi = new PiletileviApi();
     $languages = $piletileviApi->languages();
 
@@ -63,5 +65,33 @@ $app->get(
 
     DataHandler::response(200, $response);
 });
+$app->post(
+    '/translations', function() use ($app)  {
+    $logger = new DateTimeFileWriter(array(
+        'path' => __DIR__.'/../../../logs',
+        'name_format' => 'Y-m-d',
+        'message_format' => '%label% - %date% - %message%'
+    ));
+    $r = json_decode($app->request->getBody());
+    $logger->write(print_r($r,true),"INFO");
+    DataHandler::verifyParams(array('languageId'), $r);
+
+    $languageId= $r->languageId;
+
+    $piletileviApi = new PiletileviApi();
+    $translations = $piletileviApi->translations($languageId);
+
+    $response["status"] = "success";
+    $response["message"] = "Got languages";
+    foreach ($translations->data as $trans){
+
+        $response["translations"][]= $trans;
+    }
+
+
+    DataHandler::response(200, $response);
+});
+
+
 
 ?>

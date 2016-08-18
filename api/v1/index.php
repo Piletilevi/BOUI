@@ -8,7 +8,7 @@ use Slim\Logger\DateTimeFileWriter;
 
 $app = new Slim(array("settings" => $config,
     'log.writer' => new DateTimeFileWriter(array(
-        'path' => __DIR__.'/../../logs/',
+        'path' => __DIR__.'/../../logs',
         'name_format' => 'Y-m-d',
         'message_format' => '%label% - %date% - %message%'
     ))));

@@ -33,19 +33,27 @@ app.config(['$routeProvider',
     .run(function ($rootScope, $location,$log , Data) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;
+            $rootScope.setLangValue =
+                function(lang) {
+                    $rootScope.language = lang;
+                    Data.post('translations',{
+                        languageId: lang.code
+                    }).then(
+                        function(results){
+                            Data.page(results);
+
+                        });
+                }
              Data.get('languages').then(function(results){
                     if (results.status == "success") {
                         $rootScope.$log.log(results);
                         $rootScope.languages = results.languages;
-                        $rootScope.language =  $rootScope.languages[0];
+                        $rootScope.setLangValue($rootScope.languages[0]);
                     }
                 });
             $rootScope.$log.log($rootScope.languages);
 
-            $rootScope.setLangValue =
-                function(lang) {
-                    $rootScope.language = lang;
-                }
+
             $rootScope.authenticated = false;
             Data.get('session').then(function (results) {
                 if (results.user) {
