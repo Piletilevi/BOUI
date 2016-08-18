@@ -20,7 +20,7 @@ class PiletileviApi {
 	}
 	public function translations($languageId) {
 
-		$data = array("languageid" => $languageId);
+		$data = array("languageId" => $languageId);
 
 		return $this->send( "/language/translations", $data );
 	}
