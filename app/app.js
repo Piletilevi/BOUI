@@ -1,6 +1,6 @@
 
 
-var app = angular.module('boApp', ['ngRoute', 'ngAnimate', 'bo']);
+var app = angular.module('boApp', ['ngRoute', 'ngAnimate', 'bo','pascalprecht.translate']);
 
 app.config(['$routeProvider',
   function ($routeProvider) {
@@ -41,6 +41,13 @@ app.config(['$routeProvider',
                     }).then(
                         function(results){
                             Data.page(results);
+                            $rootScope.$log.log(results);
+                            app.config(['$translateProvider', function ($translateProvider) {
+
+                                $translateProvider.translations(results.translations.languageId,results.translations.translations );
+
+                                $translateProvider.preferredLanguage('en');
+                            }]);
 
                         });
                 }

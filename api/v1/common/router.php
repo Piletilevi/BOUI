@@ -84,10 +84,10 @@ $app->post(
     $response["status"] = "success";
     $response["message"] = "Got translations";
     //$logger->write( print_r($translations,true),"INFO");
-    foreach ($translations->data as $trans){
 
-        $response["translations"][]= $trans;
-    }
+
+        $response["translations"] = $translations->data;
+
 
 
     DataHandler::response(200, $response);
