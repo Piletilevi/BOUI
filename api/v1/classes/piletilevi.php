@@ -18,7 +18,12 @@ class PiletileviApi {
 
 		return $this->get( "/language/languages" );
 	}
+	public function translations($languageId) {
 
+		$data = array("languageId" => $languageId);
+
+		return $this->send( "/language/translations", $data );
+	}
 	/**
 	 * @param $url
 	 * @param $data [] -query params
@@ -32,7 +37,7 @@ class PiletileviApi {
 		$url .= $query;
 
 		$uri = $this->getBasePath().$url;
-		
+
 		$response = \Httpful\Request::getQuick($uri);
 		return  json_decode($response->__toString());
 	}
