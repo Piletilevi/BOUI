@@ -1,7 +1,40 @@
 
 
-var app = angular.module('boApp', ['ngRoute', 'ngAnimate', 'bo','pascalprecht.translate']);
+var app = angular.module('boApp', ['ngRoute','ngSanitize','ngAnimate','ngSanitize','bo','pascalprecht.translate']);
 
+
+
+
+app.config(['$translateProvider', function ($translateProvider) {
+    $translateProvider.useSanitizeValueStrategy('escape');
+    $translateProvider.useLoader('customLoader');
+    $translateProvider.useLoaderCache(true);
+    $translateProvider.fallbackLanguage('ENG');
+    //Data.post('translations',{ languageId: "ENG" });
+    // .then(function(results){
+       // $translateProvider.translations(results.translations.languageId, results.translations.transaltions)
+
+    //});
+
+}]);
+app.factory('customLoader', function (Data, $q,$timeout) {
+    // return loaderFn
+    return function (options) {
+        var deferred = $q.defer(),translations;
+        // do something with $http, $q and key to load localization files
+        Data.post('translations',{ languageId: options.key }).then(function(results){
+
+             translations = results.translations.translations;
+        });
+
+
+        $timeout(function () {
+            deferred.resolve(translations);
+        }, 2000);
+
+        return deferred.promise;
+    };
+});
 app.config(['$routeProvider',
   function ($routeProvider) {
         $routeProvider.
@@ -30,30 +63,17 @@ app.config(['$routeProvider',
                 redirectTo: '/login'
             });
   }])
-    .run(function ($rootScope, $location,$log , Data) {
+    .run(function ($rootScope, $location,$log ,$translate, Data) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;
             $rootScope.setLangValue =
                 function(lang) {
                     $rootScope.language = lang;
-                    Data.post('translations',{
-                        languageId: lang.code
-                    }).then(
-                        function(results){
-                            Data.page(results);
-                            $rootScope.$log.log(results);
-                            app.config(['$translateProvider', function ($translateProvider) {
-
-                                $translateProvider.translations(results.translations.languageId,results.translations.translations );
-
-                                $translateProvider.preferredLanguage('en');
-                            }]);
-
-                        });
-                }
+                    $translate.use(lang.code);
+            }
              Data.get('languages').then(function(results){
                     if (results.status == "success") {
-                        $rootScope.$log.log(results);
+                        //$rootScope.$log.log(results);
                         $rootScope.languages = results.languages;
                         $rootScope.setLangValue($rootScope.languages[0]);
                     }
