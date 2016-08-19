@@ -12,6 +12,12 @@ class PiletileviSessionHandler {
 		} else {
 			$sess["user"] = '';
 		}
+		if(isset($_SESSION['lang'])) {
+			$sess["lang"] = $_SESSION['lang'];
+		} else {
+			$sess["lang"] = '';
+		}
+
 		return $sess;
 	}
 

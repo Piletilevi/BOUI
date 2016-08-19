@@ -4,11 +4,33 @@ use \Slim\Logger\DateTimeFileWriter;
 $app->get('/session', function() {
 	$sessionHandler = new PiletileviSessionHandler();
     $session = $sessionHandler->getSession();
-    $response["user"] = $session['user'];
+    $response["user"] = $session["user"];
     
 	DataHandler::response(200, $response);
 });
+$app->get('/sessionlang', function() {
+    $sessionHandler = new PiletileviSessionHandler();
+    $session = $sessionHandler->getSession();
+    $response["lang"] = $session["lang"];
 
+    DataHandler::response(200, $response);
+});
+$app->post('/setlanguage', function() use ($app) {
+    $r = json_decode($app->request->getBody());
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    if ( !empty($r) ){
+        $_SESSION['lang'] = $r->lang;
+    $response['status'] = "success";
+    $response['message'] = 'Language  set successfully.';
+    }
+    else {
+        $response['status'] = "failure";
+        $response['message'] = 'Language  set unsuccessfully.';
+    }
+    DataHandler::response(200, $response);
+});
 $app->post('/login', function() use ($app) {
 
 	$r = json_decode($app->request->getBody());
