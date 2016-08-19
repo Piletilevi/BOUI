@@ -5,7 +5,22 @@ angular.module('boApp', ['ngRoute','ngSanitize','ngAnimate','ngSanitize','bo','p
 var app = angular.module('boApp');
 
 
+app.factory('customLoader', function ($q, Data,$log) {
+    // return loaderFn
+    return function (options) {
+        var deferred = $q.defer(),translations;
+        $log.log(Data);
+        // do something with $http, $q and key to load localization files
+        Data.post('translations',{ 'languageId': options.key }).then(function(results){
+            $log.log(results);
+            translations = results.translations.translations;
+            $log.log(results.translations.translations);
+            deferred.resolve(translations);
+        });
 
+        return deferred.promise;
+    };
+});
 
 app.config(['$translateProvider', function ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy('escape');
@@ -19,24 +34,7 @@ app.config(['$translateProvider', function ($translateProvider) {
     //});
 
 }]);
-app.factory('customLoader', function (Data, $q,$timeout) {
-    // return loaderFn
-    return function (options) {
-        var deferred = $q.defer(),translations;
-        // do something with $http, $q and key to load localization files
-        Data.post('translations',{ languageId: options.key }).then(function(results){
 
-             translations = results.translations.translations;
-        });
-
-
-        $timeout(function () {
-            deferred.resolve(translations);
-        }, 2000);
-
-        return deferred.promise;
-    };
-});
 app.config(['$routeProvider',
   function ($routeProvider) {
         $routeProvider.
@@ -65,7 +63,7 @@ app.config(['$routeProvider',
                 redirectTo: '/login'
             });
   }])
-    .run(function ($rootScope, $location,$log ,$translate, Data) {
+    .run(function ($rootScope, $location, $log, $translate, Data) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;
             $rootScope.setLangValue =
@@ -76,7 +74,7 @@ app.config(['$routeProvider',
 
              Data.get('languages').then(function(results){
                     if (results.status == "success") {
-                        //$rootScope.$log.log(results);
+                        $rootScope.$log.log(results.languages);
                         $rootScope.languages = results.languages;
                         $rootScope.setLangValue($rootScope.languages[0]);
                     }

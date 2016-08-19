@@ -57,10 +57,10 @@ $app->get(
 
     $response["status"] = "success";
     $response["message"] = "Got languages";
-    foreach ($languages->data as $language){
+    //foreach ($languages->data as $language){
 
-      $response["languages"][]= $language;
-    }
+      $response["languages"] = $languages->data;
+   // }
 
 
     DataHandler::response(200, $response);
