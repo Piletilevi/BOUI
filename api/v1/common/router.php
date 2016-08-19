@@ -86,7 +86,7 @@ $app->post(
     //$logger->write( print_r($translations,true),"INFO");
 
 
-        $response["translations"] = $translations->data;
+        $response["translations"] = $translations->data->translations;
 
 
 

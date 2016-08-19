@@ -9,12 +9,12 @@ app.factory('customLoader', function ($q, Data,$log) {
     // return loaderFn
     return function (options) {
         var deferred = $q.defer(),translations;
-        $log.log(Data);
+        //$log.log(Data);
         // do something with $http, $q and key to load localization files
         Data.post('translations',{ 'languageId': options.key }).then(function(results){
-            $log.log(results);
-            translations = results.translations.translations;
-            $log.log(results.translations.translations);
+           // $log.log(results);
+            translations = results.translations;
+            //$log.log(results.translations.translations);
             deferred.resolve(translations);
         });
 
@@ -74,7 +74,7 @@ app.config(['$routeProvider',
 
              Data.get('languages').then(function(results){
                     if (results.status == "success") {
-                        $rootScope.$log.log(results.languages);
+                        //$rootScope.$log.log(results.languages);
                         $rootScope.languages = results.languages;
                         $rootScope.setLangValue($rootScope.languages[0]);
                     }
@@ -89,7 +89,7 @@ app.config(['$routeProvider',
                     $rootScope.authenticated = true;
 					$rootScope.user = results.user;
                 } else {
-                    var nextUrl = next.$$route.originalPath;
+                    var nextUrl = next.$route.originalPath;
                     if (nextUrl == '/login') {
                     } else {
                         $location.path("/login");
