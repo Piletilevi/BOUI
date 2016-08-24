@@ -38,7 +38,7 @@ class DataHandler {
 
 		// setting response content type to json
 		$app->contentType('application/json');
-
+		error_log(json_encode($response));
 		echo json_encode($response);
 	}
 

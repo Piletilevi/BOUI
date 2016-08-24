@@ -4,6 +4,7 @@
 		"firebase/php-jwt": "^3.0",
 		"nategood/httpful": "*",
         "slim/http-cache": "^0.3.0",
-		"slim/logger": "0.1.*"
+		"slim/logger": "0.1.*",
+        
 	}
 }

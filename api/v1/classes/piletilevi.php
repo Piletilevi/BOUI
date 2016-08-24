@@ -1,16 +1,16 @@
 <?php
 
 use Httpful\Request;
-use Firebase\JWT\JWT; 
-use Slim\Slim; 
+use Firebase\JWT\JWT;
+use Slim\Slim;
 
 class PiletileviApi {
-	
+
 	public function login($username, $password, $remoteip) {
 
 		$data = array("username" => $username,
-	  		          "password" => $password,
-			          "remoteip" => $remoteip ); 
+			"password" => $password,
+			"remoteip" => $remoteip );
 
 		return $this->send( "/user/login", $data );
 	}
@@ -24,6 +24,14 @@ class PiletileviApi {
 
 		return $this->send( "/language/translations", $data );
 	}
+	public function getSessionKey($username, $remoteip, $langid){
+		$data['filter']= array ('username'=>$username,
+			'remoteip' => $remoteip,
+			'langId' => $langid);
+		$data['userid']= $username;
+		return $this->send("/session/getSessionKey",$data);
+	}
+
 	/**
 	 * @param $url
 	 * @param $data [] -query params
@@ -63,12 +71,12 @@ class PiletileviApi {
 			'data' => $data
 		);
 
-		$msg = JWT::encode( $payload, $papiConfig["jwtsecret"] ); 
+		$msg = JWT::encode( $payload, $papiConfig["jwtsecret"] );
 		$response = \Httpful\Request::post($uri)->body($msg)->send();
-		
+
 		return json_decode($response->__toString());
 	}
-	
+
 	private function getBasePath() {
 		$papiConfig = $this->getPapiConfig();
 		return $papiConfig["host"].$papiConfig["base"];

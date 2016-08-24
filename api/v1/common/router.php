@@ -1,6 +1,7 @@
 <?php
 use \Slim\Logger\DateTimeFileWriter;
 
+
 $app->get('/session', function() {
 	$sessionHandler = new PiletileviSessionHandler();
     $session = $sessionHandler->getSession();
@@ -15,8 +16,40 @@ $app->get('/sessionlang', function() {
 
     DataHandler::response(200, $response);
 });
+
+$app->post('/getSessionKey', function() use ($app) {
+    $r = json_decode($app->request->getBody());
+    $logger = new DateTimeFileWriter(array(
+        'path' => __DIR__.'/../../../logs',
+        'name_format' => 'Y-m-d',
+        'message_format' => '%label% - %date% - %message%'
+    ));
+
+    /*DataHandler::verifyParams(array('username', 'password'), $r->user);*/
+    $sessionHandler = new PiletileviSessionHandler();
+    $session = $sessionHandler->getSession();
+    //$logger->write( print_r($r,true),"INFO");
+    $username = $r->username;
+
+    $piletileviApi = new PiletileviApi();
+    $sessionReq = $piletileviApi->getSessionKey($username, $app->request->getIp(),$session['lang']->code);
+    $logger->write( print_r($app->request->getIp(),true),"INFO");
+    if ($sessionReq && !empty($sessionReq->data)) {
+        $response['status'] = "success";
+        $response['message'] = 'Successfully retrieved session key';
+
+        $response['boSession'] = $sessionReq->data[0];
+    } else {
+        $response['status'] = "error";
+        $response['message'] = 'Failed to get session key';
+    }
+    //$logger->write( print_r($response,true),"INFO");
+    DataHandler::response(200, $response);
+});
+
 $app->post('/setlanguage', function() use ($app) {
     $r = json_decode($app->request->getBody());
+    DataHandler::verifyParams(array('code', 'name'), $r->lang);
     if (!isset($_SESSION)) {
         session_start();
     }
@@ -73,7 +106,11 @@ $app->get('/logout', function() {
 
 $app->get(
     '/languages', function() {
-
+    $logger = new DateTimeFileWriter(array(
+        'path' => __DIR__.'/../../../logs',
+        'name_format' => 'Y-m-d',
+        'message_format' => '%label% - %date% - %message%'
+    ));
     $piletileviApi = new PiletileviApi();
     $languages = $piletileviApi->languages();
 
@@ -84,7 +121,7 @@ $app->get(
       $response["languages"] = $languages->data;
    // }
 
-
+    $logger->write( print_r($response,true),"INFO");
     DataHandler::response(200, $response);
 });
 $app->post(

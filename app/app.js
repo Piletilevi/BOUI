@@ -40,9 +40,26 @@ function routeProvider($routeProvider) {
         });
 
 }
-function runRouteProvider ( $rootScope, $location, $log, $translate, Data) {
+function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Data) {
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         $rootScope.$log = $log;
+        var bobasicurl = "http://bo.piletilevi-ru.test.helmes.ee/cgi-bin/wspd_cgi.sh/WService=plevi/proc/menu.p?key={sessionkey}";
+        $rootScope.toOldBO = function (){
+            if ($rootScope.authenticated){
+               // $rootScope.$log.log($rootScope.user);
+                Data.post('getSessionKey',{'username':$rootScope.user.userId}).then(function (results) {
+                    $rootScope.$log.log(results);
+                    if (results.status == "success") {
+
+                        var bourl = bobasicurl.replace("{sessionkey}", results.boSession.sessionkey);
+                        $rootScope.$log.log(bourl);
+                       // $window.location.href = bourl;
+                    }
+                });
+
+            }
+
+        }
         $rootScope.setLangValue = function(lang){
             if (lang !== $rootScope.language) {
                 console.log(lang);
@@ -96,16 +113,12 @@ function getLanguages(Data,$rootScope) {
     });
 }
 
-function customLoader ($q, Data,$log) {
-    // return loaderFn
+function customLoader ($q, Data) {
+
     return function (options) {
         var deferred = $q.defer(), translations;
-        //$log.log(Data);
-        // do something with $http, $q and key to load localization files
         Data.post('translations', {'languageId': options.key}).then(function (results) {
-            // $log.log(results);
             translations = results.translations;
-            //$log.log(results.translations.translations);
             deferred.resolve(translations);
         });
 
