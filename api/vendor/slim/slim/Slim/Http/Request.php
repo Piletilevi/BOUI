@@ -579,7 +579,7 @@ class Request
     public function getIp()
     {
         $logger = new DateTimeFileWriter(array(
-            'path' => __DIR__.'/../../../logs',
+            'path' => __DIR__.'/../../../../../../logs',
             'name_format' => 'Y-m-d',
             'message_format' => '%label% - %date% - %message%'
         ));
