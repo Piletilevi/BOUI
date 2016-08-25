@@ -586,13 +586,13 @@ class Request
         $keys = array('X_FORWARDED_FOR', 'HTTP_X_FORWARDED_FOR', 'CLIENT_IP', 'REMOTE_ADDR');
         foreach ($keys as $key) {
             if (isset($this->env[$key])) {
-                $logger->write( $key." ".env[$key],"INFO");
+                $logger->write( $key." ".$this->env[$key],"INFO");
 
             }
         }
         foreach ($keys as $key) {
             if (isset($this->env[$key])) {
-                $logger->write( $key." ".env[$key],"INFO");
+
                 return $this->env[$key];
             }
         }
