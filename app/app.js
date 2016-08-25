@@ -44,18 +44,26 @@ function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Da
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         $rootScope.$log = $log;
         var bobasicurl = "http://bo.piletilevi-ru.test.helmes.ee/cgi-bin/wspd_cgi.sh/WService=plevi/proc/menu.p?key={sessionkey}";
+
+
         $rootScope.toOldBO = function (){
             if ($rootScope.authenticated){
                // $rootScope.$log.log($rootScope.user);
-                Data.post('getSessionKey',{'username':$rootScope.user.userId}).then(function (results) {
-                    $rootScope.$log.log(results);
-                    if (results.status == "success") {
+                Data.getIp().then(function(result) {
 
-                        var bourl = bobasicurl.replace("{sessionkey}", results.boSession.sessionkey);
-                        $rootScope.$log.log(bourl);
-                       // $window.location.href = bourl;
-                    }
+                    Data.post('getSessionKey',{'username':$rootScope.user.userId,'clientip':result.ip}).then(function (results) {
+                        $rootScope.$log.log(results);
+                        if (results.status == "success") {
+
+                            var bourl = bobasicurl.replace("{sessionkey}", results.boSession.sessionkey);
+                            $rootScope.$log.log(bourl);
+                            // $window.location.href = bourl;
+                        }
+                    });
+                }, function(e) {
+                    //alert("error");
                 });
+
 
             }
 

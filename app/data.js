@@ -5,6 +5,7 @@
     function connect($http, bo) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
+        var json = 'http://ipv4.myexternalip.com/json';
 
         var obj = {};
         obj.page = function (data) {
@@ -12,6 +13,11 @@
         }
         obj.get = function (q) {
             return $http.get(serviceBase + q).then(function (results) {
+                return results.data;
+            });
+        };
+        obj.getIp = function () {
+            return $http.get(json).then(function (results) {
                 return results.data;
             });
         };

@@ -25,14 +25,15 @@ $app->post('/getSessionKey', function() use ($app) {
         'message_format' => '%label% - %date% - %message%'
     ));
 
-    /*DataHandler::verifyParams(array('username', 'password'), $r->user);*/
+    DataHandler::verifyParams(array('username', 'clientip'), $r);
     $sessionHandler = new PiletileviSessionHandler();
     $session = $sessionHandler->getSession();
     //$logger->write( print_r($r,true),"INFO");
     $username = $r->username;
+    $ip = $r->clientip;
 
     $piletileviApi = new PiletileviApi();
-    $sessionReq = $piletileviApi->getSessionKey($username, $app->request->getIp(),$session['lang']->code);
+    $sessionReq = $piletileviApi->getSessionKey($username, $ip,$session['lang']->code);
     $logger->write( print_r($app->request->getIp(),true),"INFO");
     if ($sessionReq && !empty($sessionReq->data)) {
         $response['status'] = "success";
