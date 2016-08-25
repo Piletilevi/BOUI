@@ -25,16 +25,6 @@ $app->post('/getSessionKey', function() use ($app) {
         'message_format' => '%label% - %date% - %message%'
     ));
 
-    $keys = array('X_FORWARDED_FOR', 'HTTP_X_FORWARDED_FOR', 'CLIENT_IP', 'REMOTE_ADDR');
-    foreach ($keys as $key) {
-
-        if (isset($this->env[$key])) {
-            $logger->write( $key." ".env[$key],"INFO");
-        }
-    }
-
-
-
     /*DataHandler::verifyParams(array('username', 'password'), $r->user);*/
     $sessionHandler = new PiletileviSessionHandler();
     $session = $sessionHandler->getSession();

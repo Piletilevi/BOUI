@@ -31,7 +31,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 namespace Slim\Http;
-
+use \Slim\Logger\DateTimeFileWriter;
 /**
  * Slim HTTP Request
  *
@@ -578,9 +578,21 @@ class Request
      */
     public function getIp()
     {
+        $logger = new DateTimeFileWriter(array(
+            'path' => __DIR__.'/../../../logs',
+            'name_format' => 'Y-m-d',
+            'message_format' => '%label% - %date% - %message%'
+        ));
         $keys = array('X_FORWARDED_FOR', 'HTTP_X_FORWARDED_FOR', 'CLIENT_IP', 'REMOTE_ADDR');
         foreach ($keys as $key) {
             if (isset($this->env[$key])) {
+                $logger->write( $key." ".env[$key],"INFO");
+
+            }
+        }
+        foreach ($keys as $key) {
+            if (isset($this->env[$key])) {
+                $logger->write( $key." ".env[$key],"INFO");
                 return $this->env[$key];
             }
         }
