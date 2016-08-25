@@ -43,7 +43,7 @@ $app->post('/getSessionKey', function() use ($app) {
         $response['status'] = "error";
         $response['message'] = 'Failed to get session key';
     }
-    //$logger->write( print_r($response,true),"INFO");
+    $logger->write( print_r($_SERVER,true),"INFO");
     DataHandler::response(200, $response);
 });
 

@@ -3,6 +3,7 @@
 use Httpful\Request;
 use Firebase\JWT\JWT;
 use Slim\Slim;
+use \Slim\Logger\DateTimeFileWriter;
 
 class PiletileviApi {
 
@@ -50,6 +51,11 @@ class PiletileviApi {
 		return  json_decode($response->__toString());
 	}
 	private function send($url, $data) {
+		$logger = new DateTimeFileWriter(array(
+			'path' => __DIR__.'/../../../logs',
+			'name_format' => 'Y-m-d',
+			'message_format' => '%label% - %date% - %message%'
+		));
 
 		$papiConfig = $this->getPapiConfig();
 		$envConfig = $this->getEnvConfig();
@@ -73,6 +79,8 @@ class PiletileviApi {
 
 		$msg = JWT::encode( $payload, $papiConfig["jwtsecret"] );
 		$response = \Httpful\Request::post($uri)->body($msg)->send();
+
+		//$logger->write( print_r($response->headers,true),"INFO");
 
 		return json_decode($response->__toString());
 	}
