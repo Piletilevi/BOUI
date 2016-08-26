@@ -18,9 +18,13 @@
 		};
 		$scope.logout = function () {
 			Data.get('logout').then(function (results) {
+
 				Data.page(results);
-				$location.path('login');
-				$route.reload();
+				Data.get('session').then(function (results) {
+					if (!results.user) {
+						$location.path('login');
+						$route.reload();
+					}});
 			});
 		}
 	}
