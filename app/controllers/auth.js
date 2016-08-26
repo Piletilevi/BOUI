@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     angular.module('boApp').controller('AuthController',AuthController);
-	 function AuthController ($scope, $rootScope, $routeParams, $location, $http, Data) {
+	 function AuthController ($scope, $rootScope, $routeParams, $location, $http, $route, Data) {
 		//initially set those objects to null to avoid undefined error
 		$scope.login = {};
 		$scope.signup = {};
