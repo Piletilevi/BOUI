@@ -75,25 +75,7 @@ function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Da
         $rootScope.$log.log($rootScope.languages);
 
         $rootScope.authenticated = false;
-        if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
-            Data.post('verifySessionKey',{ "sessionkey" : $location.search().key }).then(function(results){
-                Data.page(results);
-                console.log(results);
-                $location.search('key', null);
-                if (results.status == "success"){
-                    Data.get('session').then(function (results) {
-                        if (results.user) {
-                            $rootScope.authenticated = true;
-                            $rootScope.user = results.user;
-                            $location.path('dashboard');
-                        } 
 
-                    });
-
-                }
-            });
-
-        }
         Data.get('session').then(function (results) {
             if (results.user) {
                 $rootScope.authenticated = true;
@@ -106,6 +88,26 @@ function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Da
                 }
             }
         });
+        if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
+            var searchkey =  $location.search().key;
+            $location.search('key', null);
+            Data.post('verifySessionKey',{ "sessionkey" : searchkey }).then(function(results){
+                Data.page(results);
+                console.log(results);
+                if (results.status == "success"){
+                    Data.get('session').then(function (results) {
+                        if (results.user) {
+                            $rootScope.authenticated = true;
+                            $rootScope.user = results.user;
+                            $location.path('dashboard');
+                        }
+
+                    });
+
+                }
+            });
+
+        }
 
         $rootScope.toOldBO = function (){
             $rootScope.$log.log(bobasicurl);
