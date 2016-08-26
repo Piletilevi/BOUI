@@ -23,7 +23,7 @@
 				Data.get('session').then(function (results) {
 					if (!results.user) {
 						$rootScope.user = null;
-						$rootscope.authenticated = false;
+						$rootScope.authenticated = false;
 						$location.path('login');
 						$route.reload();
 					}});
