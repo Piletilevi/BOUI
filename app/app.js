@@ -43,18 +43,7 @@ function routeProvider($routeProvider) {
 function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Data) {
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         $rootScope.$log = $log;
-        if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
-            Data.post('verifySessionKey',{ "sessionkey" : $location.search().key }).then(function(results){
-                Data.page(results);
-                console.log(results);
-                $location.search('key', null);
-                if (results.status == "success"){
-                    $rootScope.authenticated = true;
-                    $rootScope.user = results.user;
-                    $location.path('dashboard');
-                }
-            });
-        }
+
 
         var bobasicurl = "";
         Data.get('bourl').then(function(results){
@@ -66,6 +55,57 @@ function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Da
             }
         }) ;
 
+
+
+        $rootScope.setLangValue = function(lang){
+            if (lang !== $rootScope.language) {
+                console.log(lang);
+                $translate.use(lang.code);
+                $rootScope.language = lang;
+                Data.post('setlanguage', {'lang': lang });
+            }
+        };
+        Data.get('sessionlang').then(function (results) {
+            console.log('11',results);
+            if (results.lang) $rootScope.setLangValue(results.lang);
+        });
+        if (!$rootScope.languages)
+            getLanguages(Data,$rootScope);
+
+        $rootScope.$log.log($rootScope.languages);
+
+        $rootScope.authenticated = false;
+        if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
+            Data.post('verifySessionKey',{ "sessionkey" : $location.search().key }).then(function(results){
+                Data.page(results);
+                console.log(results);
+                $location.search('key', null);
+                if (results.status == "success"){
+                    Data.get('session').then(function (results) {
+                        if (results.user) {
+                            $rootScope.authenticated = true;
+                            $rootScope.user = results.user;
+                            $location.path('dashboard');
+                        } 
+
+                    });
+
+                }
+            });
+
+        }
+        Data.get('session').then(function (results) {
+            if (results.user) {
+                $rootScope.authenticated = true;
+                $rootScope.user = results.user;
+            } else {
+                var nextUrl = next.$$route.originalPath;
+                if (nextUrl == '/login') {
+                } else {
+                    $location.path("/login");
+                }
+            }
+        });
 
         $rootScope.toOldBO = function (){
             $rootScope.$log.log(bobasicurl);
@@ -90,38 +130,11 @@ function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Da
             }
 
         }
-        $rootScope.setLangValue = function(lang){
-            if (lang !== $rootScope.language) {
-                console.log(lang);
-                $translate.use(lang.code);
-                $rootScope.language = lang;
-                Data.post('setlanguage', {'lang': lang });
-            }
-        };
-        Data.get('sessionlang').then(function (results) {
-            console.log('11',results);
-            if (results.lang) $rootScope.setLangValue(results.lang);
-        });
-        if (!$rootScope.languages)
-            getLanguages(Data,$rootScope);
 
-        $rootScope.$log.log($rootScope.languages);
-
-        $rootScope.authenticated = false;
-
-        Data.get('session').then(function (results) {
-            if (results.user) {
-                $rootScope.authenticated = true;
-                $rootScope.user = results.user;
-            } else {
-                var nextUrl = next.$$route.originalPath;
-                if (nextUrl == '/login') {
-                } else {
-                    $location.path("/login");
-                }
-            }
-        });
     });
+
+
+
 }
 function translateProvider ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy('escape');
