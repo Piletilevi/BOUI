@@ -5,6 +5,15 @@
 		//initially set those objects to null to avoid undefined error
 		$scope.login = {};
 		$scope.signup = {};
+		if(typeof($location.search().key) !== 'undefined'){
+			Data.post('verifySessionKey',{ "sessionkey" : $location.search().key }).then(function(results){
+				Data.page(results);
+				$location.search('key', null);
+				if (results.status == "success"){
+					$location.path('dashboard');
+				}
+			});
+		}
 		$scope.doLogin = function (customer) {
 			Data.post('login', {
 				customer: customer
@@ -16,7 +25,6 @@
 			});
 		};
 		$scope.logout = function () {
-			console.log("test");
 			Data.get('logout').then(function (results) {
 				Data.page(results);
 				$location.path('login');

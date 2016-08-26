@@ -43,21 +43,30 @@ function routeProvider($routeProvider) {
 function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Data) {
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         $rootScope.$log = $log;
-        var bobasicurl = "http://bo.piletilevi-ru.test.helmes.ee/cgi-bin/wspd_cgi.sh/WService=plevi/proc/menu.p?key={sessionkey}";
+        var bobasicurl = "";
+
+        Data.get('bourl').then(function(results){
+            $rootScope.$log.log(results.status === "succcess");
+            if (results.status === "succcess"){
+                $rootScope.$log.log(results);
+                bobasicurl = results.bobaseurl;
+            }
+        }) ;
 
 
         $rootScope.toOldBO = function (){
-            if ($rootScope.authenticated){
+            $rootScope.$log.log(bobasicurl);
+            if ($rootScope.authenticated && bobasicurl !== "" ){
                // $rootScope.$log.log($rootScope.user);
                 Data.getIp().then(function(result) {
 
                     Data.post('getSessionKey',{'username':$rootScope.user.userId,'clientip':result.ip}).then(function (results) {
                         $rootScope.$log.log(results);
-                        if (results.status == "success") {
+                        if (results.status === "success") {
 
                             var bourl = bobasicurl.replace("{sessionkey}", results.boSession.sessionkey);
                             $rootScope.$log.log(bourl);
-                            // $window.location.href = bourl;
+                            $window.location.href = bourl;
                         }
                     });
                 }, function(e) {
@@ -112,7 +121,7 @@ function translateProvider ($translateProvider) {
 
 function getLanguages(Data,$rootScope) {
     Data.get('languages').then(function (results) {
-        if (results.status == "success") {
+        if (results.status === "success") {
             //$rootScope.$log.log(results.languages);
             $rootScope.languages = results.languages;
             if (!$rootScope.language)

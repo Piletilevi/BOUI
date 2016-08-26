@@ -15,10 +15,22 @@ class PiletileviApi {
 
 		return $this->send( "/user/login", $data );
 	}
+	public function verifySessionKey($sessionkey) {
+
+		$data= array ('sessionkey' => $sessionkey);
+
+		return $this->send("/user/verifySessionKey",$data);
+
+
+	}
 	public function languages() {
 
 		return $this->get( "/language/languages" );
 	}
+	public function boUrl(){
+		return $this->getBoUrl();
+	}
+
 	public function translations($languageId) {
 
 		$data = array("languageId" => $languageId);
@@ -88,6 +100,10 @@ class PiletileviApi {
 	private function getBasePath() {
 		$papiConfig = $this->getPapiConfig();
 		return $papiConfig["host"].$papiConfig["base"];
+	}
+	private function getBoUrl(){
+		$papiConfig = $this->getPapiConfig();
+		return $papiConfig["oldbourl"];
 	}
 
 	private function getPapiConfig() {

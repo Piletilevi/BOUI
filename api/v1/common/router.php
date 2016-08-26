@@ -16,15 +16,30 @@ $app->get('/sessionlang', function() {
 
     DataHandler::response(200, $response);
 });
+$app->get('/bourl', function() {
+    $piletileviApi = new PiletileviApi();
+    $urlReq = $piletileviApi->boUrl();
+    if ($urlReq){
+    $response['status'] = "succcess";
+    $response['message'] = 'BO URL retrieved';
+    $response['bobaseurl'] = $urlReq;
+    }else {
+        $response['status'] = "error";
+        $response['message'] = 'No BO url defined ';
+    }
+
+    DataHandler::response(200, $response);
+});
 
 $app->post('/getSessionKey', function() use ($app) {
     $r = json_decode($app->request->getBody());
+
     $logger = new DateTimeFileWriter(array(
         'path' => __DIR__.'/../../../logs',
         'name_format' => 'Y-m-d',
         'message_format' => '%label% - %date% - %message%'
     ));
-
+    $logger->write( print_r($r,true),"INFO");
     DataHandler::verifyParams(array('username', 'clientip'), $r);
     $sessionHandler = new PiletileviSessionHandler();
     $session = $sessionHandler->getSession();
@@ -34,7 +49,7 @@ $app->post('/getSessionKey', function() use ($app) {
 
     $piletileviApi = new PiletileviApi();
     $sessionReq = $piletileviApi->getSessionKey($username, $ip,$session['lang']->code);
-    $logger->write( print_r($app->request->getIp(),true),"INFO");
+
     if ($sessionReq && !empty($sessionReq->data)) {
         $response['status'] = "success";
         $response['message'] = 'Successfully retrieved session key';
@@ -42,7 +57,7 @@ $app->post('/getSessionKey', function() use ($app) {
         $response['boSession'] = $sessionReq->data[0];
     } else {
         $response['status'] = "error";
-        $response['message'] = 'Failed to get session key';
+        $response['message'] = 'Failed to retrieve session key';
     }
     if  (isset($_SERVER)) {
     $logger->write( print_r($_SERVER,true),"INFO");
@@ -66,6 +81,35 @@ $app->post('/setlanguage', function() use ($app) {
         $response['status'] = "failure";
         $response['message'] = 'Language  set unsuccessfully.';
     }
+    DataHandler::response(200, $response);
+});
+$app->post('/verifySessionKey', function() use ($app) {
+
+    $r = json_decode($app->request->getBody());
+
+    DataHandler::verifyParams(array('sessionkey'), $r);
+
+    $sessionkey = $r->sessionkey;
+
+
+    $piletileviApi = new PiletileviApi();
+    $userData = $piletileviApi->verifySessionKey($sessionkey);
+
+    if ($userData && $userData->valid == "true" && $userData->user) {
+        $response['status'] = "success";
+        $response['message'] = 'Verified session successfully.';
+
+        $response['user'] = $userData->user;
+
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        $_SESSION['user'] = $userData->user;
+    } else {
+        $response['status'] = "error";
+        $response['message'] = 'Not a valid session key.';
+    }
+
     DataHandler::response(200, $response);
 });
 $app->post('/login', function() use ($app) {
