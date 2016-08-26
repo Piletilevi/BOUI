@@ -41,18 +41,19 @@ function routeProvider($routeProvider) {
 
 }
 function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Data) {
+    if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
+        Data.post('verifySessionKey',{ "sessionkey" : $location.search().key }).then(function(results){
+            Data.page(results);
+            $location.search('key', null);
+            if (results.status == "success"){
+                $location.path('dashboard');
+            }
+        });
+    }
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         $rootScope.$log = $log;
         var bobasicurl = "";
-        if(typeof($location.search().key) !== 'undefined'){
-            Data.post('verifySessionKey',{ "sessionkey" : $location.search().key }).then(function(results){
-                Data.page(results);
-                $location.search('key', null);
-                if (results.status == "success"){
-                    $location.path('dashboard');
-                }
-            });
-        }
+
 
         Data.get('bourl').then(function(results){
             $rootScope.$log.log(results.status === "succcess");

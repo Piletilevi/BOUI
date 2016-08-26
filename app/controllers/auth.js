@@ -20,6 +20,7 @@
 			Data.get('logout').then(function (results) {
 				Data.page(results);
 				$location.path('login');
+				$route.reload();
 			});
 		}
 	}
