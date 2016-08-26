@@ -41,8 +41,20 @@ function routeProvider($routeProvider) {
 
 }
 function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Data) {
-       $rootScope.$on("$routeChangeStart", function (event, next, current) {
+    $rootScope.$on("$routeChangeStart", function (event, next, current) {
         $rootScope.$log = $log;
+        if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
+            Data.post('verifySessionKey',{ "sessionkey" : $location.search().key }).then(function(results){
+                Data.page(results);
+                console.log(results);
+                $location.search('key', null);
+                if (results.status == "success"){
+                    $rootScope.authenticated = true;
+                    $rootScope.user = results.user;
+                    $location.path('dashboard');
+                }
+            });
+        }
 
         var bobasicurl = "";
         Data.get('bourl').then(function(results){
@@ -58,7 +70,7 @@ function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Da
         $rootScope.toOldBO = function (){
             $rootScope.$log.log(bobasicurl);
             if ($rootScope.authenticated && bobasicurl !== "" ){
-               // $rootScope.$log.log($rootScope.user);
+                // $rootScope.$log.log($rootScope.user);
                 Data.getIp().then(function(result) {
 
                     Data.post('getSessionKey',{'username':$rootScope.user.userId,'clientip':result.ip}).then(function (results) {
@@ -91,7 +103,7 @@ function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Da
             if (results.lang) $rootScope.setLangValue(results.lang);
         });
         if (!$rootScope.languages)
-        getLanguages(Data,$rootScope);
+            getLanguages(Data,$rootScope);
 
         $rootScope.$log.log($rootScope.languages);
 
