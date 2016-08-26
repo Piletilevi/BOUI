@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('boApp', ['ngRoute','ngSanitize','ngAnimate','ngSanitize','bo','pascalprecht.translate']);
+angular.module('boApp', ['ngRoute','ngSanitize','ngAnimate','ngSanitize','bo','ngCookies','pascalprecht.translate']);
 
 var app = angular.module('boApp');
 
@@ -41,6 +41,10 @@ function routeProvider($routeProvider) {
 
 }
 function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Data) {
+    $rootScope.isTranslated = false;
+    $rootScope.$on('$translateChangeSuccess', function () {
+        $rootScope.isTranslated = true;
+    });
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         $rootScope.$log = $log;
 
@@ -66,7 +70,7 @@ function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Da
             }
         };
         Data.get('sessionlang').then(function (results) {
-            console.log('11',results);
+
             if (results.lang) $rootScope.setLangValue(results.lang);
         });
         if (!$rootScope.languages)
@@ -146,6 +150,9 @@ function translateProvider ($translateProvider) {
     $translateProvider.useLoaderCache(true);
     $translateProvider.fallbackLanguage('ENG');
 
+    $translateProvider.useLocalStorage();
+
+
 }
 
 
@@ -160,15 +167,17 @@ function getLanguages(Data,$rootScope) {
     });
 }
 
-function customLoader ($q, Data) {
+function customLoader ($q, Data ) {
 
     return function (options) {
         var deferred = $q.defer(), translations;
         Data.post('translations', {'languageId': options.key}).then(function (results) {
             translations = results.translations;
             deferred.resolve(translations);
+
         });
 
         return deferred.promise;
+
     };
 }
