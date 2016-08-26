@@ -44,8 +44,11 @@ function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Da
     if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
         Data.post('verifySessionKey',{ "sessionkey" : $location.search().key }).then(function(results){
             Data.page(results);
+            console.log(results);
             $location.search('key', null);
             if (results.status == "success"){
+                $rootScope.authenticated = true;
+                $rootScope.user = results.user;
                 $location.path('dashboard');
             }
         });
@@ -58,6 +61,7 @@ function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Da
         Data.get('bourl').then(function(results){
             $rootScope.$log.log(results.status === "succcess");
             if (results.status === "succcess"){
+
                 $rootScope.$log.log(results);
                 bobasicurl = results.bobaseurl;
             }
