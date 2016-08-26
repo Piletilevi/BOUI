@@ -80,7 +80,28 @@ function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Da
             if (results.user) {
                 $rootScope.authenticated = true;
                 $rootScope.user = results.user;
+                $location.search('key', null);
             } else {
+                if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
+                    var searchkey =  $location.search().key;
+
+                    Data.post('verifySessionKey',{ "sessionkey" : searchkey }).then(function(results){
+                        Data.page(results);
+                        console.log(results);
+                        if (results.status == "success"){
+                            Data.get('session').then(function (results) {
+                                if (results.user) {
+                                    $rootScope.authenticated = true;
+                                    $rootScope.user = results.user;
+                                    $location.path('dashboard');
+                                }
+
+                            });
+
+                        }
+                    });
+
+                }
                 var nextUrl = next.$$route.originalPath;
                 if (nextUrl == '/login') {
                 } else {
@@ -88,26 +109,7 @@ function runRouteProvider ( $rootScope, $location, $log, $translate, $window, Da
                 }
             }
         });
-        if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
-            var searchkey =  $location.search().key;
-            $location.search('key', null);
-            Data.post('verifySessionKey',{ "sessionkey" : searchkey }).then(function(results){
-                Data.page(results);
-                console.log(results);
-                if (results.status == "success"){
-                    Data.get('session').then(function (results) {
-                        if (results.user) {
-                            $rootScope.authenticated = true;
-                            $rootScope.user = results.user;
-                            $location.path('dashboard');
-                        }
 
-                    });
-
-                }
-            });
-
-        }
 
         $rootScope.toOldBO = function (){
             $rootScope.$log.log(bobasicurl);
