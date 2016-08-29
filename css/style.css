@@ -150,3 +150,6 @@
  .forceShow {
      visibility: visible !important;
  }
+.translate-cloak {
+    display: none;
+}
