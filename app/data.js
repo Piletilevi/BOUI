@@ -2,6 +2,7 @@
     'use strict';
 
     angular.module('boApp').factory("Data", ['$http', 'bo',connect]);
+
     function connect($http, bo) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';

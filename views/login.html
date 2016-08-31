@@ -15,7 +15,7 @@
 
                 <form name="loginForm" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="username"> Username </label>
+                        <label class="col-sm-3 control-label no-padding-right" for="username"> {{"bo_adm151"|translate}} </label>
                         <div class="col-sm-7">
                            <span class="block input-icon input-icon-right">
                                 <input type="text" class="form-control" placeholder="Username" name="username" ng-model="login.username" required focus/>
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="password"> Password </label>
+                        <label class="col-sm-3 control-label no-padding-right" for="password"> {{"bo_adm152"|translate}} </label>
                         <div class="col-sm-7">
                            <span class="block input-icon input-icon-right">
                                 <input type="password" class="form-control" placeholder="Password" ng-model="login.password" required/>
@@ -37,7 +37,7 @@
                                                         <div class="row">
                          <label class="col-sm-3 control-label no-padding-right"> </label>
                         <div class="col-sm-7">
-                            <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-click="doLogin(login)" data-ng-disabled="loginForm.$invalid">
+                            <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-click="authController.doLogin(login)" data-ng-disabled="loginForm.$invalid">
                                 <i class="ace-icon fa fa-key"></i>
                                 Login
                             </button>

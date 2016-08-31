@@ -192,7 +192,7 @@ $app->post(
     $response["message"] = "Got translations";
     //$logger->write( print_r($translations,true),"INFO");
 
-
+        if (!empty( $translations->data))
         $response["translations"] = $translations->data->translations;
 
 

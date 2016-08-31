@@ -21,7 +21,8 @@ angular.module('bo', ['ngAnimate'])
     'limit': 0,                   // limits max number of pages 
     'tap-to-dismiss': true,
     'newest-on-top': true,
-    'time-out': 5000, // Set timeOut and extendedTimeout to 0 to make it sticky
+    'time-out': 5000,
+    //'extendedTimeout':0,// Set timeOut and extendedTimeout to 0 to make it sticky
     'icon-classes': {
         error: 'bo-error',
         info: 'bo-info',
