@@ -9,13 +9,11 @@ class PiletileviApi {
     private $app;
 	private $cacheManager;
 	private $settings;
-	private $logger;
 
 	public function __construct() {
 		$this->app = Slim::getInstance();
 		$this->cacheManager = $this->app->container->get("cacheManager");
 		$this->settings = $this->app->config("settings");
-		$this->logger = $this->app->container->get("logger");
    }
 
 	public function login($username, $password, $remoteip) {
@@ -115,7 +113,7 @@ class PiletileviApi {
 		$msg = JWT::encode( $payload, $papiConfig["jwtsecret"] );
 		$response = \Httpful\Request::post($uri)->body($msg)->send();
 
-		//$this->logger->write( print_r($response->headers,true),"INFO");
+		//$this->app->log->debug( print_r($response->headers,true) );
 
 		return json_decode($response->__toString());
 	}

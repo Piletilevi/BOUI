@@ -34,17 +34,17 @@ $app->get('/bourl', function() {
 $app->post('/getSessionKey', function() use ($app) {
     $r = json_decode($app->request->getBody());
 
-	$logger = $app->container->get("log");
-	$logger->write( print_r($r,true), "DEBUG");
-    
+    $app->log->debug( print_r($r,true) );
+
 	DataHandler::verifyParams(array('username', 'clientip'), $r);
+
     $sessionHandler = new PiletileviSessionHandler();
     $session = $sessionHandler->getSession();
     $username = $r->username;
     $ip = $r->clientip;
 
     $piletileviApi = new PiletileviApi();
-    $sessionReq = $piletileviApi->getSessionKey($username, $ip,$session['lang']->code);
+    $sessionReq = $piletileviApi->getSessionKey($username, $ip, $session['lang']->code);
 
     if ($sessionReq && !empty($sessionReq->data)) {
         $response['status'] = "success";
@@ -55,10 +55,7 @@ $app->post('/getSessionKey', function() use ($app) {
         $response['status'] = "error";
         $response['message'] = 'Failed to retrieve session key';
     }
-    if  (isset($_SERVER)) {
-    $logger->write( print_r($_SERVER,true),"INFO");
-    }
-    else $logger->write( "no server","INFO");
+    
     DataHandler::response(200, $response);
 });
 
@@ -152,24 +149,24 @@ $app->get('/logout', function() {
 });
 
 $app->get('/languages', function() use ($app) {
-	$logger = $app->container->get("logger");
 
-    $piletileviApi = new PiletileviApi();
+	$piletileviApi = new PiletileviApi();
     $languages = $piletileviApi->languages();
 
     $response["status"] = "success";
     $response["languages"] = $languages->data;
 
-    $logger->write( print_r($response,true), "DEBUG");
+    $app->log->debug( print_r($response,true) );
 
 	DataHandler::response(200, $response);
 });
 
 $app->post('/translations', function() use ($app)  {
-	$logger = $app->container->get("logger");
 
 	$r = json_decode($app->request->getBody());
-    $logger->write(print_r($r,true),"INFO");
+
+	$app->log->debug( print_r($r,true) );
+
     DataHandler::verifyParams(array('languageId'), $r);
 
     $languageId= $r->languageId;

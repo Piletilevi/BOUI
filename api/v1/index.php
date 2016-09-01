@@ -19,11 +19,6 @@ $app->container->set('cacheManager', function() use ($app) {
 	return CacheManager::getInstance('files', $settings['cache']); 
 });
 
-$app->container->set('logger', function() use ($app) { 
-	$settings = $app->config("settings");
-    return new DateTimeFileWriter($settings['log']);
-});
-
 $directories = array(
 	'classes/',
 	'db/',
