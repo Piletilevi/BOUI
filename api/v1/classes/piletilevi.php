@@ -2,7 +2,6 @@
 use Httpful\Request;
 use Firebase\JWT\JWT;
 use Slim\Slim;
-use \Slim\Logger\DateTimeFileWriter;
 
 class PiletileviApi {
 	
