@@ -20,7 +20,7 @@
     <![endif]-->
 </head>
 
-<body ng-controller="AuthController as authController"  style="visibility: hidden" ng-class='{forceShow: isTranslated}' >
+<body style="visibility: hidden" ng-class='{forceShow: isTranslated}' >
 <div class="container"  >
     <header>
         <nav class="navbar navbar-inverse">
@@ -67,7 +67,7 @@
                                 <li><a href>Another action</a></li>
                                 <li><a href>Something else here</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href ng-click="authController.logout();">Logout</a></li>
+                                <li><a href ng-click="logout();">Logout</a></li>
                                 <li><a href ng-click="toOldBO();">To old BO</a></li>
                             </ul>
                         </li>
@@ -128,5 +128,6 @@
 <script src="app/data.js"></script>
 <script src="app/directives.js"></script>
 <script src="app/controllers/auth.js"></script>
+<script src="app/services/authserv.js"></script>
 </html>
 

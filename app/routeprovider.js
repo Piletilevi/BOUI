@@ -8,22 +8,26 @@ angular.module('boApp').config(['$routeProvider',routeProvider]).run(runRoutePro
         when('/login', {
             title: 'Login',
             templateUrl: 'views/login.html',
-            controller: 'AuthController'
+            controller: 'AuthController',
+            controllerAs: 'vm'
         })
             .when('/logout', {
                 title: 'Logout',
                 templateUrl: 'views/login.html',
-                controller: 'AuthController'
+                controller: 'AuthController',
+                controllerAs: 'vm'
             })
             .when('/dashboard', {
                 title: 'Dashboard',
                 templateUrl: 'views/dashboard.html',
-                controller: 'AuthController'
+                controller: 'AuthController',
+                controllerAs: 'vm'
             })
             .when('/', {
                 title: 'Login',
                 templateUrl: 'views/login.html',
                 controller: 'AuthController',
+                controllerAs: 'vm',
                 role: '0'
             })
             .otherwise({
@@ -32,46 +36,14 @@ angular.module('boApp').config(['$routeProvider',routeProvider]).run(runRoutePro
 
     }
 
-    function runRouteProvider ( $rootScope, $location, $log,  Data) {
+    function runRouteProvider ( $rootScope, $location, $log,  Data, authService) {
 
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;
 
             $rootScope.authenticated = false;
 
-            Data.get('session').then(function (results) {
-                if (results.user) {
-                    $rootScope.authenticated = true;
-                    $rootScope.user = results.user;
-                    if (typeof($location.search().key) !== 'undefined') {
-                        $location.path('dashboard');
-                        $location.search('key', null);
-                    }
-                } else {
-                    if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
-                        var searchkey =  $location.search().key;
-                        $location.search('key', null);
-                        Data.post('verifySessionKey',{ "sessionkey" : searchkey }).then(function(results){
-                            Data.page(results);
-                            console.log(results);
-                            if (results.status == "success"){
-                                Data.get('session').then(function (results) {
-                                    if (results.user) {
-                                        $rootScope.authenticated = true;
-                                        $rootScope.user = results.user;
-                                        $location.path('dashboard');
-                                    }
-                                });
-                            }
-                        });
-                    }
-                    var nextUrl = next.$$route.originalPath;
-                    if (nextUrl == '/login') {
-                    } else {
-                        $location.path("/login");
-                    }
-                }
-            });
+            authService.checkUserAuth(next);
 
         });
     }
