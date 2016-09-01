@@ -1,47 +1,66 @@
-'use strict';
+(function() {
+    'use strict';
+    angular.module('bo', ['ngAnimate']);
+    var bo = angular.module('bo');
+    bo.service('bo', ['$rootScope', boservice])
+    bo.constant('boConfig', {
+        'limit': 0,                   // limits max number of pages
+        'tap-to-dismiss': true,
+        'newest-on-top': true,
+        'time-out': 5000,
+        //'extendedTimeout':0,// Set timeOut and extendedTimeout to 0 to make it sticky
+        'icon-classes': {
+            error: 'bo-error',
+            info: 'bo-info',
+            success: 'bo-success',
+            warning: 'bo-warning'
+        },
+        'body-output-type': '', // Options: '', 'trustedHtml', 'template'
+        'body-template': 'boBodyTmpl.html',
+        'icon-class': 'bo-info',
+        'position-class': 'bo-bottom-left',
+        'title-class': 'bo-title',
+        'message-class': 'bo-message'
+    })
 
-angular.module('bo', ['ngAnimate'])
-.service('bo', ['$rootScope', function ($rootScope) {
-    this.pop = function (type, title, body, timeout, bodyOutputType) {
-        this.page = {
-            type: type,
-            title: title,
-            body: body,
-            timeout: timeout,
-            bodyOutputType: bodyOutputType
+    bo.directive('boContainer', ['$compile', '$timeout', '$sce', 'boConfig', 'bo', bodirective]);
+
+    function boservice ($rootScope) {
+        this.pop = function (type, title, body, timeout, bodyOutputType) {
+            this.page = {
+                type: type,
+                title: title,
+                body: body,
+                timeout: timeout,
+                bodyOutputType: bodyOutputType
+            };
+            $rootScope.$broadcast('bo-newPage');
         };
-        $rootScope.$broadcast('bo-newPage');
-    };
 
-    this.clear = function () {
-        $rootScope.$broadcast('bo-clearPages');
-    };
-}])
-.constant('boConfig', {
-    'limit': 0,                   // limits max number of pages 
-    'tap-to-dismiss': true,
-    'newest-on-top': true,
-    'time-out': 5000,
-    //'extendedTimeout':0,// Set timeOut and extendedTimeout to 0 to make it sticky
-    'icon-classes': {
-        error: 'bo-error',
-        info: 'bo-info',
-        success: 'bo-success',
-        warning: 'bo-warning'
-    },
-    'body-output-type': '', // Options: '', 'trustedHtml', 'template'
-    'body-template': 'boBodyTmpl.html',
-    'icon-class': 'bo-info',
-    'position-class': 'bo-bottom-left',
-    'title-class': 'bo-title',
-    'message-class': 'bo-message'
-})
-.directive('boContainer', ['$compile', '$timeout', '$sce', 'boConfig', 'bo',
-function ($compile, $timeout, $sce, boConfig, bo) {
-    return {
-        replace: true,
-        restrict: 'EA',
-        link: function (scope, elm, attrs) {
+        this.clear = function () {
+            $rootScope.$broadcast('bo-clearPages');
+        };
+    }
+    function bodirective ($compile, $timeout, $sce, boConfig, bo) {
+        return {
+            replace: true,
+            restrict: 'EA',
+            link: linkFunction,
+            controller: ['$scope', '$element', '$attrs',boController ],
+            template:
+            '<div  id="bo-container" ng-class="config.position">' +
+            '<div ng-repeat="page in pages" class="bo" ng-class="page.type" ng-click="remove(page.id)" ng-mouseover="stopTimer(page)"  ng-mouseout="restartTimer(page)">' +
+            '<div ng-class="config.title">{{page.title}}</div>' +
+            '<div ng-class="config.message" ng-switch on="page.bodyOutputType">' +
+            '<div ng-switch-when="trustedHtml" ng-bind-html="page.html"></div>' +
+            '<div ng-switch-when="template"><div ng-include="page.bodyTemplate"></div></div>' +
+            '<div ng-switch-default >{{page.body}}</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+        };
+
+        function linkFunction (scope, elm, attrs) {
 
             var id = 0;
 
@@ -111,8 +130,9 @@ function ($compile, $timeout, $sce, boConfig, bo) {
             scope.$on('bo-clearPages', function () {
                 scope.pages.splice(0, scope.pages.length);
             });
-        },
-        controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+        }
+
+        function boController ($scope, $element, $attrs) {
 
             $scope.stopTimer = function (page) {
                 if (page.timeout) {
@@ -140,17 +160,10 @@ function ($compile, $timeout, $sce, boConfig, bo) {
                     $scope.removePage(id);
                 }
             };
-        }],
-        template:
-        '<div  id="bo-container" ng-class="config.position">' +
-            '<div ng-repeat="page in pages" class="bo" ng-class="page.type" ng-click="remove(page.id)" ng-mouseover="stopTimer(page)"  ng-mouseout="restartTimer(page)">' +
-              '<div ng-class="config.title">{{page.title}}</div>' +
-              '<div ng-class="config.message" ng-switch on="page.bodyOutputType">' +
-                '<div ng-switch-when="trustedHtml" ng-bind-html="page.html"></div>' +
-                '<div ng-switch-when="template"><div ng-include="page.bodyTemplate"></div></div>' +
-                '<div ng-switch-default >{{page.body}}</div>' +
-              '</div>' +
-            '</div>' +
-        '</div>'
-    };
-}]);
+        }
+
+
+    }
+
+
+})();
