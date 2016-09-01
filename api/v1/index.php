@@ -14,6 +14,18 @@ $app = new Slim(
 	)
 );
 
+$directories = array(
+	'classes/',
+	'db/',
+	'common/',
+);
+
+foreach ($directories as $directory) {
+	foreach(glob($directory . "*.php") as $class) {
+        include_once $class;
+    }
+}
+
 $app->container->set('cacheManager', function() use ($app) { 
 	$settings = $app->config("settings");
 	return CacheManager::getInstance('files', $settings['cache']); 
@@ -30,18 +42,6 @@ $app->container->set('piletileviSessionHandler', function() use ($app) {
 $app->container->set('dataHandler', function() use ($app) { 
 	return DataHandler::getInstance(); 
 });
-
-$directories = array(
-	'classes/',
-	'db/',
-	'common/',
-);
-
-foreach ($directories as $directory) {
-	foreach(glob($directory . "*.php") as $class) {
-        include_once $class;
-    }
-}
 
 $app->run();
 
