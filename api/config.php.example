@@ -6,12 +6,23 @@ $config['addContentLengthHeader'] = false;
 $config['env']['name'] = "Development";
 
 $config['db']['host']   = "localhost";
-$config['db']['user']   = "newyellow_ie";
-$config['db']['pass']   = "newyellow_ie";
+$config['db']['user']   = "user";
+$config['db']['pass']   = "psw";
 $config['db']['dbname'] = "piletilevi";
 
-$config['piletilevi']['host']      = "http://localhost:9999";
+$config['piletilevi']['host']      = "http://localhost:90";
 $config['piletilevi']['base']      = "/papi";
 $config['piletilevi']['jwtsecret'] = "secret";
+$config['piletilevi']['oldbourl'] = "http://localhost:90/cgi-bin/cgiip.exe/WService=plevi/proc/login.p";
+
+$config['cache'] = array(
+	"path"      =>  "../cache/",
+);
+
+$config['log'] = array(
+        'path' => __DIR__."/logs",
+        'name_format' => "d-m-Y",
+        'message_format' => "%label% - %date% - %message%"
+);
 
 ?>
