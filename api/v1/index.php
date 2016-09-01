@@ -7,8 +7,11 @@ use Slim\Slim;
 use Slim\Logger\DateTimeFileWriter;
 use phpFastCache\CacheManager;
 
-$app = new Slim(array("settings" => $config,
-    'log.writer' => new DateTimeFileWriter( $config['log'] ))
+$app = new Slim(
+	array(
+		"settings"   => $config,
+		"log.writer" => new DateTimeFileWriter( $config['log'] )
+	)
 );
 
 $app->container->set('cacheManager', function() use ($app) { 

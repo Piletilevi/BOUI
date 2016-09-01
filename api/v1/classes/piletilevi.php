@@ -124,6 +124,7 @@ class PiletileviApi {
 		$papiConfig = $this->getPapiConfig();
 		return $papiConfig["host"].$papiConfig["base"];
 	}
+
 	private function getBoUrl(){
 		$papiConfig = $this->getPapiConfig();
 		return $papiConfig["oldbourl"];

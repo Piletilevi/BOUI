@@ -115,13 +115,14 @@ $app->post('/login', function() use ($app) {
 
 	$r = json_decode($app->request->getBody());
 	
-	DataHandler::verifyParams(array('username', 'password'), $r->customer);
+	DataHandler::verifyParams(array('username', 'password', 'clientip'), $r->customer);
 
     $username = $r->customer->username;
 	$password = $r->customer->password;
+	$clientip = $r->customer->clientip;
 	
 	$piletileviApi = new PiletileviApi();
-	$userData = $piletileviApi->login($username, $password, $app->request->getIp());
+	$userData = $piletileviApi->login($username, $password, $clientip);
 
     if ($userData && $userData->valid == "true" && $userData->user) {
 		$response['status'] = "success";

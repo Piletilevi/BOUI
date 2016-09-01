@@ -8,7 +8,6 @@
     function runApp( $rootScope,$translate,$window,Data,authService){
         $rootScope.isTranslated = false;
 
-
         $rootScope.setLangValue = setLangValue;
         $rootScope.toOldBO = toOldBo;
         $rootScope.logout =  authService.logout;
@@ -28,10 +27,6 @@
         if (!$rootScope.languages)
             getLanguages(Data,$rootScope);
 
-
-
-
-
         function getbourl(){
 
             Data.get('bourl').then(function(results){
@@ -44,7 +39,8 @@
                 else return "";
             }) ;
         }
-        function setLangValue(lang){
+
+		function setLangValue(lang){
             if (lang !== $rootScope.language) {
                 console.log(lang);
                 $translate.use(lang.code);
@@ -52,7 +48,8 @@
                 Data.post('setlanguage', {'lang': lang });
             }
         };
-        function toOldBo (){
+        
+		function toOldBo (){
             $rootScope.$log.log(bobasicurl);
             if ($rootScope.authenticated && bobasicurl !== "" ){
                 // $rootScope.$log.log($rootScope.user);
@@ -72,8 +69,8 @@
                 });
 
             }
-
         }
+
         function getLanguages(Data, $rootScope) {
             Data.get('languages').then(function (results) {
                 if (results.status === "success") {

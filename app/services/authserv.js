@@ -16,13 +16,19 @@
             checkUserAuth: checkUserAuth
         };
         function login (customer) {
-            Data.post('login', {customer: customer})
-                .then(function (results) {
-                    Data.page(results);
-                    if (results.status == "success") {
-                        $location.path('dashboard');
-                    }
-                });
+			Data.getIp().then(function(result) {
+				customer['clientip'] = result.ip;
+				Data.post('login', {customer: customer})
+					.then(function (results) {
+						Data.page(results);
+						if (results.status == "success") {
+							$location.path('dashboard');
+						}
+					});
+			}, function(e) {
+				//alert("error");
+			});
+
         }
 
         function logout(){
@@ -38,7 +44,8 @@
                     }});
             });
         }
-        function verifySession(){
+
+		function verifySession(){
             Data.post('verifySessionKey',{ "sessionkey" : searchkey }).then(function(results){
                 Data.page(results);
                 console.log(results);
