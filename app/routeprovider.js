@@ -43,7 +43,10 @@ angular.module('boApp').config(['$routeProvider',routeProvider]).run(runRoutePro
                 if (results.user) {
                     $rootScope.authenticated = true;
                     $rootScope.user = results.user;
-                    $location.search('key', null);
+                    if (typeof($location.search().key) !== 'undefined') {
+                        $location.path('dashboard');
+                        $location.search('key', null);
+                    }
                 } else {
                     if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
                         var searchkey =  $location.search().key;
