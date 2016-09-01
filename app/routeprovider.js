@@ -47,7 +47,7 @@ angular.module('boApp').config(['$routeProvider',routeProvider]).run(runRoutePro
                 } else {
                     if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
                         var searchkey =  $location.search().key;
-
+                        $location.search('key', null);
                         Data.post('verifySessionKey',{ "sessionkey" : searchkey }).then(function(results){
                             Data.page(results);
                             console.log(results);
