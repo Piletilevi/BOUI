@@ -4,10 +4,27 @@ use Slim\Slim;
 
 class DataHandler {
 
+    private $app;
+	private static $dataHandler; 
+
+	public function __construct() {
+		$this->app = Slim::getInstance();
+	}
+
+	public static function getInstance($refresh = false) {
+        
+		if (is_null(self::$dataHandler) || $refresh) {
+			self::$dataHandler = new self();
+        
+		} 
+
+		return self::$dataHandler; 	
+	}
+
 	/**
 	 * Verifying required params posted or not
 	 */
-	public static function verifyParams($required_fields,$request_params) {
+	public function verifyParams($required_fields, $request_params) {
 		$error = false;
 		$error_fields = "";
 		foreach ($required_fields as $field) {
@@ -21,24 +38,21 @@ class DataHandler {
 			// Required field(s) are missing or empty
 			// echo error json and stop the app
 			$response = array();
-			$app = Slim::getInstance();
 			$response["status"] = "error";
 			$response["message"] = 'Required field(s) ' . substr($error_fields, 0, -2) . ' is missing or empty';
-			self::response(200, $response);
+			$this->response(200, $response);
 
-			$app->stop();
+			$this->app->stop();
 		}
 	}
 
 
-	public static function response($status_code, $response) {
-		$app = Slim::getInstance();
+	public function response($status_code, $response) {
 		// Http response code
-		$app->status($status_code);
+		$this->app->status($status_code);
 
 		// setting response content type to json
-		$app->contentType('application/json');
-		error_log(json_encode($response));
+		$this->app->contentType('application/json');
 		echo json_encode($response);
 	}
 

@@ -8,12 +8,24 @@ class PiletileviApi {
     private $app;
 	private $cacheManager;
 	private $settings;
+	
+	private static $piletileviApi; 
 
 	public function __construct() {
 		$this->app = Slim::getInstance();
 		$this->cacheManager = $this->app->container->get("cacheManager");
 		$this->settings = $this->app->config("settings");
-   }
+	}
+
+	public static function getInstance($refresh = false) {
+        
+		if (is_null(self::$piletileviApi) || $refresh) {
+			self::$piletileviApi = new self();
+        
+		} 
+
+		return self::$piletileviApi; 	
+	}
 
 	public function login($username, $password, $remoteip) {
 

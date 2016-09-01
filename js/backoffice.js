@@ -1,8 +1,10 @@
 (function() {
     'use strict';
     angular.module('bo', ['ngAnimate']);
-    var bo = angular.module('bo');
-    bo.service('bo', ['$rootScope', boservice])
+    
+	var bo = angular.module('bo');
+    
+	bo.service('bo', ['$rootScope', boservice])
     bo.constant('boConfig', {
         'limit': 0,                   // limits max number of pages
         'tap-to-dismiss': true,
@@ -41,6 +43,7 @@
             $rootScope.$broadcast('bo-clearPages');
         };
     }
+
     function bodirective ($compile, $timeout, $sce, boConfig, bo) {
         return {
             replace: true,

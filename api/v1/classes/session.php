@@ -2,6 +2,18 @@
 
 class PiletileviSessionHandler {
 
+	private static $piletileviSession; 
+
+	public static function getInstance($refresh = false) {
+        
+		if (is_null(self::$piletileviSession) || $refresh) {
+			self::$piletileviSession = new self();
+        
+		} 
+
+		return self::$piletileviSession; 	
+	}
+
 	public function getSession(){
 		if (!isset($_SESSION)) {
 			session_start();

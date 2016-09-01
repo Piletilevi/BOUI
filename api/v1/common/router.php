@@ -1,23 +1,25 @@
 <?php
 
-$app->get('/session', function() {
-	$sessionHandler = new PiletileviSessionHandler();
+$app->get('/session', function() use ($app) {
+	$sessionHandler = $app->container->get("piletileviSessionHandler");
     $session = $sessionHandler->getSession();
     $response["user"] = $session["user"];
     
-	DataHandler::response(200, $response);
+	$dataHandler = $app->container->get("dataHandler");
+	$dataHandler->response(200, $response);
 });
 
-$app->get('/sessionlang', function() {
-    $sessionHandler = new PiletileviSessionHandler();
+$app->get('/sessionlang', function() use ($app) {
+    $sessionHandler = $app->container->get("piletileviSessionHandler");
     $session = $sessionHandler->getSession();
     $response["lang"] = $session["lang"];
 
-    DataHandler::response(200, $response);
+	$dataHandler = $app->container->get("dataHandler");
+	$dataHandler->response(200, $response);
 });
 
-$app->get('/bourl', function() {
-    $piletileviApi = new PiletileviApi();
+$app->get('/bourl', function() use ($app) {
+    $piletileviApi = $app->container->get("piletileviApi");
     $urlReq = $piletileviApi->boUrl();
     if ($urlReq){
 		$response['status'] = "succcess";
@@ -28,22 +30,24 @@ $app->get('/bourl', function() {
         $response['message'] = 'No BO url defined ';
     }
 
-    DataHandler::response(200, $response);
+	$dataHandler = $app->container->get("dataHandler");
+	$dataHandler->response(200, $response);
 });
 
 $app->post('/getSessionKey', function() use ($app) {
     $r = json_decode($app->request->getBody());
 
     $app->log->debug( print_r($r,true) );
+	$dataHandler = $app->container->get("dataHandler");
 
-	DataHandler::verifyParams(array('username', 'clientip'), $r);
+	$dataHandler->verifyParams(array('username', 'clientip'), $r);
 
-    $sessionHandler = new PiletileviSessionHandler();
+    $sessionHandler = $app->container->get("piletileviSessionHandler");
     $session = $sessionHandler->getSession();
     $username = $r->username;
     $ip = $r->clientip;
 
-    $piletileviApi = new PiletileviApi();
+    $piletileviApi = $app->container->get("piletileviApi");
     $sessionReq = $piletileviApi->getSessionKey($username, $ip, $session['lang']->code);
 
     if ($sessionReq && !empty($sessionReq->data)) {
@@ -56,13 +60,14 @@ $app->post('/getSessionKey', function() use ($app) {
         $response['message'] = 'Failed to retrieve session key';
     }
     
-    DataHandler::response(200, $response);
+	$dataHandler->response(200, $response);
 });
 
 $app->post('/setlanguage', function() use ($app) {
+	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 
-	DataHandler::verifyParams(array('code', 'name'), $r->lang);
+	$dataHandler->verifyParams(array('code', 'name'), $r->lang);
     
 	if (!isset($_SESSION)) {
         session_start();
@@ -75,19 +80,19 @@ $app->post('/setlanguage', function() use ($app) {
         $response['status'] = "failure";
         $response['message'] = 'Language set unsuccessfully.';
     }
-    DataHandler::response(200, $response);
+
+	$dataHandler->response(200, $response);
 });
 
 $app->post('/verifySessionKey', function() use ($app) {
-
+	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 
-    DataHandler::verifyParams(array('sessionkey'), $r);
+    $dataHandler->verifyParams(array('sessionkey'), $r);
 
     $sessionkey = $r->sessionkey;
 
-
-    $piletileviApi = new PiletileviApi();
+    $piletileviApi = $app->container->get("piletileviApi");
     $userData = $piletileviApi->verifySessionKey($sessionkey);
 
     if ($userData && $userData->valid == "true" && $userData->user) {
@@ -105,20 +110,20 @@ $app->post('/verifySessionKey', function() use ($app) {
         $response['message'] = 'Not a valid session key.';
     }
 
-    DataHandler::response(200, $response);
+	$dataHandler->response(200, $response);
 });
 
 $app->post('/login', function() use ($app) {
-
+	$dataHandler = $app->container->get("dataHandler");
 	$r = json_decode($app->request->getBody());
 	
-	DataHandler::verifyParams(array('username', 'password', 'clientip'), $r->customer);
+	$dataHandler->verifyParams(array('username', 'password', 'clientip'), $r->customer);
 
     $username = $r->customer->username;
 	$password = $r->customer->password;
 	$clientip = $r->customer->clientip;
 	
-	$piletileviApi = new PiletileviApi();
+	$piletileviApi = $app->container->get("piletileviApi");
 	$userData = $piletileviApi->login($username, $password, $clientip);
 
     if ($userData && $userData->valid == "true" && $userData->user) {
@@ -136,21 +141,22 @@ $app->post('/login', function() use ($app) {
 		$response['message'] = 'No such user is registered';
 	}
 
-	DataHandler::response(200, $response);
+	$dataHandler->response(200, $response);
 });
 
-$app->get('/logout', function() {
-    $sessionHandler = new PiletileviSessionHandler();
+$app->get('/logout', function() use ($app) {
+	$dataHandler = $app->container->get("dataHandler");
+    $sessionHandler = $app->container->get("piletileviSessionHandler");
     $session = $sessionHandler->destroySession();
     $response["status"] = "info";
     $response["message"] = "Logged out successfully";
 
-	DataHandler::response(200, $response);
+	$dataHandler->response(200, $response);
 });
 
 $app->get('/languages', function() use ($app) {
-
-	$piletileviApi = new PiletileviApi();
+	$dataHandler = $app->container->get("dataHandler");
+	$piletileviApi = $app->container->get("piletileviApi");
     $languages = $piletileviApi->languages();
 
     $response["status"] = "success";
@@ -158,20 +164,20 @@ $app->get('/languages', function() use ($app) {
 
     $app->log->debug( print_r($response,true) );
 
-	DataHandler::response(200, $response);
+	$dataHandler->response(200, $response);
 });
 
 $app->post('/translations', function() use ($app)  {
-
+	$dataHandler = $app->container->get("dataHandler");
 	$r = json_decode($app->request->getBody());
 
 	$app->log->debug( print_r($r,true) );
 
-    DataHandler::verifyParams(array('languageId'), $r);
+    $dataHandler->verifyParams(array('languageId'), $r);
 
     $languageId= $r->languageId;
 
-    $piletileviApi = new PiletileviApi();
+    $piletileviApi = $app->container->get("piletileviApi");
     $translations = $piletileviApi->translations($languageId);
 
     $response["status"] = "success";
@@ -180,9 +186,7 @@ $app->post('/translations', function() use ($app)  {
         $response["translations"] = $translations->data->translations;
 	}
 
-    DataHandler::response(200, $response);
+    $dataHandler->response(200, $response);
 });
-
-
 
 ?>

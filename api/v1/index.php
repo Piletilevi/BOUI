@@ -19,6 +19,18 @@ $app->container->set('cacheManager', function() use ($app) {
 	return CacheManager::getInstance('files', $settings['cache']); 
 });
 
+$app->container->set('piletileviApi', function() use ($app) { 
+	return PiletileviApi::getInstance(); 
+});
+
+$app->container->set('piletileviSessionHandler', function() use ($app) { 
+	return PiletileviSessionHandler::getInstance(); 
+});
+
+$app->container->set('dataHandler', function() use ($app) { 
+	return DataHandler::getInstance(); 
+});
+
 $directories = array(
 	'classes/',
 	'db/',
