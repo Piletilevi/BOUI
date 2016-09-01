@@ -1,11 +1,22 @@
 <?php
-
 use Httpful\Request;
 use Firebase\JWT\JWT;
 use Slim\Slim;
 use \Slim\Logger\DateTimeFileWriter;
 
 class PiletileviApi {
+	
+    private $app;
+	private $cacheManager;
+	private $settings;
+	private $logger;
+
+	public function __construct() {
+		$this->app = Slim::getInstance();
+		$this->cacheManager = $this->app->container->get("cacheManager");
+		$this->settings = $this->app->config("settings");
+		$this->logger = $this->app->container->get("logger");
+   }
 
 	public function login($username, $password, $remoteip) {
 
@@ -15,28 +26,45 @@ class PiletileviApi {
 
 		return $this->send( "/user/login", $data );
 	}
+
 	public function verifySessionKey($sessionkey) {
 
 		$data= array ('sessionkey' => $sessionkey);
 
 		return $this->send("/user/verifySessionKey",$data);
-
-
 	}
+	
 	public function languages() {
+		
+		$cacheItem = $this->cacheManager->getItem("languages");
+		$languages = $cacheItem->get();
 
-		return $this->get( "/language/languages" );
+		if(is_null($languages)) {
+			$languages = $this->get( "/language/languages" );
+			$cacheItem->set($languages);
+			$this->cacheManager->save($cacheItem);
+		}
+		return $languages;
 	}
+	
 	public function boUrl(){
 		return $this->getBoUrl();
 	}
 
 	public function translations($languageId) {
 
-		$data = array("languageId" => $languageId);
+		$cacheItem = $this->cacheManager->getItem("translations".$languageId);
+		$translations = $cacheItem->get();
 
-		return $this->send( "/language/translations", $data );
+		if(is_null($translations)) {
+			$data = array("languageId" => $languageId);
+			$translations = $this->send( "/language/translations", $data );
+			$cacheItem->set($translations);
+			$this->cacheManager->save($cacheItem);
+		}
+		return $translations;
 	}
+	
 	public function getSessionKey($username, $remoteip, $langid){
 		$data['filter']= array ('username'=>$username,
 			'remoteip' => $remoteip,
@@ -62,13 +90,8 @@ class PiletileviApi {
 		$response = \Httpful\Request::getQuick($uri);
 		return  json_decode($response->__toString());
 	}
+	
 	private function send($url, $data) {
-		$logger = new DateTimeFileWriter(array(
-			'path' => __DIR__.'/../../../logs',
-			'name_format' => 'Y-m-d',
-			'message_format' => '%label% - %date% - %message%'
-		));
-
 		$papiConfig = $this->getPapiConfig();
 		$envConfig = $this->getEnvConfig();
 
@@ -92,7 +115,7 @@ class PiletileviApi {
 		$msg = JWT::encode( $payload, $papiConfig["jwtsecret"] );
 		$response = \Httpful\Request::post($uri)->body($msg)->send();
 
-		//$logger->write( print_r($response->headers,true),"INFO");
+		//$this->logger->write( print_r($response->headers,true),"INFO");
 
 		return json_decode($response->__toString());
 	}
@@ -107,15 +130,11 @@ class PiletileviApi {
 	}
 
 	private function getPapiConfig() {
-		$app = Slim::getInstance();
-		$settings = $app->config("settings");
-		return $settings["piletilevi"];
+		return $this->settings["piletilevi"];
 	}
 
 	private function getEnvConfig() {
-		$app = Slim::getInstance();
-		$settings = $app->config("settings");
-		return $settings["env"];
+		return $this->settings["env"];
 	}
 }
 

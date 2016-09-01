@@ -1,4 +1,3 @@
-/api/config.php
 # Logs
 #logs
 *.log
@@ -34,3 +33,7 @@ node_modules
 .node_repl_history
 /.idea
 /js/bower_components
+
+/api/config.php
+/api/logs/*
+/api/cache/*

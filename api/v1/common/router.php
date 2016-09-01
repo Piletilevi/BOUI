@@ -1,6 +1,4 @@
 <?php
-use \Slim\Logger\DateTimeFileWriter;
-
 
 $app->get('/session', function() {
 	$sessionHandler = new PiletileviSessionHandler();
@@ -9,6 +7,7 @@ $app->get('/session', function() {
     
 	DataHandler::response(200, $response);
 });
+
 $app->get('/sessionlang', function() {
     $sessionHandler = new PiletileviSessionHandler();
     $session = $sessionHandler->getSession();
@@ -16,13 +15,14 @@ $app->get('/sessionlang', function() {
 
     DataHandler::response(200, $response);
 });
+
 $app->get('/bourl', function() {
     $piletileviApi = new PiletileviApi();
     $urlReq = $piletileviApi->boUrl();
     if ($urlReq){
-    $response['status'] = "succcess";
-    $response['message'] = 'BO URL retrieved';
-    $response['bobaseurl'] = $urlReq;
+		$response['status'] = "succcess";
+		$response['message'] = 'BO URL retrieved';
+		$response['bobaseurl'] = $urlReq;
     }else {
         $response['status'] = "error";
         $response['message'] = 'No BO url defined ';
@@ -34,16 +34,12 @@ $app->get('/bourl', function() {
 $app->post('/getSessionKey', function() use ($app) {
     $r = json_decode($app->request->getBody());
 
-    $logger = new DateTimeFileWriter(array(
-        'path' => __DIR__.'/../../../logs',
-        'name_format' => 'Y-m-d',
-        'message_format' => '%label% - %date% - %message%'
-    ));
-    $logger->write( print_r($r,true),"INFO");
-    DataHandler::verifyParams(array('username', 'clientip'), $r);
+	$logger = $app->container->get("log");
+	$logger->write( print_r($r,true), "DEBUG");
+    
+	DataHandler::verifyParams(array('username', 'clientip'), $r);
     $sessionHandler = new PiletileviSessionHandler();
     $session = $sessionHandler->getSession();
-    //$logger->write( print_r($r,true),"INFO");
     $username = $r->username;
     $ip = $r->clientip;
 
@@ -68,21 +64,23 @@ $app->post('/getSessionKey', function() use ($app) {
 
 $app->post('/setlanguage', function() use ($app) {
     $r = json_decode($app->request->getBody());
-    DataHandler::verifyParams(array('code', 'name'), $r->lang);
-    if (!isset($_SESSION)) {
+
+	DataHandler::verifyParams(array('code', 'name'), $r->lang);
+    
+	if (!isset($_SESSION)) {
         session_start();
     }
-    if ( !empty($r) ){
+    if (!empty($r) ){
         $_SESSION['lang'] = $r->lang;
-    $response['status'] = "success";
-    $response['message'] = 'Language  set successfully.';
-    }
-    else {
+		$response['status'] = "success";
+		$response['message'] = 'Language set successfully.';
+    } else {
         $response['status'] = "failure";
-        $response['message'] = 'Language  set unsuccessfully.';
+        $response['message'] = 'Language set unsuccessfully.';
     }
     DataHandler::response(200, $response);
 });
+
 $app->post('/verifySessionKey', function() use ($app) {
 
     $r = json_decode($app->request->getBody());
@@ -112,6 +110,7 @@ $app->post('/verifySessionKey', function() use ($app) {
 
     DataHandler::response(200, $response);
 });
+
 $app->post('/login', function() use ($app) {
 
 	$r = json_decode($app->request->getBody());
@@ -151,35 +150,24 @@ $app->get('/logout', function() {
 	DataHandler::response(200, $response);
 });
 
+$app->get('/languages', function() use ($app) {
+	$logger = $app->container->get("logger");
 
-$app->get(
-    '/languages', function() {
-    $logger = new DateTimeFileWriter(array(
-        'path' => __DIR__.'/../../../logs',
-        'name_format' => 'Y-m-d',
-        'message_format' => '%label% - %date% - %message%'
-    ));
     $piletileviApi = new PiletileviApi();
     $languages = $piletileviApi->languages();
 
     $response["status"] = "success";
-    $response["message"] = "Got languages";
-    //foreach ($languages->data as $language){
+    $response["languages"] = $languages->data;
 
-      $response["languages"] = $languages->data;
-   // }
+    $logger->write( print_r($response,true), "DEBUG");
 
-    $logger->write( print_r($response,true),"INFO");
-    DataHandler::response(200, $response);
+	DataHandler::response(200, $response);
 });
-$app->post(
-    '/translations', function() use ($app)  {
-    $logger = new DateTimeFileWriter(array(
-        'path' => __DIR__.'/../../../logs',
-        'name_format' => 'Y-m-d',
-        'message_format' => '%label% - %date% - %message%'
-    ));
-    $r = json_decode($app->request->getBody());
+
+$app->post('/translations', function() use ($app)  {
+	$logger = $app->container->get("logger");
+
+	$r = json_decode($app->request->getBody());
     $logger->write(print_r($r,true),"INFO");
     DataHandler::verifyParams(array('languageId'), $r);
 
@@ -189,13 +177,10 @@ $app->post(
     $translations = $piletileviApi->translations($languageId);
 
     $response["status"] = "success";
-    $response["message"] = "Got translations";
-    //$logger->write( print_r($translations,true),"INFO");
 
-        if (!empty( $translations->data))
+	if (!empty( $translations->data)) {
         $response["translations"] = $translations->data->translations;
-
-
+	}
 
     DataHandler::response(200, $response);
 });

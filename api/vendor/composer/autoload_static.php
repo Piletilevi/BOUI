@@ -7,14 +7,19 @@ namespace Composer\Autoload;
 class ComposerStaticInit2e3a373787dc82374402aec81b80f734
 {
     public static $prefixLengthsPsr4 = array (
+        'p' => 
+        array (
+            'phpssdb\\' => 8,
+            'phpFastCache\\' => 13,
+        ),
         'S' => 
         array (
             'Slim\\Logger\\' => 12,
-            'Slim\\HttpCache\\' => 15,
         ),
         'P' => 
         array (
-            'Psr\\Http\\Message\\' => 17,
+            'Psr\\Cache\\' => 10,
+            'Predis\\' => 7,
         ),
         'F' => 
         array (
@@ -23,17 +28,25 @@ class ComposerStaticInit2e3a373787dc82374402aec81b80f734
     );
 
     public static $prefixDirsPsr4 = array (
+        'phpssdb\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpfastcache/phpssdb/src/phpssdb',
+        ),
+        'phpFastCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpfastcache/phpfastcache/src/phpFastCache',
+        ),
         'Slim\\Logger\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/logger',
         ),
-        'Slim\\HttpCache\\' => 
+        'Psr\\Cache\\' => 
         array (
-            0 => __DIR__ . '/..' . '/slim/http-cache/src',
+            0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
-        'Psr\\Http\\Message\\' => 
+        'Predis\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/predis/predis/src',
         ),
         'Firebase\\JWT\\' => 
         array (
@@ -47,13 +60,6 @@ class ComposerStaticInit2e3a373787dc82374402aec81b80f734
             'Slim' => 
             array (
                 0 => __DIR__ . '/..' . '/slim/slim',
-            ),
-        ),
-        'P' => 
-        array (
-            'Pimple' => 
-            array (
-                0 => __DIR__ . '/..' . '/pimple/pimple/src',
             ),
         ),
         'H' => 

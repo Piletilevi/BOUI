@@ -5,15 +5,21 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use Slim\Slim;
 use Slim\Logger\DateTimeFileWriter;
-
-
+use phpFastCache\CacheManager;
 
 $app = new Slim(array("settings" => $config,
-    'log.writer' => new DateTimeFileWriter(array(
-        'path' => __DIR__.'/../../logs',
-        'name_format' => 'Y-m-d',
-        'message_format' => '%label% - %date% - %message%'
-    ))));
+    'log.writer' => new DateTimeFileWriter( $config['log'] ))
+);
+
+$app->container->set('cacheManager', function() use ($app) { 
+	$settings = $app->config("settings");
+	return CacheManager::getInstance('files', $settings['cache']); 
+});
+
+$app->container->set('logger', function() use ($app) { 
+	$settings = $app->config("settings");
+    return new DateTimeFileWriter($settings['log']);
+});
 
 $directories = array(
 	'classes/',

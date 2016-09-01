@@ -7,6 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Slim' => array($vendorDir . '/slim/slim'),
-    'Pimple' => array($vendorDir . '/pimple/pimple/src'),
     'Httpful' => array($vendorDir . '/nategood/httpful/src'),
 );
