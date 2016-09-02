@@ -1,7 +1,15 @@
 (function() {
     'use strict';
 
-    angular.module('boApp', ['ngRoute','ngSanitize','ngAnimate','ngSanitize','bo','ngCookies','pascalprecht.translate']);
+    angular.module('boApp', [
+        'ngRoute',
+        'ngSanitize',
+        'ngAnimate',
+        'ngSanitize',
+        'bo',
+        'ngCookies',
+        'pascalprecht.translate'
+    ]);
 
     angular.module('boApp').run(runApp);
 
@@ -11,9 +19,8 @@
         $rootScope.setLangValue = setLangValue;
         $rootScope.toOldBO = toOldBo;
         $rootScope.logout =  authService.logout;
-        var bobasicurl;
-        if ( bobasicurl !== "" )
-            bobasicurl = getbourl();
+
+
 
         $rootScope.$on('$translateChangeSuccess', function () {
             $rootScope.isTranslated = true;
@@ -30,7 +37,7 @@
 		}
 
         function getbourl(){
-            Data.get('bourl').then(function(results){
+            return Data.get('bourl').then(function(results){
                 if (results.status === "succcess"){
                     return results.bobaseurl;
                 } else {
@@ -48,7 +55,8 @@
         };
         
 		function toOldBo (){
-            if ($rootScope.authenticated && bobasicurl !== "" ){
+            var bobasicurl = getbourl();
+            if ($rootScope.authenticated  ){
                 Data.getIp().then(function(result) {
 
                     Data.post('getSessionKey',{'username':$rootScope.user.userId,'clientip':result.ip}).then(function (results) {
@@ -62,6 +70,7 @@
                 });
 
             }
+
         }
 
         function getLanguages(Data, $rootScope) {

@@ -1,7 +1,9 @@
 (function() {
     'use strict';
 	
-	angular.module('boApp').config(['$routeProvider',routeProvider]).run(runRouteProvider);
+	angular.module('boApp')
+        .config(['$routeProvider',routeProvider])
+        .run(runRouteProvider);
 
 
     function routeProvider($routeProvider) {

@@ -2,11 +2,12 @@
     'use strict';
     angular.module('bo', ['ngAnimate']);
     
-	var bo = angular.module('bo');
-    
-	bo.service('bo', ['$rootScope', boService]);
+	angular.module('bo');
 
-	bo.constant('boConfig', {
+    angular.module('bo').service('bo', ['$rootScope', boService]);
+
+
+    angular.module('bo').constant('boConfig', {
         'limit': 0,                   // limits max number of pages
         'tap-to-dismiss': true,
         'newest-on-top': true,
@@ -26,7 +27,14 @@
         'message-class': 'bo-message'
     })
 
-    bo.directive('boContainer', ['$compile', '$timeout', '$sce', 'boConfig', 'bo', boDirective]);
+    angular.module('bo').directive('boContainer',[
+        '$compile',
+        '$timeout',
+        '$sce',
+        'boConfig',
+        'bo',
+        boDirective
+    ]);
 
     function boService ($rootScope) {
         this.pop = function (type, title, body, timeout, bodyOutputType) {

@@ -6,15 +6,18 @@
 
     angular
         .module('boApp')
-        .factory('authService', ['$rootScope', '$route', '$location', 'Data', authService]);
+        .factory('authService', authService);
+
+    authService.$inject = ['$rootScope', '$route', '$location', 'Data'];
 
     function authService($rootScope, $route, $location, Data) {
-        return {
+        var service = {
             login: login,
             logout : logout,
             verifySession : verifySession,
             checkUserAuth: checkUserAuth
         };
+        return service;
         function login (customer) {
 			Data.getIp().then(function(result) {
 				customer['clientip'] = result.ip;
