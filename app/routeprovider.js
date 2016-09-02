@@ -1,6 +1,8 @@
 (function() {
     'use strict';
-angular.module('boApp').config(['$routeProvider',routeProvider]).run(runRouteProvider);
+	
+	angular.module('boApp').config(['$routeProvider',routeProvider]).run(runRouteProvider);
+
 
     function routeProvider($routeProvider) {
 
@@ -8,25 +10,25 @@ angular.module('boApp').config(['$routeProvider',routeProvider]).run(runRoutePro
         when('/login', {
             title: 'Login',
             templateUrl: 'views/login.html',
-            controller: 'AuthController',
+            controller: 'MainController',
             controllerAs: 'vm'
         })
             .when('/logout', {
                 title: 'Logout',
                 templateUrl: 'views/login.html',
-                controller: 'AuthController',
+                controller: 'MainController',
                 controllerAs: 'vm'
             })
             .when('/dashboard', {
                 title: 'Dashboard',
                 templateUrl: 'views/dashboard.html',
-                controller: 'AuthController',
+                controller: 'MainController',
                 controllerAs: 'vm'
             })
             .when('/', {
                 title: 'Login',
                 templateUrl: 'views/login.html',
-                controller: 'AuthController',
+                controller: 'MainController',
                 controllerAs: 'vm',
                 role: '0'
             })

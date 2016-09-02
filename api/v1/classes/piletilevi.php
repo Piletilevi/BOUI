@@ -50,7 +50,7 @@ class PiletileviApi {
 
 		if(is_null($languages)) {
 			$languages = $this->get( "/language/languages" );
-			$cacheItem->set($languages);
+			$cacheItem->set($languages)->expiresAfter(360);
 			$this->cacheManager->save($cacheItem);
 		}
 		return $languages;
@@ -68,7 +68,7 @@ class PiletileviApi {
 		if(is_null($translations)) {
 			$data = array("languageId" => $languageId);
 			$translations = $this->send( "/language/translations", $data );
-			$cacheItem->set($translations);
+			$cacheItem->set($translations)->expiresAfter(360);
 			$this->cacheManager->save($cacheItem);
 		}
 		return $translations;

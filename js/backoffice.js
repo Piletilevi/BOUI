@@ -4,8 +4,9 @@
     
 	var bo = angular.module('bo');
     
-	bo.service('bo', ['$rootScope', boservice])
-    bo.constant('boConfig', {
+	bo.service('bo', ['$rootScope', boService]);
+
+	bo.constant('boConfig', {
         'limit': 0,                   // limits max number of pages
         'tap-to-dismiss': true,
         'newest-on-top': true,
@@ -18,18 +19,18 @@
             warning: 'bo-warning'
         },
         'body-output-type': '', // Options: '', 'trustedHtml', 'template'
-        'body-template': 'boBodyTmpl.html',
+        'body-template': '',
         'icon-class': 'bo-info',
         'position-class': 'bo-bottom-left',
         'title-class': 'bo-title',
         'message-class': 'bo-message'
     })
 
-    bo.directive('boContainer', ['$compile', '$timeout', '$sce', 'boConfig', 'bo', bodirective]);
+    bo.directive('boContainer', ['$compile', '$timeout', '$sce', 'boConfig', 'bo', boDirective]);
 
-    function boservice ($rootScope) {
+    function boService ($rootScope) {
         this.pop = function (type, title, body, timeout, bodyOutputType) {
-            this.page = {
+			this.page = {
                 type: type,
                 title: title,
                 body: body,
@@ -44,23 +45,23 @@
         };
     }
 
-    function bodirective ($compile, $timeout, $sce, boConfig, bo) {
-        return {
+    function boDirective ($compile, $timeout, $sce, boConfig, bo) {
+		return {
             replace: true,
             restrict: 'EA',
             link: linkFunction,
-            controller: ['$scope', '$element', '$attrs',boController ],
+            controller: ['$scope', '$element', '$attrs', boController],
             template:
-            '<div  id="bo-container" ng-class="config.position">' +
-            '<div ng-repeat="page in pages" class="bo" ng-class="page.type" ng-click="remove(page.id)" ng-mouseover="stopTimer(page)"  ng-mouseout="restartTimer(page)">' +
-            '<div ng-class="config.title">{{page.title}}</div>' +
-            '<div ng-class="config.message" ng-switch on="page.bodyOutputType">' +
-            '<div ng-switch-when="trustedHtml" ng-bind-html="page.html"></div>' +
-            '<div ng-switch-when="template"><div ng-include="page.bodyTemplate"></div></div>' +
-            '<div ng-switch-default >{{page.body}}</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>'
+				'<div id="bo-container" ng-class="config.position">' +
+				'  <div ng-repeat="page in pages" class="bo" ng-class="page.type" ng-click="remove(page.id)" ng-mouseover="stopTimer(page)"  ng-mouseout="restartTimer(page)">' +
+				'    <div ng-class="config.title">{{page.title}}</div>' +
+				'      <div ng-class="config.message" ng-switch on="page.bodyOutputType">' +
+				'      <div ng-switch-when="trustedHtml" ng-bind-html="page.html"></div>' +
+				'      <div ng-switch-when="template"><div ng-include="page.bodyTemplate"></div></div>' +
+				'      <div ng-switch-default >{{page.body}}</div>' +
+				'    </div>' +
+				'  </div>' +
+				'</div>'
         };
 
         function linkFunction (scope, elm, attrs) {
@@ -86,7 +87,7 @@
             };
 
             function addPage(page) {
-                page.type = mergedConfig['icon-classes'][page.type];
+				page.type = mergedConfig['icon-classes'][page.type];
                 if (!page.type)
                     page.type = mergedConfig['icon-class'];
 
@@ -94,7 +95,8 @@
                 angular.extend(page, { id: id });
 
                 // Set the page.bodyOutputType to the default if it isn't set
-                page.bodyOutputType = page.bodyOutputType || mergedConfig['body-output-type']
+                page.bodyOutputType = page.bodyOutputType || mergedConfig['body-output-type'];
+
                 switch (page.bodyOutputType) {
                     case 'trustedHtml':
                         page.html = $sce.trustAsHtml(page.body);
@@ -104,7 +106,7 @@
                         break;
                 }
 
-                scope.configureTimer(page);
+				scope.configureTimer(page);
 
                 if (mergedConfig['newest-on-top'] === true) {
                     scope.pages.unshift(page);

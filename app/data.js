@@ -1,14 +1,15 @@
 (function() {
     'use strict';
 
-    angular.module('boApp').factory("Data", ['$http', 'bo',connect]);
+    angular.module('boApp').factory("Data", ['$http', 'bo', connect]);
 
     function connect($http, bo) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
-        var json = 'http://ipv4.myexternalip.com/json';
+        var ipUrl = 'http://ipv4.myexternalip.com/json';
 
         var obj = {};
+
         obj.page = function (data) {
             bo.pop(data.status, "", data.message, 10000, 'trustedHtml');
         }
@@ -18,7 +19,7 @@
             });
         };
         obj.getIp = function () {
-            return $http.get(json).then(function (results) {
+            return $http.get(ipUrl).then(function (results) {
                 return results.data;
             });
         };

@@ -6,9 +6,9 @@
 
     angular
         .module('boApp')
-        .factory('authService',['$rootScope','$route','$location','Data', authService]);
+        .factory('authService', ['$rootScope', '$route', '$location', 'Data', authService]);
 
-    function authService($rootScope,$route,$location,Data) {
+    function authService($rootScope, $route, $location, Data) {
         return {
             login: login,
             logout : logout,
@@ -33,7 +33,6 @@
 
         function logout(){
             Data.get('logout').then(function (results) {
-
                 Data.page(results);
                 Data.get('session').then(function (results) {
                     if (!results.user) {
