@@ -40,7 +40,7 @@
 
     }
 
-    function runRouteProvider ( $rootScope, $location, $log,  Data, authService) {
+    function runRouteProvider ( $rootScope,  $log,   authService) {
 
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;

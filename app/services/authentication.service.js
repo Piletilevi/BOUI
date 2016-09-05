@@ -8,9 +8,9 @@
         .module('boApp')
         .factory('authService', authService);
 
-    authService.$inject = ['$rootScope', '$route', '$location', 'Data'];
+    authService.$inject = ['$rootScope', '$route', '$location', 'dataService'];
 
-    function authService($rootScope, $route, $location, Data) {
+    function authService($rootScope, $route, $location, dataService) {
         var service = {
             login: login,
             logout : logout,
@@ -19,11 +19,11 @@
         };
         return service;
         function login (customer) {
-			Data.getIp().then(function(result) {
+			dataService.getIp().then(function(result) {
 				customer['clientip'] = result.ip;
-				Data.post('login', {customer: customer})
+				dataService.post('login', {customer: customer})
 					.then(function (results) {
-						Data.page(results);
+						dataService.page(results);
 						if (results.status == "success") {
 							$location.path('dashboard');
 						}
@@ -35,9 +35,9 @@
         }
 
         function logout(){
-            Data.get('logout').then(function (results) {
-                Data.page(results);
-                Data.get('session').then(function (results) {
+            dataService.get('logout').then(function (results) {
+                dataService.page(results);
+                dataService.get('session').then(function (results) {
                     if (!results.user) {
                         $rootScope.user = null;
                         $rootScope.authenticated = false;
@@ -48,11 +48,11 @@
         }
 
 		function verifySession(){
-            Data.post('verifySessionKey',{ "sessionkey" : searchkey }).then(function(results){
-                Data.page(results);
+            dataService.post('verifySessionKey',{ "sessionkey" : searchkey }).then(function(results){
+                dataService.page(results);
                 console.log(results);
                 if (results.status == "success"){
-                    Data.get('session').then(function (results) {
+                    dataService.get('session').then(function (results) {
                         if (results.user) {
                             $rootScope.authenticated = true;
                             $rootScope.user = results.user;
@@ -64,7 +64,7 @@
 
         }
         function checkUserAuth(next){
-            Data.get('session').then(function (results) {
+            dataService.get('session').then(function (results) {
                 if (results.user) {
                     $rootScope.authenticated = true;
                     $rootScope.user = results.user;

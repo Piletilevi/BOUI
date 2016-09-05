@@ -22,7 +22,7 @@ $app->get('/bourl', function() use ($app) {
     $piletileviApi = $app->container->get("piletileviApi");
     $urlReq = $piletileviApi->boUrl();
     if ($urlReq){
-		$response['status'] = "succcess";
+		$response['status'] = "success";
 		$response['message'] = 'BO URL retrieved';
 		$response['bobaseurl'] = $urlReq;
     }else {

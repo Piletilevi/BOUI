@@ -13,10 +13,10 @@
 
     angular.module('boApp').run(runApp);
 
-    function runApp( $rootScope,$translate,$window,Data,authService){
+    function runApp( $rootScope,$window,dataService,authService,translationService){
         $rootScope.isTranslated = false;
 
-        $rootScope.setLangValue = setLangValue;
+        $rootScope.setLangValue = translationService.setLangValue;
         $rootScope.toOldBO = toOldBo;
         $rootScope.logout =  authService.logout;
 
@@ -26,40 +26,22 @@
             $rootScope.isTranslated = true;
         });
 
-        Data.get('sessionlang').then(function (results) {
-            if (results.lang) {
-				$rootScope.setLangValue(results.lang);
-			}
-        });
+        translationService.sessionLanguage();
+        translationService.getLanguages();
 
-        if (!$rootScope.languages) {
-            getLanguages(Data,$rootScope);
-		}
-
-        function getbourl(){
-            return Data.get('bourl').then(function(results){
-                if (results.status === "succcess"){
-                    return results.bobaseurl;
-                } else {
-					return "";
-				}
-            });
-        }
-
-		function setLangValue(lang){
-            if (lang !== $rootScope.language) {
-                $translate.use(lang.code);
-                $rootScope.language = lang;
-                Data.post('setlanguage', {'lang': lang });
-            }
-        };
-        
 		function toOldBo (){
-            var bobasicurl = getbourl();
-            if ($rootScope.authenticated  ){
-                Data.getIp().then(function(result) {
+            var bobasicurl = '';
+            dataService.getBoUrl().then(function(results){
+                if (results.status === "success") {
+                    bobasicurl = results.bobaseurl;
+                }
+                else  bobasicurl = '';
+            });
 
-                    Data.post('getSessionKey',{'username':$rootScope.user.userId,'clientip':result.ip}).then(function (results) {
+            if ($rootScope.authenticated  ){
+                dataService.getIp().then(function(result) {
+
+                    dataService.post('getSessionKey',{'username':$rootScope.user.userId,'clientip':result.ip}).then(function (results) {
                         if (results.status === "success") {
                             var bourl = bobasicurl.replace("{sessionkey}", results.boSession.sessionkey);
                             $window.location.href = bourl;
@@ -73,15 +55,7 @@
 
         }
 
-        function getLanguages(Data, $rootScope) {
-            Data.get('languages').then(function (results) {
-                if (results.status === "success") {
-                    $rootScope.languages = results.languages;
-                    if (!$rootScope.language)
-                        $rootScope.setLangValue(results.languages[0]);
-                }
-            });
-        }
+
 
     }
 })();

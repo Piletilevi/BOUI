@@ -1,9 +1,10 @@
 (function() {
     'use strict';
 
-    angular.module('boApp').factory("Data", connect);
-    Data.$inject = ['$http', 'bo'];
-    function connect($http, bo) { // This service connects to our REST API
+    angular.module('boApp')
+        .factory("dataService", dataService);
+    dataService.$inject = ['$http','bo'];
+    function dataService($http, bo) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
         var ipUrl = 'http://ipv4.myexternalip.com/json';
@@ -12,6 +13,7 @@
             page:page,
             get:get,
             getIp:getIp,
+            getBoUrl:getBoUrl,
             post:post,
             put:put,
             delete:del
@@ -33,6 +35,17 @@
                 return results.data;
             });
         };
+        function getBoUrl () {
+            return $http.get(serviceBase + 'bourl').then(function(results){
+                return results.data;
+                /*if (results.data.status === "succcess"){
+                    console.log(results.data.bobaseurl);
+                    return results.data.bobaseurl;
+                } else {
+                    return "";
+                }*/
+            });
+        }
         function post (q, object) {
             return $http.post(serviceBase + q, object).then(function (results) {
                 return results.data;

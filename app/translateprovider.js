@@ -14,11 +14,11 @@
 
 
     }
-    function customLoader ($q, Data ) {
+    function customLoader ($q, dataService ) {
 
         return function (options) {
             var deferred = $q.defer(), translations;
-            Data.post('translations', {'languageId': options.key}).then(function (results) {
+            dataService.post('translations', {'languageId': options.key}).then(function (results) {
                 translations = results.translations;
                 deferred.resolve(translations);
 
