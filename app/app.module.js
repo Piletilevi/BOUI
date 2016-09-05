@@ -12,30 +12,23 @@
     ]);
 
     angular.module('boApp').run(runApp);
-
+    runApp.$inject = ['$rootScope','$window','dataService','authService','translationService'];
     function runApp( $rootScope,$window,dataService,authService,translationService){
         $rootScope.isTranslated = false;
-
-        $rootScope.setLangValue = translationService.setLangValue;
         $rootScope.toOldBO = toOldBo;
-        $rootScope.logout =  authService.logout;
-
-
-
+        authService.initialize();
+        translationService.initialize();
         $rootScope.$on('$translateChangeSuccess', function () {
             $rootScope.isTranslated = true;
         });
 
-        translationService.sessionLanguage();
-        translationService.getLanguages();
-
 		function toOldBo (){
-            var bobasicurl = '';
+            var boBasicUrl = '';
             dataService.getBoUrl().then(function(results){
                 if (results.status === "success") {
-                    bobasicurl = results.bobaseurl;
+                    boBasicUrl = results.boBaseUrl;
                 }
-                else  bobasicurl = '';
+                else  boBasicUrl = '';
             });
 
             if ($rootScope.authenticated  ){
@@ -43,7 +36,7 @@
 
                     dataService.post('getSessionKey',{'username':$rootScope.user.userId,'clientip':result.ip}).then(function (results) {
                         if (results.status === "success") {
-                            var bourl = bobasicurl.replace("{sessionkey}", results.boSession.sessionkey);
+                            var bourl = boBasicUrl.replace("{sessionkey}", results.boSession.sessionkey);
                             $window.location.href = bourl;
                         }
                     });

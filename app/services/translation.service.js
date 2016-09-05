@@ -11,6 +11,7 @@
 
     function translationService($rootScope,$translate,dataService) {
         var service = {
+            initialize : initialize,
             sessionLanguage : sessionLanguage,
             getLanguages : getLanguages,
             setLangValue : setLangValue
@@ -18,7 +19,7 @@
         return service;
 
         function sessionLanguage() {
-            dataService.get('sessionlang').then(function (results) {
+            dataService.get('sessionLang').then(function (results) {
                 if (results.lang) {
                     $rootScope.setLangValue(results.lang);
                 }
@@ -40,9 +41,16 @@
             if (lang !== $rootScope.language) {
                 $translate.use(lang.code);
                 $rootScope.language = lang;
-                dataService.post('setlanguage', {'lang': lang });
+                dataService.post('setLanguage', {'lang': lang });
             }
         };
+
+        function initialize(){
+            $rootScope.setLangValue = setLangValue;
+            sessionLanguage();
+            getLanguages();
+
+        }
     }
 
 })();

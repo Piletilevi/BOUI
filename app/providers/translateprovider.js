@@ -2,7 +2,7 @@
     'use strict';
     angular.module('boApp').config(['$translateProvider', translateProvider]);
     angular.module('boApp').factory('customLoader', customLoader);
-
+    translateProvider.$inject=['$translateProvider'];
     function translateProvider($translateProvider) {
         $translateProvider.preferredLanguage('ENG');
         $translateProvider.useSanitizeValueStrategy('escape');
@@ -14,6 +14,7 @@
 
 
     }
+    customLoader.$inject=['$q','dataService'];
     function customLoader ($q, dataService ) {
 
         return function (options) {

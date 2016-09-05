@@ -10,13 +10,13 @@
         var ipUrl = 'http://ipv4.myexternalip.com/json';
 
         var service ={
-            page:page,
-            get:get,
-            getIp:getIp,
-            getBoUrl:getBoUrl,
-            post:post,
-            put:put,
-            delete:del
+            page : page,
+            get : get,
+            getIp : getIp,
+            getBoUrl : getBoUrl,
+            post : post,
+            put : put,
+            delete : del
         };
         return service;
 
@@ -36,7 +36,7 @@
             });
         };
         function getBoUrl () {
-            return $http.get(serviceBase + 'bourl').then(function(results){
+            return $http.get(serviceBase + 'boUrl').then(function(results){
                 return results.data;
                 /*if (results.data.status === "succcess"){
                     console.log(results.data.bobaseurl);

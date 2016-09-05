@@ -9,7 +9,7 @@ $app->get('/session', function() use ($app) {
 	$dataHandler->response(200, $response);
 });
 
-$app->get('/sessionlang', function() use ($app) {
+$app->get('/sessionLang', function() use ($app) {
     $sessionHandler = $app->container->get("piletileviSessionHandler");
     $session = $sessionHandler->getSession();
     $response["lang"] = $session["lang"];
@@ -18,13 +18,13 @@ $app->get('/sessionlang', function() use ($app) {
 	$dataHandler->response(200, $response);
 });
 
-$app->get('/bourl', function() use ($app) {
+$app->get('/boUrl', function() use ($app) {
     $piletileviApi = $app->container->get("piletileviApi");
     $urlReq = $piletileviApi->boUrl();
     if ($urlReq){
 		$response['status'] = "success";
 		$response['message'] = 'BO URL retrieved';
-		$response['bobaseurl'] = $urlReq;
+		$response['boBaseUrl'] = $urlReq;
     }else {
         $response['status'] = "error";
         $response['message'] = 'No BO url defined ';
@@ -63,7 +63,7 @@ $app->post('/getSessionKey', function() use ($app) {
 	$dataHandler->response(200, $response);
 });
 
-$app->post('/setlanguage', function() use ($app) {
+$app->post('/setLanguage', function() use ($app) {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 

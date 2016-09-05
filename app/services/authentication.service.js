@@ -12,10 +12,11 @@
 
     function authService($rootScope, $route, $location, dataService) {
         var service = {
-            login: login,
+            initialize : initialize,
+            login : login,
             logout : logout,
             verifySession : verifySession,
-            checkUserAuth: checkUserAuth
+            checkUserAuth : checkUserAuth
         };
         return service;
         function login (customer) {
@@ -76,7 +77,7 @@
                     if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
                         var searchkey =  $location.search().key;
                         $location.search('key', null);
-                        authService.verifySession(searchkey);
+                        verifySession(searchkey);
                     }
                     var nextUrl = next.$$route.originalPath;
                     if (nextUrl == '/login') {
@@ -85,6 +86,9 @@
                     }
                 }
             });
+        }
+        function initialize(){
+            $rootScope.logout = logout;
         }
     }
 
