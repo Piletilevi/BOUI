@@ -48,7 +48,8 @@
             });
         }
 
-		function verifySession(){
+		function verifySession(searchkey){
+
             dataService.post('verifySessionKey',{ "sessionkey" : searchkey }).then(function(results){
                 dataService.page(results);
                 console.log(results);
