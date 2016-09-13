@@ -24,7 +24,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown" ng-if="authenticated && !user.salesPoints[1]">
+                        <li class="dropdown" ng-if="authenticated && user.salesPoints[1]">
                             <button class="btn btn-inverse dropdown-toggle office_dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 {{getPointName()}}
                                 <span class="caret"></span>
@@ -33,7 +33,7 @@
                                 <li ng-repeat="point in user.salesPoints" ng-click="setPoint(point.id)"><a href>{{point.name}}</a></li>
                             </ul>
                         </li>
-                        <li class="" ng-if="authenticated && user.salesPoints[1] ">
+                        <li class="" ng-if="authenticated && !user.salesPoints[1] ">
                             <a class="not-clickable" href><span class="hidden-sm"  >
                                 {{getPointName()}}
                             </span></a>
