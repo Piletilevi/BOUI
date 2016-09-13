@@ -147,9 +147,13 @@
     }
 }
 
- .forceShow {
+.forceShow {
      visibility: visible !important;
- }
+}
 .translate-cloak {
     display: none;
+}
+.nav > li > a.not-clickable,.nav > li > a.not-clickable:hover{
+    cursor:default;
+    color: #fff !important;
 }

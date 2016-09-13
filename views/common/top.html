@@ -24,14 +24,19 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown" ng-if="authenticated">
+                        <li class="dropdown" ng-if="authenticated && !user.salesPoints[1]">
                             <button class="btn btn-inverse dropdown-toggle office_dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Piletilevi office
+                                {{getPointName()}}
                                 <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a href>Piletilevi office</a></li>
+                            <ul class="dropdown-menu" >
+                                <li ng-repeat="point in user.salesPoints" ng-click="setPoint(point.id)"><a href>{{point.name}}</a></li>
                             </ul>
+                        </li>
+                        <li class="" ng-if="authenticated && user.salesPoints[1] ">
+                            <a class="not-clickable" href><span class="hidden-sm"  >
+                                {{getPointName()}}
+                            </span></a>
                         </li>
                         <li ng-if="authenticated"><a href><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <span class="visible-xs-inline">Messages</span></a></li>
                         <li class="dropdown" ng-if="authenticated">

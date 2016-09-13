@@ -70,6 +70,7 @@
                 if (results.user) {
                     $rootScope.authenticated = true;
                     $rootScope.user = results.user;
+                    console.log($rootScope.user);
                     if (typeof($location.search().key) !== 'undefined') {
                         $location.path('dashboard');
                         $location.search('key', null);

@@ -83,6 +83,26 @@ $app->post('/setLanguage', function() use ($app) {
 
 	$dataHandler->response(200, $response);
 });
+$app->post('/setPoint', function() use ($app) {
+    $dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+    $dataHandler->verifyParams(array('pointId'), $r);
+
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    if (!empty($r) ){
+        $_SESSION['user']->point = $r->pointId;
+        $response['status'] = "success";
+        $response['message'] = 'Point set successfully.';
+    } else {
+        $response['status'] = "failure";
+        $response['message'] = 'Point set unsuccessfully.';
+    }
+
+    $dataHandler->response(200, $response);
+});
 
 $app->post('/verifySessionKey', function() use ($app) {
 	$dataHandler = $app->container->get("dataHandler");

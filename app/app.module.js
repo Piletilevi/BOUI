@@ -16,6 +16,8 @@
     function runApp( $rootScope,$window,dataService,authService,translationService){
 
         $rootScope.toOldBO = toOldBo;
+        $rootScope.getPointName = getPointName;
+        $rootScope.setPoint = setPoint;
 
         authService.initialize();
         translationService.initialize();
@@ -25,16 +27,27 @@
             $rootScope.isTranslated = true;
         });
 
-		function toOldBo(){
+        function findPoint(point) {
+            return point.id === $rootScope.user.point;
+        }
+
+        function getPointName(){
+            return $rootScope.user.salesPoints.find(findPoint).name
+        }
+        function setPoint(pointId){
+            $rootScope.user.point= pointId;
+            dataService.post('setPoint', {'pointId': pointId });
+        }
+		function toOldBo() {
             var boBasicUrl = '';
-            dataService.getBoUrl().then(function(results){
+            dataService.getBoUrl().then(function(results) {
                 if (results.status === "success") {
                     boBasicUrl = results.boBaseUrl;
                 }
                 else  boBasicUrl = '';
             });
 
-            if ($rootScope.authenticated  ){
+            if ($rootScope.authenticated) {
                 dataService.getIp().then(function(result) {
                     dataService.post('getSessionKey',{'username':$rootScope.user.userId,'clientip':result.ip}).then(function (results) {
                         if (results.status === "success") {
