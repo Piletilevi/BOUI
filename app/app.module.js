@@ -18,6 +18,9 @@
         $rootScope.toOldBO = toOldBo;
         $rootScope.getPointName = getPointName;
         $rootScope.setPoint = setPoint;
+        $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor;
+        $rootScope.pointMenuActiveColor = getPointMenuActiveColor;
+		
 
         authService.initialize();
         translationService.initialize();
@@ -34,10 +37,53 @@
         function getPointName(){
             return $rootScope.user.salesPoints.find(findPoint).name
         }
+
         function setPoint(pointId){
             $rootScope.user.point= pointId;
             dataService.post('setPoint', {'pointId': pointId });
         }
+
+        function getPointMenuBackgroundColor(){
+			var settings = getPointSettings();
+			if (settings != null) {
+				var setting = settings.find(getPointTopMenuBackgroundColorSetting);
+				if (setting != null) {
+					return setting.value;
+				}
+			}
+			return "";
+        }
+
+        function getPointMenuActiveColor(){
+			var settings = getPointSettings();
+			if (settings != null) {
+				var setting = settings.find(getPointTopMenuColorSetting);
+				if (setting != null) {
+					return setting.value;
+				}
+			}
+			return "";
+        }
+		
+        function getPointTopMenuBackgroundColorSetting(setting) {
+            if (setting != null) {
+				return setting.name === "api_topmenu_background";
+            }
+			return;
+        }
+
+        function getPointTopMenuColorSetting(setting) {
+            if (setting != null) {
+				return setting.name === "api_topmenu_color";
+            }
+			return;
+        }
+
+		function getPointSettings() {
+			var parameters = $rootScope.user.salesPoints.find(findPoint).parameters;
+			return parameters;
+        }
+
 		function toOldBo() {
             var boBasicUrl = '';
             dataService.getBoUrl().then(function(results) {
@@ -60,7 +106,6 @@
                 });
 
             }
-
         }
     }
 })();
