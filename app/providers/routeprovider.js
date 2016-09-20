@@ -8,13 +8,19 @@
     routeProvider.$inject=['$routeProvider'];
     function routeProvider($routeProvider) {
 
-        $routeProvider.
-        when('/login', {
-            title: 'Login',
-            templateUrl: 'views/login.html',
-            controller: 'MainController',
-            controllerAs: 'vm'
-        })
+        $routeProvider
+            .when('/login', {
+                title: 'Login',
+                templateUrl: 'views/login.html',
+                controller: 'MainController',
+                controllerAs: 'vm'
+            })
+            .when('/changepassword', {
+                title: 'Login',
+                templateUrl: 'views/change_password.html',
+                controller: 'MainController',
+                controllerAs: 'vm'
+            })
             .when('/logout', {
                 title: 'Logout',
                 templateUrl: 'views/login.html',
@@ -35,7 +41,7 @@
                 role: '0'
             })
             .otherwise({
-                redirectTo: '/login'
+               // redirectTo: '/login'
             });
 
     }

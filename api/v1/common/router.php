@@ -134,34 +134,60 @@ $app->post('/verifySessionKey', function() use ($app) {
 });
 
 $app->post('/login', function() use ($app) {
-	$dataHandler = $app->container->get("dataHandler");
-	$r = json_decode($app->request->getBody());
-	
-	$dataHandler->verifyParams(array('username', 'password', 'clientip'), $r->customer);
+    $dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+    $dataHandler->verifyParams(array('username', 'password', 'clientip'), $r->customer);
 
     $username = $r->customer->username;
-	$password = $r->customer->password;
-	$clientip = $r->customer->clientip;
-	
-	$piletileviApi = $app->container->get("piletileviApi");
-	$userData = $piletileviApi->login($username, $password, $clientip);
+    $password = $r->customer->password;
+    $clientip = $r->customer->clientip;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $userData = $piletileviApi->login($username, $password, $clientip);
 
     if ($userData && $userData->valid == "true" && $userData->user) {
-		$response['status'] = "success";
+        $response['status'] = "success";
         $response['message'] = 'Logged in successfully.';
-		
+
         $response['user'] = $userData->user;
 
-		if (!isset($_SESSION)) {
+        if (!isset($_SESSION)) {
             session_start();
         }
         $_SESSION['user'] = $userData->user;
     } else {
-		$response['status'] = "error";
-		$response['message'] = 'No such user is registered';
-	}
+        $response['status'] = "error";
+        $response['message'] = 'No such user is registered';
+    }
 
-	$dataHandler->response(200, $response);
+    $dataHandler->response(200, $response);
+});
+$app->post('/changePassword', function() use ($app) {
+    $dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+    $dataHandler->verifyParams(array('oldPassword', 'newPassword'), $r->passwordSet);
+
+    $oldPassword = $r->passwordSet->oldPassword;
+    $newPassword = $r->passwordSet->newPassword;
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    $piletileviApi = $app->container->get("piletileviApi");
+    $data = $piletileviApi->changePassword( $oldPassword, $newPassword, $_SESSION['user']->userId);
+    $app->log->debug( print_r($data,true) );
+    $app->log->debug( print_r($data->data->success,true) );
+    if ($data && $data->data->success == "true" ) {
+        $response['status'] = "success";
+        $response['message'] = 'Password changed successfully.';
+
+    } else {
+        $response['status'] = "error";
+        $response['message'] = 'Password change failed';
+    }
+
+    $dataHandler->response(200, $response);
 });
 
 $app->get('/logout', function() use ($app) {

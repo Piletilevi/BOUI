@@ -8,18 +8,21 @@
         'ngSanitize',
         'bo',
         'ngCookies',
-        'pascalprecht.translate'
+        'pascalprecht.translate',
+        'ui.validate'
+
     ]);
 
     angular.module('boApp').run(runApp);
-    runApp.$inject = ['$rootScope','$window','dataService','authService','translationService'];
-    function runApp( $rootScope,$window,dataService,authService,translationService){
+    runApp.$inject = ['$rootScope','$window','dataService','$location','authService','translationService'];
+    function runApp( $rootScope,$window,dataService,$location,authService,translationService){
 
         $rootScope.toOldBO = toOldBo;
         $rootScope.getPointName = getPointName;
         $rootScope.setPoint = setPoint;
         $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor;
         $rootScope.pointMenuActiveColor = getPointMenuActiveColor;
+        $rootScope.toChangePassword = toChangePassword;
 		
 
         authService.initialize();
@@ -29,7 +32,9 @@
         $rootScope.$on('$translateChangeSuccess', function () {
             $rootScope.isTranslated = true;
         });
-
+        function toChangePassword(){
+            $location.path("/changepassword");
+        }
         function findPoint(point) {
             return point.id === $rootScope.user.point;
         }

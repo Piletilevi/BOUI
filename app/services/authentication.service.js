@@ -16,7 +16,8 @@
             login : login,
             logout : logout,
             verifySession : verifySession,
-            checkUserAuth : checkUserAuth
+            checkUserAuth : checkUserAuth,
+            changePassword : changePassword
         };
         return service;
         function login (customer) {
@@ -88,6 +89,16 @@
                     }
                 }
             });
+        }
+        function changePassword(change) {
+            dataService.post('changePassword', {passwordSet: change})
+                .then(function (results) {
+                    dataService.page(results);
+                    if (results.status == "success") {
+                        $location.path('dashboard');
+                    }
+                });
+
         }
         function initialize(){
             $rootScope.logout = logout;

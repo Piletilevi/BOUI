@@ -26,21 +26,37 @@ class PiletileviApi {
 
 		return self::$piletileviApi; 	
 	}
+	public function getSessionKey($username, $remoteip, $langid){
+		$data['filter']= array ('username'=>$username,
+			'remoteip' => $remoteip,
+			'langId' => $langid);
+		$data['userid']= $username;
+		return $this->send("/user/getSessionKey",$data);
+	}
 
+	public function changePassword($oldPassword, $newPassword, $username) {
+
+		$data['filter']= array ('oldPassword'=>$oldPassword,
+			'newPassword' => $newPassword);
+		$data['userid']= $username;
+		return $this->send("/user/changePassword",$data);
+
+	}
 	public function login($username, $password, $remoteip) {
 
 		$data = array("username" => $username,
 			"password" => $password,
 			"remoteip" => $remoteip );
 
-		return $this->send( "/user/login", $data );
+		return $this->send( "/authentication/login", $data );
 	}
+
 
 	public function verifySessionKey($sessionkey) {
 
 		$data= array ('sessionkey' => $sessionkey);
 
-		return $this->send("/user/verifySessionKey",$data);
+		return $this->send("/authentication/verifySessionKey",$data);
 	}
 	
 	public function languages() {
@@ -74,13 +90,7 @@ class PiletileviApi {
 		return $translations;
 	}
 	
-	public function getSessionKey($username, $remoteip, $langid){
-		$data['filter']= array ('username'=>$username,
-			'remoteip' => $remoteip,
-			'langId' => $langid);
-		$data['userid']= $username;
-		return $this->send("/session/getSessionKey",$data);
-	}
+
 
 	/**
 	 * @param $url
