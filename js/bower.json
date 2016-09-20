@@ -1,0 +1,24 @@
+{
+  "name": "project-depenencies",
+  "homepage": "https://github.com/Piletilevi/BOUI",
+  "authors": [
+    "Kaur Pääro <kaur@helmes.ee>"
+  ],
+  "description": "project angular package",
+  "main": "angular",
+  "keywords": [
+    "angular",
+    "depenedecies"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular-animate": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angular-translate-storage-local": "^2.11.1",
+    "angular-sanitize": "^1.5.8",
+    "angular-ui-validate": "^1.2.2",
+    "angular": "^1.5.8",
+    "jquery": "1.11.3",
+    "bootstrap": "3.3.6"
+  }
+}
