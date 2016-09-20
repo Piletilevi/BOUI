@@ -20,6 +20,9 @@
             changePassword : changePassword
         };
         return service;
+        function initialize(){
+
+        }
         function login (customer) {
 			dataService.getIp().then(function(result) {
 				customer['clientip'] = result.ip;
@@ -100,9 +103,7 @@
                 });
 
         }
-        function initialize(){
-            $rootScope.logout = logout;
-        }
+
     }
 
 })();

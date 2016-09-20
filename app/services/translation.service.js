@@ -46,9 +46,15 @@
         };
 
         function initialize(){
+
             $rootScope.setLangValue = setLangValue;
             sessionLanguage();
             getLanguages();
+
+            $rootScope.isTranslated = false;
+            $rootScope.$on('$translateChangeSuccess', function () {
+                $rootScope.isTranslated = true;
+            });
 
         }
     }
