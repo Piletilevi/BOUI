@@ -1,205 +1,212 @@
-<div class="row">
-	<div class="col-md-3 left_column">
-		<div id="filter" class="collapse">
+<div class="col-md-3 bo-left-column">
+	<div class="visible-lg bo-hidden-label">&nbsp;</div>
+	<div class="panel panel-default collapse bo-left-filter">
+		<div class="panel-body">
 			<h2>Filtration data</h2>
 			<form>
 				<div class="form-group">
-					<select class="form-control">
+					<select class="selectpicker bo-wide-select">
 						<option>Venue</option>
+						<option>Ketchup</option>
+						<option>Relish</option>
+					</select>
+					<select class="selectpicker bo-wide-select">
+						<option>Venue</option>
+						<option>Ketchup</option>
+						<option>Relish</option>
 					</select>
 				</div>
 				<div class="form-group">
-					<select class="form-control">
-						<option>Land center - All</option>
-					</select>
+					<div class="bo-nice-checkbox">
+						<div>
+							<div>
+								<div class="checkbox">
+									<input type="checkbox" id="checkbox1">
+									<label for="checkbox1"></label>
+								</div>
+							</div>
+						</div>
+						<label for="checkbox1" class="bo-nice-label">Sales</label>
+					</div>
+					<div class="bo-nice-checkbox">
+						<div>
+							<div>
+								<div class="checkbox">
+									<input type="checkbox" id="checkbox2">
+									<label for="checkbox2"></label>
+								</div>
+							</div>
+						</div>
+						<label for="checkbox2" class="bo-nice-label">Sales</label>
+					</div>
+					<div class="bo-nice-checkbox">
+						<div>
+							<div>
+								<div class="checkbox">
+									<input type="checkbox" id="checkbox3">
+									<label for="checkbox3"></label>
+								</div>
+							</div>
+						</div>
+						<label for="checkbox3" class="bo-nice-label">Sales</label>
+					</div>
 				</div>
+				<h3>Advertisment</h3>
 				<div class="form-group">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" value="">
-							Sales
-						</label>
+					<div class="bo-nice-checkbox">
+						<div>
+							<div>
+								<div class="checkbox">
+									<input type="checkbox" id="checkbox11">
+									<label for="checkbox11"></label>
+								</div>
+							</div>
+						</div>
+						<label for="checkbox11" class="bo-nice-label">Sales</label>
 					</div>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" value="">
-							Reserved
-						</label>
+					<div class="bo-nice-checkbox">
+						<div>
+							<div>
+								<div class="checkbox">
+									<input type="checkbox" id="checkbox21">
+									<label for="checkbox21"></label>
+								</div>
+							</div>
+						</div>
+						<label for="checkbox21" class="bo-nice-label">Sales</label>
 					</div>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" value="">
-							Issued to promoter
-						</label>
-					</div>
-				</div>
-				<div class="form-group">
-					<label>Advertisement</label>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" value="">
-							Website Banners
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" value="">
-							Newsletter
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" value="">
-							Facebook
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" value="">
-							Adwords
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" value="">
-							Retargeting
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" value="">
-							Event page visits
-						</label>
+					<div class="bo-nice-checkbox">
+						<div>
+							<div>
+								<div class="checkbox">
+									<input type="checkbox" id="checkbox31">
+									<label for="checkbox31"></label>
+								</div>
+							</div>
+						</div>
+						<label for="checkbox31" class="bo-nice-label">Sales</label>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
-	<div class="col-md-9">
-		<div class="row">
-			<div class="col-xs-8 col-sm-12 col-md-4">
-				<h1>REPORTS</h1>
-			</div>
-			<div class="col-xs-4 col-sm-2 visible-xs visible-sm">
-				<div class="visible-xs">&nbsp;</div>
-				<button type="button" class="collapsed btn" data-toggle="collapse" data-target="#filter" aria-expanded="false">
-					<span class="glyphicon glyphicon-filter"></span>
-					Filter
-				</button>
-			</div>
-			<div class="col-xs-12 col-sm-5 col-md-3">
-				<div class="visible-lg visible-md">&nbsp;</div>
-				<form class="form-block">
-					<div class="form-group">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search for your event or show">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-							</span>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="col-xs-12 col-sm-5 col-sm-5">
-				<div class="visible-md">&nbsp;</div>
-				<div class="row">
-					<div class="col-sm-6 visible-lg">Sales period:</div>
-					<div class="col-sm-6  text-right visible-lg">
-						<a class="print_button" onclick="window.print();">Print</a> | <a href="">Email</a> |
-						<div class="dropdown inline_dropdown">
-							<span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Export <span class="caret"></span></span>
-							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle btn-block" type="button" id="dropdown_date1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						25.10.1985 00:00 - 25.10.2015 23:59
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdown_date1">
-						<li><a href="#">25.10.1985 00:00 - 25.10.2015 23:59</a></li>
-						<li><a href="#">25.10.1985 00:00 - 25.10.2015 23:59</a></li>
-					</ul>
-				</div>
-				<div class="visible-xs">&nbsp;</div>
+</div>
+<div class="col-md-9 bo-center-column">
+	<div class="row bo-filter-block">
+		<div class="col-xs-8 col-sm-12 col-md-4">
+			<div class="visible-lg bo-hidden-label">&nbsp;</div>
+			<h1>REPORTS</h1>
+		</div>
+		<div class="col-xs-4 col-sm-2 visible-xs visible-sm">
+			<button type="button" class="collapsed btn" data-toggle="collapse" data-target="#filter" aria-expanded="false">
+				<span class="glyphicon glyphicon-filter"></span>
+				Filter
+			</button>
+		</div>
+		<div class="col-xs-12 col-sm-5 col-md-4">
+			<div class="visible-lg bo-hidden-label">&nbsp;</div>
+			<div class="input-group input-group-lg">
+				<input type="text" class="form-control" placeholder="Search for your event or show">
+             <span class="input-group-btn">
+                 <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+             </span>
 			</div>
 		</div>
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-sm-9 col-lg-12">
-						<h3 class="event_title">Event title</h3>
-						<div class="event_date">15.08.1969 13:00</div>
-						<div class="event_place">Mills Industrial Park, Wallkill, NY</div>
-					</div>
-					<div class="col-sm-3  text-right hidden-lg links_block">
-						<a href="">Print</a> | <a href="">Email</a> |
-						<div class="dropdown inline_dropdown">
-							<span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Export <span class="caret"></span></span>
-							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-							</ul>
-						</div>
-					</div>
+		<div class="col-xs-12 col-sm-5 col-md-4">
+			<div class="visible-lg bo-hidden-label">Sales period:</div>
+			<div class="input-group data_range input-group-lg">
+				<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
+                  <span class="input-group-btn">
+                     <button class="btn btn-default" type="button">
+						 <i class="fa fa-calendar" aria-hidden="true"></i>
+					 </button>
+                  </span>
+			</div>
+			<div class="visible-xs">&nbsp;</div>
+		</div>
+	</div>
+	<div class="bo-event-share-block">
+		<i class="fa fa-print"></i><a onclick="window.print();">Print</a> |
+		<i class="fa fa-envelope"></i><a href="">Email</a> |
+		<i class="fa fa-share"></i><a href="">Export</a>
+																		  <!--<div class="dropdown inline_dropdown">-->
+																		  <!--<span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Export <span class="caret"></span></span>-->
+																		  <!--<ul class="dropdown-menu">-->
+																		  <!--<li><a href="#">Action</a></li>-->
+																		  <!--<li><a href="#">Another action</a></li>-->
+																		  <!--<li><a href="#">Something else here</a></li>-->
+																		  <!--<li role="separator" class="divider"></li>-->
+																		  <!--<li><a href="#">Separated link</a></li>-->
+																		  <!--</ul>-->
+																		  <!--</div>-->
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="">
+				<h3 class="bo-event-title">Event title</h3>
+				<div>
+					<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+					<div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
+				</div>
+				<div class="bo-event-place">
+					<i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY
 				</div>
 			</div>
 		</div>
-		<ul class="nav nav-tabs centered_tabs">
-			<li class="active"><a href="#">Overview</a></li>
-			<li><a href="#">By prices</a></li>
-			<li><a href="#">Sections</a></li>
-		</ul>
-		<div>Chart place</div>
-		<div class="row">
-			<div class="col-lg-6">
-				Chart2
+	</div>
+
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#">Overview</a></li>
+		<li><a href="#">By prices</a></li>
+		<li><a href="#">Sections</a></li>
+	</ul>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div>
+				<img class="temp_image" src="img/chart1.jpg" />
 			</div>
-			<div class="col-lg-6">
-				<table class="table table-condensed">
-				   <tbody>
-					<tr class="active">
-						<td></td>
-						<td>Tickets</td>
-						<td>%</td>
-						<td>Revenue</td>
-					</tr>
-					<tr>
-						<td>Generated</td>
-						<td>1050</td>
-						<td>100%</td>
-						<td>100,000 €</td>
-					</tr>
-					<tr>
-						<td>All sales</td>
-						<td>750</td>
-						<td>78%</td>
-						<td>75,000 €</td>
-					</tr>
-					<tr class="active text-danger">
-						<td>Refund</td>
-						<td>-100</td>
-						<td>11%</td>
-						<td>-11,000 €</td>
-					</tr>
-					<tr>
-						<td>-Client</td>
-						<td>-810</td>
-						<td>85%</td>
-						<td>-86,000 €</td>
-					</tr>
-				   </tbody>
-				</table>
+			<div class="row">
+				<div class="col-lg-6">
+					<img class="temp_image" src="img/chart2.jpg" />
+				</div>
+				<div class="col-lg-6">
+					<table class="table table-condensed bo-table">
+						<thead>
+						<tr>
+							<td></td>
+							<td>Tickets</td>
+							<td>%</td>
+							<td>Revenue</td>
+						</tr>
+						</thead>
+						<tbody>
+						<tr class="info">
+							<td>Generated</td>
+							<td>1050</td>
+							<td>100%</td>
+							<td>100,000 €</td>
+						</tr>
+						<tr>
+							<td>All sales</td>
+							<td>750</td>
+							<td>78%</td>
+							<td>75,000 €</td>
+						</tr>
+						<tr class="active text-danger">
+							<td>Refund</td>
+							<td>-100</td>
+							<td>11%</td>
+							<td>-11,000 €</td>
+						</tr>
+						<tr>
+							<td>-Client</td>
+							<td>-810</td>
+							<td>85%</td>
+							<td>-86,000 €</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
