@@ -41,7 +41,7 @@
                 role: '0'
             })
             .otherwise({
-               // redirectTo: '/login'
+                redirectTo: '/login'
             });
 
     }

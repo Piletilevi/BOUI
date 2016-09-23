@@ -17,14 +17,10 @@
     runApp.$inject = ['authService','translationService','pointService','menuService'];
     function runApp( authService,translationService,pointService,menuService){
 
-
-
         authService.initialize();
         translationService.initialize();
         pointService.initialize();
         menuService.initialize();
-
-
 
     }
 })();
