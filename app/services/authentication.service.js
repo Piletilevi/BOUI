@@ -70,14 +70,19 @@
 
         }
         function checkUserAuth(next){
+            console.log(next);
+            var nextUrl = next.$$route.originalPath;
             dataService.get('session').then(function (results) {
                 if (results.user) {
                     $rootScope.authenticated = true;
                     $rootScope.user = results.user;
                     console.log($rootScope.user);
                     if (typeof($location.search().key) !== 'undefined') {
-                        $location.path('dashboard');
+
                         $location.search('key', null);
+                    }
+                    if ( $rootScope.authenticated && nextUrl === "/" || nextUrl === '/login' ){
+                        $location.path('dashboard');
                     }
                 } else {
                     if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
@@ -85,7 +90,7 @@
                         $location.search('key', null);
                         verifySession(searchkey);
                     }
-                    var nextUrl = next.$$route.originalPath;
+
                     if (nextUrl == '/login') {
                     } else {
                         $location.path("/login");
