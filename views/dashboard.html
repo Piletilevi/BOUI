@@ -1,213 +1,333 @@
-<div class="col-md-3 bo-left-column">
-	<div class="visible-lg bo-hidden-label">&nbsp;</div>
-	<div class="panel panel-default collapse bo-left-filter">
-		<div class="panel-body">
-			<h2>Filtration data</h2>
-			<form>
-				<div class="form-group">
-					<select class="selectpicker bo-wide-select">
-						<option>Venue</option>
-						<option>Ketchup</option>
-						<option>Relish</option>
-					</select>
-					<select class="selectpicker bo-wide-select">
-						<option>Venue</option>
-						<option>Ketchup</option>
-						<option>Relish</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<div class="bo-nice-checkbox">
-						<div>
-							<div>
-								<div class="checkbox">
-									<input type="checkbox" id="checkbox1">
-									<label for="checkbox1"></label>
-								</div>
-							</div>
-						</div>
-						<label for="checkbox1" class="bo-nice-label">Sales</label>
-					</div>
-					<div class="bo-nice-checkbox">
-						<div>
-							<div>
-								<div class="checkbox">
-									<input type="checkbox" id="checkbox2">
-									<label for="checkbox2"></label>
-								</div>
-							</div>
-						</div>
-						<label for="checkbox2" class="bo-nice-label">Sales</label>
-					</div>
-					<div class="bo-nice-checkbox">
-						<div>
-							<div>
-								<div class="checkbox">
-									<input type="checkbox" id="checkbox3">
-									<label for="checkbox3"></label>
-								</div>
-							</div>
-						</div>
-						<label for="checkbox3" class="bo-nice-label">Sales</label>
-					</div>
-				</div>
-				<h3>Advertisment</h3>
-				<div class="form-group">
-					<div class="bo-nice-checkbox">
-						<div>
-							<div>
-								<div class="checkbox">
-									<input type="checkbox" id="checkbox11">
-									<label for="checkbox11"></label>
-								</div>
-							</div>
-						</div>
-						<label for="checkbox11" class="bo-nice-label">Sales</label>
-					</div>
-					<div class="bo-nice-checkbox">
-						<div>
-							<div>
-								<div class="checkbox">
-									<input type="checkbox" id="checkbox21">
-									<label for="checkbox21"></label>
-								</div>
-							</div>
-						</div>
-						<label for="checkbox21" class="bo-nice-label">Sales</label>
-					</div>
-					<div class="bo-nice-checkbox">
-						<div>
-							<div>
-								<div class="checkbox">
-									<input type="checkbox" id="checkbox31">
-									<label for="checkbox31"></label>
-								</div>
-							</div>
-						</div>
-						<label for="checkbox31" class="bo-nice-label">Sales</label>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<div class="col-md-9 bo-center-column">
-	<div class="row bo-filter-block">
-		<div class="col-xs-8 col-sm-12 col-md-4">
-			<div class="visible-lg bo-hidden-label">&nbsp;</div>
-			<h1>REPORTS</h1>
-		</div>
-		<div class="col-xs-4 col-sm-2 visible-xs visible-sm">
-			<button type="button" class="collapsed btn" data-toggle="collapse" data-target="#filter" aria-expanded="false">
-				<span class="glyphicon glyphicon-filter"></span>
-				Filter
-			</button>
-		</div>
-		<div class="col-xs-12 col-sm-5 col-md-4">
-			<div class="visible-lg bo-hidden-label">&nbsp;</div>
-			<div class="input-group input-group-lg">
-				<input type="text" class="form-control" placeholder="Search for your event or show">
-             <span class="input-group-btn">
-                 <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
-             </span>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-5 col-md-4">
-			<div class="visible-lg bo-hidden-label">Sales period:</div>
-			<div class="input-group data_range input-group-lg">
-				<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
-                  <span class="input-group-btn">
-                     <button class="btn btn-default" type="button">
-						 <i class="fa fa-calendar" aria-hidden="true"></i>
-					 </button>
-                  </span>
-			</div>
-			<div class="visible-xs">&nbsp;</div>
-		</div>
-	</div>
-	<div class="bo-event-share-block">
-		<i class="fa fa-print"></i><a onclick="window.print();">Print</a> |
-		<i class="fa fa-envelope"></i><a href="">Email</a> |
-		<i class="fa fa-share"></i><a href="">Export</a>
-																		  <!--<div class="dropdown inline_dropdown">-->
-																		  <!--<span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Export <span class="caret"></span></span>-->
-																		  <!--<ul class="dropdown-menu">-->
-																		  <!--<li><a href="#">Action</a></li>-->
-																		  <!--<li><a href="#">Another action</a></li>-->
-																		  <!--<li><a href="#">Something else here</a></li>-->
-																		  <!--<li role="separator" class="divider"></li>-->
-																		  <!--<li><a href="#">Separated link</a></li>-->
-																		  <!--</ul>-->
-																		  <!--</div>-->
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="">
-				<h3 class="bo-event-title">Event title</h3>
-				<div>
-					<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
-					<div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
-				</div>
-				<div class="bo-event-place">
-					<i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="container bo-main-block">
+    <div class="row">
+        <div class="col-md-3 col-md-push-9 bo-right-column">
+            <div class="panel panel-default bo-news">
+                <div class="panel-heading">
+                    <h2 class="hidden-xs">NEWS</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-11 col-sm-11 col-md-12">
+                            <h3 class="bo-news-title">Promoters news title</h3>
+                            <p class="hidden-xs">
+                                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id e
+                            </p>
+                            <a class="hidden-xs hidden-sm" href="">more</a>
+                            <div class="bo-news-date">01.01.1970 by Super Admin</div>
+                            <div class="visible-sm visible-xs bo-news-arrow">
+                                <a href=""><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default bo-news">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-11 col-sm-11 col-md-12">
+                            <h3 class="bo-news-title">Promoters news title</h3>
+                            <p class="hidden-xs">
+                                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id e
+                            </p>
+                            <a class="hidden-xs hidden-sm" href="">more</a>
+                            <div class="bo-news-date">01.01.1970 by Super Admin</div>
+                            <div class="visible-sm visible-xs bo-news-arrow">
+                                <a href=""><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 col-md-pull-3 bo-center-column">
+            <div class="row bo-filter-block">
+                <div class="col-xs-12 col-sm-4">
+                    <div class="visible-lg bo-hidden-label">&nbsp;</div>
+                    <h1>My events</h1>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="visible-lg bo-hidden-label">&nbsp;</div>
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control" placeholder="Search for your event or show">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </span>
+                    </div>
+                    <div class="visible-xs">&nbsp;</div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="input-group-lg">
+                        <div class="visible-lg bo-hidden-label">Sales period:</div>
+                        <div class="input-group data_range input-group-lg">
+                             <input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
+                             <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                </button>
+                             </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-	<ul class="nav nav-tabs">
-		<li class="active"><a href="#">Overview</a></li>
-		<li><a href="#">By prices</a></li>
-		<li><a href="#">Sections</a></li>
-	</ul>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div>
-				<img class="temp_image" src="img/chart1.jpg" />
-			</div>
-			<div class="row">
-				<div class="col-lg-6">
-					<img class="temp_image" src="img/chart2.jpg" />
-				</div>
-				<div class="col-lg-6">
-					<table class="table table-condensed bo-table">
-						<thead>
-						<tr>
-							<td></td>
-							<td>Tickets</td>
-							<td>%</td>
-							<td>Revenue</td>
-						</tr>
-						</thead>
-						<tbody>
-						<tr class="info">
-							<td>Generated</td>
-							<td>1050</td>
-							<td>100%</td>
-							<td>100,000 €</td>
-						</tr>
-						<tr>
-							<td>All sales</td>
-							<td>750</td>
-							<td>78%</td>
-							<td>75,000 €</td>
-						</tr>
-						<tr class="active text-danger">
-							<td>Refund</td>
-							<td>-100</td>
-							<td>11%</td>
-							<td>-11,000 €</td>
-						</tr>
-						<tr>
-							<td>-Client</td>
-							<td>-810</td>
-							<td>85%</td>
-							<td>-86,000 €</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#">On sale <span class="badge">42</span></a></li>
+                <li><a href="#">Draft <span class="badge">2</span></a></li>
+                <li><a href="#">Past <span class="badge">10</span></a></li>
+            </ul>
+            <div class="bo-events">
+                <div class="panel panel-default bo-event">
+                    <div class="panel-body">
+                        <h3 class="bo-event-title">No other on sale events under this show - open by default</h3>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div>
+                                    <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+                                    <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
+                                </div>
+                                <div class="bo-event-place"><i class="fa fa-map-marker active" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+                            </div>
+                            <div class="col-xs-10 col-sm-4">
+                                <div class="bo-event-statistics">
+                                    <span class="glyphicon glyphicon-triangle-top text-success"></span>
+                                    <b class="text-success" title="sold">800</b>
+                                    <span class="bo-event-statistics-separator">/</span>
+                                    <b class="text-warning">210</b>
+                                    <span class="bo-event-statistics-separator">/</span>
+                                    <b class="text-danger">2000</b>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" style="width: 35%" title="sold"></div>
+                                    <div class="progress-bar progress-bar-warning" style="width: 35%" title="reserved"></div>
+                                    <div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-1 text-center bo-percent-block">
+                                35%
+                            </div>
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+                                    <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">Promote event</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3 class="bo-event-title">
+                            <a class="bo-event-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events0" aria-expanded="false">
+                                <span class="glyphicon glyphicon-triangle-top"></span>
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                                <span class="badge">1</span>
+                            </a>
+                            Show view, that has more the one event. Summary of all events - default (closed)</h3>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div>
+                                    <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+                                    <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
+                                </div>
+                                <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+                            </div>
+                            <div class="col-xs-10 col-sm-4">
+                                <div class="bo-event-statistics">
+                                    <span class="glyphicon glyphicon-triangle-bottom text-danger"></span>
+                                    <b class="text-success" title="sold">800</b>
+                                    <span class="bo-event-statistics-separator">/</span>
+                                    <b class="text-warning">210</b>
+                                    <span class="bo-event-statistics-separator">/</span>
+                                    <b class="text-danger">2000</b>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" style="width: 60%" title="sold"></div>
+                                    <div class="progress-bar progress-bar-warning" style="width: 10%" title="reserved"></div>
+                                    <div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-1 text-center bo-percent-block">
+                                60%
+                            </div>
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+                                    <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">PROMOTE EVENT</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+                        <div id="bo-sub-events0" class="bo-sub-events collapse">
+                            <div class="panel panel-default bo-event">
+                                <div class="panel-body">
+                                    <h3 class="bo-event-title">No other on sale events under this show - open by default</h3>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+                                                <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
+                                            </div>
+                                            <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+                                        </div>
+                                        <div class="col-xs-10 col-sm-4">
+                                            <div class="bo-event-statistics">
+                                                <span class="glyphicon glyphicon-triangle-top text-success"></span>
+                                                <b class="text-success" title="sold">800</b>
+                                                <span class="bo-event-statistics-separator">/</span>
+                                                <b class="text-warning">210</b>
+                                                <span class="bo-event-statistics-separator">/</span>
+                                                <b class="text-danger">2000</b>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-success" style="width: 10%" title="sold"></div>
+                                                <div class="progress-bar progress-bar-warning" style="width: 60%" title="reserved"></div>
+                                                <div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-1 text-center bo-percent-block">
+                                            10%
+                                        </div>
+                                        <div class="col-xs-12 col-sm-3">
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+                                                <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">PROMOTE EVENT</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3 class="bo-event-title">
+                            <a class="bo-event-toggle" data-toggle="collapse" data-target="#bo-sub-events1" aria-expanded="true">
+                                <span class="glyphicon glyphicon-triangle-top"></span>
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                                <span class="badge">2</span>
+                            </a>
+                            Show view, that has more the one event. Summary of all events - default (open)</h3>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div>
+                                    <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+                                    <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
+                                </div>
+                                <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+                            </div>
+                            <div class="col-xs-10 col-sm-4">
+                                <div class="bo-event-statistics">
+                                    <span class="glyphicon glyphicon-triangle-top text-success"></span>
+                                    <b class="text-success">800</b>
+                                    <span class="bo-event-statistics-separator">/</span>
+                                    <b class="text-warning">210</b>
+                                    <span class="bo-event-statistics-separator">/</span>
+                                    <b class="text-danger">2000</b>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" style="width: 35%" title="sold"></div>
+                                    <div class="progress-bar progress-bar-warning" style="width: 35%" title="reserved"></div>
+                                    <div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-1 text-center bo-percent-block">
+                                35%
+                            </div>
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+                                    <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">PROMOTE EVENT</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+                        <div id="bo-sub-events1" class="bo-sub-events collapse in">
+                            <div class="panel panel-default bo-event">
+                                <div class="panel-body">
+                                    <h3 class="bo-event-title">No other on sale events under this show - open by default</h3>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+                                                <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
+                                            </div>
+                                            <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+                                        </div>
+                                        <div class="col-xs-10 col-sm-4">
+                                            <div class="bo-event-statistics">
+                                                <span class="glyphicon glyphicon-triangle-top text-success"></span>
+                                                <b class="text-success">800</b>
+                                                <span class="bo-event-statistics-separator">/</span>
+                                                <b class="text-warning">210</b>
+                                                <span class="bo-event-statistics-separator">/</span>
+                                                <b class="text-danger">2000</b>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-success" style="width: 35%" title="sold"></div>
+                                                <div class="progress-bar progress-bar-warning" style="width: 35%" title="reserved"></div>
+                                                <div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-1 text-center bo-percent-block">
+                                            35%
+                                        </div>
+                                        <div class="col-xs-12 col-sm-3">
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+                                                <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">PROMOTE EVENT</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default bo-event">
+                                <div class="panel-body">
+                                    <h3 class="bo-event-title">No other on sale events under this show - open by default</h3>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+                                                <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
+                                            </div>
+                                            <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+                                        </div>
+                                        <div class="col-xs-10 col-sm-4">
+                                            <div class="bo-event-statistics">
+                                                <span class="glyphicon glyphicon-triangle-top text-success"></span>
+                                                <b class="text-success">800</b>
+                                                <span class="bo-event-statistics-separator">/</span>
+                                                <b class="text-warning">210</b>
+                                                <span class="bo-event-statistics-separator">/</span>
+                                                <b class="text-danger">2000</b>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-success" style="width: 35%" title="sold"></div>
+                                                <div class="progress-bar progress-bar-warning" style="width: 35%" title="reserved"></div>
+                                                <div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-1 text-center">
+                                            35%
+                                        </div>
+                                        <div class="col-xs-12 col-sm-3">
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+                                                <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">PROMOTE EVENT</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

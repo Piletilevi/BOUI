@@ -27,6 +27,12 @@
                 controller: 'MainController',
                 controllerAs: 'vm'
             })
+            .when('/report', {
+                title: 'Dashboard',
+                templateUrl: 'views/report.html',
+                controller: 'MainController',
+                controllerAs: 'vm'
+            })
             .when('/dashboard', {
                 title: 'Dashboard',
                 templateUrl: 'views/dashboard.html',
