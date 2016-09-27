@@ -19,6 +19,12 @@
     "angular-ui-validate": "^1.2.2",
     "angular": "^1.5.8",
     "jquery": "1.11.3",
-    "bootstrap": "3.3.6"
+    "bootstrap": "3.3.6",
+    "bootstrap-select": "1.11.2",
+    "bootstrap-daterangepicker": "2.1.24",
+    "fontawesome": "4.6.3",
+    "awesome-bootstrap-checkbox": "0.3.7",
+    "html5shiv": "3.7.3",
+    "respond": "1.4.2"
   }
 }
