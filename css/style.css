@@ -1,19 +1,19 @@
 @font-face {
     font-family: 'PT Sans';
-    src: url('/fonts/PTSans-Regular.eot');
-    src: url('/fonts/PTSans-Regular.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/PTSans-Regular.woff2') format('woff2'),
-    url('/fonts/PTSans-Regular.woff') format('woff');
+    src: url('../fonts/PTSans-Regular.eot');
+    src: url('../fonts/PTSans-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/PTSans-Regular.woff2') format('woff2'),
+    url('../fonts/PTSans-Regular.woff') format('woff');
     font-style: normal;
     font-weight: normal;
 }
 
 @font-face {
     font-family: 'PT Sans';
-    src: url('/fonts/PTSans-Bold.eot');
-    src: url('/fonts/PTSans-Bold.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/PTSans-Bold.woff2') format('woff2'),
-    url('/fonts/PTSans-Bold.woff') format('woff');
+    src: url('../fonts/PTSans-Bold.eot');
+    src: url('../fonts/PTSans-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/PTSans-Bold.woff2') format('woff2'),
+    url('../fonts/PTSans-Bold.woff') format('woff');
     font-style: normal;
     font-weight: bold;
 }
