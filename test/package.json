@@ -1,0 +1,25 @@
+{
+  "name": "boapp",
+  "version": "1.0.0",
+  "description": "angularclient for piletilvei bo",
+  "main": "C:\\wwwroot\\angular\\app\\app.module.js",
+  "dependencies": {
+  
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "karma-chai": "^0.1.0",
+	 "karma-requirejs": "^1.1.0",
+    "requirejs": "^2.3.2",
+    "mocha": "^3.0.2",
+    "karma": "^1.3.0",
+    "karma-coverage": "^1.1.1",
+    "karma-mocha": "^1.1.1",
+    "karma-phantomjs-launcher": "^1.0.2"
+  },
+  "scripts": {
+    "test": "karma start karma.conf.js"
+  },
+  "author": "Kaur Pääro || Sergei Mestserjakov",
+  "license": "MIT"
+}

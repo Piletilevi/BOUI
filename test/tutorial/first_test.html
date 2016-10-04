@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+    /*Matchers*/
+    /*
+     expect(true).toBe(true);
+     expect(false).not.toBe(true);
+     expect(1).toEqual(1);
+     expect('foo').toEqual('foo');
+     expect('foo').not.toEqual('bar');
+     */
+    // Paste in the test code here.
+
+    /*code to be tested*/
+    var calculator = {
+        sum: function(x, y) {
+            return x+y;
+        },
+        sub: function(x, y) {
+            return x-y;
+        },
+        div: function(x, y) {
+            return (y === 0) ? 0 : x / y;
+        }
+    }
+
+    /*tests*/
+    describe('calculator', function () {
+        describe('sum',function(){
+            it('1 + 1 should equal 2', function() {
+                expect(calculator.sum(1, 1)).toBe(2);
+            });
+        });
+        describe('sub',function(){
+            it('1 - 1 should equal 0', function() {
+                expect(calculator.sub(1, 1)).toBe(0);
+            });
+        });
+        describe('div',function(){
+            it('10 / 0 should equal 0', function() {
+                expect(calculator.div(10, 0)).toBe(0);
+            });
+            it('10 / 1 should equal 10', function() {
+                expect(calculator.div(10, 1)).toBe(10);
+            });
+            it('5 / 2 should equal 2.5', function() {
+                expect(calculator.div(5, 2)).toBe(2.5);
+            });
+        });
+    });
+</script>
+</html>

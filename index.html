@@ -6,17 +6,17 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>Piletilevi BO</title>
 	<!-- Bootstrap -->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/font-awesome.min.css" rel="stylesheet">
-	<link href="css/bootstrap-select.min.css" rel="stylesheet">
-	<link href="css/awesome-bootstrap-checkbox.css" rel="stylesheet">
-	<link href="css/daterangepicker-original.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet">
+	<link href="js/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="js/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="js/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+	<link href="js/bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="js/bower_components/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="js/bower_components/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="js/bower_components/respond/dest/respond.min.js"></script>
     <![endif]-->
 </head>
 <body style="visibility: hidden" ng-class='{forceShow: isTranslated}' >
@@ -29,14 +29,63 @@
 
 	<!-- Libs -->
 	<script src="js/bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script src="js/bower_components/moment/min/moment.min.js"></script>
 	<script src="js/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="js/bootstrap-select.js"></script>
-	<script src="js/daterangepicker.js"></script>
+	<script src="js/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+	<script src="js/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			// TODO: move to appropiate place, get rid of timeout workaround
+			// selectpicker and daterangepicker should be initialized when Angular has updated the document
 			var initDateRangePickers = function() {
+				var datePickerTemplate =
+				'<div class="daterangepicker dropdown-menu">' +
+					'<div class="calendar left">' +
+						'<div class="calendar-table"></div>' +
+					'</div>' +
+					'<div class="calendar right">' +
+						'<div class="calendar-table"></div>' +
+					'</div>' +
+					'<div class="third_block">' +
+						'<div class="ranges">' +
+							'<div class="calendar-links"><a href="">Today</a>|<a href="">Week</a>|<a href="">Month</a></div>' +
+							'<div class="daterangepicker_input_wrapper">' +
+								'<div class="daterangepicker_input">' +
+									'<input class="input-mini form-control" type="text" name="daterangepicker_start" value="" />' +
+									'<div class="calendar-time">' +
+									'<div></div>' +
+									'<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
+									'</div>' +
+								'</div><div class="daterangepicker_separator">-</div><div class="daterangepicker_input">' +
+									'<input class="input-mini form-control" type="text" name="daterangepicker_end" value="" />' +
+									'<div class="calendar-time">' +
+									'<div></div>' +
+									'<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+						'<div class="additional_row">' +
+							 '<div class="compare_checkbox_block">' +
+								 '<div class="checkbox">' +
+									 '<input type="checkbox" id="compare_checkbox" /><label for="compare_checkbox">Compare</label>' +
+								 '</div>' +
+							 '</div>' +
+							 '<div class="select_period_block">' +
+								  '<select class="selectpicker custom_select">' +
+									 '<option>Previous period</option>' +
+									 '<option>Next</option>' +
+								 '</select>' +
+							 '</div>' +
+							 '<div class="clearer"></div>' +
+						'</div>' +
+						'<div class="range_inputs">' +
+							 '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
+							 '<button class="cancelBtn" type="button"></button>' +
+							 '<div class="clearer"></div>' +
+						'</div>' +
+					'</div>' +
+				'</div>';
 				var jqueryStuff = $('.data_range');
 				if (jqueryStuff.length > 0) {
 					jqueryStuff.daterangepicker({
@@ -44,7 +93,10 @@
 							"firstDay": 1,
 							"format": "DD-MM-YYYY",
 						},
-		});
+						"template": datePickerTemplate,
+						"buttonClasses": 'btn btn-md',
+						"applyClass": 'btn-danger'
+					});
 					$('.selectpicker').selectpicker();
 				} else {
 					window.setTimeout(initDateRangePickers, 512);
