@@ -42,6 +42,7 @@ class PiletileviApi {
 		return $this->send("/user/changePassword",$data);
 
 	}
+
 	public function login($username, $password, $remoteip) {
 
 		$data = array("username" => $username,
@@ -50,7 +51,6 @@ class PiletileviApi {
 
 		return $this->send( "/authentication/login", $data );
 	}
-
 
 	public function verifySessionKey($sessionkey) {
 
@@ -70,6 +70,16 @@ class PiletileviApi {
 			$this->cacheManager->save($cacheItem);
 		}
 		return $languages;
+	}
+
+	public function powerbiReport($filter) {
+		
+		$data['filter']= $filter;
+		$data['userid']= $this->getPowerBiUser();
+
+		$reportData = $this->send( "/report/powerbiReport", $data );
+
+		return $reportData;
 	}
 	
 	public function boUrl(){
@@ -147,6 +157,11 @@ class PiletileviApi {
 	private function getBoUrl(){
 		$papiConfig = $this->getPapiConfig();
 		return $papiConfig["oldbourl"];
+	}
+
+	private function getPowerBiUser(){
+		$papiConfig = $this->getPapiConfig();
+		return $papiConfig["powerbiuser"];
 	}
 
 	private function getPapiConfig() {

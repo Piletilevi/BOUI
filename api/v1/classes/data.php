@@ -6,9 +6,11 @@ class DataHandler {
 
     private $app;
 	private static $dataHandler; 
+	private $settings;
 
 	public function __construct() {
 		$this->app = Slim::getInstance();
+		$this->settings = $this->app->config("settings");
 	}
 
 	public static function getInstance($refresh = false) {
@@ -46,6 +48,24 @@ class DataHandler {
 		}
 	}
 
+	/**
+	 * Verifying required token
+	 */
+	public function verifyToken() {
+		$token = $this->app->request->params("token");
+
+		if ($token != $this->getToken()) {
+			// Required field(s) are missing or empty
+			// echo error json and stop the app
+			$response = array();
+			$response["status"] = "error";
+			$response["message"] = 'Invalid access token';
+			$this->response(401, $response);
+
+			$this->app->stop();
+		}
+	}
+
 
 	public function response($status_code, $response) {
 		// Http response code
@@ -56,6 +76,9 @@ class DataHandler {
 		echo json_encode($response);
 	}
 
+	private function getToken() {
+		return $this->settings["token"];
+	}
 }
 
 ?>
