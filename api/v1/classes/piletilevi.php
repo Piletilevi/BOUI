@@ -26,6 +26,7 @@ class PiletileviApi {
 
 		return self::$piletileviApi; 	
 	}
+
 	public function getSessionKey($username, $remoteip, $langid){
 		$data['filter']= array ('username'=>$username,
 			'remoteip' => $remoteip,
@@ -82,6 +83,16 @@ class PiletileviApi {
 		return $reportData;
 	}
 	
+	public function cardsReport($filter) {
+		
+		$data['filter']= $filter;
+		$data['userid']= $this->getPowerBiUser();
+
+		$reportData = $this->send( "/report/cardsReport", $data );
+
+		return $reportData;
+	}
+
 	public function boUrl(){
 		return $this->getBoUrl();
 	}

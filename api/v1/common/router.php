@@ -259,4 +259,27 @@ $app->get('/powerbiReport', function() use ($app)  {
     $dataHandler->response(200, $response);
 });
 
+$app->get('/cardsReport', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+	$dataHandler->verifyToken();
+
+	$filter = $app->request->params("filter");
+	$app->log->debug( print_r($filter,true) );
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->cardsReport( $filter );
+	
+	$response = array();
+
+	if (!empty( $reportResponse->errors) ) {
+	    $response["status"] = "error";
+        $response["errors"] = $reportResponse->errors;
+	} else if (!empty( $reportResponse->data)) {
+	    $response["status"] = "success";
+        $response["data"] = $reportResponse->data;
+	}
+
+    $dataHandler->response(200, $response);
+});
+
 ?>
