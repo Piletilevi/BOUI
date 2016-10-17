@@ -88,7 +88,7 @@ class PiletileviApi {
 		$data['filter']= $filter;
 		$data['userid']= $this->getPowerBiUser();
 
-		$reportData = $this->send( "/report/cardsReport", $data );
+		$reportData = $this->send( "/report/cards", $data );
 
 		return $reportData;
 	}
