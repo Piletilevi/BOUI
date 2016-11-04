@@ -1220,3 +1220,100 @@ a:hover {
     cursor:default;
     color: #fff !important;
 }
+body {
+    background: #000;
+}
+.widget-box {
+    max-width: 635px;
+    /*min-height: 373px;*/
+    background: #e3e5e8;
+    margin: 0 auto;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: #263443;
+}
+
+.widget-box .control-label {
+    font-size: 15px;
+    color: #263443;
+    font-weight: normal;
+    padding-top: 11px;
+    padding-right: 4px;
+}
+
+.widget-header {
+    background: #4a5867;
+    color: #b7c1cd;
+    line-height: 65px;
+    padding-right: 30px;
+    padding-left: 34px;
+    -moz-border-radius: 3px 3px 0 0;
+    -webkit-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+}
+
+.widget-body {
+    padding-top: 18px;
+    padding-left: 27px;
+    padding-right: 27px;
+    padding-bottom: 27px;
+}
+
+.widget-header .navbar-right > li > a {
+    padding-top: 23px;
+    padding-bottom: 22px;
+    text-decoration: none;
+}
+
+.widget-box .input-icon {
+    position: relative;
+}
+
+.widget-box .bo-language-dropdown {
+    padding-right: 25px;
+}
+
+.widget-main h4.header {
+    font-size: 20px;
+    margin-bottom: 14px;
+}
+
+.widget-box .input-icon .form-control {
+    padding-left: 35px;
+}
+
+.widget-box .input-icon .ace-icon {
+    color: #cccfd4;
+    position: absolute;
+    left: 14px;
+    top: 30px;
+}
+
+.widget-footer {
+    background: #cdd2d8;
+    padding-left: 27px;
+    padding-right: 27px;
+    padding-top: 14px;
+    padding-bottom: 16px;
+    -moz-border-radius: 0 0 3px 3px;
+    -webkit-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+}
+
+.widget-footer a {
+    color: #263443;
+}
+
+.widget-buttons-area {
+    padding-top: 16px;
+}
+
+.extra_width_button {
+    min-width: 131px;
+}
+
+.larger_input {
+    border: 0 none;
+    height: 43px;
+}
