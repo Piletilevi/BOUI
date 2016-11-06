@@ -2,9 +2,11 @@
     'use strict';
 
     angular.module('boApp')
-        .factory("dataService", dataService);
-    dataService.$inject = ['$http','bo'];
-    function dataService($http, bo) { // This service connects to our REST API
+        .factory("dataService", DataService);
+
+    DataService.$inject = ['$http','bo'];
+
+    function DataService($http, bo) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
         var ipUrl = 'http://ipv4.myexternalip.com/json';
@@ -18,23 +20,25 @@
             put : put,
             delete : del
         };
+
         return service;
-
-
 
         function page (data) {
             bo.pop(data.status, "", data.message, 10000, 'trustedHtml');
         }
+
         function get (q) {
             return $http.get(serviceBase + q).then(function (results) {
                 return results.data;
             });
         };
-         function getIp () {
+        
+        function getIp () {
             return $http.get(ipUrl).then(function (results) {
                 return results.data;
             });
         };
+        
         function getBoUrl () {
             return $http.get(serviceBase + 'boUrl').then(function(results){
                 return results.data;
@@ -46,23 +50,23 @@
                 }*/
             });
         }
+        
         function post (q, object) {
             return $http.post(serviceBase + q, object).then(function (results) {
                 return results.data;
             });
         };
-         function put (q, object) {
+        
+        function put (q, object) {
             return $http.put(serviceBase + q, object).then(function (results) {
                 return results.data;
             });
         };
+        
         function del (q) {
             return $http.delete(serviceBase + q).then(function (results) {
                 return results.data;
             });
         };
-
-
     }
-
 })();

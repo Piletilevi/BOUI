@@ -6,11 +6,11 @@
 
     angular
         .module('boApp')
-        .factory('authService', authService);
+        .factory('authService', AuthService);
 
-    authService.$inject = ['$rootScope', '$route', '$location', 'dataService'];
+    AuthService.$inject = ['$rootScope', '$route', '$location', 'dataService'];
 
-    function authService($rootScope, $route, $location, dataService) {
+    function AuthService($rootScope, $route, $location, dataService) {
         var service = {
             initialize : initialize,
             login : login,
@@ -20,9 +20,10 @@
             changePassword : changePassword
         };
         return service;
+        
         function initialize(){
-
         }
+        
         function login (customer) {
 			dataService.getIp().then(function(result) {
 				customer['clientip'] = result.ip;
@@ -36,7 +37,6 @@
 			}, function(e) {
 				//alert("error");
 			});
-
         }
 
         function logout(){
@@ -56,7 +56,6 @@
 
             dataService.post('verifySessionKey',{ "sessionkey" : searchkey }).then(function(results){
                 dataService.page(results);
-                console.log(results);
                 if (results.status == "success"){
                     dataService.get('session').then(function (results) {
                         if (results.user) {
@@ -70,15 +69,12 @@
 
         }
         function checkUserAuth(next){
-            console.log(next);
             var nextUrl = next.$$route.originalPath;
             dataService.get('session').then(function (results) {
                 if (results.user) {
                     $rootScope.authenticated = true;
                     $rootScope.user = results.user;
-                    console.log($rootScope.user);
                     if (typeof($location.search().key) !== 'undefined') {
-
                         $location.search('key', null);
                     }
                     if ( $rootScope.authenticated && nextUrl === "/" || nextUrl === '/login' ){
@@ -98,7 +94,8 @@
                 }
             });
         }
-        function changePassword(change) {
+
+		function changePassword(change) {
             dataService.post('changePassword', {passwordSet: change})
                 .then(function (results) {
                     dataService.page(results);
@@ -106,9 +103,7 @@
                         $location.path('dashboard');
                     }
                 });
-
         }
-
     }
 
 })();

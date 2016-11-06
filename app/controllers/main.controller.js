@@ -2,7 +2,7 @@
     'use strict';
 
 	angular.module('boApp')
-        .controller('MainController', MainController);
+        .controller('mainController', MainController);
 
     MainController.$inject=['authService'];
     function MainController (authService) {

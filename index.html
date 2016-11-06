@@ -33,78 +33,6 @@
 	<script src="js/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="js/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 	<script src="js/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			// TODO: move to appropiate place, get rid of timeout workaround
-			// selectpicker and daterangepicker should be initialized when Angular has updated the document
-			var initDateRangePickers = function() {
-				var datePickerTemplate =
-				'<div class="daterangepicker dropdown-menu">' +
-					'<div class="calendar left">' +
-						'<div class="calendar-table"></div>' +
-					'</div>' +
-					'<div class="calendar right">' +
-						'<div class="calendar-table"></div>' +
-					'</div>' +
-					'<div class="third_block">' +
-						'<div class="ranges">' +
-							'<div class="calendar-links"><a href="">Today</a>|<a href="">Week</a>|<a href="">Month</a></div>' +
-							'<div class="daterangepicker_input_wrapper">' +
-								'<div class="daterangepicker_input">' +
-									'<input class="input-mini form-control" type="text" name="daterangepicker_start" value="" />' +
-									'<div class="calendar-time">' +
-									'<div></div>' +
-									'<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
-									'</div>' +
-								'</div><div class="daterangepicker_separator">-</div><div class="daterangepicker_input">' +
-									'<input class="input-mini form-control" type="text" name="daterangepicker_end" value="" />' +
-									'<div class="calendar-time">' +
-									'<div></div>' +
-									'<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
-									'</div>' +
-								'</div>' +
-							'</div>' +
-						'</div>' +
-						'<div class="additional_row">' +
-							 '<div class="compare_checkbox_block">' +
-								 '<div class="checkbox">' +
-									 '<input type="checkbox" id="compare_checkbox" /><label for="compare_checkbox">Compare</label>' +
-								 '</div>' +
-							 '</div>' +
-							 '<div class="select_period_block">' +
-								  '<select class="selectpicker custom_select">' +
-									 '<option>Previous period</option>' +
-									 '<option>Next</option>' +
-								 '</select>' +
-							 '</div>' +
-							 '<div class="clearer"></div>' +
-						'</div>' +
-						'<div class="range_inputs">' +
-							 '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
-							 '<button class="cancelBtn" type="button"></button>' +
-							 '<div class="clearer"></div>' +
-						'</div>' +
-					'</div>' +
-				'</div>';
-				var jqueryStuff = $('.data_range');
-				if (jqueryStuff.length > 0) {
-					jqueryStuff.daterangepicker({
-						"locale": {
-							"firstDay": 1,
-							"format": "DD-MM-YYYY",
-						},
-						"template": datePickerTemplate,
-						"buttonClasses": 'btn btn-md',
-						"applyClass": 'btn-danger'
-					});
-					$('.selectpicker').selectpicker();
-				} else {
-					window.setTimeout(initDateRangePickers, 512);
-				}
-			}
-			initDateRangePickers();
-		});
-	</script>
 	<script src="js/bower_components/angular/angular.min.js"></script>
 	<script src="js/bower_components/angular-route/angular-route.min.js"></script>
 	<script src="js/bower_components/angular-animate/angular-animate.min.js" ></script>
@@ -123,15 +51,19 @@
 
 	<script src="app/directives/focus.directive.js"></script>
 	<script src="app/directives/passwordMatch.directive.js"></script>
+	<script src="app/directives/selectpicker.directive.js"></script>
+	<script src="app/directives/daterangepicker.directive.js"></script>
 
 	<script src="app/services/authentication.service.js"></script>
 	<script src="app/services/translation.service.js"></script>
 	<script src="app/services/data.service.js"></script>
 	<script src="app/services/point.service.js"></script>
 	<script src="app/services/menu.service.js"></script>
-
+	<script src="app/services/dashboard.service.js"></script>
+	<script src="app/services/news.service.js"></script>
 
 	<script src="app/controllers/main.controller.js"></script>
+	<script src="app/controllers/dashboard.controller.js"></script>
 
 </body>
 </html>

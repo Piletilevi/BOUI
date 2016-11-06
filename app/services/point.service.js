@@ -1,16 +1,17 @@
 /**
  * Created by kaur on 20.09.2016.
- */(function() {
+ */
+
+(function() {
     'use strict';
 
     angular
         .module('boApp')
-        .factory('pointService', pointService);
+        .factory('pointService', PointService);
 
-    pointService.$inject = ['$rootScope','dataService'];
+    PointService.$inject = ['$rootScope','dataService'];
 
-
-    function pointService($rootScope,dataService) {
+    function PointService($rootScope,dataService) {
         var service = {
             getPointName : getPointName,
             setPoint : setPoint,
@@ -77,12 +78,12 @@
             }
             return [];
         }
+
         function  initialize() {
             $rootScope.getPointName = getPointName;
             $rootScope.setPoint = setPoint;
             $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor;
             $rootScope.pointMenuActiveColor = getPointMenuActiveColor;
         }
-
     }
 })();

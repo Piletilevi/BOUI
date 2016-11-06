@@ -7,6 +7,8 @@ class PiletileviApi {
 	
     private $app;
 	private $cacheManager;
+	private $currentUser;
+	private $currentLang;
 	private $settings;
 	
 	private static $piletileviApi; 
@@ -14,6 +16,13 @@ class PiletileviApi {
 	public function __construct() {
 		$this->app = Slim::getInstance();
 		$this->cacheManager = $this->app->container->get("cacheManager");
+
+		$sessionHandler = $this->app->container->get("piletileviSessionHandler");
+		$session = $sessionHandler->getSession();
+
+		$this->currentUser = $session['user'];
+		$this->currentLang = $session['lang'];
+
 		$this->settings = $this->app->config("settings");
 	}
 
@@ -21,25 +30,23 @@ class PiletileviApi {
         
 		if (is_null(self::$piletileviApi) || $refresh) {
 			self::$piletileviApi = new self();
-        
 		} 
 
 		return self::$piletileviApi; 	
 	}
 
-	public function getSessionKey($username, $remoteip, $langid){
+	public function getSessionKey($username, $remoteip){
 		$data['filter']= array ('username'=>$username,
 			'remoteip' => $remoteip,
-			'langId' => $langid);
+			'langId' => $this->currentLang->code);
 		$data['userid']= $username;
 		return $this->send("/user/getSessionKey",$data);
 	}
 
-	public function changePassword($oldPassword, $newPassword, $username) {
+	public function changePassword($oldPassword, $newPassword) {
 
 		$data['filter']= array ('oldPassword'=>$oldPassword,
 			'newPassword' => $newPassword);
-		$data['userid']= $username;
 		return $this->send("/user/changePassword",$data);
 
 	}
@@ -49,7 +56,7 @@ class PiletileviApi {
 		$data = array("username" => $username,
 			"password" => $password,
 			"remoteip" => $remoteip );
-
+		
 		return $this->send( "/authentication/login", $data );
 	}
 
@@ -57,7 +64,7 @@ class PiletileviApi {
 
 		$data= array ('sessionkey' => $sessionkey);
 
-		return $this->send("/authentication/verifySessionKey",$data);
+		return $this->send("/authentication/verifySessionKey", $data);
 	}
 	
 	public function languages() {
@@ -93,6 +100,16 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function myEvents($filter) {
+		
+		$filter['limit'] = 10;
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/myEvents", $data );
+		
+		return $reportData;
+	}
+
 	public function boUrl(){
 		return $this->getBoUrl();
 	}
@@ -111,7 +128,12 @@ class PiletileviApi {
 		return $translations;
 	}
 	
-
+	private function isValidUser() {
+		if (is_object($this->currentUser)) {
+			return $this->currentUser->userId > 0;
+		}
+		return false;
+	}
 
 	/**
 	 * @param $url
@@ -134,6 +156,15 @@ class PiletileviApi {
 	private function send($url, $data) {
 		$papiConfig = $this->getPapiConfig();
 		$envConfig = $this->getEnvConfig();
+		
+		if (is_object($this->currentUser)) {
+			if (!isset($data['userid'])) {
+				$data['userid']= $this->currentUser->userId;
+			}
+			if (!isset($data['salepointid'])) {
+				$data['salepointid']= $this->currentUser->point;
+			}
+		}
 
 		$tokenId   = base64_encode(mcrypt_create_iv(32));
 		$issuedAt  = time();
@@ -156,7 +187,7 @@ class PiletileviApi {
 		$response = \Httpful\Request::post($uri)->body($msg)->send();
 
 		//$this->app->log->debug( print_r($response->headers,true) );
-
+		
 		return json_decode($response->__toString());
 	}
 

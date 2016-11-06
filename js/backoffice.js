@@ -1,11 +1,11 @@
 (function() {
     'use strict';
-    angular.module('bo', ['ngAnimate']);
+
+	angular.module('bo', ['ngAnimate']);
     
 	angular.module('bo');
 
     angular.module('bo').service('bo', ['$rootScope', boService]);
-
 
     angular.module('bo').constant('boConfig', {
         'limit': 0,                   // limits max number of pages

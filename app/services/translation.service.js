@@ -5,11 +5,11 @@
     'use strict';
     angular
         .module('boApp')
-        .factory('translationService', translationService);
+        .factory('translationService', TranslationService);
 
-    translationService.$inject = ['$rootScope','$translate', 'dataService'];
+    TranslationService.$inject = ['$rootScope', '$translate', 'dataService'];
 
-    function translationService($rootScope,$translate,dataService) {
+    function TranslationService($rootScope, $translate, dataService) {
         var service = {
             initialize : initialize,
             sessionLanguage : sessionLanguage,

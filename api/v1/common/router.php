@@ -48,7 +48,7 @@ $app->post('/getSessionKey', function() use ($app) {
     $ip = $r->clientip;
 
     $piletileviApi = $app->container->get("piletileviApi");
-    $sessionReq = $piletileviApi->getSessionKey($username, $ip, $session['lang']->code);
+    $sessionReq = $piletileviApi->getSessionKey($username, $ip);
 
     if ($sessionReq && !empty($sessionReq->data)) {
         $response['status'] = "success";
@@ -146,7 +146,7 @@ $app->post('/login', function() use ($app) {
 
     $piletileviApi = $app->container->get("piletileviApi");
     $userData = $piletileviApi->login($username, $password, $clientip);
-
+	
     if ($userData && $userData->valid == "true" && $userData->user) {
         $response['status'] = "success";
         $response['message'] = 'Logged in successfully.';
@@ -164,6 +164,33 @@ $app->post('/login', function() use ($app) {
 
     $dataHandler->response(200, $response);
 });
+
+$app->post('/myEvents', function() use ($app) {
+    $dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$app->log->debug( print_r($r,true) );
+
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['name'] = $r->filter->name;
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $myEvents = $piletileviApi->myEvents($filter);
+
+	if ($myEvents) {
+        $response['status'] = "success";
+        $response['data'] = $myEvents;
+    } else {
+        $response['status'] = "error";
+    }
+
+	$dataHandler->response(200, $response);
+});
+
 $app->post('/changePassword', function() use ($app) {
     $dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
@@ -172,14 +199,14 @@ $app->post('/changePassword', function() use ($app) {
 
     $oldPassword = $r->passwordSet->oldPassword;
     $newPassword = $r->passwordSet->newPassword;
-    if (!isset($_SESSION)) {
-        session_start();
-    }
-    $piletileviApi = $app->container->get("piletileviApi");
-    $data = $piletileviApi->changePassword( $oldPassword, $newPassword, $_SESSION['user']->userId);
-    $app->log->debug( print_r($data,true) );
+
+	$piletileviApi = $app->container->get("piletileviApi");
+    $data = $piletileviApi->changePassword( $oldPassword, $newPassword );
+    
+	$app->log->debug( print_r($data,true) );
     $app->log->debug( print_r($data->data->success,true) );
-    if ($data && $data->data->success == "true" ) {
+    
+	if ($data && $data->data->success == "true" ) {
         $response['status'] = "success";
         $response['message'] = 'Password changed successfully.';
 
@@ -209,8 +236,6 @@ $app->get('/languages', function() use ($app) {
     $response["status"] = "success";
     $response["languages"] = $languages->data;
 
-    $app->log->debug( print_r($response,true) );
-
 	$dataHandler->response(200, $response);
 });
 
@@ -218,11 +243,9 @@ $app->post('/translations', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 	$r = json_decode($app->request->getBody());
 
-	$app->log->debug( print_r($r,true) );
-
     $dataHandler->verifyParams(array('languageId'), $r);
 
-    $languageId= $r->languageId;
+    $languageId = $r->languageId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $translations = $piletileviApi->translations($languageId);
