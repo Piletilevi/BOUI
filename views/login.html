@@ -1,4 +1,4 @@
-<div class="page-content">
+<div class="page-content col-xs-12">
 
 	<div class="row">
 		<div class="space-6"></div>
@@ -6,12 +6,18 @@
 			<div id="login-box" class="login-box visible widget-box no-border">
 				<div class="widget-header navbar-inverse">
 					<a class="" href><img src="img/logo.png" /></a>
-					<ul class="nav navbar-nav navbar-right">
+					<ul class="nav navbar-nav navbar-right widget-languages">
 						<li class="dropdown bo-language-dropdown" ng-include="'views/common/languages.html'"></li>
 					</ul>
 				</div>
 				<div class="widget-body">
 					<div class="widget-main">
+						<div class="bo bo-error">
+							<div class="bo-title"></div>
+							<div class="bo-message">
+								<div>tratata</div>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-sm-2"></div>
 							<div class="col-sm-9">
@@ -46,7 +52,15 @@
 							<div class="clearfix widget-buttons-area">
 								<div class="row">
 									<label class="col-sm-2 control-label no-padding-right"> </label>
-									<div class="col-sm-9">
+									<div class="col-sm-4">
+										<div class="bo-small-checkbox">
+											<div class="checkbox">
+												<input type="checkbox" id="checkbox999">
+												<label for="checkbox999">Remember me</label>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-5">
 										<button type="submit" class="width-35 pull-right btn btn-sm btn-primary extra_width_button" ng-click="vm.doLogin(login)" data-ng-disabled="loginForm.$invalid">
 											<!--<i class="ace-icon fa fa-key"></i>-->
 											{{"pood_336"|translate}}
