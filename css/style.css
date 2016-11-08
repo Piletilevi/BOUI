@@ -1220,18 +1220,16 @@ a:hover {
     cursor:default;
     color: #fff !important;
 }
-body {
-    background: #000;
-}
 .widget-box {
     max-width: 635px;
     /*min-height: 373px;*/
-    background: #e3e5e8;
+    background: #f2f3f5;
     margin: 0 auto;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
     color: #263443;
+    border: 1px solid #cfd4da;
 }
 
 .widget-box .control-label {
@@ -1291,7 +1289,7 @@ body {
 }
 
 .widget-footer {
-    background: #cdd2d8;
+    background: #fff;
     padding-left: 27px;
     padding-right: 27px;
     padding-top: 14px;
@@ -1299,6 +1297,7 @@ body {
     -moz-border-radius: 0 0 4px 4px;
     -webkit-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
+    border-top: 1px solid #ced3d9;
 }
 
 .widget-footer a {
@@ -1335,7 +1334,7 @@ body {
 }
 
 .widget-body .bo-error {
-    margin-top: -4px;
+    margin-top: -9px;
     margin-left: -14px;
     margin-right: -14px;
 }
