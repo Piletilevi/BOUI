@@ -15,6 +15,7 @@ $config['piletilevi']['base']      = "/papi";
 $config['piletilevi']['jwtsecret'] = "secret";
 $config['piletilevi']['oldbourl'] = "http://localhost:90/cgi-bin/cgiip.exe/WService=plevi/proc/login.p";
 $config['piletilevi']['powerbiuser'] = "karink";
+$config['piletilevi']['timeout'] = 3600;
 
 $config['token'] = "secrettoken";
 

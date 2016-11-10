@@ -149,7 +149,7 @@ class PiletileviApi {
 
 		$uri = $this->getBasePath().$url;
 
-		$response = \Httpful\Request::getQuick($uri);
+		$response = \Httpful\Request::get($uri)->timeout($papiConfig["timeout"])->send();
 		return  json_decode($response->__toString());
 	}
 	
@@ -184,7 +184,7 @@ class PiletileviApi {
 		);
 
 		$msg = JWT::encode( $payload, $papiConfig["jwtsecret"] );
-		$response = \Httpful\Request::post($uri)->body($msg)->send();
+		$response = \Httpful\Request::post($uri)->body($msg)->timeout($papiConfig["timeout"])->send();
 
 		//$this->app->log->debug( print_r($response->headers,true) );
 		
