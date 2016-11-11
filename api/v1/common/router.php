@@ -264,22 +264,17 @@ $app->get('/powerbiReport', function() use ($app)  {
 	$dataHandler->verifyToken();
 
 	$filter = $app->request->params("filter");
-	$app->log->debug( print_r($filter,true) );
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->powerbiReport( $filter );
 	
-	$response = array();
-
-	if (!empty( $reportResponse->errors) ) {
+	if ($reportResponse) {
+	    $dataHandler->response(200, $reportResponse);
+	} else {
 	    $response["status"] = "error";
-        $response["errors"] = $reportResponse->errors;
-	} else if (!empty( $reportResponse->data)) {
-	    $response["status"] = "success";
-        $response["data"] = $reportResponse->data;
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
 	}
-
-    $dataHandler->response(200, $response);
 });
 
 $app->get('/cardsReport', function() use ($app)  {
@@ -287,22 +282,17 @@ $app->get('/cardsReport', function() use ($app)  {
 	$dataHandler->verifyToken();
 
 	$filter = $app->request->params("filter");
-	$app->log->debug( print_r($filter,true) );
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->cardsReport( $filter );
 	
-	$response = array();
-
-	if (!empty( $reportResponse->errors) ) {
+	if ($reportResponse) {
+	    $dataHandler->response(200, $reportResponse);
+	} else {
 	    $response["status"] = "error";
-        $response["errors"] = $reportResponse->errors;
-	} else if (!empty( $reportResponse->data)) {
-	    $response["status"] = "success";
-        $response["data"] = $reportResponse->data;
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
 	}
-
-    $dataHandler->response(200, $response);
 });
 
 ?>

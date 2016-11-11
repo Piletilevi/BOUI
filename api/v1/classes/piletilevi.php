@@ -85,7 +85,7 @@ class PiletileviApi {
 		$data['filter']= $filter;
 		$data['userid']= $this->getPowerBiUser();
 
-		$reportData = $this->send( "/report/powerbiReport", $data );
+		$reportData = $this->send( "/report/powerbiReport", $data, true );
 
 		return $reportData;
 	}
@@ -95,7 +95,7 @@ class PiletileviApi {
 		$data['filter']= $filter;
 		$data['userid']= $this->getPowerBiUser();
 
-		$reportData = $this->send( "/report/cards", $data );
+		$reportData = $this->send( "/report/cards", $data, true );
 
 		return $reportData;
 	}
@@ -140,7 +140,7 @@ class PiletileviApi {
 	 * @param $data [] -query params
 	 * @return mixed
 	 */
-	private function get($url, $data = array()){
+	private function get($url, $data = array(), $plain = false){
 		$papiConfig = $this->getPapiConfig();
 		$envConfig = $this->getEnvConfig();
 		$query ="?";
@@ -148,12 +148,17 @@ class PiletileviApi {
 		$url .= $query;
 
 		$uri = $this->getBasePath().$url;
+		
+		$request = \Httpful\Request::get($uri)->timeout($papiConfig["timeout"]);
+		if ($plain) {
+			$request->withoutAutoParsing();
+		}
+		$response = $request->send();
 
-		$response = \Httpful\Request::get($uri)->timeout($papiConfig["timeout"])->send();
-		return  json_decode($response->__toString());
+		return $response->body;
 	}
 	
-	private function send($url, $data) {
+	private function send($url, $data, $plain = false) {
 		$papiConfig = $this->getPapiConfig();
 		$envConfig = $this->getEnvConfig();
 		
@@ -184,11 +189,16 @@ class PiletileviApi {
 		);
 
 		$msg = JWT::encode( $payload, $papiConfig["jwtsecret"] );
-		$response = \Httpful\Request::post($uri)->body($msg)->timeout($papiConfig["timeout"])->send();
+		$request = \Httpful\Request::post($uri)->body($msg)->timeout($papiConfig["timeout"]);
+
+		if ($plain) {
+			$request->withoutAutoParsing();
+		}
+		$response = $request->send();
 
 		//$this->app->log->debug( print_r($response->headers,true) );
-		
-		return json_decode($response->__toString());
+
+		return $response->body;
 	}
 
 	private function getBasePath() {
