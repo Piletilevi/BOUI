@@ -269,7 +269,7 @@ $app->get('/powerbiReport', function() use ($app)  {
     $reportResponse = $piletileviApi->powerbiReport( $filter );
 	
 	if ($reportResponse) {
-	    $dataHandler->response(200, $reportResponse);
+	    $dataHandler->responseAsText(200, $reportResponse);
 	} else {
 	    $response["status"] = "error";
         $response["errors"] = array("error" => "no response");
@@ -287,7 +287,7 @@ $app->get('/cardsReport', function() use ($app)  {
     $reportResponse = $piletileviApi->cardsReport( $filter );
 	
 	if ($reportResponse) {
-	    $dataHandler->response(200, $reportResponse);
+	    $dataHandler->responseAsText(200, $reportResponse);
 	} else {
 	    $response["status"] = "error";
         $response["errors"] = array("error" => "no response");

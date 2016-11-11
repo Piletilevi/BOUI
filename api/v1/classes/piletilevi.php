@@ -197,7 +197,7 @@ class PiletileviApi {
 		$response = $request->send();
 
 		//$this->app->log->debug( print_r($response->headers,true) );
-
+		
 		return $response->body;
 	}
 

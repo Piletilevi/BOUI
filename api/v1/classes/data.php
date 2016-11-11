@@ -76,6 +76,15 @@ class DataHandler {
 		echo json_encode($response);
 	}
 
+	public function responseAsText($status_code, $response) {
+		// Http response code
+		$this->app->status($status_code);
+
+		// setting response content type to json
+		$this->app->contentType('application/json');
+		echo $response;
+	}
+
 	private function getToken() {
 		return $this->settings["token"];
 	}
