@@ -58,6 +58,10 @@ a:hover {
     margin-bottom: 36px;
 }
 
+.bo-news {
+    padding: 10px 15px;
+}
+
 .bo-news-title {
     margin-top: -2px;
 }
@@ -474,17 +478,14 @@ a:hover {
 
 .progress-bar-success {
     background-color: #2fc853;
-    border-top: 1px solid #53ce71;
 }
 
 .progress-bar-warning {
     background-color: #ffc820;
-    border-top: 1px solid #f9ce48;
 }
 
 .progress-bar-danger {
     background-color: #ff3f68;
-    border-top: 1px solid #f96082;
 }
 
 .progress {
@@ -497,28 +498,25 @@ a:hover {
 .progress-bar {
 }
 
-.bo-right-column {
-    background: #fff;
+.bo-sidebar {
     margin-bottom: 10px;
 }
 
-.bo-right-column .panel {
-    margin: 0 -15px;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
+.bo-sidebar {
     font-size: 14px;
-    color: #505765;
 }
 
-.bo-right-column .panel-body {
-    padding-left: 14px;
-    padding-right: 14px;
-    padding-top: 28px;
+.bo-sidebar-title {
+    font-size: 22px;
+    margin: 9px 14px 14px;
 }
 
-.bo-right-column .panel + .panel {
-    border-top: 0 none;
+.bo-sidebar .list-group-item:first-child {
+    border-top: 0;
+}
+
+.bo-sidebar .list-group-item {
+    padding: 0;
 }
 
 .bo-right-column h3 {
@@ -711,97 +709,6 @@ a:hover {
     border-top: 6px dashed;
 }
 
-.bo-nice-checkbox {
-    background: #fff;
-    border: 1px solid #cdd2d8;
-    display: block;
-    color: #281e0f;
-    text-decoration: none;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    margin-bottom: 8px;
-    position: relative;
-    padding-left: 41px;
-}
-
-.bo-nice-checkbox:hover {
-    color: #281e0f;
-}
-
-.bo-nice-checkbox > div {
-    display: inline-block;
-    background: #f7f9fb;
-    border-right: 1px solid #cdd2d8;
-    padding: 1px;
-    width: 36px;
-    -moz-border-radius: 3px 0 0 3px;
-    -webkit-border-radius: 3px 0 0 3px;
-    border-radius: 3px 0 0 3px;
-    position: absolute;
-    left: 0;
-    height: 100%;
-}
-
-.bo-nice-checkbox > div > div {
-    background: #ebedf0;
-    padding: 6px 6px 5px 6px;
-    -moz-border-radius: 3px 0 0 3px;
-    -webkit-border-radius: 3px 0 0 3px;
-    border-radius: 3px 0 0 3px;
-    height: 100%;
-}
-
-.bo-nice-checkbox > div > div > div {
-    width: 23px;
-    line-height: 21px;
-    text-align: center;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-
-.bo-nice-checkbox .checkbox {
-    margin: 0;
-}
-
-.bo-nice-label {
-    font-weight: normal;
-    display: inline;
-    cursor: pointer;
-    line-height: 35px;
-}
-
-.bo-nice-label::before {
-    content: "-";
-    display: inline-block;
-    margin-left: 0px;
-    margin-right: 4px;
-}
-
-
-.bo-nice-checkbox .checkbox label::before {
-    top: -3px;
-    height: 23px;
-    width: 23px;
-    margin-left: -21px;
-}
-
-.bo-nice-checkbox .checkbox label::after {
-    top: -2px;
-    font-size: 15px;
-    color: #281e0f;
-}
-
-.bo-wide-select {
-    width: 100%!important;
-    margin-bottom: 10px!important;
-}
-
-.bo-wide-select .btn {
-    padding-left: 11px;
-}
-
 .bo-event-share-block {
     color: #b7b7b9;
     margin-bottom: 4px;
@@ -937,12 +844,6 @@ a:hover {
 
     .bo-pills-block {
         display: none;
-    }
-}
-
-@media (min-width: 992px) {
-    .bo-left-filter {
-        display: block!important;
     }
 }
 
@@ -1357,4 +1258,69 @@ a:hover {
 
 .bo-small-checkbox .checkbox label {
     padding-left: 13px;
+}
+
+
+/* On-sale
+===================== */
+.bo-onsale {
+
+}
+
+.bo-onsale-viewall {
+    display: block;
+    font-size: 15px;
+    text-align: center;
+    padding: 9px 10px 20px;
+}
+
+/* Event-short
+===================== */
+.bo-eventshort {
+    padding: 16px 15px 19px;
+    line-height: 22px;
+}
+
+.bo-eventshort .fa {
+    color: #2a7ed8;
+}
+
+.bo-eventshort-title {
+    margin-bottom: 10px;
+    font-size: 17px;
+}
+
+.bo-eventshort-datetime {
+    margin-left: 2px;
+}
+
+.bo-eventshort-time {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.bo-eventshort-venue {
+    margin-left: 4px;
+}
+
+.bo-eventshort-progress {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.bo-eventshort-progress .progress {
+    height: 17px;
+    margin: 0;
+}
+
+.bo-eventshort-progress .progress-bar {
+    font-size: 13px;
+     line-height: 16px;
+}
+
+.bo-eventshort-progresslabel {
+    display: inline-block;
+    margin-left: 10px;
+    line-height: 15px;
+    vertical-align: top;
 }

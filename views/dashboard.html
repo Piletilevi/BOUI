@@ -1,26 +1,29 @@
 <div class="container bo-main-block">
     <div class="row">
-        <div class="col-md-3 col-md-push-9 bo-right-column">
-            <div class="panel panel-default bo-news" ng-repeat="newsItem in vm.news">
-                <div class="panel-heading" ng-if="$first">
-                    <h2 class="hidden-xs">{{'api_news'|translate}}</h2>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-xs-11 col-sm-11 col-md-12">
-                            <h3 class="bo-news-title">{{newsItem.title}}</h3>
-                            <p class="hidden-xs">
-                                {{newsItem.text}}
-                            </p>
-                            <a class="hidden-xs hidden-sm" href="#{{newsItem.id}}">{{'api_more'|translate}}</a>
-                            <div class="bo-news-date">{{newsItem.created}} {{'api_by'|translate}} {{newsItem.createdBy}}</div>
-                            <div class="visible-sm visible-xs bo-news-arrow">
-                                <a href=""><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+        <div class="col-md-3 col-md-push-9 bo-sidebar" ng-if="vm.news">
+            <div class="panel panel-default">
+                <h2 class="bo-sidebar-title hidden-xs">{{'api_news'|translate}}</h2>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="newsItem in vm.news">
+                        <div class="bo-news">
+                            <div class="row">
+                                <div class="col-xs-11 col-sm-11 col-md-12">
+                                    <h3 class="bo-news-title">{{newsItem.title}}</h3>
+                                    <p class="hidden-xs">
+                                        {{newsItem.text}}
+                                    </p>
+                                    <a class="hidden-xs hidden-sm" href="#{{newsItem.id}}">{{'api_more'|translate}}</a>
+                                    <div class="bo-news-date">{{newsItem.created}} {{'api_by'|translate}} {{newsItem.createdBy}}</div>
+                                    <div class="visible-sm visible-xs bo-news-arrow">
+                                        <a href=""><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
+
         </div>
         <div class="col-md-9 col-md-pull-3 bo-center-column">
             <div class="row bo-filter-block">
@@ -43,7 +46,7 @@
                         <div class="visible-lg bo-hidden-label">{{'api_sales_period'|translate}}:</div>
                         <div class="input-group data_range input-group-lg">
 							 <input type="text" daterangepicker class="form-control" name="period" ng-model="filter.period" />
-              
+
                              <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" ng-click="showDateRange($event)">
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -53,7 +56,7 @@
                     </div>
                 </div>
             </div>
-			
+
 			{{filter}}
 			{{myevents}}
 
