@@ -64,11 +64,39 @@
 
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#">Overview</a></li>
-		<li><a href="#">By prices</a></li>
-		<li><a href="#">Sections</a></li>
+		<li><a href="#">By pricetype</a></li>
+		<li><a href="#">By priceclass</a></li>
+		<li><a href="#">By sections</a></li>
+		<li><a href="#">By locations</a></li>
+		<li><a href="#">Bookings</a></li>
 	</ul>
-	<div class="panel panel-default">
+	<div class="bo-sales-overview panel panel-default">
 		<div class="panel-body">
+			<div class="bo-sales-overview-controls clearfix">
+				<div class="row">
+					<div class="col-md-5">
+						<div class="input-group data_range">
+							<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
+							  <span class="input-group-btn">
+								 <button class="btn btn-default" type="button">
+									 <i class="fa fa-calendar" aria-hidden="true"></i>
+								 </button>
+							  </span>
+						</div>
+					</div>
+					<div class="col-md-7 text-right">
+						<div class="btn-group btn-group-sm" role="group">
+						  <button type="button" class="btn btn-sm btn-default active">Tickets</button>
+						  <button type="button" class="btn btn-sm btn-default">Revenue</button>
+						</div>&nbsp;&nbsp;<div class="btn-group btn-group-sm" role="group">
+						  <button type="button" class="btn btn-sm btn-default active">Day</button>
+						  <button type="button" class="btn btn-sm btn-default">Week</button>
+						  <button type="button" class="btn btn-sm btn-default">Month</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div>
 				<img class="temp_image" src="img/chart1.jpg" />
 			</div>
@@ -86,6 +114,7 @@
 							<td>Revenue</td>
 						</tr>
 						</thead>
+						
 						<tbody>
 						<tr class="info">
 							<td>Generated</td>

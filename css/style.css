@@ -1261,8 +1261,22 @@ a:hover {
 }
 
 
+/* Bootstrap
+===================== */
+.btn-group-sm > .btn {
+    font-size: 14px;
+    padding: 0px 10px 2px;
+}
+
+.btn-default.active, .btn-default:active {
+    background: #d7d8da;
+    box-shadow: none;
+    border-color: #c1c4c8;
+}
+
 /* On-sale
 ===================== */
+
 .bo-onsale {
 
 }
