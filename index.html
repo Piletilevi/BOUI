@@ -21,7 +21,7 @@
 </head>
 <body style="visibility: hidden" ng-class='{forceShow: isTranslated}' >
 
-    <div ng-include="'views/common/template.html'"></div>
+    <div ng-include="'views/common/template.html'" ng-if="authenticated"></div>
 
 	<div class="container bo-main-block">
 		<div data-ng-view="" id="ng-view" class="row slide-animation"></div>
