@@ -739,56 +739,6 @@ a:hover {
     margin-left: 3px;
 }
 
-.bo-table {
-    text-align: right;
-    color: #281e0f;
-    font-size: 14px;
-}
-
-.bo-table > tbody > tr > td,
-.bo-table > tbody > tr > th,
-.bo-table > tfoot > tr > td,
-.bo-table > tfoot > tr > th,
-.bo-table > thead > tr > td,
-.bo-table > thead > tr > th {
-    border-top: 0 none;
-}
-
-.bo-table > tbody > tr.info > td,
-.bo-table > tbody > tr.info > th,
-.bo-table > tbody > tr > td.info,
-.bo-table > tbody > tr > th.info,
-.bo-table > tfoot > tr.info > td,
-.bo-table > tfoot > tr.info > th,
-.bo-table > tfoot > tr > td.info,
-.bo-table > tfoot > tr > th.info,
-.bo-table > thead > tr.info > td,
-.bo-table > thead > tr.info > th,
-.bo-table > thead > tr > td.info,
-.bo-table > thead > tr > th.info {
-    background-color: #4a5867;
-    color: #fff;
-}
-
-.bo-table > tbody > tr.active > td,
-.bo-table > tbody > tr.active > th,
-.bo-table > tbody > tr > td.active,
-.bo-table > tbody > tr > th.active,
-.bo-table > tfoot > tr.active > td,
-.bo-table > tfoot > tr.active > th,
-.bo-table > tfoot > tr > td.active,
-.bo-table > tfoot > tr > th.active,
-.bo-table > thead > tr.active > td,
-.bo-table > thead > tr.active > th,
-.bo-table > thead > tr > td.active,
-.bo-table > thead > tr > th.active {
-    background-color: #e3e5e8;
-}
-
-.bo-table .text-danger {
-    color: #ff3f68;
-}
-
 @media (min-width: 768px) {
     .bo-language-dropdown {
         margin-right: -15px;
@@ -1251,6 +1201,9 @@ a:hover {
 
 /* Bootstrap
 ===================== */
+.h4, h4 {
+    font-size: 17px;
+}
 .btn-group-sm > .btn {
     font-size: 14px;
     padding: 0px 10px 2px;
@@ -1283,6 +1236,73 @@ a:hover {
 
 a.list-group-item {
     text-decoration: none;
+}
+
+.table > thead > tr > th {
+
+}
+
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+    border: 0;
+    border-bottom: 1px solid #fff;
+}
+
+.table th {
+    background: #4a5867;
+    font-weight: normal;
+    color: #fff;
+}
+
+.table > tbody > tr {
+    background: #f4f5f6;
+}
+
+.table-striped > tbody > tr {
+    background: #fff;
+}
+
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+    background: #f4f5f6;
+}
+
+.table-small {
+    font-size: 14px;
+}
+
+select.input-sm {
+    height: 23px;
+    line-height: 23px;
+    padding: 0px 4px;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 7px;
+}
+
+label {
+    font-weight: normal;
+}
+
+.radio label {
+    padding-left: 9px;
+}
+
+.radio label:before {
+    width: 23px;
+    height: 23px;
+}
+
+.radio label:after {
+    width: 7px;
+    height: 7px;
+    left: 8px;
+    top: 8px;
 }
 
 /* On-sale
@@ -1443,4 +1463,110 @@ a.list-group-item {
     line-height: 19px;
     margin-right: 21px;
     vertical-align: top;
+}
+
+/* Dot
+===================== */
+.bo-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: lightgray;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Cancel button
+===================== */
+.bo-cancel {
+    text-decoration: none;
+}
+
+/* Cancel button
+===================== */
+.bo-reservationform {
+    display: block;
+    background: #e3e5e8;
+    padding: 9px 9px 15px;
+}
+
+/* Legend
+===================== */
+.bo-legend {
+    margin: 0 -4px 5px;
+    line-height: 21px;
+}
+.bo-legend-item {
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 4px;
+    white-space: nowrap;
+}
+
+/* Mapcontrols
+===================== */
+.bo-mapcontrols {
+    text-align: right;
+}
+
+.bo-mapcontrols-item {
+    position: relative;
+    display: inline-block;
+    background: #4a5867;
+    color: #fff;
+    width: 23px;
+    height: 24px;
+    text-align: center;
+    text-decoration: none;
+    border: 3px solid #4a5867;
+}
+
+.bo-mapcontrols-item i {
+    vertical-align: top;
+    line-height: 18px;
+    font-size: 14px;
+    position: relative;
+    z-index: 1;
+}
+
+.bo-mapcontrols-item:hover {
+    color: #fff;
+}
+
+.bo-mapcontrols-resize {
+    background: #fff;
+    color: #4a5867;
+    margin-right: 12px;
+}
+
+.bo-mapcontrols-resize:hover {
+    color: #4a5867;
+}
+
+.bo-mapcontrols-resize:before {
+    background: #fff;
+    content: '';
+    display: block;
+    position: absolute;
+    height: 6px;
+    left: -3px;
+    right: -3px;
+    top: 50%;
+    margin-top: -3px;
+}
+
+.bo-mapcontrols-resize:after {
+    background: #fff;
+    content: '';
+    display: block;
+    position: absolute;
+    width: 6px;
+    top: -3px;
+    bottom: -3px;
+    left: 50%;
+    margin-left: -3px;
 }
