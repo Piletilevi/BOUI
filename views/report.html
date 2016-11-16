@@ -47,20 +47,31 @@
 																		  <!--</ul>-->
 																		  <!--</div>-->
 	</div>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="">
-				<h3 class="bo-event-title">Event title</h3>
-				<div>
-					<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
-					<div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
-				</div>
-				<div class="bo-event-place">
-					<i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY
-				</div>
-			</div>
-		</div>
-	</div>
+	<!-- event is copy pasta from dashboard view, TODO: move to separate template -->
+	<div class="panel panel-default bo-event">
+		 <div class="panel-body">
+			 <h3 class="bo-event-title">Rammstein</h3>
+			 <div class="row">
+				 <div class="col-sm-4">
+					 <div>
+						 <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+						 <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
+					 </div>
+					 <div class="bo-event-place"><i class="fa fa-map-marker active" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+				 </div>
+				 <div class="col-xs-12 col-sm-5">
+					 <ng-include src="'views/common/simplestats.html'"></ng-include>
+				 </div>
+				 <div class="col-xs-12 col-sm-3">
+					 <div class="row">
+						 <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+						 <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">Promote event</a></div>
+					 </div>
+				 </div>
+			 </div>
+			 <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+		 </div>
+	 </div>
 
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#">Overview</a></li>
@@ -70,9 +81,9 @@
 		<li><a href="#">By locations</a></li>
 		<li><a href="#">Bookings</a></li>
 	</ul>
-	<div class="bo-sales-overview panel panel-default">
+	<div class="bo-salesoverview panel panel-default">
 		<div class="panel-body">
-			<div class="bo-sales-overview-controls clearfix">
+			<div class="bo-salesoverview-controls clearfix">
 				<div class="row">
 					<div class="col-md-5">
 						<div class="input-group data_range">
@@ -114,7 +125,7 @@
 							<td>Revenue</td>
 						</tr>
 						</thead>
-						
+
 						<tbody>
 						<tr class="info">
 							<td>Generated</td>
@@ -142,8 +153,99 @@
 						</tr>
 						</tbody>
 					</table>
+					<a href="#" class="btn btn-info">View detailed report</a>
 				</div>
 			</div>
+
+		</div>
+	</div>
+	<div class="bo-salesoverview panel panel-default">
+		<div class="panel-body">
+			<div class="bo-salesoverview-controls clearfix">
+				<div class="form-inline">
+					<div class="form-group">
+						<div class="input-group data_range">
+							<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
+							  <span class="input-group-btn">
+								 <button class="btn btn-default" type="button">
+									 <i class="fa fa-calendar" aria-hidden="true"></i>
+								 </button>
+							  </span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="bo-sectionselector list-group">
+						<button type="button" class="bo-sectionselector-item list-group-item">
+							<div class="bo-sectionselector-itemtitle">
+								Parter
+							</div>
+							<div class="clearfix">
+								<div class="bo-sectionselector-itemprice">60,000 €</div>
+								<div class="bo-sectionselector-itemstats" ng-include="'views/common/simplestats.html'"></div>
+							</div>
+						</button>
+						<button type="button" class="bo-sectionselector-item list-group-item">
+							<div class="bo-sectionselector-itemtitle">
+								I rõdu
+							</div>
+							<div class="clearfix">
+								<div class="bo-sectionselector-itemprice">60,000 €</div>
+								<div class="bo-sectionselector-itemstats" ng-include="'views/common/simplestats.html'"></div>
+							</div>
+						</button>
+						<button type="button" class="bo-sectionselector-item list-group-item">
+							<div class="bo-sectionselector-itemtitle">
+								II rõdu
+							</div>
+							<div class="clearfix">
+								<div class="bo-sectionselector-itemprice">60,000 €</div>
+								<div class="bo-sectionselector-itemstats" ng-include="'views/common/simplestats.html'"></div>
+							</div>
+						</button>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<img class="temp_image" src="img/venueplan_dummy.png" />
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="bo-salesoverview panel panel-default">
+		<div class="panel-body">
+			<div class="bo-salesoverview-controls clearfix">
+				<div class="form-inline">
+					<div class="form-group">
+						<div class="input-group data_range">
+							<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
+							  <span class="input-group-btn">
+								 <button class="btn btn-default" type="button">
+									 <i class="fa fa-calendar" aria-hidden="true"></i>
+								 </button>
+							  </span>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="bo-sectionselection form-control">
+							<span class="bo-sectionselection-text">Selected section: Parter</span><a href="#" class="bo-sectionselection-icon fa fa-times text-danger"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6">
+
+				</div>
+				<div class="col-lg-6">
+					<img class="temp_image" src="img/venueplan_dummy.png" />
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>
@@ -151,18 +253,10 @@
 	<div class="panel panel-default bo-onsale">
 		<h2 class="bo-sidebar-title hidden-xs">Events on sale</h2>
 		<ul class="list-group">
-			<li class="list-group-item">
-				<div ng-include="'views/common/event_short.html'"></div>
-			</li>
-			<li class="list-group-item">
-				<div ng-include="'views/common/event_short.html'"></div>
-			</li>
-			<li class="list-group-item">
-				<div ng-include="'views/common/event_short.html'"></div>
-			</li>
-			<li class="list-group-item">
-				<div ng-include="'views/common/event_short.html'"></div>
-			</li>
+			<li class="list-group-item" ng-include="'views/common/event_short.html'"></li>
+			<li class="list-group-item" ng-include="'views/common/event_short.html'"></li>
+			<li class="list-group-item" ng-include="'views/common/event_short.html'"></li>
+			<li class="list-group-item" ng-include="'views/common/event_short.html'"></li>
 			<li class="list-group-item">
 				<a class="bo-onsale-viewall" href="#TODO">View all events on sale</a>
 			</li>
