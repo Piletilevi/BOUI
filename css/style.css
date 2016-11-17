@@ -1321,6 +1321,10 @@ label {
     max-width: 100%;
 }
 
+.table > tbody > tr.info > td {
+    background: #e3e5e8;
+}
+
 /* On-sale
 ===================== */
 
@@ -1643,24 +1647,37 @@ label {
     margin: -2px -4px;
 }
 
-/* Section revenue table
+/* Price type revenue table
 ===================== */
-.bo-sectionrevenuetable thead th:nth-child(n+3),
-.bo-sectionrevenuetable thead td:nth-child(n+3),
-.bo-sectionrevenuetable tbody td:nth-child(n+3) {
+.bo-pricetyperevenuetable col:first-child {
+    width: 28px;
+}
+
+.bo-pricetyperevenuetable tbody td:first-child {
     text-align: center;
 }
 
-.bo-sectionrevenuetable tfoot th:nth-child(n+3) {
+.bo-pricetyperevenuetable thead th:nth-child(n+3),
+.bo-pricetyperevenuetable thead td:nth-child(n+3),
+.bo-pricetyperevenuetable tbody td:nth-child(n+3) {
+    text-align: center;
+}
+
+.bo-pricetyperevenuetable tfoot th:nth-child(n+3) {
     font-weight: bold;
     text-align: center;
 }
 
 
-.bo-sectionrevenuetable tbody td:nth-child(5),
-.bo-sectionrevenuetable tfoot th:nth-child(5) {
+.bo-pricetyperevenuetable tbody td:nth-child(5),
+.bo-pricetyperevenuetable tfoot th:nth-child(5) {
     text-align: right;
     white-space: nowrap;
+}
+
+.bo-pricetyperevenuetable.table > thead > tr > th,
+.bo-pricetyperevenuetable.table > tfoot > tr > th {
+    border-top: 8px solid #fff;
 }
 /* Revenue table
 ===================== */
@@ -1677,4 +1694,18 @@ label {
 .bo-revenuetable thead th:nth-child(5) {
     text-align: right;
     white-space: nowrap;
+}
+.bo-revenuetable.table > thead > tr > th {
+    border-top: 8px solid #fff;
+}
+/* Chart
+===================== */
+.bo-chart {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.bo-chart-buttons {
+    text-align: right;
+    margin-bottom: 10px;
 }

@@ -81,6 +81,8 @@
 		<li><a href="#">By locations</a></li>
 		<li><a href="#">Bookings</a></li>
 	</ul>
+
+	<!-- Tab: overview -->
 	<div class="bo-salesoverview panel panel-default">
 		<div class="panel-body">
 
@@ -114,12 +116,14 @@
 					</div>
 				</div>
 			</div>
-			<div>
+			<div class="bo-chart">
 				<img class="temp_image" src="img/chart1.jpg" />
 			</div>
 			<div class="row">
 				<div class="col-lg-6">
-					<img class="temp_image" src="img/chart2.jpg" />
+					<div class="bo-chart">
+						<img class="temp_image" src="img/chart2.jpg" />
+					</div>
 				</div>
 				<div class="col-lg-6">
 					<table class="bo-revenuetable table table-condensed table-small">
@@ -140,7 +144,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<tr class="info">
 								<td></td>
 								<td>Generated</td>
 								<td>1050</td>
@@ -276,6 +280,313 @@
 
 		</div>
 	</div>
+
+	<!-- Tab: price types -->
+	<div class="bo-salesoverview panel panel-default">
+		<div class="panel-body">
+
+			<div class="bo-salesoverview-controls clearfix">
+				<div class="row">
+					<div class="col-sm-5">
+						<div class="form-inline">
+							<div class="form-group">
+								<div class="input-group data_range">
+									<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
+										  <span class="input-group-btn">
+											 <button class="btn btn-default" type="button">
+												 <i class="fa fa-calendar" aria-hidden="true"></i>
+											 </button>
+										  </span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bo-chart">
+				<img class="temp_image" src="img/pricetypes_graph_dummy.png" />
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="bo-chart">
+						<div class="bo-chart-buttons">
+							<div class="btn-group btn-group-sm" role="group">
+								<button type="button" class="btn btn-sm btn-default active">Tickets</button>
+								<button type="button" class="btn btn-sm btn-default">Revenue</button>
+							</div>
+						</div>
+						<img class="temp_image" src="img/pricetypes_pie_dummy.png" />
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<table class="bo-pricetyperevenuetable table table-condensed table-small">
+						<colgroup>
+							<col>
+							<col>
+							<col>
+							<col>
+							<col>
+						</colgroup>
+						<thead>
+							<tr>
+								<td></td>
+								<td>Pricetype</td>
+								<td>Tickets</td>
+								<td>%</td>
+								<td>Revenue</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="info">
+								<td></td>
+								<td>Sold in total</td>
+								<td>850</td>
+								<td>100%</td>
+								<td>34,875.00 €</td>
+							</tr>
+						</tbody>
+						<thead>
+							<tr>
+								<th></th>
+								<th colspan="4">Piletilevi:</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #3366cc"></span></td>
+								<td>Full price</td>
+								<td>398</td>
+								<td>46.8%</td>
+								<td>22,886.00 €</td>
+							</tr>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #77f23b"></span></td>
+								<td>- Limited visibility</td>
+								<td>50</td>
+								<td>5.9%</td>
+								<td>330.00 €</td>
+							</tr>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #f19837"></span></td>
+								<td>- Student</td>
+								<td>76</td>
+								<td>8.9%</td>
+								<td>605.00 €</td>
+							</tr>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #489721"></span></td>
+								<td>- Senior</td>
+								<td>80</td>
+								<td>9.4%</td>
+								<td>400.00 €</td>
+							</tr>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #9b3999"></span></td>
+								<td>- Campaign</td>
+								<td>87</td>
+								<td>6%</td>
+								<td>125.00 €</td>
+							</tr>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #429ac6"></span></td>
+								<td>- Telia client</td>
+								<td>44</td>
+								<td>5.2%</td>
+								<td>100.00 €</td>
+							</tr>
+						</tbody>
+						<thead>
+							<tr>
+								<th></th>
+								<th colspan="4">Sub-center name:</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #5b2742"></span></td>
+								<td>Invitations</td>
+								<td>90</td>
+								<td>10.6%</td>
+								<td>7,000.00 €</td>
+							</tr>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #66aa28"></span></td>
+								<td>- Student</td>
+								<td>25</td>
+								<td>2.9%</td>
+								<td>0.00 €</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Tab: price classes -->
+	<div class="bo-salesoverview panel panel-default">
+		<div class="panel-body">
+
+			<div class="bo-salesoverview-controls clearfix">
+				<div class="row">
+					<div class="col-sm-5">
+						<div class="form-inline">
+							<div class="form-group">
+								<div class="input-group data_range">
+									<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
+										  <span class="input-group-btn">
+											 <button class="btn btn-default" type="button">
+												 <i class="fa fa-calendar" aria-hidden="true"></i>
+											 </button>
+										  </span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bo-chartcontrols col-sm-7 text-right">
+						<div class="btn-group btn-group-sm" role="group">
+							<button type="button" class="btn btn-sm btn-default active">Tickets</button>
+							<button type="button" class="btn btn-sm btn-default">Revenue</button>
+						</div>
+						&nbsp;&nbsp;
+						<div class="btn-group btn-group-sm" role="group">
+							<button type="button" class="btn btn-sm btn-default active">Day</button>
+							<button type="button" class="btn btn-sm btn-default">Week</button>
+							<button type="button" class="btn btn-sm btn-default">Month</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bo-chart">
+				<img class="temp_image" src="img/priceclasses_graph_dummy.png" />
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="bo-chart">
+						<div class="bo-chart-buttons">
+							<div class="btn-group btn-group-sm" role="group">
+								<button type="button" class="btn btn-sm btn-default active">Tickets</button>
+								<button type="button" class="btn btn-sm btn-default">Revenue</button>
+							</div>
+						</div>
+						<img class="temp_image" src="img/priceclasses_pie_dummy.png" />
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<table class="bo-pricetyperevenuetable table table-condensed table-small">
+						<colgroup>
+							<col>
+							<col>
+							<col>
+							<col>
+							<col>
+						</colgroup>
+						<thead>
+							<tr>
+								<td></td>
+								<td>Pricetype</td>
+								<td>Tickets</td>
+								<td>%</td>
+								<td>Revenue</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="info">
+								<td></td>
+								<td>Generated</td>
+								<td>1250</td>
+								<td>100%</td>
+								<td></td>
+							</tr>
+						</tbody>
+						<thead>
+							<tr>
+								<th></th>
+								<th colspan="4">Piletilevi:</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #df9617"></span></td>
+								<td>I Priceclass (10.00-40.00€)</td>
+								<td>498</td>
+								<td>57.2%</td>
+								<td>22,886.00 €</td>
+							</tr>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #448fff"></span></td>
+								<td>II Priceclass (5.00-30.00€)</td>
+								<td>25</td>
+								<td>4%</td>
+								<td>330.00 €</td>
+							</tr>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #c844ff"></span></td>
+								<td>III Priceclass (5.00-30.00€)</td>
+								<td>33</td>
+								<td>4%</td>
+								<td>605.00 €</td>
+							</tr>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #00ff05"></span></td>
+								<td>IV Priceclass (7.50-35.00€)</td>
+								<td>20</td>
+								<td>5%</td>
+								<td>400.00 €</td>
+							</tr>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #fff000"></span></td>
+								<td>V Priceclass (25.00€)</td>
+								<td>27</td>
+								<td>6%</td>
+								<td>125.00 €</td>
+							</tr>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #ff5400"></span></td>
+								<td>VI Priceclass (9.00-38.00€)</td>
+								<td>17</td>
+								<td>3%</td>
+								<td>100.00 €</td>
+							</tr>
+						</tbody>
+						<thead>
+							<tr>
+								<th></th>
+								<th colspan="4">"Own center name":</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #0fc"></span></td>
+								<td>II Priceclass (9.50-38.00€)</td>
+								<td>125</td>
+								<td>10%</td>
+								<td>7,000.00 €</td>
+							</tr>
+							<tr>
+								<td><span class="bo-dot" style="background-color: #448fff"></span></td>
+								<td>III Priceclass (0.00€)</td>
+								<td>125</td>
+								<td>10%</td>
+								<td>0.00 €</td>
+							</tr>
+							<tr class="info">
+								<td><span class="bo-dot" style="background-color: #c844ff"></span></td>
+								<td>IV Priceclass (5.00-30.00€)</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Tab: sections -->
 	<div class="bo-salesoverview panel panel-default">
 		<div class="panel-body">
 			<div class="bo-salesoverview-controls clearfix">
@@ -361,7 +672,14 @@
 
 			<div class="row">
 				<div class="col-lg-6">
-					<table class="bo-sectionrevenuetable table table-striped table-condensed table-small">
+					<table class="bo-pricetyperevenuetable table table-condensed table-small">
+						<colgroup>
+							<col>
+							<col>
+							<col>
+							<col>
+							<col>
+						</colgroup>
 						<thead>
 							<tr>
 								<td></td>
@@ -410,7 +728,7 @@
 							</tr>
 							<tr>
 								<td><span class="bo-dot" style="background-color: #00ff05"></span></td>
-								<td>VI Priceclass (7.50-35.00€)</td>
+								<td>IV Priceclass (7.50-35.00€)</td>
 								<td>20</td>
 								<td>5%</td>
 								<td>400.00 €</td>
@@ -451,7 +769,7 @@
 								<td>10%</td>
 								<td>0.00 €</td>
 							</tr>
-							<tr>
+							<tr class="info">
 								<td><span class="bo-dot" style="background-color: #c844ff"></span></td>
 								<td>IV Priceclass (5.00-30.00€)</td>
 								<td></td>
