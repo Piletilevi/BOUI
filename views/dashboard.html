@@ -1,314 +1,225 @@
-<div class="container bo-main-block">
-    <div class="row">
-        <div class="col-md-3 col-md-push-9 bo-right-column">
-            <div class="panel panel-default bo-news" ng-repeat="newsItem in vm.news">
-                <div class="panel-heading" ng-if="$first">
-                    <h2 class="hidden-xs">{{'api_news'|translate}}</h2>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-xs-11 col-sm-11 col-md-12">
-                            <h3 class="bo-news-title">{{newsItem.title}}</h3>
-                            <p class="hidden-xs">
-                                {{newsItem.text}}
-                            </p>
-                            <a class="hidden-xs hidden-sm" href="#{{newsItem.id}}">{{'api_more'|translate}}</a>
-                            <div class="bo-news-date">{{newsItem.created}} {{'api_by'|translate}} {{newsItem.createdBy}}</div>
-                            <div class="visible-sm visible-xs bo-news-arrow">
-                                <a href=""><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+<div class="row">
+    <div class="col-md-3 col-md-push-9 bo-sidebar" ng-if="vm.news">
+        <div class="panel panel-default">
+            <h2 class="bo-sidebar-title hidden-xs">{{'api_news'|translate}}</h2>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="newsItem in vm.news">
+                    <div class="bo-news">
+                        <div class="row">
+                            <div class="col-xs-11 col-sm-11 col-md-12">
+                                <h3 class="bo-news-title">{{newsItem.title}}</h3>
+                                <p class="bo-news-content hidden-xs">
+                                    {{newsItem.text}}
+                                </p>
+                                <a class="hidden-xs hidden-sm" href="#{{newsItem.id}}">{{'api_more'|translate}}</a>
+                                <div class="bo-news-date">{{newsItem.created}} {{'api_by'|translate}} {{newsItem.createdBy}}</div>
+                                <div class="visible-sm visible-xs bo-news-arrow">
+                                    <a href=""><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="col-md-9 col-md-pull-3 bo-center-column">
+        <div class="row bo-filter-block">
+            <div class="col-xs-12 col-sm-4">
+                <div class="visible-lg bo-hidden-label">&nbsp;</div>
+                <h1>{{'api_myevents'|translate}}</h1>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="visible-lg bo-hidden-label">&nbsp;</div>
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="filter.name">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="vm.getMyEvents(filter)"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </span>
+                </div>
+                <div class="visible-xs">&nbsp;</div>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="input-group-lg">
+                    <div class="visible-lg bo-hidden-label">{{'api_sales_period'|translate}}:</div>
+                    <div class="input-group data_range input-group-lg">
+                         <input type="text" daterangepicker class="form-control" name="period" ng-model="filter.period" />
+
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="showDateRange($event)">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                         </span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-9 col-md-pull-3 bo-center-column">
-            <div class="row bo-filter-block">
-                <div class="col-xs-12 col-sm-4">
-                    <div class="visible-lg bo-hidden-label">&nbsp;</div>
-                    <h1>{{'api_myevents'|translate}}</h1>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="visible-lg bo-hidden-label">&nbsp;</div>
-                    <div class="input-group input-group-lg">
-                        <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="filter.name">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" ng-click="vm.getMyEvents(filter)"><i class="fa fa-search" aria-hidden="true"></i></button>
-                        </span>
+
+        {{filter}}
+        {{myevents}}
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">{{'api_on_sale'|translate}} <span class="badge">42</span></a></li>
+            <li><a href="#">{{'api_draft'|translate}} <span class="badge">2</span></a></li>
+            <li><a href="#">{{'api_past'|translate}} <span class="badge">10</span></a></li>
+        </ul>
+        <div class="bo-events">
+            <div class="panel panel-default bo-event" ng-repeat="eventItem in myevents">
+                <div class="panel-body">
+                    <h3 class="bo-event-title">No other on sale events under this show - open by default</h3>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div>
+                                <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+                                <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
+                            </div>
+                            <div class="bo-event-place"><i class="fa fa-map-marker active" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+                        </div>
+                        <div class="col-xs-12 col-sm-5">
+                             <ng-include src="'views/common/simplestats.html'"></ng-include>
+                         </div>
+                         <div class="col-xs-12 col-sm-3">
+                             <div class="row">
+                                 <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+                                 <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">Promote event</a></div>
+                             </div>
+                         </div>
                     </div>
-                    <div class="visible-xs">&nbsp;</div>
+                    <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
                 </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="input-group-lg">
-                        <div class="visible-lg bo-hidden-label">{{'api_sales_period'|translate}}:</div>
-                        <div class="input-group data_range input-group-lg">
-							 <input type="text" daterangepicker class="form-control" name="period" ng-model="filter.period" />
-              
-                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" ng-click="showDateRange($event)">
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                </button>
-                             </span>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3 class="bo-event-title">
+                        <a class="bo-event-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events0" aria-expanded="false">
+                            <span class="glyphicon glyphicon-triangle-top"></span>
+                            <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span class="badge">1</span>
+                        </a>
+                        Show view, that has more the one event. Summary of all events - default (closed)</h3>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div>
+                                <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+                                <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
+                            </div>
+                            <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+                        </div>
+                        <div class="col-xs-12 col-sm-5">
+                             <ng-include src="'views/common/simplestats.html'"></ng-include>
+                         </div>
+                         <div class="col-xs-12 col-sm-3">
+                             <div class="row">
+                                 <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+                                 <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">Promote event</a></div>
+                             </div>
+                         </div>
+                    </div>
+                    <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+                    <div id="bo-sub-events0" class="bo-sub-events collapse">
+                        <div class="panel panel-default bo-event">
+                            <div class="panel-body">
+                                <h3 class="bo-event-title">No other on sale events under this show - open by default</h3>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+                                            <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
+                                        </div>
+                                        <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-5">
+                                         <ng-include src="'views/common/simplestats.html'"></ng-include>
+                                     </div>
+                                     <div class="col-xs-12 col-sm-3">
+                                         <div class="row">
+                                             <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+                                             <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">Promote event</a></div>
+                                         </div>
+                                     </div>
+                                </div>
+                                <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-			
-			{{filter}}
-			{{myevents}}
-
-			<ul class="nav nav-tabs">
-                <li class="active"><a href="#">{{'api_on_sale'|translate}} <span class="badge">42</span></a></li>
-                <li><a href="#">{{'api_draft'|translate}} <span class="badge">2</span></a></li>
-                <li><a href="#">{{'api_past'|translate}} <span class="badge">10</span></a></li>
-            </ul>
-            <div class="bo-events">
-                <div class="panel panel-default bo-event" ng-repeat="eventItem in myevents">
-                    <div class="panel-body">
-                        <h3 class="bo-event-title">No other on sale events under this show - open by default</h3>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div>
-                                    <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
-                                    <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
-                                </div>
-                                <div class="bo-event-place"><i class="fa fa-map-marker active" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3 class="bo-event-title">
+                        <a class="bo-event-toggle" data-toggle="collapse" data-target="#bo-sub-events1" aria-expanded="true">
+                            <span class="glyphicon glyphicon-triangle-top"></span>
+                            <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span class="badge">2</span>
+                        </a>
+                        Show view, that has more the one event. Summary of all events - default (open)</h3>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div>
+                                <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+                                <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
                             </div>
-                            <div class="col-xs-10 col-sm-4">
-                                <div class="bo-event-statistics">
-                                    <span class="glyphicon glyphicon-triangle-top text-success"></span>
-                                    <b class="text-success" title="sold">800</b>
-                                    <span class="bo-event-statistics-separator">/</span>
-                                    <b class="text-warning">210</b>
-                                    <span class="bo-event-statistics-separator">/</span>
-                                    <b class="text-danger">2000</b>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" style="width: 35%" title="sold"></div>
-                                    <div class="progress-bar progress-bar-warning" style="width: 35%" title="reserved"></div>
-                                    <div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
-                                </div>
-                            </div>
-                            <div class="col-xs-2 col-sm-1 text-center bo-percent-block">
-                                35%
-                            </div>
-                            <div class="col-xs-12 col-sm-3">
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
-                                    <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">Promote event</a></div>
-                                </div>
-                            </div>
+                            <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
                         </div>
-                        <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+                        <div class="col-xs-12 col-sm-5">
+                             <ng-include src="'views/common/simplestats.html'"></ng-include>
+                         </div>
+                         <div class="col-xs-12 col-sm-3">
+                             <div class="row">
+                                 <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+                                 <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">Promote event</a></div>
+                             </div>
+                         </div>
                     </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <h3 class="bo-event-title">
-                            <a class="bo-event-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events0" aria-expanded="false">
-                                <span class="glyphicon glyphicon-triangle-top"></span>
-                                <span class="glyphicon glyphicon-triangle-bottom"></span>
-                                <span class="badge">1</span>
-                            </a>
-                            Show view, that has more the one event. Summary of all events - default (closed)</h3>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div>
-                                    <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
-                                    <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
-                                </div>
-                                <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
-                            </div>
-                            <div class="col-xs-10 col-sm-4">
-                                <div class="bo-event-statistics">
-                                    <span class="glyphicon glyphicon-triangle-bottom text-danger"></span>
-                                    <b class="text-success" title="sold">800</b>
-                                    <span class="bo-event-statistics-separator">/</span>
-                                    <b class="text-warning">210</b>
-                                    <span class="bo-event-statistics-separator">/</span>
-                                    <b class="text-danger">2000</b>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" style="width: 60%" title="sold"></div>
-                                    <div class="progress-bar progress-bar-warning" style="width: 10%" title="reserved"></div>
-                                    <div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
-                                </div>
-                            </div>
-                            <div class="col-xs-2 col-sm-1 text-center bo-percent-block">
-                                60%
-                            </div>
-                            <div class="col-xs-12 col-sm-3">
+                    <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+                    <div id="bo-sub-events1" class="bo-sub-events collapse in">
+                        <div class="panel panel-default bo-event">
+                            <div class="panel-body">
+                                <h3 class="bo-event-title">No other on sale events under this show - open by default</h3>
                                 <div class="row">
-                                    <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
-                                    <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">PROMOTE EVENT</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
-                        <div id="bo-sub-events0" class="bo-sub-events collapse">
-                            <div class="panel panel-default bo-event">
-                                <div class="panel-body">
-                                    <h3 class="bo-event-title">No other on sale events under this show - open by default</h3>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
-                                                <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
-                                            </div>
-                                            <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+                                            <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
                                         </div>
-                                        <div class="col-xs-10 col-sm-4">
-                                            <div class="bo-event-statistics">
-                                                <span class="glyphicon glyphicon-triangle-top text-success"></span>
-                                                <b class="text-success" title="sold">800</b>
-                                                <span class="bo-event-statistics-separator">/</span>
-                                                <b class="text-warning">210</b>
-                                                <span class="bo-event-statistics-separator">/</span>
-                                                <b class="text-danger">2000</b>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-success" style="width: 10%" title="sold"></div>
-                                                <div class="progress-bar progress-bar-warning" style="width: 60%" title="reserved"></div>
-                                                <div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-2 col-sm-1 text-center bo-percent-block">
-                                            10%
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            <div class="row">
-                                                <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
-                                                <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">PROMOTE EVENT</a></div>
-                                            </div>
-                                        </div>
+                                        <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
                                     </div>
-                                    <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+                                    <div class="col-xs-12 col-sm-5">
+                                         <ng-include src="'views/common/simplestats.html'"></ng-include>
+                                     </div>
+                                     <div class="col-xs-12 col-sm-3">
+                                         <div class="row">
+                                             <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+                                             <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">Promote event</a></div>
+                                         </div>
+                                     </div>
                                 </div>
+                                <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <h3 class="bo-event-title">
-                            <a class="bo-event-toggle" data-toggle="collapse" data-target="#bo-sub-events1" aria-expanded="true">
-                                <span class="glyphicon glyphicon-triangle-top"></span>
-                                <span class="glyphicon glyphicon-triangle-bottom"></span>
-                                <span class="badge">2</span>
-                            </a>
-                            Show view, that has more the one event. Summary of all events - default (open)</h3>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div>
-                                    <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
-                                    <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
-                                </div>
-                                <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
-                            </div>
-                            <div class="col-xs-10 col-sm-4">
-                                <div class="bo-event-statistics">
-                                    <span class="glyphicon glyphicon-triangle-top text-success"></span>
-                                    <b class="text-success">800</b>
-                                    <span class="bo-event-statistics-separator">/</span>
-                                    <b class="text-warning">210</b>
-                                    <span class="bo-event-statistics-separator">/</span>
-                                    <b class="text-danger">2000</b>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" style="width: 35%" title="sold"></div>
-                                    <div class="progress-bar progress-bar-warning" style="width: 35%" title="reserved"></div>
-                                    <div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
-                                </div>
-                            </div>
-                            <div class="col-xs-2 col-sm-1 text-center bo-percent-block">
-                                35%
-                            </div>
-                            <div class="col-xs-12 col-sm-3">
+                        <div class="panel panel-default bo-event">
+                            <div class="panel-body">
+                                <h3 class="bo-event-title">No other on sale events under this show - open by default</h3>
                                 <div class="row">
-                                    <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
-                                    <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">PROMOTE EVENT</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
-                        <div id="bo-sub-events1" class="bo-sub-events collapse in">
-                            <div class="panel panel-default bo-event">
-                                <div class="panel-body">
-                                    <h3 class="bo-event-title">No other on sale events under this show - open by default</h3>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
-                                                <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
-                                            </div>
-                                            <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
+                                            <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
                                         </div>
-                                        <div class="col-xs-10 col-sm-4">
-                                            <div class="bo-event-statistics">
-                                                <span class="glyphicon glyphicon-triangle-top text-success"></span>
-                                                <b class="text-success">800</b>
-                                                <span class="bo-event-statistics-separator">/</span>
-                                                <b class="text-warning">210</b>
-                                                <span class="bo-event-statistics-separator">/</span>
-                                                <b class="text-danger">2000</b>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-success" style="width: 35%" title="sold"></div>
-                                                <div class="progress-bar progress-bar-warning" style="width: 35%" title="reserved"></div>
-                                                <div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-2 col-sm-1 text-center bo-percent-block">
-                                            35%
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            <div class="row">
-                                                <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
-                                                <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">PROMOTE EVENT</a></div>
-                                            </div>
-                                        </div>
+                                        <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
                                     </div>
-                                    <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
+                                    <div class="col-xs-12 col-sm-5">
+                                         <ng-include src="'views/common/simplestats.html'"></ng-include>
+                                     </div>
+                                     <div class="col-xs-12 col-sm-3">
+                                         <div class="row">
+                                             <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
+                                             <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">Promote event</a></div>
+                                         </div>
+                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel panel-default bo-event">
-                                <div class="panel-body">
-                                    <h3 class="bo-event-title">No other on sale events under this show - open by default</h3>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
-                                                <div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
-                                            </div>
-                                            <div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
-                                        </div>
-                                        <div class="col-xs-10 col-sm-4">
-                                            <div class="bo-event-statistics">
-                                                <span class="glyphicon glyphicon-triangle-top text-success"></span>
-                                                <b class="text-success">800</b>
-                                                <span class="bo-event-statistics-separator">/</span>
-                                                <b class="text-warning">210</b>
-                                                <span class="bo-event-statistics-separator">/</span>
-                                                <b class="text-danger">2000</b>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-success" style="width: 35%" title="sold"></div>
-                                                <div class="progress-bar progress-bar-warning" style="width: 35%" title="reserved"></div>
-                                                <div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-2 col-sm-1 text-center">
-                                            35%
-                                        </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            <div class="row">
-                                                <div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">60,000 €</div>
-                                                <div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">PROMOTE EVENT</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
-                                </div>
+                                <div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
                             </div>
                         </div>
                     </div>
@@ -316,5 +227,4 @@
             </div>
         </div>
     </div>
-
 </div>
