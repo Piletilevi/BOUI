@@ -72,11 +72,12 @@ class PiletileviApi {
 		$cacheItem = $this->cacheManager->getItem("languages");
 		$languages = $cacheItem->get();
 
-		if(is_null($languages)) {
+		if(is_null($languages) || !is_object($languages)) {
 			$languages = $this->get( "/language/languages" );
 			$cacheItem->set($languages)->expiresAfter(3600);
 			$this->cacheManager->save($cacheItem);
 		}
+
 		return $languages;
 	}
 
@@ -110,6 +111,24 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function concertSales($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/concertSales", $data );
+		
+		return $reportData;
+	}
+
+	public function showSales($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/showSales", $data );
+		
+		return $reportData;
+	}
+
 	public function boUrl(){
 		return $this->getBoUrl();
 	}
@@ -119,7 +138,7 @@ class PiletileviApi {
 		$cacheItem = $this->cacheManager->getItem("translations".$languageId);
 		$translations = $cacheItem->get();
 
-		if(is_null($translations)) {
+		if(is_null($translations) || !is_object($translations)) {
 			$data = array("languageId" => $languageId);
 			$translations = $this->send( "/language/translations", $data );
 			$cacheItem->set($translations)->expiresAfter(3600);
@@ -154,7 +173,7 @@ class PiletileviApi {
 			$request->withoutAutoParsing();
 		}
 		$response = $request->send();
-
+		
 		return $response->body;
 	}
 	
@@ -196,7 +215,7 @@ class PiletileviApi {
 		}
 		$response = $request->send();
 
-		//$this->app->log->debug( print_r($response->headers,true) );
+		$this->app->log->debug( print_r($response->headers,true) );
 		
 		return $response->body;
 	}

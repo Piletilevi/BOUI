@@ -174,7 +174,9 @@ $app->post('/myEvents', function() use ($app) {
 	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
 
 	$filter = array();
-	$filter['name'] = $r->filter->name;
+	if (property_exists($r->filter, 'name')) {
+		$filter['name'] = $r->filter->name;
+	}
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
 
@@ -183,7 +185,7 @@ $app->post('/myEvents', function() use ($app) {
 
 	if ($myEvents) {
         $response['status'] = "success";
-        $response['data'] = $myEvents;
+        $response['data'] = $myEvents->data;
     } else {
         $response['status'] = "error";
     }
@@ -288,6 +290,58 @@ $app->get('/cardsReport', function() use ($app)  {
 	
 	if ($reportResponse) {
 	    $dataHandler->responseAsText(200, $reportResponse);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/concertSales', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['id'] = $r->id;
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->concertSales( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/showSales', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['id'] = $r->id;
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->showSales( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
         $response["errors"] = array("error" => "no response");

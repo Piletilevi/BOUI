@@ -42,12 +42,6 @@
         function getBoUrl () {
             return $http.get(serviceBase + 'boUrl').then(function(results){
                 return results.data;
-                /*if (results.data.status === "succcess"){
-                    console.log(results.data.bobaseurl);
-                    return results.data.bobaseurl;
-                } else {
-                    return "";
-                }*/
             });
         }
         

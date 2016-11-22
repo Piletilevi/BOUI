@@ -9,21 +9,51 @@
     DashboardService.$inject = ['$rootScope', 'dataService'];
 
     function DashboardService($rootScope, dataService) {
-        var service = {
+        
+		var myevents = null;
+
+		var service = {
+			myevents: function() { return myevents },
             initialize: initialize,
-            getMyEvents: getMyEvents
+            getMyEvents: getMyEvents,
+            getEventSales: getEventSales,
+            getConcertSales: getConcertSales,
+            getShowSales: getShowSales
         };
         return service;
 
         function initialize() {
-            $rootScope.myEvents = myEvents;
+			myevents = null;
         }
 
         function getMyEvents(filter) {
             dataService.post('myEvents', {filter: filter}).then(function (results) {
                 if (results.status == "success"){
-					$rootScope.myevents = results.data;
-					return results.data;
+					myevents = results.data;
+                }
+            });
+        }
+
+		function getEventSales(event, filter) {
+			if (event.isShow) {
+				getShowSales(event, filter);
+			} else {
+				getConcertSales(event, filter);
+			}
+        }
+
+		function getConcertSales(event, filter) {
+			dataService.post('concertSales', {id: event.id, filter: filter}).then(function (results) {
+				if (results.status == "success"){
+					event.eventData = results.data;
+                }
+            });
+        }
+
+		function getShowSales(event, filter) {
+            dataService.post('showSales', {id: event.id, filter: filter}).then(function (results) {
+                if (results.status == "success"){
+					event.eventData = results.data;
                 }
             });
         }
