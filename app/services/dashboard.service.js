@@ -16,9 +16,7 @@
 			myevents: function() { return myevents },
             initialize: initialize,
             getMyEvents: getMyEvents,
-            getEventSales: getEventSales,
-            getConcertSales: getConcertSales,
-            getShowSales: getShowSales
+            getEventSales: getEventSales
         };
         return service;
 
@@ -28,9 +26,10 @@
 
         function getMyEvents(filter) {
             dataService.post('myEvents', {filter: filter}).then(function (results) {
+				dataService.page(results);
                 if (results.status == "success"){
 					myevents = results.data;
-                }
+				}
             });
         }
 
@@ -54,6 +53,10 @@
             dataService.post('showSales', {id: event.id, filter: filter}).then(function (results) {
                 if (results.status == "success"){
 					event.eventData = results.data;
+					if (event.eventData && event.eventData.concerts) {
+						event.eventData.concertsCount = event.eventData.concerts.length;
+					}
+					console.log(event.eventData);
                 }
             });
         }

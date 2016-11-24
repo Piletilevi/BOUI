@@ -31,9 +31,9 @@
                 <div class="col-xs-12 col-sm-4">
                     <div class="visible-lg bo-hidden-label">&nbsp;</div>
                     <div class="input-group input-group-lg">
-                        <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="filter.name">
+                        <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" ng-click="vm.getMyEvents(filter)"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            <button class="btn btn-default" type="button" ng-click="vm.getMyEvents(vm.filter)"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </span>
                     </div>
                     <div class="visible-xs">&nbsp;</div>
@@ -42,8 +42,7 @@
                     <div class="input-group-lg">
                         <div class="visible-lg bo-hidden-label">{{'api_sales_period'|translate}}:</div>
                         <div class="input-group data_range input-group-lg">
-							 <input type="text" daterangepicker class="form-control" name="period" ng-model="filter.period" />
-              
+							 <input type="text" daterangepicker class="form-control" ng-model="vm.filter.period" disabled/>
                              <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" ng-click="showDateRange($event)">
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -53,14 +52,14 @@
                     </div>
                 </div>
             </div>
-			
+
 			<ul class="nav nav-tabs">
-                <li class="active"><a href="#">{{'api_on_sale'|translate}} <span class="badge">42</span></a></li>
-                <li><a href="#">{{'api_draft'|translate}} <span class="badge">2</span></a></li>
-                <li><a href="#">{{'api_past'|translate}} <span class="badge">10</span></a></li>
+                <li class="active"><a href="#">{{'api_on_sale'|translate}} <span class="badge">{{vm.salesCount}}</span></a></li>
+                <li><a href="#">{{'api_draft'|translate}} <span class="badge">{{vm.draftCount}}</span></a></li>
+                <li><a href="#">{{'api_past'|translate}} <span class="badge">{{vm.pastCount}}</span></a></li>
             </ul>
             <div class="bo-events">
-				<div ng-repeat="eventItem in vm.myevents" ng-init='vm.getEventSales(eventItem, filter)'>
+				<div ng-repeat="eventItem in vm.myevents" ng-init='vm.getEventSales(eventItem, vm.filter)'>
 					<div class="panel panel-default bo-event" ng-if="!eventItem.isShow">
 						<div class="panel-body">
 							<h3 class="bo-event-title">{{eventItem.eventData.name}}</h3>
@@ -82,13 +81,13 @@
 										<b class="text-danger">{{eventItem.eventData.sell.availableTickets}}</b>
 									</div>
 									<div class="progress">
-										<div class="progress-bar progress-bar-success" style="width: 35%" title="sold"></div>
-										<div class="progress-bar progress-bar-warning" style="width: 35%" title="reserved"></div>
-										<div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
+										<div class="progress-bar progress-bar-success" style="width: {{eventItem.eventData.sell.soldPercent}}%" title="sold"></div>
+										<div class="progress-bar progress-bar-warning" style="width: {{eventItem.eventData.sell.bookedPercent}}%" title="reserved"></div>
+										<div class="progress-bar progress-bar-danger" style="width: {{eventItem.eventData.sell.availablePercent}}%" title="empty"></div>
 									</div>
 								</div>
 								<div class="col-xs-2 col-sm-1 text-center bo-percent-block">
-									35%
+									{{eventItem.eventData.sell.soldPercent}}%
 								</div>
 								<div class="col-xs-12 col-sm-3">
 									<div class="row">
@@ -107,16 +106,16 @@
 								<a class="bo-event-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events0" aria-expanded="false">
 									<span class="glyphicon glyphicon-triangle-top"></span>
 									<span class="glyphicon glyphicon-triangle-bottom"></span>
-									<span class="badge">1</span>
+									<span class="badge">{{eventItem.eventData.concertsCount}}</span>
 								</a>
 								{{eventItem.eventData.name}}</h3>
 							<div class="row">
 								<div class="col-sm-4">
 									<div>
-										<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> 15.08.1969</div>
-										<div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> 13:00</div>
+										<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{eventItem.eventData.eventDateTime | date:'dd.MM.yyyy'}}</div>
+										<div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> {{eventItem.eventData.eventDateTime | date:'HH:mm'}}</div>
 									</div>
-									<div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> Mills Industrial Park, Wallkill, NY</div>
+									<div class="bo-event-place"><i class="fa fa-map-marker" aria-hidden="true"></i> {{eventItem.eventData.location}}</div>
 								</div>
 								<div class="col-xs-10 col-sm-4">
 									<div class="bo-event-statistics">
@@ -128,13 +127,13 @@
 										<b class="text-danger">{{eventItem.eventData.sell.availableTickets}}</b>
 									</div>
 									<div class="progress">
-										<div class="progress-bar progress-bar-success" style="width: 60%" title="sold"></div>
-										<div class="progress-bar progress-bar-warning" style="width: 10%" title="reserved"></div>
-										<div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
+										<div class="progress-bar progress-bar-success" style="width: {{eventItem.eventData.sell.soldPercent}}%" title="sold"></div>
+										<div class="progress-bar progress-bar-warning" style="width: {{eventItem.eventData.sell.bookedPercent}}%" title="reserved"></div>
+										<div class="progress-bar progress-bar-danger" style="width: {{eventItem.eventData.sell.availablePercent}}%" title="empty"></div>
 									</div>
 								</div>
 								<div class="col-xs-2 col-sm-1 text-center bo-percent-block">
-									60%
+									{{eventItem.eventData.sell.soldPercent}}%
 								</div>
 								<div class="col-xs-12 col-sm-3">
 									<div class="row">
@@ -166,13 +165,13 @@
 													<b class="text-danger">{{concertItem.sell.availableTickets}}</b>
 												</div>
 												<div class="progress">
-													<div class="progress-bar progress-bar-success" style="width: 10%" title="sold"></div>
-													<div class="progress-bar progress-bar-warning" style="width: 60%" title="reserved"></div>
-													<div class="progress-bar progress-bar-danger" style="width: 30%" title="empty"></div>
+													<div class="progress-bar progress-bar-success" style="width: {{concertItem.sell.soldPercent}}%" title="sold"></div>
+													<div class="progress-bar progress-bar-warning" style="width: {{concertItem.sell.bookedPercent}}%" title="reserved"></div>
+													<div class="progress-bar progress-bar-danger" style="width: {{concertItem.sell.availablePercent}}%" title="empty"></div>
 												</div>
 											</div>
 											<div class="col-xs-2 col-sm-1 text-center bo-percent-block">
-												10%
+												{{concertItem.sell.soldPercent}}%
 											</div>
 											<div class="col-xs-12 col-sm-3">
 												<div class="row">

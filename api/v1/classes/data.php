@@ -47,7 +47,18 @@ class DataHandler {
 			$this->app->stop();
 		}
 	}
+	
+	public function getMessages($errors) {
+		if ($errors && is_array($errors)) {
+			$messages = array();
+			foreach($errors as $error) {
+				$messages[] = $error->message;
+			}
 
+			return join(", ", $messages);
+		}
+		return "";
+	}
 	/**
 	 * Verifying required token
 	 */

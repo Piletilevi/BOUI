@@ -13,7 +13,7 @@
 				restrict: 'E',
 				require: '?ngModel',
 				link: function($scope, $element, $attributes, ngModel) {
-					
+
 					if ($element.attr('daterangepicker') === undefined || ngModel === null) {
 						return;
 					}
@@ -96,7 +96,6 @@
 					}
 
 					ngModel.$render = function() {
-						console.log(ngModel.$viewValue);
 						if (!ngModel.$viewValue || !ngModel.$viewValue.startDate) {
 							return;
 						}
@@ -106,11 +105,17 @@
 					$scope.showDateRange = function($event) {
 						$event.preventDefault();
 						$event.stopPropagation();
-						$scope.opened = true;
 						$element.data('daterangepicker').toggle();
 					};
 
+
 					$scope.$watch(function() {
+						if (ngModel.$modelValue.startDate && options.startDate != ngModel.$modelValue.startDate) {
+							$element.data('daterangepicker').setStartDate(ngModel.$modelValue.startDate);
+						}
+						if (ngModel.$modelValue.endDate && options.endDate != ngModel.$modelValue.endDate) {
+							$element.data('daterangepicker').setEndDate(ngModel.$modelValue.endDate);
+						}
 						return $attributes.ngModel;
 					}, function(modelValue, oldModelValue) {
 						if (!ngModel.$modelValue || (!ngModel.$modelValue.startDate)) {
@@ -124,19 +129,13 @@
 						if (oldModelValue !== modelValue) {
 							return;
 						}
-						
-						$element.data('daterangepicker').startDate = momentify(ngModel.$modelValue.startDate);
-						$element.data('daterangepicker').endDate = momentify(ngModel.$modelValue.endDate);
+
 						$element.data('daterangepicker').updateView();
 						$element.data('daterangepicker').updateCalendars();
-						$element.data('daterangepicker').updateInputText();
-
 					});
 
 					$element.daterangepicker(options, function(start, end, label) {
-						
 						var modelValue = ngModel.$viewValue;
-						
 						if (angular.equals(start, modelValue.startDate) && angular.equals(end, modelValue.endDate)) {
 							return;
 						}
@@ -146,13 +145,8 @@
 								startDate: (moment.isMoment(modelValue.startDate)) ? start : start.toDate(),
 								endDate: (moment.isMoment(modelValue.endDate)) ? end : end.toDate()
 							});
-							console.log(ngModel);
 							ngModel.$render();
 						});
-
-						console.log("start = " + modelValue.startDate);
-						console.log("end = " + modelValue.endDate);
-
 					});
 
 				}

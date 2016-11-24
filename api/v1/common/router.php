@@ -183,11 +183,19 @@ $app->post('/myEvents', function() use ($app) {
     $piletileviApi = $app->container->get("piletileviApi");
     $myEvents = $piletileviApi->myEvents($filter);
 
-	if ($myEvents) {
-        $response['status'] = "success";
-        $response['data'] = $myEvents->data;
+    $app->log->debug( print_r($myEvents,true) );
+
+	if ($myEvents && !property_exists($myEvents, 'errors')) {
+		if ($myEvents->data) {
+	        $response['status'] = "success";
+	        $response['data'] = $myEvents->data;
+		} else {
+	        $response['status'] = "info";
+	        $response['message'] = "Empty result";
+		}
     } else {
         $response['status'] = "error";
+        $response['message'] = $dataHandler->getMessages($myEvents->errors);
     }
 
 	$dataHandler->response(200, $response);

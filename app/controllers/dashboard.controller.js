@@ -11,9 +11,11 @@
 		//initially set those objects to null to avoid undefined error
         var vm = this;
         vm.news = [];
-        vm.status = [];
 		vm.myevents = null;
-		vm.filter = {period: {startDate: moment().add(-1, 'month'), endDate: moment()}, name: ''};
+		vm.salesCount = 0;
+		vm.draftCount = 0;
+		vm.pastCount = 0;
+		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}, name: ''};
 		
 		vm.news = newsService.news();
 		vm.getMyEvents = dashboardService.getMyEvents;
@@ -22,6 +24,9 @@
 		$scope.$watch(
             function() {
 				vm.myevents = dashboardService.myevents();
+				if (vm.myevents) {
+					vm.salesCount = vm.myevents.length; 
+				}
             }
         );
 	}
