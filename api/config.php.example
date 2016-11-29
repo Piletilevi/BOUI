@@ -14,10 +14,10 @@ $config['piletilevi']['host']      = "http://localhost:90";
 $config['piletilevi']['base']      = "/papi";
 $config['piletilevi']['jwtsecret'] = "secret";
 $config['piletilevi']['oldbourl'] = "http://localhost:90/cgi-bin/cgiip.exe/WService=plevi/proc/login.p";
-$config['piletilevi']['powerbiuser'] = "karink";
 $config['piletilevi']['timeout'] = 3600;
 
-$config['token'] = "secrettoken";
+$config['tokens'] = array("secrettoken" => "karink", 
+			  "secrettoken2" => "karink");
 
 $config['cache'] = array(
 	"path"      =>  "../cache/",

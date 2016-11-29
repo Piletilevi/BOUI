@@ -65,7 +65,7 @@ class DataHandler {
 	public function verifyToken() {
 		$token = $this->app->request->params("token");
 
-		if ($token != $this->getToken()) {
+		if (!$this->isValidToken($token)) {
 			// Required field(s) are missing or empty
 			// echo error json and stop the app
 			$response = array();
@@ -77,6 +77,22 @@ class DataHandler {
 		}
 	}
 
+	/**
+	 * Getting user from token
+	 */
+	public function getUserFromToken() {
+		$token = $this->app->request->params("token");
+		
+		$tokens = $this->getTokens();
+
+		foreach($tokens as $t=>$u) {
+			if ($token == $t) {
+				return $u;
+			}
+		}
+		
+		return "";
+	}
 
 	public function response($status_code, $response) {
 		// Http response code
@@ -96,8 +112,21 @@ class DataHandler {
 		echo $response;
 	}
 
-	private function getToken() {
-		return $this->settings["token"];
+	private function getTokens() {
+		return $this->settings["tokens"];
+	}
+
+	private function isValidToken($token) {
+		
+		$tokens = $this->getTokens();
+
+		foreach($tokens as $t=>$u) {
+			if ($token == $t) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }
 

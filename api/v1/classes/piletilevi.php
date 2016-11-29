@@ -45,17 +45,18 @@ class PiletileviApi {
 
 	public function changePassword($oldPassword, $newPassword) {
 
-		$data['filter']= array ('oldPassword'=>$oldPassword,
-			'newPassword' => $newPassword);
+		$data['filter']= array ('oldPassword' => $oldPassword,
+								'newPassword' => $newPassword);
+
 		return $this->send("/user/changePassword",$data);
 
 	}
 
 	public function login($username, $password, $remoteip) {
 
-		$data = array("username" => $username,
-			"password" => $password,
-			"remoteip" => $remoteip );
+  		$data = array("username" => $username,
+					  "password" => $password,
+					  "remoteip" => $remoteip);
 		
 		return $this->send( "/authentication/login", $data );
 	}
@@ -84,7 +85,7 @@ class PiletileviApi {
 	public function powerbiReport($filter) {
 		
 		$data['filter']= $filter;
-		$data['userid']= $this->getPowerBiUser();
+		$data['userid']= $this->getUserFromRequestToken();
 
 		$reportData = $this->send( "/report/powerbiReport", $data, true );
 
@@ -94,7 +95,7 @@ class PiletileviApi {
 	public function cardsReport($filter) {
 		
 		$data['filter']= $filter;
-		$data['userid']= $this->getPowerBiUser();
+		$data['userid']= $this->getUserFromRequestToken();
 
 		$reportData = $this->send( "/report/cards", $data, true );
 
@@ -230,9 +231,10 @@ class PiletileviApi {
 		return $papiConfig["oldbourl"];
 	}
 
-	private function getPowerBiUser(){
-		$papiConfig = $this->getPapiConfig();
-		return $papiConfig["powerbiuser"];
+	private function getUserFromRequestToken(){
+		$dataHandler = $this->app->container->get("dataHandler");
+		
+		return $dataHandler->getUserFromToken();
 	}
 
 	private function getPapiConfig() {
