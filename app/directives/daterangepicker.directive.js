@@ -40,7 +40,7 @@
 							'</div>' +
 							'<div class="third_block">' +
 								'<div class="ranges">' +
-									'<div class="calendar-links"><a href="">Today</a>|<a href="">Week</a>|<a href="">Month</a></div>' +
+									'<div class="calendar-links"><a id="todayLink">Today</a>|<a href="">Week</a>|<a href="">Month</a></div>' +
 									'<div class="daterangepicker_input_wrapper">' +
 										'<div class="daterangepicker_input">' +
 											'<input class="input-mini form-control" type="text" name="daterangepicker_start" value="" />' +
@@ -60,11 +60,11 @@
 								'<div class="additional_row">' +
 									 '<div class="compare_checkbox_block">' +
 										 '<div class="checkbox">' +
-											 '<input type="checkbox" id="compare_checkbox" /><label for="compare_checkbox">Compare</label>' +
+											 '<input type="checkbox" id="compare_checkbox" ng-model="vm.filter.compare" /><label for="compare_checkbox">Compare</label>' +
 										 '</div>' +
 									 '</div>' +
 									 '<div class="select_period_block">' +
-										  '<select class="selectpicker" ng-model="vm.period">' +
+										  '<select id="selectpicker" class="selectpicker" ng-model="vm.filter.compareperiod">' +
 											 '<option>Previous period</option>' +
 											 '<option>Next</option>' +
 										 '</select>' +
@@ -96,6 +96,15 @@
 					}
 
 					ngModel.$render = function() {
+						$("body").on("click", ".calendar-links > #todayLink", function() {
+							$element.data('daterangepicker').setStartDate(moment());
+							$element.data('daterangepicker').setEndDate(moment());
+							$element.data('daterangepicker').updateView();
+							$element.data('daterangepicker').updateCalendars();
+						});
+
+						angular.element("#selectpicker").selectpicker();
+						
 						if (!ngModel.$viewValue || !ngModel.$viewValue.startDate) {
 							return;
 						}

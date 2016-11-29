@@ -1107,7 +1107,7 @@
             // Reposition the picker if the window is resized while it's open
             $(window).on('resize.daterangepicker', $.proxy(function(e) { this.move(e); }, this));
 
-            $(".calendar")
+            $(".daterangepicker")
 				.on('click', 'button.applyBtn', $.proxy(this.clickApply, this))
 	            .on('click', 'button.cancelBtn', $.proxy(this.clickCancel, this));
 
