@@ -40,7 +40,7 @@
 							'</div>' +
 							'<div class="third_block">' +
 								'<div class="ranges">' +
-									'<div class="calendar-links"><a id="todayLink">Today</a>|<a href="">Week</a>|<a href="">Month</a></div>' +
+									'<div class="calendar-links"><a href="#" id="todayLink">Today</a>|<a href="#" id="weekLink">Week</a>|<a href="#" id="monthLink">Month</a></div>' +
 									'<div class="daterangepicker_input_wrapper">' +
 										'<div class="daterangepicker_input">' +
 											'<input class="input-mini form-control" type="text" name="daterangepicker_start" value="" />' +
@@ -95,12 +95,27 @@
 						return [format(dates.startDate), format(dates.endDate)].join(options.separator);
 					}
 
+					function updateCaledarDates(startDate, endDate) {
+						$element.data('daterangepicker').setStartDate(startDate);
+						$element.data('daterangepicker').setEndDate(endDate);
+						$element.data('daterangepicker').updateView();
+						$element.data('daterangepicker').updateCalendars();
+					}
+
 					ngModel.$render = function() {
-						$("body").on("click", ".calendar-links > #todayLink", function() {
-							$element.data('daterangepicker').setStartDate(moment());
-							$element.data('daterangepicker').setEndDate(moment());
-							$element.data('daterangepicker').updateView();
-							$element.data('daterangepicker').updateCalendars();
+						$("body").on("click", ".calendar-links > #todayLink", function($event) {
+							$event.preventDefault();
+							updateCaledarDates(moment(), moment());
+						});
+
+						$("body").on("click", ".calendar-links > #weekLink", function($event) {
+							$event.preventDefault();
+							updateCaledarDates(moment().startOf('week'), moment().endOf('week'));
+						});
+
+						$("body").on("click", ".calendar-links > #monthLink", function($event) {
+							$event.preventDefault();
+							updateCaledarDates(moment().startOf('month'), moment().endOf('month'));
 						});
 
 						angular.element("#selectpicker").selectpicker();
