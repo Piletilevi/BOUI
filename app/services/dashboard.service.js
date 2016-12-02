@@ -56,7 +56,6 @@
 					if (event.eventData && event.eventData.concerts) {
 						event.eventData.concertsCount = event.eventData.concerts.length;
 					}
-					console.log(event.eventData);
                 }
             });
         }
