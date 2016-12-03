@@ -55,6 +55,27 @@
 					event.eventData = results.data;
 					if (event.eventData && event.eventData.concerts) {
 						event.eventData.concertsCount = event.eventData.concerts.length;
+						
+						event.eventData.showHasData = false;
+						if (event.eventData.concertsCount > 0) {
+							var showLocation = "";
+							var sameLocation = true;
+							event.eventData.concerts.forEach(function(concert) {
+								if (showLocation == "") {
+									showLocation = concert.location;
+								}
+								if (showLocation != concert.location) {
+									sameLocation = false;
+								}
+							});
+
+							if (sameLocation) {
+								event.eventData.showHasData = true;
+								event.eventData.name = event.eventData.concerts[0].name;
+								event.eventData.eventDateTime = event.eventData.concerts[0].eventDateTime;
+								event.eventData.location = event.eventData.concerts[0].location;
+							}
+						}
 					}
                 }
             });

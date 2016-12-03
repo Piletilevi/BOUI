@@ -110,7 +110,7 @@
 								</a>
 								{{eventItem.eventData.name}}</h3>
 							<div class="row">
-								<div class="col-sm-4">
+								<div class="col-sm-4" ng-if="eventItem.eventData.showHasData">
 									<div>
 										<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{eventItem.eventData.eventDateTime | date:'dd.MM.yyyy'}}</div>
 										<div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> {{eventItem.eventData.eventDateTime | date:'HH:mm'}}</div>
@@ -143,7 +143,7 @@
 								</div>
 							</div>
 							<div class="bo-event-report-link"><a href="">Edit</a><span>|</span><a href="">View report</a><span>|</span><a href="">View website</a></div>
-							<div id="bo-sub-events0" class="bo-sub-events collapse in">
+							<div id="bo-sub-events{{eventItem.eventData.id}}"" class="bo-sub-events collapse in">
 								<div class="panel panel-default bo-event" ng-repeat="concertItem in eventItem.eventData.concerts">
 									<div class="panel-body">
 										<h3 class="bo-event-title">{{concertItem.name}}</h3>
