@@ -74,7 +74,8 @@ class PiletileviApi {
 		$languages = $cacheItem->get();
 
 		if(is_null($languages) || !is_object($languages)) {
-			$languages = $this->get( "/language/languages" );
+			$data = array();
+			$languages = $this->send( "/language/languages", $data );
 			$cacheItem->set($languages)->expiresAfter(3600);
 			$this->cacheManager->save($cacheItem);
 		}
@@ -117,7 +118,7 @@ class PiletileviApi {
 		$data['filter']= $filter;
 
 		$reportData = $this->send( "/report/concertSales", $data );
-		
+
 		return $reportData;
 	}
 

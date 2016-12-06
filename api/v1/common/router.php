@@ -262,7 +262,7 @@ $app->post('/translations', function() use ($app)  {
 
     $response["status"] = "success";
 
-	if (!empty( $translations->data)) {
+	if (!empty($translations->data)) {
         $response["translations"] = $translations->data->translations;
 	}
 
