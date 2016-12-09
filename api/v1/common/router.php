@@ -242,9 +242,19 @@ $app->get('/languages', function() use ($app) {
 	$dataHandler = $app->container->get("dataHandler");
 	$piletileviApi = $app->container->get("piletileviApi");
     $languages = $piletileviApi->languages();
-
-    $response["status"] = "success";
-    $response["languages"] = $languages->data;
+	
+	if ($languages && !property_exists($languages, 'errors')) {
+		if ($languages->data) {
+			$response["status"] = "success";
+			$response["languages"] = $languages->data;
+		} else {
+	        $response['status'] = "info";
+	        $response['message'] = "Empty result";
+		}
+    } else {
+        $response['status'] = "error";
+        $response['message'] = $dataHandler->getMessages($languages->errors);
+    }
 
 	$dataHandler->response(200, $response);
 });
