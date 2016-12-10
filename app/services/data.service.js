@@ -4,9 +4,6 @@
     angular.module('boApp')
         .factory("dataService", DataService);
 
-    angular.module('boApp')
-        .factory("loggingHttpInterceptor", LoggingHttpInterceptor);
-
     DataService.$inject = ['$http','bo'];
 
     function DataService($http, bo) { // This service connects to our REST API
@@ -66,25 +63,4 @@
             });
         };
     }
-
-	function LoggingHttpInterceptor() {
-	  return {
-		request: function(config) {
-			return config;
-		},
-
-		requestError: function(config) {
-			return config;
-		},
-
-		response: function(res) {
-			return res;
-		},
-
-		responseError: function(res) {
-			console.log(res);
-			return res;
-		}
-	  }
-	}
 })();
