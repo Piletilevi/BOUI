@@ -371,9 +371,11 @@ $app->get('/showSales', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
 	$filter = array();
-	$filter['id'] = $app->request[id];
-	$filter['startDate'] = $app->request[startDate];
-	$filter['endDate'] = $app->request[endDate];
+	$filter['id'] = $app->request->params("id");
+	$filter['startDate'] = $app->request->params("startDate");
+	$filter['endDate'] = $app->request->params("endDate");
+	$filter['userid'] = "karink";
+	$filter['salepointid'] = 7;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->showSales( $filter );
