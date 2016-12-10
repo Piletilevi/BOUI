@@ -378,9 +378,9 @@ $app->get('/showSales', function() use ($app)  {
 	$filter['salepointid'] = 7;
 
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->showSalesAsText( $filter );
+    $reportResponse = $piletileviApi->showSales( $filter );
 	
-	$dataHandler->responseAsText(200, $reportResponse);
+	$dataHandler->response(200, $reportResponse);
 });
 
 ?>
