@@ -367,20 +367,4 @@ $app->post('/showSales', function() use ($app)  {
 	}
 });
 
-$app->get('/showSales', function() use ($app)  {
-	$dataHandler = $app->container->get("dataHandler");
-
-	$filter = array();
-	$filter['id'] = $app->request->params("id");
-	$filter['startDate'] = $app->request->params("startDate");
-	$filter['endDate'] = $app->request->params("endDate");
-	$filter['userid'] = "karink";
-	$filter['salepointid'] = 7;
-
-    $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->showSales( $filter );
-	
-	$dataHandler->response(200, $reportResponse);
-});
-
 ?>
