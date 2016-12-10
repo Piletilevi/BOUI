@@ -128,8 +128,15 @@ class PiletileviApi {
 
 		$reportData = $this->send( "/report/showSales", $data );
 		
-		$this->app->log->debug( $reportData );
+		return $reportData;
+	}
 
+	public function showSalesAsText($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/showSales", $data, true );
+		
 		return $reportData;
 	}
 
