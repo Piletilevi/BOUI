@@ -6,9 +6,9 @@
 		.module('boApp')
 		.directive('input', DateRangePicker);
 	
-    DateRangePicker.$inject = ['$compile', '$parse', '$filter'];
+    DateRangePicker.$inject = ['$compile', '$parse', '$filter', '$translate', '$rootScope'];
 
-	function DateRangePicker($compile, $parse, $filter) {
+	function DateRangePicker($compile, $parse, $filter, $translate, $rootScope) {
 			return {
 				restrict: 'E',
 				require: '?ngModel',
@@ -30,54 +30,6 @@
 					}));
 					options.ranges = $attributes.ranges && $parse($attributes.ranges)($scope);
 					options.opens = $attributes.opens || $parse($attributes.opens)($scope);
-					options.template = 						
-						'<div class="daterangepicker dropdown-menu">' +
-							'<div class="calendar left">' +
-								'<div class="calendar-table"></div>' +
-							'</div>' +
-							'<div class="calendar right">' +
-								'<div class="calendar-table"></div>' +
-							'</div>' +
-							'<div class="third_block">' +
-								'<div class="ranges">' +
-									'<div class="calendar-links"><a href="#" id="todayLink">Today</a>|<a href="#" id="weekLink">Week</a>|<a href="#" id="monthLink">Month</a></div>' +
-									'<div class="daterangepicker_input_wrapper">' +
-										'<div class="daterangepicker_input">' +
-											'<input class="input-mini form-control" type="text" name="daterangepicker_start" value="" />' +
-											'<div class="calendar-time">' +
-											'<div></div>' +
-											'<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
-											'</div>' +
-										'</div><div class="daterangepicker_separator">-</div><div class="daterangepicker_input">' +
-											'<input class="input-mini form-control" type="text" name="daterangepicker_end" value="" />' +
-											'<div class="calendar-time">' +
-											'<div></div>' +
-											'<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
-											'</div>' +
-										'</div>' +
-									'</div>' +
-								'</div>' +
-								'<div class="additional_row">' +
-									 '<div class="compare_checkbox_block">' +
-										 '<div class="checkbox">' +
-											 '<input type="checkbox" id="compare_checkbox" ng-model="vm.filter.compare" /><label for="compare_checkbox">Compare</label>' +
-										 '</div>' +
-									 '</div>' +
-									 '<div class="select_period_block">' +
-										  '<select id="selectpicker" class="selectpicker" ng-model="vm.filter.compareperiod">' +
-											 '<option>Previous period</option>' +
-											 '<option>Next</option>' +
-										 '</select>' +
-									 '</div>' +
-									 '<div class="clearer"></div>' +
-								'</div>' +
-								'<div class="range_inputs">' +
-									 '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
-									 '<button class="cancelBtn" type="button"></button>' +
-									 '<div class="clearer"></div>' +
-								'</div>' +
-							'</div>' +
-						'</div>';
 
 					function datify(date) {
 						return moment.isMoment(date) ? date.toDate() : date;
@@ -93,6 +45,80 @@
 
 					function formatted(dates) {
 						return [format(dates.startDate), format(dates.endDate)].join(options.separator);
+					}
+					
+					function renderDateTimePicker() {
+						options.locale.applyLabel = $translate.instant('api_calendar_applyLabel');
+						options.locale.cancelLabel = $translate.instant('api_calendar_cancelLabel');
+						options.locale.weekLabel = $translate.instant('api_calendar_weekLabel');
+						options.template = 						
+							'<div class="daterangepicker dropdown-menu">' +
+								'<div class="calendar left">' +
+									'<div class="calendar-table"></div>' +
+								'</div>' +
+								'<div class="calendar right">' +
+									'<div class="calendar-table"></div>' +
+								'</div>' +
+								'<div class="third_block">' +
+									'<div class="ranges">' +
+										'<div class="calendar-links">' + 
+							            '<a href="#" id="todayLink">' + $translate.instant('api_calendar_today') + '</a>|' +
+							            '<a href="#" id="weekLink">' + $translate.instant('api_calendar_week') + '</a>|' + 
+							            '<a href="#" id="monthLink">' + $translate.instant('api_calendar_month') + '</a></div>' +
+										'<div class="daterangepicker_input_wrapper">' +
+											'<div class="daterangepicker_input">' +
+												'<input class="input-mini form-control" type="text" name="daterangepicker_start" value="" />' +
+												'<div class="calendar-time">' +
+												'<div></div>' +
+												'<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
+												'</div>' +
+											'</div><div class="daterangepicker_separator">-</div><div class="daterangepicker_input">' +
+												'<input class="input-mini form-control" type="text" name="daterangepicker_end" value="" />' +
+												'<div class="calendar-time">' +
+												'<div></div>' +
+												'<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
+												'</div>' +
+											'</div>' +
+										'</div>' +
+									'</div>' +
+									'<div class="additional_row">' +
+										 '<div class="compare_checkbox_block">' +
+											 '<div class="checkbox">' +
+												 '<input type="checkbox" id="compare_checkbox" ng-model="vm.filter.compare" /><label for="compare_checkbox">' + $translate.instant('api_calendar_compare') + '</label>' +
+											 '</div>' +
+										 '</div>' +
+										 '<div class="select_period_block">' +
+											  '<select id="selectpicker" class="selectpicker" ng-model="vm.filter.compareperiod">' +
+												 '<option>' + $translate.instant('api_calendar_previous_period') + '</option>' +
+												 '<option>' + $translate.instant('api_calendar_next_period') + '</option>' +
+											 '</select>' +
+										 '</div>' +
+										 '<div class="clearer"></div>' +
+									'</div>' +
+									'<div class="range_inputs">' +
+										 '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
+										 '<button class="cancelBtn" type="button"></button>' +
+										 '<div class="clearer"></div>' +
+									'</div>' +
+								'</div>' +
+							'</div>';
+
+						$element.daterangepicker(options, function(start, end, label) {
+							var modelValue = ngModel.$viewValue;
+							if (angular.equals(start, modelValue.startDate) && angular.equals(end, modelValue.endDate)) {
+								return;
+							}
+
+							$scope.$apply(function() {
+								ngModel.$setViewValue({
+									startDate: (moment.isMoment(modelValue.startDate)) ? start : start.toDate(),
+									endDate: (moment.isMoment(modelValue.endDate)) ? end : end.toDate()
+								});
+								ngModel.$render();
+							});
+						});
+
+						angular.element("#selectpicker").selectpicker();
 					}
 
 					function updateCaledarDates(startDate, endDate) {
@@ -118,8 +144,8 @@
 							updateCaledarDates(moment().startOf('month'), moment().endOf('month'));
 						});
 
-						angular.element("#selectpicker").selectpicker();
-						
+						renderDateTimePicker();
+
 						if (!ngModel.$viewValue || !ngModel.$viewValue.startDate) {
 							return;
 						}
@@ -132,6 +158,9 @@
 						$element.data('daterangepicker').toggle();
 					};
 
+					$rootScope.$on('$translateChangeSuccess', function () {
+						renderDateTimePicker();
+					});
 
 					$scope.$watch(function() {
 						if (ngModel.$modelValue.startDate && options.startDate != ngModel.$modelValue.startDate) {
@@ -157,22 +186,6 @@
 						$element.data('daterangepicker').updateView();
 						$element.data('daterangepicker').updateCalendars();
 					});
-
-					$element.daterangepicker(options, function(start, end, label) {
-						var modelValue = ngModel.$viewValue;
-						if (angular.equals(start, modelValue.startDate) && angular.equals(end, modelValue.endDate)) {
-							return;
-						}
-
-						$scope.$apply(function() {
-							ngModel.$setViewValue({
-								startDate: (moment.isMoment(modelValue.startDate)) ? start : start.toDate(),
-								endDate: (moment.isMoment(modelValue.endDate)) ? end : end.toDate()
-							});
-							ngModel.$render();
-						});
-					});
-
 				}
 
 			};
