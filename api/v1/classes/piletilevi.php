@@ -126,7 +126,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/report/showSales", $data, true );
+		$reportData = $this->send( "/report/showSales", $data );
 		
 		$this->app->log->debug( $reportData );
 
