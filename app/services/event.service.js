@@ -4,11 +4,11 @@
 
     angular
         .module('boApp')
-        .factory('dashboardService', DashboardService);
+        .factory('eventService', EventService);
 
-    DashboardService.$inject = ['$rootScope', 'dataService'];
+    EventService.$inject = ['$rootScope', 'dataService'];
 
-    function DashboardService($rootScope, dataService) {
+    function EventService($rootScope, dataService) {
         
 		var myevents = null;
 

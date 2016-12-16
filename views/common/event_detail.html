@@ -1,0 +1,47 @@
+<div class="panel-body">
+	<h3 class="bo-event-title">
+	<a ng-if="event.concertsCount" class="bo-event-toggle" data-toggle="collapse" data-target="#bo-sub-events{{event.id}}" aria-expanded="false">
+		<span class="glyphicon glyphicon-triangle-top"></span>
+		<span class="glyphicon glyphicon-triangle-bottom"></span>
+		<span class="badge">{{event.concertsCount}}</span>
+	</a>{{event.name}}</h3>
+	<div class="row">
+		<div class="col-sm-4">
+			<div>
+				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.eventDateTime | date:'dd.MM.yyyy'}}</div>
+				<div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> {{event.eventDateTime | date:'HH:mm'}}</div>
+			</div>
+			<div class="bo-event-place"><i class="fa fa-map-marker active" aria-hidden="true"></i> {{event.location}}</div>
+		</div>
+		<div class="col-xs-10 col-sm-4">
+			<div class="bo-event-statistics">
+				<span class="glyphicon glyphicon-triangle-top text-success"></span>
+				<b class="text-success" title="sold">{{event.sell.soldTickets}}</b>
+				<span class="bo-event-statistics-separator">/</span>
+				<b class="text-warning">{{event.sell.bookedTickets}}</b>
+				<span class="bo-event-statistics-separator">/</span>
+				<b class="text-danger">{{event.sell.availableTickets}}</b>
+			</div>
+			<div class="progress">
+				<div class="progress-bar progress-bar-success" style="width: {{event.sell.soldPercent}}%" title="sold"></div>
+				<div class="progress-bar progress-bar-warning" style="width: {{event.sell.bookedPercent}}%" title="reserved"></div>
+				<div class="progress-bar progress-bar-danger" style="width: {{event.sell.availablePercent}}%" title="empty"></div>
+			</div>
+		</div>
+		<div class="col-xs-2 col-sm-1 text-center bo-percent-block">
+			{{event.sell.soldPercent}}%
+		</div>
+		<div class="col-xs-12 col-sm-3">
+			<div class="row">
+				<div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">{{event.sell.soldSumma}} {{event.sell.currency}}</div>
+				<div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">Promote event</a></div>
+			</div>
+		</div>
+	</div>
+	<div class="bo-event-report-link"><a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}">Edit</a><span>|</span><a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}">View report</a><span>|</span><a href="">View website</a></div>
+	<div ng-if="event.concerts" id="bo-sub-events{{event.id}}" class="bo-sub-events collapse in">
+		<div class="panel panel-default bo-event" ng-repeat="concertItem in event.concerts">
+			<div ng-include-template="event_detail.html" ng-include-variables="{ event: concertItem }"></div>
+		</div>
+	</div>
+</div>

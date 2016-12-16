@@ -27,10 +27,10 @@
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
-            .when('/report', {
+            .when('/report/:type/:id', {
                 title: 'Report',
                 templateUrl: 'views/report.html',
-                controller: 'mainController',
+                controller: 'reportController',
                 controllerAs: 'vm'
             })
             .when('/dashboard', {

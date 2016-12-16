@@ -5,9 +5,9 @@
 	angular.module('boApp')
         .controller('dashboardController', DashboardController);
 
-    DashboardController.$inject=['$scope', 'dashboardService', 'newsService'];
+    DashboardController.$inject=['$scope', 'eventService', 'newsService'];
 
-	function DashboardController ($scope, dashboardService, newsService) {
+	function DashboardController ($scope, eventService, newsService) {
 		//initially set those objects to null to avoid undefined error
         var vm = this;
         vm.news = [];
@@ -18,12 +18,12 @@
 		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}, name: ''};
 		
 		vm.news = newsService.news();
-		vm.getMyEvents = dashboardService.getMyEvents;
-		vm.getEventSales = dashboardService.getEventSales;
+		vm.getMyEvents = eventService.getMyEvents;
+		vm.getEventSales = eventService.getEventSales;
 
 		$scope.$watch(
             function() {
-				vm.myevents = dashboardService.myevents();
+				vm.myevents = eventService.myevents();
 				if (vm.myevents) {
 					vm.salesCount = vm.myevents.length; 
 				}
