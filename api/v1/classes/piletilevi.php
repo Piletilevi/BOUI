@@ -131,6 +131,24 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function concertOpSales($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/concertOpSales", $data );
+
+		return $reportData;
+	}
+
+	public function showOpSales($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/showOpSales", $data );
+		
+		return $reportData;
+	}
+
 	public function boUrl(){
 		return $this->getBoUrl();
 	}

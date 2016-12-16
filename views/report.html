@@ -48,968 +48,972 @@
 		  <!--</div>-->
 	</div>
 	<div class="panel panel-default bo-event">
-		 <div ng-include-template="event_detail.html" ng-include-variables="{ event: vm.event.eventData }"></div>
+		 <div ng-include-template="event_detail.html" ng-include-variables="{ event: vm.event.eventData, showEditLink: false, showReportLink: false }"></div>
 	</div>
 
-	<ul class="nav nav-tabs">
-		<li class="active"><a href="#">Overview</a></li>
-		<li><a href="#">By pricetype</a></li>
-		<li><a href="#">By priceclass</a></li>
-		<li><a href="#">By sections</a></li>
-		<li><a href="#">By locations</a></li>
-		<li><a href="#">Bookings</a></li>
+	<ul class="nav nav-tabs" role="tablist" id="reportdatatab">
+		<li class="active"><a href="#overview" data-toggle="tab" role="tab" aria-controls="overview">Overview</a></li>
+		<li><a href="#pricetype" data-toggle="tab" role="tab" aria-controls="pricetype">By pricetype</a></li>
+		<li><a href="#priceclass" data-toggle="tab" role="tab" aria-controls="priceclass">By priceclass</a></li>
+		<li><a href="#sections" data-toggle="tab" role="tab" aria-controls="sections">By sections</a></li>
+		<li><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations">By locations</a></li>
+		<li><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings">Bookings</a></li>
 	</ul>
+	
+	<div class="tab-content">
+		<!-- Tab: overview -->
+		<div class="tab-pane active bo-salesoverview panel panel-default" id="overview" role="tabpanel">
+			<div class="panel-body">
 
-	<!-- Tab: overview -->
-	<div class="bo-salesoverview panel panel-default">
-		<div class="panel-body">
-
-			<div class="bo-salesoverview-controls clearfix">
-				<div class="row">
-					<div class="col-sm-5">
-						<div class="form-inline">
-							<div class="form-group">
-								<div class="input-group data_range">
-									<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
-										  <span class="input-group-btn">
-											 <button class="btn btn-default" type="button">
-												 <i class="fa fa-calendar" aria-hidden="true"></i>
-											 </button>
-										  </span>
+				<div class="bo-salesoverview-controls clearfix">
+					<div class="row">
+						<div class="col-sm-5">
+							<div class="form-inline">
+								<div class="form-group">
+									<div class="input-group data_range">
+										<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
+											  <span class="input-group-btn">
+												 <button class="btn btn-default" type="button">
+													 <i class="fa fa-calendar" aria-hidden="true"></i>
+												 </button>
+											  </span>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="bo-chartcontrols col-sm-7 text-right">
-						<div class="btn-group btn-group-sm" role="group">
-							<button type="button" class="btn btn-sm btn-default active">Tickets</button>
-							<button type="button" class="btn btn-sm btn-default">Revenue</button>
-						</div>
-						&nbsp;&nbsp;
-						<div class="btn-group btn-group-sm" role="group">
-							<button type="button" class="btn btn-sm btn-default active">Day</button>
-							<button type="button" class="btn btn-sm btn-default">Week</button>
-							<button type="button" class="btn btn-sm btn-default">Month</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="bo-chart">
-				<img class="temp_image" src="img/chart1.jpg" />
-			</div>
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="bo-chart">
-						<img class="temp_image" src="img/chart2.jpg" />
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<table class="bo-revenuetable table table-condensed table-small">
-						<colgroup>
-							<col>
-							<col>
-							<col>
-							<col>
-							<col>
-						</colgroup>
-						<thead>
-							<tr>
-								<td></td>
-								<td></td>
-								<td>Tickets</td>
-								<td>%</td>
-								<td>Revenue</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="info">
-								<td></td>
-								<td>Generated</td>
-								<td>1050</td>
-								<td>100%</td>
-								<td>100,000 €</td>
-							</tr>
-						</tbody>
-						<thead>
-							<tr>
-								<th></th>
-								<th>Sold:</th>
-								<th>750</th>
-								<th>78%</th>
-								<th>75,000 €</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td style="background-color: #99e394;"></td>
-								<td>Internet:</td>
-								<td>600</td>
-								<td>61%</td>
-								<td>60,000 €</td>
-							</tr>
-							<tr>
-								<td style="background-color: #8e7cc3;"></td>
-								<td>Salespoint:</td>
-								<td>150</td>
-								<td>21%</td>
-								<td>21,000 €</td>
-							</tr>
-							<tr class="active text-danger">
-								<td></td>
-								<td>Refund:</td>
-								<td>-100</td>
-								<td>11%</td>
-								<td>11,000 €</td>
-							</tr>
-						</tbody>
-						<thead>
-							<tr>
-								<th></th>
-								<th>Reserved:</th>
-								<th>10</th>
-								<th>1%</th>
-								<th>500,000 €</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td style="background-color: #ff530d;"></td>
-								<td>Client:</td>
-								<td>2</td>
-								<td>&gt;1%</td>
-								<td>120 €</td>
-							</tr>
-							<tr>
-								<td style="background-color: #ff8c4a;"></td>
-								<td>Skybox:</td>
-								<td>5</td>
-								<td>&gt;1%</td>
-								<td>200 €</td>
-							</tr>
-							<tr>
-								<td style="background-color: #fcd8c2;"></td>
-								<td>Promoter:</td>
-								<td>3</td>
-								<td>&gt;1%</td>
-								<td>180 €</td>
-							</tr>
-						</tbody>
-						<thead>
-							<tr>
-								<th></th>
-								<th>Issued to promoter:</th>
-								<th>105</th>
-								<th>10%</th>
-								<th>6,000 €</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td style="background-color: #d57373;"></td>
-								<td>Complimentary:</td>
-								<td>55</td>
-								<td>5%</td>
-								<td>0 €</td>
-							</tr>
-							<tr class="active text-danger">
-								<td style="background-color: #e89c30;"></td>
-								<td>Refund:</td>
-								<td>-1</td>
-								<td>&gt;1%</td>
-								<td>0 €</td>
-							</tr>
-							<tr>
-								<td style="background-color: #d57373;"></td>
-								<td>With price:</td>
-								<td>50</td>
-								<td>5%</td>
-								<td>6,000 €</td>
-							</tr>
-							<tr class="active text-danger">
-								<td style="background-color: #e89c30;"></td>
-								<td>Refund:</td>
-								<td>-10</td>
-								<td>&gt;1%</td>
-								<td>600 €</td>
-							</tr>
-						</tbody>
-						<thead>
-							<tr>
-								<th></th>
-								<th>Venue occupancy:</th>
-								<th>865</th>
-								<th>89%</th>
-								<th>81,500 €</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td style="background-color: #ff3f68;"></td>
-								<td>Available for sale:</td>
-								<td>185</td>
-								<td>11%</td>
-								<td>18,500 €</td>
-							</tr>
-						</tbody>
-					</table>
-					<a href="#" class="btn btn-info">View detailed report</a>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-	<!-- Tab: price types -->
-	<div class="bo-salesoverview panel panel-default">
-		<div class="panel-body">
-
-			<div class="bo-salesoverview-controls clearfix">
-				<div class="row">
-					<div class="col-sm-5">
-						<div class="form-inline">
-							<div class="form-group">
-								<div class="input-group data_range">
-									<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
-										  <span class="input-group-btn">
-											 <button class="btn btn-default" type="button">
-												 <i class="fa fa-calendar" aria-hidden="true"></i>
-											 </button>
-										  </span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="bo-chart">
-				<img class="temp_image" src="img/pricetypes_graph_dummy.png" />
-			</div>
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="bo-chart">
-						<div class="bo-chart-buttons">
+						<div class="bo-chartcontrols col-sm-7 text-right">
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default active">Tickets</button>
 								<button type="button" class="btn btn-sm btn-default">Revenue</button>
 							</div>
+							&nbsp;&nbsp;
+							<div class="btn-group btn-group-sm" role="group">
+								<button type="button" class="btn btn-sm btn-default active">Day</button>
+								<button type="button" class="btn btn-sm btn-default">Week</button>
+								<button type="button" class="btn btn-sm btn-default">Month</button>
+							</div>
 						</div>
-						<img class="temp_image" src="img/pricetypes_pie_dummy.png" />
 					</div>
 				</div>
-				<div class="col-lg-6">
-					<table class="bo-pricetyperevenuetable table table-condensed table-small">
-						<colgroup>
-							<col>
-							<col>
-							<col>
-							<col>
-							<col>
-						</colgroup>
-						<thead>
-							<tr>
-								<td></td>
-								<td>Pricetype</td>
-								<td>Tickets</td>
-								<td>%</td>
-								<td>Revenue</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="info">
-								<td></td>
-								<td>Sold in total</td>
-								<td>850</td>
-								<td>100%</td>
-								<td>34,875.00 €</td>
-							</tr>
-						</tbody>
-						<thead>
-							<tr>
-								<th></th>
-								<th colspan="4">Piletilevi:</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #3366cc"></span></td>
-								<td>Full price</td>
-								<td>398</td>
-								<td>46.8%</td>
-								<td>22,886.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #77f23b"></span></td>
-								<td>- Limited visibility</td>
-								<td>50</td>
-								<td>5.9%</td>
-								<td>330.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #f19837"></span></td>
-								<td>- Student</td>
-								<td>76</td>
-								<td>8.9%</td>
-								<td>605.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #489721"></span></td>
-								<td>- Senior</td>
-								<td>80</td>
-								<td>9.4%</td>
-								<td>400.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #9b3999"></span></td>
-								<td>- Campaign</td>
-								<td>87</td>
-								<td>6%</td>
-								<td>125.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #429ac6"></span></td>
-								<td>- Telia client</td>
-								<td>44</td>
-								<td>5.2%</td>
-								<td>100.00 €</td>
-							</tr>
-						</tbody>
-						<thead>
-							<tr>
-								<th></th>
-								<th colspan="4">Sub-center name:</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #5b2742"></span></td>
-								<td>Invitations</td>
-								<td>90</td>
-								<td>10.6%</td>
-								<td>7,000.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #66aa28"></span></td>
-								<td>- Student</td>
-								<td>25</td>
-								<td>2.9%</td>
-								<td>0.00 €</td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="bo-chart">
+					<img class="temp_image" src="img/chart1.jpg" />
 				</div>
-			</div>
-
-		</div>
-	</div>
-
-	<!-- Tab: price classes -->
-	<div class="bo-salesoverview panel panel-default">
-		<div class="panel-body">
-
-			<div class="bo-salesoverview-controls clearfix">
 				<div class="row">
-					<div class="col-sm-5">
-						<div class="form-inline">
-							<div class="form-group">
-								<div class="input-group data_range">
-									<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
-										  <span class="input-group-btn">
-											 <button class="btn btn-default" type="button">
-												 <i class="fa fa-calendar" aria-hidden="true"></i>
-											 </button>
-										  </span>
+					<div class="col-lg-6">
+						<div class="bo-chart">
+							<img class="temp_image" src="img/chart2.jpg" />
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<table class="bo-revenuetable table table-condensed table-small">
+							<colgroup>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+							</colgroup>
+							<thead>
+								<tr>
+									<td></td>
+									<td></td>
+									<td>Tickets</td>
+									<td>%</td>
+									<td>Revenue</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="info">
+									<td></td>
+									<td>Generated</td>
+									<td>1050</td>
+									<td>100%</td>
+									<td>100,000 €</td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th></th>
+									<th>Sold:</th>
+									<th>750</th>
+									<th>78%</th>
+									<th>75,000 €</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="background-color: #99e394;"></td>
+									<td>Internet:</td>
+									<td>600</td>
+									<td>61%</td>
+									<td>60,000 €</td>
+								</tr>
+								<tr>
+									<td style="background-color: #8e7cc3;"></td>
+									<td>Salespoint:</td>
+									<td>150</td>
+									<td>21%</td>
+									<td>21,000 €</td>
+								</tr>
+								<tr class="active text-danger">
+									<td></td>
+									<td>Refund:</td>
+									<td>-100</td>
+									<td>11%</td>
+									<td>11,000 €</td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th></th>
+									<th>Reserved:</th>
+									<th>10</th>
+									<th>1%</th>
+									<th>500,000 €</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="background-color: #ff530d;"></td>
+									<td>Client:</td>
+									<td>2</td>
+									<td>&gt;1%</td>
+									<td>120 €</td>
+								</tr>
+								<tr>
+									<td style="background-color: #ff8c4a;"></td>
+									<td>Skybox:</td>
+									<td>5</td>
+									<td>&gt;1%</td>
+									<td>200 €</td>
+								</tr>
+								<tr>
+									<td style="background-color: #fcd8c2;"></td>
+									<td>Promoter:</td>
+									<td>3</td>
+									<td>&gt;1%</td>
+									<td>180 €</td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th></th>
+									<th>Issued to promoter:</th>
+									<th>105</th>
+									<th>10%</th>
+									<th>6,000 €</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="background-color: #d57373;"></td>
+									<td>Complimentary:</td>
+									<td>55</td>
+									<td>5%</td>
+									<td>0 €</td>
+								</tr>
+								<tr class="active text-danger">
+									<td style="background-color: #e89c30;"></td>
+									<td>Refund:</td>
+									<td>-1</td>
+									<td>&gt;1%</td>
+									<td>0 €</td>
+								</tr>
+								<tr>
+									<td style="background-color: #d57373;"></td>
+									<td>With price:</td>
+									<td>50</td>
+									<td>5%</td>
+									<td>6,000 €</td>
+								</tr>
+								<tr class="active text-danger">
+									<td style="background-color: #e89c30;"></td>
+									<td>Refund:</td>
+									<td>-10</td>
+									<td>&gt;1%</td>
+									<td>600 €</td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th></th>
+									<th>Venue occupancy:</th>
+									<th>865</th>
+									<th>89%</th>
+									<th>81,500 €</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="background-color: #ff3f68;"></td>
+									<td>Available for sale:</td>
+									<td>185</td>
+									<td>11%</td>
+									<td>18,500 €</td>
+								</tr>
+							</tbody>
+						</table>
+						<a href="#" class="btn btn-info">View detailed report</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Tab: price types -->
+		<div class="tab-pane bo-salesoverview panel panel-default" id="pricetype" role="tabpanel">
+			<div class="panel-body">
+
+				<div class="bo-salesoverview-controls clearfix">
+					<div class="row">
+						<div class="col-sm-5">
+							<div class="form-inline">
+								<div class="form-group">
+									<div class="input-group data_range">
+										<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
+											  <span class="input-group-btn">
+												 <button class="btn btn-default" type="button">
+													 <i class="fa fa-calendar" aria-hidden="true"></i>
+												 </button>
+											  </span>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="bo-chartcontrols col-sm-7 text-right">
-						<div class="btn-group btn-group-sm" role="group">
-							<button type="button" class="btn btn-sm btn-default active">Tickets</button>
-							<button type="button" class="btn btn-sm btn-default">Revenue</button>
-						</div>
-						&nbsp;&nbsp;
-						<div class="btn-group btn-group-sm" role="group">
-							<button type="button" class="btn btn-sm btn-default active">Day</button>
-							<button type="button" class="btn btn-sm btn-default">Week</button>
-							<button type="button" class="btn btn-sm btn-default">Month</button>
+				</div>
+				<div class="bo-chart">
+					<img class="temp_image" src="img/pricetypes_graph_dummy.png" />
+				</div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="bo-chart">
+							<div class="bo-chart-buttons">
+								<div class="btn-group btn-group-sm" role="group">
+									<button type="button" class="btn btn-sm btn-default active">Tickets</button>
+									<button type="button" class="btn btn-sm btn-default">Revenue</button>
+								</div>
+							</div>
+							<img class="temp_image" src="img/pricetypes_pie_dummy.png" />
 						</div>
 					</div>
+					<div class="col-lg-6">
+						<table class="bo-pricetyperevenuetable table table-condensed table-small">
+							<colgroup>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+							</colgroup>
+							<thead>
+								<tr>
+									<td></td>
+									<td>Pricetype</td>
+									<td>Tickets</td>
+									<td>%</td>
+									<td>Revenue</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="info">
+									<td></td>
+									<td>Sold in total</td>
+									<td>850</td>
+									<td>100%</td>
+									<td>34,875.00 €</td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th></th>
+									<th colspan="4">Piletilevi:</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #3366cc"></span></td>
+									<td>Full price</td>
+									<td>398</td>
+									<td>46.8%</td>
+									<td>22,886.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #77f23b"></span></td>
+									<td>- Limited visibility</td>
+									<td>50</td>
+									<td>5.9%</td>
+									<td>330.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #f19837"></span></td>
+									<td>- Student</td>
+									<td>76</td>
+									<td>8.9%</td>
+									<td>605.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #489721"></span></td>
+									<td>- Senior</td>
+									<td>80</td>
+									<td>9.4%</td>
+									<td>400.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #9b3999"></span></td>
+									<td>- Campaign</td>
+									<td>87</td>
+									<td>6%</td>
+									<td>125.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #429ac6"></span></td>
+									<td>- Telia client</td>
+									<td>44</td>
+									<td>5.2%</td>
+									<td>100.00 €</td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th></th>
+									<th colspan="4">Sub-center name:</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #5b2742"></span></td>
+									<td>Invitations</td>
+									<td>90</td>
+									<td>10.6%</td>
+									<td>7,000.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #66aa28"></span></td>
+									<td>- Student</td>
+									<td>25</td>
+									<td>2.9%</td>
+									<td>0.00 €</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
+
 			</div>
-			<div class="bo-chart">
-				<img class="temp_image" src="img/priceclasses_graph_dummy.png" />
-			</div>
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="bo-chart">
-						<div class="bo-chart-buttons">
+		</div>
+
+		<!-- Tab: price classes -->
+		<div class="tab-pane bo-salesoverview panel panel-default" id="priceclass" role="tabpanel">
+			<div class="panel-body">
+
+				<div class="bo-salesoverview-controls clearfix">
+					<div class="row">
+						<div class="col-sm-5">
+							<div class="form-inline">
+								<div class="form-group">
+									<div class="input-group data_range">
+										<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
+											  <span class="input-group-btn">
+												 <button class="btn btn-default" type="button">
+													 <i class="fa fa-calendar" aria-hidden="true"></i>
+												 </button>
+											  </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="bo-chartcontrols col-sm-7 text-right">
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default active">Tickets</button>
 								<button type="button" class="btn btn-sm btn-default">Revenue</button>
 							</div>
+							&nbsp;&nbsp;
+							<div class="btn-group btn-group-sm" role="group">
+								<button type="button" class="btn btn-sm btn-default active">Day</button>
+								<button type="button" class="btn btn-sm btn-default">Week</button>
+								<button type="button" class="btn btn-sm btn-default">Month</button>
+							</div>
 						</div>
-						<img class="temp_image" src="img/priceclasses_pie_dummy.png" />
 					</div>
 				</div>
-				<div class="col-lg-6">
-					<table class="bo-pricetyperevenuetable table table-condensed table-small">
-						<colgroup>
-							<col>
-							<col>
-							<col>
-							<col>
-							<col>
-						</colgroup>
-						<thead>
-							<tr>
-								<td></td>
-								<td>Pricetype</td>
-								<td>Tickets</td>
-								<td>%</td>
-								<td>Revenue</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="info">
-								<td></td>
-								<td>Generated</td>
-								<td>1250</td>
-								<td>100%</td>
-								<td></td>
-							</tr>
-						</tbody>
-						<thead>
-							<tr>
-								<th></th>
-								<th colspan="4">Piletilevi:</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #df9617"></span></td>
-								<td>I Priceclass (10.00-40.00€)</td>
-								<td>498</td>
-								<td>57.2%</td>
-								<td>22,886.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #448fff"></span></td>
-								<td>II Priceclass (5.00-30.00€)</td>
-								<td>25</td>
-								<td>4%</td>
-								<td>330.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #c844ff"></span></td>
-								<td>III Priceclass (5.00-30.00€)</td>
-								<td>33</td>
-								<td>4%</td>
-								<td>605.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #00ff05"></span></td>
-								<td>IV Priceclass (7.50-35.00€)</td>
-								<td>20</td>
-								<td>5%</td>
-								<td>400.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #fff000"></span></td>
-								<td>V Priceclass (25.00€)</td>
-								<td>27</td>
-								<td>6%</td>
-								<td>125.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #ff5400"></span></td>
-								<td>VI Priceclass (9.00-38.00€)</td>
-								<td>17</td>
-								<td>3%</td>
-								<td>100.00 €</td>
-							</tr>
-						</tbody>
-						<thead>
-							<tr>
-								<th></th>
-								<th colspan="4">"Own center name":</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #0fc"></span></td>
-								<td>II Priceclass (9.50-38.00€)</td>
-								<td>125</td>
-								<td>10%</td>
-								<td>7,000.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #448fff"></span></td>
-								<td>III Priceclass (0.00€)</td>
-								<td>125</td>
-								<td>10%</td>
-								<td>0.00 €</td>
-							</tr>
-							<tr class="info">
-								<td><span class="bo-dot" style="background-color: #c844ff"></span></td>
-								<td>IV Priceclass (5.00-30.00€)</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="bo-chart">
+					<img class="temp_image" src="img/priceclasses_graph_dummy.png" />
 				</div>
-			</div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="bo-chart">
+							<div class="bo-chart-buttons">
+								<div class="btn-group btn-group-sm" role="group">
+									<button type="button" class="btn btn-sm btn-default active">Tickets</button>
+									<button type="button" class="btn btn-sm btn-default">Revenue</button>
+								</div>
+							</div>
+							<img class="temp_image" src="img/priceclasses_pie_dummy.png" />
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<table class="bo-pricetyperevenuetable table table-condensed table-small">
+							<colgroup>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+							</colgroup>
+							<thead>
+								<tr>
+									<td></td>
+									<td>Pricetype</td>
+									<td>Tickets</td>
+									<td>%</td>
+									<td>Revenue</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="info">
+									<td></td>
+									<td>Generated</td>
+									<td>1250</td>
+									<td>100%</td>
+									<td></td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th></th>
+									<th colspan="4">Piletilevi:</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #df9617"></span></td>
+									<td>I Priceclass (10.00-40.00€)</td>
+									<td>498</td>
+									<td>57.2%</td>
+									<td>22,886.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #448fff"></span></td>
+									<td>II Priceclass (5.00-30.00€)</td>
+									<td>25</td>
+									<td>4%</td>
+									<td>330.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #c844ff"></span></td>
+									<td>III Priceclass (5.00-30.00€)</td>
+									<td>33</td>
+									<td>4%</td>
+									<td>605.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #00ff05"></span></td>
+									<td>IV Priceclass (7.50-35.00€)</td>
+									<td>20</td>
+									<td>5%</td>
+									<td>400.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #fff000"></span></td>
+									<td>V Priceclass (25.00€)</td>
+									<td>27</td>
+									<td>6%</td>
+									<td>125.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #ff5400"></span></td>
+									<td>VI Priceclass (9.00-38.00€)</td>
+									<td>17</td>
+									<td>3%</td>
+									<td>100.00 €</td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th></th>
+									<th colspan="4">"Own center name":</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #0fc"></span></td>
+									<td>II Priceclass (9.50-38.00€)</td>
+									<td>125</td>
+									<td>10%</td>
+									<td>7,000.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #448fff"></span></td>
+									<td>III Priceclass (0.00€)</td>
+									<td>125</td>
+									<td>10%</td>
+									<td>0.00 €</td>
+								</tr>
+								<tr class="info">
+									<td><span class="bo-dot" style="background-color: #c844ff"></span></td>
+									<td>IV Priceclass (5.00-30.00€)</td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 
+			</div>
 		</div>
-	</div>
 
-	<!-- Tab: sections -->
-	<div class="bo-salesoverview panel panel-default">
-		<div class="panel-body">
-			<div class="bo-salesoverview-controls clearfix">
-				<div class="form-inline">
-					<div class="form-group">
-						<div class="input-group data_range">
-							<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
-							  <span class="input-group-btn">
-								 <button class="btn btn-default" type="button">
-									 <i class="fa fa-calendar" aria-hidden="true"></i>
-								 </button>
-							  </span>
+		<!-- Tab: sections -->
+		<div class="tab-pane bo-salesoverview panel panel-default" id="sections" role="tabpanel">
+			<div class="panel-body">
+				<div class="bo-salesoverview-controls clearfix">
+					<div class="form-inline">
+						<div class="form-group">
+							<div class="input-group data_range">
+								<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
+								  <span class="input-group-btn">
+									 <button class="btn btn-default" type="button">
+										 <i class="fa fa-calendar" aria-hidden="true"></i>
+									 </button>
+								  </span>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="bo-sectionselector list-group">
-						<button type="button" class="bo-sectionselector-item list-group-item">
-							<div class="bo-sectionselector-itemtitle">
-								Parter
-							</div>
-							<div class="clearfix">
-								<div class="bo-sectionselector-itemprice">60,000 €</div>
-								<div class="bo-sectionselector-itemstats" ng-include="'views/common/simplestats.html'"></div>
-							</div>
-						</button>
-						<button type="button" class="bo-sectionselector-item list-group-item">
-							<div class="bo-sectionselector-itemtitle">
-								I rõdu
-							</div>
-							<div class="clearfix">
-								<div class="bo-sectionselector-itemprice">60,000 €</div>
-								<div class="bo-sectionselector-itemstats" ng-include="'views/common/simplestats.html'"></div>
-							</div>
-						</button>
-						<button type="button" class="bo-sectionselector-item list-group-item">
-							<div class="bo-sectionselector-itemtitle">
-								II rõdu
-							</div>
-							<div class="clearfix">
-								<div class="bo-sectionselector-itemprice">60,000 €</div>
-								<div class="bo-sectionselector-itemstats" ng-include="'views/common/simplestats.html'"></div>
-							</div>
-						</button>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="bo-sectionselector list-group">
+							<button type="button" class="bo-sectionselector-item list-group-item">
+								<div class="bo-sectionselector-itemtitle">
+									Parter
+								</div>
+								<div class="clearfix">
+									<div class="bo-sectionselector-itemprice">60,000 €</div>
+									<div class="bo-sectionselector-itemstats" ng-include="'views/common/simplestats.html'"></div>
+								</div>
+							</button>
+							<button type="button" class="bo-sectionselector-item list-group-item">
+								<div class="bo-sectionselector-itemtitle">
+									I rõdu
+								</div>
+								<div class="clearfix">
+									<div class="bo-sectionselector-itemprice">60,000 €</div>
+									<div class="bo-sectionselector-itemstats" ng-include="'views/common/simplestats.html'"></div>
+								</div>
+							</button>
+							<button type="button" class="bo-sectionselector-item list-group-item">
+								<div class="bo-sectionselector-itemtitle">
+									II rõdu
+								</div>
+								<div class="clearfix">
+									<div class="bo-sectionselector-itemprice">60,000 €</div>
+									<div class="bo-sectionselector-itemstats" ng-include="'views/common/simplestats.html'"></div>
+								</div>
+							</button>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="bo-map">
+							<img class="temp_image" src="img/venueplan_dummy.png" />
+						</div>
 					</div>
 				</div>
-				<div class="col-lg-6">
-					<div class="bo-map">
-						<img class="temp_image" src="img/venueplan_dummy.png" />
-					</div>
-				</div>
-			</div>
 
+			</div>
 		</div>
-	</div>
-	<div class="bo-salesoverview panel panel-default">
-		<div class="panel-body">
-			<div class="bo-salesoverview-controls clearfix">
-				<div class="form-inline">
-					<div class="form-group">
-						<div class="input-group data_range">
-							<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
-							  <span class="input-group-btn">
-								 <button class="btn btn-default" type="button">
-									 <i class="fa fa-calendar" aria-hidden="true"></i>
-								 </button>
-							  </span>
+
+		<div class="tab-pane bo-salesoverview panel panel-default" id="locations" role="tabpanel">
+			<div class="panel-body">
+				<div class="bo-salesoverview-controls clearfix">
+					<div class="form-inline">
+						<div class="form-group">
+							<div class="input-group data_range">
+								<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
+								  <span class="input-group-btn">
+									 <button class="btn btn-default" type="button">
+										 <i class="fa fa-calendar" aria-hidden="true"></i>
+									 </button>
+								  </span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="bo-sectionselection form-control">
+								<span class="bo-sectionselection-text">Selected section: Parter</span>
+								<a href="#" class="bo-sectionselection-button text-danger">
+									<span class="bo-sectionselection-icon fa fa-times"></span>
+								</a>
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<div class="bo-sectionselection form-control">
-							<span class="bo-sectionselection-text">Selected section: Parter</span>
-							<a href="#" class="bo-sectionselection-button text-danger">
-								<span class="bo-sectionselection-icon fa fa-times"></span>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-6">
+						<table class="bo-pricetyperevenuetable table table-condensed table-small">
+							<colgroup>
+								<col>
+								<col>
+								<col>
+								<col>
+								<col>
+							</colgroup>
+							<thead>
+								<tr>
+									<td></td>
+									<td>Pricetype</td>
+									<td>Tickets</td>
+									<td>%</td>
+									<td>Revenue</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td></td>
+									<td>Generated</td>
+									<td>1250</td>
+									<td>100%</td>
+									<td></td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th></th>
+									<th colspan="4">Piletilevi:</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #df9617"></span></td>
+									<td>I Priceclass (10.00-40.00€)</td>
+									<td>498</td>
+									<td>37%</td>
+									<td>22,886.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #448fff"></span></td>
+									<td>II Priceclass (5.00-30.00€)</td>
+									<td>25</td>
+									<td>4%</td>
+									<td>330.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #c844ff"></span></td>
+									<td>III Priceclass (5.00-30.00€)</td>
+									<td>33</td>
+									<td>4%</td>
+									<td>605.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #00ff05"></span></td>
+									<td>IV Priceclass (7.50-35.00€)</td>
+									<td>20</td>
+									<td>5%</td>
+									<td>400.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #fff000"></span></td>
+									<td>V Priceclass (25.00€)</td>
+									<td>27</td>
+									<td>6%</td>
+									<td>125.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #ff5400"></span></td>
+									<td>VI Priceclass (9.00-38.00€)</td>
+									<td>17</td>
+									<td>3%</td>
+									<td>100.00 €</td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th></th>
+									<th colspan="4">"Own center name":</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #00ffcc"></span></td>
+									<td>II Priceclass (9.50-38.00€)</td>
+									<td>125</td>
+									<td>10%</td>
+									<td>7,000.00 €</td>
+								</tr>
+								<tr>
+									<td><span class="bo-dot" style="background-color: #448fff"></span></td>
+									<td>III Priceclass (0.00€)</td>
+									<td>125</td>
+									<td>10%</td>
+									<td>0.00 €</td>
+								</tr>
+								<tr class="info">
+									<td><span class="bo-dot" style="background-color: #c844ff"></span></td>
+									<td>IV Priceclass (5.00-30.00€)</td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<th></th>
+									<th>Sub in total:</th>
+									<th>850</th>
+									<th>80%</th>
+									<th>34,875.00 €</th>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+					<div class="col-lg-6">
+						<div class="bo-legend">
+							<span class="bo-legend-item">
+								<span class="bo-dot" style="background-color: #fff; border: 1px solid;"></span>&nbsp;Available
+							</span>
+							<span class="bo-legend-item">
+								<span class="bo-dot" style="background-color: #51b0f5;"></span>&nbsp;Booked
+							</span>
+							<span class="bo-legend-item">
+								<span class="bo-dot" style="background-color: #289b91;"></span>&nbsp;Booked by venue owner
+							</span>
+							<span class="bo-legend-item">
+								<span class="bo-dot" style="background-color: #2a31b5;"></span>&nbsp;Sold in salespoint
+							</span>
+							<span class="bo-legend-item">
+								<span class="bo-dot" style="background-color: #f7572a;"></span>&nbsp;Returned
+							</span>
+							<span class="bo-legend-item">
+								<span class="bo-dot" style="background-color: #000;"></span>&nbsp;Not available
+							</span>
+							<span class="bo-legend-item">
+								<span class="bo-dot" style="background-color: #ed8c9b;"></span>&nbsp;Defect
+							</span>
+							<span class="bo-legend-item">
+								<span class="bo-dot" style="background-color: #decc47;"></span>&nbsp;Phone sales
+							</span>
+							<span class="bo-legend-item">
+								<span class="bo-dot" style="background-color: #47de4a;"></span>&nbsp;Issued to organizer
+							</span>
+						</div>
+						<div class="bo-mapcontrols">
+							<a class="bo-mapcontrols-item bo-mapcontrols-resize" href="#">
+								<i class="fa fa-expand" aria-hidden="true"></i>
 							</a>
+							<a class="bo-mapcontrols-item" href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
+							<a class="bo-mapcontrols-item" href="#"><i class="fa fa-minus" aria-hidden="true"></i></a>
+						</div>
+						<div class="bo-map">
+							<img class="temp_image" src="img/section_dummy.png" />
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-lg-6">
-					<table class="bo-pricetyperevenuetable table table-condensed table-small">
-						<colgroup>
-							<col>
-							<col>
-							<col>
-							<col>
-							<col>
-						</colgroup>
-						<thead>
-							<tr>
-								<td></td>
-								<td>Pricetype</td>
-								<td>Tickets</td>
-								<td>%</td>
-								<td>Revenue</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td></td>
-								<td>Generated</td>
-								<td>1250</td>
-								<td>100%</td>
-								<td></td>
-							</tr>
-						</tbody>
-						<thead>
-							<tr>
-								<th></th>
-								<th colspan="4">Piletilevi:</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #df9617"></span></td>
-								<td>I Priceclass (10.00-40.00€)</td>
-								<td>498</td>
-								<td>37%</td>
-								<td>22,886.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #448fff"></span></td>
-								<td>II Priceclass (5.00-30.00€)</td>
-								<td>25</td>
-								<td>4%</td>
-								<td>330.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #c844ff"></span></td>
-								<td>III Priceclass (5.00-30.00€)</td>
-								<td>33</td>
-								<td>4%</td>
-								<td>605.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #00ff05"></span></td>
-								<td>IV Priceclass (7.50-35.00€)</td>
-								<td>20</td>
-								<td>5%</td>
-								<td>400.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #fff000"></span></td>
-								<td>V Priceclass (25.00€)</td>
-								<td>27</td>
-								<td>6%</td>
-								<td>125.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #ff5400"></span></td>
-								<td>VI Priceclass (9.00-38.00€)</td>
-								<td>17</td>
-								<td>3%</td>
-								<td>100.00 €</td>
-							</tr>
-						</tbody>
-						<thead>
-							<tr>
-								<th></th>
-								<th colspan="4">"Own center name":</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #00ffcc"></span></td>
-								<td>II Priceclass (9.50-38.00€)</td>
-								<td>125</td>
-								<td>10%</td>
-								<td>7,000.00 €</td>
-							</tr>
-							<tr>
-								<td><span class="bo-dot" style="background-color: #448fff"></span></td>
-								<td>III Priceclass (0.00€)</td>
-								<td>125</td>
-								<td>10%</td>
-								<td>0.00 €</td>
-							</tr>
-							<tr class="info">
-								<td><span class="bo-dot" style="background-color: #c844ff"></span></td>
-								<td>IV Priceclass (5.00-30.00€)</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<th></th>
-								<th>Sub in total:</th>
-								<th>850</th>
-								<th>80%</th>
-								<th>34,875.00 €</th>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
-				<div class="col-lg-6">
-					<div class="bo-legend">
-						<span class="bo-legend-item">
-							<span class="bo-dot" style="background-color: #fff; border: 1px solid;"></span>&nbsp;Available
-						</span>
-						<span class="bo-legend-item">
-							<span class="bo-dot" style="background-color: #51b0f5;"></span>&nbsp;Booked
-						</span>
-						<span class="bo-legend-item">
-							<span class="bo-dot" style="background-color: #289b91;"></span>&nbsp;Booked by venue owner
-						</span>
-						<span class="bo-legend-item">
-							<span class="bo-dot" style="background-color: #2a31b5;"></span>&nbsp;Sold in salespoint
-						</span>
-						<span class="bo-legend-item">
-							<span class="bo-dot" style="background-color: #f7572a;"></span>&nbsp;Returned
-						</span>
-						<span class="bo-legend-item">
-							<span class="bo-dot" style="background-color: #000;"></span>&nbsp;Not available
-						</span>
-						<span class="bo-legend-item">
-							<span class="bo-dot" style="background-color: #ed8c9b;"></span>&nbsp;Defect
-						</span>
-						<span class="bo-legend-item">
-							<span class="bo-dot" style="background-color: #decc47;"></span>&nbsp;Phone sales
-						</span>
-						<span class="bo-legend-item">
-							<span class="bo-dot" style="background-color: #47de4a;"></span>&nbsp;Issued to organizer
-						</span>
-					</div>
-					<div class="bo-mapcontrols">
-						<a class="bo-mapcontrols-item bo-mapcontrols-resize" href="#">
-							<i class="fa fa-expand" aria-hidden="true"></i>
-						</a>
-						<a class="bo-mapcontrols-item" href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
-						<a class="bo-mapcontrols-item" href="#"><i class="fa fa-minus" aria-hidden="true"></i></a>
-					</div>
-					<div class="bo-map">
-						<img class="temp_image" src="img/section_dummy.png" />
-					</div>
-				</div>
-			</div>
-			<h4>Selected seats:</h4>
-			<table class="bo-seatstable table table-striped table-condensed table-small">
-				<colgroup>
-					<col class="bo-seatstable-colorcolumn">
-					<col class="bo-seatstable-sectorcolumn">
-					<col class="bo-seatstable-rowcolumn">
-					<col class="bo-seatstable-seatcolumn">
-					<col class="bo-seatstable-pricetypecolumn">
-					<col class="bo-seatstable-pricecolumn">
-					<col class="bo-seatstable-statuscolumn">
-					<col class="bo-seatstable-controlcolumn">
-				</colgroup>
-				<thead>
-					<tr>
-						<th></th>
-						<th>
-							Sector
-						</th>
-						<th>
-							Row
-						</th>
-						<th>
-							Seat
-						</th>
-						<th>
-							Pricetype
-						</th>
-						<th>
-							Price
-						</th>
-						<th>
-							Status
-						</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<span class="bo-dot" style="background-color: #df9617"></span>
-						</td>
-						<td>
-							Parter
-						</td>
-						<td>
-							3
-						</td>
-						<td>
-							12
-						</td>
-						<td>
-							Senior
-						</td>
-						<td>
-							13.00 €
-						</td>
-						<td>
-							Sold
-						</td>
-						<td>
-							<a href="#" class="bo-cancel fa fa-times text-danger"></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="bo-dot" style="background-color: #448fff"></span>
-						</td>
-						<td>
-							Parter
-						</td>
-						<td>
-							3
-						</td>
-						<td>
-							13
-						</td>
-						<td>
-							Full price
-						</td>
-						<td>
-							26.00 €
-						</td>
-						<td>
-							<a href="#">Reserved to Name Fullname</a>
-						</td>
-						<td>
-							<a href="#" class="bo-cancel fa fa-times text-danger"></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="bo-dot" style="background-color: #448fff"></span>
-						</td>
-						<td>
-							Parter
-						</td>
-						<td>
-							1
-						</td>
-						<td>
-							20
-						</td>
-						<td>
-							<select class="bo-seatstable-selection form-control input-sm">
-								<option>Full price</option>
-								<option>Option 2</option>
-								<option>Option 3</option>
-							</select>
-						</td>
-						<td>
-							26.00 €
-						</td>
-						<td>
-							Available
-						</td>
-						<td>
-							<a href="#" class="bo-cancel fa fa-times text-danger"></a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<h4>Reservation:</h4>
-			<form class="bo-reservationform form-horizontal">
-				<div class="form-group">
-					<div class="col-sm-offset-4 col-sm-5">
-						<div class="radio">
-							<input type="radio" name="exampleradio" id="exampleradio1" value="1" checked="checked">
-							<label for="exampleradio1">
-								-&nbsp;Reservation
-							</label>
-						</div>
-						<div class="radio">
-							<input type="radio" name="exampleradio" id="exampleradio2" value="2">
-							<label for="exampleradio2">
-								-&nbsp;Invitation
-							</label>
+				<h4>Selected seats:</h4>
+				<table class="bo-seatstable table table-striped table-condensed table-small">
+					<colgroup>
+						<col class="bo-seatstable-colorcolumn">
+						<col class="bo-seatstable-sectorcolumn">
+						<col class="bo-seatstable-rowcolumn">
+						<col class="bo-seatstable-seatcolumn">
+						<col class="bo-seatstable-pricetypecolumn">
+						<col class="bo-seatstable-pricecolumn">
+						<col class="bo-seatstable-statuscolumn">
+						<col class="bo-seatstable-controlcolumn">
+					</colgroup>
+					<thead>
+						<tr>
+							<th></th>
+							<th>
+								Sector
+							</th>
+							<th>
+								Row
+							</th>
+							<th>
+								Seat
+							</th>
+							<th>
+								Pricetype
+							</th>
+							<th>
+								Price
+							</th>
+							<th>
+								Status
+							</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<span class="bo-dot" style="background-color: #df9617"></span>
+							</td>
+							<td>
+								Parter
+							</td>
+							<td>
+								3
+							</td>
+							<td>
+								12
+							</td>
+							<td>
+								Senior
+							</td>
+							<td>
+								13.00 €
+							</td>
+							<td>
+								Sold
+							</td>
+							<td>
+								<a href="#" class="bo-cancel fa fa-times text-danger"></a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="bo-dot" style="background-color: #448fff"></span>
+							</td>
+							<td>
+								Parter
+							</td>
+							<td>
+								3
+							</td>
+							<td>
+								13
+							</td>
+							<td>
+								Full price
+							</td>
+							<td>
+								26.00 €
+							</td>
+							<td>
+								<a href="#">Reserved to Name Fullname</a>
+							</td>
+							<td>
+								<a href="#" class="bo-cancel fa fa-times text-danger"></a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="bo-dot" style="background-color: #448fff"></span>
+							</td>
+							<td>
+								Parter
+							</td>
+							<td>
+								1
+							</td>
+							<td>
+								20
+							</td>
+							<td>
+								<select class="bo-seatstable-selection form-control input-sm">
+									<option>Full price</option>
+									<option>Option 2</option>
+									<option>Option 3</option>
+								</select>
+							</td>
+							<td>
+								26.00 €
+							</td>
+							<td>
+								Available
+							</td>
+							<td>
+								<a href="#" class="bo-cancel fa fa-times text-danger"></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<h4>Reservation:</h4>
+				<form class="bo-reservationform form-horizontal">
+					<div class="form-group">
+						<div class="col-sm-offset-4 col-sm-5">
+							<div class="radio">
+								<input type="radio" name="exampleradio" id="exampleradio1" value="1" checked="checked">
+								<label for="exampleradio1">
+									-&nbsp;Reservation
+								</label>
+							</div>
+							<div class="radio">
+								<input type="radio" name="exampleradio" id="exampleradio2" value="2">
+								<label for="exampleradio2">
+									-&nbsp;Invitation
+								</label>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="form-group"></div>
-				<div class="form-group"></div>
-				<div class="form-group">
-					<label class="col-sm-4 control-label">Company:</label>
-					<div class="col-sm-5">
-						<input type="text" class="form-control">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-4 control-label">Name:</label>
-					<div class="col-sm-5">
-						<input type="text" class="form-control">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-4 control-label">Surname:</label>
-					<div class="col-sm-5">
-						<input type="text" class="form-control">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-4 control-label">E-mail:</label>
-					<div class="col-sm-5">
-						<input type="text" class="form-control">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-4 control-label">Discount:</label>
-					<div class="col-sm-3">
-						<div class="input-group">
+					<div class="form-group"></div>
+					<div class="form-group"></div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Company:</label>
+						<div class="col-sm-5">
 							<input type="text" class="form-control">
-							<span class="input-group-addon">%</span>
 						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-4 control-label">Price with discount:</label>
-					<div class="col-sm-5">
-						<div class="form-control-static">
-							<strong>50.00 €</strong>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Name:</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control">
 						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-4 control-label">Comment:</label>
-					<div class="col-sm-5">
-						<textarea class="form-control" rows="5"></textarea>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Surname:</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-4 col-sm-5">
-						<button type="submit" class="btn btn-info">Save and send reservation to client</button>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">E-mail:</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-4 col-sm-5">
-						<a href="#">Only save reservation</a>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Discount:</label>
+						<div class="col-sm-3">
+							<div class="input-group">
+								<input type="text" class="form-control">
+								<span class="input-group-addon">%</span>
+							</div>
+						</div>
 					</div>
-				</div>
-			</form>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Price with discount:</label>
+						<div class="col-sm-5">
+							<div class="form-control-static">
+								<strong>50.00 €</strong>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Comment:</label>
+						<div class="col-sm-5">
+							<textarea class="form-control" rows="5"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-4 col-sm-5">
+							<button type="submit" class="btn btn-info">Save and send reservation to client</button>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-4 col-sm-5">
+							<a href="#">Only save reservation</a>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
+
 <div class="col-md-3 bo-sidebar" ng-if="vm.event.eventData.concerts">
 	<div class="panel panel-default bo-onsale">
 		<h2 class="bo-sidebar-title hidden-xs">{{'api_events_on_sale'|translate}}</h2>
@@ -1023,3 +1027,14 @@
 		</ul>
 	</div>
 </div>
+
+<script language="JavaScript">
+<!--
+
+$('#reportdatatab a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+})
+
+//-->
+</script>
