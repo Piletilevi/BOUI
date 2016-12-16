@@ -1,0 +1,21 @@
+<div class="bo-eventshort">
+	<h3 class="bo-eventshort-title">{{event.name}}</h3>
+	<div class="bo-eventshort-datetime">
+		<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{event.eventDateTime | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventshort-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{event.eventDateTime | date:'HH:mm'}}</span>
+	</div>
+	<div class="bo-eventshort-venue">
+		<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{event.location}}
+	</div>
+	<div class="bo-eventshort-progress clearfix">
+		<div class="pull-right">
+			<span class="bo-eventshort-progresslabel">
+				{{event.sell.soldPercent}}%
+			</span>
+		</div>
+		<div class="progress">
+			 <div class="progress-bar progress-bar-success" style="width: {{event.sell.soldPercent}}%" title="sold">{{event.sell.soldTickets}}</div>
+			 <div class="progress-bar progress-bar-warning" style="width: {{event.sell.bookedPercent}}%" title="reserved">{{event.sell.bookedTickets}}</div>
+			 <div class="progress-bar progress-bar-danger" style="width: {{event.sell.availablePercent}}%" title="empty">{{event.sell.availableTickets}}</div>
+		 </div>
+	</div>
+</div>
