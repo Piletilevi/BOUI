@@ -413,4 +413,36 @@ $app->post('/showOpSales', function() use ($app)  {
 	}
 });
 
+$app->post('/eventSalesReport', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id', 'type'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	if ($r->type=="show") {
+		$filter['showId'] = $r->id;
+	} else {
+		$filter['concertId'] = $r->id;
+	}
+	$filter['startDate'] = $r->filter->periodOverview->startDate;
+	$filter['endDate'] = $r->filter->periodOverview->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesReport( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+
+
 ?>

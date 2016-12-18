@@ -2,25 +2,25 @@
 	<div class="row bo-filter-block">
 		<div class="col-xs-8 col-sm-12 col-md-4">
 			<div class="visible-lg bo-hidden-label">&nbsp;</div>
-			<h1>REPORTS</h1>
+			<h1>{{'api_reports'|translate}}</h1>
 		</div>
 		<div class="col-xs-4 col-sm-2 visible-xs visible-sm">
 			<button type="button" class="collapsed btn" data-toggle="collapse" data-target="#filter" aria-expanded="false">
 				<span class="glyphicon glyphicon-filter"></span>
-				Filter
+				{{'api_filter'|translate}}
 			</button>
 		</div>
 		<div class="col-xs-12 col-sm-5 col-md-4">
 			<div class="visible-lg bo-hidden-label">&nbsp;</div>
 			<div class="input-group input-group-lg">
-				<input type="text" class="form-control" placeholder="Search for your event or show">
+				<input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name" key-bind="{ enter: 'vm.getEventOpSales(vm.event, vm.filter)' }">
              <span class="input-group-btn">
-                 <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                 <button class="btn btn-default" type="button" ng-click="vm.getEventOpSales(vm.event, vm.filter)"><i class="fa fa-search" aria-hidden="true"></i></button>
              </span>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-5 col-md-4">
-			<div class="visible-lg bo-hidden-label">Sales period:</div>
+			<div class="visible-lg bo-hidden-label">{{'api_event_sales_period'|translate}}:</div>
 			<div class="input-group data_range input-group-lg">
 				<input type="text" daterangepicker class="form-control" ng-model="vm.filter.period" disabled/>
 				 <span class="input-group-btn">
@@ -33,9 +33,9 @@
 		</div>
 	</div>
 	<div class="bo-event-share-block">
-		<i class="fa fa-print"></i><a onclick="window.print();">Print</a> |
-		<i class="fa fa-envelope"></i><a href="">Email</a> |
-		<i class="fa fa-share"></i><a href="">Export</a>
+		<i class="fa fa-print"></i><a onclick="window.print();">{{'api_print'|translate}}</a> |
+		<i class="fa fa-envelope"></i><a href="">{{'api_email'|translate}}</a> |
+		<i class="fa fa-share"></i><a href="">{{'api_export'|translate}}</a>
 		  <!--<div class="dropdown inline_dropdown">-->
 		  <!--<span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Export <span class="caret"></span></span>-->
 		  <!--<ul class="dropdown-menu">-->
@@ -52,12 +52,12 @@
 	</div>
 
 	<ul class="nav nav-tabs" role="tablist" id="reportdatatab">
-		<li class="active"><a href="#overview" data-toggle="tab" role="tab" aria-controls="overview">Overview</a></li>
-		<li><a href="#pricetype" data-toggle="tab" role="tab" aria-controls="pricetype">By pricetype</a></li>
-		<li><a href="#priceclass" data-toggle="tab" role="tab" aria-controls="priceclass">By priceclass</a></li>
-		<li><a href="#sections" data-toggle="tab" role="tab" aria-controls="sections">By sections</a></li>
-		<li><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations">By locations</a></li>
-		<li><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings">Bookings</a></li>
+		<li class="active"><a href="#overview" data-toggle="tab" role="tab" aria-controls="overview">{{'api_overview'|translate}}</a></li>
+		<li><a href="#pricetype" data-toggle="tab" role="tab" aria-controls="pricetype">{{'api_by_pricetype'|translate}}</a></li>
+		<li><a href="#priceclass" data-toggle="tab" role="tab" aria-controls="priceclass">{{'api_by_priceclass'|translate}}</a></li>
+		<li><a href="#sections" data-toggle="tab" role="tab" aria-controls="sections">{{'api_by_sectors'|translate}}</a></li>
+		<li><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations">{{'api_by_locations'|translate}}</a></li>
+		<li><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings">{{'api_bookings'|translate}}</a></li>
 	</ul>
 	
 	<div class="tab-content">
@@ -71,12 +71,12 @@
 							<div class="form-inline">
 								<div class="form-group">
 									<div class="input-group data_range">
-										<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
-											  <span class="input-group-btn">
-												 <button class="btn btn-default" type="button">
-													 <i class="fa fa-calendar" aria-hidden="true"></i>
-												 </button>
-											  </span>
+										<input type="text" daterangepicker class="form-control" ng-model="vm.filter.periodOverview" disabled ng-change="vm.getEventSalesReport(vm.event, vm.filter)"/>
+										 <span class="input-group-btn">
+											<button class="btn btn-default" type="button" ng-click="showDateRange($event)">
+												<i class="fa fa-calendar" aria-hidden="true"></i>
+											</button>
+										 </span>
 									</div>
 								</div>
 							</div>
@@ -115,143 +115,34 @@
 							</colgroup>
 							<thead>
 								<tr>
-									<td></td>
-									<td></td>
-									<td>Tickets</td>
-									<td>%</td>
-									<td>Revenue</td>
+									<td width="7%"></td>
+									<td width="46%"></td>
+									<td width="17%">Tickets</td>
+									<td width="10%">%</td>
+									<td width="20%">Revenue</td>
 								</tr>
 							</thead>
-							<tbody>
-								<tr class="info">
-									<td></td>
-									<td>Generated</td>
-									<td>1050</td>
-									<td>100%</td>
-									<td>100,000 €</td>
-								</tr>
-							</tbody>
+						</table>
+						<table ng-repeat="eventSaleData in vm.myEventSalesReport.sales" class="bo-revenuetable table table-condensed table-small">
 							<thead>
 								<tr>
-									<th></th>
-									<th>Sold:</th>
-									<th>750</th>
-									<th>78%</th>
-									<th>75,000 €</th>
+									<th width="7%"></th>
+									<th width="46%">{{eventSaleData.rowTypeName}}:</th>
+									<th width="17%">{{eventSaleData.rowCount}}</th>
+									<th width="10%">100%</th>
+									<th width="20%">{{eventSaleData.rowSum}} {{eventSaleData.currency}}</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td style="background-color: #99e394;"></td>
-									<td>Internet:</td>
-									<td>600</td>
-									<td>61%</td>
-									<td>60,000 €</td>
-								</tr>
-								<tr>
-									<td style="background-color: #8e7cc3;"></td>
-									<td>Salespoint:</td>
-									<td>150</td>
-									<td>21%</td>
-									<td>21,000 €</td>
-								</tr>
-								<tr class="active text-danger">
-									<td></td>
-									<td>Refund:</td>
-									<td>-100</td>
-									<td>11%</td>
-									<td>11,000 €</td>
+								<tr ng-repeat="salePrice in eventSaleData.prices">
+									<td style="background-color: {{salePrice.color}};"></td>
+									<td>{{salePrice.pricetype}}:</td>
+									<td>{{salePrice.count}}</td>
+									<td>{{eventSaleData.rowCount ? ( salePrice.count / eventSaleData.rowCount ) * 100 : 0 | number:0}}%</td>
+									<td>{{salePrice.price}} {{eventSaleData.currency}}</td>
 								</tr>
 							</tbody>
-							<thead>
-								<tr>
-									<th></th>
-									<th>Reserved:</th>
-									<th>10</th>
-									<th>1%</th>
-									<th>500,000 €</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td style="background-color: #ff530d;"></td>
-									<td>Client:</td>
-									<td>2</td>
-									<td>&gt;1%</td>
-									<td>120 €</td>
-								</tr>
-								<tr>
-									<td style="background-color: #ff8c4a;"></td>
-									<td>Skybox:</td>
-									<td>5</td>
-									<td>&gt;1%</td>
-									<td>200 €</td>
-								</tr>
-								<tr>
-									<td style="background-color: #fcd8c2;"></td>
-									<td>Promoter:</td>
-									<td>3</td>
-									<td>&gt;1%</td>
-									<td>180 €</td>
-								</tr>
-							</tbody>
-							<thead>
-								<tr>
-									<th></th>
-									<th>Issued to promoter:</th>
-									<th>105</th>
-									<th>10%</th>
-									<th>6,000 €</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td style="background-color: #d57373;"></td>
-									<td>Complimentary:</td>
-									<td>55</td>
-									<td>5%</td>
-									<td>0 €</td>
-								</tr>
-								<tr class="active text-danger">
-									<td style="background-color: #e89c30;"></td>
-									<td>Refund:</td>
-									<td>-1</td>
-									<td>&gt;1%</td>
-									<td>0 €</td>
-								</tr>
-								<tr>
-									<td style="background-color: #d57373;"></td>
-									<td>With price:</td>
-									<td>50</td>
-									<td>5%</td>
-									<td>6,000 €</td>
-								</tr>
-								<tr class="active text-danger">
-									<td style="background-color: #e89c30;"></td>
-									<td>Refund:</td>
-									<td>-10</td>
-									<td>&gt;1%</td>
-									<td>600 €</td>
-								</tr>
-							</tbody>
-							<thead>
-								<tr>
-									<th></th>
-									<th>Venue occupancy:</th>
-									<th>865</th>
-									<th>89%</th>
-									<th>81,500 €</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td style="background-color: #ff3f68;"></td>
-									<td>Available for sale:</td>
-									<td>185</td>
-									<td>11%</td>
-									<td>18,500 €</td>
-								</tr>
-							</tbody>
+							</div>
 						</table>
 						<a href="#" class="btn btn-info">View detailed report</a>
 					</div>

@@ -34,11 +34,11 @@
 		<div class="col-xs-12 col-sm-3">
 			<div class="row">
 				<div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">{{event.sell.soldSumma}} {{event.sell.currency}}</div>
-				<div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">Promote event</a></div>
+				<div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">{{'api_promote_event'|translate}}</a></div>
 			</div>
 		</div>
 	</div>
-	<div class="bo-event-report-link"><a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showEditLink">Edit</a><span ng-if="showEditLink">|</span><a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showReportLink">View report</a><span ng-if="showReportLink">|</span><a href="">View website</a></div>
+	<div class="bo-event-report-link"><a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showEditLink">{{'api_edit'|translate}}</a><span ng-if="showEditLink">|</span><a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showReportLink">{{'api_view_report'|translate}}</a><span ng-if="showReportLink">|</span><a href="">{{'api_view_website'|translate}}</a></div>
 	<div ng-if="event.concerts" id="bo-sub-events{{event.id}}" class="bo-sub-events collapse">
 		<div class="panel panel-default bo-event" ng-repeat="concertItem in event.concerts">
 			<div ng-include-template="event_detail.html" ng-include-variables="{ event: concertItem, showEditLink: true, showReportLink: true }"></div>

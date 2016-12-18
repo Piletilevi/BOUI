@@ -17,14 +17,16 @@
 					if ($element.attr('daterangepicker') === undefined || ngModel === null) {
 						return;
 					}
+					
+					var showCompareSelect = $attributes.hasOwnProperty("showcompareselect") ? true : false;
 
 					var options = {};
 					options.locale = {};
 					options.locale.format = 'DD.MM.YYYY';
 					options.locale.firstDay = 1;
 					options.separator = $attributes.separator || ' - ';
-					options.minDate = $attributes.minDate && moment($attributes.minDate);
-					options.maxDate = $attributes.maxDate && moment($attributes.maxDate);
+					options.minDate = $attributes.mindate && moment($attributes.mindate);
+					options.maxDate = $attributes.maxdate && moment($attributes.maxdate);
 					options.dateLimit = $attributes.limit && moment.duration.apply(this, $attributes.limit.split(' ').map(function(elem, index) {
 						return index === 0 && parseInt(elem, 10) || elem;
 					}));
@@ -80,21 +82,25 @@
 												'</div>' +
 											'</div>' +
 										'</div>' +
-									'</div>' +
-									'<div class="additional_row">' +
-										 '<div class="compare_checkbox_block">' +
-											 '<div class="checkbox">' +
-												 '<input type="checkbox" id="compare_checkbox" ng-model="vm.filter.compare" /><label for="compare_checkbox">' + $translate.instant('api_calendar_compare') + '</label>' +
-											 '</div>' +
+									'</div>';
+						if (showCompareSelect) {
+							options.template += 
+								'<div class="additional_row">' +
+									 '<div class="compare_checkbox_block">' +
+										 '<div class="checkbox">' +
+											 '<input type="checkbox" id="compare_checkbox" ng-model="vm.filter.compare" /><label for="compare_checkbox">' + $translate.instant('api_calendar_compare') + '</label>' +
 										 '</div>' +
-										 '<div class="select_period_block">' +
-											  '<select id="selectpicker" class="selectpicker" ng-model="vm.filter.compareperiod">' +
-												 '<option>' + $translate.instant('api_calendar_previous_period') + '</option>' +
-												 '<option>' + $translate.instant('api_calendar_next_period') + '</option>' +
-											 '</select>' +
-										 '</div>' +
-										 '<div class="clearer"></div>' +
-									'</div>' +
+									 '</div>' +
+									 '<div class="select_period_block">' +
+										  '<select class="selectpicker" ng-model="vm.filter.compareperiod">' +
+											 '<option>' + $translate.instant('api_calendar_previous_period') + '</option>' +
+											 '<option>' + $translate.instant('api_calendar_next_period') + '</option>' +
+										 '</select>' +
+									 '</div>' +
+									 '<div class="clearer"></div>' +
+								'</div>';
+						}
+						options.template +=
 									'<div class="range_inputs">' +
 										 '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
 										 '<button class="cancelBtn" type="button"></button>' +
@@ -117,8 +123,7 @@
 								ngModel.$render();
 							});
 						});
-
-						angular.element("#selectpicker").selectpicker();
+						angular.element(".selectpicker").selectpicker();
 					}
 
 					function updateCaledarDates(startDate, endDate) {
