@@ -14,6 +14,7 @@
   "dependencies": {
     "angular-animate": "^1.5.8",
     "angular-route": "^1.5.8",
+    "angular-chart.js": "^1.1.1", 
     "angular-translate-storage-local": "^2.11.1",
     "angular-sanitize": "^1.5.8",
     "angular-ui-validate": "^1.2.2",
