@@ -71,7 +71,7 @@
 							<div class="form-inline">
 								<div class="form-group">
 									<div class="input-group data_range">
-										<input type="text" daterangepicker class="form-control" ng-model="vm.filter.periodOverview" disabled ng-change="vm.getEventSalesReport(vm.event, vm.filter)"/>
+										<input type="text" daterangepicker class="form-control" ng-model="vm.overviewFilter" disabled ng-change="vm.getEventSalesReport(vm.event, vm.overviewFilter)"/>
 										 <span class="input-group-btn">
 											<button class="btn btn-default" type="button" ng-click="showDateRange($event)">
 												<i class="fa fa-calendar" aria-hidden="true"></i>
@@ -101,7 +101,8 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="bo-chart">
-							<img class="temp_image" src="img/chart2.jpg" />
+							<canvas class="chart chart-bar" chart-data="vm.overviewData.data" chart-labels="vm.overviewData.labels" 
+							chart-options="vm.overviewData.options" chart-series="vm.overviewData.series" chart-dataset-override="vm.overviewData.datasetOverride" height="300px"></canvas>
 						</div>
 					</div>
 					<div class="col-lg-6">
@@ -117,11 +118,20 @@
 								<tr>
 									<td width="7%"></td>
 									<td width="46%"></td>
-									<td width="17%">Tickets</td>
+									<td width="17%">{{'api_tickets'|translate}}</td>
 									<td width="10%">%</td>
-									<td width="20%">Revenue</td>
+									<td width="20%">{{'api_revenue'|translate}}</td>
 								</tr>
 							</thead>
+							<tbody>
+								<tr class="info">
+									<td></td>
+									<td>{{'api_generated'|translate}}</td>
+									<td>{{vm.myEventSalesReport.totalCount}}</td>
+									<td>100%</td>
+									<td>{{vm.myEventSalesReport.totalSum}} {{vm.myEventSalesReport.currency}}</td>
+								</tr>
+							</tbody>
 						</table>
 						<table ng-repeat="eventSaleData in vm.myEventSalesReport.sales" class="bo-revenuetable table table-condensed table-small">
 							<thead>
@@ -129,7 +139,7 @@
 									<th width="7%"></th>
 									<th width="46%">{{eventSaleData.rowTypeName}}:</th>
 									<th width="17%">{{eventSaleData.rowCount}}</th>
-									<th width="10%">100%</th>
+									<th width="10%">{{vm.myEventSalesReport.totalCount ? ( eventSaleData.rowCount / vm.myEventSalesReport.totalCount ) * 100 : 0 | number:0}}%</th>
 									<th width="20%">{{eventSaleData.rowSum}} {{eventSaleData.currency}}</th>
 								</tr>
 							</thead>
@@ -138,13 +148,13 @@
 									<td style="background-color: {{salePrice.color}};"></td>
 									<td>{{salePrice.pricetype}}:</td>
 									<td>{{salePrice.count}}</td>
-									<td>{{eventSaleData.rowCount ? ( salePrice.count / eventSaleData.rowCount ) * 100 : 0 | number:0}}%</td>
+									<td>{{vm.myEventSalesReport.totalCount ? ( salePrice.count / vm.myEventSalesReport.totalCount ) * 100 : 0 | number:0}}%</td>
 									<td>{{salePrice.price}} {{eventSaleData.currency}}</td>
 								</tr>
 							</tbody>
 							</div>
 						</table>
-						<a href="#" class="btn btn-info">View detailed report</a>
+						<a href="#" class="btn btn-info">{{'api_view_detailed_report'|translate}}</a>
 					</div>
 				</div>
 

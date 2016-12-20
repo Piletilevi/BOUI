@@ -418,7 +418,7 @@ $app->post('/eventSalesReport', function() use ($app)  {
     $r = json_decode($app->request->getBody());
 
 	$dataHandler->verifyParams(array('id', 'type'), $r);
-	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+	$dataHandler->verifyParams(array('startDate'), $r->filter);
 
 	$filter = array();
 	if ($r->type=="show") {
@@ -426,8 +426,8 @@ $app->post('/eventSalesReport', function() use ($app)  {
 	} else {
 		$filter['concertId'] = $r->id;
 	}
-	$filter['startDate'] = $r->filter->periodOverview->startDate;
-	$filter['endDate'] = $r->filter->periodOverview->endDate;
+	$filter['startDate'] = $r->filter->startDate;
+	$filter['endDate'] = $r->filter->endDate;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReport( $filter );

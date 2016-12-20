@@ -1,10 +1,8 @@
 (function() {
     'use strict';
 
-	angular.module('bo', ['ngAnimate']);
+	angular.module('bo', ['ngAnimate', 'chart.js']);
     
-	angular.module('bo');
-
     angular.module('bo').service('bo', ['$rootScope', boService]);
 
     angular.module('bo').constant('boConfig', {
@@ -178,5 +176,22 @@
 
     }
 
+
+	Array.prototype.contains = function(v) {
+		for(var i = 0; i < this.length; i++) {
+			if(this[i] === v) return true;
+		}
+		return false;
+	};
+
+	Array.prototype.unique = function() {
+		var arr = [];
+		for(var i = 0; i < this.length; i++) {
+			if(!arr.contains(this[i])) {
+				arr.push(this[i]);
+			}
+		}
+		return arr; 
+	}
 
 })();
