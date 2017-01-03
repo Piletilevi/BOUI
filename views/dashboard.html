@@ -1,7 +1,7 @@
 <div class="container bo-main-block">
     <div class="row">
         <div class="col-md-3 col-md-push-9 bo-right-column">
-            <div class="panel panel-default bo-news" ng-repeat="newsItem in vm.news">
+            <div class="panel panel-default bo-news" ng-repeat="newsItem in vm.news" ng-if="vm.news">
                 <div class="panel-heading" ng-if="$first">
                     <h2 class="hidden-xs">{{'api_news'|translate}}</h2>
                 </div>

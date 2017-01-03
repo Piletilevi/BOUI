@@ -20,7 +20,7 @@
 		$location.hash('top');
 		$anchorScroll();
 		
-		vm.news = newsService.news();
+		//vm.news = newsService.news();
 		vm.getMyEvents = eventService.getMyEvents;
 		vm.getEventSales = eventService.getEventSales;
 		eventService.getMyEvents(vm.filter);
