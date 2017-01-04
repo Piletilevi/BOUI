@@ -108,7 +108,7 @@ class PiletileviApi {
 		$filter['limit'] = 10;
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/report/myEvents", $data );
+		$reportData = $this->send( "/event/myEvents", $data );
 		
 		return $reportData;
 	}
@@ -117,7 +117,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/report/concertSales", $data );
+		$reportData = $this->send( "/event/concertSales", $data );
 
 		return $reportData;
 	}
@@ -126,7 +126,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/report/showSales", $data );
+		$reportData = $this->send( "/event/showSales", $data );
 		
 		return $reportData;
 	}
@@ -135,7 +135,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/report/concertOpSales", $data );
+		$reportData = $this->send( "/event/concertOpSales", $data );
 
 		return $reportData;
 	}
@@ -144,7 +144,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/report/showOpSales", $data );
+		$reportData = $this->send( "/event/showOpSales", $data );
 		
 		return $reportData;
 	}
