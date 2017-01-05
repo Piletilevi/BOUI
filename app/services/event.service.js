@@ -41,7 +41,7 @@
         }
 
 		function getEventSales(event) {
-			if (event.isShow || event.concertsCount >= 1) {
+			if (event.isShow || event.concertsCount > 1) {
 				getShowSales(event);
 			} else {
 				getConcertSales(event);
