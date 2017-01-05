@@ -489,6 +489,4 @@ $app->post('/eventSalesReport', function() use ($app)  {
 	}
 });
 
-
-
 ?>

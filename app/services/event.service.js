@@ -41,7 +41,7 @@
         }
 
 		function getEventSales(event) {
-			if (event.isShow || event.concertsCount > 1) {
+			if (event.isShow || event.concertsCount >= 1) {
 				getShowSales(event);
 			} else {
 				getConcertSales(event);
@@ -98,8 +98,10 @@
 				dataService.page(results);
                 if (results.status == 'success'){
 					event.name = results.data.name;
-					event.eventDateTime = results.data.eventDateTime;
-					event.location = results.data.location;
+					event.period = results.data.period;
+					event.locations = results.data.locations;
+					event.concerts = results.data.concerts;
+					event.concertsCount = results.data.concertsCount;
                 }
             });
         }
