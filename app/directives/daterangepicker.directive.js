@@ -5,7 +5,7 @@
 	angular
 		.module('boApp')
 		.directive('input', DateRangePicker);
-	
+
     DateRangePicker.$inject = ['$compile', '$parse', '$filter', '$translate', '$rootScope'];
 
 	function DateRangePicker($compile, $parse, $filter, $translate, $rootScope) {
@@ -17,7 +17,10 @@
 					if ($element.attr('daterangepicker') === undefined || ngModel === null) {
 						return;
 					}
-					
+
+					var $datepickerBtn = $element.parent().find('[data-control="daterangepicker"]');
+
+
 					var showCompareSelect = $attributes.hasOwnProperty("showcompareselect") ? true : false;
 
 					var options = {};
@@ -48,12 +51,12 @@
 					function formatted(dates) {
 						return [format(dates.startDate), format(dates.endDate)].join(options.separator);
 					}
-					
+
 					function renderDateTimePicker() {
 						options.locale.applyLabel = $translate.instant('api_calendar_applyLabel');
 						options.locale.cancelLabel = $translate.instant('api_calendar_cancelLabel');
 						options.locale.weekLabel = $translate.instant('api_calendar_weekLabel');
-						options.template = 						
+						options.template =
 							'<div class="daterangepicker dropdown-menu">' +
 								'<div class="calendar left">' +
 									'<div class="calendar-table"></div>' +
@@ -63,9 +66,9 @@
 								'</div>' +
 								'<div class="third_block">' +
 									'<div class="ranges">' +
-										'<div class="calendar-links">' + 
+										'<div class="calendar-links">' +
 							            '<a href="#" id="todayLink">' + $translate.instant('api_calendar_today') + '</a>|' +
-							            '<a href="#" id="weekLink">' + $translate.instant('api_calendar_week') + '</a>|' + 
+							            '<a href="#" id="weekLink">' + $translate.instant('api_calendar_week') + '</a>|' +
 							            '<a href="#" id="monthLink">' + $translate.instant('api_calendar_month') + '</a></div>' +
 										'<div class="daterangepicker_input_wrapper">' +
 											'<div class="daterangepicker_input">' +
@@ -84,7 +87,7 @@
 										'</div>' +
 									'</div>';
 						if (showCompareSelect) {
-							options.template += 
+							options.template +=
 								'<div class="additional_row">' +
 									 '<div class="compare_checkbox_block">' +
 										 '<div class="checkbox">' +
@@ -149,18 +152,16 @@
 							updateCaledarDates(moment().startOf('month'), moment().endOf('month'));
 						});
 
+						$datepickerBtn.on("click", function() {
+							$element.data('daterangepicker').toggle();
+						});
+
 						renderDateTimePicker();
 
 						if (!ngModel.$viewValue || !ngModel.$viewValue.startDate) {
 							return;
 						}
 						$element.val(formatted(ngModel.$viewValue));
-					};
-
-					$scope.showDateRange = function($event) {
-						$event.preventDefault();
-						$event.stopPropagation();
-						$element.data('daterangepicker').toggle();
 					};
 
 					$rootScope.$on('$translateChangeSuccess', function () {
