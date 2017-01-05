@@ -11,13 +11,11 @@
     function EventService($rootScope, dataService) {
         
 		var myEvents = null;
-		var myEvent = null;
 
 		var myEventSalesReport = null;
 
 		var service = {
 			myEvents: function() { return myEvents },
-			myEvent: function() { return myEvent },
 			myEventSalesReport: function() { return myEventSalesReport },
             initialize: initialize,
             getMyEvents: getMyEvents,
@@ -30,7 +28,6 @@
 
         function initialize() {
 			myEvents = null;
-			myEvent = null;
         }
 
         function getMyEvents(filter) {
@@ -89,7 +86,9 @@
 			dataService.post('concertInfo', {id: event.id}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
-					myEvent = results.data;
+					event.name = results.data.name;
+					event.eventDateTime = results.data.eventDateTime;
+					event.location = results.data.location;
                 }
             });
         }
@@ -98,7 +97,9 @@
             dataService.post('showInfo', {id: event.id}).then(function (results) {
 				dataService.page(results);
                 if (results.status == 'success'){
-					myEvent = results.data;
+					event.name = results.data.name;
+					event.eventDateTime = results.data.eventDateTime;
+					event.location = results.data.location;
                 }
             });
         }
