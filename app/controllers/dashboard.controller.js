@@ -23,6 +23,7 @@
 		//vm.news = newsService.news();
 		vm.getMyEvents = eventService.getMyEvents;
 		vm.getEventSales = eventService.getEventSales;
+		vm.getEventInfo = eventService.getEventInfo;
 		eventService.getMyEvents(vm.filter);
  
 		$scope.$watch(

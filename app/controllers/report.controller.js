@@ -19,6 +19,7 @@
 		//initially set those objects to null to avoid undefined error
         var vm = this;
 		vm.event = {id: $routeParams.id, isShow: $routeParams.type == 'show'};
+		vm.getEventInfo = eventService.getEventInfo;
 		vm.getEventOpSales = eventService.getEventOpSales;
 		vm.getEventSalesReport = eventService.getEventSalesReport;
 		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}, name: ''};
@@ -67,7 +68,8 @@
 			return (c);
 		}
 
-		eventService.getEventSales(vm.event, vm.filter);
+		eventService.getEventInfo(vm.event);
+		eventService.getEventSales(vm.event);
 		eventService.getEventSalesReport(vm.event, vm.overviewFilter);
 
 		$scope.$watch('vm.myEventSalesReport', function(newValue, oldValue){

@@ -11,15 +11,18 @@
     function EventService($rootScope, dataService) {
         
 		var myEvents = null;
+		var myEvent = null;
 
 		var myEventSalesReport = null;
 
 		var service = {
 			myEvents: function() { return myEvents },
+			myEvent: function() { return myEvent },
 			myEventSalesReport: function() { return myEventSalesReport },
             initialize: initialize,
             getMyEvents: getMyEvents,
             getEventSales: getEventSales,
+            getEventInfo: getEventInfo,
             getEventOpSales: getEventOpSales,
 			getEventSalesReport : getEventSalesReport
         };
@@ -27,6 +30,7 @@
 
         function initialize() {
 			myEvents = null;
+			myEvent = null;
         }
 
         function getMyEvents(filter) {
@@ -39,37 +43,62 @@
             });
         }
 
-		function getEventSales(event, filter) {
-			if (event.isShow) {
-				getShowSales(event, filter);
+		function getEventSales(event) {
+			if (event.isShow || event.concertsCount > 1) {
+				getShowSales(event);
 			} else {
-				getConcertSales(event, filter);
+				getConcertSales(event);
+			}
+        }
+
+		function getEventInfo(event, filter) {
+			if (event.isShow) {
+				getShowInfo(event);
+			} else {
+				getConcertInfo(event);
 			}
         }
 
 		function getEventOpSales(event, filter) {
-			if (event.isShow) {
+			if (event.isShow || event.concertsCount > 1) {
 				getShowOpSales(event, filter);
 			} else {
 				getConcertOpSales(event, filter);
 			}
         }
 
-		function getConcertSales(event, filter) {
-			dataService.post('concertSales', {id: event.id, filter: filter}).then(function (results) {
+		function getConcertSales(event) {
+			dataService.post('concertSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
-					event.eventData = results.data;
+					event.sell = results.data.sell;
                 }
             });
         }
 
-		function getShowSales(event, filter) {
-            dataService.post('showSales', {id: event.id, filter: filter}).then(function (results) {
+		function getShowSales(event) {
+            dataService.post('showSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
                 if (results.status == 'success'){
-					event.eventData = results.data;
-					processShowData(event);
+					event.sell = results.data.sell;
+                }
+            });
+        }
+
+		function getConcertInfo(event) {
+			dataService.post('concertInfo', {id: event.id}).then(function (results) {
+				dataService.page(results);
+				if (results.status == 'success'){
+					myEvent = results.data;
+                }
+            });
+        }
+
+		function getShowInfo(event) {
+            dataService.post('showInfo', {id: event.id}).then(function (results) {
+				dataService.page(results);
+                if (results.status == 'success'){
+					myEvent = results.data;
                 }
             });
         }
@@ -78,7 +107,7 @@
 			dataService.post('concertOpSales', {id: event.id, filter: filter}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
-					event.eventData = results.data;
+					event.sell = results.data;
                 }
             });
         }
@@ -87,8 +116,7 @@
             dataService.post('showOpSales', {id: event.id, filter: filter}).then(function (results) {
 				dataService.page(results);
                 if (results.status == 'success'){
-					event.eventData = results.data;
-					processShowData(event);
+					event.sell = results.data;
                 }
             });
         }
@@ -102,32 +130,5 @@
                 }
             });
         }
-
-		function processShowData(event) {
-			if (event.eventData && event.eventData.concerts) {
-				event.eventData.concertsCount = event.eventData.concerts.length;
-				
-				event.eventData.showHasData = false;
-				if (event.eventData.concertsCount > 0) {
-					var showLocation = "";
-					var sameLocation = true;
-					event.eventData.concerts.forEach(function(concert) {
-						if (showLocation == "") {
-							showLocation = concert.location;
-						}
-						if (showLocation != concert.location) {
-							sameLocation = false;
-						}
-					});
-
-					if (sameLocation) {
-						event.eventData.showHasData = true;
-						event.eventData.name = event.eventData.concerts[0].name;
-						event.eventData.eventDateTime = event.eventData.concerts[0].eventDateTime;
-						event.eventData.location = event.eventData.concerts[0].location;
-					}
-				}
-			}
-		}
     }
 })();

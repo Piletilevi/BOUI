@@ -113,20 +113,62 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function concertInfo($filter) {
+		
+		$cacheItem = $this->cacheManager->getItem("concertInfo".$filter["id"]);
+		$concertInfo = $cacheItem->get();
+
+		if(is_null($concertInfo) || !is_object($concertInfo)) {
+			$data['filter'] = $filter;
+			$concertInfo = $this->send( "/event/concertInfo", $data );
+			$cacheItem->set($concertInfo)->expiresAfter(600);
+			$this->cacheManager->save($cacheItem);
+		}
+
+		return $concertInfo;
+	}
+
+	public function showInfo($filter) {
+		
+		$cacheItem = $this->cacheManager->getItem("showInfo".$filter["id"]);
+		$showInfo = $cacheItem->get();
+
+		if(is_null($concertInfo) || !is_object($showInfo)) {
+			$data['filter'] = $filter;
+			$showInfo = $this->send( "/event/showInfo", $data );
+			$cacheItem->set($showInfo)->expiresAfter(600);
+			$this->cacheManager->save($cacheItem);
+		}
+		
+		return $reportData;
+	}
+
 	public function concertSales($filter) {
 		
-		$data['filter']= $filter;
+		$cacheItem = $this->cacheManager->getItem("concertSales".$filter["id"]);
+		$reportData = $cacheItem->get();
 
-		$reportData = $this->send( "/event/concertSales", $data );
+		if(is_null($reportData) || !is_object($reportData)) {
+			$data['filter'] = $filter;
+			$reportData = $this->send( "/event/concertSales", $data );
+			$cacheItem->set($reportData)->expiresAfter(600);
+			$this->cacheManager->save($cacheItem);
+		}
 
 		return $reportData;
 	}
 
 	public function showSales($filter) {
 		
-		$data['filter']= $filter;
+		$cacheItem = $this->cacheManager->getItem("showSales".$filter["id"]);
+		$reportData = $cacheItem->get();
 
-		$reportData = $this->send( "/event/showSales", $data );
+		if(is_null($reportData) || !is_object($reportData)) {
+			$data['filter'] = $filter;
+			$reportData = $this->send( "/event/showSales", $data );
+			$cacheItem->set($reportData)->expiresAfter(600);
+			$this->cacheManager->save($cacheItem);
+		}
 		
 		return $reportData;
 	}
