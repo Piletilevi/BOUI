@@ -19,22 +19,28 @@
 		//scroll to top
 		$location.hash('top');
 		$anchorScroll();
-		
+
 		//vm.news = newsService.news();
 		vm.getMyEvents = eventService.getMyEvents;
 		vm.getEventSales = eventService.getEventSales;
 		vm.getEventInfo = eventService.getEventInfo;
 		eventService.getMyEvents(vm.filter);
- 
+
 		$scope.$watch(
             function() {
 				vm.salesCount = 0;
 				vm.myEvents = eventService.myEvents();
 				if (vm.myEvents) {
-					vm.salesCount = vm.myEvents.length; 
+					vm.salesCount = vm.myEvents.length;
 				}
             }
         );
+
+		$scope.$watch('vm.filter.period', function(newPeriod, oldPeriod) {
+			if(newPeriod !== oldPeriod) {
+					eventService.getMyEvents(vm.filter);
+			}
+		});
 	}
 
 })();

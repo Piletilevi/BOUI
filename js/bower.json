@@ -26,6 +26,7 @@
     "awesome-bootstrap-checkbox": "0.3.7",
     "html5shiv": "3.7.3",
     "respond": "1.4.2",
-    "moment": "^2.17.1"
+    "moment": "^2.17.1",
+    "angular-loading-bar": "^0.9.0"
   }
 }

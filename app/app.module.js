@@ -9,8 +9,8 @@
         'bo',
         'ngCookies',
         'pascalprecht.translate',
-        'ui.validate'
-
+        'ui.validate',
+        'angular-loading-bar'
     ]);
 
     angular.module('boApp').run(runApp);

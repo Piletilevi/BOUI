@@ -153,7 +153,7 @@
 						});
 
 						$datepickerBtn.on("click", function() {
-							$element.data('daterangepicker').toggle();
+							$element.data('daterangepicker').show();
 						});
 
 						renderDateTimePicker();
