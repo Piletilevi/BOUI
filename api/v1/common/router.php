@@ -177,6 +177,9 @@ $app->post('/myEvents', function() use ($app) {
 	if (property_exists($r->filter, 'name')) {
 		$filter['name'] = $r->filter->name;
 	}
+	if (property_exists($r->filter, 'status')) {
+		$filter['status'] = $r->filter->status;
+	}
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
 
@@ -186,9 +189,10 @@ $app->post('/myEvents', function() use ($app) {
     $app->log->debug( print_r($myEvents,true) );
 
 	if ($myEvents && !property_exists($myEvents, 'errors')) {
-		if ($myEvents->data) {
+		if ($myEvents) {
 	        $response['status'] = "success";
 	        $response['data'] = $myEvents->data;
+	        $response['count'] = $myEvents->count;
 		} else {
 	        $response['status'] = "info";
 	        $response['message'] = "Empty result";

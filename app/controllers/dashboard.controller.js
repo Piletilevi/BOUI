@@ -14,7 +14,7 @@
 		vm.salesCount = 0;
 		vm.draftCount = 0;
 		vm.pastCount = 0;
-		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}, name: ''};
+		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}, name: '', status: ''};
 
 		//scroll to top
 		$location.hash('top');
@@ -25,20 +25,24 @@
 		vm.getEventSales = eventService.getEventSales;
 		vm.getEventInfo = eventService.getEventInfo;
 		eventService.getMyEvents(vm.filter);
+		
+		vm.tabSelectEvent = function (status) {
+			vm.filter.status = status;
+			eventService.getMyEvents(vm.filter);
+		};
 
 		$scope.$watch(
             function() {
-				vm.salesCount = 0;
-				vm.myEvents = eventService.myEvents();
-				if (vm.myEvents) {
-					vm.salesCount = vm.myEvents.length;
-				}
+				vm.salesCount = eventService.myOpenCount();
+				vm.pastCount = eventService.myPastCount();
+				vm.myOpenEvents = eventService.myOpenEvents();
+				vm.myPastEvents = eventService.myPastEvents();
             }
         );
 
 		$scope.$watch('vm.filter.period', function(newPeriod, oldPeriod) {
 			if(newPeriod !== oldPeriod) {
-					eventService.getMyEvents(vm.filter);
+				eventService.getMyEvents(vm.filter);
 			}
 		});
 	}

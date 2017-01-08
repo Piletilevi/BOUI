@@ -10,12 +10,18 @@
 
     function EventService($rootScope, dataService) {
         
-		var myEvents = null;
+		var myOpenEvents = null;
+		var myPastEvents = null;
+		var myOpenCount = 0;
+		var myPastCount = 0;
 
 		var myEventSalesReport = null;
 
 		var service = {
-			myEvents: function() { return myEvents },
+			myOpenEvents: function() { return myOpenEvents },
+			myPastEvents: function() { return myPastEvents },
+			myOpenCount: function() { return myOpenCount },
+			myPastCount: function() { return myPastCount },
 			myEventSalesReport: function() { return myEventSalesReport },
             initialize: initialize,
             getMyEvents: getMyEvents,
@@ -32,10 +38,22 @@
 
         function getMyEvents(filter) {
 			dataService.post('myEvents', {filter: filter}).then(function (results) {
-	            myEvents = null;
+	            myOpenEvents = null;
+	            myPastEvents = null;
+	            myOpenCount = 0;
+	            myPastCount = 0;
+
 				dataService.page(results);
-                if (results.status == 'success'){
-					myEvents = results.data;
+
+				if (results.status == 'success'){
+					myOpenCount = results.count.open;
+					myPastCount = results.count.past;
+
+					if (filter.status == 'past') {
+						myPastEvents = results.data;
+					} else {
+						myOpenEvents = results.data;
+					}
 				}
             });
         }
