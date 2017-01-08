@@ -186,7 +186,7 @@ $app->post('/myEvents', function() use ($app) {
     $piletileviApi = $app->container->get("piletileviApi");
     $myEvents = $piletileviApi->myEvents($filter);
 
-    $app->log->debug( print_r($myEvents,true) );
+    //$app->log->debug( print_r($myEvents,true) );
 
 	if ($myEvents && !property_exists($myEvents, 'errors')) {
 		if ($myEvents) {
