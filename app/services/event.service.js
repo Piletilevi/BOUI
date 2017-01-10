@@ -47,7 +47,14 @@
 
 				if (results.status == 'success'){
 					myOpenCount = results.count.open;
+					if (results.count.hasMoreOpen) {
+						myOpenCount = myOpenCount + "+";
+					}
+
 					myPastCount = results.count.past;
+					if (results.count.hasMorePast) {
+						myPastCount = myPastCount + "+";
+					}
 
 					if (filter.status == 'past') {
 						myPastEvents = results.data;
