@@ -217,3 +217,7 @@
 .daterangepicker_input_wrapper {
 	width: 100%;
 }
+
+.form-control[daterangepicker] {
+	cursor: pointer;
+}

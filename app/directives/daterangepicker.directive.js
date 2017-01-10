@@ -18,7 +18,7 @@
 					return;
 				}
 
-				var $datepickerBtn = $element.parent().find('[data-control="daterangepicker"]');
+				var $datepickerWrapper = $element.parent();
 
 
 				var showCompareSelect = $attributes.hasOwnProperty("showcompareselect") ? true : false;
@@ -152,7 +152,7 @@
 						updateCaledarDates(moment().startOf('month'), moment().endOf('month'));
 					});
 
-					$datepickerBtn.on("click", function() {
+					$datepickerWrapper.on("click", function() {
 						$element.data('daterangepicker').show();
 					});
 
