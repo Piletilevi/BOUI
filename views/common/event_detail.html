@@ -11,7 +11,7 @@
 				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.eventDateTime | date:'dd.MM.yyyy'}}</div>
 				<div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> {{event.eventDateTime | date:'HH:mm'}}</div>
 			</div>
-			<div class="bo-event-place"><i class="fa fa-map-marker active" aria-hidden="true"></i> {{event.location}}</div>
+			<div class="bo-event-place"><i class="fa fa-map-marker active" aria-hidden="true"></i> {{event.location}} </div>
 		</div>
 		<div class="col-sm-4" ng-if="event.concertsCount">
 			<div ng-if="event.period.start != event.period.end">
@@ -21,7 +21,7 @@
 			<div ng-if="event.period.start == event.period.end">
 				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.period.start | date:'dd.MM.yyyy'}}</div>
 			</div>
-			<div class="bo-event-place" ng-repeat="locationItem in event.locations"><i class="fa fa-map-marker active" aria-hidden="true"></i> {{locationItem.location}}</div>
+			<div class="bo-event-place" ng-if="event.locations"><i class="fa fa-map-marker active" aria-hidden="true"></i> {{event.locations.length === 1 ? event.locations[0].location : ('api_different_venues' | translate)}}</div>
 		</div>
 		<div>
 			<div class="col-xs-10 col-sm-4">
