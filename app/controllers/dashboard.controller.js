@@ -14,7 +14,7 @@
 		vm.salesCount = 0;
 		vm.draftCount = 0;
 		vm.pastCount = 0;
-		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}, name: '', status: ''};
+		vm.filter = {period: {}, name: '', status: ''};
 
 		//scroll to top
 		$location.hash('top');

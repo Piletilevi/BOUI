@@ -149,6 +149,12 @@
 				vm.myEventSalesReport = eventService.myEventSalesReport();
             }
         );
+
+		$scope.$watch('vm.filter.period', function(newPeriod, oldPeriod) {
+			if(newPeriod !== oldPeriod) {
+				eventService.getMyEvents(vm.filter);
+			}
+		});
 	}
 
 })();
