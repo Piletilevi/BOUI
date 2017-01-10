@@ -2,7 +2,10 @@
     'use strict';
 	
 	angular.module('boApp')
-        .config(['$routeProvider', routeProvider])
+        .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+            routeProvider($routeProvider);
+            $locationProvider.hashPrefix('');
+        }])
         .run(runRouteProvider);
 
     routeProvider.$inject=['$routeProvider'];
