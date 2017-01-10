@@ -15,8 +15,7 @@
 		</div>
 		<div class="col-sm-4" ng-if="event.concertsCount">
 			<div ng-if="event.period.start != event.period.end">
-				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.period.start | date:'dd.MM.yyyy'}}</div>
-				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.period.end | date:'dd.MM.yyyy'}}</div>
+				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.period.start | date:'dd.MM.yyyy'}} - {{event.period.end | date:'dd.MM.yyyy'}}</div>
 			</div>
 			<div ng-if="event.period.start == event.period.end">
 				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.period.start | date:'dd.MM.yyyy'}}</div>
