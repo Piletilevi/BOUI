@@ -29,6 +29,19 @@
                     <h1>{{'api_myevents'|translate}}</h1>
                 </div>
                 <div class="col-xs-12 col-sm-4">
+                  <div class="input-group-lg">
+                    <div class="visible-lg bo-hidden-label">{{'api_event_period'|translate}}:</div>
+                    <div class="input-group data_range input-group-lg">
+                      <input type="text" class="form-control" ng-model="vm.filter.period" daterangepicker showCompareSelect disabled/>
+                               <span class="input-group-btn">
+                                  <button class="btn btn-default" type="button" data-control="daterangepicker">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                  </button>
+                               </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
                     <div class="visible-lg bo-hidden-label">&nbsp;</div>
                     <div class="input-group input-group-lg">
                         <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
@@ -37,19 +50,6 @@
                         </span>
                     </div>
                     <div class="visible-xs">&nbsp;</div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="input-group-lg">
-                        <div class="visible-lg bo-hidden-label">{{'api_event_period'|translate}}:</div>
-                        <div class="input-group data_range input-group-lg">
-							 <input type="text" class="form-control" ng-model="vm.filter.period" daterangepicker showCompareSelect disabled/>
-                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" data-control="daterangepicker">
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                </button>
-                             </span>
-                        </div>
-                    </div>
                 </div>
             </div>
 
