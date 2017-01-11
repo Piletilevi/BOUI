@@ -31,9 +31,9 @@
                 <div class="col-xs-12 col-sm-4">
                     <div class="visible-lg bo-hidden-label">&nbsp;</div>
                     <div class="input-group input-group-lg">
-                        <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name" key-bind="{ enter: 'vm.getMyEvents(vm.filter)' }">
+                        <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" ng-click="vm.getMyEvents(vm.filter)"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            <button class="btn btn-default" type="button" ng-click="vm.search()"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </span>
                     </div>
                     <div class="visible-xs">&nbsp;</div>
@@ -58,8 +58,8 @@
                 <!--li><a href="">{{'api_draft'|translate}} <span class="badge">{{vm.draftCount}}</span></a></li-->
                 <li><a href="#past" data-toggle="tab" role="tab" aria-controls="past" ng-click="vm.tabSelectEvent('past')">{{'api_past'|translate}} <span class="badge">{{vm.pastCount}}</span></a></li>
             </ul>
-
-			<div class="tab-content">
+			
+			<div class="tab-content" infinite-scroll="vm.getMoreEvents()" infinite-scroll-disabled="vm.filter.loadingItems" infinite-scroll-distance="1">
 				<!-- Tab: on sale events -->
 				<div class="tab-pane active panel panel-default" id="onsale" role="tabpanel">
 					<div class="bo-events">
@@ -82,9 +82,8 @@
 					</div>
 				</div>
 			</div>
-
         </div>
-    </div>
+	</div>
 
 </div>
 

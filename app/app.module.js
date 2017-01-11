@@ -10,7 +10,8 @@
         'ngCookies',
         'pascalprecht.translate',
         'ui.validate',
-        'angular-loading-bar'
+        'angular-loading-bar',
+		'infinite-scroll'
     ]);
 
     angular.module('boApp').run(runApp);

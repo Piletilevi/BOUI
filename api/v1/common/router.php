@@ -169,9 +169,7 @@ $app->post('/myEvents', function() use ($app) {
     $dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 
-	$app->log->debug( print_r($r,true) );
-
-	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+	//$dataHandler->verifyParams(array('startDate'), $r->filter->period);
 
 	$filter = array();
 	if (property_exists($r->filter, 'name')) {
@@ -179,9 +177,25 @@ $app->post('/myEvents', function() use ($app) {
 	}
 	if (property_exists($r->filter, 'status')) {
 		$filter['status'] = $r->filter->status;
+		
+		if ($r->filter->status == "onsale") {
+			if (property_exists($r->filter, 'openStart')) {
+				$filter['start'] = $r->filter->openStart;
+			}
+		} else if ($r->filter->status == "past") {
+			if (property_exists($r->filter, 'pastStart')) {
+				$filter['start'] = $r->filter->pastStart;
+			}
+		}
 	}
-	$filter['startDate'] = $r->filter->period->startDate;
-	$filter['endDate'] = $r->filter->period->endDate;
+	if (property_exists($r->filter, 'period')) {
+		if (property_exists($r->filter->period, 'startDate')) {
+			$filter['startDate'] = $r->filter->period->startDate;
+		}
+		if (property_exists($r->filter->period, 'endDate')) {
+			$filter['endDate'] = $r->filter->period->endDate;
+		}
+	}
 
     $piletileviApi = $app->container->get("piletileviApi");
     $myEvents = $piletileviApi->myEvents($filter);

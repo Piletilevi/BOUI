@@ -14,21 +14,29 @@
 		vm.salesCount = 0;
 		vm.draftCount = 0;
 		vm.pastCount = 0;
-		vm.filter = {period: {}, name: '', status: ''};
+		vm.filter = {period: {}, name: '', status: 'onsale', loadingItems: false};
 
 		//scroll to top
 		$location.hash('top');
 		$anchorScroll();
 
 		//vm.news = newsService.news();
-		vm.getMyEvents = eventService.getMyEvents;
+		vm.search = function() {
+			eventService.reset();
+			eventService.getMyEvents(vm.filter);
+		}
 		vm.getEventSales = eventService.getEventSales;
 		vm.getEventInfo = eventService.getEventInfo;
+		
 		eventService.getMyEvents(vm.filter);
 		
 		vm.tabSelectEvent = function (status) {
 			vm.filter.status = status;
 			eventService.getMyEvents(vm.filter);
+		};
+
+		vm.getMoreEvents = function () {
+			eventService.getMoreEvents(vm.filter);
 		};
 
 		$scope.$watch(
@@ -42,6 +50,7 @@
 
 		$scope.$watch('vm.filter.period', function(newPeriod, oldPeriod) {
 			if(newPeriod !== oldPeriod) {
+				eventService.reset();
 				eventService.getMyEvents(vm.filter);
 			}
 		});
