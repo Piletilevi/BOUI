@@ -18,12 +18,23 @@
 
 		//initially set those objects to null to avoid undefined error
         var vm = this;
+		var prevFilterName = null;
 		vm.event = {id: $routeParams.id, isShow: $routeParams.type == 'show'};
 		vm.getEventInfo = eventService.getEventInfo;
-		vm.getEventOpSales = eventService.getEventOpSales;
 		vm.getEventSalesReport = eventService.getEventSalesReport;
 		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}, name: ''};
 		vm.overviewFilter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}};
+		vm.getEventOpSales = function() {
+			if(prevFilterName === vm.filter.name) {
+				vm.filter.name = '';
+				vm.reset_search = false;
+			}
+			else {
+				vm.reset_search = true;
+			}
+			prevFilterName = vm.filter.name;
+			eventService.getEventOpSales(vm.event, vm.filter)
+		};
 
 		vm.overviewData = {
 			labels: null,
