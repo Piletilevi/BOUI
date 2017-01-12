@@ -11,16 +11,20 @@
     function EventService($rootScope, dataService) {
         
 		var myOpenEvents = null;
+		var myDraftEvents = null;
 		var myPastEvents = null;
 		var myOpenCount = 0;
+		var myDraftCount = 0;
 		var myPastCount = 0;
 
 		var myEventSalesReport = null;
 		
 		var service = {
 			myOpenEvents: function() { return myOpenEvents },
+			myDraftEvents: function() { return myDraftEvents },
 			myPastEvents: function() { return myPastEvents },
 			myOpenCount: function() { return myOpenCount },
+			myDraftCount: function() { return myDraftCount },
 			myPastCount: function() { return myPastCount },
 			myEventSalesReport: function() { return myEventSalesReport },
             reset: reset,
@@ -35,8 +39,10 @@
 
         function reset() {
 			myOpenEvents = null;
+			myDraftEvents = null;
 			myPastEvents = null;
 			myOpenCount = 0;
+			myDraftCount = 0;
 			myPastCount = 0;
 		}
 
@@ -47,13 +53,18 @@
 			if (filter.status == "past" && myPastEvents != null) {
 				return;
 			}
+			if (filter.status == "draft" && myDraftEvents != null) {
+				return;
+			}
 			
 			filter.openStart = null;
+			filter.draftStart = null;
 			filter.pastStart = null;
 			filter.loadingItems = true;
 
 			dataService.post('myEvents', {filter: filter}).then(function (results) {
 	            myOpenCount = 0;
+	            myDraftCount = 0;
 	            myPastCount = 0;
 
 				dataService.page(results);
@@ -64,15 +75,22 @@
 						myOpenCount = myOpenCount + "+";
 					}
 
+					myDraftCount = results.count.draft;
+					if (results.count.hasMoreDraft) {
+						myDraftCount = myDraftCount + "+";
+					}
+
 					myPastCount = results.count.past;
 					if (results.count.hasMorePast) {
 						myPastCount = myPastCount + "+";
 					}
 
-					if (filter.status == 'past') {
-						myPastEvents = results.data;
-					} else {
+					if (filter.status == 'onsale') {
 						myOpenEvents = results.data;
+					} else if (filter.status == 'draft') {
+						myDraftEvents = results.data;
+					} else {
+						myPastEvents = results.data;
 					}
 					filter.loadingItems = false;
 				}
@@ -92,6 +110,19 @@
 						if (results.status == 'success') {
 							results.data.forEach(function(eventItem) {
 								myOpenEvents.push(eventItem);
+							});
+						}
+						filter.loadingItems = false;
+					});
+				}
+			} else if (filter.status == 'draft' && myDraftEvents != null) {
+				if (myDraftEvents.length % 10 == 0 && filter.draftStart != myDraftEvents.length + 1) {
+					filter.loadingItems = true;
+					filter.draftStart = myDraftEvents.length + 1;
+					dataService.post('myEvents', {filter: filter}).then(function (results) {
+						if (results.status == 'success') {
+							results.data.forEach(function(eventItem) {
+								myDraftEvents.push(eventItem);
 							});
 						}
 						filter.loadingItems = false;

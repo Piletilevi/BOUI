@@ -62,7 +62,9 @@
             function() {
 				vm.salesCount = eventService.myOpenCount();
 				vm.pastCount = eventService.myPastCount();
+				vm.draftCount = eventService.myDraftCount();
 				vm.myOpenEvents = eventService.myOpenEvents();
+				vm.myDraftEvents = eventService.myDraftEvents();
 				vm.myPastEvents = eventService.myPastEvents();
             }
         );
