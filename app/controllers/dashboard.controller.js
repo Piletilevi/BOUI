@@ -10,6 +10,7 @@
 	function DashboardController ($scope, eventService, newsService, $location, $anchorScroll) {
 		//initially set those objects to null to avoid undefined error
         var vm = this;
+				var prevFilterName = null;
         vm.news = [];
 		vm.salesCount = 0;
 		vm.draftCount = 0;
@@ -23,8 +24,17 @@
 		//vm.news = newsService.news();
 		vm.search = function() {
 			eventService.reset();
+			if(prevFilterName === vm.filter.name) {
+				vm.filter.name = '';
+				vm.reset_search = false;
+			}
+			else {
+				vm.reset_search = true;
+			}
+			prevFilterName = vm.filter.name;
 			eventService.getMyEvents(vm.filter);
-		}
+		};
+
 		vm.getEventSales = eventService.getEventSales;
 		vm.getEventInfo = eventService.getEventInfo;
 		

@@ -46,7 +46,7 @@
                     <div class="input-group input-group-lg">
                         <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" ng-click="vm.search()"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            <button class="btn btn-default" type="button" ng-click="vm.search()"><i class="fa fa-{{vm.reset_search ? 'close' : 'search'}}" aria-hidden="true"></i></button>
                         </span>
                     </div>
                     <div class="visible-xs">&nbsp;</div>
