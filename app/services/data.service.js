@@ -34,9 +34,11 @@
         };
         
         function getIp () {
-            return $http.get(ipUrl).then(function (results) {
+            /*
+			return $http.get(ipUrl).then(function (results) {
                 return results.data;
-            });
+            });*/
+			return "";
         };
         
         function getBoUrl () {
