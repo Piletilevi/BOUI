@@ -16,7 +16,7 @@
 		vm.pastCount = 0;
 		vm.reset_search = false;
 
-		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: '', status: 'onsale', loadingItems: false};
+		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: '', status: 'onsale', loadingItems: false, groupByShow: false};
 
 		if(localStorage.getItem('reportsFilter')) {
 			vm.filter = JSON.parse(localStorage.getItem('reportsFilter'));
@@ -82,6 +82,12 @@
 			}
 		});
 
+		$scope.$watch('vm.filter.groupByShow', function (newValue, oldValue) {
+			if (newValue !== oldValue) {
+				eventService.reset();
+				eventService.getMyEvents(vm.filter);
+			}
+		});
 
 	}
 

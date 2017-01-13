@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-	angular.module('bo', ['ngAnimate', 'chart.js']);
+	angular.module('bo', []);
     
     angular.module('bo').service('bo', ['$rootScope', boService]);
 

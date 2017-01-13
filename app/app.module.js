@@ -11,7 +11,9 @@
         'pascalprecht.translate',
         'ui.validate',
         'angular-loading-bar',
-		'infinite-scroll'
+		'infinite-scroll',
+		'ui.toggle',
+		'chart.js'
     ]);
 
     angular.module('boApp').run(runApp);

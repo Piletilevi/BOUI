@@ -175,6 +175,9 @@ $app->post('/myEvents', function() use ($app) {
 	if (property_exists($r->filter, 'name')) {
 		$filter['name'] = $r->filter->name;
 	}
+	if (property_exists($r->filter, 'groupByShow')) {
+		$filter['groupByShow'] = $r->filter->groupByShow;
+	}
 	if (property_exists($r->filter, 'status')) {
 		$filter['status'] = $r->filter->status;
 		

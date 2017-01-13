@@ -24,15 +24,22 @@
         </div>
         <div class="col-md-9 col-md-pull-3 bo-center-column">
             <div class="row bo-filter-block">
-                <div class="col-xs-12 col-sm-4">
+                <div class="col-xs-12 col-sm-3">
                     <div class="visible-lg bo-hidden-label">&nbsp;</div>
                     <h1>{{'api_myevents'|translate}}</h1>
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                  <div class="input-group-lg">
+                    <div class="input-group input-group-lg">
+						<toggle ng-model="vm.filter.groupByShow" on="{{'api_group_by_show'|translate}}" off="{{'api_group_by_concert'|translate}}" size="btn-lg"></toggle>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-xs-12 col-sm-4">
                   <div class="input-group-lg">
                     <div class="visible-lg bo-hidden-label">{{'api_event_period'|translate}}:</div>
                     <div class="input-group data_range input-group-lg">
-                      <input type="text" class="form-control" ng-model="vm.filter.period" daterangepicker showCompareSelect disabled/>
+                      <input type="text" class="form-control" ng-model="vm.filter.period" daterangepicker disabled/>
                                <span class="input-group-btn">
                                   <button class="btn btn-default" type="button" data-control="daterangepicker">
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -41,7 +48,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-12 col-sm-4">
+                <div class="col-xs-12 col-sm-3">
                     <div class="visible-lg bo-hidden-label">&nbsp;</div>
                     <div class="input-group input-group-lg">
                         <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
