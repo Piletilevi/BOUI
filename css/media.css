@@ -11,12 +11,13 @@
 	}
 
 	.navbar-nav > li > a.bo-user-dropdown {
-		padding: 0 5px 0 7px;
-		line-height: 50px;
+		padding-top: 0;
+		padding-bottom: 0;
+		line-height: 51px;
 	}
 
 	.navbar-nav > li > a.bo-user-dropdown > .fa {
-		margin-right: 20px;
+		margin-right: 18px;
 	}
 
 	.navbar-nav > li > a.bo-user-dropdown .bo-user {
@@ -48,6 +49,34 @@
 
 	.bo-pills-block {
 		display: none;
+	}
+
+	.login-box .bo-language-dropdown {
+		padding-right: 0;
+		margin: 0 -15px 0 -19px;
+	}
+
+	.login-box li.bo-language-dropdown > a.dropdown-toggle {
+		position: absolute;
+		right: 15px;
+		top: -46px;
+		padding: 5px 10px;
+	}
+
+	.login-box .navbar-nav li.open.bo-language-dropdown .dropdown-menu {
+		background: #fff;
+		border-radius: 0;
+	}
+
+	.login-box .navbar-nav li.open.bo-language-dropdown .dropdown-menu > li > a {
+		color: #333;
+		text-decoration: none;
+	}
+
+	.login-box .navbar-nav li.open.bo-language-dropdown .dropdown-menu > li > a:focus,
+	.login-box .navbar-nav li.open.bo-language-dropdown .dropdown-menu > li > a:hover {
+		background: #f5f5f5;
+		color: #262625;
 	}
 }
 

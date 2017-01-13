@@ -126,6 +126,8 @@
 
 .nav-tabs > li {
 	margin-bottom: -4px;
+	border-top: 1px solid transparent;
+	border-bottom: 1px solid transparent;
 }
 
 .nav-tabs > li > a {
@@ -473,4 +475,20 @@ label {
 
 .form-inline .form-control {
 	max-width: 100%;
+}
+
+.navbar-nav > li > .dropdown-menu {
+	min-width: 100%;
+	border-radius: 0;
+	padding-bottom: 12px;
+}
+
+.dropdown-menu > li > a {
+	padding-left: 11px;
+	padding-right: 11px;
+	line-height: 1.357;
+}
+
+.dropdown-menu .divider {
+	margin: 12px 0 8px;
 }

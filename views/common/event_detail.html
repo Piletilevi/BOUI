@@ -24,22 +24,7 @@
 		</div>
 		<div>
 			<div class="col-xs-10 col-sm-4">
-				<div class="bo-event-statistics">
-					<span class="glyphicon glyphicon-triangle-top text-success"></span>
-					<b class="text-success" title="sold">{{event.sell.soldTickets | number}}</b>
-					<span class="bo-event-statistics-separator">/</span>
-					<b class="text-warning">{{event.sell.bookedTickets | number}}</b>
-					<span class="bo-event-statistics-separator">/</span>
-					<b class="text-danger">{{event.sell.availableTickets | number}}</b>
-				</div>
-				<div class="progress">
-					<div class="progress-bar progress-bar-success" style="width: {{event.sell.soldPercent}}%" title="sold"></div>
-					<div class="progress-bar progress-bar-warning" style="width: {{event.sell.bookedPercent}}%" title="reserved"></div>
-					<div class="progress-bar progress-bar-danger" style="width: {{event.sell.availablePercent}}%" title="empty"></div>
-				</div>
-			</div>
-			<div class="col-xs-2 col-sm-1 text-center bo-percent-block">
-				{{event.sell.soldPercent}}%
+				<div ng-include-template="simplestats.html" ng-include-variables="{ currentEvent: event }"></div>
 			</div>
 			<div class="col-xs-12 col-sm-3">
 				<div class="row">
