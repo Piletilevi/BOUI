@@ -117,8 +117,6 @@
 					options.minDate = $attributes.minDate ? moment($attributes.minDate) : false;
 					options.maxDate = $attributes.maxDate ? moment($attributes.maxDate) : false;
 
-					console.log(options.minDate);
-
 					$element.daterangepicker(options, function(start, end, label) {
 						var modelValue = ngModel.$viewValue;
 						if (angular.equals(start, modelValue.startDate) && angular.equals(end, modelValue.endDate)) {
