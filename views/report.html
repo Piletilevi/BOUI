@@ -71,7 +71,7 @@
 							<div class="form-inline">
 								<div class="form-group">
 									<div class="input-group data_range">
-										<input type="text" daterangepicker class="form-control" ng-model="vm.overviewFilter" disabled ng-change="vm.getEventSalesReport(vm.event, vm.overviewFilter)"/>
+										<input type="text" daterangepicker class="form-control" ng-model="vm.overviewFilter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled ng-change="vm.getEventSalesReport(vm.event, vm.overviewFilter)"/>
 										 <span class="input-group-btn">
 											<button class="btn btn-default" type="button" data-control="daterangepicker">
 												<i class="fa fa-calendar" aria-hidden="true"></i>

@@ -15,7 +15,15 @@
 		vm.salesCount = 0;
 		vm.draftCount = 0;
 		vm.pastCount = 0;
-		vm.filter = {period: {}, name: '', status: 'onsale', loadingItems: false};
+
+		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: '', status: 'onsale', loadingItems: false};
+
+		if(localStorage.getItem('reportsPeriod')) {
+			vm.filter = JSON.parse(localStorage.getItem('reportsPeriod'));
+			vm.filter.period.startDate = moment(vm.filter.period.startDate);
+			vm.filter.period.endDate = moment(vm.filter.period.endDate);
+			localStorage.removeItem('reportsPeriod');
+		}
 
 		//scroll to top
 		$location.hash('top');
@@ -28,9 +36,7 @@
 				vm.filter.name = '';
 				vm.reset_search = false;
 			}
-			else {
-				vm.reset_search = true;
-			}
+			else {}
 			prevFilterName = vm.filter.name;
 			eventService.getMyEvents(vm.filter);
 		};
@@ -64,6 +70,8 @@
 				eventService.getMyEvents(vm.filter);
 			}
 		});
+
+
 	}
 
 })();

@@ -22,8 +22,11 @@
 		vm.event = {id: $routeParams.id, isShow: $routeParams.type == 'show'};
 		vm.getEventInfo = eventService.getEventInfo;
 		vm.getEventSalesReport = eventService.getEventSalesReport;
-		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}, name: ''};
+		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: ''};
 		vm.overviewFilter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}};
+		// Min & Max dates get from api when ready on the backend
+		vm.minFilterDate = moment().subtract(7, 'days');
+		vm.maxFilterDate = moment();
 		vm.getEventOpSales = function() {
 			if(prevFilterName === vm.filter.name) {
 				vm.filter.name = '';
@@ -143,7 +146,8 @@
 
 		$scope.$watch('vm.filter.period', function(newPeriod, oldPeriod) {
 			if(newPeriod !== oldPeriod) {
-				eventService.getMyEvents(vm.filter);
+				localStorage.setItem('reportsPeriod', JSON.stringify(vm.filter));
+				$location.path('dashboard');
 			}
 		});
 	}
