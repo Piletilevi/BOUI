@@ -4,9 +4,9 @@
     angular.module('boApp')
         .factory("dataService", DataService);
 
-    DataService.$inject = ['$http','bo'];
+    DataService.$inject = ['$http','bo', '$q'];
 
-    function DataService($http, bo) { // This service connects to our REST API
+    function DataService($http, bo, $q) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
         var ipUrl = 'http://ipv4.myexternalip.com/json';
@@ -34,11 +34,13 @@
         };
         
         function getIp () {
-            /*
+			return $q(function(resolve, reject) {
+				resolve({ip: "127.0.0.1"});
+			});
+			/*
 			return $http.get(ipUrl).then(function (results) {
                 return results.data;
             });*/
-			return "";
         };
         
         function getBoUrl () {
