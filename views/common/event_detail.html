@@ -6,14 +6,14 @@
 		<span class="badge">{{event.concertsCount}}</span>
 	</a>{{event.name}}</h3>
 	<div class="row">
-		<div class="col-sm-4" ng-if="!event.concertsCount">
+		<div class="col-sm-4 bo-event-datetime_block" ng-if="!event.concertsCount">
 			<div>
 				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.eventDateTime | date:'dd.MM.yyyy'}}</div>
 				<div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> {{event.eventDateTime | date:'HH:mm'}}</div>
 			</div>
 			<div class="bo-event-place"><i class="fa fa-map-marker active" aria-hidden="true"></i> {{event.location}} </div>
 		</div>
-		<div class="col-sm-4" ng-if="event.concertsCount">
+		<div class="col-sm-4 bo-event-datetime_block" ng-if="event.concertsCount">
 			<div ng-if="event.period.start != event.period.end">
 				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.period.start | date:'dd.MM.yyyy'}} - {{event.period.end | date:'dd.MM.yyyy'}}</div>
 			</div>
