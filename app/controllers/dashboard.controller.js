@@ -15,6 +15,7 @@
 		vm.draftCount = 0;
 		vm.pastCount = 0;
 		vm.reset_search = false;
+	    vm.getEventSalesReport = eventService.getEventSalesReport;
 
 		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: '', status: 'onsale', loadingItems: false, groupByShow: false};
 

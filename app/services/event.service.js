@@ -152,7 +152,7 @@
 			}
         }
 
-		function getEventInfo(event, filter) {
+		function getEventInfo(event) {
 			if (event.isShow) {
 				getShowInfo(event);
 			} else {
@@ -191,7 +191,8 @@
 				dataService.page(results);
 				if (results.status == 'success'){
 					event.name = results.data.name;
-					event.eventDateTime = results.data.eventDateTime;
+					event.eventPeriod = results.data.eventPeriod;
+					event.sellPeriod = results.data.sellPeriod;
 					event.location = results.data.location;
                 }
             });
@@ -202,10 +203,11 @@
 				dataService.page(results);
                 if (results.status == 'success'){
 					event.name = results.data.name;
-					event.period = results.data.period;
+					event.eventPeriod = results.data.eventPeriod;
 					event.locations = results.data.locations;
 					event.concerts = results.data.concerts;
 					event.concertsCount = results.data.concertsCount;
+					event.sellPeriod = results.data.sellPeriod;
                 }
             });
         }
