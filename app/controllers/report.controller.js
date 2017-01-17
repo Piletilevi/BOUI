@@ -20,10 +20,12 @@
     var vm = this;
     var prevFilterName = null;
     vm.event = {id: $routeParams.id, isShow: $routeParams.type == 'show'};
-    vm.getEventInfo = eventService.getEventInfo;
+
+	vm.getEventInfo = eventService.getEventInfo;
     vm.getEventSalesReport = eventService.getEventSalesReport;
+    vm.getEventSales = eventService.getEventSales;
     vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: ''};
-    vm.overviewFilter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}};
+    vm.overviewFilter = {period: {startDate:null, endDate: null}};
     // Min & Max dates get from api when ready on the backend
     vm.minFilterDate = moment().subtract(7, 'days');
     vm.maxFilterDate = moment();
@@ -61,9 +63,29 @@
       }
     };
 
-    eventService.getEventInfo(vm.event);
+	vm.overviewGraph = {
+		labels: ["January", "February", "March", "April", "May", "June", "July"],
+		series: ['Tickets'],
+		data: [
+			[65, 59, 80, 81, 56, 55, 40]
+		],
+		datasetOverride: [{ yAxisID: 'y-axis-1' }],
+		options: {
+			scales: {
+			  yAxes: [
+				{
+				  id: 'y-axis-1',
+				  type: 'linear',
+				  display: true,
+				  position: 'left'
+				}
+			  ]
+			}
+		}
+	};
+
+	eventService.getEventInfo(vm.event);
     eventService.getEventSales(vm.event);
-    eventService.getEventSalesReport(vm.event, vm.overviewFilter);
 
     $scope.$watch('vm.myEventSalesReport', function (newValue, oldValue) {
       if (!angular.equals(newValue, oldValue)) {
@@ -139,7 +161,7 @@
 
     $scope.$watch(
       function () {
-        vm.myEventSalesReport = eventService.myEventSalesReport();
+		vm.myEventSalesReport = eventService.myEventSalesReport();
       }
     );
 
@@ -154,6 +176,16 @@
     $scope.$watch('vm.filter.name', function (newFilter, oldFilter) {
       if (newFilter !== oldFilter) {
         vm.reset_search = false;
+      }
+    });
+
+    $scope.$watch('vm.event.sellPeriod', function (newSellPeriod, oldSellPeriod) {
+	  if (newSellPeriod !== oldSellPeriod) {
+		vm.overviewFilter.period.startDate = moment(newSellPeriod.start);
+		vm.overviewFilter.period.endDate = moment(newSellPeriod.end);
+		vm.minFilterDate = vm.overviewFilter.period.startDate;
+		vm.maxFilterDate = vm.overviewFilter.period.endDate;
+		eventService.getEventSalesReport(vm.event, vm.overviewFilter);
       }
     });
 
