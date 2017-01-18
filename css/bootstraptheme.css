@@ -494,6 +494,7 @@ label {
 	padding-left: 11px;
 	padding-right: 11px;
 	line-height: 1.357;
+	text-decoration: none;
 }
 
 .dropdown-menu .divider {

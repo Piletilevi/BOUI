@@ -148,6 +148,14 @@ a:hover {
 	margin-left: 3px;
 }
 
+.bo-language-dropdown .dropdown-menu > li > a {
+	text-transform: capitalize;
+}
+
+.bo-language-dropdown .dropdown-toggle {
+	text-transform: capitalize;
+}
+
 /* News
 ================================ */
 
