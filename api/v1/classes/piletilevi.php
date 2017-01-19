@@ -191,15 +191,50 @@ class PiletileviApi {
 		return $reportData;
 	}
 
-	public function eventSalesReport($filter) {
+	public function eventSalesReportByStatus($filter) {
 		
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/report/eventSalesReport", $data );
+		$reportData = $this->send( "/report/eventSalesReportByStatus", $data );
 		
 		return $reportData;
 	}
 
+	public function eventSalesReportByPriceType($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByPriceType", $data );
+		
+		return $reportData;
+	}
+
+	public function eventSalesReportByDate($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByDate", $data );
+		
+		return $reportData;
+	}
+
+	public function eventSalesReportByWeek($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByWeek", $data );
+		
+		return $reportData;
+	}
+
+	public function eventSalesReportByMonth($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByMonth", $data );
+		
+		return $reportData;
+	}
 
 	public function boUrl(){
 		return $this->getBoUrl();
