@@ -7,13 +7,36 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand bo-logo" href><img src="img/logo.png" /></a>
-			<ul class="nav navbar-nav bo-header-additional-icons visible-xs">
-				<li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a></li>
+			<div class="bo-header">
+				<a class="navbar-brand bo-logo" href><img src="img/logo.png" /></a>
+				<ul class="nav navbar-nav bo-header-additional-icons visible-xs">
+					<li>
+						<a href="" data-target="#menu_user" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+					</li><li>
+						<a href="#"><i class="fa fa-envelope"></i></a>
+					</li><li>
+						<a href="" data-target="#menu_sales_points" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-map-marker"></i>
+						</a>
+					</li><li class="dropdown bo-language-dropdown">
+						<a href class="dropdown-toggle" data-target="#menu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{language.code|lowercase}}</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="menu_user" class="dropdown bo-external-dropdown">
+			<ul class="nav navbar-nav">
+				<li class="dropdown" ng-if="authenticated" ng-include="'views/common/user_menu.html'"></li>
 			</ul>
 		</div>
-
+		<div id="menu_sales_points" class="dropdown bo-external-dropdown">
+			<ul class="nav navbar-nav">
+				<li class="dropdown" ng-if="authenticated && user.salesPoints[1]" ng-include="'views/common/sales_points.html'"></li>
+			</ul>
+		</div>
+		<div id="menu3" class="dropdown bo-external-dropdown bo-language-dropdown">
+			<div class="bo-external-dropdown-inner" ng-include="'views/common/languages.html'"></div>
+		</div>
 		<div id="menu" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav" ng-if="authenticated">
 				<li class="active" ng-style="{'background-color' : pointMenuActiveColor}">
@@ -31,16 +54,7 @@
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown" ng-if="authenticated && user.salesPoints[1]">
-					<a href="" class="dropdown-toggle bo-office-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						{{getPointName()}}
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li ng-repeat="point in user.salesPoints" ng-click="setPoint(point.id)">
-							<a href>{{point.name}}</a></li>
-					</ul>
-				</li>
+				<li class="dropdown" ng-if="authenticated && user.salesPoints[1]" ng-include="'views/common/sales_points.html'"></li>
 				<li class="" ng-if="authenticated && !user.salesPoints[1] ">
 					<a class="not-clickable" href><span class="hidden-sm">
                                 {{getPointName()}}
@@ -50,19 +64,7 @@
 					<a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>
 						<span class="visible-xs-inline">Messages</span></a>
 				</li>
-				<li class="dropdown" ng-if="authenticated">
-					<a href class="dropdown-toggle bo-user-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-user" aria-hidden="true"></i>
-						<span class="bo-user"><span class="bo-user-name">{{user.name}}</span><br />{{user.organization}}</span><span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href>Action</a></li>
-						<li><a href>Another action</a></li>
-						<li><a href ng-click="toChangePassword();">{{"api_menu_change_password"|translate}}</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href ng-click="logout();">{{"pood_002"|translate}} &nbsp;<i class="fa fa-sign-out"></i></a></li>
-						<li><a href ng-click="toOldBO();">{{"api_menu_to_old_bo"|translate}}</a></li>
-					</ul>
-				</li>
+				<li class="dropdown" ng-if="authenticated" ng-include="'views/common/user_menu.html'"></li>
 				<li class="dropdown bo-language-dropdown" ng-include="'views/common/languages.html'"></li>
 			</ul>
 		</div>

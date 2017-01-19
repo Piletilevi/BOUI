@@ -1,0 +1,9 @@
+<a href="" class="dropdown-toggle bo-office-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+	<i class="fa fa-map-marker"></i>
+	{{getPointName()}}
+	<span class="caret"></span>
+</a>
+<ul class="dropdown-menu">
+	<li ng-repeat="point in user.salesPoints" ng-click="setPoint(point.id)">
+		<a href>{{point.name}}</a></li>
+</ul>
