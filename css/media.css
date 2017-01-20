@@ -180,6 +180,10 @@
 	.bo-external-dropdown .bo-external-dropdown-inner:first-child {
 		margin-top: 0;
 	}
+
+	.bo-widgetbox-buttons-area .btn {
+		float: left!important;
+	}
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
