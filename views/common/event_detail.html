@@ -1,6 +1,18 @@
 <div class="panel-body">
 	<h3 class="bo-event-title">
-	<a ng-if="event.concertsCount" class="bo-event-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events{{event.id}}" aria-expanded="false">
+		<!--<div class="bo-event-badge bo-event-badge-regular_presale">Presale</div>-->
+		<!--<div class="bo-event-badge bo-event-badge-future_sale">*Future presale</div>-->
+		<!--<div class="bo-event-badge bo-event-badge-hidden_until_sale">*Presale starts at the right time</div>-->
+		<!--<div class="bo-event-badge bo-event-badge-presale_with_code">*Priority sale</div>-->
+		<div class="bo-event-badge bo-event-badge-sold_out">*Sold out</div>
+		<!--<div class="bo-event-badge bo-event-badge-no_tickets">*No tickets available</div>-->
+		<!--<div class="bo-event-badge bo-event-badge-going_now">*Presale has ended</div>-->
+		<!--<div class="bo-event-badge bo-event-badge-free_admission">Free admission</div>-->
+		<!--<div class="bo-event-badge bo-event-badge-presale_at_boxoffices">Only sales points</div>-->
+		<!--<div class="bo-event-badge bo-event-badge-past">Past event</div>-->
+		<!--<div class="bo-event-badge bo-event-badge-canceled">Event is suspended</div>-->
+		<!--<div class="bo-event-badge bo-event-badge-refund">Refund</div>-->
+		<a ng-if="event.concertsCount" class="bo-event-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events{{event.id}}" aria-expanded="false">
 		<span class="glyphicon glyphicon-triangle-top"></span>
 		<span class="glyphicon glyphicon-triangle-bottom"></span>
 		<span class="badge">{{event.concertsCount}}</span>
@@ -23,12 +35,12 @@
 			<div class="bo-event-place" ng-if="event.locations"><i class="fa fa-map-marker active" aria-hidden="true"></i> {{event.locations.length === 1 ? event.locations[0].location : ('api_different_venues' | translate)}}</div>
 		</div>
 		<div>
-			<div class="col-xs-10 col-sm-4">
+			<div class="col-xs-12 col-sm-6">
 				<div ng-include-template="simplestats.html" ng-include-variables="{ currentEvent: event }"></div>
 			</div>
-			<div class="col-xs-12 col-sm-3">
+			<div class="col-xs-12 col-sm-2">
 				<div class="row">
-					<div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-center bo-event-price">{{event.sell.soldSumma | number }} {{event.sell.currency}}</div>
+					<div class="col-xs-6 col-sm-12 col-xs-push-6 col-sm-push-0 text-right bo-event-price">{{event.sell.soldSumma | number }} {{event.sell.currency}}</div>
 					<!--div class="col-xs-6 col-sm-12 col-xs-pull-6 col-sm-pull-0 text-center"><a class="btn btn-warning bo-event-button" href="#">{{'api_promote_event'|translate}}</a></div-->
 				</div>
 			</div>

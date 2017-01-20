@@ -253,9 +253,13 @@ a:hover {
 /* Event
 ================================ */
 
+.bo-event {
+	position: relative;
+}
+
 .bo-event-title {
 	margin-top: -2px;
-	margin-bottom: 18px;
+	margin-bottom: 17px;
 }
 
 .bo-event-toggle {
@@ -266,8 +270,8 @@ a:hover {
 .bo-event-toggle .badge {
 	background-color: #3584d9;
 	margin-top: -2px;
-	margin-left: 4px;
-	margin-right: 10px;
+	margin-left: 3px;
+	margin-right: 7px;
 }
 
 .bo-event-toggle .glyphicon-triangle-top,
@@ -297,8 +301,8 @@ a:hover {
 }
 
 .bo-event-report-link {
-	margin-top: 17px;
-	margin-bottom: 9px;
+	margin-top: 6px;
+	margin-bottom: 2px;
 	color: #b7b7b9;
 }
 
@@ -313,7 +317,6 @@ a:hover {
 }
 
 .bo-event-datetime_block {
-	padding-top: 8px;
 }
 
 .bo-event-date {
@@ -348,8 +351,9 @@ a:hover {
 
 .bo-event-price {
 	margin-bottom: 2px;
-	margin-top: -2px;
-	font-weight: bold;
+	margin-top: 17px;
+	font-weight: normal;
+	font-size: 21px;
 }
 
 .bo-event-share-block {
@@ -374,8 +378,88 @@ a:hover {
 	margin-left: 3px;
 }
 
+/* Event Badges
+================================ */
+
+.bo-event-badge {
+	position: relative;
+	right: -20px;
+	top: -15px;
+	float: right;
+	font-size: 14px;
+	line-height: 27px;
+	min-width: 81px;
+	padding: 0 7px;
+	text-align: center;
+	-webkit-border-radius: 0 3px 0 3px;
+	-moz-border-radius: 0 3px 0 3px;
+	border-radius: 0 3px 0 3px;
+	color: #fff;
+}
+
+.bo-event-badge-regular_presale {
+	background-color: #3584d9;
+}
+.bo-event-badge-future_sale {
+	background-color: #3584d9;
+}
+.bo-event-badge-hidden_until_sale {
+	background-color: #3584d9;
+}
+.bo-event-badge-presale_with_code {
+	background-color: #3584d9;
+}
+.bo-event-badge-sold_out {
+	background-color: #28c46a;
+}
+.bo-event-badge-no_tickets {
+	background-color: #3584d9;
+}
+.bo-event-badge-going_now {
+	background-color: #3584d9;
+}
+.bo-event-badge-free_admission {
+	background-color: #3584d9;
+}
+.bo-event-badge-presale_at_boxoffices {
+	background-color: #3584d9;
+}
+.bo-event-badge-past {
+	background-color: #3584d9;
+}
+.bo-event-badge-canceled {
+	background-color: #e13b2f;
+}
+.bo-event-badge-refund {
+	background-color: #3584d9;
+}
+
+/* Sub Events
+================================ */
+
+.bo-sub-events {
+	border-top: 1px solid #dadcdf;
+	padding-left: 19px;
+	padding-right: 19px;
+	margin-right: -19px;
+	margin-left: -19px;
+	margin-top: 19px;
+}
+
+.bo-sub-events > .bo-event:first-child{
+	margin-top: 17px;
+}
+
+.bo-sub-events .bo-event {
+	margin-bottom: 18px;
+}
+
+.bo-sub-events .bo-event:last-child {
+	margin-bottom: 4px;
+}
 /* Pills
 ================================ */
+
 .bo-pills-block {
 	background: #fff;
 	padding-top: 15px;
@@ -648,7 +732,7 @@ a:hover {
 }
 
 .bo-simplestats-labels {
-	margin-bottom: 3px;
+	margin-bottom: 2px;
 	color: #b7b7b9;
 }
 
@@ -660,9 +744,11 @@ a:hover {
 
 .bo-simplestats-pct {
 	float: right;
-	font-weight: bold;
+	font-weight: normal;
+	font-size: 21px;
 	margin-left: 12px;
 	color: #040e19;
+	line-height: 0.75;
 }
 
 .bo-simplestats-bar {

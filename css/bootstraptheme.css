@@ -7,7 +7,7 @@
 }
 
 .h3, h3 {
-	font-size: 22px;
+	font-size: 21px;
 }
 
 .h4, h4 {
@@ -112,7 +112,7 @@
 }
 
 .nav-tabs {
-	margin-bottom: 10px;
+	margin-bottom: 13px;
 	border-bottom: 1px solid #eef1f5;
 }
 
@@ -353,25 +353,25 @@
 }
 
 .progress {
-	height: 23px;
-	-moz-border-radius: 11px;
-	-webkit-border-radius: 11px;
-	border-radius: 11px;
+	height: 18px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 }
 
 .progress-bar {
 }
 
 .progress-bar-success {
-	background-color: #2fc853;
+	background-color: #58e393;
 }
 
 .progress-bar-warning {
-	background-color: #ffc820;
+	background-color: #ffc62c;
 }
 
 .progress-bar-danger {
-	background-color: #ff3f68;
+	background-color: #ff4172;
 }
 
 .panel {
@@ -381,13 +381,13 @@
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	margin-bottom: 14px;
+	margin-bottom: 12px;
 }
 
 .panel-body {
 	padding-top: 16px;
-	padding-left: 22px;
-	padding-right: 22px;
+	padding-left: 19px;
+	padding-right: 19px;
 }
 
 .panel-default {
@@ -402,15 +402,15 @@
 }
 
 .text-success {
-	color: #2fc853;
+	color: #41c271;
 }
 
 .text-warning {
-	color: #f9c31c;
+	color: #ffba00;
 }
 
 .text-danger {
-	color: #ff3f68;
+	color: #ff3f71;
 }
 
 .caret {
