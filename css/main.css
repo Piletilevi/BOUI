@@ -398,40 +398,28 @@ a:hover {
 }
 
 .bo-event-badge-regular_presale {
-	background-color: #3584d9;
 }
 .bo-event-badge-future_sale {
-	background-color: #3584d9;
 }
 .bo-event-badge-hidden_until_sale {
-	background-color: #3584d9;
 }
 .bo-event-badge-presale_with_code {
-	background-color: #3584d9;
 }
 .bo-event-badge-sold_out {
-	background-color: #28c46a;
 }
 .bo-event-badge-no_tickets {
-	background-color: #3584d9;
 }
 .bo-event-badge-going_now {
-	background-color: #3584d9;
 }
 .bo-event-badge-free_admission {
-	background-color: #3584d9;
 }
 .bo-event-badge-presale_at_boxoffices {
-	background-color: #3584d9;
 }
 .bo-event-badge-past {
-	background-color: #3584d9;
 }
 .bo-event-badge-canceled {
-	background-color: #e13b2f;
 }
 .bo-event-badge-refund {
-	background-color: #3584d9;
 }
 
 /* Sub Events
@@ -539,7 +527,6 @@ a:hover {
 .bo-widgetbox .input-icon .form-control {
 	padding-left: 35px;
 	border: 0 none;
-	height: 43px;
 }
 
 .bo-widgetbox .input-icon .ace-icon {

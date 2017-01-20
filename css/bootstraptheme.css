@@ -534,3 +534,28 @@ label {
 fieldset[disabled] .btn {
 	opacity: 0.55;
 }
+
+.input-lg {
+	border: 0 none;
+	height: 43px;
+}
+
+.label-info {
+	background-color: #3584d9;
+}
+
+.label-success {
+	background-color: #28c46a;
+}
+
+.label-danger {
+	background-color: #ff3f68;
+}
+
+.label-primary {
+	background-color: #4a5867;
+}
+
+.label-warning {
+	background-color: #f9ba0f;
+}
