@@ -79,12 +79,12 @@
 					var weekStart = moment(sale.sellYear + "W" + (sale.sellWeek <= 9 ? "0" + sale.sellWeek : sale.sellWeek));
 					labels.push(weekStart.format('DD.MM.YYYY') + " - " + weekStart.add(7, 'days').format('DD.MM.YYYY'));
 				} else if (filter.groupBy == 'month') {
-					var firstDayOfMonth = new Date(sale.sellYear, sale.sellMonth, 1);
+					var firstDayOfMonth = new Date(sale.sellYear, sale.sellMonth - 1, 1);
 					var firstDayNextMonth = null;
-					if (sale.sellMonth > 11) {
-						firstDayNextMonth = new Date(sale.sellYear + 1, 1, 1);
+					if (sale.sellMonth < 12) {
+						firstDayNextMonth = new Date(sale.sellYear, sale.sellMonth, 1);
 					} else {
-						firstDayNextMonth = new Date(sale.sellYear, sale.sellMonth + 1, 1);
+						firstDayNextMonth = new Date(sale.sellYear + 1, 0, 1);
 					}
 					labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
 				}
@@ -100,8 +100,6 @@
 							} else {
 								dataItem.push(saleType.rowSum);
 							}
-						} else {
-							dataItem.push(0);
 						}
 					});
 				});

@@ -136,7 +136,7 @@
 							<thead ng-if="overviewData.groupId != 'generated'">
 								<tr>
 									<th width="7%"></th>
-									<th width="46%">{{overviewData.groupName}}:</th>
+									<th width="46%">{{overviewData.groupName|translate}}:</th>
 									<th width="17%">{{overviewData.rowCount}}</th>
 									<th width="10%">{{vm.myOverviewBarData.generatedCount ? ( overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</th>
 									<th width="20%">{{overviewData.rowSum}} {{vm.myOverviewBarData.currency}}</th>
@@ -145,7 +145,7 @@
 							<tbody ng-if="overviewData.groupId != 'generated'">
 								<tr ng-repeat="overviewRow in overviewData.rows">
 									<td style="background-color: {{overviewRow.color}};"></td>
-									<td>{{overviewRow.typeName}}:</td>
+									<td>{{overviewRow.typeName|translate}}:</td>
 									<td>{{overviewRow.count}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount ? ( overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
 									<td>{{overviewRow.sum}} {{vm.myOverviewBarData.currency}}</td>
