@@ -588,7 +588,7 @@ $app->post('/eventSalesReportByWeek', function() use ($app)  {
 	}
 });
 
-$app->post('/eventSalesByMonth', function() use ($app)  {
+$app->post('/eventSalesReportByMonth', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 

@@ -17,7 +17,8 @@
 		var myDraftCount = 0;
 		var myPastCount = 0;
 
-		var myEventSalesReport = null;
+		var myOverviewData = null;
+		var myOverviewGraphData = null;
 		
 		var service = {
 			myOpenEvents: function() { return myOpenEvents },
@@ -26,14 +27,16 @@
 			myOpenCount: function() { return myOpenCount },
 			myDraftCount: function() { return myDraftCount },
 			myPastCount: function() { return myPastCount },
-			myEventSalesReport: function() { return myEventSalesReport },
+			myOverviewData: function() { return myOverviewData },
+			myOverviewGraphData: function() { return myOverviewGraphData },
             reset: reset,
             getMyEvents: getMyEvents,
 			getMoreEvents: getMoreEvents,
             getEventSales: getEventSales,
             getEventInfo: getEventInfo,
             getEventOpSales: getEventOpSales,
-			getEventSalesReport : getEventSalesReport
+			getOverviewData : getOverviewData,
+			getOverviewGraphData : getOverviewGraphData
         };
 		return service;
 
@@ -230,14 +233,36 @@
             });
         }
 
-		function getEventSalesReport(event, filter) {
-			dataService.post('eventSalesReport', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
-                myEventSalesReport = null;
+		function getOverviewData(event, filter) {
+			dataService.post('eventSalesReportByStatus', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+                myOverviewData = null;
 				dataService.page(results);
 				if (results.status == 'success'){
-					myEventSalesReport = results.data;
+					myOverviewData = results.data;
                 }
             });
+        }
+
+		function getOverviewGraphData(event, filter) {
+			var report = '';
+			if (filter.groupBy == 'day') {
+				report = 'eventSalesReportByDate';
+			} else if (filter.groupBy == 'week') {
+				report = 'eventSalesReportByWeek';
+			} else if (filter.groupBy == 'month') {
+				report = 'eventSalesReportByMonth';
+			}
+			if (report) {
+				dataService.post(report, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+					myOverviewGraphData = null;
+					dataService.page(results);
+					if (results.status == 'success'){
+						myOverviewGraphData = results.data;
+					}
+				});
+			} else {
+				myOverviewGraphData = null;
+			}
         }
     }
 })();

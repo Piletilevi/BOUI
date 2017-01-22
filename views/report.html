@@ -83,39 +83,39 @@
 						</div>
 						<div class="bo-chartcontrols col-sm-7 text-right">
 							<div class="btn-group btn-group-sm" role="group">
-								<button type="button" class="btn btn-sm btn-default active">Tickets</button>
-								<button type="button" class="btn btn-sm btn-default">Revenue</button>
+								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.display=='tickets'}" ng-click="vm.setOverviewDisplay('tickets')">{{'api_tickets'|translate}}</button>
+								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.display=='revenue'}" ng-click="vm.setOverviewDisplay('revenue')">{{'api_revenue'|translate}}</button>
 							</div>
 							&nbsp;&nbsp;
 							<div class="btn-group btn-group-sm" role="group">
-								<button type="button" class="btn btn-sm btn-default active">Day</button>
-								<button type="button" class="btn btn-sm btn-default">Week</button>
-								<button type="button" class="btn btn-sm btn-default">Month</button>
+								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.groupBy=='day'}" ng-click="vm.setOverviewGroupBy('day')">{{'api_day'|translate}}</button>
+								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.groupBy=='week'}" ng-click="vm.setOverviewGroupBy('week')">{{'api_week'|translate}}</button>
+								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.groupBy=='month'}" ng-click="vm.setOverviewGroupBy('month')">{{'api_month'|translate}}</button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="bo-chart">
-					<canvas id="line" class="chart chart-line" chart-data="vm.overviewGraph.data" chart-labels="vm.overviewGraph.labels" chart-series="vm.overviewGraph.series" chart-options="vm.overviewGraph.options" chart-dataset-override="vm.overviewGraph.datasetOverride" height="100px">
+					<canvas id="line" class="chart chart-line" chart-data="vm.overviewLineGraph.data" chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series" chart-options="vm.overviewLineGraph.options" chart-dataset-override="vm.overviewLineGraph.datasetOverride" height="100px">
 					</canvas>
 				</div>
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="bo-chart">
-							<canvas class="chart chart-bar" chart-data="vm.overviewData.data" chart-labels="vm.overviewData.labels" 
-							chart-options="vm.overviewData.options" chart-series="vm.overviewData.series" chart-dataset-override="vm.overviewData.datasetOverride" height="300px"></canvas>
+							<canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data" chart-labels="vm.overviewBarGraph.labels" 
+							chart-options="vm.overviewBarGraph.options" chart-series="vm.overviewBarGraph.series" chart-dataset-override="vm.overviewBarGraph.datasetOverride" height="300px"></canvas>
 						</div>
 					</div>
 					<div class="col-lg-6">
-						<table class="bo-revenuetable table table-condensed table-small">
-							<colgroup>
+						<table ng-repeat="overviewData in vm.myOverviewBarData.sales" class="bo-revenuetable table table-condensed table-small">
+							<colgroup ng-if="$first">
 								<col>
 								<col>
 								<col>
 								<col>
 								<col>
 							</colgroup>
-							<thead>
+							<thead ng-if="$first">
 								<tr>
 									<td width="7%"></td>
 									<td width="46%"></td>
@@ -124,36 +124,33 @@
 									<td width="20%">{{'api_revenue'|translate}}</td>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody ng-if="$first">
 								<tr class="info">
 									<td></td>
 									<td>{{'api_generated'|translate}}</td>
-									<td>{{vm.myEventSalesReport.totalCount}}</td>
+									<td>{{vm.myOverviewBarData.generatedCount}}</td>
 									<td>100%</td>
-									<td>{{vm.myEventSalesReport.totalSum}} {{vm.myEventSalesReport.currency}}</td>
+									<td>{{vm.myOverviewBarData.generatedSum}} {{vm.myOverviewBarData.currency}}</td>
 								</tr>
 							</tbody>
-						</table>
-						<table ng-repeat="eventSaleData in vm.myEventSalesReport.sales" class="bo-revenuetable table table-condensed table-small">
-							<thead>
+							<thead ng-if="overviewData.groupId != 'generated'">
 								<tr>
 									<th width="7%"></th>
-									<th width="46%">{{eventSaleData.rowTypeName}}:</th>
-									<th width="17%">{{eventSaleData.rowCount}}</th>
-									<th width="10%">{{vm.myEventSalesReport.totalCount ? ( eventSaleData.rowCount / vm.myEventSalesReport.totalCount ) * 100 : 0 | number:0}}%</th>
-									<th width="20%">{{eventSaleData.rowSum}} {{eventSaleData.currency}}</th>
+									<th width="46%">{{overviewData.groupName}}:</th>
+									<th width="17%">{{overviewData.rowCount}}</th>
+									<th width="10%">{{vm.myOverviewBarData.generatedCount ? ( overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</th>
+									<th width="20%">{{overviewData.rowSum}} {{vm.myOverviewBarData.currency}}</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr ng-repeat="salePrice in eventSaleData.prices">
-									<td style="background-color: {{salePrice.color}};"></td>
-									<td>{{salePrice.pricetype}}:</td>
-									<td>{{salePrice.count}}</td>
-									<td>{{vm.myEventSalesReport.totalCount ? ( salePrice.count / vm.myEventSalesReport.totalCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{salePrice.price}} {{eventSaleData.currency}}</td>
+							<tbody ng-if="overviewData.groupId != 'generated'">
+								<tr ng-repeat="overviewRow in overviewData.rows">
+									<td style="background-color: {{overviewRow.color}};"></td>
+									<td>{{overviewRow.typeName}}:</td>
+									<td>{{overviewRow.count}}</td>
+									<td>{{vm.myOverviewBarData.generatedCount ? ( overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
+									<td>{{overviewRow.sum}} {{vm.myOverviewBarData.currency}}</td>
 								</tr>
 							</tbody>
-							</div>
 						</table>
 						<a href="#" class="btn btn-info">{{'api_view_detailed_report'|translate}}</a>
 					</div>
