@@ -105,6 +105,7 @@ a:hover {
 }
 
 .bo-external-dropdown .dropdown-toggle {
+	display: none;
 }
 
 .bo-external-dropdown .dropdown-menu {
@@ -122,7 +123,7 @@ a:hover {
 }
 
 .bo-external-dropdown .bo-external-dropdown-inner > a.dropdown-toggle {
-	display: block;
+	/*display: block;*/
 	background: #fff;
 }
 
