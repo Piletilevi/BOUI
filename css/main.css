@@ -46,11 +46,6 @@ a:hover {
 	min-width: 131px;
 }
 
-.larger_input {
-	border: 0 none;
-	height: 43px;
-}
-
 .temp_image {
 	max-width: 100%;
 }
@@ -83,10 +78,78 @@ a:hover {
 	float: right;
 	margin-right: 8px;
 	margin-bottom: 0;
+	margin-top: 0;
 }
 
 .bo-header-additional-icons > li {
 	float: left;
+}
+
+.bo-header-additional-icons .dropdown .caret{
+	display: none;
+}
+
+/* header mobile dropdown
+================================ */
+
+.bo-external-dropdown {
+	display: none;
+	margin-left: -15px;
+	margin-right: -15px;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.bo-external-dropdown.open {
+	display: block;
+}
+
+.bo-external-dropdown .dropdown-toggle {
+	display: none;
+}
+
+.bo-external-dropdown .dropdown-menu {
+	background-color: transparent;
+	border: 0 none;
+	box-shadow: none;
+	float: none;
+	margin-top: 0;
+	position: static;
+	width: auto;
+	display: block;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+}
+
+.bo-external-dropdown .bo-external-dropdown-inner > a.dropdown-toggle {
+	/*display: block;*/
+	background: #fff;
+}
+
+.bo-external-dropdown.open .dropdown > a,
+.bo-external-dropdown.open .dropdown > a:focus,
+.bo-external-dropdown.open .dropdown > a:hover {
+	background: #fff;
+	color: #27394c;
+}
+
+.bo-external-dropdown.open .dropdown > a .bo-user-name,
+.bo-external-dropdown.open .dropdown > a:focus .bo-user-name,
+.bo-external-dropdown.open .dropdown > a:hover .bo-user-name {
+	color: #27394c;
+}
+
+.bo-external-dropdown .dropdown-menu > li > a {
+	padding: 5px 15px 5px 25px;
+}
+
+.bo-external-dropdown .dropdown-menu > li > a:hover {
+	background: #fff;
+}
+
+.bo-external-dropdown-inner {
+	margin: 7.5px -15px;
 }
 
 /* Sidebar
@@ -148,6 +211,14 @@ a:hover {
 	margin-left: 3px;
 }
 
+.bo-language-dropdown .dropdown-menu > li > a {
+	text-transform: capitalize;
+}
+
+.bo-language-dropdown .dropdown-toggle {
+	text-transform: capitalize;
+}
+
 /* News
 ================================ */
 
@@ -183,9 +254,13 @@ a:hover {
 /* Event
 ================================ */
 
+.bo-event {
+	position: relative;
+}
+
 .bo-event-title {
 	margin-top: -2px;
-	margin-bottom: 18px;
+	margin-bottom: 17px;
 }
 
 .bo-event-toggle {
@@ -196,8 +271,8 @@ a:hover {
 .bo-event-toggle .badge {
 	background-color: #3584d9;
 	margin-top: -2px;
-	margin-left: 4px;
-	margin-right: 10px;
+	margin-left: 3px;
+	margin-right: 7px;
 }
 
 .bo-event-toggle .glyphicon-triangle-top,
@@ -227,8 +302,8 @@ a:hover {
 }
 
 .bo-event-report-link {
-	margin-top: 17px;
-	margin-bottom: 9px;
+	margin-top: 6px;
+	margin-bottom: 2px;
 	color: #b7b7b9;
 }
 
@@ -240,6 +315,9 @@ a:hover {
 .bo-event-report-link span {
 	margin-right: 23px;
 	display: inline-block;
+}
+
+.bo-event-datetime_block {
 }
 
 .bo-event-date {
@@ -274,8 +352,9 @@ a:hover {
 
 .bo-event-price {
 	margin-bottom: 2px;
-	margin-top: -2px;
-	font-weight: bold;
+	margin-top: 17px;
+	font-weight: normal;
+	font-size: 21px;
 }
 
 .bo-event-share-block {
@@ -300,8 +379,76 @@ a:hover {
 	margin-left: 3px;
 }
 
+/* Event Badges
+================================ */
+
+.bo-event-badge {
+	position: relative;
+	right: -20px;
+	top: -15px;
+	float: right;
+	font-size: 14px;
+	line-height: 27px;
+	min-width: 81px;
+	padding: 0 7px;
+	text-align: center;
+	-webkit-border-radius: 0 3px 0 3px;
+	-moz-border-radius: 0 3px 0 3px;
+	border-radius: 0 3px 0 3px;
+	color: #fff;
+}
+
+.bo-event-badge-regular_presale {
+}
+.bo-event-badge-future_sale {
+}
+.bo-event-badge-hidden_until_sale {
+}
+.bo-event-badge-presale_with_code {
+}
+.bo-event-badge-sold_out {
+}
+.bo-event-badge-no_tickets {
+}
+.bo-event-badge-going_now {
+}
+.bo-event-badge-free_admission {
+}
+.bo-event-badge-presale_at_boxoffices {
+}
+.bo-event-badge-past {
+}
+.bo-event-badge-canceled {
+}
+.bo-event-badge-refund {
+}
+
+/* Sub Events
+================================ */
+
+.bo-sub-events {
+	border-top: 1px solid #dadcdf;
+	padding-left: 19px;
+	padding-right: 19px;
+	margin-right: -19px;
+	margin-left: -19px;
+	margin-top: 19px;
+}
+
+.bo-sub-events > .bo-event:first-child{
+	margin-top: 17px;
+}
+
+.bo-sub-events .bo-event {
+	margin-bottom: 18px;
+}
+
+.bo-sub-events .bo-event:last-child {
+	margin-bottom: 4px;
+}
 /* Pills
 ================================ */
+
 .bo-pills-block {
 	background: #fff;
 	padding-top: 15px;
@@ -322,7 +469,7 @@ a:hover {
 ================================ */
 
 .bo-widgetbox {
-	max-width: 635px;
+	max-width: 508px;
 	/*min-height: 373px;*/
 	background: #f2f3f5;
 	margin: 0 auto;
@@ -386,7 +533,7 @@ a:hover {
 	color: #cccfd4;
 	position: absolute;
 	left: 14px;
-	top: 30px;
+	top: 15px;
 }
 
 .bo-widgetbox-footer {
@@ -442,7 +589,7 @@ a:hover {
 }
 
 .bo-smallcheckbox .checkbox label::before {
-	border: 0 none;
+	/*border: 0 none;*/
 	width: 21px;
 	height: 21px;
 }
@@ -568,12 +715,13 @@ a:hover {
 /* Simple stats
 ================================ */
 .bo-simplestats {
-
+	padding-left: 21px;
 }
 
 .bo-simplestats-labels {
-	margin-bottom: 3px;
+	margin-bottom: 2px;
 	color: #b7b7b9;
+	margin-left: -2px;
 }
 
 .bo-simplestats-label {
@@ -584,9 +732,11 @@ a:hover {
 
 .bo-simplestats-pct {
 	float: right;
-	font-weight: bold;
+	font-weight: normal;
+	font-size: 21px;
 	margin-left: 12px;
 	color: #040e19;
+	line-height: 0.75;
 }
 
 .bo-simplestats-bar {

@@ -3,10 +3,10 @@
  * Slim - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
- * @copyright   2011 Josh Lockhart
+ * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
- * @version     2.6.1
+ * @version     2.6.3
  * @package     Slim
  *
  * MIT LICENSE
@@ -31,7 +31,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 namespace Slim\Http;
-use \Slim\Logger\DateTimeFileWriter;
+
 /**
  * Slim HTTP Request
  *
@@ -474,10 +474,14 @@ class Request
     public function getHost()
     {
         if (isset($this->env['HTTP_HOST'])) {
-            if (strpos($this->env['HTTP_HOST'], ':') !== false) {
-                $hostParts = explode(':', $this->env['HTTP_HOST']);
+            if(preg_match('/^(\[[a-fA-F0-9:.]+\])(:\d+)?\z/', $this->env['HTTP_HOST'], $matches)) {
+                return $matches[1];
+            } else {
+                if (strpos($this->env['HTTP_HOST'], ':') !== false) {
+                    $hostParts = explode(':', $this->env['HTTP_HOST']);
 
-                return $hostParts[0];
+                    return $hostParts[0];
+                }
             }
 
             return $this->env['HTTP_HOST'];
@@ -578,21 +582,9 @@ class Request
      */
     public function getIp()
     {
-        $logger = new DateTimeFileWriter(array(
-            'path' => __DIR__.'/../../../../../../logs',
-            'name_format' => 'Y-m-d',
-            'message_format' => '%label% - %date% - %message%'
-        ));
         $keys = array('X_FORWARDED_FOR', 'HTTP_X_FORWARDED_FOR', 'CLIENT_IP', 'REMOTE_ADDR');
         foreach ($keys as $key) {
             if (isset($this->env[$key])) {
-                $logger->write( $key." ".$this->env[$key],"INFO");
-
-            }
-        }
-        foreach ($keys as $key) {
-            if (isset($this->env[$key])) {
-
                 return $this->env[$key];
             }
         }

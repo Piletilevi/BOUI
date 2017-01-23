@@ -14,8 +14,7 @@
 					<div class="bo-widgetbox-main">
 						<bo-container backoffice-options="{'time-out': 3000}"></bo-container>
 						<div class="row">
-							<div class="col-sm-2"></div>
-							<div class="col-sm-9">
+							<div class="col-sm-12">
 								<h4 class="header blue lighter bigger">
 									<i class="icon-coffee green"></i>
 									{{"api_login_to_bo"|translate}}
@@ -26,28 +25,25 @@
 
 						<form name="loginForm" class="form-horizontal" role="form">
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="username"> {{"bo_adm151"|translate}} </label>
-								<div class="col-sm-9">
-                           <span class="block input-icon input-icon-right">
-                                <input type="text" class="form-control larger_input" placeholder={{"bo_adm151"|translate}} name="username" ng-model="login.username" required focus />
-                                <i class="ace-icon fa fa-user"></i>
-                            </span>
+								<div class="col-sm-12">
+									<div class="block input-icon input-icon-right">
+										<input type="text" class="form-control input-lg" placeholder={{"bo_adm151"|translate}} name="username" ng-model="login.username" required focus />
+										<i class="ace-icon fa fa-user"></i>
+									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="password"> {{"bo_adm152"|translate}} </label>
-								<div class="col-sm-9">
-                           <span class="block input-icon input-icon-right">
-                                <input type="password" class="form-control larger_input" placeholder={{"bo_adm152"|translate}} ng-model="login.password" required />
-                                <i class="ace-icon fa fa-lock"></i>
-                            </span>
+								<div class="col-sm-12">
+									<div class="block input-icon input-icon-right">
+										<input type="password" class="form-control input-lg" placeholder={{"bo_adm152"|translate}} ng-model="login.password" required />
+										<i class="ace-icon fa fa-lock"></i>
+									</div>
 								</div>
 							</div>
 							<div class="space"></div>
 							<div class="clearfix bo-widgetbox-buttons-area">
 								<div class="row">
-									<label class="col-sm-2 control-label"> </label>
-									<div class="col-sm-4">
+									<div class="col-sm-6 col-xs-12">
 										<div class="bo-smallcheckbox">
 											<div class="checkbox">
 												<input type="checkbox" id="checkbox999">
@@ -55,7 +51,8 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-5">
+									<div class="visible-xs col-xs-12">&nbsp;</div>
+									<div class="col-sm-6 col-xs-12">
 										<button type="submit" class="width-35 pull-right btn btn-sm btn-primary extra_width_button" ng-click="vm.doLogin(login)" data-ng-disabled="loginForm.$invalid">
 											<!--<i class="ace-icon fa fa-key"></i>-->
 											{{"pood_336"|translate}}
@@ -70,8 +67,7 @@
 				</div><!-- /bo-widgetbox-body -->
 				<div class="bo-widgetbox-footer">
 					<div class="row">
-						<div class="col-sm-2"></div>
-						<div class="col-sm-9"><a>Cant remember your username/password?</a></div>
+						<div class="col-sm-12 text-center"><a>Cant remember your username/password?</a></div>
 					</div>
 				</div>
 			</div><!-- /login-box -->

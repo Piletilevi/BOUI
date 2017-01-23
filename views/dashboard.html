@@ -1,4 +1,4 @@
-<div class="container bo-main-block">
+<div class="container">
     <div class="row">
         <div class="col-md-3 col-md-push-9 bo-right-column">
             <div class="panel panel-default bo-news" ng-repeat="newsItem in vm.news" ng-if="vm.news">
@@ -46,6 +46,7 @@
                                   </button>
                                </span>
                     </div>
+					<div class="visible-xs">&nbsp;</div>
                   </div>
                 </div>
                 <div class="col-xs-12 col-sm-3">
@@ -56,7 +57,6 @@
                             <button class="btn btn-default" type="button" ng-click="vm.search()"><i class="fa fa-{{vm.reset_search ? 'close' : 'search'}}" aria-hidden="true"></i></button>
                         </span>
                     </div>
-                    <div class="visible-xs">&nbsp;</div>
                 </div>
             </div>
 
@@ -68,7 +68,7 @@
 			
 			<div class="tab-content" infinite-scroll="vm.getMoreEvents()" infinite-scroll-disabled="vm.filter.loadingItems" infinite-scroll-distance="1">
 				<!-- Tab: on sale events -->
-				<div class="tab-pane active panel panel-default" id="onsale" role="tabpanel">
+				<div class="tab-pane active" id="onsale" role="tabpanel">
 					<div class="bo-events">
 						<div ng-repeat="eventItem in vm.myOpenEvents" ng-init="vm.getEventSales(eventItem)">
 							<div class="panel panel-default" ng-class="{ 'bo-event': !eventItem.isShow}">
@@ -90,7 +90,7 @@
 				</div>
 
 				<!-- Tab: past events-->
-				<div class="tab-pane panel panel-default" id="past" role="tabpanel">
+				<div class="tab-pane" id="past" role="tabpanel">
 					<div class="bo-events">
 						<div ng-repeat="eventItem in vm.myPastEvents" ng-init="vm.getEventSales(eventItem)">
 							<div class="panel panel-default" ng-class="{ 'bo-event': !eventItem.isShow}">
