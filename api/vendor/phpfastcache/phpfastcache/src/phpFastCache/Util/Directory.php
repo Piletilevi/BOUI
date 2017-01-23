@@ -110,4 +110,30 @@ class Directory
 
         return true;
     }
+
+    /**
+     * Alias of realpath() but work
+     * on non-existing files
+     *
+     * @param $path
+     * @return string
+     */
+    public static function getAbsolutePath($path)
+    {
+        $parts = preg_split('~[/\\\\]+~', $path, 0, PREG_SPLIT_NO_EMPTY);
+        $absolutes = [];
+        foreach ($parts as $part) {
+            if ('.' === $part) {
+                continue;
+            }
+            if ('..' === $part) {
+                array_pop($absolutes);
+            } else {
+                $absolutes[] = $part;
+            }
+        }
+        $__FILE__ = __FILE__; // allows to dereference char
+        $prefix = $__FILE__[0] === DIRECTORY_SEPARATOR ? DIRECTORY_SEPARATOR : '';
+        return $prefix . implode(DIRECTORY_SEPARATOR, $absolutes);
+    }
 }
