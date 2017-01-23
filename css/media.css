@@ -217,4 +217,8 @@
 	.navbar-nav > li > a > .fa {
 		margin-right: 6px;
 	}
+
+	.bo-simplestats-pct {
+		width: 61px;
+	}
 }
