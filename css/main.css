@@ -715,12 +715,13 @@ a:hover {
 /* Simple stats
 ================================ */
 .bo-simplestats {
-
+	padding-left: 21px;
 }
 
 .bo-simplestats-labels {
 	margin-bottom: 2px;
 	color: #b7b7b9;
+	margin-left: -2px;
 }
 
 .bo-simplestats-label {

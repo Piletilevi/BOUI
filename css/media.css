@@ -184,6 +184,14 @@
 	.bo-widgetbox-buttons-area .btn {
 		float: left!important;
 	}
+
+	.bo-simplestats {
+		padding-left: 0;
+	}
+
+	.progress {
+		max-width: none;
+	}
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
