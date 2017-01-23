@@ -527,7 +527,6 @@ a:hover {
 
 .bo-widgetbox .input-icon .form-control {
 	padding-left: 35px;
-	border: 0 none;
 }
 
 .bo-widgetbox .input-icon .ace-icon {
@@ -590,7 +589,7 @@ a:hover {
 }
 
 .bo-smallcheckbox .checkbox label::before {
-	border: 0 none;
+	/*border: 0 none;*/
 	width: 21px;
 	height: 21px;
 }
