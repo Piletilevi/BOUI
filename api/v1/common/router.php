@@ -175,6 +175,9 @@ $app->post('/myEvents', function() use ($app) {
 	if (property_exists($r->filter, 'name')) {
 		$filter['name'] = $r->filter->name;
 	}
+	if (property_exists($r->filter, 'groupByShow')) {
+		$filter['groupByShow'] = $r->filter->groupByShow;
+	}
 	if (property_exists($r->filter, 'status')) {
 		$filter['status'] = $r->filter->status;
 		
@@ -477,24 +480,129 @@ $app->post('/showOpSales', function() use ($app)  {
 	}
 });
 
-$app->post('/eventSalesReport', function() use ($app)  {
+$app->post('/eventSalesReportByStatus', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 
 	$dataHandler->verifyParams(array('id', 'type'), $r);
-	$dataHandler->verifyParams(array('startDate'), $r->filter);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
 
 	$filter = array();
-	if ($r->type=="show") {
-		$filter['showId'] = $r->id;
-	} else {
-		$filter['concertId'] = $r->id;
-	}
-	$filter['startDate'] = $r->filter->startDate;
-	$filter['endDate'] = $r->filter->endDate;
+	$filter['eventId'] = $r->id;
+	$filter['isShow'] = $r->type=="show";
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
 
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->eventSalesReport( $filter );
+    $reportResponse = $piletileviApi->eventSalesReportByStatus( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/eventSalesReportByPriceType', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id', 'type'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['eventId'] = $r->id;
+	$filter['isShow'] = $r->type=="show";
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesReportByPriceType( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/eventSalesReportByDate', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id', 'type'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['eventId'] = $r->id;
+	$filter['isShow'] = $r->type=="show";
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesReportByDate( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/eventSalesReportByWeek', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id', 'type'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['eventId'] = $r->id;
+	$filter['isShow'] = $r->type=="show";
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesReportByWeek( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/eventSalesReportByMonth', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id', 'type'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['eventId'] = $r->id;
+	$filter['isShow'] = $r->type=="show";
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesReportByMonth( $filter );
 	
 	if ($reportResponse) {
 		$response["status"] = "success";

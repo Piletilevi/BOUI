@@ -107,10 +107,15 @@
 						'<div class="range_inputs">' +
 						'<button class="applyBtn" disabled="disabled" type="button"></button> ' +
 						'<button class="cancelBtn" type="button"></button>' +
+						'<button class="btn resetBtn" type="button">' + $translate.instant('api_calendar_resetLabel') + '</button>' +
 						'<div class="clearer"></div>' +
 						'</div>' +
 						'</div>' +
 						'</div>';
+
+					options.autoApply = false;
+					options.minDate = $attributes.minDate ? moment($attributes.minDate) : false;
+					options.maxDate = $attributes.maxDate ? moment($attributes.maxDate) : false;
 
 					$element.daterangepicker(options, function(start, end, label) {
 						var modelValue = ngModel.$viewValue;
@@ -125,15 +130,18 @@
 							});
 							ngModel.$render();
 						});
-					}).val('');
+					});
+
 					angular.element(".selectpicker").selectpicker();
 				}
 
 				function updateCaledarDates(startDate, endDate) {
-					$element.data('daterangepicker').setStartDate(startDate);
-					$element.data('daterangepicker').setEndDate(endDate);
-					$element.data('daterangepicker').updateView();
-					$element.data('daterangepicker').updateCalendars();
+					setTimeout(function() {
+						$element.data('daterangepicker').setStartDate(startDate);
+						$element.data('daterangepicker').setEndDate(endDate);
+						$element.data('daterangepicker').updateView();
+						$element.data('daterangepicker').updateCalendars();
+					}, 1);
 				}
 
 				ngModel.$render = function() {
@@ -150,6 +158,14 @@
 					$("body").on("click", ".calendar-links > #monthLink", function($event) {
 						$event.preventDefault();
 						updateCaledarDates(moment().startOf('month'), moment().endOf('month'));
+					});
+
+					$("body").on("click", ".resetBtn", function($event) {
+						$element.data('daterangepicker').setStartDate(moment().subtract(7, 'days'));
+						$element.data('daterangepicker').setEndDate(moment().add(1, 'years'));
+						$element.data('daterangepicker').updateView();
+						$element.data('daterangepicker').updateCalendars();
+						$element.data('daterangepicker').hide();
 					});
 
 					$datepickerWrapper.on("click", function() {
@@ -169,11 +185,19 @@
 				});
 
 				$scope.$watch(function() {
+					
+					var reRender = false;
+					
 					if (ngModel.$modelValue.startDate && options.startDate != ngModel.$modelValue.startDate) {
+						reRender = true;
 						$element.data('daterangepicker').setStartDate(ngModel.$modelValue.startDate);
 					}
 					if (ngModel.$modelValue.endDate && options.endDate != ngModel.$modelValue.endDate) {
+						reRender = true;
 						$element.data('daterangepicker').setEndDate(ngModel.$modelValue.endDate);
+					}
+					if (reRender) {
+						renderDateTimePicker();
 					}
 					return $attributes.ngModel;
 				}, function(modelValue, oldModelValue) {

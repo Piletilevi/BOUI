@@ -1,151 +1,127 @@
-(function() {
+(function () {
 
-    'use strict';
+  'use strict';
 
-	angular.module('boApp')
-        .controller('reportController', ReportController);
+  angular.module('boApp')
+    .controller('reportController', ReportController);
 
-    ReportController.$inject=['$scope', '$routeParams', '$location', '$anchorScroll', 'eventService', 'colorService'];
+  ReportController.$inject = ['$scope', '$routeParams', '$location', '$anchorScroll', 'eventService', 'graphService'];
 
-	function ReportController ($scope, $routeParams, $location, $anchorScroll, eventService, colorService) {
-		if (!$routeParams && !$routeParams.id) {
-			$location.path('dashboard');
-		}
-		
-		//scroll to top
-		$location.hash('top');
-		$anchorScroll();
+  function ReportController($scope, $routeParams, $location, $anchorScroll, eventService, graphService) {
+    if (!$routeParams && !$routeParams.id) {
+      $location.path('dashboard');
+    }
 
-		//initially set those objects to null to avoid undefined error
-        var vm = this;
-		var prevFilterName = null;
-		vm.event = {id: $routeParams.id, isShow: $routeParams.type == 'show'};
-		vm.getEventInfo = eventService.getEventInfo;
-		vm.getEventSalesReport = eventService.getEventSalesReport;
-		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}, name: ''};
-		vm.overviewFilter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment()}};
-		vm.getEventOpSales = function() {
-			if(prevFilterName === vm.filter.name) {
-				vm.filter.name = '';
-				vm.reset_search = false;
-			}
-			else {
-				vm.reset_search = true;
-			}
-			prevFilterName = vm.filter.name;
-			eventService.getEventOpSales(vm.event, vm.filter)
-		};
+    //scroll to top
+    $location.hash('top');
+    $anchorScroll();
 
-		vm.overviewData = {
-			labels: null,
-			type: 'StackedBar',
-			series: null,
-			datasetOverride: null,
-			data: null,
-			options: {
-			  scales: {
-				xAxes: [{
-				  stacked: true,
-				  ticks: {
-					maxRotation: 60,
-					minRotation: 60,
-				  }
-				}],
-				yAxes: [{
-				  stacked: true,
-				  display: false
-				}]
-			  }
-			}
-		};
+    //initially set those objects to null to avoid undefined error
+    var vm = this;
+    var prevFilterName = null;
+    vm.event = {id: $routeParams.id, isShow: $routeParams.type == 'show'};
 
-		eventService.getEventInfo(vm.event);
-		eventService.getEventSales(vm.event);
-		eventService.getEventSalesReport(vm.event, vm.overviewFilter);
+	vm.getEventInfo = eventService.getEventInfo;
+    vm.getEventSalesReport = eventService.getEventSalesReport;
+    vm.getEventSales = eventService.getEventSales;
+    vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: ''};
+    vm.overviewFilter = {period: {startDate:null, endDate: null}, display: 'tickets', groupBy: 'day'};
+    // Min & Max dates get from api when ready on the backend
+    vm.minFilterDate = moment().subtract(7, 'days');
+    vm.maxFilterDate = moment();
+    vm.reset_search = false;
+	vm.overviewBarGraph = graphService.overviewBarGraph;
+	vm.overviewLineGraph = graphService.overviewLineGraph;
 
-		$scope.$watch('vm.myEventSalesReport', function(newValue, oldValue){
-			if(!angular.equals(newValue, oldValue)){
-				if (vm.myEventSalesReport && vm.myEventSalesReport.sales) {
-					var step = 0;
-					var steps = 0;
-					var totalCount = 0;
-					var totalSum = 0;
-					var series = [];
-					var labels = [];
-					var data = [];
-					var dataH = [];
-					var datasetOverride = [];
+	eventService.getEventInfo(vm.event);
+    eventService.getEventSales(vm.event);
 
-					vm.myEventSalesReport.sales.forEach(function(eventSaleData) {
-						totalCount += eventSaleData.rowCount;
-						totalSum += eventSaleData.rowSum;
-						vm.myEventSalesReport.currency = eventSaleData.currency;
-						
-						labels.push(eventSaleData.rowTypeName);
-
-						var dataItem = [];
-
-						eventSaleData.prices.forEach(function(priceData) {
-							series.push(priceData.pricetype);
-							dataItem.push(priceData);
-							steps++;
-						});
-
-						var dataObj = {name: eventSaleData.rowTypeName, list: dataItem};
-
-						dataH.push(dataObj);
-					});
-					
-					vm.myEventSalesReport.totalCount = totalCount; 
-					vm.myEventSalesReport.totalSum = totalSum; 
-					
-					vm.myEventSalesReport.sales.forEach(function(eventSaleData) {
-						eventSaleData.prices.forEach(function(priceData) {
-							step++;
-							priceData.color = colorService.getRandomColor(steps, step);
-						});
-					});
-					
-					var uniqSeries = series.unique();
-					uniqSeries.forEach(function(serie) {
-						var dataItem = [];
-						var color = [];
-						dataH.forEach(function(dh) {
-							var diVal = 0;
-							dh.list.forEach(function(di) {
-								if (di.pricetype == serie) {
-									diVal = di.count;
-									color.push(di.color);
-								}
-							});
-							dataItem.push(diVal);
-						});
-						var overrideObj = { backgroundColor: color };
-						datasetOverride.push(overrideObj);
-						data.push(dataItem);
-					})
-					
-					if (labels && labels.length) {
-						vm.overviewData.labels = labels;
-						vm.overviewData.series = uniqSeries;
-						vm.overviewData.data = data;
-						vm.overviewData.datasetOverride = datasetOverride;
-					}
-				}
-			}
-		});
-
-		$scope.$watch(
-            function() {
-				vm.myEventSalesReport = eventService.myEventSalesReport();
-            }
-        );
-
-		$scope.$watch('vm.filter.period', function(newPeriod, oldPeriod) {
-			if(newPeriod !== oldPeriod) {
-				eventService.getMyEvents(vm.filter);
-			}
-		});
+	vm.getEventOpSales = function () {
+      if(vm.reset_search) {
+        vm.filter.name = '';
+      }
+      vm.reset_search = true;
+      localStorage.setItem('reportsFilter', JSON.stringify(vm.filter));
+      localStorage.setItem('resetSearch', JSON.stringify(vm.reset_search));
+      $location.path('dashboard');
+    };
+	
+	vm.setOverviewDisplay = function(display) {
+		vm.overviewFilter.display = display;
 	}
+
+	vm.setOverviewGroupBy = function(groupBy) {
+		vm.overviewFilter.groupBy = groupBy;
+	}
+		
+	/* watchers */
+    $scope.$watch(
+      function () {
+		vm.myOverviewBarData = eventService.myOverviewData();
+		vm.myOverviewLineData = eventService.myOverviewGraphData();
+      }
+    );
+
+    $scope.$watch('vm.myOverviewBarData', function (newValue, oldValue) {
+		if (!angular.equals(newValue, oldValue)) {
+			graphService.renderOverviewBarGraph(newValue, vm.myOverviewBarData, vm.overviewBarGraph);
+		}
+	});
+
+    $scope.$watch('vm.myOverviewLineData', function (newValue, oldValue) {
+	  if (!angular.equals(newValue, oldValue)) {
+		  graphService.renderOverviewLineGraph(newValue, vm.overviewFilter, vm.overviewLineGraph);
+      }
+    });
+
+    $scope.$watch('vm.overviewFilter.display', function (newValue, oldValue) {
+      if (!angular.equals(newValue, oldValue)) {
+		  if (vm.myOverviewGraphData == null) {
+			eventService.getOverviewGraphData(vm.event, vm.overviewFilter);
+		  } else {
+			graphService.renderOverviewLineGraph(vm.myOverviewGraphData, vm.overviewFilter, vm.overviewLineGraph);
+		  }
+      }
+    });
+
+    $scope.$watch('vm.overviewFilter.groupBy', function (newValue, oldValue) {
+      if (!angular.equals(newValue, oldValue)) {
+		  eventService.getOverviewGraphData(vm.event, vm.overviewFilter);
+      }
+    });
+
+    $scope.$watch('vm.filter.period', function (newPeriod, oldPeriod) {
+      if (newPeriod !== oldPeriod) {
+        localStorage.setItem('reportsFilter', JSON.stringify(vm.filter));
+        localStorage.setItem('resetSearch', JSON.stringify(vm.reset_search));
+        $location.path('dashboard');
+      }
+    });
+
+    $scope.$watch('vm.filter.name', function (newFilter, oldFilter) {
+      if (newFilter !== oldFilter) {
+        vm.reset_search = false;
+      }
+    });
+
+    $scope.$watch('vm.event.sellPeriod', function (newSellPeriod, oldSellPeriod) {
+	  if (newSellPeriod !== oldSellPeriod) {
+		vm.overviewFilter.period.startDate = moment(newSellPeriod.start);
+		vm.overviewFilter.period.endDate = moment(newSellPeriod.end);
+		vm.minFilterDate = vm.overviewFilter.period.startDate;
+		vm.maxFilterDate = vm.overviewFilter.period.endDate;
+		eventService.getOverviewData(vm.event, vm.overviewFilter);
+		eventService.getOverviewGraphData(vm.event, vm.overviewFilter);
+      }
+    });
+
+    $scope.$watch('vm.overviewFilter.period', function (newPeriod, oldPeriod) {
+	  if (newPeriod !== oldPeriod) {
+		eventService.getOverviewData(vm.event, vm.overviewFilter);
+		eventService.getOverviewGraphData(vm.event, vm.overviewFilter);
+      }
+    });
+
+  }
 
 })();

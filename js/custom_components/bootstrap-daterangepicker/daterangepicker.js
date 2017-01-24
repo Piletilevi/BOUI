@@ -1164,8 +1164,10 @@
                 target.closest(this.container).length ||
                 target.closest('.calendar-table').length
                 ) return;
+            this.startDate = this.oldStartDate;
+            this.endDate = this.oldEndDate;
             this.hide();
-            this.element.trigger('outsideClick.daterangepicker', this);
+            this.element.trigger('cancel.daterangepicker', this);
         },
 
         showCalendars: function() {

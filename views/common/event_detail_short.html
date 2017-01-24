@@ -1,7 +1,7 @@
 <div class="bo-eventshort">
 	<h3 class="bo-eventshort-title">{{event.name}}</h3>
 	<div class="bo-eventshort-datetime">
-		<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{event.eventDateTime | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventshort-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{event.eventDateTime | date:'HH:mm'}}</span>
+		<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{event.eventPeriod.start | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventshort-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{event.eventPeriod.start | date:'HH:mm'}}</span>
 	</div>
 	<div class="bo-eventshort-venue">
 		<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{event.location}}

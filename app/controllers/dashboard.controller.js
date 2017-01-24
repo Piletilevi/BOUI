@@ -10,12 +10,26 @@
 	function DashboardController ($scope, eventService, newsService, $location, $anchorScroll) {
 		//initially set those objects to null to avoid undefined error
         var vm = this;
-				var prevFilterName = null;
         vm.news = [];
 		vm.salesCount = 0;
 		vm.draftCount = 0;
 		vm.pastCount = 0;
-		vm.filter = {period: {}, name: '', status: 'onsale', loadingItems: false};
+		vm.reset_search = false;
+	    vm.getEventSalesReport = eventService.getEventSalesReport;
+
+		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: '', status: 'onsale', loadingItems: false, groupByShow: false};
+
+		if(localStorage.getItem('reportsFilter')) {
+			vm.filter = JSON.parse(localStorage.getItem('reportsFilter'));
+			vm.filter.period.startDate = moment(vm.filter.period.startDate);
+			vm.filter.period.endDate = moment(vm.filter.period.endDate);
+			localStorage.removeItem('reportsFilter');
+		}
+
+		if(localStorage.getItem('resetSearch')) {
+			vm.reset_search = JSON.parse(localStorage.getItem('resetSearch'));
+			localStorage.removeItem('resetSearch');
+		}
 
 		//scroll to top
 		$location.hash('top');
@@ -23,15 +37,11 @@
 
 		//vm.news = newsService.news();
 		vm.search = function() {
-			eventService.reset();
-			if(prevFilterName === vm.filter.name) {
+			if(vm.reset_search) {
 				vm.filter.name = '';
-				vm.reset_search = false;
 			}
-			else {
-				vm.reset_search = true;
-			}
-			prevFilterName = vm.filter.name;
+			vm.reset_search = true;
+			eventService.reset();
 			eventService.getMyEvents(vm.filter);
 		};
 
@@ -53,7 +63,9 @@
             function() {
 				vm.salesCount = eventService.myOpenCount();
 				vm.pastCount = eventService.myPastCount();
+				vm.draftCount = eventService.myDraftCount();
 				vm.myOpenEvents = eventService.myOpenEvents();
+				vm.myDraftEvents = eventService.myDraftEvents();
 				vm.myPastEvents = eventService.myPastEvents();
             }
         );
@@ -64,6 +76,20 @@
 				eventService.getMyEvents(vm.filter);
 			}
 		});
+
+		$scope.$watch('vm.filter.name', function (newFilter, oldFilter) {
+			if (newFilter !== oldFilter) {
+				vm.reset_search = false;
+			}
+		});
+
+		$scope.$watch('vm.filter.groupByShow', function (newValue, oldValue) {
+			if (newValue !== oldValue) {
+				eventService.reset();
+				eventService.getMyEvents(vm.filter);
+			}
+		});
+
 	}
 
 })();
