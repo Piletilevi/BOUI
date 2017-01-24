@@ -520,7 +520,8 @@ a:hover {
 	padding-right: 25px;
 }
 
-.bo-widgetbox-main h4.header {
+.bo-widgetbox-main h4.header,
+.bo-widgetbox-forgotten h4.header {
 	font-size: 20px;
 	margin-bottom: 14px;
 }
@@ -565,6 +566,14 @@ a:hover {
 	margin-top: -9px;
 	margin-left: -14px;
 	margin-right: -14px;
+}
+
+.bo-widgetbox-forgotten {
+	padding: 18px 27px 27px;
+	background: #fff;
+	-moz-border-radius: 0 0 4px 4px;
+	-webkit-border-radius: 0 0 4px 4px;
+	border-radius: 0 0 4px 4px;
 }
 
 /* Error
