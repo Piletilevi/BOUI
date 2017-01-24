@@ -1,0 +1,55 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg 
+width="100%" 
+height="100%" 
+version="1.1" 
+viewBox="0 0 1000 1000" 
+xmlns="http://www.w3.org/2000/svg" 
+xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+<image x="0" y="0" width="100%" height="100%" xlink:href="/public/utility/picture_w.php?ID=110&amp;width=500&amp;height=500&amp;sectionsimage=1" />
+	<polygon id='section29607' points="162,463 163,649 329,725 437,725 446,631 573,631 585,726 690,727 848,653 847,468 698,556 330,557 "
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section32582' points="162,462 332,558 699,555 846,467 848,652 689,727 586,725 573,632 446,632 436,723 328,725 164,650 "
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section36521' points="163,463 164,649 328,725 435,725 446,632 571,632 585,723 691,727 848,653 845,467 699,554 330,557 "
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section9159' points="237,728 150,906 310,996 704,998 852,915 773,729 694,775 334,776 "
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section13434' points="449,635 570,635 584,750 441,750 "
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section11212' points=""
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section11213' points=""
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section11214' points=""
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section11215' points=""
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section23604' points=""
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section29606' points="258,64 762,65 763,453 699,521 330,523 259,458 "
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section32581' points="258,66 761,65 762,452 699,521 330,524 259,458 "
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section36522' points="258,64 760,66 763,452 700,520 330,523 260,457 "
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+	<polygon id='section23602' points=""
+	style="fill:#cccccc;
+	stroke:#000000;stroke-width:5"/>
+</svg>

@@ -59,7 +59,7 @@
 		<li><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations">{{'api_by_locations'|translate}}</a></li>
 		<li><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings">{{'api_bookings'|translate}}</a></li>
 	</ul>
-	
+
 	<div class="tab-content">
 		<!-- Tab: overview -->
 		<div class="tab-pane active bo-salesoverview panel panel-default" id="overview" role="tabpanel">
@@ -102,7 +102,7 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="bo-chart">
-							<canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data" chart-labels="vm.overviewBarGraph.labels" 
+							<canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data" chart-labels="vm.overviewBarGraph.labels"
 							chart-options="vm.overviewBarGraph.options" chart-series="vm.overviewBarGraph.series" chart-dataset-override="vm.overviewBarGraph.datasetOverride" height="300px"></canvas>
 						</div>
 					</div>
@@ -516,7 +516,7 @@
 					</div>
 					<div class="col-lg-6">
 						<div class="bo-map">
-							<img class="temp_image" src="img/venueplan_dummy.png" />
+							<ng-sections-map data-config="{{vm.sectionsMapConfig}}"></ng-sections-map>
 						</div>
 					</div>
 				</div>

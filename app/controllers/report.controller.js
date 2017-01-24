@@ -53,6 +53,15 @@
 	vm.setOverviewGroupBy = function(groupBy) {
 		vm.overviewFilter.groupBy = groupBy;
 	}
+
+    /* Section map dummy config */
+
+    vm.sectionsMapConfig = {
+      confId: 110,
+      sectionMapType: 'vector',
+      sections: [9159, 36521, 36522],
+      enabledSections: [9159, 36521, 36522]
+    };
 		
 	/* watchers */
     $scope.$watch(
