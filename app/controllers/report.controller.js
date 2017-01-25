@@ -24,14 +24,24 @@
 	vm.getEventInfo = eventService.getEventInfo;
     vm.getEventSalesReport = eventService.getEventSalesReport;
     vm.getEventSales = eventService.getEventSales;
+	vm.getEventSalesReportByPriceType = eventService.getEventSalesReportByPriceType;
+	vm.getEventSalesReportByPriceTypeDate = eventService.getEventSalesReportByPriceTypeDate;
+	vm.getEventSalesReportByPriceClass = eventService.getEventSalesReportByPriceClass;
+	vm.getEventSalesReportByPriceClassDate = eventService.getEventSalesReportByPriceClassDate;
     vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: ''};
     vm.overviewFilter = {period: {startDate:null, endDate: null}, display: 'tickets', groupBy: 'day'};
+	vm.pricetypeFilter = {period: {startDate:null, endDate: null}, display: 'tickets', groupBy: 'day'};
+	vm.priceclassFilter = {period: {startDate:null, endDate: null}, display: 'tickets', groupBy: 'day'};
     // Min & Max dates get from api when ready on the backend
     vm.minFilterDate = moment().subtract(7, 'days');
     vm.maxFilterDate = moment();
     vm.reset_search = false;
 	vm.overviewBarGraph = graphService.overviewBarGraph;
 	vm.overviewLineGraph = graphService.overviewLineGraph;
+	vm.pricetypePieGraph = graphService.pricetypePieGraph;
+	vm.pricetypeLineGraph = graphService.pricetypeLineGraph;
+	vm.priceclassPieGraph = graphService.priceclassPieGraph;
+	vm.priceclassLineGraph = graphService.priceclassLineGraph;
 
 	eventService.getEventInfo(vm.event);
     eventService.getEventSales(vm.event);
@@ -54,8 +64,36 @@
 		vm.overviewFilter.groupBy = groupBy;
 	}
 
-    /* Section map dummy config */
+	vm.setPricetypeDisplay = function(display) {
+		vm.pricetypeFilter.display = display;
+	}
 
+	vm.setPricetypeGroupBy = function(groupBy) {
+		vm.pricetypeFilter.groupBy = groupBy;
+	}
+
+	vm.setPriceclassDisplay = function(display) {
+		vm.priceclassFilter.display = display;
+	}
+
+	vm.setPriceclassGroupBy = function(groupBy) {
+		vm.priceclassFilter.groupBy = groupBy;
+	}
+
+	vm.tabSelectEvent = function (tab) {
+		if (tab == 'overview') {
+			eventService.getOverviewData(vm.event, vm.overviewFilter);
+			eventService.getOverviewGraphData(vm.event, vm.overviewFilter);
+		} else if (tab == 'pricetype') {
+			eventService.getEventSalesReportByPriceType(vm.event, vm.pricetypeFilter);
+			eventService.getEventSalesReportByPriceTypeDate(vm.event, vm.pricetypeFilter);
+		} else if (tab == 'priceclass') {
+			eventService.getEventSalesReportByPriceClass(vm.event, vm.priceclassFilter);
+			eventService.getEventSalesReportByPriceClassDate(vm.event, vm.priceclassFilter);
+		}
+	};
+
+    /* Section map dummy config */
     vm.sectionsMapConfig = {
       type: 'sections',
       confId: 110,
@@ -95,6 +133,10 @@
       function () {
 		vm.myOverviewBarData = eventService.myOverviewData();
 		vm.myOverviewLineData = eventService.myOverviewGraphData();
+		vm.myPriceTypePieData = eventService.myPriceTypeData();
+		vm.myPriceTypeLineData = eventService.myPriceTypeGraphData();
+		vm.myPriceClassPieData = eventService.myPriceClassData();
+		vm.myPriceClassLineData = eventService.myPriceClassGraphData();
       }
     );
 
@@ -106,7 +148,31 @@
 
     $scope.$watch('vm.myOverviewLineData', function (newValue, oldValue) {
 	  if (!angular.equals(newValue, oldValue)) {
-		  graphService.renderOverviewLineGraph(newValue, vm.overviewFilter, vm.overviewLineGraph);
+		  graphService.renderOverviewLineGraph(newValue, vm.overviewFilter, vm.pricetypeLineGraph);
+      }
+    });
+
+    $scope.$watch('vm.myPriceTypePieData', function (newValue, oldValue) {
+		if (!angular.equals(newValue, oldValue)) {
+			graphService.renderPriceTypePieGraph(newValue, vm.myPriceTypePieData, vm.pricetypePieGraph);
+		}
+	});
+
+    $scope.$watch('vm.myPriceTypeLineData', function (newValue, oldValue) {
+	  if (!angular.equals(newValue, oldValue)) {
+		  graphService.renderPriceTypeLineGraph(newValue, vm.pricetypeFilter, vm.pricetypeLineGraph);
+      }
+    });
+
+    $scope.$watch('vm.myPriceClassPieData', function (newValue, oldValue) {
+		if (!angular.equals(newValue, oldValue)) {
+			graphService.renderPriceClassPieGraph(newValue, vm.myPriceClassPieData, vm.priceclassPieGraph);
+		}
+	});
+
+    $scope.$watch('vm.myPriceClassLineData', function (newValue, oldValue) {
+	  if (!angular.equals(newValue, oldValue)) {
+		  graphService.renderPriceClassLineGraph(newValue, vm.priceclassFilter, vm.priceclassLineGraph);
       }
     });
 
@@ -123,6 +189,22 @@
     $scope.$watch('vm.overviewFilter.groupBy', function (newValue, oldValue) {
       if (!angular.equals(newValue, oldValue)) {
 		  eventService.getOverviewGraphData(vm.event, vm.overviewFilter);
+      }
+    });
+
+    $scope.$watch('vm.pricetypeFilter.display', function (newValue, oldValue) {
+      if (!angular.equals(newValue, oldValue)) {
+		  if (vm.myPriceTypePieData == null) {
+			eventService.getEventSalesReportByPricetype(vm.event, vm.pricetypeFilter);
+		  } else {
+			graphService.renderPriceTypePieGraph(vm.myPriceTypePieData, vm.myPriceTypePieData, vm.pricetypePieGraph);
+		  }
+      }
+    });
+
+    $scope.$watch('vm.pricetypeFilter.groupBy', function (newValue, oldValue) {
+      if (!angular.equals(newValue, oldValue)) {
+		  graphService.renderPriceTypeLineGraph(newValue, vm.pricetypeFilter, vm.pricetypeLineGraph);
       }
     });
 
@@ -144,17 +226,20 @@
 	  if (newSellPeriod !== oldSellPeriod) {
 		vm.overviewFilter.period.startDate = moment(newSellPeriod.start);
 		vm.overviewFilter.period.endDate = moment(newSellPeriod.end);
+		vm.pricetypeFilter.period.startDate = moment(newSellPeriod.start);
+		vm.pricetypeFilter.period.endDate = moment(newSellPeriod.end);
+		vm.priceclassFilter.period.startDate = moment(newSellPeriod.start);
+		vm.priceclassFilter.period.endDate = moment(newSellPeriod.end);
 		vm.minFilterDate = vm.overviewFilter.period.startDate;
 		vm.maxFilterDate = vm.overviewFilter.period.endDate;
-		eventService.getOverviewData(vm.event, vm.overviewFilter);
-		eventService.getOverviewGraphData(vm.event, vm.overviewFilter);
+		
+		vm.tabSelectEvent('overview');
       }
     });
 
     $scope.$watch('vm.overviewFilter.period', function (newPeriod, oldPeriod) {
 	  if (newPeriod !== oldPeriod) {
-		eventService.getOverviewData(vm.event, vm.overviewFilter);
-		eventService.getOverviewGraphData(vm.event, vm.overviewFilter);
+		vm.tabSelectEvent('overview');
       }
     });
 

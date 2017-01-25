@@ -19,7 +19,13 @@
 
 		var myOverviewData = null;
 		var myOverviewGraphData = null;
-		
+
+		var myPriceTypeData = null;
+		var myPriceTypeGraphData = null;
+
+		var myPriceClassData = null;
+		var myPriceClassGraphData = null;
+
 		var service = {
 			myOpenEvents: function() { return myOpenEvents },
 			myDraftEvents: function() { return myDraftEvents },
@@ -29,6 +35,10 @@
 			myPastCount: function() { return myPastCount },
 			myOverviewData: function() { return myOverviewData },
 			myOverviewGraphData: function() { return myOverviewGraphData },
+			myPriceTypeData: function() { return myPriceTypeData },
+			myPriceTypeGraphData: function() { return myPriceTypeGraphData },
+			myPriceClassData: function() { return myPriceClassData },
+			myPriceClassGraphData: function() { return myPriceClassGraphData },
             reset: reset,
             getMyEvents: getMyEvents,
 			getMoreEvents: getMoreEvents,
@@ -36,7 +46,11 @@
             getEventInfo: getEventInfo,
             getEventOpSales: getEventOpSales,
 			getOverviewData : getOverviewData,
-			getOverviewGraphData : getOverviewGraphData
+			getOverviewGraphData : getOverviewGraphData,
+			getEventSalesReportByPriceType : getEventSalesReportByPriceType,
+			getEventSalesReportByPriceTypeDate : getEventSalesReportByPriceTypeDate,
+			getEventSalesReportByPriceClass : getEventSalesReportByPriceClass,
+			getEventSalesReportByPriceClassDate : getEventSalesReportByPriceClassDate
         };
 		return service;
 
@@ -106,7 +120,7 @@
 				return;
 			
 			if (filter.status == 'onsale' && myOpenEvents != null) {
-				if (myOpenEvents.length % 10 == 0 && filter.openStart != myOpenEvents.length + 1) {
+				if (myOpenEvents.length % 5 == 0 && filter.openStart != myOpenEvents.length + 1) {
 					filter.loadingItems = true;
 					filter.openStart = myOpenEvents.length + 1;
 					dataService.post('myEvents', {filter: filter}).then(function (results) {
@@ -119,7 +133,7 @@
 					});
 				}
 			} else if (filter.status == 'draft' && myDraftEvents != null) {
-				if (myDraftEvents.length % 10 == 0 && filter.draftStart != myDraftEvents.length + 1) {
+				if (myDraftEvents.length % 5 == 0 && filter.draftStart != myDraftEvents.length + 1) {
 					filter.loadingItems = true;
 					filter.draftStart = myDraftEvents.length + 1;
 					dataService.post('myEvents', {filter: filter}).then(function (results) {
@@ -132,7 +146,7 @@
 					});
 				}
 			} else if (filter.status == 'past' && myPastEvents != null) {
-				if (myPastEvents.length % 10 == 0 && filter.pastStart != myPastEvents.length + 1) {
+				if (myPastEvents.length % 5 == 0 && filter.pastStart != myPastEvents.length + 1) {
 					filter.loadingItems = true;
 					filter.pastStart = myPastEvents.length + 1;
 					dataService.post('myEvents', {filter: filter}).then(function (results) {
@@ -239,6 +253,46 @@
 				dataService.page(results);
 				if (results.status == 'success'){
 					myOverviewData = results.data;
+                }
+            });
+        }
+
+		function getEventSalesReportByPriceType(event, filter) {
+			dataService.post('eventSalesReportByPriceType', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+                myPriceTypeData = null;
+				dataService.page(results);
+				if (results.status == 'success'){
+					myPriceTypeData = results.data;
+                }
+            });
+        }
+
+		function getEventSalesReportByPriceTypeDate(event, filter) {
+			dataService.post('eventSalesReportByPriceTypeDate', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+                myPriceTypeGraphData = null;
+				dataService.page(results);
+				if (results.status == 'success'){
+					myPriceTypeGraphData = results.data;
+                }
+            });
+        }
+
+		function getEventSalesReportByPriceClass(event, filter) {
+			dataService.post('eventSalesReportByPriceClass', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+                myPriceClassData = null;
+				dataService.page(results);
+				if (results.status == 'success'){
+					myPriceClassData = results.data;
+                }
+            });
+        }
+
+		function getEventSalesReportByPriceClassDate(event, filter) {
+			dataService.post('eventSalesReportByPriceClassDate', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+                myPriceClassGraphData = null;
+				dataService.page(results);
+				if (results.status == 'success'){
+					myPriceClassGraphData = results.data;
                 }
             });
         }

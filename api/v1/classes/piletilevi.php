@@ -105,7 +105,7 @@ class PiletileviApi {
 
 	public function myEvents($filter) {
 		
-		$filter['limit'] = 10;
+		$filter['limit'] = 5;
 		$data['filter']= $filter;
 
 		$reportData = $this->send( "/event/myEvents", $data );
@@ -200,15 +200,6 @@ class PiletileviApi {
 		return $reportData;
 	}
 
-	public function eventSalesReportByPriceType($filter) {
-		
-		$data['filter']= $filter;
-
-		$reportData = $this->send( "/report/eventSalesReportByPriceType", $data );
-		
-		return $reportData;
-	}
-
 	public function eventSalesReportByDate($filter) {
 		
 		$data['filter']= $filter;
@@ -232,6 +223,42 @@ class PiletileviApi {
 		$data['filter']= $filter;
 
 		$reportData = $this->send( "/report/eventSalesReportByMonth", $data );
+		
+		return $reportData;
+	}
+
+	public function eventSalesReportByPriceType($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByPriceType", $data );
+		
+		return $reportData;
+	}
+
+	public function eventSalesReportByPriceTypeDate($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByPriceTypeDate", $data );
+		
+		return $reportData;
+	}
+
+	public function eventSalesReportByPriceClass($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByPriceClass", $data );
+		
+		return $reportData;
+	}
+
+	public function eventSalesReportByPriceClassDate($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByPriceClassDate", $data );
 		
 		return $reportData;
 	}

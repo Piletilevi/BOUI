@@ -57,8 +57,40 @@
 					}
 				}
 			},
+			pricetypePieGraph: {
+				labels: null,
+				data: null,
+				options: {
+				}
+			},
+			pricetypeLineGraph: {
+				labels: null,
+				series: null,
+				data: null,
+				datasetOverride: [],
+				options: {
+				}
+			},
+			priceclassPieGraph: {
+				labels: null,
+				data: null,
+				options: {
+				}
+			},
+			priceclassLineGraph: {
+				labels: null,
+				series: null,
+				data: null,
+				datasetOverride: [],
+				options: {
+				}
+			},
 			renderOverviewLineGraph : renderOverviewLineGraph,
-			renderOverviewBarGraph : renderOverviewBarGraph
+			renderOverviewBarGraph : renderOverviewBarGraph,
+			renderPriceTypePieGraph : renderPriceTypePieGraph,
+			renderPriceTypeLineGraph : renderPriceTypeLineGraph,
+			renderPriceClassPieGraph : renderPriceClassPieGraph,
+			renderPriceClassLineGraph : renderPriceClassLineGraph
         };
         return service;
 
@@ -180,5 +212,206 @@
 				}
 			}
 		}
-    }
+
+		function renderPriceTypePieGraph(newValue, pricetypeData, pricetypePieGraph) {
+			if (newValue && newValue.sales) {
+				var step = 0;
+				var steps = 0;
+				pricetypeData.generatedCount = 0;
+				pricetypeData.generatedSum = 0;
+				pricetypeData.currency = '';
+				var labels = [];
+				var data = [];
+
+				newValue.sales.forEach(function (myPricetypeData) {
+					pricetypeData.generatedCount =+ myPricetypeData.rowCount;
+					pricetypeData.generatedSum =+ myPricetypeData.rowSum;
+					pricetypeData.currency = myPricetypeData.currency;
+				});
+				
+				newValue.sales.forEach(function (myPricetypeData) {
+					myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
+						steps++;
+						labels.push(pricetypeRow.priceTypeName);
+					});
+				});			  
+				
+				newValue.sales.forEach(function (myPricetypeData) {
+					myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
+						step++;
+						pricetypeRow.color = colorService.getRandomColor(steps, step);
+						data.push(pricetypeRow.count);
+					});
+				});
+			
+				if (labels && labels.length) {
+					pricetypePieGraph.labels = labels;
+					pricetypePieGraph.data = data;
+				} else {
+					pricetypePieGraph.labels = null;
+					pricetypePieGraph.data = null;
+				}
+			}
+		}
+
+
+		function renderPriceTypeLineGraph(newValue, filter, pricetypeGraph) {
+			if (newValue && newValue.sales) {
+			  var labels = [];
+			  var series = [];
+			  var data = [];
+
+			  newValue.sales.forEach(function (sale) {
+				sale.sellTypes.forEach(function (saleType) {
+					series.push(saleType.priceTypeName);
+				});
+			  });
+			  
+			  newValue.sales.forEach(function (sale) {
+				if (filter.groupBy == 'day') {
+					labels.push(moment(sale.sellDate).format('DD.MM.YYYY'));
+				} else if (filter.groupBy == 'week') {
+					var weekStart = moment(sale.sellYear + "W" + (sale.sellWeek <= 9 ? "0" + sale.sellWeek : sale.sellWeek));
+					labels.push(weekStart.format('DD.MM.YYYY') + " - " + weekStart.add(7, 'days').format('DD.MM.YYYY'));
+				} else if (filter.groupBy == 'month') {
+					var firstDayOfMonth = new Date(sale.sellYear, sale.sellMonth - 1, 1);
+					var firstDayNextMonth = null;
+					if (sale.sellMonth < 12) {
+						firstDayNextMonth = new Date(sale.sellYear, sale.sellMonth, 1);
+					} else {
+						firstDayNextMonth = new Date(sale.sellYear + 1, 0, 1);
+					}
+					labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
+				}
+			  });
+
+			  newValue.sales.forEach(function (type) {
+				var dataItem = [];
+				newValue.sales.forEach(function (sale) {
+					sale.sellTypes.forEach(function (saleType) {
+						if (type.type == saleType.type) {
+							if (filter.display == 'tickets') {
+								dataItem.push(saleType.rowCount);
+							} else {
+								dataItem.push(saleType.rowSum);
+							}
+						}
+					});
+				});
+				data.push(dataItem);
+			  });
+
+			  if (labels && labels.length) {
+				pricetypeGraph.labels = labels;
+				pricetypeGraph.series = series;
+				pricetypeGraph.data = data;
+			  } else {
+				pricetypeGraph.labels = null;
+				pricetypeGraph.series = null;
+				pricetypeGraph.data = null;
+			  }
+			}
+		}
+
+		function renderPriceClassPieGraph(newValue, priceclassData, priceclassPieGraph) {
+			if (newValue && newValue.sales) {
+				var step = 0;
+				var steps = 0;
+				priceclassData.generatedCount = 0;
+				priceclassData.generatedSum = 0;
+				priceclassData.currency = '';
+				var labels = [];
+				var data = [];
+
+				newValue.sales.forEach(function (myPriceclassData) {
+					priceclassData.generatedCount =+ myPriceclassData.rowCount;
+					priceclassData.generatedSum =+ myPriceclassData.rowSum;
+					priceclassData.currency = myPriceclassData.currency;
+				});
+
+				newValue.sales.forEach(function (myPriceclassData) {
+					myPriceclassData.priceClasses.forEach(function (priceclassRow) {
+						steps++;
+						labels.push(priceclassRow.priceClassName);
+					});
+				});			  
+
+				newValue.sales.forEach(function (myPriceclassData) {
+					myPriceclassData.priceClasses.forEach(function (priceclassRow) {
+						step++;
+						priceclassRow.color = colorService.getRandomColor(steps, step);
+						data.push(priceclassRow.count);
+					});
+				});
+			
+				if (labels && labels.length) {
+					priceclassPieGraph.labels = labels;
+					priceclassPieGraph.data = data;
+				} else {
+					priceclassPieGraph.labels = null;
+					priceclassPieGraph.data = null;
+				}
+			}
+		}
+
+
+		function renderPriceClassLineGraph(newValue, filter, priceclassGraph) {
+			if (newValue && newValue.sales) {
+			  var labels = [];
+			  var series = [];
+			  var data = [];
+
+			  newValue.sales.forEach(function (sale) {
+				sale.sellTypes.forEach(function (saleType) {
+					series.push(saleType.priceClassName);
+				});
+			  });
+			  
+			  newValue.sales.forEach(function (sale) {
+				if (filter.groupBy == 'day') {
+					labels.push(moment(sale.sellDate).format('DD.MM.YYYY'));
+				} else if (filter.groupBy == 'week') {
+					var weekStart = moment(sale.sellYear + "W" + (sale.sellWeek <= 9 ? "0" + sale.sellWeek : sale.sellWeek));
+					labels.push(weekStart.format('DD.MM.YYYY') + " - " + weekStart.add(7, 'days').format('DD.MM.YYYY'));
+				} else if (filter.groupBy == 'month') {
+					var firstDayOfMonth = new Date(sale.sellYear, sale.sellMonth - 1, 1);
+					var firstDayNextMonth = null;
+					if (sale.sellMonth < 12) {
+						firstDayNextMonth = new Date(sale.sellYear, sale.sellMonth, 1);
+					} else {
+						firstDayNextMonth = new Date(sale.sellYear + 1, 0, 1);
+					}
+					labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
+				}
+			  });
+
+			  newValue.sales.forEach(function (type) {
+				var dataItem = [];
+				newValue.sales.forEach(function (sale) {
+					sale.sellTypes.forEach(function (saleType) {
+						if (type.type == saleType.type) {
+							if (filter.display == 'tickets') {
+								dataItem.push(saleType.rowCount);
+							} else {
+								dataItem.push(saleType.rowSum);
+							}
+						}
+					});
+				});
+				data.push(dataItem);
+			  });
+
+			  if (labels && labels.length) {
+				priceclassGraph.labels = labels;
+				priceclassGraph.series = series;
+				priceclassGraph.data = data;
+			  } else {
+				priceclassGraph.labels = null;
+				priceclassGraph.series = null;
+				priceclassGraph.data = null;
+			  }
+			}
+		}
+
+	}
 })();
