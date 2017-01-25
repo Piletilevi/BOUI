@@ -17,7 +17,7 @@
           piletilevi.venuemap = {
             SHOP_DOMAIN: 'shop.piletilevi.ee',
             ASSETS_DOMAIN: 'localhost',
-            // ASSETS_DOMAIN: 'shop.piletilevi.ee',
+            // ASSETS_DOMAIN: 'bo2.piletilevi.ee',
             DEFAULT_SEAT_HOVER_COLOR: '#27272e',
             DEFAULT_SEAT_ACTIVE_COLOR: '#27272e',
             DEFAULT_SEAT_INACTIVE_COLOR: '#d0d0d0'
