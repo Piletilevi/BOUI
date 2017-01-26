@@ -59,7 +59,7 @@
 		<li><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations">{{'api_by_locations'|translate}}</a></li>
 		<li><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings">{{'api_bookings'|translate}}</a></li>
 	</ul>
-	
+
 	<div class="tab-content">
 		<!-- Tab: overview -->
 		<div class="tab-pane active bo-salesoverview panel panel-default" id="overview" role="tabpanel">
@@ -102,7 +102,7 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="bo-chart">
-							<canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data" chart-labels="vm.overviewBarGraph.labels" 
+							<canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data" chart-labels="vm.overviewBarGraph.labels"
 							chart-options="vm.overviewBarGraph.options" chart-series="vm.overviewBarGraph.series" chart-dataset-override="vm.overviewBarGraph.datasetOverride" height="300px"></canvas>
 						</div>
 					</div>
@@ -130,7 +130,7 @@
 									<td>{{'api_generated'|translate}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount}}</td>
 									<td>100%</td>
-									<td>{{vm.myOverviewBarData.generatedSum}} {{vm.myOverviewBarData.currency}}</td>
+									<td>{{vm.myOverviewBarData.generatedSum | number:2}} {{vm.myOverviewBarData.currency}}</td>
 								</tr>
 							</tbody>
 							<thead ng-if="overviewData.groupId != 'generated'">
@@ -139,7 +139,7 @@
 									<th width="46%">{{overviewData.groupName|translate}}:</th>
 									<th width="17%">{{overviewData.rowCount}}</th>
 									<th width="10%">{{vm.myOverviewBarData.generatedCount ? ( overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</th>
-									<th width="20%">{{overviewData.rowSum}} {{vm.myOverviewBarData.currency}}</th>
+									<th width="20%">{{overviewData.rowSum | number:2}} {{vm.myOverviewBarData.currency}}</th>
 								</tr>
 							</thead>
 							<tbody ng-if="overviewData.groupId != 'generated'">
@@ -148,7 +148,7 @@
 									<td>{{overviewRow.typeName|translate}}:</td>
 									<td>{{overviewRow.count}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount ? ( overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{overviewRow.sum}} {{vm.myOverviewBarData.currency}}</td>
+									<td>{{overviewRow.sum | number:2}} {{vm.myOverviewBarData.currency}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -516,7 +516,7 @@
 					</div>
 					<div class="col-lg-6">
 						<div class="bo-map">
-							<img class="temp_image" src="img/venueplan_dummy.png" />
+							<ng-venue-map data-config="{{vm.sectionsMapConfig}}"></ng-venue-map>
 						</div>
 					</div>
 				</div>
@@ -705,7 +705,7 @@
 							<a class="bo-mapcontrols-item" href="#"><i class="fa fa-minus" aria-hidden="true"></i></a>
 						</div>
 						<div class="bo-map">
-							<img class="temp_image" src="img/section_dummy.png" />
+							<ng-venue-map data-config="{{vm.seatsMapConfig}}"></ng-venue-map>
 						</div>
 					</div>
 				</div>
