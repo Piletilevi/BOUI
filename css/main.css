@@ -469,9 +469,9 @@ a:hover {
 ================================ */
 
 .bo-widgetbox {
-	max-width: 508px;
+	max-width: 591px;
 	/*min-height: 373px;*/
-	background: #f2f3f5;
+	background: #fff;
 	margin: 0 auto;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -501,9 +501,10 @@ a:hover {
 
 .bo-widgetbox-body {
 	padding-top: 18px;
-	padding-left: 27px;
-	padding-right: 27px;
+	padding-left: 91px;
+	padding-right: 89px;
 	padding-bottom: 27px;
+	background: #f2f3f5;
 }
 
 .bo-widgetbox-header .navbar-right > li > a {
@@ -568,12 +569,33 @@ a:hover {
 	margin-right: -14px;
 }
 
+#forgotten {
+	top: -36px;
+	position: relative;
+}
+
 .bo-widgetbox-forgotten {
-	padding: 18px 27px 27px;
+	padding: 6px 89px 0 91px;
 	background: #fff;
 	-moz-border-radius: 0 0 4px 4px;
 	-webkit-border-radius: 0 0 4px 4px;
 	border-radius: 0 0 4px 4px;
+}
+
+.bo-widgetbox-forgotten.open {
+	display: block;
+}
+
+.bo-forgotten-toggle {
+	cursor: pointer;
+}
+
+.bo-forgotten-toggle:not(.collapsed) {
+	/*display: none;*/
+}
+
+.bo-widgetbox .form-group {
+	margin-bottom: 12px;
 }
 
 /* Error
