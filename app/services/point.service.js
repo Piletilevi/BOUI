@@ -9,9 +9,9 @@
         .module('boApp')
         .factory('pointService', PointService);
 
-    PointService.$inject = ['$rootScope','dataService'];
+    PointService.$inject = ['$rootScope','dataService','$filter'];
 
-    function PointService($rootScope,dataService) {
+    function PointService($rootScope,dataService,$filter) {
         var service = {
             getPointName : getPointName,
             setPoint : setPoint,
@@ -32,7 +32,25 @@
 
         function setPoint(pointId){
             $rootScope.user.point= pointId;
+
+            $rootScope.headerLogoUrl = setHeaderLogo($rootScope.user.point);
+
             dataService.post('setPoint', {'pointId': pointId });
+
+        }
+        function setHeaderLogo(pointId) {
+            var header_logo = $filter('filter')($rootScope.user.salesPoints, function (d) {
+                return d.id === pointId;
+            })[0];
+            header_logo = $filter('filter')(header_logo.parameters, function (d) {
+                return d.name === "api_headerlogo";
+            })[0];
+
+            if (typeof header_logo !== 'undefined' && typeof (header_logo.value) != 'undefined') {
+               return header_logo.value;
+            } else {
+                return "img/logo.png";
+            }
         }
 
         function getPointMenuBackgroundColor(){
