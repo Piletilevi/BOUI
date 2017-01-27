@@ -37,3 +37,4 @@ node_modules
 /api/config.php
 /api/logs/*
 /api/cache/*
+api/v1/cache/
