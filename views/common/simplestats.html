@@ -1,9 +1,9 @@
 <div class="bo-simplestats">
  <div class="bo-simplestats-labels">
-	 <span class="bo-simplestats-triangle glyphicon glyphicon-triangle-bottom text-danger"></span>&nbsp;<span class="bo-simplestats-label text-success">{{currentEvent.sell.soldTickets | number:0}}</span>&nbsp;/&nbsp;<span class="bo-simplestats-label text-warning">{{currentEvent.sell.bookedTickets | number}}</span>&nbsp;/&nbsp;<span class="bo-simplestats-label text-danger">{{currentEvent.sell.availableTickets | number}}</span>
+	 <span class="bo-simplestats-triangle glyphicon glyphicon-triangle-bottom text-danger"></span>&nbsp;<span class="bo-simplestats-label text-success">{{currentEvent.sell.soldTickets || 0}}</span>&nbsp;/&nbsp;<span class="bo-simplestats-label text-warning">{{currentEvent.sell.bookedTickets || 0}}</span>&nbsp;/&nbsp;<span class="bo-simplestats-label text-danger">{{currentEvent.sell.availableTickets || 0}}</span>
  </div>
  <div class="clearfix">
-	 <div class="bo-simplestats-pct">{{currentEvent.sell.soldPercent | number:0}}%</div><!--
+	 <div class="bo-simplestats-pct">{{currentEvent.sell.soldPercent || 0}}%</div><!--
 	 --><div class="bo-simplestats-bar progress">
 		 <div class="progress-bar progress-bar-success" style="width: {{currentEvent.sell.soldPercent}}%" title="sold"></div>
 		 <div class="progress-bar progress-bar-warning" style="width: {{currentEvent.sell.bookedPercent}}%" title="reserved"></div>
