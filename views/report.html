@@ -71,7 +71,7 @@
 							<div class="form-inline">
 								<div class="form-group">
 									<div class="input-group data_range">
-										<input type="text" daterangepicker class="form-control" ng-model="vm.overviewFilter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled ng-change="vm.getEventSalesReport(vm.event, vm.overviewFilter)"/>
+										<input type="text" daterangepicker class="form-control" ng-model="vm.overviewFilter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled />
 										 <span class="input-group-btn">
 											<button class="btn btn-default" type="button" data-control="daterangepicker">
 												<i class="fa fa-calendar" aria-hidden="true"></i>
@@ -96,14 +96,14 @@
 					</div>
 				</div>
 				<div class="bo-chart">
-					<canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data" chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series" chart-options="vm.overviewLineGraph.options" chart-dataset-override="vm.overviewLineGraph.datasetOverride" height="100px">
+					<canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data" chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series" chart-options="vm.overviewLineGraph.options" chart-dataset-override="vm.overviewLineGraph.datasetOverride">
 					</canvas>
 				</div>
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="bo-chart">
 							<canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data" chart-labels="vm.overviewBarGraph.labels" 
-							chart-options="vm.overviewBarGraph.options" chart-series="vm.overviewBarGraph.series" chart-dataset-override="vm.overviewBarGraph.datasetOverride" height="300px"></canvas>
+							chart-options="vm.overviewBarGraph.options" chart-series="vm.overviewBarGraph.series" chart-dataset-override="vm.overviewBarGraph.datasetOverride"></canvas>
 						</div>
 					</div>
 					<div class="col-lg-6">
@@ -146,9 +146,9 @@
 								<tr ng-repeat="overviewRow in overviewData.rows" ng-class="{ 'active text-danger': overviewRow.isRefund }">
 									<td style="background-color: {{overviewRow.color}};"></td>
 									<td>{{overviewRow.typeName|translate}}:</td>
-									<td ng-if="overviewRow.isRefund">-{{overviewRow.count}}</td><td ng-if="!overviewRow.isRefund">{{overviewRow.count}}</td>
+									<td>{{overviewRow.count}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount ? ( overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td ng-if="overviewRow.isRefund">-{{overviewRow.sum}} {{vm.myOverviewBarData.currency}}</td><td ng-if="!overviewRow.isRefund">{{overviewRow.sum}} {{vm.myOverviewBarData.currency}}</td>
+									<td>{{overviewRow.sum}} {{vm.myOverviewBarData.currency}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -169,7 +169,7 @@
 							<div class="form-inline">
 								<div class="form-group">
 									<div class="input-group data_range">
-										<input type="text" daterangepicker class="form-control" ng-model="vm.pricetypeFilter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled ng-change="vm.getEventSalesReportByPriceType(vm.event, vm.pricetypeFilter)"/>
+										<input type="text" daterangepicker class="form-control" ng-model="vm.pricetypeFilter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled />
 										 <span class="input-group-btn">
 											<button class="btn btn-default" type="button" data-control="daterangepicker">
 												<i class="fa fa-calendar" aria-hidden="true"></i>
@@ -179,10 +179,22 @@
 								</div>
 							</div>
 						</div>
+						<div class="bo-chartcontrols col-sm-7 text-right">
+							<div class="btn-group btn-group-sm" role="group">
+								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.display=='tickets'}" ng-click="vm.setPricetypeDisplay('tickets')">{{'api_tickets'|translate}}</button>
+								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.display=='revenue'}" ng-click="vm.setPricetypeDisplay('revenue')">{{'api_revenue'|translate}}</button>
+							</div>
+							&nbsp;&nbsp;
+							<div class="btn-group btn-group-sm" role="group">
+								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.groupBy=='day'}" ng-click="vm.setPricetypeGroupBy('day')">{{'api_day'|translate}}</button>
+								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.groupBy=='week'}" ng-click="vm.setPricetypeGroupBy('week')">{{'api_week'|translate}}</button>
+								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.groupBy=='month'}" ng-click="vm.setPricetypeGroupBy('month')">{{'api_month'|translate}}</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="bo-chart">
-					<canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data" chart-labels="vm.pricetypeLineGraph.labels" chart-series="vm.pricetypeLineGraph.series" chart-options="vm.pricetypeLineGraph.options" chart-dataset-override="vm.pricetypeLineGraph.datasetOverride" height="100px">
+					<canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data" chart-labels="vm.pricetypeLineGraph.labels" chart-series="vm.pricetypeLineGraph.series" chart-options="vm.pricetypeLineGraph.options" chart-dataset-override="vm.pricetypeLineGraph.datasetOverride">
 					</canvas>
 				</div>
 				<div class="row">
@@ -256,7 +268,7 @@
 							<div class="form-inline">
 								<div class="form-group">
 									<div class="input-group data_range">
-										<input type="text" daterangepicker class="form-control" ng-model="vm.priceclassFilter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled ng-change="vm.getEventSalesReportByPriceClass(vm.event, vm.priceclassFilter)"/>
+										<input type="text" daterangepicker class="form-control" ng-model="vm.priceclassFilter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled />
 										 <span class="input-group-btn">
 											<button class="btn btn-default" type="button" data-control="daterangepicker">
 												<i class="fa fa-calendar" aria-hidden="true"></i>
@@ -289,8 +301,8 @@
 						<div class="bo-chart">
 							<div class="bo-chart-buttons">
 								<div class="btn-group btn-group-sm" role="group">
-									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.display=='tickets'}" ng-click="vm.setPriceclassDisplay('tickets')">{{'api_tickets'|translate}}</button>
-									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.display=='revenue'}" ng-click="vm.setPriceclassDisplay('revenue')">{{'api_revenue'|translate}}</button>
+									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='tickets'}" ng-click="vm.setPriceclassPieDisplay('tickets')">{{'api_tickets'|translate}}</button>
+									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='revenue'}" ng-click="vm.setPriceclassPieDisplay('revenue')">{{'api_revenue'|translate}}</button>
 								</div>
 							</div>
 							<canvas id="priceclassPie" class="chart chart-pie" chart-data="vm.priceclassPieGraph.data" chart-labels="vm.priceclassPieGraph.labels" chart-options="vm.priceclassPieGraph.options"></canvas> 

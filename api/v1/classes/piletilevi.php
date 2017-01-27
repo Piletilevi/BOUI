@@ -245,6 +245,24 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function eventSalesReportByPriceTypeWeek($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByPriceTypeWeek", $data );
+		
+		return $reportData;
+	}
+
+	public function eventSalesReportByPriceTypeMonth($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByPriceTypeMonth", $data );
+		
+		return $reportData;
+	}
+
 	public function eventSalesReportByPriceClass($filter) {
 		
 		$data['filter']= $filter;
@@ -259,6 +277,24 @@ class PiletileviApi {
 		$data['filter']= $filter;
 
 		$reportData = $this->send( "/report/eventSalesReportByPriceClassDate", $data );
+		
+		return $reportData;
+	}
+
+	public function eventSalesReportByPriceClassWeek($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByPriceClassWeek", $data );
+		
+		return $reportData;
+	}
+
+	public function eventSalesReportByPriceClassMonth($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByPriceClassMonth", $data );
 		
 		return $reportData;
 	}

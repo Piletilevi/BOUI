@@ -85,8 +85,8 @@
 				options: {
 				}
 			},
-			renderOverviewLineGraph : renderOverviewLineGraph,
 			renderOverviewBarGraph : renderOverviewBarGraph,
+			renderOverviewLineGraph : renderOverviewLineGraph,
 			renderPriceTypePieGraph : renderPriceTypePieGraph,
 			renderPriceTypeLineGraph : renderPriceTypeLineGraph,
 			renderPriceClassPieGraph : renderPriceClassPieGraph,
@@ -121,7 +121,7 @@
 					labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
 				}
 			  });
-
+			  
 			  newValue.types.forEach(function (type) {
 				var dataItem = [];
 				newValue.sales.forEach(function (sale) {
@@ -222,10 +222,10 @@
 				pricetypeData.currency = '';
 				var labels = [];
 				var data = [];
-
+				
 				newValue.sales.forEach(function (myPricetypeData) {
-					pricetypeData.generatedCount =+ myPricetypeData.rowCount;
-					pricetypeData.generatedSum =+ myPricetypeData.rowSum;
+					pricetypeData.generatedCount += myPricetypeData.rowCount;
+					pricetypeData.generatedSum += myPricetypeData.rowSum;
 					pricetypeData.currency = myPricetypeData.currency;
 				});
 				
@@ -313,7 +313,7 @@
 			}
 		}
 
-		function renderPriceClassPieGraph(newValue, priceclassData, priceclassPieGraph) {
+		function renderPriceClassPieGraph(newValue, filter, priceclassData, priceclassPieGraph) {
 			if (newValue && newValue.sales) {
 				var step = 0;
 				var steps = 0;
@@ -324,8 +324,8 @@
 				var data = [];
 
 				newValue.sales.forEach(function (myPriceclassData) {
-					priceclassData.generatedCount =+ myPriceclassData.rowCount;
-					priceclassData.generatedSum =+ myPriceclassData.rowSum;
+					priceclassData.generatedCount += myPriceclassData.rowCount;
+					priceclassData.generatedSum += myPriceclassData.rowSum;
 					priceclassData.currency = myPriceclassData.currency;
 				});
 
@@ -340,7 +340,11 @@
 					myPriceclassData.priceClasses.forEach(function (priceclassRow) {
 						step++;
 						priceclassRow.color = colorService.getRandomColor(steps, step);
-						data.push(priceclassRow.count);
+						if (filter.pieDisplay == 'tickets') {
+							data.push(priceclassRow.count);
+						} else {
+							data.push(priceclassRow.sum);
+						}
 					});
 				});
 			

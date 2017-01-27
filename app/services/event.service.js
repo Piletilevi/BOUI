@@ -47,10 +47,10 @@
             getEventOpSales: getEventOpSales,
 			getOverviewData : getOverviewData,
 			getOverviewGraphData : getOverviewGraphData,
-			getEventSalesReportByPriceType : getEventSalesReportByPriceType,
-			getEventSalesReportByPriceTypeDate : getEventSalesReportByPriceTypeDate,
-			getEventSalesReportByPriceClass : getEventSalesReportByPriceClass,
-			getEventSalesReportByPriceClassDate : getEventSalesReportByPriceClassDate
+			getPriceTypeData : getPriceTypeData,
+			getPriceClassData : getPriceClassData,
+			getPriceClassGraphData : getPriceClassGraphData,
+			getPriceTypeGraphData : getPriceTypeGraphData
         };
 		return service;
 
@@ -257,7 +257,7 @@
             });
         }
 
-		function getEventSalesReportByPriceType(event, filter) {
+		function getPriceTypeData(event, filter) {
 			dataService.post('eventSalesReportByPriceType', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
                 myPriceTypeData = null;
 				dataService.page(results);
@@ -267,32 +267,12 @@
             });
         }
 
-		function getEventSalesReportByPriceTypeDate(event, filter) {
-			dataService.post('eventSalesReportByPriceTypeDate', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
-                myPriceTypeGraphData = null;
-				dataService.page(results);
-				if (results.status == 'success'){
-					myPriceTypeGraphData = results.data;
-                }
-            });
-        }
-
-		function getEventSalesReportByPriceClass(event, filter) {
+		function getPriceClassData(event, filter) {
 			dataService.post('eventSalesReportByPriceClass', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
                 myPriceClassData = null;
 				dataService.page(results);
 				if (results.status == 'success'){
 					myPriceClassData = results.data;
-                }
-            });
-        }
-
-		function getEventSalesReportByPriceClassDate(event, filter) {
-			dataService.post('eventSalesReportByPriceClassDate', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
-                myPriceClassGraphData = null;
-				dataService.page(results);
-				if (results.status == 'success'){
-					myPriceClassGraphData = results.data;
                 }
             });
         }
@@ -318,5 +298,50 @@
 				myOverviewGraphData = null;
 			}
         }
-    }
+
+		function getPriceClassGraphData(event, filter) {
+			var report = '';
+			if (filter.groupBy == 'day') {
+				report = 'eventSalesReportByPriceClassDate';
+			} else if (filter.groupBy == 'week') {
+				report = 'eventSalesReportByPriceClassWeek';
+			} else if (filter.groupBy == 'month') {
+				report = 'eventSalesReportByPriceClassMonth';
+			}
+			if (report) {
+				dataService.post(report, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+					myPriceClassGraphData = null;
+					dataService.page(results);
+					if (results.status == 'success'){
+						myPriceClassGraphData = results.data;
+					}
+				});
+			} else {
+				myPriceClassGraphData = null;
+			}
+        }
+
+		function getPriceTypeGraphData(event, filter) {
+			var report = '';
+			if (filter.groupBy == 'day') {
+				report = 'eventSalesReportByPriceTypeDate';
+			} else if (filter.groupBy == 'week') {
+				report = 'eventSalesReportByPriceTypeWeek';
+			} else if (filter.groupBy == 'month') {
+				report = 'eventSalesReportByPriceTypeMonth';
+			}
+			if (report) {
+				dataService.post(report, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+					myPriceTypeGraphData = null;
+					dataService.page(results);
+					if (results.status == 'success'){
+						myPriceTypeGraphData = results.data;
+					}
+				});
+			} else {
+				myPriceTypeGraphData = null;
+			}
+        }
+
+	}
 })();

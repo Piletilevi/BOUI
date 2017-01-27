@@ -24,14 +24,10 @@
 	vm.getEventInfo = eventService.getEventInfo;
     vm.getEventSalesReport = eventService.getEventSalesReport;
     vm.getEventSales = eventService.getEventSales;
-	vm.getEventSalesReportByPriceType = eventService.getEventSalesReportByPriceType;
-	vm.getEventSalesReportByPriceTypeDate = eventService.getEventSalesReportByPriceTypeDate;
-	vm.getEventSalesReportByPriceClass = eventService.getEventSalesReportByPriceClass;
-	vm.getEventSalesReportByPriceClassDate = eventService.getEventSalesReportByPriceClassDate;
     vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: ''};
     vm.overviewFilter = {period: {startDate:null, endDate: null}, display: 'tickets', groupBy: 'day'};
 	vm.pricetypeFilter = {period: {startDate:null, endDate: null}, display: 'tickets', groupBy: 'day'};
-	vm.priceclassFilter = {period: {startDate:null, endDate: null}, display: 'tickets', groupBy: 'day'};
+	vm.priceclassFilter = {period: {startDate:null, endDate: null}, pieDisplay: 'tickets', display: 'tickets', groupBy: 'day'};
     // Min & Max dates get from api when ready on the backend
     vm.minFilterDate = moment().subtract(7, 'days');
     vm.maxFilterDate = moment();
@@ -72,6 +68,10 @@
 		vm.pricetypeFilter.groupBy = groupBy;
 	}
 
+	vm.setPriceclassPieDisplay = function(display) {
+		vm.priceclassFilter.pieDisplay = display;
+	}
+
 	vm.setPriceclassDisplay = function(display) {
 		vm.priceclassFilter.display = display;
 	}
@@ -85,11 +85,11 @@
 			eventService.getOverviewData(vm.event, vm.overviewFilter);
 			eventService.getOverviewGraphData(vm.event, vm.overviewFilter);
 		} else if (tab == 'pricetype') {
-			eventService.getEventSalesReportByPriceType(vm.event, vm.pricetypeFilter);
-			eventService.getEventSalesReportByPriceTypeDate(vm.event, vm.pricetypeFilter);
+			eventService.getPriceTypeData(vm.event, vm.pricetypeFilter);
+			eventService.getPriceTypeGraphData(vm.event, vm.pricetypeFilter);
 		} else if (tab == 'priceclass') {
-			eventService.getEventSalesReportByPriceClass(vm.event, vm.priceclassFilter);
-			eventService.getEventSalesReportByPriceClassDate(vm.event, vm.priceclassFilter);
+			eventService.getPriceClassData(vm.event, vm.priceclassFilter);
+			eventService.getPriceClassGraphData(vm.event, vm.priceclassFilter);
 		}
 	};
 
@@ -148,7 +148,7 @@
 
     $scope.$watch('vm.myOverviewLineData', function (newValue, oldValue) {
 	  if (!angular.equals(newValue, oldValue)) {
-		  graphService.renderOverviewLineGraph(newValue, vm.overviewFilter, vm.pricetypeLineGraph);
+		  graphService.renderOverviewLineGraph(newValue, vm.overviewFilter, vm.overviewLineGraph);
       }
     });
 
@@ -166,7 +166,7 @@
 
     $scope.$watch('vm.myPriceClassPieData', function (newValue, oldValue) {
 		if (!angular.equals(newValue, oldValue)) {
-			graphService.renderPriceClassPieGraph(newValue, vm.myPriceClassPieData, vm.priceclassPieGraph);
+			graphService.renderPriceClassPieGraph(newValue, vm.priceclassFilter, vm.myPriceClassPieData, vm.priceclassPieGraph);
 		}
 	});
 
@@ -178,10 +178,10 @@
 
     $scope.$watch('vm.overviewFilter.display', function (newValue, oldValue) {
       if (!angular.equals(newValue, oldValue)) {
-		  if (vm.myOverviewGraphData == null) {
+		  if (vm.myOverviewLineData == null) {
 			eventService.getOverviewGraphData(vm.event, vm.overviewFilter);
 		  } else {
-			graphService.renderOverviewLineGraph(vm.myOverviewGraphData, vm.overviewFilter, vm.overviewLineGraph);
+			graphService.renderOverviewLineGraph(vm.myOverviewLineData, vm.overviewFilter, vm.overviewLineGraph);
 		  }
       }
     });
@@ -195,7 +195,7 @@
     $scope.$watch('vm.pricetypeFilter.display', function (newValue, oldValue) {
       if (!angular.equals(newValue, oldValue)) {
 		  if (vm.myPriceTypePieData == null) {
-			eventService.getEventSalesReportByPricetype(vm.event, vm.pricetypeFilter);
+			eventService.getPriceTypeData(vm.event, vm.pricetypeFilter);
 		  } else {
 			graphService.renderPriceTypePieGraph(vm.myPriceTypePieData, vm.myPriceTypePieData, vm.pricetypePieGraph);
 		  }
@@ -204,7 +204,33 @@
 
     $scope.$watch('vm.pricetypeFilter.groupBy', function (newValue, oldValue) {
       if (!angular.equals(newValue, oldValue)) {
-		  graphService.renderPriceTypeLineGraph(newValue, vm.pricetypeFilter, vm.pricetypeLineGraph);
+		  eventService.getPriceTypeGraphData(vm.event, vm.pricetypeFilter);
+      }
+    });
+
+    $scope.$watch('vm.priceclassFilter.pieDisplay', function (newValue, oldValue) {
+      if (!angular.equals(newValue, oldValue)) {
+		  if (vm.myPriceClassPieData == null) {
+			eventService.getPriceClassData(vm.event, vm.priceclassFilter);
+		  } else {
+			graphService.renderPriceClassPieGraph(vm.myPriceTypePieData, vm.priceclassFilter, vm.myPriceTypePieData, vm.pricetypePieGraph);
+		  }
+      }
+    });
+
+	$scope.$watch('vm.priceclassFilter.display', function (newValue, oldValue) {
+      if (!angular.equals(newValue, oldValue)) {
+		  if (vm.myPriceClassLineData == null) {
+			eventService.getPriceClassGraphData(vm.event, vm.priceclassFilter);
+		  } else {
+			graphService.renderPriceClassLineGraph(vm.myPriceTypeLineData, vm.myPriceTypeLineData, vm.pricetypeLineGraph);
+		  }
+      }
+    });
+
+    $scope.$watch('vm.priceclassFilter.groupBy', function (newValue, oldValue) {
+      if (!angular.equals(newValue, oldValue)) {
+		  eventService.getPriceClassGraphData(vm.event, vm.priceclassFilter);
       }
     });
 
