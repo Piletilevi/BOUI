@@ -19,6 +19,11 @@
 
 		var myOverviewData = null;
 		var myOverviewGraphData = null;
+		var myPriceTypeData = null;
+		var myPriceTypeGraphData = null;
+		var myPriceClassData = null;
+		var myPriceClassGraphData = null;
+		var mySectorsData = null;
 
 		var service = {
 			myOpenEvents: function() { return myOpenEvents },
@@ -29,14 +34,24 @@
 			myPastCount: function() { return myPastCount },
 			myOverviewData: function() { return myOverviewData },
 			myOverviewGraphData: function() { return myOverviewGraphData },
+			myPriceTypeData: function() { return myPriceTypeData },
+			myPriceTypeGraphData: function() { return myPriceTypeGraphData },
+			myPriceClassData: function() { return myPriceClassData },
+			myPriceClassGraphData: function() { return myPriceClassGraphData },
+			mySectorsData: function() { return mySectorsData },
             reset: reset,
             getMyEvents: getMyEvents,
 			getMoreEvents: getMoreEvents,
             getEventSales: getEventSales,
+			getEventSalesBySectors: getEventSalesBySectors,
             getEventInfo: getEventInfo,
             getEventOpSales: getEventOpSales,
 			getOverviewData : getOverviewData,
-			getOverviewGraphData : getOverviewGraphData
+			getOverviewGraphData : getOverviewGraphData,
+			getPriceTypeData : getPriceTypeData,
+			getPriceClassData : getPriceClassData,
+			getPriceClassGraphData : getPriceClassGraphData,
+			getPriceTypeGraphData : getPriceTypeGraphData
         };
 		return service;
 
@@ -61,6 +76,7 @@
 	            myPastCount = 0;
 
 				dataService.page(results);
+				
 				if (results.status == 'success'){
 					myOpenCount = results.count.open;
 					if (results.count.hasMoreOpen) {
@@ -95,7 +111,7 @@
 				return;
 
 			if (filter.status == 'onsale' && myOpenEvents != null) {
-				if (myOpenEvents.length % 10 == 0 && filter.openStart != myOpenEvents.length + 1) {
+				if (myOpenEvents.length % 5 == 0 && filter.openStart != myOpenEvents.length + 1) {
 					filter.loadingItems = true;
 					filter.openStart = myOpenEvents.length + 1;
 					dataService.post('myEvents', {filter: filter}).then(function (results) {
@@ -108,7 +124,7 @@
 					});
 				}
 			} else if (filter.status == 'draft' && myDraftEvents != null) {
-				if (myDraftEvents.length % 10 == 0 && filter.draftStart != myDraftEvents.length + 1) {
+				if (myDraftEvents.length % 5 == 0 && filter.draftStart != myDraftEvents.length + 1) {
 					filter.loadingItems = true;
 					filter.draftStart = myDraftEvents.length + 1;
 					dataService.post('myEvents', {filter: filter}).then(function (results) {
@@ -121,7 +137,7 @@
 					});
 				}
 			} else if (filter.status == 'past' && myPastEvents != null) {
-				if (myPastEvents.length % 10 == 0 && filter.pastStart != myPastEvents.length + 1) {
+				if (myPastEvents.length % 5 == 0 && filter.pastStart != myPastEvents.length + 1) {
 					filter.loadingItems = true;
 					filter.pastStart = myPastEvents.length + 1;
 					dataService.post('myEvents', {filter: filter}).then(function (results) {
@@ -141,6 +157,14 @@
 				getShowSales(event);
 			} else {
 				getConcertSales(event);
+			}
+        }
+
+		function getEventSalesBySectors(event) {
+			if (event.isShow || event.concertsCount > 1) {
+				//TODO
+			} else {
+				getConcertSalesBySectors(event);
 			}
         }
 
@@ -170,6 +194,16 @@
             });
         }
 
+		function getConcertSalesBySectors(event) {
+			dataService.post('concertSalesBySectors', {id: event.id}).then(function (results) {
+				mySectorsData = null;
+				dataService.page(results);
+				if (results.status == 'success'){
+					mySectorsData = results.data;
+                }
+            });
+        }
+
 		function getShowSales(event) {
             dataService.post('showSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
@@ -185,6 +219,7 @@
 				dataService.page(results);
 				if (results.status == 'success'){
 					event.name = results.data.name;
+					event.confId = results.data.confId;
 					event.eventPeriod = results.data.eventPeriod;
 					event.sellPeriod = results.data.sellPeriod;
 					event.location = results.data.location;
@@ -236,6 +271,26 @@
             });
         }
 
+		function getPriceTypeData(event, filter) {
+			dataService.post('eventSalesReportByPriceType', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+                myPriceTypeData = null;
+				dataService.page(results);
+				if (results.status == 'success'){
+					myPriceTypeData = results.data;
+                }
+            });
+        }
+
+		function getPriceClassData(event, filter) {
+			dataService.post('eventSalesReportByPriceClass', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+                myPriceClassData = null;
+				dataService.page(results);
+				if (results.status == 'success'){
+					myPriceClassData = results.data;
+                }
+            });
+        }
+
 		function getOverviewGraphData(event, filter) {
 			var report = '';
 			if (filter.groupBy == 'day') {
@@ -270,4 +325,50 @@
         return urlParts.join('/');
 			}
     }
+
+		function getPriceClassGraphData(event, filter) {
+			var report = '';
+			if (filter.groupBy == 'day') {
+				report = 'eventSalesReportByPriceClassDate';
+			} else if (filter.groupBy == 'week') {
+				report = 'eventSalesReportByPriceClassWeek';
+			} else if (filter.groupBy == 'month') {
+				report = 'eventSalesReportByPriceClassMonth';
+			}
+			if (report) {
+				dataService.post(report, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+					myPriceClassGraphData = null;
+					dataService.page(results);
+					if (results.status == 'success'){
+						myPriceClassGraphData = results.data;
+					}
+				});
+			} else {
+				myPriceClassGraphData = null;
+			}
+        }
+
+		function getPriceTypeGraphData(event, filter) {
+			var report = '';
+			if (filter.groupBy == 'day') {
+				report = 'eventSalesReportByPriceTypeDate';
+			} else if (filter.groupBy == 'week') {
+				report = 'eventSalesReportByPriceTypeWeek';
+			} else if (filter.groupBy == 'month') {
+				report = 'eventSalesReportByPriceTypeMonth';
+			}
+			if (report) {
+				dataService.post(report, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+					myPriceTypeGraphData = null;
+					dataService.page(results);
+					if (results.status == 'success'){
+						myPriceTypeGraphData = results.data;
+					}
+				});
+			} else {
+				myPriceTypeGraphData = null;
+			}
+        }
+
+	}
 })();
