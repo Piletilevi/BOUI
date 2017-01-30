@@ -9,14 +9,15 @@
         .module('boApp')
         .factory('pointService', PointService);
 
-    PointService.$inject = ['$rootScope','dataService','$filter'];
+    PointService.$inject = ['$rootScope','dataService'];
 
-    function PointService($rootScope,dataService,$filter) {
+    function PointService($rootScope,dataService) {
         var service = {
             getPointName : getPointName,
             setPoint : setPoint,
             getPointMenuBackgroundColor:getPointMenuBackgroundColor,
             getPointMenuActiveColor:getPointMenuActiveColor,
+            getPointMenuLogo:getPointMenuLogo,
             initialize:initialize
         };
         return service;
@@ -33,24 +34,23 @@
         function setPoint(pointId){
             $rootScope.user.point= pointId;
 
-            $rootScope.headerLogoUrl = setHeaderLogo($rootScope.user.point);
+            $rootScope.pointMenuLogo = getPointMenuLogo();
+            $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor();
+            $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
 
             dataService.post('setPoint', {'pointId': pointId });
 
         }
-        function setHeaderLogo(pointId) {
-            var header_logo = $filter('filter')($rootScope.user.salesPoints, function (d) {
-                return d.id === pointId;
-            })[0];
-            header_logo = $filter('filter')(header_logo.parameters, function (d) {
-                return d.name === "api_headerlogo";
-            })[0];
 
-            if (typeof header_logo !== 'undefined' && typeof (header_logo.value) != 'undefined') {
-               return header_logo.value;
-            } else {
-                return "img/logo.png";
+        function getPointMenuLogo(){
+            var settings = getPointSettings();
+            if (settings != null) {
+                var setting = settings.find(getPointTopMenuLogo);
+                if (setting != null) {
+                    return setting.value;
+                }
             }
+            return "img/logo.png";
         }
 
         function getPointMenuBackgroundColor(){
@@ -73,6 +73,13 @@
                 }
             }
             return "";
+        }
+
+        function getPointTopMenuLogo(setting) {
+            if (setting != null) {
+                return setting.name === "api_headerlogo";
+            }
+            return;
         }
 
         function getPointTopMenuBackgroundColorSetting(setting) {
@@ -100,8 +107,6 @@
         function  initialize() {
             $rootScope.getPointName = getPointName;
             $rootScope.setPoint = setPoint;
-            $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor;
-            $rootScope.pointMenuActiveColor = getPointMenuActiveColor;
         }
     }
 })();
