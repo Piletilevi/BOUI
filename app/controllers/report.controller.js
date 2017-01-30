@@ -27,8 +27,8 @@
     vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: ''};
     vm.overviewFilter = {period: {startDate:null, endDate: null}, display: 'tickets', groupBy: 'day'};
     // Min & Max dates get from api when ready on the backend
-    vm.minFilterDate = moment().subtract(7, 'days');
-    vm.maxFilterDate = moment();
+    vm.minFilterDate = moment();
+    vm.maxFilterDate = moment().subtract(7, 'days');;
     vm.reset_search = false;
 	vm.overviewBarGraph = graphService.overviewBarGraph;
 	vm.overviewLineGraph = graphService.overviewLineGraph;

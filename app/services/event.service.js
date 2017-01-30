@@ -6,10 +6,10 @@
         .module('boApp')
         .factory('eventService', EventService);
 
-    EventService.$inject = ['$rootScope', 'dataService'];
+    EventService.$inject = ['$rootScope', 'dataService', '$translate'];
 
-    function EventService($rootScope, dataService) {
-        
+    function EventService($rootScope, dataService, translate) {
+
 		var myOpenEvents = null;
 		var myDraftEvents = null;
 		var myPastEvents = null;
@@ -19,7 +19,7 @@
 
 		var myOverviewData = null;
 		var myOverviewGraphData = null;
-		
+
 		var service = {
 			myOpenEvents: function() { return myOpenEvents },
 			myDraftEvents: function() { return myDraftEvents },
@@ -50,16 +50,6 @@
 		}
 
 		function getMyEvents(filter) {
-			if (filter.status == "onsale" && myOpenEvents != null) {
-				return;
-			}
-			if (filter.status == "past" && myPastEvents != null) {
-				return;
-			}
-			if (filter.status == "draft" && myDraftEvents != null) {
-				return;
-			}
-			
 			filter.openStart = null;
 			filter.draftStart = null;
 			filter.pastStart = null;
@@ -71,7 +61,6 @@
 	            myPastCount = 0;
 
 				dataService.page(results);
-				
 				if (results.status == 'success'){
 					myOpenCount = results.count.open;
 					if (results.count.hasMoreOpen) {
@@ -101,10 +90,10 @@
         }
 
         function getMoreEvents(filter) {
-			
-			if (filter.loadingItems) 
+
+			if (filter.loadingItems)
 				return;
-			
+
 			if (filter.status == 'onsale' && myOpenEvents != null) {
 				if (myOpenEvents.length % 10 == 0 && filter.openStart != myOpenEvents.length + 1) {
 					filter.loadingItems = true;
@@ -176,6 +165,7 @@
 				dataService.page(results);
 				if (results.status == 'success'){
 					event.sell = results.data.sell;
+					event.websiteUrl = getWebsiteUrl(event);
                 }
             });
         }
@@ -185,6 +175,7 @@
 				dataService.page(results);
                 if (results.status == 'success'){
 					event.sell = results.data.sell;
+					event.websiteUrl = getWebsiteUrl(event);
                 }
             });
         }
@@ -197,6 +188,7 @@
 					event.eventPeriod = results.data.eventPeriod;
 					event.sellPeriod = results.data.sellPeriod;
 					event.location = results.data.location;
+          event.websiteUrl = getWebsiteUrl(event);
                 }
             });
         }
@@ -211,6 +203,7 @@
 					event.concerts = results.data.concerts;
 					event.concertsCount = results.data.concertsCount;
 					event.sellPeriod = results.data.sellPeriod;
+          event.websiteUrl = getWebsiteUrl(event);
                 }
             });
         }
@@ -264,5 +257,17 @@
 				myOverviewGraphData = null;
 			}
         }
+
+			function getWebsiteUrl(event) {
+				var urlParts = ['http://www.piletilevi.ee'],
+						availableLanguages = ['est', 'rus', 'eng', 'fin'],
+            currentLang = translate.proposedLanguage().toLowerCase();
+        if(availableLanguages.indexOf(currentLang) == -1) {
+					return false;
+				}
+        urlParts.push(currentLang);
+        urlParts.push((event.isShow ? 'show' : 'concert') + '=' + event.id);
+        return urlParts.join('/');
+			}
     }
 })();
