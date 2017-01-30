@@ -1,14 +1,14 @@
 (function() {
 
-    'use strict';
+	'use strict';
 
-    angular
-        .module('boApp')
-        .factory('eventService', EventService);
+	angular
+		.module('boApp')
+		.factory('eventService', EventService);
 
-    EventService.$inject = ['$rootScope', 'dataService', '$translate'];
+	EventService.$inject = ['$rootScope', '$translate', 'dataService'];
 
-    function EventService($rootScope, dataService, translate) {
+	function EventService($rootScope, $translate, dataService) {
 
 		var myOpenEvents = null;
 		var myDraftEvents = null;
@@ -39,23 +39,23 @@
 			myPriceClassData: function() { return myPriceClassData },
 			myPriceClassGraphData: function() { return myPriceClassGraphData },
 			mySectorsData: function() { return mySectorsData },
-            reset: reset,
-            getMyEvents: getMyEvents,
+			reset: reset,
+			getMyEvents: getMyEvents,
 			getMoreEvents: getMoreEvents,
-            getEventSales: getEventSales,
+			getEventSales: getEventSales,
 			getEventSalesBySectors: getEventSalesBySectors,
-            getEventInfo: getEventInfo,
-            getEventOpSales: getEventOpSales,
+			getEventInfo: getEventInfo,
+			getEventOpSales: getEventOpSales,
 			getOverviewData : getOverviewData,
 			getOverviewGraphData : getOverviewGraphData,
 			getPriceTypeData : getPriceTypeData,
 			getPriceClassData : getPriceClassData,
 			getPriceClassGraphData : getPriceClassGraphData,
 			getPriceTypeGraphData : getPriceTypeGraphData
-        };
+		};
 		return service;
 
-        function reset() {
+		function reset() {
 			myOpenEvents = null;
 			myDraftEvents = null;
 			myPastEvents = null;
@@ -65,18 +65,28 @@
 		}
 
 		function getMyEvents(filter) {
+			if (filter.status == "onsale" && myOpenEvents != null) {
+				return;
+			}
+			if (filter.status == "past" && myPastEvents != null) {
+				return;
+			}
+			if (filter.status == "draft" && myDraftEvents != null) {
+				return;
+			}
+
 			filter.openStart = null;
 			filter.draftStart = null;
 			filter.pastStart = null;
 			filter.loadingItems = true;
 
 			dataService.post('myEvents', {filter: filter}).then(function (results) {
-	            myOpenCount = 0;
-	            myDraftCount = 0;
-	            myPastCount = 0;
+				myOpenCount = 0;
+				myDraftCount = 0;
+				myPastCount = 0;
 
 				dataService.page(results);
-				
+
 				if (results.status == 'success'){
 					myOpenCount = results.count.open;
 					if (results.count.hasMoreOpen) {
@@ -102,10 +112,10 @@
 					}
 					filter.loadingItems = false;
 				}
-            });
-        }
+			});
+		}
 
-        function getMoreEvents(filter) {
+		function getMoreEvents(filter) {
 
 			if (filter.loadingItems)
 				return;
@@ -150,7 +160,7 @@
 					});
 				}
 			}
-        }
+		}
 
 		function getEventSales(event) {
 			if (event.isShow || event.concertsCount > 1) {
@@ -158,7 +168,7 @@
 			} else {
 				getConcertSales(event);
 			}
-        }
+		}
 
 		function getEventSalesBySectors(event) {
 			if (event.isShow || event.concertsCount > 1) {
@@ -166,7 +176,7 @@
 			} else {
 				getConcertSalesBySectors(event);
 			}
-        }
+		}
 
 		function getEventInfo(event) {
 			if (event.isShow) {
@@ -174,7 +184,7 @@
 			} else {
 				getConcertInfo(event);
 			}
-        }
+		}
 
 		function getEventOpSales(event, filter) {
 			if (event.isShow || event.concertsCount > 1) {
@@ -182,7 +192,7 @@
 			} else {
 				getConcertOpSales(event, filter);
 			}
-        }
+		}
 
 		function getConcertSales(event) {
 			dataService.post('concertSales', {id: event.id}).then(function (results) {
@@ -190,9 +200,9 @@
 				if (results.status == 'success'){
 					event.sell = results.data.sell;
 					event.websiteUrl = getWebsiteUrl(event);
-                }
-            });
-        }
+				}
+			});
+		}
 
 		function getConcertSalesBySectors(event) {
 			dataService.post('concertSalesBySectors', {id: event.id}).then(function (results) {
@@ -200,19 +210,19 @@
 				dataService.page(results);
 				if (results.status == 'success'){
 					mySectorsData = results.data;
-                }
-            });
-        }
+				}
+			});
+		}
 
 		function getShowSales(event) {
-            dataService.post('showSales', {id: event.id}).then(function (results) {
+			dataService.post('showSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
-                if (results.status == 'success'){
+				if (results.status == 'success'){
 					event.sell = results.data.sell;
 					event.websiteUrl = getWebsiteUrl(event);
-                }
-            });
-        }
+				}
+			});
+		}
 
 		function getConcertInfo(event) {
 			dataService.post('concertInfo', {id: event.id}).then(function (results) {
@@ -223,73 +233,73 @@
 					event.eventPeriod = results.data.eventPeriod;
 					event.sellPeriod = results.data.sellPeriod;
 					event.location = results.data.location;
-          event.websiteUrl = getWebsiteUrl(event);
-                }
-            });
-        }
+					event.websiteUrl = getWebsiteUrl(event);
+				}
+			});
+		}
 
 		function getShowInfo(event) {
-            dataService.post('showInfo', {id: event.id}).then(function (results) {
+			dataService.post('showInfo', {id: event.id}).then(function (results) {
 				dataService.page(results);
-                if (results.status == 'success'){
+				if (results.status == 'success'){
 					event.name = results.data.name;
 					event.eventPeriod = results.data.eventPeriod;
 					event.locations = results.data.locations;
 					event.concerts = results.data.concerts;
 					event.concertsCount = results.data.concertsCount;
 					event.sellPeriod = results.data.sellPeriod;
-          event.websiteUrl = getWebsiteUrl(event);
-                }
-            });
-        }
+					event.websiteUrl = getWebsiteUrl(event);
+				}
+			});
+		}
 
 		function getConcertOpSales(event, filter) {
 			dataService.post('concertOpSales', {id: event.id, filter: filter}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
 					event.sell = results.data;
-                }
-            });
-        }
+				}
+			});
+		}
 
 		function getShowOpSales(event, filter) {
-            dataService.post('showOpSales', {id: event.id, filter: filter}).then(function (results) {
+			dataService.post('showOpSales', {id: event.id, filter: filter}).then(function (results) {
 				dataService.page(results);
-                if (results.status == 'success'){
+				if (results.status == 'success'){
 					event.sell = results.data;
-                }
-            });
-        }
+				}
+			});
+		}
 
 		function getOverviewData(event, filter) {
 			dataService.post('eventSalesReportByStatus', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
-                myOverviewData = null;
+				myOverviewData = null;
 				dataService.page(results);
 				if (results.status == 'success'){
 					myOverviewData = results.data;
-                }
-            });
-        }
+				}
+			});
+		}
 
 		function getPriceTypeData(event, filter) {
 			dataService.post('eventSalesReportByPriceType', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
-                myPriceTypeData = null;
+				myPriceTypeData = null;
 				dataService.page(results);
 				if (results.status == 'success'){
 					myPriceTypeData = results.data;
-                }
-            });
-        }
+				}
+			});
+		}
 
 		function getPriceClassData(event, filter) {
 			dataService.post('eventSalesReportByPriceClass', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
-                myPriceClassData = null;
+				myPriceClassData = null;
 				dataService.page(results);
 				if (results.status == 'success'){
 					myPriceClassData = results.data;
-                }
-            });
-        }
+				}
+			});
+		}
 
 		function getOverviewGraphData(event, filter) {
 			var report = '';
@@ -311,20 +321,7 @@
 			} else {
 				myOverviewGraphData = null;
 			}
-        }
-
-			function getWebsiteUrl(event) {
-				var urlParts = ['http://www.piletilevi.ee'],
-						availableLanguages = ['est', 'rus', 'eng', 'fin'],
-            currentLang = translate.proposedLanguage().toLowerCase();
-        if(availableLanguages.indexOf(currentLang) == -1) {
-					return false;
-				}
-        urlParts.push(currentLang);
-        urlParts.push((event.isShow ? 'show' : 'concert') + '=' + event.id);
-        return urlParts.join('/');
-			}
-    }
+		}
 
 		function getPriceClassGraphData(event, filter) {
 			var report = '';
@@ -346,7 +343,7 @@
 			} else {
 				myPriceClassGraphData = null;
 			}
-        }
+		}
 
 		function getPriceTypeGraphData(event, filter) {
 			var report = '';
@@ -368,7 +365,19 @@
 			} else {
 				myPriceTypeGraphData = null;
 			}
-        }
+		}
+
+		function getWebsiteUrl(event) {
+			var urlParts = ['http://www.piletilevi.ee'],
+				availableLanguages = ['est', 'rus', 'eng', 'fin'],
+				currentLang = $translate.proposedLanguage().toLowerCase();
+			if(availableLanguages.indexOf(currentLang) == -1) {
+				return false;
+			}
+			urlParts.push(currentLang);
+			urlParts.push((event.isShow ? 'show' : 'concert') + '=' + event.id);
+			return urlParts.join('/');
+		}
 
 	}
 })();
