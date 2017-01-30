@@ -17,7 +17,7 @@
 		vm.reset_search = false;
 	    vm.getEventSalesReport = eventService.getEventSalesReport;
 
-		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: '', status: 'onsale', loadingItems: false, groupByShow: false};
+		vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: ''};
 
 		if(localStorage.getItem('reportsFilter')) {
 			vm.filter = JSON.parse(localStorage.getItem('reportsFilter'));
@@ -30,6 +30,10 @@
 			vm.reset_search = JSON.parse(localStorage.getItem('resetSearch'));
 			localStorage.removeItem('resetSearch');
 		}
+
+		vm.filter.status = 'onsale';
+		vm.filter.loadingItems = false;
+		vm.filter.groupByShow = false;
 
 		//scroll to top
 		$location.hash('top');
@@ -47,7 +51,7 @@
 
 		vm.getEventSales = eventService.getEventSales;
 		vm.getEventInfo = eventService.getEventInfo;
-		
+
 		eventService.getMyEvents(vm.filter);
 		
 		vm.tabSelectEvent = function (status) {

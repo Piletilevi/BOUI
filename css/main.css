@@ -70,6 +70,10 @@ a:hover {
 	margin-top: -5px;
 	display: inline-block;
 }
+.navbar-brand.bo-logo img {
+	max-height: 25px;
+	max-width: 104px;
+}
 
 /* Header additional icons
 ================================ */

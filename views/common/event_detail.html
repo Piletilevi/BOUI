@@ -46,7 +46,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="bo-event-report-link"><!--a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showEditLink">{{'api_edit'|translate}}</a><span ng-if="showEditLink">|</span--><a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showReportLink">{{'api_view_report'|translate}}</a><span ng-if="showReportLink">|</span><a href="">{{'api_view_website'|translate}}</a></div>
+	<div class="bo-event-report-link"><!--a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showEditLink">{{'api_edit'|translate}}</a><span ng-if="showEditLink">|</span--><a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showReportLink">{{'api_view_report'|translate}}</a>
+		<span ng-if="event.websiteUrl"><span ng-if="showReportLink">|</span><a href="{{event.websiteUrl}}" target="_blank">{{'api_view_website'|translate}}</a></span>
+	</div>
 	<div ng-if="event.concerts" id="bo-sub-events{{event.id}}" class="bo-sub-events collapse">
 		<div class="panel panel-default bo-event" ng-repeat="concertItem in event.concerts" ng-init="vm.getEventSales(concertItem)">
 			<div ng-include-template="event_detail.html" ng-include-variables="{ event: concertItem, showEditLink: true, showReportLink: true }"></div>
