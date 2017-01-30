@@ -55,7 +55,7 @@
 		<li class="active"><a href="#overview" data-toggle="tab" role="tab" aria-controls="overview" ng-click="vm.tabSelectEvent('overview')">{{'api_overview'|translate}}</a></li>
 		<li><a href="#pricetype" data-toggle="tab" role="tab" aria-controls="pricetype" ng-click="vm.tabSelectEvent('pricetype')">{{'api_by_pricetype'|translate}}</a></li>
 		<li><a href="#priceclass" data-toggle="tab" role="tab" aria-controls="priceclass" ng-click="vm.tabSelectEvent('priceclass')">{{'api_by_priceclass'|translate}}</a></li>
-		<li><a href="#sections" data-toggle="tab" role="tab" aria-controls="sections" ng-click="vm.tabSelectEvent('sections')">{{'api_by_sectors'|translate}}</a></li>
+		<li><a href="#sectors" data-toggle="tab" role="tab" aria-controls="sectors" ng-click="vm.tabSelectEvent('sectors')">{{'api_by_sectors'|translate}}</a></li>
 		<li><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations" ng-click="vm.tabSelectEvent('locations')">{{'api_by_locations'|translate}}</a></li>
 		<li><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings" ng-click="vm.tabSelectEvent('bookings')">{{'api_bookings'|translate}}</a></li>
 	</ul>
@@ -147,7 +147,7 @@
 									<td style="background-color: {{overviewRow.color}};"></td>
 									<td>{{overviewRow.typeName|translate}}:</td>
 									<td>{{overviewRow.count}}</td>
-									<td>{{vm.myOverviewBarData.generatedCount ? ( overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
+									<td>{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
 									<td>{{overviewRow.sum}} {{vm.myOverviewBarData.currency}}</td>
 								</tr>
 							</tbody>
@@ -357,19 +357,19 @@
 			</div>
 		</div>
 
-		<!-- Tab: sections -->
-		<div class="tab-pane bo-salesoverview panel panel-default" id="sections" role="tabpanel">
+		<!-- Tab: sectors -->
+		<div class="tab-pane bo-salesoverview panel panel-default" id="sectors" role="tabpanel">
 			<div class="panel-body">
 				<div class="bo-salesoverview-controls clearfix">
 					<div class="form-inline">
 						<div class="form-group">
 							<div class="input-group data_range">
-								<input type="text" class="form-control" value="01/01/2016 - 01/31/2016" />
-								  <span class="input-group-btn">
-									 <button class="btn btn-default" type="button">
-										 <i class="fa fa-calendar" aria-hidden="true"></i>
-									 </button>
-								  </span>
+								<input type="text" daterangepicker class="form-control" ng-model="vm.sectorsFilter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled />
+								 <span class="input-group-btn">
+									<button class="btn btn-default" type="button" data-control="daterangepicker">
+										<i class="fa fa-calendar" aria-hidden="true"></i>
+									</button>
+								 </span>
 							</div>
 						</div>
 					</div>
@@ -378,42 +378,21 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="bo-sectionselector list-group">
-							<button type="button" class="bo-sectionselector-item list-group-item">
+							<button type="button" class="bo-sectionselector-item list-group-item" ng-repeat="sectorData in vm.mySectorsData.sales">
 								<div class="bo-sectionselector-itemtitle">
-									Parter
+									{{sectorData.name}}
 								</div>
 								<div class="clearfix">
-									<div class="bo-sectionselector-itemprice">60,000 €</div>
-									<div class="bo-sectionselector-itemstats" ng-include="'views/common/simplestats.html'"></div>
-								</div>
-							</button>
-							<button type="button" class="bo-sectionselector-item list-group-item">
-								<div class="bo-sectionselector-itemtitle">
-									I rõdu
-								</div>
-								<div class="clearfix">
-									<div class="bo-sectionselector-itemprice">60,000 €</div>
-									<div class="bo-sectionselector-itemstats" ng-include="'views/common/simplestats.html'"></div>
-								</div>
-							</button>
-							<button type="button" class="bo-sectionselector-item list-group-item">
-								<div class="bo-sectionselector-itemtitle">
-									II rõdu
-								</div>
-								<div class="clearfix">
-									<div class="bo-sectionselector-itemprice">60,000 €</div>
-									<div class="bo-sectionselector-itemstats" ng-include="'views/common/simplestats.html'"></div>
+									<div class="bo-sectionselector-itemprice">{{sectorData.sell.soldSumma}} {{sectorData.sell.currency}}</div>
+									<div ng-include-template="simplestats.html" ng-include-variables="{ currentEvent: sectorData }"></div>
 								</div>
 							</button>
 						</div>
 					</div>
 					<div class="col-lg-6">
-						<div class="bo-map">
-<<<<<<< HEAD
-							<ng-venue-map data-config="{{vm.sectionsMapConfig}}"></ng-venue-map>
-=======
-							<ng-sections-map data-config="{{vm.sectionsMapConfig}}"></ng-sections-map>
->>>>>>> 831fc6a... price type / price class tabid
+						<div class="bo-map" ng-if="vm.event.confId != null">
+							<ng-venue-map data-config="{{vm.event.sectionsMapConfig}}"></ng-venue-map>
+							<ng-sections-map data-config="{{vm.event.sectionsMapConfig}}"></ng-sections-map>
 						</div>
 					</div>
 				</div>

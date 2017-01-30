@@ -19,12 +19,11 @@
 
 		var myOverviewData = null;
 		var myOverviewGraphData = null;
-
 		var myPriceTypeData = null;
 		var myPriceTypeGraphData = null;
-
 		var myPriceClassData = null;
 		var myPriceClassGraphData = null;
+		var mySectorsData = null;
 
 		var service = {
 			myOpenEvents: function() { return myOpenEvents },
@@ -39,10 +38,12 @@
 			myPriceTypeGraphData: function() { return myPriceTypeGraphData },
 			myPriceClassData: function() { return myPriceClassData },
 			myPriceClassGraphData: function() { return myPriceClassGraphData },
+			mySectorsData: function() { return mySectorsData },
             reset: reset,
             getMyEvents: getMyEvents,
 			getMoreEvents: getMoreEvents,
             getEventSales: getEventSales,
+			getEventSalesBySectors: getEventSalesBySectors,
             getEventInfo: getEventInfo,
             getEventOpSales: getEventOpSales,
 			getOverviewData : getOverviewData,
@@ -169,6 +170,14 @@
 			}
         }
 
+		function getEventSalesBySectors(event) {
+			if (event.isShow || event.concertsCount > 1) {
+				//TODO
+			} else {
+				getConcertSalesBySectors(event);
+			}
+        }
+
 		function getEventInfo(event) {
 			if (event.isShow) {
 				getShowInfo(event);
@@ -193,7 +202,17 @@
                 }
             });
         }
-
+		
+		function getConcertSalesBySectors(event) {
+			dataService.post('concertSalesBySectors', {id: event.id}).then(function (results) {
+				mySectorsData = null;
+				dataService.page(results);
+				if (results.status == 'success'){
+					mySectorsData = results.data;
+                }
+            });
+        }
+		
 		function getShowSales(event) {
             dataService.post('showSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
@@ -208,6 +227,7 @@
 				dataService.page(results);
 				if (results.status == 'success'){
 					event.name = results.data.name;
+					event.confId = results.data.confId;
 					event.eventPeriod = results.data.eventPeriod;
 					event.sellPeriod = results.data.sellPeriod;
 					event.location = results.data.location;
