@@ -94,7 +94,8 @@
 
 .daterangepicker .calendar-links {
 	font-size: 14px;
-	margin-bottom: 13px;
+	margin-bottom: 11px;
+	margin-top: 43px;
 }
 
 .daterangepicker .calendar-links a {
@@ -107,7 +108,7 @@
 }
 
 .daterangepicker .daterangepicker_input {
-	width: 45%;
+	width: 47%;
 	display: inline-block;
 	text-align: right;
 	vertical-align: middle;
@@ -133,7 +134,7 @@
 
 .daterangepicker .daterangepicker_separator {
 	display: inline-block;
-	width: 10%;
+	width: 6%;
 	text-align: center;
 	vertical-align: middle;
 }
@@ -166,6 +167,7 @@
 	float: none;
 	margin-left: 0;
 	margin-right: 0;
+	margin-bottom: 7px;
 }
 
 .daterangepicker .third_block {
@@ -174,14 +176,29 @@
 	padding-right: 12px;
 	padding-left: 5px;
 	padding-bottom: 5px;
+	position: relative;
 }
 
 .daterangepicker .applyBtn {
 	float: left;
+	width: 47%;
 }
 
 .daterangepicker .cancelBtn {
+	position: absolute;
+	right: 10px;
+	top: 9px;
+	padding: 5px 7px 6px;
+	line-height: 0.9;
+}
+
+.daterangepicker .cancelBtn .fa {
+	font-size: 14px;
+}
+
+.daterangepicker .resetBtn {
 	float: right;
+	width: 47%;
 }
 
 .daterangepicker .bootstrap-select {

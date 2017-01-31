@@ -54,7 +54,7 @@
 
 				function renderDateTimePicker() {
 					options.locale.applyLabel = $translate.instant('api_calendar_applyLabel');
-					options.locale.cancelLabel = $translate.instant('api_calendar_cancelLabel');
+					options.locale.cancelLabel = '<i class="fa fa-times" />';
 					options.locale.weekLabel = $translate.instant('api_calendar_weekLabel');
 					options.template =
 						'<div class="daterangepicker dropdown-menu">' +
