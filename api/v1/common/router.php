@@ -360,29 +360,6 @@ $app->post('/concertInfo', function() use ($app)  {
 	}
 });
 
-$app->post('/concertSalesBySectors', function() use ($app)  {
-	$dataHandler = $app->container->get("dataHandler");
-    $r = json_decode($app->request->getBody());
-
-	$dataHandler->verifyParams(array('id'), $r);
-
-	$filter = array();
-	$filter['id'] = $r->id;
-
-    $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->concertSalesBySectors( $filter );
-	
-	if ($reportResponse) {
-		$response["status"] = "success";
-		$response["data"] = $reportResponse->data;
-	    $dataHandler->response(200, $response);
-	} else {
-	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
-		$dataHandler->response(200, $response);
-	}
-});
-
 $app->post('/showInfo', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
@@ -816,6 +793,33 @@ $app->post('/eventSalesReportByPriceClassMonth', function() use ($app)  {
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceClassMonth( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/eventSalesReportBySectors', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id', 'type'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['eventId'] = $r->id;
+	$filter['isShow'] = $r->type=="show";
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesReportBySectors( $filter );
 	
 	if ($reportResponse) {
 		$response["status"] = "success";

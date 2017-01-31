@@ -43,7 +43,6 @@
 			getMyEvents: getMyEvents,
 			getMoreEvents: getMoreEvents,
 			getEventSales: getEventSales,
-			getEventSalesBySectors: getEventSalesBySectors,
 			getEventInfo: getEventInfo,
 			getEventOpSales: getEventOpSales,
 			getOverviewData : getOverviewData,
@@ -51,7 +50,8 @@
 			getPriceTypeData : getPriceTypeData,
 			getPriceClassData : getPriceClassData,
 			getPriceClassGraphData : getPriceClassGraphData,
-			getPriceTypeGraphData : getPriceTypeGraphData
+			getPriceTypeGraphData : getPriceTypeGraphData,
+			getSectorsData: getSectorsData,
 		};
 		return service;
 
@@ -170,11 +170,11 @@
 			}
 		}
 
-		function getEventSalesBySectors(event) {
+		function getEventSalesBySectors(event, filter) {
 			if (event.isShow || event.concertsCount > 1) {
-				//TODO
+				//nothing,
 			} else {
-				getConcertSalesBySectors(event);
+				getConcertSalesBySectors(event, filter);
 			}
 		}
 
@@ -204,8 +204,8 @@
 			});
 		}
 
-		function getConcertSalesBySectors(event) {
-			dataService.post('concertSalesBySectors', {id: event.id}).then(function (results) {
+		function getSectorsData(event, filter) {
+			dataService.post('eventSalesReportBySectors', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
 				mySectorsData = null;
 				dataService.page(results);
 				if (results.status == 'success'){

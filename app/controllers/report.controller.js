@@ -301,7 +301,7 @@
 			eventService.getPriceClassData(vm.event, vm.priceclassFilter);
 			eventService.getPriceClassGraphData(vm.event, vm.priceclassFilter);
 		} else if (tab == 'sectors') {
-			eventService.getEventSalesBySectors(vm.event);
+			eventService.getSectorsData(vm.event, vm.sectorsFilter);
 		}
 	};
 
@@ -453,6 +453,12 @@
     $scope.$watch('vm.overviewFilter.period', function (newPeriod, oldPeriod) {
 	  if (newPeriod !== oldPeriod) {
 		vm.tabSelectEvent('overview');
+      }
+    });
+
+    $scope.$watch('vm.sectorsFilter.period', function (newPeriod, oldPeriod) {
+	  if (newPeriod !== oldPeriod) {
+		vm.tabSelectEvent('sectors');
       }
     });
 
