@@ -204,7 +204,8 @@ $app->post('/myEvents', function() use ($app) {
     $myEvents = $piletileviApi->myEvents($filter);
 
     //$app->log->debug( print_r($myEvents,true) );
-
+	
+	$response = "";
 	if ($myEvents && !property_exists($myEvents, 'errors')) {
 		if ($myEvents) {
 	        $response['status'] = "success";
