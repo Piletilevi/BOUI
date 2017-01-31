@@ -244,7 +244,6 @@
     vm.reset_search = false;
 	vm.overviewBarGraph = graphService.overviewBarGraph;
 	vm.overviewLineGraph = graphService.overviewLineGraph;
-		console.log(vm.overviewLineGraph);
 	vm.pricetypePieGraph = graphService.pricetypePieGraph;
 	vm.pricetypeLineGraph = graphService.pricetypeLineGraph;
 	vm.priceclassPieGraph = graphService.priceclassPieGraph;

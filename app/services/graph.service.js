@@ -125,7 +125,7 @@
 					labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
 				}
 			  });
-			  
+
 			  newValue.types.forEach(function (type) {
 				var dataItem = [];
 				newValue.sales.forEach(function (sale) {
@@ -139,6 +139,8 @@
 						}
 					});
 				});
+				// Fill empty values with zeros
+				dataItem = dataItem.concat([].slice.call(new Uint8Array(labels.length - dataItem.length)));
 				data.push(dataItem);
 			  });
 
