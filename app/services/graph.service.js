@@ -35,8 +35,9 @@
 			},
 			overviewLineGraph: {
 				labels: null,
-				series: null,
+				series: [],
 				data: null,
+				colors: [],
 				datasetOverride: [{ yAxisID: 'y-axis-office' }, { yAxisID: 'y-axis-web' }],
 				options: {
 					scales: {
@@ -54,6 +55,9 @@
 						  position: 'left'
 						}
 					  ]
+					},
+					legend: {
+						display: true
 					}
 				}
 			},
@@ -101,7 +105,7 @@
 			  var data = [];
 			  
 			  newValue.types.forEach(function (type) {
-				series.push(type.typeName);
+					series.push(type.typeName);
 			  });
 
 			  newValue.sales.forEach(function (sale) {
@@ -190,6 +194,7 @@
 						myOverviewData.rows.forEach(function (overviewRow) {
 							step++;
 							overviewRow.color = colorService.getRandomColor(steps, step);
+							service.overviewLineGraph.colors.push(overviewRow.color);
 							color.push(overviewRow.color);
 							barSeries.push(overviewRow.typeName);
 							barData.push(overviewRow.count);
