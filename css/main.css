@@ -595,7 +595,8 @@ a:hover {
 }
 
 .bo-forgotten-toggle:not(.collapsed) {
-	/*display: none;*/
+	white-space: nowrap;
+	visibility: hidden;
 }
 
 .bo-widgetbox .form-group {
