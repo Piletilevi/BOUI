@@ -336,6 +336,7 @@
 				priceclassData.currency = '';
 				var labels = [];
 				var data = [];
+				var colors = [];
 
 				newValue.sales.forEach(function (myPriceclassData) {
 					priceclassData.generatedCount += myPriceclassData.rowCount;
@@ -346,7 +347,8 @@
 				newValue.sales.forEach(function (myPriceclassData) {
 					myPriceclassData.priceClasses.forEach(function (priceclassRow) {
 						steps++;
-						labels.push(priceclassRow.priceClassName);
+						labels.push(priceclassRow.priceClassName +
+							' (' + Math.round(priceclassRow.count / priceclassData.generatedCount * 100) + '%)');
 					});
 				});			  
 
@@ -354,6 +356,7 @@
 					myPriceclassData.priceClasses.forEach(function (priceclassRow) {
 						step++;
 						priceclassRow.color = colorService.getRandomColor(steps, step);
+						colors.push(priceclassRow.color);
 						if (filter.pieDisplay == 'tickets') {
 							data.push(priceclassRow.count);
 						} else {
@@ -365,9 +368,11 @@
 				if (labels && labels.length) {
 					priceclassPieGraph.labels = labels;
 					priceclassPieGraph.data = data;
+					priceclassPieGraph.colors = colors;
 				} else {
 					priceclassPieGraph.labels = null;
 					priceclassPieGraph.data = null;
+					priceclassPieGraph.colors = null;
 				}
 			}
 		}
