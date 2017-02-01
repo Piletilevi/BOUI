@@ -65,7 +65,7 @@
 				labels: null,
 				data: null,
 				options: {
-				}
+				},
 			},
 			pricetypeLineGraph: {
 				labels: null,
@@ -229,17 +229,21 @@
 				pricetypeData.currency = '';
 				var labels = [];
 				var data = [];
+				var colors = [];
 				
 				newValue.sales.forEach(function (myPricetypeData) {
 					pricetypeData.generatedCount += myPricetypeData.rowCount;
 					pricetypeData.generatedSum += myPricetypeData.rowSum;
 					pricetypeData.currency = myPricetypeData.currency;
 				});
-				
+
+				console.log(pricetypeData.generatedCount);
+
 				newValue.sales.forEach(function (myPricetypeData) {
 					myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
 						steps++;
-						labels.push(pricetypeRow.priceTypeName);
+						labels.push(pricetypeRow.priceTypeName +
+							' (' + Math.round(pricetypeRow.count / pricetypeData.generatedCount * 100) + '%)');
 					});
 				});			  
 				
@@ -247,6 +251,7 @@
 					myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
 						step++;
 						pricetypeRow.color = colorService.getRandomColor(steps, step);
+						colors.push(pricetypeRow.color);
 						data.push(pricetypeRow.count);
 					});
 				});
@@ -254,9 +259,11 @@
 				if (labels && labels.length) {
 					pricetypePieGraph.labels = labels;
 					pricetypePieGraph.data = data;
+					pricetypePieGraph.colors = colors;
 				} else {
 					pricetypePieGraph.labels = null;
 					pricetypePieGraph.data = null;
+					pricetypePieGraph.colors = null;
 				}
 			}
 		}
