@@ -299,11 +299,11 @@ class PiletileviApi {
 		return $reportData;
 	}
 
-	public function concertSalesBySectors($filter) {
+	public function eventSalesReportBySectors($filter) {
 		
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/event/concertSalesBySectors", $data );
+		$reportData = $this->send( "/report/eventSalesReportBySectors", $data );
 		
 		return $reportData;
 	}

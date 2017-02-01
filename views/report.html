@@ -96,7 +96,7 @@
 					</div>
 				</div>
 				<div class="bo-chart">
-					<canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data" chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series" chart-options="vm.overviewLineGraph.options" chart-dataset-override="vm.overviewLineGraph.datasetOverride">
+					<canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data" chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series" chart-options="vm.overviewLineGraph.options" chart-dataset-override="vm.overviewLineGraph.datasetOverride" chart-colors="vm.overviewLineGraph.colors">
 					</canvas>
 				</div>
 				<div class="row">
@@ -391,17 +391,11 @@
 					</div>
 					<div class="col-lg-6">
 						<div class="bo-map" ng-if="vm.event.confId != null">
-							<ng-venue-map data-config="{{vm.event.sectionsMapConfig}}"></ng-venue-map>
 							<ng-sections-map data-config="{{vm.event.sectionsMapConfig}}"></ng-sections-map>
 						</div>
 					</div>
 				</div>
 
-			</div>
-		</div>
-
-		<div class="tab-pane bo-salesoverview panel panel-default" id="locations" role="tabpanel">
-			<div class="panel-body">
 				<div class="bo-salesoverview-controls clearfix">
 					<div class="form-inline">
 						<div class="form-group">
@@ -580,8 +574,8 @@
 							<a class="bo-mapcontrols-item" href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
 							<a class="bo-mapcontrols-item" href="#"><i class="fa fa-minus" aria-hidden="true"></i></a>
 						</div>
-						<div class="bo-map">
-							<ng-venue-map data-config="{{vm.seatsMapConfig}}"></ng-venue-map>
+						<div class="bo-map" ng-if="vm.event.confId != null">
+							<ng-venue-map data-config="{{vm.event.seatsMapConfig}}"></ng-venue-map>
 						</div>
 					</div>
 				</div>
@@ -784,6 +778,21 @@
 						</div>
 					</div>
 				</form>
+
+			</div>
+		</div>
+
+		<!-- Tab: locations -->
+		<div class="tab-pane bo-salesoverview panel panel-default" id="locations" role="tabpanel">
+			<div class="panel-body">
+			Locations
+			</div>
+		</div>
+
+		<!-- Tab: bookings -->
+		<div class="tab-pane bo-salesoverview panel panel-default" id="bookings" role="tabpanel">
+			<div class="panel-body">
+			Bookings
 			</div>
 		</div>
 	</div>
