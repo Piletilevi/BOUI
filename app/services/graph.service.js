@@ -109,9 +109,14 @@
 			  var series = [];
 			  var labels = [];
 			  var data = [];
+				var colors = [];
+				var steps = 3;
+				var step = 0;
 			  
 			  newValue.types.forEach(function (type) {
 					series.push(type.typeName);
+					step++;
+					colors.push(colorService.getRandomColor(steps, step));
 			  });
 
 			  newValue.sales.forEach(function (sale) {
@@ -154,10 +159,12 @@
 				overviewGraph.labels = labels;
 				overviewGraph.series = series;
 				overviewGraph.data = data;
-			  } else {
+				overviewGraph.colors = colors;
+				} else {
 				overviewGraph.labels = null;
 				overviewGraph.series = null;
 				overviewGraph.data = null;
+				overviewGraph.colors = null;
 			  }
 			}
 		}
@@ -165,7 +172,7 @@
 		function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
 			if (newValue && newValue.sales) {
 				var step = 0;
-				var steps = 0;
+				var steps = 3;
 				overviewData.generatedCount = 0;
 				overviewData.generatedSum = 0;
 				overviewData.currency = '';
@@ -187,7 +194,6 @@
 						labels.push(myOverviewData.groupName);
 						var barSeries = [];
 						myOverviewData.rows.forEach(function (overviewRow) {
-							steps++;
 							barSeries.push(overviewRow.typeName);
 						});
 						series.push(barSeries);
