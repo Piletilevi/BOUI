@@ -130,7 +130,7 @@
 									<td>{{'api_generated'|translate}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount}}</td>
 									<td>100%</td>
-									<td>{{vm.myOverviewBarData.generatedSum}} {{vm.myOverviewBarData.currency}}</td>
+									<td>{{vm.myOverviewBarData.generatedSum | number:2}} {{vm.myOverviewBarData.currency}}</td>
 								</tr>
 							</tbody>
 							<thead ng-if="overviewData.groupId != 'generated'">
@@ -139,7 +139,7 @@
 									<th width="46%">{{overviewData.groupName|translate}}:</th>
 									<th width="17%">{{overviewData.rowCount}}</th>
 									<th width="10%">{{vm.myOverviewBarData.generatedCount ? ( overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</th>
-									<th width="20%">{{overviewData.rowSum}} {{vm.myOverviewBarData.currency}}</th>
+									<th width="20%">{{overviewData.rowSum | number:2}} {{vm.myOverviewBarData.currency}}</th>
 								</tr>
 							</thead>
 							<tbody ng-if="overviewData.groupId != 'generated'">
@@ -148,7 +148,7 @@
 									<td>{{overviewRow.typeName|translate}}:</td>
 									<td>{{overviewRow.count}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{overviewRow.sum}} {{vm.myOverviewBarData.currency}}</td>
+									<td>{{overviewRow.sum | number:2}} {{vm.myOverviewBarData.currency}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -233,7 +233,7 @@
 									<td>{{'api_sold_total'|translate}}</td>
 									<td>{{vm.myPriceTypePieData.generatedCount}}</td>
 									<td>100%</td>
-									<td>{{vm.myPriceTypePieData.generatedSum}} {{vm.myPriceTypePieData.currency}}</td>
+									<td>{{vm.myPriceTypePieData.generatedSum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
 								</tr>
 							</tbody>
 							<thead>
@@ -248,7 +248,7 @@
 									<td>{{pricetypeItem.priceTypeName}}</td>
 									<td>{{pricetypeItem.count}}</td>
 									<td>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{pricetypeItem.sum}} {{vm.myPriceTypePieData.currency}}</td>
+									<td>{{pricetypeItem.sum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -332,7 +332,7 @@
 									<td>{{'api_sold_total'|translate}}</td>
 									<td>{{vm.myPriceClassPieData.generatedCount}}</td>
 									<td>100%</td>
-									<td>{{vm.myPriceClassPieData.generatedSum}} {{vm.myPriceClassPieData.currency}}</td>
+									<td>{{vm.myPriceClassPieData.generatedSum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
 								</tr>
 							</tbody>
 							<thead>
@@ -347,7 +347,7 @@
 									<td>{{priceclassItem.priceClassName}}</td>
 									<td>{{priceclassItem.count}}</td>
 									<td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{priceclassItem.sum}} {{vm.myPriceClassPieData.currency}}</td>
+									<td>{{priceclassItem.sum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -383,7 +383,7 @@
 									{{sectorData.name}}
 								</div>
 								<div class="clearfix">
-									<div class="bo-sectionselector-itemprice">{{sectorData.sell.soldSumma}} {{sectorData.sell.currency}}</div>
+									<div class="bo-sectionselector-itemprice">{{sectorData.sell.soldSumma | number:2}} {{sectorData.sell.currency}}</div>
 									<div ng-include-template="simplestats.html" ng-include-variables="{ currentEvent: sectorData }"></div>
 								</div>
 							</button>
