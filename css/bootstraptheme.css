@@ -559,3 +559,43 @@ fieldset[disabled] .btn {
 .label-warning {
 	background-color: #f9ba0f;
 }
+
+.modal-content {
+	-webkit-box-shadow: 0 2px 2px rgba(40, 30, 15, 0.28);
+	-moz-box-shadow: 0 2px 2px rgba(40, 30, 15, 0.28);
+	box-shadow: 0 2px 2px rgba(40, 30, 15, 0.28);
+}
+
+.modal-title .fa {
+	font-size: 14.5px;
+	margin-right: 11px;
+}
+
+.modal-header {
+	background: #4a5867;
+	color: #ebedf0;
+	border-bottom: 0 none;
+	-webkit-border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	border-radius: 5px 5px 0 0;
+	padding-top: 7px;
+	padding-bottom: 12px;
+	padding-right: 40px;
+}
+
+.modal-body {
+	padding: 21px 40px 15px 40px;
+}
+
+.modal-footer {
+	border-top: 0 none;
+	padding: 11px 10px 11px 14px;
+}
+
+.modal-backdrop {
+	background: none;
+}
+
+textarea.form-control {
+	min-height: 132px;
+}

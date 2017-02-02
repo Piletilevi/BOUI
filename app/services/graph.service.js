@@ -15,6 +15,7 @@
 			  labels: null,
 			  type: 'StackedBar',
 			  series: null,
+			  colors: [],
 			  datasetOverride: null,
 			  data: null,
 			  options: {
@@ -103,9 +104,11 @@
 			  var series = [];
 			  var labels = [];
 			  var data = [];
-			  
+			  var colors = [];
+
 			  newValue.types.forEach(function (type) {
-					series.push(type.typeName);
+				  series.push(type.typeName);
+				  colors.push(colorService.getColorByType(type.typeName));
 			  });
 
 			  newValue.sales.forEach(function (sale) {
@@ -148,10 +151,12 @@
 				overviewGraph.labels = labels;
 				overviewGraph.series = series;
 				overviewGraph.data = data;
+				overviewGraph.colors = colors;
 			  } else {
 				overviewGraph.labels = null;
 				overviewGraph.series = null;
 				overviewGraph.data = null;
+				overviewGraph.colors = null;
 			  }
 			}
 		}
@@ -175,7 +180,7 @@
 						overviewData.currency = myOverviewData.currency;
 					}
 				});
-				
+
 				newValue.sales.forEach(function (myOverviewData) {
 					if (myOverviewData.groupId != 'generated') {
 						labels.push(myOverviewData.groupName);
@@ -186,8 +191,8 @@
 						});
 						series.push(barSeries);
 					}
-				});			  
-				
+				});
+
 				newValue.sales.forEach(function (myOverviewData) {
 					if (myOverviewData.groupId != 'generated') {
 						var color = [];
@@ -195,8 +200,8 @@
 						var barData = [];
 						myOverviewData.rows.forEach(function (overviewRow) {
 							step++;
-							overviewRow.color = colorService.getRandomColor(steps, step);
-							service.overviewLineGraph.colors.push(overviewRow.color);
+							overviewRow.color = colorService.getColorByType(overviewRow.typeName);
+							service.overviewBarGraph.colors.push(overviewRow.color);
 							color.push(overviewRow.color);
 							barSeries.push(overviewRow.typeName);
 							barData.push(overviewRow.count);
@@ -205,7 +210,7 @@
 						data.push(myOverviewData.rowCount);
 					}
 				});
-			
+
 				if (labels && labels.length) {
 					overviewBarGraph.labels = labels;
 					overviewBarGraph.series = series;

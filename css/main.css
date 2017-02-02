@@ -1147,3 +1147,66 @@ a:hover {
 	font-weight: bold;
 	padding-top: 0.4em;
 }
+
+/* Modal
+================================ */
+
+.bo-modal h2 {
+	font-size: 22px;
+	margin-bottom: 1px;
+}
+
+.bo-modal-view-all {
+	float: left;
+	margin-top: 3px;
+}
+
+.bo-modal .bo-close-btn {
+	position: absolute;
+	right: 9px;
+	top: 8px;
+}
+
+.bo-modal-date {
+	display: inline-block;
+	margin-right: 22px;
+}
+
+.bo-modal-time {
+	display: inline-block;
+}
+
+.bo-modal-place {
+	display: block;
+	margin-top: -1px;
+}
+
+.bo-modal-form .control-label {
+	padding-right: 0;
+	margin-right: -4px;
+}
+
+.bo-modal-form .form-group {
+	margin-bottom: 9px;
+}
+
+.bo-modal-form-empty-input {
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+.bo-modal-datetime_block {
+	margin-bottom: 18px;
+}
+
+/* Close button
+================================ */
+
+.bo-close-btn {
+	padding: 5px 7px 6px;
+	line-height: 0.9;
+}
+
+.bo-close-btn .fa {
+	font-size: 14px;
+}
