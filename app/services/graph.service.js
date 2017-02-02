@@ -9,7 +9,7 @@
 	GraphService.$inject = ['colorService'];
 
     function GraphService(colorService) {
-        
+    var defaultSteps = 3;
 		var service = {
 			overviewBarGraph: {
 			  labels: null,
@@ -110,7 +110,7 @@
 			  var labels = [];
 			  var data = [];
 				var colors = [];
-				var steps = 3;
+				var steps = defaultSteps;
 				var step = 0;
 			  
 			  newValue.types.forEach(function (type) {
@@ -172,7 +172,7 @@
 		function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
 			if (newValue && newValue.sales) {
 				var step = 0;
-				var steps = 3;
+				var steps = defaultSteps;
 				overviewData.generatedCount = 0;
 				overviewData.generatedSum = 0;
 				overviewData.currency = '';
@@ -208,7 +208,6 @@
 						myOverviewData.rows.forEach(function (overviewRow) {
 							step++;
 							overviewRow.color = colorService.getRandomColor(steps, step);
-							service.overviewLineGraph.colors.push(overviewRow.color);
 							color.push(overviewRow.color);
 							barSeries.push(overviewRow.typeName);
 							barData.push(overviewRow.count);
