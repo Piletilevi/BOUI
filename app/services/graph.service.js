@@ -65,7 +65,10 @@
 				labels: null,
 				data: null,
 				options: {
-				},
+					legend: {
+						display: true
+					}
+				}
 			},
 			pricetypeLineGraph: {
 				labels: null,
@@ -79,6 +82,9 @@
 				labels: null,
 				data: null,
 				options: {
+					legend: {
+						display: true
+					}
 				}
 			},
 			priceclassLineGraph: {
@@ -236,8 +242,6 @@
 					pricetypeData.generatedSum += myPricetypeData.rowSum;
 					pricetypeData.currency = myPricetypeData.currency;
 				});
-
-				console.log(pricetypeData.generatedCount);
 
 				newValue.sales.forEach(function (myPricetypeData) {
 					myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
