@@ -198,6 +198,10 @@
 		padding-right: 10%;
 		padding-left: 10%;
 	}
+
+	.bo-modal-form .bootstrap-select.form-control:not([class*="col-"]) {
+		width: 100% !important;
+	}
 }
 
 @media (min-width: 768px) and (max-width: 992px) {

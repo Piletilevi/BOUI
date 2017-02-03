@@ -1190,6 +1190,12 @@ a:hover {
 	margin-bottom: 9px;
 }
 
+.bo-modal-form .form-group-sm {
+	margin-bottom: 4px;
+}
+
+
+
 .bo-modal-form-empty-input {
 	padding-top: 7px;
 	padding-bottom: 7px;
@@ -1197,6 +1203,12 @@ a:hover {
 
 .bo-modal-datetime_block {
 	margin-bottom: 18px;
+}
+
+.bo-modal-form-period {
+	margin-left: 11px;
+	margin-top: 4px;
+	display: inline-block;
 }
 
 /* Close button

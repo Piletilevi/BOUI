@@ -471,11 +471,33 @@ a.list-group-item {
 	background: #e3e5e8;
 }
 
+.input-sm > .dropdown-toggle,
+.form-group-sm .dropdown-toggle,
 select.input-sm {
-	height: 23px;
-	line-height: 23px;
-	padding: 0px 4px;
-	font-size: 14px;
+	height: 27px;
+	line-height: 27px;
+	padding: 0 25px 0 10px;
+	font-size: 15px;
+}
+.form-group-sm .bootstrap-select.btn-group .dropdown-toggle .caret,
+.form-group-sm .dropdown-toggle .caret,
+.input-sm > .dropdown-toggle .caret {
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px dashed;
+	right: 7px;
+}
+
+.form-group-sm .bootstrap-select {
+	min-width: 30%;
+	width: auto!important;
+	padding: 0;
+	margin-top: 1px;
+}
+
+.form-horizontal .form-group-sm .control-label {
+	font-size: inherit;
+	padding-top: 4px;
 }
 
 .form-group {

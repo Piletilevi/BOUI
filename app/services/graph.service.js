@@ -163,7 +163,6 @@
 
 		function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
 			if (newValue && newValue.sales) {
-				var step = 0;
 				var steps = 0;
 				overviewData.generatedCount = 0;
 				overviewData.generatedSum = 0;
@@ -171,6 +170,8 @@
 				var series = [];
 				var labels = [];
 				var data = [];
+				var colors = [];
+				var barSeries = [];
 				var datasetOverride = [];
 
 				newValue.sales.forEach(function (myOverviewData) {
@@ -196,20 +197,37 @@
 				newValue.sales.forEach(function (myOverviewData) {
 					if (myOverviewData.groupId != 'generated') {
 						var color = [];
-						var barSeries = [];
-						var barData = [];
+						var step = 0;
 						myOverviewData.rows.forEach(function (overviewRow) {
-							step++;
+							if(typeof(data[step]) == "undefined") {
+								data[step] = [];
+							}
+							data[step].push(overviewRow.count);
+
+							if(typeof(colors[step]) == "undefined") {
+								colors[step] = [];
+							}
 							overviewRow.color = colorService.getColorByType(overviewRow.typeName);
-							service.overviewBarGraph.colors.push(overviewRow.color);
-							color.push(overviewRow.color);
-							barSeries.push(overviewRow.typeName);
-							barData.push(overviewRow.count);
+							colors[step].push(overviewRow.color);
+
+							if(typeof(barSeries[step]) == "undefined") {
+								barSeries[step] = [];
+							}
+							barSeries[step].push(overviewRow.typeName);
+
+							step++;
 						});
-						datasetOverride.push({backgroundColor: color, series: barSeries, data: barData});
-						data.push(myOverviewData.rowCount);
 					}
 				});
+
+				for (var i = 0; i < data.length; i++) {
+					datasetOverride.push({
+						label: '',
+						backgroundColor: colors[i],
+						borderColor: colors[i],
+						data: data[i],
+					});
+				}
 
 				if (labels && labels.length) {
 					overviewBarGraph.labels = labels;
