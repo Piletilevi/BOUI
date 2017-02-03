@@ -1191,7 +1191,7 @@ a:hover {
 }
 
 .bo-modal-form .form-group-sm {
-	margin-bottom: 4px;
+	margin-bottom: 9px;
 }
 
 
@@ -1207,8 +1207,12 @@ a:hover {
 
 .bo-modal-form-period {
 	margin-left: 11px;
-	margin-top: 4px;
 	display: inline-block;
+}
+
+.bo-modal-form-weekdays {
+	display: inline-block;
+	margin-left: 11px;
 }
 
 /* Close button

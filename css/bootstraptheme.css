@@ -492,7 +492,7 @@ select.input-sm {
 	min-width: 30%;
 	width: auto!important;
 	padding: 0;
-	margin-top: 1px;
+
 }
 
 .form-horizontal .form-group-sm .control-label {
@@ -620,4 +620,15 @@ fieldset[disabled] .btn {
 
 textarea.form-control {
 	min-height: 132px;
+}
+
+.btn-group-sm > .btn,
+.btn-sm {
+	font-size: 15px;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.form-group-sm .form-control {
+	height: 27px;
 }
