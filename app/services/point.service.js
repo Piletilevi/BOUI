@@ -31,14 +31,15 @@
             return $rootScope.user.salesPoints.find(findPoint).name
         }
 
-        function setPoint(pointId){
+        function setPoint(pointId, sendPoint){
+            sendPoint = typeof sendPoint !== 'undefined' ? sendPoint : true;
             $rootScope.user.point= pointId;
 
             $rootScope.pointMenuLogo = getPointMenuLogo();
             $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor();
             $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
-
-            dataService.post('setPoint', {'pointId': pointId });
+            if (sendPoint)
+                dataService.post('setPoint', {'pointId': pointId });
 
         }
 
