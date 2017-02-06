@@ -368,6 +368,12 @@ class PiletileviApi {
 				$data['salepointid']= $this->currentUser->point;
 			}
 		}
+		
+		if (is_object($this->currentLang)) {
+			if (!isset($data['langId'])) {
+				$data['langId']= $this->currentLang->code;
+			}
+		}
 
 		$tokenId   = base64_encode(mcrypt_create_iv(32));
 		$issuedAt  = time();
