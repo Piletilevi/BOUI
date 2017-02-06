@@ -34,32 +34,40 @@
 			  }
 			},
 			overviewLineGraph: {
-				labels: null,
-				series: [],
-				data: null,
-				colors: [],
-				datasetOverride: [{ yAxisID: 'y-axis-office' }, { yAxisID: 'y-axis-web' }],
-				options: {
-					scales: {
-					  yAxes: [
-						{
-						  id: 'y-axis-office',
-						  type: 'linear',
-						  display: true,
-						  position: 'left'
-						},
-						{
-						  id: 'y-axis-web',
-						  type: 'linear',
-						  display: false,
-						  position: 'left'
-						}
-					  ]
-					},
-					legend: {
-						display: true
+				chart: {
+					type: 'area'
+				},
+				title: false,
+				xAxis: {
+					categories: null,
+					tickmarkPlacement: 'on',
+					title: {
+						enabled: false
 					}
-				}
+				},
+				yAxis: {
+					title: false,
+					labels: {
+						formatter: function () {
+							return this.value;
+						}
+					}
+				},
+				tooltip: {
+					split: true
+				},
+				plotOptions: {
+					area: {
+						stacking: 'normal',
+						lineColor: '#666666',
+						lineWidth: 1,
+						marker: {
+							lineWidth: 1,
+							lineColor: '#666666'
+						}
+					}
+				},
+				series: null
 			},
 			pricetypePieGraph: {
 				labels: null,
@@ -104,70 +112,60 @@
         };
         return service;
 
-		function renderOverviewLineGraph(newValue, filter, overviewGraph) {
-			if (newValue && newValue.sales) {
-			  var series = [];
-			  var labels = [];
-			  var data = [];
-				var colors = [];
-				var steps = defaultSteps;
-				var step = 0;
-			  
-			  newValue.types.forEach(function (type) {
-					series.push(type.typeName);
-					step++;
-					colors.push(colorService.getRandomColor(steps, step));
-			  });
+			function renderOverviewLineGraph(newValue, filter, overviewGraph) {
+				if (newValue && newValue.sales) {
+					var series = [];
+					var labels = [];
+					var steps = defaultSteps;
+					var step = 0;
 
-			  newValue.sales.forEach(function (sale) {
-				if (filter.groupBy == 'day') {
-					labels.push(moment(sale.sellDate).format('DD.MM.YYYY'));
-				} else if (filter.groupBy == 'week') {
-					var weekStart = moment(sale.sellYear + "W" + (sale.sellWeek <= 9 ? "0" + sale.sellWeek : sale.sellWeek));
-					labels.push(weekStart.format('DD.MM.YYYY') + " - " + weekStart.add(7, 'days').format('DD.MM.YYYY'));
-				} else if (filter.groupBy == 'month') {
-					var firstDayOfMonth = new Date(sale.sellYear, sale.sellMonth - 1, 1);
-					var firstDayNextMonth = null;
-					if (sale.sellMonth < 12) {
-						firstDayNextMonth = new Date(sale.sellYear, sale.sellMonth, 1);
-					} else {
-						firstDayNextMonth = new Date(sale.sellYear + 1, 0, 1);
-					}
-					labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
-				}
-			  });
-
-			  newValue.types.forEach(function (type) {
-				var dataItem = [];
-				newValue.sales.forEach(function (sale) {
-					sale.sellTypes.forEach(function (saleType) {
-						if (type.type == saleType.type) {
-							if (filter.display == 'tickets') {
-								dataItem.push(saleType.rowCount);
+					newValue.sales.forEach(function (sale) {
+						if (filter.groupBy == 'day') {
+							labels.push(moment(sale.sellDate).format('DD.MM.YYYY'));
+						} else if (filter.groupBy == 'week') {
+							var weekStart = moment(sale.sellYear + "W" + (sale.sellWeek <= 9 ? "0" + sale.sellWeek : sale.sellWeek));
+							labels.push(weekStart.format('DD.MM.YYYY') + " - " + weekStart.add(7, 'days').format('DD.MM.YYYY'));
+						} else if (filter.groupBy == 'month') {
+							var firstDayOfMonth = new Date(sale.sellYear, sale.sellMonth - 1, 1);
+							var firstDayNextMonth = null;
+							if (sale.sellMonth < 12) {
+								firstDayNextMonth = new Date(sale.sellYear, sale.sellMonth, 1);
 							} else {
-								dataItem.push(saleType.rowSum);
+								firstDayNextMonth = new Date(sale.sellYear + 1, 0, 1);
 							}
+							labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
 						}
 					});
-				});
-				// Fill empty values with zeros
-				dataItem = dataItem.concat([].slice.call(new Uint8Array(labels.length - dataItem.length)));
-				data.push(dataItem);
-			  });
 
-			  if (labels && labels.length) {
-				overviewGraph.labels = labels;
-				overviewGraph.series = series;
-				overviewGraph.data = data;
-				overviewGraph.colors = colors;
-				} else {
-				overviewGraph.labels = null;
-				overviewGraph.series = null;
-				overviewGraph.data = null;
-				overviewGraph.colors = null;
-			  }
+					newValue.types.forEach(function (type) {
+						step++;
+						var seriesItem = {
+							name: type.typeName,
+							data: [],
+							color: colorService.getRandomColor(steps, step)
+						};
+						newValue.sales.forEach(function (sale) {
+							var seriesItemValue = 0;
+							sale.sellTypes.forEach(function (saleType) {
+								if (type.type == saleType.type) {
+									if (filter.display == 'tickets') {
+										seriesItemValue = saleType.rowCount;
+									} else {
+										seriesItemValue = saleType.rowSum;
+									}
+								}
+							});
+							seriesItem.data.push(seriesItemValue);
+						});
+						series.push(seriesItem);
+					});
+
+					if (labels && labels.length) {
+						overviewGraph.xAxis.categories = labels;
+						overviewGraph.series = series;
+					}
+				}
 			}
-		}
 
 		function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
 			if (newValue && newValue.sales) {
@@ -188,7 +186,7 @@
 						overviewData.currency = myOverviewData.currency;
 					}
 				});
-				
+
 				newValue.sales.forEach(function (myOverviewData) {
 					if (myOverviewData.groupId != 'generated') {
 						labels.push(myOverviewData.groupName);
@@ -198,8 +196,8 @@
 						});
 						series.push(barSeries);
 					}
-				});			  
-				
+				});
+
 				newValue.sales.forEach(function (myOverviewData) {
 					if (myOverviewData.groupId != 'generated') {
 						var color = [];
@@ -216,7 +214,7 @@
 						data.push(myOverviewData.rowCount);
 					}
 				});
-			
+
 				if (labels && labels.length) {
 					overviewBarGraph.labels = labels;
 					overviewBarGraph.series = series;
@@ -231,6 +229,8 @@
 			}
 		}
 
+
+
 		function renderPriceTypePieGraph(newValue, pricetypeData, pricetypePieGraph) {
 			if (newValue && newValue.sales) {
 				var step = 0;
@@ -241,7 +241,7 @@
 				var labels = [];
 				var data = [];
 				var colors = [];
-				
+
 				newValue.sales.forEach(function (myPricetypeData) {
 					pricetypeData.generatedCount += myPricetypeData.rowCount;
 					pricetypeData.generatedSum += myPricetypeData.rowSum;
@@ -254,8 +254,8 @@
 						labels.push(pricetypeRow.priceTypeName +
 							' (' + Math.round(pricetypeRow.count / pricetypeData.generatedCount * 100) + '%)');
 					});
-				});			  
-				
+				});
+
 				newValue.sales.forEach(function (myPricetypeData) {
 					myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
 						step++;
@@ -264,7 +264,7 @@
 						data.push(pricetypeRow.count);
 					});
 				});
-			
+
 				if (labels && labels.length) {
 					pricetypePieGraph.labels = labels;
 					pricetypePieGraph.data = data;
@@ -289,7 +289,7 @@
 					series.push(saleType.priceTypeName);
 				});
 			  });
-			  
+
 			  newValue.sales.forEach(function (sale) {
 				if (filter.groupBy == 'day') {
 					labels.push(moment(sale.sellDate).format('DD.MM.YYYY'));
@@ -359,7 +359,7 @@
 						labels.push(priceclassRow.priceClassName +
 							' (' + Math.round(priceclassRow.count / priceclassData.generatedCount * 100) + '%)');
 					});
-				});			  
+				});
 
 				newValue.sales.forEach(function (myPriceclassData) {
 					myPriceclassData.priceClasses.forEach(function (priceclassRow) {
@@ -373,7 +373,7 @@
 						}
 					});
 				});
-			
+
 				if (labels && labels.length) {
 					priceclassPieGraph.labels = labels;
 					priceclassPieGraph.data = data;
@@ -398,7 +398,7 @@
 					series.push(saleType.priceClassName);
 				});
 			  });
-			  
+
 			  newValue.sales.forEach(function (sale) {
 				if (filter.groupBy == 'day') {
 					labels.push(moment(sale.sellDate).format('DD.MM.YYYY'));

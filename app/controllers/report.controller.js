@@ -8,6 +8,7 @@
   ReportController.$inject = ['$scope', '$routeParams', '$location', '$anchorScroll', 'eventService', 'graphService'];
 
   function ReportController($scope, $routeParams, $location, $anchorScroll, eventService, graphService) {
+
     if (!$routeParams && !$routeParams.id) {
       $location.path('dashboard');
     }
