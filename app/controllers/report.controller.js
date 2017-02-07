@@ -21,7 +21,7 @@
     var vm = this;
     var prevFilterName = null;
     vm.event = {
-		id: $routeParams.id, 
+		id: $routeParams.id,
 		isShow: $routeParams.type == 'show',
 		sectionsMapConfig: {
 			type: 'sections',
@@ -36,9 +36,9 @@
 			sectionMapType: 'vector',
 			sections: [],
 			enabledSections: [],
-			seatsInfo: [				
+			seatsInfo: [
 				{"id":3735584,"row":"7","place":"8","price":"31.00","available":true,"priceClass":2},
-				{"id":3735583,"row":"7","place":"7","price":"31.00","available":true,"priceClass":2},				
+				{"id":3735583,"row":"7","place":"7","price":"31.00","available":true,"priceClass":2},
 				{"id":3735582,"row":"7","place":"6","price":"31.00","available":true,"priceClass":2},
 				{"id":3735581,"row":"7","place":"5","price":"31.00","available":true,"priceClass":2},
 				{"id":3735561,"row":"7","place":"4","price":false,"available":false,"priceClass":0},
@@ -241,7 +241,7 @@
 	vm.sectorsFilter = {period: {startDate:null, endDate: null}};
     // Min & Max dates get from api when ready on the backend
     vm.minFilterDate = moment();
-    vm.maxFilterDate = moment().subtract(7, 'days');;
+    vm.maxFilterDate = moment().subtract(7, 'days');
     vm.reset_search = false;
 	vm.overviewBarGraph = graphService.overviewBarGraph;
 	vm.overviewLineGraph = graphService.overviewLineGraph;
@@ -262,7 +262,7 @@
       localStorage.setItem('resetSearch', JSON.stringify(vm.reset_search));
       $location.path('dashboard');
     };
-	
+
 	vm.setOverviewDisplay = function(display) {
 		vm.overviewFilter.display = display;
 	}
@@ -439,7 +439,7 @@
 		vm.sectorsFilter.period.endDate = moment(newSellPeriod.end);
 		vm.minFilterDate = vm.overviewFilter.period.startDate;
 		vm.maxFilterDate = vm.overviewFilter.period.endDate;
-		
+
 		vm.tabSelectEvent('overview');
       }
     });
