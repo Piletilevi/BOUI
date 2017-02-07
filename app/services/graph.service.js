@@ -6,10 +6,9 @@
     .module('boApp')
     .factory('graphService', GraphService);
 
-  GraphService.$inject = ['colorService'];
+  GraphService.$inject = ['colorService', '$translate'];
 
-  function GraphService(colorService) {
-    var defaultSteps = 3;
+  function GraphService(colorService, $translate) {
     var service = {
       overviewBarGraph: {
         labels: null,
@@ -34,40 +33,20 @@
         }
       },
       overviewLineGraph: {
-        chart: {
-          type: 'area'
-        },
-        title: false,
-        xAxis: {
-          categories: null,
-          tickmarkPlacement: 'on',
-          title: {
-            enabled: false
+        labels: null,
+        series: [],
+        data: null,
+        colors: [],
+        options: {
+          scales: {
+            yAxes: [{
+              stacked: true
+            }]
+          },
+          legend: {
+            display: true
           }
-        },
-        yAxis: {
-          title: false,
-          labels: {
-            formatter: function () {
-              return this.value;
-            }
-          }
-        },
-        tooltip: {
-          split: true
-        },
-        plotOptions: {
-          area: {
-            stacking: 'normal',
-            lineColor: '#666666',
-            lineWidth: 1,
-            marker: {
-              lineWidth: 1,
-              lineColor: '#666666'
-            }
-          }
-        },
-        series: null
+        }
       },
       pricetypePieGraph: {
         labels: null,
@@ -80,40 +59,20 @@
       },
 
       pricetypeLineGraph: {
-        chart: {
-          type: 'area'
-        },
-        title: false,
-        xAxis: {
-          categories: null,
-          tickmarkPlacement: 'on',
-          title: {
-            enabled: false
+        labels: null,
+        series: [],
+        data: null,
+        colors: [],
+        options: {
+          scales: {
+            yAxes: [{
+              stacked: true
+            }]
+          },
+          legend: {
+            display: true
           }
-        },
-        yAxis: {
-          title: false,
-          labels: {
-            formatter: function () {
-              return this.value;
-            }
-          }
-        },
-        tooltip: {
-          split: true
-        },
-        plotOptions: {
-          area: {
-            stacking: 'normal',
-            lineColor: '#666666',
-            lineWidth: 1,
-            marker: {
-              lineWidth: 1,
-              lineColor: '#666666'
-            }
-          }
-        },
-        series: null
+        }
       },
       priceclassPieGraph: {
         labels: null,
@@ -126,10 +85,19 @@
       },
       priceclassLineGraph: {
         labels: null,
-        series: null,
+        series: [],
         data: null,
-        datasetOverride: [],
-        options: {}
+        colors: [],
+        options: {
+          scales: {
+            yAxes: [{
+              stacked: true
+            }]
+          },
+          legend: {
+            display: true
+          }
+        }
       },
       renderOverviewBarGraph: renderOverviewBarGraph,
       renderOverviewLineGraph: renderOverviewLineGraph,
@@ -144,8 +112,10 @@
       if (newValue && newValue.sales) {
         var series = [];
         var labels = [];
-        var steps = defaultSteps;
+        var data = [];
+        var colors = [];
         var step = 0;
+        var maxTicks = 0;
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
@@ -166,31 +136,39 @@
         });
 
         newValue.types.forEach(function (type) {
-          step++;
-          var seriesItem = {
-            name: type.typeName,
-            data: [],
-            color: colorService.getRandomColor(steps, step)
-          };
+          var dataItem = [];
           newValue.sales.forEach(function (sale) {
-            var seriesItemValue = 0;
+            var dataItemValue = 0;
             sale.sellTypes.forEach(function (saleType) {
               if (type.type == saleType.type) {
                 if (filter.display == 'tickets') {
-                  seriesItemValue = saleType.rowCount;
+                  dataItemValue = saleType.rowCount;
                 } else {
-                  seriesItemValue = saleType.rowSum;
+                  dataItemValue = saleType.rowSum;
                 }
               }
             });
-            seriesItem.data.push(seriesItemValue);
+            dataItem.push(dataItemValue);
           });
-          series.push(seriesItem);
+          if (!dataItem.every(function (v) {
+              return v === 0;
+            })) {
+            data.push(dataItem);
+            series.push($translate.instant(type.typeName));
+            step++;
+            colors.push(colorService.getRandomColor((newValue.types.length + 1), step));
+          }
         });
-
         if (labels && labels.length) {
-          overviewGraph.xAxis.categories = labels;
+          overviewGraph.labels = labels;
           overviewGraph.series = series;
+          overviewGraph.data = data;
+          overviewGraph.colors = colors;
+        } else {
+          overviewGraph.labels = null;
+          overviewGraph.series = null;
+          overviewGraph.data = null;
+          overviewGraph.colors = null;
         }
       }
     }
@@ -198,7 +176,6 @@
     function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
       if (newValue && newValue.sales) {
         var step = 0;
-        var steps = defaultSteps;
         overviewData.generatedCount = 0;
         overviewData.generatedSum = 0;
         overviewData.currency = '';
@@ -233,7 +210,7 @@
             var barData = [];
             myOverviewData.rows.forEach(function (overviewRow) {
               step++;
-              overviewRow.color = colorService.getRandomColor(steps, step);
+              overviewRow.color = colorService.getRandomColor((series.length + 1), step);
               color.push(overviewRow.color);
               barSeries.push(overviewRow.typeName);
               barData.push(overviewRow.count);
@@ -261,7 +238,6 @@
     function renderPriceTypePieGraph(newValue, filter, pricetypeData, pricetypePieGraph) {
       if (newValue && newValue.sales) {
         var step = 0;
-        var steps = defaultSteps;
         pricetypeData.generatedCount = 0;
         pricetypeData.generatedSum = 0;
         pricetypeData.currency = '';
@@ -285,9 +261,9 @@
         newValue.sales.forEach(function (myPricetypeData) {
           myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
             step++;
-            pricetypeRow.color = colorService.getRandomColor(steps, step);
+            pricetypeRow.color = colorService.getRandomColor(labels.length, step);
             colors.push(pricetypeRow.color);
-            if(filter.pieDisplay === 'tickets') {
+            if (filter.pieDisplay === 'tickets') {
               data.push(pricetypeRow.count);
             }
             else {
@@ -312,8 +288,22 @@
       if (newValue && newValue.sales) {
         var series = [];
         var labels = [];
-        var steps = defaultSteps;
+        var data = [];
+        var colors = [];
         var step = 0;
+
+        newValue.sales.forEach(function (sale) {
+          sale.sellTypes.forEach(function (sellType) {
+            if ($.grep(series, function (e) {
+                return e == sellType.priceTypeName;
+              }).length === 0) {
+              series.push(sellType.priceTypeName);
+            }
+          });
+        });
+
+        // @TODO Return series in the same sequence as for pie chart from backend
+        series = series.sort();
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
@@ -331,39 +321,41 @@
             }
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
-
-          sale.sellTypes.forEach(function (sellType) {
-            step++;
-
-            if ($.grep(series, function (e) {
-                return e.name == sellType.priceTypeName;
-              }).length === 0) {
-              var seriesItem = {
-                name: sellType.priceTypeName,
-                data: [],
-                color: colorService.getRandomColor(steps, step)
-              };
-              newValue.sales.forEach(function (sale) {
-                var seriesItemValue = 0;
-                sale.sellTypes.forEach(function (sellType) {
-                  if (sellType.priceTypeName == seriesItem.name) {
-                    if (filter.display == 'tickets') {
-                      seriesItemValue = sellType.rowCount;
-                    } else {
-                      seriesItemValue = sellType.rowSum;
-                    }
-                  }
-                });
-                seriesItem.data.push(seriesItemValue);
-              });
-              series.push(seriesItem);
-            }
-          });
         });
 
+        series.forEach(function (seriesItem) {
+          step++;
+          var dataItem = [];
+          var color = colorService.getRandomColor(series.length, step);
+
+          newValue.sales.forEach(function (sale) {
+            var dataItemValue = 0;
+            sale.sellTypes.forEach(function (sellType) {
+              if (sellType.priceTypeName == seriesItem) {
+                if (filter.display == 'tickets') {
+                  dataItemValue = sellType.rowCount;
+                } else {
+                  dataItemValue = sellType.rowSum;
+                }
+              }
+            });
+            dataItem.push(dataItemValue);
+          });
+          data.push(dataItem);
+          colors.push(color);
+        });
+
+
         if (labels && labels.length) {
-          pricetypeGraph.xAxis.categories = labels;
+          pricetypeGraph.labels = labels;
           pricetypeGraph.series = series;
+          pricetypeGraph.data = data;
+          pricetypeGraph.colors = colors;
+        } else {
+          pricetypeGraph.labels = null;
+          pricetypeGraph.series = null;
+          pricetypeGraph.data = null;
+          pricetypeGraph.colors = null;
         }
       }
     }
@@ -371,7 +363,6 @@
     function renderPriceClassPieGraph(newValue, filter, priceclassData, priceclassPieGraph) {
       if (newValue && newValue.sales) {
         var step = 0;
-        var steps = 0;
         priceclassData.generatedCount = 0;
         priceclassData.generatedSum = 0;
         priceclassData.currency = '';
@@ -387,7 +378,6 @@
 
         newValue.sales.forEach(function (myPriceclassData) {
           myPriceclassData.priceClasses.forEach(function (priceclassRow) {
-            steps++;
             labels.push(priceclassRow.priceClassName +
               ' (' + Math.round(priceclassRow.count / priceclassData.generatedCount * 100) + '%)');
           });
@@ -396,7 +386,7 @@
         newValue.sales.forEach(function (myPriceclassData) {
           myPriceclassData.priceClasses.forEach(function (priceclassRow) {
             step++;
-            priceclassRow.color = colorService.getRandomColor(steps, step);
+            priceclassRow.color = colorService.getRandomColor(labels.length, step);
             colors.push(priceclassRow.color);
             if (filter.pieDisplay == 'tickets') {
               data.push(priceclassRow.count);
@@ -421,14 +411,25 @@
 
     function renderPriceClassLineGraph(newValue, filter, priceclassGraph) {
       if (newValue && newValue.sales) {
-        var labels = [];
         var series = [];
+        var labels = [];
         var data = [];
+        var colors = [];
+        var step = 0;
 
         newValue.sales.forEach(function (sale) {
-          sale.sellTypes.forEach(function (saleType) {
-            series.push(saleType.priceClassName);
+          sale.sellTypes.forEach(function (sellType) {
+            if ($.grep(series, function (e) {
+                return e == sellType.priceClassName;
+              }).length === 0) {
+              series.push(sellType.priceClassName);
+            }
           });
+        });
+
+        // @TODO Return series in the same sequence as for pie chart from backend
+        series = series.sort(function(a,b){
+          return (parseInt(a, 10) - parseInt(b, 10));
         });
 
         newValue.sales.forEach(function (sale) {
@@ -449,30 +450,38 @@
           }
         });
 
-        newValue.sales.forEach(function (type) {
+        series.forEach(function (seriesItem) {
+          step++;
           var dataItem = [];
+          var color = colorService.getRandomColor(series.length, step);
+
           newValue.sales.forEach(function (sale) {
-            sale.sellTypes.forEach(function (saleType) {
-              if (type.type == saleType.type) {
+            var dataItemValue = 0;
+            sale.sellTypes.forEach(function (sellType) {
+              if (sellType.priceClassName == seriesItem) {
                 if (filter.display == 'tickets') {
-                  dataItem.push(saleType.rowCount);
+                  dataItemValue = sellType.rowCount;
                 } else {
-                  dataItem.push(saleType.rowSum);
+                  dataItemValue = sellType.rowSum;
                 }
               }
             });
+            dataItem.push(dataItemValue);
           });
           data.push(dataItem);
+          colors.push(color);
         });
 
         if (labels && labels.length) {
           priceclassGraph.labels = labels;
           priceclassGraph.series = series;
           priceclassGraph.data = data;
+          priceclassGraph.colors = colors;
         } else {
           priceclassGraph.labels = null;
           priceclassGraph.series = null;
           priceclassGraph.data = null;
+          priceclassGraph.colors = null;
         }
       }
     }

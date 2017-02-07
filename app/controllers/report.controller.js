@@ -390,6 +390,16 @@
       }
     });
 
+    $scope.$watch('vm.pricetypeFilter.display', function (newValue, oldValue) {
+      if (!angular.equals(newValue, oldValue)) {
+        if (vm.myPriceTypeLineData == null) {
+          eventService.getPriceTypeGraphData(vm.event, vm.pricetypeFilter);
+        } else {
+          graphService.renderPriceTypeLineGraph(vm.myPriceTypeLineData, vm.pricetypeFilter, vm.pricetypeLineGraph);
+        }
+      }
+    });
+
     $scope.$watch('vm.pricetypeFilter.groupBy', function (newValue, oldValue) {
       if (!angular.equals(newValue, oldValue)) {
         eventService.getPriceTypeGraphData(vm.event, vm.pricetypeFilter);
@@ -411,7 +421,7 @@
         if (vm.myPriceClassLineData == null) {
           eventService.getPriceClassGraphData(vm.event, vm.priceclassFilter);
         } else {
-          graphService.renderPriceClassLineGraph(vm.myPriceTypeLineData, vm.myPriceTypeLineData, vm.pricetypeLineGraph);
+          graphService.renderPriceClassLineGraph(vm.myPriceClassLineData, vm.priceclassFilter, vm.priceclassLineGraph);
         }
       }
     });

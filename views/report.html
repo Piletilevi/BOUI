@@ -96,7 +96,8 @@
 					</div>
 				</div>
 				<div class="bo-chart">
-					<highchart config="vm.overviewLineGraph" style="width: 100%; max-width: 815px;"></highchart>
+					<canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data" chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series" chart-options="vm.overviewLineGraph.options" chart-dataset-override="vm.overviewLineGraph.datasetOverride" chart-colors="vm.overviewLineGraph.colors">
+					</canvas>
 				</div>
 				<div class="row">
 					<div class="col-lg-6">
@@ -193,7 +194,8 @@
 					</div>
 				</div>
 				<div class="bo-chart">
-					<highchart config="vm.pricetypeLineGraph" style="width: 100%; max-width: 815px;"></highchart>
+					<canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data" chart-labels="vm.pricetypeLineGraph.labels" chart-series="vm.pricetypeLineGraph.series" chart-options="vm.pricetypeLineGraph.options" chart-colors="vm.pricetypeLineGraph.colors" chart-dataset-override="vm.pricetypeLineGraph.datasetOverride">
+					</canvas>
 				</div>
 				<div class="row">
 					<div class="col-lg-6">
@@ -291,7 +293,7 @@
 					</div>
 				</div>
 				<div class="bo-chart">
-					<canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data" chart-labels="vm.priceclassLineGraph.labels" chart-series="vm.priceclassLineGraph.series" chart-options="vm.priceclassLineGraph.options" chart-dataset-override="vm.priceclassLineGraph.datasetOverride" height="100px">
+					<canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data" chart-labels="vm.priceclassLineGraph.labels" chart-series="vm.priceclassLineGraph.series" chart-options="vm.priceclassLineGraph.options" chart-colors="vm.priceclassLineGraph.colors" chart-dataset-override="vm.priceclassLineGraph.datasetOverride" height="100px">
 					</canvas>
 				</div>
 				<div class="row">
