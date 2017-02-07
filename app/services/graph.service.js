@@ -258,7 +258,7 @@
     }
 
 
-    function renderPriceTypePieGraph(newValue, pricetypeData, pricetypePieGraph) {
+    function renderPriceTypePieGraph(newValue, filter, pricetypeData, pricetypePieGraph) {
       if (newValue && newValue.sales) {
         var step = 0;
         var steps = defaultSteps;
@@ -287,7 +287,12 @@
             step++;
             pricetypeRow.color = colorService.getRandomColor(steps, step);
             colors.push(pricetypeRow.color);
-            data.push(pricetypeRow.count);
+            if(filter.pieDisplay === 'tickets') {
+              data.push(pricetypeRow.count);
+            }
+            else {
+              data.push(pricetypeRow.sum);
+            }
           });
         });
 
