@@ -32,6 +32,6 @@
     "angular-block-ui": "^0.2.2"
   },
   "resolutions": {
-    "angular": "1.6.1"
+    "angular": "1.6.2"
   }
 }
