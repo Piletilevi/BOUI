@@ -28,6 +28,11 @@
 	opacity: 0.8;
 }
 
+.navbar-inverse .navbar-nav > li > a:hover > span,
+.navbar-inverse .navbar-nav > li > a:hover > .fa {
+	opacity: 1;
+}
+
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:focus,
 .navbar-inverse .navbar-nav > .active > a:hover {
@@ -94,11 +99,13 @@
 	text-decoration: none;
 }
 
-.navbar-inverse .navbar-nav > .open > a .bo-user-name,
-.navbar-inverse .navbar-nav > .open > a:focus .bo-user-name,
-.navbar-inverse .navbar-nav > .open > a:hover .bo-user-name {
+.navbar-inverse .navbar-nav > .open > a .bo-user-name {
 	color: #000;
 	opacity: 0.8;
+}
+.navbar-inverse .navbar-nav > .open > a:focus .bo-user-name,
+.navbar-inverse .navbar-nav > .open > a:hover .bo-user-name {
+	opacity: 1;
 }
 
 .nav > li > a:focus,
