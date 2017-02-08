@@ -72,7 +72,7 @@ a:hover {
 }
 .navbar-brand.bo-logo img {
 	max-height: 25px;
-	max-width: 104px;
+	max-width: 100%;
 }
 
 /* Header additional icons

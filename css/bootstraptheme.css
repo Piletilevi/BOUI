@@ -20,21 +20,44 @@
 }
 
 .navbar-inverse .navbar-nav > li > a {
-	color: #b7c1cd;
+	color: #fff;
+}
+
+.navbar-inverse .navbar-nav > li > a > span,
+.navbar-inverse .navbar-nav > li > a > .fa {
+	opacity: 0.8;
 }
 
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:focus,
 .navbar-inverse .navbar-nav > .active > a:hover {
-	color: #27394c;
+	color: #000;
 	background: #fff;
+}
+
+.navbar-inverse .navbar-nav > .active > a > span,
+.navbar-inverse .navbar-nav > .active > a:focus > span,
+.navbar-inverse .navbar-nav > .active > a:hover > span,
+.navbar-inverse .navbar-nav > .active > a > .fa,
+.navbar-inverse .navbar-nav > .active > a:focus > .fa,
+.navbar-inverse .navbar-nav > .active > a:hover > .fa {
+	opacity: 0.8;
 }
 
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:focus,
 .navbar-inverse .navbar-nav > .open > a:hover {
 	background: #fff;
-	color: #27394c;
+	color: #000;
+}
+
+.navbar-inverse .navbar-nav > .open > a > span,
+.navbar-inverse .navbar-nav > .open > a:focus > span,
+.navbar-inverse .navbar-nav > .open > a:hover > span,
+.navbar-inverse .navbar-nav > .open > a > .fa,
+.navbar-inverse .navbar-nav > .open > a:focus > .fa,
+.navbar-inverse .navbar-nav > .open > a:hover > .fa {
+	opacity: 0.8;
 }
 
 .navbar-nav > li > a {
@@ -74,7 +97,8 @@
 .navbar-inverse .navbar-nav > .open > a .bo-user-name,
 .navbar-inverse .navbar-nav > .open > a:focus .bo-user-name,
 .navbar-inverse .navbar-nav > .open > a:hover .bo-user-name {
-	color: #27394c;
+	color: #000;
+	opacity: 0.8;
 }
 
 .nav > li > a:focus,
