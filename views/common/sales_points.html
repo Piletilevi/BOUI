@@ -4,6 +4,6 @@
 	<span class="caret"></span>
 </a>
 <ul class="dropdown-menu">
-	<li ng-repeat="point in user.salesPoints" ng-click="setPoint(point.id)">
+	<li ng-repeat="point in user.salesPoints" ng-click="setPoint(point.id)" ng-confirm-click="Are you sure?">
 		<a href>{{point.name}}</a></li>
 </ul>

@@ -13,8 +13,7 @@
         'blockUI',
 		'infinite-scroll',
 		'ui.toggle',
-		'chart.js',
-    'highcharts-ng'
+		'chart.js'
     ]);
 
     angular.module('boApp').run(runApp);

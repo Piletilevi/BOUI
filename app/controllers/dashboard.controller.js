@@ -87,6 +87,13 @@
 			}
 		});
 
+		$scope.$watch('$root.user.point', function(newFilter, oldFilter) {
+			if (newFilter && oldFilter && newFilter !== oldFilter) {
+				eventService.reset();
+				eventService.getMyEvents(vm.filter);
+			}
+		});
+
 		$scope.$watch('vm.filter.groupByShow', function (newValue, oldValue) {
 			if (newValue !== oldValue) {
 				eventService.reset();
