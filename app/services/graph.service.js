@@ -10,28 +10,29 @@
 
   function GraphService(colorService, $translate) {
     var service = {
-      overviewBarGraph: {
-        labels: null,
-        type: 'StackedBar',
-        series: null,
-        datasetOverride: null,
-        data: null,
-        options: {
-          scales: {
-            xAxes: [{
-              stacked: true,
-              ticks: {
-                maxRotation: 60,
-                minRotation: 60,
-              }
-            }],
-            yAxes: [{
-              stacked: true,
-              display: false
-            }]
-          }
-        }
-      },
+		overviewBarGraph: {
+		  labels: null,
+		  type: 'StackedBar',
+		  series: null,
+		  colors: [],
+		  datasetOverride: null,
+		  data: null,
+		  options: {
+			scales: {
+			  xAxes: [{
+				stacked: true,
+				ticks: {
+				  maxRotation: 60,
+				  minRotation: 60,
+				}
+			  }],
+			  yAxes: [{
+				stacked: true,
+				display: false
+			  }]
+			}
+		  }
+		},
       overviewLineGraph: {
         labels: null,
         series: [],
@@ -173,69 +174,89 @@
       }
     }
 
-    function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
-      if (newValue && newValue.sales) {
-        var step = 0;
-        overviewData.generatedCount = 0;
-        overviewData.generatedSum = 0;
-        overviewData.currency = '';
-        var series = [];
-        var labels = [];
-        var data = [];
-        var datasetOverride = [];
+	function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
+		if (newValue && newValue.sales) {
+			var steps = 0;
+			overviewData.generatedCount = 0;
+			overviewData.generatedSum = 0;
+			overviewData.currency = '';
+			var series = [];
+			var labels = [];
+			var data = [];
+			var colors = [];
+			var barSeries = [];
+			var datasetOverride = [];
 
-        newValue.sales.forEach(function (myOverviewData) {
-          if (myOverviewData.groupId == 'generated') {
-            overviewData.generatedCount = myOverviewData.rowCount;
-            overviewData.generatedSum = myOverviewData.rowSum;
-            overviewData.currency = myOverviewData.currency;
-          }
-        });
+			newValue.sales.forEach(function (myOverviewData) {
+				if (myOverviewData.groupId == 'generated') {
+					overviewData.generatedCount = myOverviewData.rowCount;
+					overviewData.generatedSum = myOverviewData.rowSum;
+					overviewData.currency = myOverviewData.currency;
+				}
+			});
 
-        newValue.sales.forEach(function (myOverviewData) {
-          if (myOverviewData.groupId != 'generated') {
-            labels.push(myOverviewData.groupName);
-            var barSeries = [];
-            myOverviewData.rows.forEach(function (overviewRow) {
-              barSeries.push(overviewRow.typeName);
-            });
-            series.push(barSeries);
-          }
-        });
+			newValue.sales.forEach(function (myOverviewData) {
+				if (myOverviewData.groupId != 'generated') {
+					labels.push(myOverviewData.groupName);
+					var barSeries = [];
+					myOverviewData.rows.forEach(function (overviewRow) {
+						steps++;
+						barSeries.push(overviewRow.typeName);
+					});
+					series.push(barSeries);
+				}
+			});
 
-        newValue.sales.forEach(function (myOverviewData) {
-          if (myOverviewData.groupId != 'generated') {
-            var color = [];
-            var barSeries = [];
-            var barData = [];
-            myOverviewData.rows.forEach(function (overviewRow) {
-              step++;
-              overviewRow.color = colorService.getRandomColor((series.length + 1), step);
-              color.push(overviewRow.color);
-              barSeries.push(overviewRow.typeName);
-              barData.push(overviewRow.count);
-            });
-            datasetOverride.push({backgroundColor: color, series: barSeries, data: barData});
-            data.push(myOverviewData.rowCount);
-          }
-        });
+			newValue.sales.forEach(function (myOverviewData) {
+				if (myOverviewData.groupId != 'generated') {
+					var color = [];
+					var step = 0;
+					myOverviewData.rows.forEach(function (overviewRow) {
+						if(typeof(data[step]) == "undefined") {
+							data[step] = [];
+						}
+						data[step].push(overviewRow.count);
 
-        if (labels && labels.length) {
-          overviewBarGraph.labels = labels;
-          overviewBarGraph.series = series;
-          overviewBarGraph.data = data;
-          overviewBarGraph.datasetOverride = datasetOverride;
-        } else {
-          overviewBarGraph.labels = null;
-          overviewBarGraph.series = null;
-          overviewBarGraph.data = null;
-          overviewBarGraph.datasetOverride = null;
-        }
-      }
-    }
+						if(typeof(colors[step]) == "undefined") {
+							colors[step] = [];
+						}
+						overviewRow.color = colorService.getColorByType(overviewRow.typeName);
+						colors[step].push(overviewRow.color);
 
+						if(typeof(barSeries[step]) == "undefined") {
+							barSeries[step] = [];
+						}
+						barSeries[step].push(overviewRow.typeName);
 
-    function renderPriceTypePieGraph(newValue, filter, pricetypeData, pricetypePieGraph) {
+						step++;
+					});
+				}
+			});
+
+			for (var i = 0; i < data.length; i++) {
+				datasetOverride.push({
+					label: '',
+					backgroundColor: colors[i],
+					borderColor: colors[i],
+					data: data[i],
+				});
+			}
+
+			if (labels && labels.length) {
+				overviewBarGraph.labels = labels;
+				overviewBarGraph.series = series;
+				overviewBarGraph.data = data;
+				overviewBarGraph.datasetOverride = datasetOverride;
+			} else {
+				overviewBarGraph.labels = null;
+				overviewBarGraph.series = null;
+				overviewBarGraph.data = null;
+				overviewBarGraph.datasetOverride = null;
+			}
+		}
+	}
+
+	function renderPriceTypePieGraph(newValue, filter, pricetypeData, pricetypePieGraph) {
       if (newValue && newValue.sales) {
         var step = 0;
         pricetypeData.generatedCount = 0;
