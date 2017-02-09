@@ -34,7 +34,7 @@
 	</div>
 	<div class="bo-event-share-block">
 		<i class="fa fa-print"></i><a onclick="window.print();">{{'api_print'|translate}}</a> |
-		<i class="fa fa-envelope"></i><a href="">{{'api_email'|translate}}</a> |
+		<i class="fa fa-envelope"></i><a data-toggle="modal" data-target="#emal_popup">{{'api_email'|translate}}</a> |
 		<i class="fa fa-share"></i><a href="">{{'api_export'|translate}}</a>
 		  <!--<div class="dropdown inline_dropdown">-->
 		  <!--<span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Export <span class="caret"></span></span>-->
@@ -112,8 +112,8 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="bo-chart">
-							<canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data" chart-labels="vm.overviewBarGraph.labels" 
-							chart-options="vm.overviewBarGraph.options" chart-series="vm.overviewBarGraph.series" chart-dataset-override="vm.overviewBarGraph.datasetOverride"></canvas>
+							<canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data" chart-labels="vm.overviewBarGraph.labels"
+							chart-options="vm.overviewBarGraph.options" chart-series="vm.overviewBarGraph.series" chart-colors="vm.overviewBarGraph.colors" chart-dataset-override="vm.overviewBarGraph.datasetOverride"></canvas>
 						</div>
 					</div>
 					<div class="col-lg-6">
@@ -821,7 +821,99 @@
 		</ul>
 	</div>
 </div>
+<div id="emal_popup" class="modal fade bo-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="btn btn-sm btn-default bo-close-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+				<h4 class="modal-title"><i class="fa fa-envelope" />Email report: By pricetype</h4>
+			</div>
+			<div class="modal-body">
+				<h2>Rammstein</h2>
+				<div class="bo-modal-datetime_block">
+					<div>
+						<div class="bo-modal-date">26.01.2017</div><div class="bo-modal-time">18:30</div>
+					</div>
+					<div class="bo-modal-place">Kino Sõprus, Tallinn</div>
+				</div>
+				<form class="form-horizontal bo-modal-form" role="form">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">From:</label>
+						<div class="col-sm-9 bo-modal-form-empty-input">
+							john.longfamilyname@promoter.com
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="input1" class="col-sm-3 control-label">Receiver email:</label>
+						<div class="col-sm-9">
+							<input class="form-control" type="text" value="" id="input1">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="input2" class="col-sm-3 control-label">Subject:</label>
+						<div class="col-sm-9">
+							<input class="form-control" type="text" value="" id="input2">
+						</div>
+					</div>
+					<div class="form-group form-group-sm">
+						<label for="input3" class="col-sm-3 control-label">Attachment:</label>
+						<div class="col-sm-9">
+							<select id="input3" class="form-control" selectpicker ng-model="someNameHere1">
+								<option>Csv</option>
+								<option>Xls</option>
+								<option>Pdf</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm">
+						<label for="input4" class="col-sm-3 control-label">Frequency:</label>
+						<div class="col-sm-9">
+							<select id="input4" class="form-control" selectpicker ng-model="someNameHere2">
+								<option>Once</option>
+								<option>Daily</option>
+								<option>Weekly with day selector</option>
+								<option>Montly with day selector</option>
+								<option>Quarterly</option>
+							</select>
+							<span class="bo-modal-form-period">Period: 10.06.2016 - 10.01.2017</span>
+						</div>
+					</div>
+					<div class="form-group form-group-sm">
+						<label for="input5" class="col-sm-3 control-label">Active for:</label>
+						<div class="col-sm-9">
+							<select id="input5" class="form-control" selectpicker ng-model="someNameHere3">
+								<option>1 month</option>
+								<option>2 months</option>
+								<option>3 months</option>
+							</select>
+							<div class="btn-group bo-modal-form-weekdays btn-group-sm">
+								<button type="button" class="btn btn-primary">M</button>
+								<button type="button" class="btn btn-default">T</button>
+								<button type="button" class="btn btn-default">W</button>
+								<button type="button" class="btn btn-default">T</button>
+								<button type="button" class="btn btn-default">F</button>
+								<button type="button" class="btn btn-default">S</button>
+								<button type="button" class="btn btn-default">S</button>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="input6" class="col-sm-3 control-label">Comment:</label>
+						<div class="col-sm-9">
+							<textarea id="input6" class="form-control"></textarea>
+						</div>
+					</div>
 
+				</form>
+			</div>
+			<div class="modal-footer">
+				<a href="" class="bo-modal-view-all">View all email reports</a>
+				<button type="button" class="btn btn-success">Send</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
 <script language="JavaScript">
 <!--
 

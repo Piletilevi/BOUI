@@ -72,7 +72,7 @@ a:hover {
 }
 .navbar-brand.bo-logo img {
 	max-height: 25px;
-	max-width: 104px;
+	max-width: 100%;
 }
 
 /* Header additional icons
@@ -473,9 +473,9 @@ a:hover {
 ================================ */
 
 .bo-widgetbox {
-	max-width: 508px;
+	max-width: 591px;
 	/*min-height: 373px;*/
-	background: #f2f3f5;
+	background: #fff;
 	margin: 0 auto;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -505,9 +505,10 @@ a:hover {
 
 .bo-widgetbox-body {
 	padding-top: 18px;
-	padding-left: 27px;
-	padding-right: 27px;
+	padding-left: 91px;
+	padding-right: 89px;
 	padding-bottom: 27px;
+	background: #f2f3f5;
 }
 
 .bo-widgetbox-header .navbar-right > li > a {
@@ -572,12 +573,34 @@ a:hover {
 	margin-right: -14px;
 }
 
+#forgotten {
+	top: -36px;
+	position: relative;
+}
+
 .bo-widgetbox-forgotten {
-	padding: 18px 27px 27px;
+	padding: 6px 89px 0 91px;
 	background: #fff;
 	-moz-border-radius: 0 0 4px 4px;
 	-webkit-border-radius: 0 0 4px 4px;
 	border-radius: 0 0 4px 4px;
+}
+
+.bo-widgetbox-forgotten.open {
+	display: block;
+}
+
+.bo-forgotten-toggle {
+	cursor: pointer;
+}
+
+.bo-forgotten-toggle:not(.collapsed) {
+	white-space: nowrap;
+	visibility: hidden;
+}
+
+.bo-widgetbox .form-group {
+	margin-bottom: 12px;
 }
 
 /* Error
@@ -1123,6 +1146,85 @@ a:hover {
 	display: block;
 	font-weight: bold;
 	padding-top: 0.4em;
+}
+
+/* Modal
+================================ */
+
+.bo-modal h2 {
+	font-size: 22px;
+	margin-bottom: 1px;
+}
+
+.bo-modal-view-all {
+	float: left;
+	margin-top: 3px;
+}
+
+.bo-modal .bo-close-btn {
+	position: absolute;
+	right: 9px;
+	top: 8px;
+}
+
+.bo-modal-date {
+	display: inline-block;
+	margin-right: 22px;
+}
+
+.bo-modal-time {
+	display: inline-block;
+}
+
+.bo-modal-place {
+	display: block;
+	margin-top: -1px;
+}
+
+.bo-modal-form .control-label {
+	padding-right: 0;
+	margin-right: -4px;
+}
+
+.bo-modal-form .form-group {
+	margin-bottom: 9px;
+}
+
+.bo-modal-form .form-group-sm {
+	margin-bottom: 9px;
+}
+
+
+
+.bo-modal-form-empty-input {
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+.bo-modal-datetime_block {
+	margin-bottom: 18px;
+}
+
+.bo-modal-form-period {
+	margin-left: 11px;
+	display: inline-block;
+}
+
+.bo-modal-form-weekdays {
+	display: inline-block;
+	margin-left: 11px;
+}
+
+/* Close button
+================================ */
+
+.bo-close-btn {
+	padding: 5px 7px 6px;
+	line-height: 0.9;
+}
+
+.bo-close-btn .fa {
+	font-size: 14px;
 }
 
 

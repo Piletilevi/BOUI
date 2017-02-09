@@ -9,7 +9,8 @@
     function ColorService() {
         
 		var service = {
-			getRandomColor : getRandomColor
+			getRandomColor : getRandomColor,
+			getColorByType : getColorByType
         };
         return service;
 
@@ -31,6 +32,18 @@
 			}
 			var c = "#" + ("00" + (~ ~(r * 255)).toString(16)).slice(-2) + ("00" + (~ ~(g * 255)).toString(16)).slice(-2) + ("00" + (~ ~(b * 255)).toString(16)).slice(-2);
 			return (c);
+		}
+
+		function getColorByType(typeName) {
+			var color;
+			switch(typeName) {
+				case 'api_sold_by_internet': 	color = '#99e394'; break;
+				case 'api_sold_by_salespoint': 	color = '#8e7cc3'; break;
+				case 'api_avail_for_sale': 		color = '#ff3f68'; break;
+				case 'api_organizer_reserved_promoter': 		color = '#fcd8c2'; break;
+			}
+
+			return color;
 		}
     }
 })();
