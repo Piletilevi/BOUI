@@ -219,6 +219,13 @@
 	}
 }
 
+@media (min-width: 993px) and (max-width: 1199px) {
+	.navbar-nav > li > a {
+		padding-left: 8px;
+		padding-right: 8px;
+	}
+}
+
 @media (min-width: 1200px) {
 	.bo-right-column {
 		margin-top: 27px;
