@@ -30,5 +30,8 @@
     "ngInfiniteScroll": "1.0.0",
     "angular-bootstrap-toggle": "^0.1.2",
     "angular-block-ui": "^0.2.2"
+  },
+  "resolutions": {
+    "angular": "1.6.1"
   }
 }
