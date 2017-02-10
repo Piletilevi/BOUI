@@ -15,9 +15,7 @@
         var piletilevi = piletilevi || {};
 
         piletilevi.venuemap = {
-          SHOP_DOMAIN: 'shop.piletilevi.ee',
-          ASSETS_DOMAIN: 'localhost',
-          // ASSETS_DOMAIN: 'bo2.piletilevi.ee',
+          SHOP_DOMAIN: 'bo2.piletilevi.ee',
           DEFAULT_SEAT_HOVER_COLOR: '#27272e',
           DEFAULT_SEAT_ACTIVE_COLOR: '#27272e',
           DEFAULT_SEAT_INACTIVE_COLOR: '#d0d0d0'
@@ -280,7 +278,7 @@
           };
 
           var requestMapData = function () {
-            var url = 'http://' + venueMap.getShopDomain() + '/img/venueplan/svg/'
+            var url = 'http://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
               + venueMap.getConfId() + '.svg';
             piletilevi.venuemap.Utilities.sendXhr({
               'url': url,
@@ -888,9 +886,8 @@
             componentElement.appendChild(sectionsElement);
           };
           var loadSectionMap = function (sectionId) {
-            var url = 'http://' + venueMap.getShopDomain() + '/img/venueplan/svg/'
+            var url = 'http://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
               + venueMap.getConfId() + '_' + sectionId + '.svg';
-            console.log(sectionId);
             piletilevi.venuemap.Utilities.sendXhr({
               'url': url,
               'onSuccess': function (response) {
@@ -906,7 +903,6 @@
             return input;
           };
           var receiveMapData = function (sectionId, response) {
-            console.log('receiveMapData')
             mapData = response;
 
             var map = new piletilevi.venuemap.PlacesMapSection(venueMap, mapData, sectionId);
@@ -1422,7 +1418,7 @@
         map.setConfId(piletilevi.venuemap.Config.confId);
         map.setSectionsMapType(piletilevi.venuemap.Config.sectionMapType);
         map.setSectionsMapImageUrl('');
-        map.setShopDomain(piletilevi.venuemap.ASSETS_DOMAIN);
+        map.setShopDomain(piletilevi.venuemap.SHOP_DOMAIN);
         map.setSections(piletilevi.venuemap.Config.sections);
         map.setEnabledSections(piletilevi.venuemap.Config.enabledSections);
         map.addHandler('sectionSelected', function (sectionId) {

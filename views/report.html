@@ -56,18 +56,19 @@
 		<div class="scroller scroller-right"><i class="glyphicon glyphicon-chevron-right"></i></div>
 		<div class="wrapper">
 			<ul class="nav nav-tabs list" role="tablist" id="reportdatatab">
-				<li class="active"><a href="#overview" data-toggle="tab" role="tab" aria-controls="overview">{{'api_overview'|translate}}</a></li>
-				<li><a href="#pricetype" data-toggle="tab" role="tab" aria-controls="pricetype">{{'api_by_pricetype'|translate}}</a></li>
-				<li><a href="#priceclass" data-toggle="tab" role="tab" aria-controls="priceclass">{{'api_by_priceclass'|translate}}</a></li>
-				<li><a href="#sections" data-toggle="tab" role="tab" aria-controls="sections">{{'api_by_sectors'|translate}}</a></li>
-				<li><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations">{{'api_by_locations'|translate}}</a></li>
-				<li><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings">{{'api_bookings'|translate}}</a></li>
+				<li class="active"><a href="#overview" data-toggle="tab" role="tab" aria-controls="overview" ng-click="vm.tabSelectEvent('overview')">{{'api_overview'|translate}}</a></li>
+				<li><a href="#pricetype" data-toggle="tab" role="tab" aria-controls="pricetype" ng-click="vm.tabSelectEvent('pricetype')">{{'api_by_pricetype'|translate}}</a></li>
+				<li><a href="#priceclass" data-toggle="tab" role="tab" aria-controls="priceclass" ng-click="vm.tabSelectEvent('priceclass')">{{'api_by_priceclass'|translate}}</a></li>
+				<li><a href="#sectors" data-toggle="tab" role="tab" aria-controls="sectors" ng-click="vm.tabSelectEvent('sectors')">{{'api_by_sectors'|translate}}</a></li>
+				<li><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations" ng-click="vm.tabSelectEvent('locations')">{{'api_by_locations'|translate}}</a></li>
+				<li><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings" ng-click="vm.tabSelectEvent('bookings')">{{'api_bookings'|translate}}</a></li>
 			</ul>
 		</div>
 	</div>
 	<script>
+		/* NOT WORKING!!!
 		initScrollers();
-		reAdjust();
+		reAdjust();*/
 	</script>
 
 	<div class="tab-content">
@@ -389,18 +390,18 @@
 					<div class="col-lg-6">
 						<div class="bo-sectionselector list-group">
 							<button type="button" class="bo-sectionselector-item list-group-item" ng-repeat="sectorData in vm.mySectorsData.sales">
-								<div class="bo-sectionselector-itemtitle">
+								<div class="bo-sectionse1lector-itemtitle">
 									{{sectorData.name}}
 								</div>
 								<div class="clearfix">
-									<div class="bo-sectionselector-itemprice">{{sectorData.sell.soldSumma | number:2}} {{sectorData.sell.currency}}</div>
+									<div class="bo-sectionselector-itemprice">{{sectorData.statistics.soldSumma | number:2}} {{sectorData.statistics.currency}}</div>
 									<div ng-include-template="simplestats.html" ng-include-variables="{ currentEvent: sectorData }"></div>
 								</div>
 							</button>
 						</div>
 					</div>
 					<div class="col-lg-6">
-						<div class="bo-map" ng-if="vm.event.confId != null">
+						<div class="bo-map">
 							<ng-sections-map data-config="{{vm.event.sectionsMapConfig}}"></ng-sections-map>
 						</div>
 					</div>
@@ -584,7 +585,7 @@
 							<a class="bo-mapcontrols-item" href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
 							<a class="bo-mapcontrols-item" href="#"><i class="fa fa-minus" aria-hidden="true"></i></a>
 						</div>
-						<div class="bo-map" ng-if="vm.event.confId != null">
+						<div class="bo-map">
 							<ng-venue-map data-config="{{vm.event.seatsMapConfig}}"></ng-venue-map>
 						</div>
 					</div>
