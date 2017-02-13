@@ -50,14 +50,23 @@
 	<div class="panel panel-default bo-event">
 		 <div ng-include-template="event_detail.html" ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false }"></div>
 	</div>
-	<ul class="nav nav-tabs" role="tablist" id="reportdatatab">
-		<li class="active"><a href="#overview" data-toggle="tab" role="tab" aria-controls="overview" ng-click="vm.tabSelectEvent('overview')">{{'api_overview'|translate}}</a></li>
-		<li><a href="#pricetype" data-toggle="tab" role="tab" aria-controls="pricetype" ng-click="vm.tabSelectEvent('pricetype')">{{'api_by_pricetype'|translate}}</a></li>
-		<li><a href="#priceclass" data-toggle="tab" role="tab" aria-controls="priceclass" ng-click="vm.tabSelectEvent('priceclass')">{{'api_by_priceclass'|translate}}</a></li>
-		<li><a href="#sectors" data-toggle="tab" role="tab" aria-controls="sectors" ng-click="vm.tabSelectEvent('sectors')">{{'api_by_sectors'|translate}}</a></li>
-		<li><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations" ng-click="vm.tabSelectEvent('locations')">{{'api_by_locations'|translate}}</a></li>
-		<li><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings" ng-click="vm.tabSelectEvent('bookings')">{{'api_bookings'|translate}}</a></li>
-	</ul>
+	<div class="bo-dropdown-tabs-wrapper">
+		<div class="visible-xs">
+			<a class="dropdown-toggle" data-target="#reportdatatab" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				Some tabs select title
+				<span class="caret"></span>
+			</a>
+		</div>
+		<ul class="nav nav-tabs bo-dropdown-tabs" role="tablist" id="reportdatatab">
+			<li class="active"><a href="#overview" data-toggle="tab" role="tab" aria-controls="overview" ng-click="vm.tabSelectEvent('overview')">{{'api_overview'|translate}}</a></li>
+			<li><a href="#pricetype" data-toggle="tab" role="tab" aria-controls="pricetype" ng-click="vm.tabSelectEvent('pricetype')">{{'api_by_pricetype'|translate}}</a></li>
+			<li><a href="#priceclass" data-toggle="tab" role="tab" aria-controls="priceclass" ng-click="vm.tabSelectEvent('priceclass')">{{'api_by_priceclass'|translate}}</a></li>
+			<li><a href="#sectors" data-toggle="tab" role="tab" aria-controls="sectors" ng-click="vm.tabSelectEvent('sectors')">{{'api_by_sectors'|translate}}</a></li>
+			<li><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations" ng-click="vm.tabSelectEvent('locations')">{{'api_by_locations'|translate}}</a></li>
+			<li><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings" ng-click="vm.tabSelectEvent('bookings')">{{'api_bookings'|translate}}</a></li>
+		</ul>
+	</div>
+
 	<div class="tab-content">
 		<!-- Tab: overview -->
 		<div class="tab-pane active bo-salesoverview panel panel-default" id="overview" role="tabpanel">
