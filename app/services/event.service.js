@@ -198,7 +198,7 @@
 			dataService.post('concertSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
-					event.sell = results.data.sell;
+					event.statistics = results.data.statistics;
 					event.websiteUrl = getWebsiteUrl(event);
 				}
 			});
@@ -218,7 +218,7 @@
 			dataService.post('showSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
-					event.sell = results.data.sell;
+					event.statistics = results.data.statistics;
 					event.websiteUrl = getWebsiteUrl(event);
 				}
 			});
@@ -257,7 +257,7 @@
 			dataService.post('concertOpSales', {id: event.id, filter: filter}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
-					event.sell = results.data;
+					event.statistics = results.data;
 				}
 			});
 		}
@@ -266,7 +266,7 @@
 			dataService.post('showOpSales', {id: event.id, filter: filter}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
-					event.sell = results.data;
+					event.statistics = results.data;
 				}
 			});
 		}

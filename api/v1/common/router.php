@@ -207,7 +207,7 @@ $app->post('/myEvents', function() use ($app) {
 	
 	$response = "";
 	if ($myEvents && !property_exists($myEvents, 'errors')) {
-		if ($myEvents) {
+		if ($myEvents && property_exists($myEvents, 'data')) {
 	        $response['status'] = "success";
 	        $response['data'] = $myEvents->data;
 	        $response['count'] = $myEvents->count;
