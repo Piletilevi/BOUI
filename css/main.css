@@ -371,6 +371,7 @@ a:hover {
 	font-size: 14px;
 	margin-right: 7px;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 .bo-event-share-block .fa {
@@ -1206,13 +1207,28 @@ a:hover {
 }
 
 .bo-modal-form-period {
-	margin-left: 11px;
-	display: inline-block;
 }
 
 .bo-modal-form-weekdays {
+}
+
+.bo-modal-form-monthdays {
+}
+
+.bo-modal-form-frequency {
 	display: inline-block;
-	margin-left: 11px;
+	margin-right: 11px;
+}
+
+.bo-modal-form-frequency-servant {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#email_popup_periods,
+#email_popup_weekdays,
+#email_popup_monthdays {
+	display: none;
 }
 
 /* Close button

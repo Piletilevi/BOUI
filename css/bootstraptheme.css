@@ -143,8 +143,9 @@
 }
 
 .nav-tabs {
-	margin-bottom: 13px;
 	border-bottom: 1px solid #eef1f5;
+	min-width: 100%;
+	margin-bottom: 13px;
 }
 
 .nav-tabs::after {
@@ -644,6 +645,10 @@ fieldset[disabled] .btn {
 .modal-footer {
 	border-top: 0 none;
 	padding: 11px 10px 11px 14px;
+}
+
+.modal-footer .btn {
+	min-width: 88px;
 }
 
 .modal-backdrop {
