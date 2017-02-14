@@ -9,7 +9,6 @@
     function DataService($http, bo, $q) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
-        var ipUrl = 'http://ipv4.myexternalip.com/json';
 
         var service ={
             page : page,
@@ -35,12 +34,8 @@
         
         function getIp () {
 			return $q(function(resolve, reject) {
-				resolve({ip: "127.0.0.1"});
+				resolve({ip: REMOTE_ADDRESS});
 			});
-			/*
-			return $http.get(ipUrl).then(function (results) {
-                return results.data;
-            });*/
         };
         
         function getBoUrl () {
