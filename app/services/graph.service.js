@@ -212,7 +212,7 @@
             }
             overviewRow.color = colorService.getColorByType(overviewRow.typeName);
             colors[step].push(overviewRow.color);
-            
+
             if(typeof(barSeries[step]) == "undefined") {
               barSeries[step] = [];
             }
