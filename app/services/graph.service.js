@@ -197,11 +197,11 @@
 
 			newValue.sales.forEach(function (myOverviewData) {
 				if (myOverviewData.groupId != 'generated') {
-					labels.push(myOverviewData.groupName);
+					labels.push($translate.instant(myOverviewData.groupName));
 					var barSeries = [];
 					myOverviewData.rows.forEach(function (overviewRow) {
 						steps++;
-						barSeries.push(overviewRow.typeName);
+						barSeries.push($translate.instant(overviewRow.typeName));
 					});
 					series.push(barSeries);
 				}
@@ -226,7 +226,7 @@
 						if(typeof(barSeries[step]) == "undefined") {
 							barSeries[step] = [];
 						}
-						barSeries[step].push(overviewRow.typeName);
+						barSeries[step].push($translate.instant(overviewRow.typeName));
 
 						step++;
 					});
