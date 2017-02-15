@@ -9,9 +9,9 @@
         .module('boApp')
         .factory('pointService', PointService);
 
-    PointService.$inject = ['$rootScope','dataService'];
+    PointService.$inject = ['$rootScope', '$location', 'dataService'];
 
-    function PointService($rootScope,dataService) {
+    function PointService($rootScope, $location, dataService) {
         var service = {
             getPointName : getPointName,
             setPoint : setPoint,
@@ -33,14 +33,16 @@
 
         function setPoint(pointId, sendPoint){
             sendPoint = typeof sendPoint !== 'undefined' ? sendPoint : true;
-            $rootScope.user.point= pointId;
-
-            $rootScope.pointMenuLogo = getPointMenuLogo();
-            $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor();
-            $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
             if (sendPoint)
                 dataService.post('setPoint', {'pointId': pointId });
 
+            if($rootScope.user.point !== pointId) {
+                $rootScope.user.point = pointId;
+                $rootScope.pointMenuLogo = getPointMenuLogo();
+                $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor();
+                $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
+                $location.path('dashboard');
+            }
         }
 
         function getPointMenuLogo(){
