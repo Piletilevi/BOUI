@@ -10,6 +10,7 @@
         'ngCookies',
         'pascalprecht.translate',
         'ui.validate',
+        'angular-loading-bar',
         'blockUI',
 		'infinite-scroll',
 		'ui.toggle',
