@@ -176,7 +176,6 @@
 
 	function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
 		if (newValue && newValue.sales) {
-			var steps = 0;
 			overviewData.generatedCount = 0;
 			overviewData.generatedSum = 0;
 			overviewData.currency = '';
@@ -193,44 +192,35 @@
 					overviewData.generatedSum = myOverviewData.rowSum;
 					overviewData.currency = myOverviewData.currency;
 				}
-			});
+        else {
+          labels.push($translate.instant(myOverviewData.groupName));
+          var rowSeries = [];
+          myOverviewData.rows.forEach(function (overviewRow) {
+            rowSeries.push($translate.instant(overviewRow.typeName));
+          });
+          series.push(rowSeries);
 
-			newValue.sales.forEach(function (myOverviewData) {
-				if (myOverviewData.groupId != 'generated') {
-					labels.push($translate.instant(myOverviewData.groupName));
-					var barSeries = [];
-					myOverviewData.rows.forEach(function (overviewRow) {
-						steps++;
-						barSeries.push($translate.instant(overviewRow.typeName));
-					});
-					series.push(barSeries);
-				}
-			});
+          var step = 0;
+          myOverviewData.rows.forEach(function (overviewRow) {
+            if(typeof(data[step]) == "undefined") {
+              data[step] = [];
+            }
+            data[step].push(overviewRow.count);
 
-			newValue.sales.forEach(function (myOverviewData) {
-				if (myOverviewData.groupId != 'generated') {
-					var color = [];
-					var step = 0;
-					myOverviewData.rows.forEach(function (overviewRow) {
-						if(typeof(data[step]) == "undefined") {
-							data[step] = [];
-						}
-						data[step].push(overviewRow.count);
+            if(typeof(colors[step]) == "undefined") {
+              colors[step] = [];
+            }
+            overviewRow.color = colorService.getColorByType(overviewRow.typeName);
+            colors[step].push(overviewRow.color);
+            
+            if(typeof(barSeries[step]) == "undefined") {
+              barSeries[step] = [];
+            }
+            barSeries[step].push($translate.instant(overviewRow.typeName));
 
-						if(typeof(colors[step]) == "undefined") {
-							colors[step] = [];
-						}
-						overviewRow.color = colorService.getColorByType(overviewRow.typeName);
-						colors[step].push(overviewRow.color);
-
-						if(typeof(barSeries[step]) == "undefined") {
-							barSeries[step] = [];
-						}
-						barSeries[step].push($translate.instant(overviewRow.typeName));
-
-						step++;
-					});
-				}
+            step++;
+          });
+        }
 			});
 
 			for (var i = 0; i < data.length; i++) {
