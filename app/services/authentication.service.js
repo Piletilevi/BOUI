@@ -74,7 +74,7 @@
                 if (results.user) {
                     $rootScope.authenticated = true;
                     $rootScope.user = results.user;
-                    pointService.setPoint($rootScope.user.point,false);
+                    pointService.setPoint($rootScope.user.point,true);
                     if (typeof($location.search().key) !== 'undefined') {
                         $location.search('key', null);
                     }
