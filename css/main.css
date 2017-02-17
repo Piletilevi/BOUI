@@ -1265,6 +1265,32 @@ a:hover {
 	display: none;
 }
 
+
+.bo-confirm-modal .modal-header {
+	background: transparent;
+	padding-left: 23px;
+	padding-top: 10px;
+}
+
+.bo-confirm-modal .modal-title {
+	font-size: 32px;
+	color: #263443;
+}
+
+.bo-modal.bo-confirm-modal .bo-close-btn {
+	right: 23px;
+	top: 21px;
+}
+
+.bo-confirm-modal .modal-footer {
+	padding-right: 26px;
+	padding-bottom: 23px;
+}
+
+.bo-confirm-modal .modal-body {
+	padding: 5px 22px 15px;
+}
+
 /* Close button
 ================================ */
 
