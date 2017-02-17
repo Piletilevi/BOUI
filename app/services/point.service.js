@@ -32,15 +32,17 @@
         }
 
         function setPoint(pointId) {
-            // Redirect to dashboard after changing the point
-            if ($rootScope.user.point !== pointId) {
-                $location.path('dashboard');
-            }
+            var prevPoint = $rootScope.user.point;
+            dataService.post('setPoint', {'pointId': pointId });
 
             $rootScope.user.point = pointId;
             $rootScope.pointMenuLogo = getPointMenuLogo();
             $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor();
             $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
+
+            if (prevPoint !== pointId) {
+                $location.path('dashboard');
+            }
         }
 
         function getPointMenuLogo() {
