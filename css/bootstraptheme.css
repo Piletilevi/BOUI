@@ -669,3 +669,49 @@ textarea.form-control {
 .form-group-sm .form-control {
 	height: 27px;
 }
+
+.btn-lg {
+	padding: 10px 14px;
+	height: 45px;
+}
+
+.toggle-on.btn-lg {
+	padding-left: 11px;
+	padding-right: 24px;
+	padding-top: 12px;
+	padding-bottom: 8px;
+}
+
+.toggle-off.btn-lg {
+	padding-right: 11px;
+	padding-left: 24px;
+	padding-top: 12px;
+	padding-bottom: 8px;
+}
+
+.toggle-handle {
+	padding: 0;
+	position: absolute;
+	margin-left: -12px;
+	left: 50%;
+	width: 13px;
+}
+
+.toggle.off .toggle-handle {
+	margin-left: 0;
+	margin-right: -12px;
+	left: auto;
+	right: 50%;
+}
+
+.toggle-handle.btn-lg {
+	width: 13px;
+}
+
+.toggle.btn {
+	min-width: 42px;
+}
+
+.toggle.btn-lg {
+	min-width: 42px;
+}

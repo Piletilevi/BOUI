@@ -63,6 +63,40 @@ a:hover {
 	color: #27394c;
 }
 
+.bo-datarangepicker-button {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.bo-datarangepicker-button input,
+.bo-datarangepicker-button .form-control[disabled],
+.bo-datarangepicker-button .form-control[readonly],
+.bo-datarangepicker-button fieldset[disabled] .form-control {
+	border: 0 none;
+	background: none;
+	padding: 0;
+	margin: 0;
+	float: none;
+	display: inline-block;
+	width: auto;
+}
+
+.bo-inline-buttons {
+	display: flex;
+}
+
+.bo-inline-drow {
+	flex-grow: 1;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.bo-inline-not-drow {
+	margin-right: 13px;
+	display: inline-block;
+	vertical-align: top;
+}
+
 /* LOGO
 ================================ */
 

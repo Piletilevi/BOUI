@@ -273,6 +273,15 @@
 		-moz-border-radius: 0;
 		border-radius: 0;
 	}
+
+	.bo-inline-buttons {
+		display: block;
+	}
+
+	.bo-inline-drow,
+	.bo-inline-not-drow {
+		margin-bottom: 10px;
+	}
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
