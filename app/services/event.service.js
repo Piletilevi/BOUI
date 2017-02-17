@@ -384,7 +384,7 @@
 		}
 
 		function getSectorInfo(event, filter) {
-			dataService.post('sectionInfo', {concertId: event.id, sectionId: event.sectorId, filter: filter}).then(function (results) {
+			dataService.post('sectionInfo', {concertId: event.id, filter: filter}).then(function (results) {
 				sectorInfo = null;
 				dataService.page(results);
 				if (results.status == 'success'){
@@ -394,7 +394,7 @@
 		}
 
 		function getSectorTickets(event, filter) {
-			dataService.post('sectionTickets', {concertId: event.id, sectionId: event.sectorId, filter: filter}).then(function (results) {
+			dataService.post('sectionTickets', {concertId: event.id, filter: filter}).then(function (results) {
 				sectorTickets = null;
 				dataService.page(results);
 				if (results.status == 'success'){
