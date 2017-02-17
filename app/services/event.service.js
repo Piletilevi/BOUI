@@ -24,6 +24,8 @@
 		var myPriceClassData = null;
 		var myPriceClassGraphData = null;
 		var mySectorsData = null;
+		var sectorInfo = null;
+		var sectorTickets = null;
 
 		var service = {
 			myOpenEvents: function() { return myOpenEvents },
@@ -39,6 +41,8 @@
 			myPriceClassData: function() { return myPriceClassData },
 			myPriceClassGraphData: function() { return myPriceClassGraphData },
 			mySectorsData: function() { return mySectorsData },
+			sectorInfo: function() { return sectorInfo },
+			sectorTickets: function() { return sectorTickets },
 			reset: reset,
 			getMyEvents: getMyEvents,
 			getMoreEvents: getMoreEvents,
@@ -52,6 +56,8 @@
 			getPriceClassGraphData : getPriceClassGraphData,
 			getPriceTypeGraphData : getPriceTypeGraphData,
 			getSectorsData: getSectorsData,
+			getSectorInfo: getSectorInfo,
+			getSectorTickets: getSectorTickets
 		};
 		return service;
 
@@ -198,7 +204,7 @@
 			dataService.post('concertSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
-					event.sell = results.data.sell;
+					event.statistics = results.data.statistics;
 					event.websiteUrl = getWebsiteUrl(event);
 				}
 			});
@@ -218,7 +224,7 @@
 			dataService.post('showSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
-					event.sell = results.data.sell;
+					event.statistics = results.data.statistics;
 					event.websiteUrl = getWebsiteUrl(event);
 				}
 			});
@@ -257,7 +263,7 @@
 			dataService.post('concertOpSales', {id: event.id, filter: filter}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
-					event.sell = results.data;
+					event.statistics = results.data;
 				}
 			});
 		}
@@ -266,7 +272,7 @@
 			dataService.post('showOpSales', {id: event.id, filter: filter}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
-					event.sell = results.data;
+					event.statistics = results.data;
 				}
 			});
 		}
@@ -367,6 +373,36 @@
 			}
 		}
 
+		function getSectorInfo(event, filter) {
+			dataService.post('sectionInfo', {concertId: event.id, sectionId: event.sectorId, filter: filter}).then(function (results) {
+				sectorInfo = null;
+				dataService.page(results);
+				if (results.status == 'success'){
+					sectorInfo = results.data;
+				}
+			});
+		}
+
+		function getSectorInfo(event, filter) {
+			dataService.post('sectionInfo', {concertId: event.id, sectionId: event.sectorId, filter: filter}).then(function (results) {
+				sectorInfo = null;
+				dataService.page(results);
+				if (results.status == 'success'){
+					sectorInfo = results.data;
+				}
+			});
+		}
+
+		function getSectorTickets(event, filter) {
+			dataService.post('sectionTickets', {concertId: event.id, sectionId: event.sectorId, filter: filter}).then(function (results) {
+				sectorTickets = null;
+				dataService.page(results);
+				if (results.status == 'success'){
+					sectorTickets = results.data;
+				}
+			});
+		}
+				
 		function getWebsiteUrl(event) {
 			var urlParts = ['http://www.piletilevi.ee'],
 				availableLanguages = ['est', 'rus', 'eng', 'fin'],

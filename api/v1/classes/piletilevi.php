@@ -128,6 +128,51 @@ class PiletileviApi {
 		return $concertInfo;
 	}
 
+	public function ticketStatus($filter) {
+		
+		$data['filter']= $filter;
+
+		$ticketStatusData = $this->send( "/venue/getTicketStatus", $data );
+		
+		return $ticketStatusData;
+	}
+
+	public function concertInfoOfVenue($filter) {
+		
+		$data['filter']= $filter;
+
+		$concertInfoData = $this->send( "/venue/getConcertInfo", $data );
+		
+		return $concertInfoData;
+	}
+
+	public function sectionInfo($filter) {
+		
+		$data['filter']= $filter;
+
+		$sectionInfoData = $this->send( "/venue/getSectionInfo", $data );
+		
+		return $sectionInfoData;
+	}
+	
+	public function sectionTickets($filter) {
+		
+		$data['filter']= $filter;
+
+		$sectionTicketsData = $this->send( "/venue/getSectionTickets", $data );
+		
+		return $sectionTicketsData;
+	}
+	
+	public function rejectTicket($filter) {
+		
+		$data['filter']= $filter;
+
+		$rejectTicketData = $this->send( "/venue/rejectTicket", $data );
+		
+		return $rejectTicketData;
+	}	
+
 	public function showInfo($filter) {
 		
 		$cacheItem = $this->cacheManager->getItem("showInfo".$filter["id"]);
@@ -366,6 +411,12 @@ class PiletileviApi {
 			}
 			if (!isset($data['salepointid'])) {
 				$data['salepointid']= $this->currentUser->point;
+			}
+		}
+		
+		if (is_object($this->currentLang)) {
+			if (!isset($data['langId'])) {
+				$data['langId']= $this->currentLang->code;
 			}
 		}
 

@@ -207,7 +207,7 @@ $app->post('/myEvents', function() use ($app) {
 	
 	$response = "";
 	if ($myEvents && !property_exists($myEvents, 'errors')) {
-		if ($myEvents) {
+		if ($myEvents && property_exists($myEvents, 'data')) {
 	        $response['status'] = "success";
 	        $response['data'] = $myEvents->data;
 	        $response['count'] = $myEvents->count;
@@ -830,6 +830,162 @@ $app->post('/eventSalesReportBySectors', function() use ($app)  {
         $response["errors"] = array("error" => "no response");
 		$dataHandler->response(200, $response);
 	}
+});
+
+$app->post('/ticketStatus', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('concertId', 'seatId'), $r);
+
+	$filter = array();
+	$filter['concertId'] = $r->concertId;
+	$filter['seatId'] = $r->seatId;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->ticketStatus( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/concertInfoOfVenue', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('concertId'), $r);
+
+	$filter = array();
+	$filter['concertId'] = $r->concertId;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->concertInfoOfVenue( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/sectionInfo', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('concertId', 'sectionId'), $r);
+
+	$filter = array();
+	$filter['concertId'] = $r->concertId;
+	$filter['sectionId'] = $r->sectionId;
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->sectionInfo( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/sectionTickets', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('concertId', 'sectionId'), $r);
+
+	$filter = array();
+	$filter['concertId'] = $r->concertId;
+	$filter['sectionId'] = $r->sectionId;
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->sectionTickets( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/rejectTicket', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('ticketId'), $r);
+
+	$filter = array();
+	$filter['ticketId'] = $r->ticketId;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->rejectTicket( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->get('/sectionInfo', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+
+	$filter = array();
+	$filter['concertId'] = $app->request->params('concertId');
+	$filter['sectionId'] = $app->request->params('sectionId');
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->sectionInfo( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->get('/sectionTickets', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+
+	$filter = array();
+	$filter['concertId'] = $app->request->params('concertId');
+	$filter['sectionId'] = $app->request->params('sectionId');
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->sectionTickets( $filter );
+	
+	$dataHandler->response(200, $reportResponse);
 });
 
 ?>

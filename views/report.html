@@ -137,7 +137,7 @@
 									<td>{{'api_generated'|translate}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount}}</td>
 									<td>100%</td>
-									<td>{{vm.myOverviewBarData.generatedSum}} {{vm.myOverviewBarData.currency}}</td>
+									<td>{{vm.myOverviewBarData.generatedSum | number:2}} {{vm.myOverviewBarData.currency}}</td>
 								</tr>
 							</tbody>
 							<thead ng-if="overviewData.groupId != 'generated'">
@@ -146,7 +146,7 @@
 									<th width="46%">{{overviewData.groupName|translate}}:</th>
 									<th width="17%">{{overviewData.rowCount}}</th>
 									<th width="10%">{{vm.myOverviewBarData.generatedCount ? ( overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</th>
-									<th width="20%">{{overviewData.rowSum}} {{vm.myOverviewBarData.currency}}</th>
+									<th width="20%">{{overviewData.rowSum | number:2}} {{vm.myOverviewBarData.currency}}</th>
 								</tr>
 							</thead>
 							<tbody ng-if="overviewData.groupId != 'generated'">
@@ -155,7 +155,7 @@
 									<td>{{overviewRow.typeName|translate}}:</td>
 									<td>{{overviewRow.count}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{overviewRow.sum}} {{vm.myOverviewBarData.currency}}</td>
+									<td>{{overviewRow.sum | number:2}} {{vm.myOverviewBarData.currency}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -201,7 +201,7 @@
 					</div>
 				</div>
 				<div class="bo-chart">
-					<canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data" chart-labels="vm.pricetypeLineGraph.labels" chart-series="vm.pricetypeLineGraph.series" chart-options="vm.pricetypeLineGraph.options" chart-dataset-override="vm.pricetypeLineGraph.datasetOverride">
+					<canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data" chart-labels="vm.pricetypeLineGraph.labels" chart-series="vm.pricetypeLineGraph.series" chart-options="vm.pricetypeLineGraph.options" chart-colors="vm.pricetypeLineGraph.colors" chart-dataset-override="vm.pricetypeLineGraph.datasetOverride">
 					</canvas>
 				</div>
 				<div class="row">
@@ -209,11 +209,11 @@
 						<div class="bo-chart">
 							<div class="bo-chart-buttons">
 								<div class="btn-group btn-group-sm" role="group">
-									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.display=='tickets'}" ng-click="vm.setPricetypeDisplay('tickets')">{{'api_tickets'|translate}}</button>
-									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.display=='revenue'}" ng-click="vm.setPricetypeDisplay('revenue')">{{'api_revenue'|translate}}</button>
+									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='tickets'}" ng-click="vm.setPricetypePieDisplay('tickets')">{{'api_tickets'|translate}}</button>
+									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='revenue'}" ng-click="vm.setPricetypePieDisplay('revenue')">{{'api_revenue'|translate}}</button>
 								</div>
 							</div>
-							<canvas id="pricetypePie" class="chart chart-pie" chart-data="vm.pricetypePieGraph.data" chart-labels="vm.pricetypePieGraph.labels" chart-options="vm.pricetypePieGraph.options"></canvas> 
+							<canvas id="pricetypePie" class="chart chart-pie" chart-data="vm.pricetypePieGraph.data" chart-labels="vm.pricetypePieGraph.labels" chart-options="vm.pricetypePieGraph.options" chart-colors="vm.pricetypePieGraph.colors"></canvas>
 						</div>
 					</div>
 					<div class="col-lg-6">
@@ -240,7 +240,7 @@
 									<td>{{'api_sold_total'|translate}}</td>
 									<td>{{vm.myPriceTypePieData.generatedCount}}</td>
 									<td>100%</td>
-									<td>{{vm.myPriceTypePieData.generatedSum}} {{vm.myPriceTypePieData.currency}}</td>
+									<td>{{vm.myPriceTypePieData.generatedSum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
 								</tr>
 							</tbody>
 							<thead>
@@ -255,7 +255,7 @@
 									<td>{{pricetypeItem.priceTypeName}}</td>
 									<td>{{pricetypeItem.count}}</td>
 									<td>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{pricetypeItem.sum}} {{vm.myPriceTypePieData.currency}}</td>
+									<td>{{pricetypeItem.sum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -300,7 +300,7 @@
 					</div>
 				</div>
 				<div class="bo-chart">
-					<canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data" chart-labels="vm.priceclassLineGraph.labels" chart-series="vm.priceclassLineGraph.series" chart-options="vm.priceclassLineGraph.options" chart-dataset-override="vm.priceclassLineGraph.datasetOverride" height="100px">
+					<canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data" chart-labels="vm.priceclassLineGraph.labels" chart-series="vm.priceclassLineGraph.series" chart-options="vm.priceclassLineGraph.options" chart-colors="vm.priceclassLineGraph.colors" chart-dataset-override="vm.priceclassLineGraph.datasetOverride" height="100px">
 					</canvas>
 				</div>
 				<div class="row">
@@ -312,7 +312,7 @@
 									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='revenue'}" ng-click="vm.setPriceclassPieDisplay('revenue')">{{'api_revenue'|translate}}</button>
 								</div>
 							</div>
-							<canvas id="priceclassPie" class="chart chart-pie" chart-data="vm.priceclassPieGraph.data" chart-labels="vm.priceclassPieGraph.labels" chart-options="vm.priceclassPieGraph.options"></canvas> 
+							<canvas id="priceclassPie" class="chart chart-pie" chart-data="vm.priceclassPieGraph.data" chart-labels="vm.priceclassPieGraph.labels" chart-options="vm.priceclassPieGraph.options" chart-colors="vm.priceclassPieGraph.colors"></canvas>
 						</div>
 					</div>
 					<div class="col-lg-6">
@@ -339,7 +339,7 @@
 									<td>{{'api_sold_total'|translate}}</td>
 									<td>{{vm.myPriceClassPieData.generatedCount}}</td>
 									<td>100%</td>
-									<td>{{vm.myPriceClassPieData.generatedSum}} {{vm.myPriceClassPieData.currency}}</td>
+									<td>{{vm.myPriceClassPieData.generatedSum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
 								</tr>
 							</tbody>
 							<thead>
@@ -354,7 +354,7 @@
 									<td>{{priceclassItem.priceClassName}}</td>
 									<td>{{priceclassItem.count}}</td>
 									<td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{priceclassItem.sum}} {{vm.myPriceClassPieData.currency}}</td>
+									<td>{{priceclassItem.sum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -386,18 +386,18 @@
 					<div class="col-lg-6">
 						<div class="bo-sectionselector list-group">
 							<button type="button" class="bo-sectionselector-item list-group-item" ng-repeat="sectorData in vm.mySectorsData.sales">
-								<div class="bo-sectionselector-itemtitle">
+								<div class="bo-sectionse1lector-itemtitle">
 									{{sectorData.name}}
 								</div>
 								<div class="clearfix">
-									<div class="bo-sectionselector-itemprice">{{sectorData.sell.soldSumma}} {{sectorData.sell.currency}}</div>
+									<div class="bo-sectionselector-itemprice">{{sectorData.statistics.soldSumma | number:2}} {{sectorData.statistics.currency}}</div>
 									<div ng-include-template="simplestats.html" ng-include-variables="{ currentEvent: sectorData }"></div>
 								</div>
 							</button>
 						</div>
 					</div>
 					<div class="col-lg-6">
-						<div class="bo-map" ng-if="vm.event.confId != null">
+						<div class="bo-map">
 							<ng-sections-map data-config="{{vm.event.sectionsMapConfig}}"></ng-sections-map>
 						</div>
 					</div>
@@ -581,7 +581,7 @@
 							<a class="bo-mapcontrols-item" href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
 							<a class="bo-mapcontrols-item" href="#"><i class="fa fa-minus" aria-hidden="true"></i></a>
 						</div>
-						<div class="bo-map" ng-if="vm.event.confId != null">
+						<div class="bo-map">
 							<ng-venue-map data-config="{{vm.event.seatsMapConfig}}"></ng-venue-map>
 						</div>
 					</div>
