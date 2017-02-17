@@ -888,6 +888,8 @@ $app->post('/sectionInfo', function() use ($app)  {
 	$filter = array();
 	$filter['concertId'] = $r->concertId;
 	$filter['sectionId'] = $r->sectionId;
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->sectionInfo( $filter );
@@ -912,13 +914,15 @@ $app->post('/sectionTickets', function() use ($app)  {
 	$filter = array();
 	$filter['concertId'] = $r->concertId;
 	$filter['sectionId'] = $r->sectionId;
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->sectionTickets( $filter );
 	
 	if ($reportResponse) {
 		$response["status"] = "success";
-		$response["data"] = $reportResponse->data;
+		$response["data"] = $reportResponse;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
@@ -948,6 +952,40 @@ $app->post('/rejectTicket', function() use ($app)  {
         $response["errors"] = array("error" => "no response");
 		$dataHandler->response(200, $response);
 	}
+});
+
+$app->get('/sectionInfo', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+
+	$filter = array();
+	$filter['concertId'] = $app->request->params('concertId');
+	$filter['sectionId'] = $app->request->params('sectionId');
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->sectionInfo( $filter );
+	
+	if ($reportResponse) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = array("error" => "no response");
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->get('/sectionTickets', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+
+	$filter = array();
+	$filter['concertId'] = $app->request->params('concertId');
+	$filter['sectionId'] = $app->request->params('sectionId');
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->sectionTickets( $filter );
+	
+	$dataHandler->response(200, $reportResponse);
 });
 
 ?>
