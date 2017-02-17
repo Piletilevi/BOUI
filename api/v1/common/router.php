@@ -888,6 +888,8 @@ $app->post('/sectionInfo', function() use ($app)  {
 	$filter = array();
 	$filter['concertId'] = $r->concertId;
 	$filter['sectionId'] = $r->sectionId;
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->sectionInfo( $filter );
@@ -912,6 +914,8 @@ $app->post('/sectionTickets', function() use ($app)  {
 	$filter = array();
 	$filter['concertId'] = $r->concertId;
 	$filter['sectionId'] = $r->sectionId;
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->sectionTickets( $filter );
