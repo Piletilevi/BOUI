@@ -1,71 +1,76 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-3 col-md-push-9 bo-right-column">
-            <div class="panel panel-default bo-news" ng-repeat="newsItem in vm.news" ng-if="vm.news">
-                <div class="panel-heading" ng-if="$first">
-                    <h2 class="hidden-xs">{{'api_news'|translate}}</h2>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-xs-11 col-sm-11 col-md-12">
-                            <h3 class="bo-news-title">{{newsItem.title}}</h3>
-                            <p class="hidden-xs">
-                                {{newsItem.text}}
-                            </p>
-                            <a class="hidden-xs hidden-sm" href="#{{newsItem.id}}">{{'api_more'|translate}}</a>
-                            <div class="bo-news-date">{{newsItem.created}} {{'api_by'|translate}} {{newsItem.createdBy}}</div>
-                            <div class="visible-sm visible-xs bo-news-arrow">
-                                <a href=""><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-9 col-md-pull-3 bo-center-column">
-            <div class="row bo-filter-block">
-                <div class="col-xs-12 col-sm-3">
-                    <div class="visible-lg bo-hidden-label">&nbsp;</div>
-                    <h1>{{'api_myevents'|translate}}</h1>
-                </div>
-                <div class="col-xs-12 col-sm-2">
-                  <div class="input-group-lg">
-                    <div class="input-group input-group-lg">
-						<toggle ng-model="vm.filter.groupByShow" on="{{'api_group_by_show'|translate}}" off="{{'api_group_by_concert'|translate}}" size="btn-lg"></toggle>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                  <div class="input-group-lg">
-                    <div class="visible-lg bo-hidden-label">{{'api_event_period'|translate}}:</div>
-                    <div class="input-group data_range input-group-lg">
-                      <input type="text" class="form-control" ng-model="vm.filter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled/>
-                               <span class="input-group-btn">
-                                  <button class="btn btn-default" type="button" data-control="daterangepicker">
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                  </button>
-                               </span>
-                    </div>
-					<div class="visible-xs">&nbsp;</div>
-                  </div>
-                </div>
-                <div class="col-xs-12 col-sm-3">
-                    <div class="visible-lg bo-hidden-label">&nbsp;</div>
-                    <div class="input-group input-group-lg">
-                        <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" ng-click="vm.search()"><i class="fa fa-{{vm.reset_search ? 'close' : 'search'}}" aria-hidden="true"></i></button>
-                        </span>
-                    </div>
-                </div>
-            </div>
+	<div class="row">
+		<div class="col-md-3 col-md-push-9 bo-right-column">
+			<div class="panel panel-default bo-news" ng-repeat="newsItem in vm.news" ng-if="vm.news">
+				<div class="panel-heading" ng-if="$first">
+					<h2 class="hidden-xs">{{'api_news'|translate}}</h2>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-11 col-sm-11 col-md-12">
+							<h3 class="bo-news-title">{{newsItem.title}}</h3>
+							<p class="hidden-xs">
+								{{newsItem.text}}
+							</p>
+							<a class="hidden-xs hidden-sm" href="#{{newsItem.id}}">{{'api_more'|translate}}</a>
+							<div class="bo-news-date">{{newsItem.created}} {{'api_by'|translate}} {{newsItem.createdBy}}</div>
+							<div class="visible-sm visible-xs bo-news-arrow">
+								<a href=""><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9 col-md-pull-3 bo-center-column">
+			<div class="row bo-filter-block">
+				<div class="col-xs-12 col-sm-3">
+					<div class="visible-lg bo-hidden-label">&nbsp;</div>
+					<h1>{{'api_myevents'|translate}}</h1>
+				</div>
+				<div class="col-xs-12 col-sm-9 bo-inline-buttons">
+					<div class="input-group-lg bo-inline-not-drow">
+						<div class="input-group input-group-lg">
+							<toggle ng-model="vm.filter.groupByShow" on="{{'api_group_by_show'|translate}}" off="{{'api_group_by_concert'|translate}}" size="btn-lg" onstyle="btn-default" offstyle="btn-default"></toggle>
+						</div>
+					</div>
+					<div class="bo-inline-not-drow">
+						<div class="input-group-lg">
+							<div class="visible-lg bo-hidden-label"><!--{{'api_event_period'|translate}}:-->&nbsp;</div>
+							<div class="data_range">
+								<button class="btn btn-default bo-datarangepicker-button btn-lg" type="button" data-control="daterangepicker">
+									<input type="text" class="form-control" ng-model="vm.filter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled />
+									<i class="fa fa-calendar" aria-hidden="true"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="bo-inline-drow">
+						<div class="visible-lg bo-hidden-label">&nbsp;</div>
+						<div class="input-group input-group-lg">
+							<input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button" ng-click="vm.search()">
+									<i class="fa fa-{{vm.reset_search ? 'close' : 'search'}}" aria-hidden="true"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<ul class="nav nav-tabs" role="tablist" id="myeventstab">
-                <li class="active"><a href="#onsale" data-toggle="tab" role="tab" aria-controls="onsale" ng-click="vm.tabSelectEvent('onsale')">{{'api_on_sale'|translate}} <span class="badge">{{vm.salesCount}}</span></a></li>
-                <li><a href="#draft" data-toggle="tab" role="tab" aria-controls="draft" ng-click="vm.tabSelectEvent('draft')">{{'api_draft'|translate}} <span class="badge">{{vm.draftCount}}</span></a></li>
-                <li><a href="#past" data-toggle="tab" role="tab" aria-controls="past" ng-click="vm.tabSelectEvent('past')">{{'api_past'|translate}} <span class="badge">{{vm.pastCount}}</span></a></li>
-            </ul>
-			
+				<li class="active">
+					<a href="#onsale" data-toggle="tab" role="tab" aria-controls="onsale" ng-click="vm.tabSelectEvent('onsale')">{{'api_on_sale'|translate}}
+						<span class="badge">{{vm.salesCount}}</span></a></li>
+				<li>
+					<a href="#draft" data-toggle="tab" role="tab" aria-controls="draft" ng-click="vm.tabSelectEvent('draft')">{{'api_draft'|translate}}
+						<span class="badge">{{vm.draftCount}}</span></a></li>
+				<li>
+					<a href="#past" data-toggle="tab" role="tab" aria-controls="past" ng-click="vm.tabSelectEvent('past')">{{'api_past'|translate}}
+						<span class="badge">{{vm.pastCount}}</span></a></li>
+			</ul>
+
 			<div class="tab-content" infinite-scroll="vm.getMoreEvents()" infinite-scroll-disabled="vm.filter.loadingItems" infinite-scroll-distance="1">
 				<!-- Tab: on sale events -->
 				<div class="tab-pane active" id="onsale" role="tabpanel">
@@ -100,18 +105,18 @@
 					</div>
 				</div>
 			</div>
-        </div>
+		</div>
 	</div>
 
 </div>
 
 <script language="JavaScript">
-<!--
+	<!--
 
-$('#myeventstab a').click(function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-})
+	$('#myeventstab a').click(function(e) {
+		e.preventDefault();
+		$(this).tab('show');
+	})
 
-//-->
+	//-->
 </script>

@@ -883,11 +883,12 @@ $app->post('/sectionInfo', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 
-	$dataHandler->verifyParams(array('concertId', 'sectionId'), $r);
+	$dataHandler->verifyParams(array('concertId'), $r);
+	$dataHandler->verifyParams(array('sectionId'), $r->filter);
 
 	$filter = array();
 	$filter['concertId'] = $r->concertId;
-	$filter['sectionId'] = $r->sectionId;
+	$filter['sectionId'] = $r->filter->sectionId;
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
 
@@ -909,11 +910,12 @@ $app->post('/sectionTickets', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 
-	$dataHandler->verifyParams(array('concertId', 'sectionId'), $r);
+	$dataHandler->verifyParams(array('concertId'), $r);
+	$dataHandler->verifyParams(array('sectionId'), $r->filter);
 
 	$filter = array();
 	$filter['concertId'] = $r->concertId;
-	$filter['sectionId'] = $r->sectionId;
+	$filter['sectionId'] = $r->filter->sectionId;
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
 
