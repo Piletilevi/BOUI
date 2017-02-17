@@ -2,7 +2,7 @@
  * Created by kaur on 20.09.2016.
  */
 
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -13,12 +13,12 @@
 
     function PointService($rootScope, $location, dataService) {
         var service = {
-            getPointName : getPointName,
-            setPoint : setPoint,
-            getPointMenuBackgroundColor:getPointMenuBackgroundColor,
-            getPointMenuActiveColor:getPointMenuActiveColor,
-            getPointMenuLogo:getPointMenuLogo,
-            initialize:initialize
+            getPointName: getPointName,
+            setPoint: setPoint,
+            getPointMenuBackgroundColor: getPointMenuBackgroundColor,
+            getPointMenuActiveColor: getPointMenuActiveColor,
+            getPointMenuLogo: getPointMenuLogo,
+            initialize: initialize
         };
         return service;
 
@@ -27,24 +27,23 @@
             return point.id === $rootScope.user.point;
         }
 
-        function getPointName(){
+        function getPointName() {
             return $rootScope.user.salesPoints.find(findPoint).name
         }
 
-        function setPoint(pointId, isInit){
-            isInit = typeof isInit !== 'undefined' ? isInit : false;
-                dataService.post('setPoint', {'pointId': pointId });
-
-            if($rootScope.user.point !== pointId || isInit) {
-                $rootScope.user.point = pointId;
-                $rootScope.pointMenuLogo = getPointMenuLogo();
-                $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor();
-                $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
+        function setPoint(pointId) {
+            // Redirect to dashboard after changing the point
+            if ($rootScope.user.point !== pointId) {
                 $location.path('dashboard');
             }
+
+            $rootScope.user.point = pointId;
+            $rootScope.pointMenuLogo = getPointMenuLogo();
+            $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor();
+            $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
         }
 
-        function getPointMenuLogo(){
+        function getPointMenuLogo() {
             var settings = getPointSettings();
             if (settings != null) {
                 var setting = settings.find(getPointTopMenuLogo);
@@ -55,7 +54,7 @@
             return "img/logo.png";
         }
 
-        function getPointMenuBackgroundColor(){
+        function getPointMenuBackgroundColor() {
             var settings = getPointSettings();
             if (settings != null) {
                 var setting = settings.find(getPointTopMenuBackgroundColorSetting);
@@ -66,7 +65,7 @@
             return "";
         }
 
-        function getPointMenuActiveColor(){
+        function getPointMenuActiveColor() {
             var settings = getPointSettings();
             if (settings != null) {
                 var setting = settings.find(getPointTopMenuColorSetting);
@@ -106,7 +105,7 @@
             return [];
         }
 
-        function  initialize() {
+        function initialize() {
             $rootScope.getPointName = getPointName;
             $rootScope.setPoint = setPoint;
         }
