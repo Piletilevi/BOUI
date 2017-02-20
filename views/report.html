@@ -807,10 +807,17 @@
 
 <div class="col-md-3 bo-sidebar" ng-if="vm.event.concerts">
 	<div class="panel panel-default bo-onsale">
-		<h2 class="bo-sidebar-title hidden-xs">{{'api_events_on_sale'|translate}}</h2>
+		<!--<h2 class="bo-sidebar-title hidden-xs">{{'api_events_on_sale'|translate}}</h2>-->
 		<ul class="list-group">
 			<li class="list-group-item" ng-repeat="concertItem in vm.event.concerts" ng-init="vm.getEventSales(concertItem)">
-				 <div ng-include-template="event_detail_short.html" ng-include-variables="{ event: concertItem }"></div>
+				<div ng-include-template="event_detail_short.html" ng-include-variables="{ event: concertItem }"></div>
+				<!--SUB EVENTS HERE-->
+					<!--<div class="bo-eventshort-subevents">-->
+						<!--<div ng-include-template="event_detail_short.html"></div>-->
+						<!--<div ng-include-template="event_detail_short.html"></div>-->
+						<!--<div ng-include-template="event_detail_short.html"></div>-->
+					<!--</div>-->
+				<!--/SUB EVENTS HERE-->
 			</li>
 			<li class="list-group-item">
 				<a class="bo-onsale-viewall" href="#TODO">{{'api_view_all_events_on_sale'|translate}}</a>
