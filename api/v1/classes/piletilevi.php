@@ -113,6 +113,16 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function relatedEvents($filter) {
+		
+		$filter['limit'] = 5;
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/event/relatedEvents", $data );
+		
+		return $reportData;
+	}
+	
 	public function concertInfo($filter) {
 		
 		$cacheItem = $this->cacheManager->getItem("concertInfo".$filter["id"]);

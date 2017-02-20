@@ -231,9 +231,10 @@
       }
     };
 
-    vm.getEventInfo = eventService.getEventInfo;
-    vm.getEventSalesReport = eventService.getEventSalesReport;
     vm.getEventSales = eventService.getEventSales;
+	vm.getConcertSales = eventService.getConcertSales;
+	vm.getMoreRelatedEvents = eventService.getMoreRelatedEvents;
+	vm.hasMoreRelatedEvents = eventService.hasMoreRelatedEvents;
     vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: ''};
     vm.overviewFilter = {period: {startDate: null, endDate: null}, display: 'tickets', groupBy: 'day'};
     vm.pricetypeFilter = {period: {startDate: null, endDate: null}, display: 'tickets', pieDisplay: 'tickets', groupBy: 'day'};
@@ -254,9 +255,11 @@
     vm.pricetypeLineGraph = graphService.pricetypeLineGraph;
     vm.priceclassPieGraph = graphService.priceclassPieGraph;
     vm.priceclassLineGraph = graphService.priceclassLineGraph;
-
+	
+	//Initialize
     eventService.getEventInfo(vm.event);
     eventService.getEventSales(vm.event);
+    eventService.getRelatedEvents(vm.event);
 
     vm.getEventOpSales = function () {
       if (vm.reset_search) {
@@ -325,6 +328,7 @@
         vm.myPriceClassPieData = eventService.myPriceClassData();
         vm.myPriceClassLineData = eventService.myPriceClassGraphData();
         vm.mySectorsData = eventService.mySectorsData();
+		vm.relatedEvents = eventService.relatedEvents();
       }
     );
 
@@ -466,7 +470,7 @@
     $scope.$watch('vm.event.confId', function (newConfId, oldConfId) {
       if (newConfId !== oldConfId) {
         vm.event.sectionsMapConfig.confId = newConfId;
-        vm.event.seatsMapConfig = newConfId;
+        vm.event.seatsMapConfig.confId = newConfId;
       }
     });
 

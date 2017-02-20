@@ -237,7 +237,7 @@
 							<tbody ng-if="$first">
 								<tr class="info">
 									<td></td>
-									<td>{{'api_sold_total'|translate}}</td>
+									<td>{{'api_issued_total'|translate}}</td>
 									<td>{{vm.myPriceTypePieData.generatedCount}}</td>
 									<td>100%</td>
 									<td>{{vm.myPriceTypePieData.generatedSum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
@@ -246,7 +246,10 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th colspan="4">{{pricetypeData.centreName}}:</th>
+									<th>{{pricetypeData.groupName|translate}}</th>
+									<th>{{pricetypeData.rowCount}}</th>
+									<th>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeData.rowCount / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</th>
+									<th>{{pricetypeData.rowSum | number:2}} {{pricetypeData.currency}}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -336,7 +339,7 @@
 							<tbody ng-if="$first">
 								<tr class="info">
 									<td></td>
-									<td>{{'api_sold_total'|translate}}</td>
+									<td>{{'api_issued_total'|translate}}</td>
 									<td>{{vm.myPriceClassPieData.generatedCount}}</td>
 									<td>100%</td>
 									<td>{{vm.myPriceClassPieData.generatedSum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
@@ -345,7 +348,10 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th colspan="4">{{priceclassData.centreName}}:</th>
+									<th>{{priceclassData.groupName|translate}}</th>
+									<th>{{priceclassData.rowCount}}</th>
+									<th>{{vm.myPriceClassPieData.generatedCount ? ( priceclassData.rowCount / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</th>
+									<th>{{priceclassData.rowSum | number:2}} {{priceclassData.currency}}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -805,15 +811,15 @@
 	</div>
 </div>
 
-<div class="col-md-3 bo-sidebar" ng-if="vm.event.concerts">
+<div class="col-md-3 bo-sidebar" ng-if="vm.relatedEvents">
 	<div class="panel panel-default bo-onsale">
 		<h2 class="bo-sidebar-title hidden-xs">{{'api_events_on_sale'|translate}}</h2>
 		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="concertItem in vm.event.concerts" ng-init="vm.getEventSales(concertItem)">
-				 <div ng-include-template="event_detail_short.html" ng-include-variables="{ event: concertItem }"></div>
+			<li class="list-group-item" ng-repeat="concertItem in vm.relatedEvents" ng-init="vm.getConcertSales(concertItem)">
+				<div ng-include-template="event_detail_short.html" ng-include-variables="{ event: concertItem }"></div>
 			</li>
-			<li class="list-group-item">
-				<a class="bo-onsale-viewall" href="#TODO">{{'api_view_all_events_on_sale'|translate}}</a>
+			<li class="list-group-item" ng-if="vm.hasMoreRelatedEvents(event)">
+				<a class="bo-onsale-viewall" href ng-click="vm.getMoreRelatedEvents(vm.event)">{{'api_view_more_events_on_sale'|translate}}</a>
 			</li>
 		</ul>
 	</div>
