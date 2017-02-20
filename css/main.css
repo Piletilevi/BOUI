@@ -85,6 +85,14 @@ a:hover {
 	display: flex;
 }
 
+.bo-inline-buttons > div {
+	margin-right: 13px;
+}
+
+.bo-inline-buttons > div:last-child {
+	margin-right: 0;
+}
+
 .bo-inline-drow {
 	flex-grow: 1;
 	display: inline-block;
@@ -92,7 +100,6 @@ a:hover {
 }
 
 .bo-inline-not-drow {
-	margin-right: 13px;
 	display: inline-block;
 	vertical-align: top;
 }
