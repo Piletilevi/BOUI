@@ -9,7 +9,7 @@
 			restrict: 'A',
 			link: function(scope, element, attrs) {
 
-				var confirmModal;
+				var modalElement;
 
 				element.bind('click', function(e) {
 					var message = attrs.ngConfirmClick;
@@ -18,30 +18,62 @@
 						e.stopImmediatePropagation();
 						e.preventDefault();
 						$('.bo-confirm-modal').remove();
-						var modalHtml = '<div class="modal fade bo-modal bo-confirm-modal">' +
-							'<div class="modal-dialog">' +
-							'	<div class="modal-content">' +
-							'		<div class="modal-header">' +
-							'			<button type="button" class="btn btn-sm btn-default bo-close-btn bo-confirm-modal-close"><i class="fa fa-times"></i></button>' +
-							'			<h4 class="modal-title">' + message + '</h4>' +
-							'		</div>' +
-							'		<div class="modal-body">' + description +
-							'		</div>' +
-							'		<div class="modal-footer">' +
-							'			<button type="button" class="btn btn-success bo-confirm-modal-submit">Send</button>' +
-							'			<button type="button" class="btn btn-default bo-confirm-modal-close">Cancel</button>' +
-							'		</div>' +
-							'	</div>' +
-							'</div>' +
-						'</div>';
-						$(modalHtml).appendTo('body');
-						confirmModal = $('.bo-confirm-modal');
-						confirmModal.modal('show');
+
+						modalElement = document.createElement('div');
+						modalElement.className = 'modal fade bo-modal bo-confirm-modal';
+
+						var modalDialogElement = document.createElement('div');
+						modalDialogElement.className = 'modal-dialog';
+						modalElement.appendChild(modalDialogElement);
+
+						var modalContentElement = document.createElement('div');
+						modalContentElement.className = 'modal-content';
+						modalDialogElement.appendChild(modalContentElement);
+
+						var modalHeaderElement = document.createElement('div');
+						modalHeaderElement.className = 'modal-header';
+						modalContentElement.appendChild(modalHeaderElement);
+
+						var modalHeaderCloseElement = document.createElement('button');
+						modalHeaderCloseElement.className = 'btn btn-sm btn-default bo-close-btn bo-confirm-modal-close';
+						modalHeaderCloseElement.innerHTML = '<i class="fa fa-times"></i>';
+						modalHeaderElement.appendChild(modalHeaderCloseElement);
+
+						var modalHeaderMessageElement = document.createElement('h4');
+						modalHeaderMessageElement.className = 'modal-title';
+						modalHeaderMessageElement.innerHTML = message;
+						modalHeaderElement.appendChild(modalHeaderMessageElement);
+
+						var modalBodyElement = document.createElement('div');
+						modalBodyElement.className = 'modal-body';
+						modalBodyElement.innerHTML = description;
+						modalContentElement.appendChild(modalBodyElement);
+
+						var modalFooterElement = document.createElement('div');
+						modalFooterElement.className = 'modal-footer';
+						modalContentElement.appendChild(modalFooterElement);
+
+						var modalFooterSendElement = document.createElement('button');
+						modalFooterSendElement.className = 'btn btn-success bo-confirm-modal-submit';
+						modalFooterSendElement.innerHTML = 'SEND';
+						modalFooterElement.appendChild(modalFooterSendElement);
+
+						var modalFooterCloseElement = document.createElement('button');
+						modalFooterCloseElement.className = 'btn btn-success bo-confirm-modal-close';
+						modalFooterCloseElement.innerHTML = 'CANCEL';
+						modalFooterElement.appendChild(modalFooterCloseElement);
+
+						document.body.appendChild(modalElement);
+
+						$(modalElement).modal('show');
 						$('.dropdown.open .dropdown-toggle').dropdown('toggle');
-						confirmModal.find('.bo-confirm-modal-close').bind('click', function() {
+						$(modalFooterCloseElement).bind('click', function() {
 							closeModal();
 						});
-						confirmModal.find('.bo-confirm-modal-submit').bind('click', function() {
+						$(modalHeaderCloseElement).bind('click', function() {
+							closeModal();
+						});
+						$(modalFooterSendElement).bind('click', function() {
 							locateAction();
 						});
 					}
@@ -53,7 +85,7 @@
 				}
 
 				function closeModal() {
-					confirmModal.modal('hide');
+					$(modalElement).modal('hide');
 				}
 			}
 		}
