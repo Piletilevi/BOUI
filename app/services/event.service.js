@@ -205,7 +205,6 @@
 				relatedEvents = null;
 				if (results.status == 'success'){
 					relatedEvents = results.data.concerts;
-					relatedEvents.start = 1;
 				}
 			});
 		}

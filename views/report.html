@@ -396,11 +396,19 @@
                                     {{sectorData.name}}
                                 </div>
                                 <div class="clearfix">
-                                    <div class="bo-sectionselector-itemprice">{{sectorData.statistics.soldSumma |
-                                        number:2}} {{sectorData.statistics.currency}}
-                                    </div>
-                                    <div ng-include-template="simplestats.html"
-                                         ng-include-variables="{ currentEvent: sectorData }"></div>
+                                    <div class="bo-sectionselector-itemprice">{{sectorData.statistics.soldSumma | number:2}} {{sectorData.statistics.currency}}</div>
+									 <div class="bo-simplestats-labels">
+										 <span class="bo-simplestats-triangle glyphicon glyphicon-triangle-bottom text-danger"></span>&nbsp;<span class="bo-simplestats-label text-success">{{sectorData.statistics.soldTickets || 0}}</span>&nbsp;/&nbsp;<span class="bo-simplestats-label text-warning">{{sectorData.statistics.bookedTickets || 0}}</span>&nbsp;/&nbsp;<span class="bo-simplestats-label text-danger">{{sectorData.statistics.availableTickets || 0}}</span>
+									 </div>
+									 <div class="clearfix">
+										 <div class="bo-simplestats-pct">{{sectorData.statistics.soldPercent || 0}}%</div><!--
+										 --><div class="bo-simplestats-bar progress">
+											 <div class="progress-bar progress-bar-success" style="width: {{sectorData.statistics.soldPercent}}%" title="sold"></div>
+											 <div class="progress-bar progress-bar-warning" style="width: {{sectorData.statistics.bookedPercent}}%" title="reserved"></div>
+											 <div class="progress-bar progress-bar-danger" style="width: {{sectorData.statistics.availablePercent}}%" title="empty"></div>
+										 </div>
+									 </div>
+									</div>
                                 </div>
                             </button>
 						</div>
@@ -812,15 +820,17 @@
 	<div class="panel panel-default bo-onsale">
 		<!--<h2 class="bo-sidebar-title hidden-xs">{{'api_events_on_sale'|translate}}</h2>-->
 		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="concertItem in vm.event.concerts" ng-init="vm.getEventSales(concertItem)">
-				<div ng-include-template="event_detail_short.html" ng-include-variables="{ event: concertItem }"></div>
-				<!--SUB EVENTS HERE-->
-					<!--<div class="bo-eventshort-subevents">-->
-						<!--<div ng-include-template="event_detail_short.html"></div>-->
-						<!--<div ng-include-template="event_detail_short.html"></div>-->
-						<!--<div ng-include-template="event_detail_short.html"></div>-->
-					<!--</div>-->
-				<!--/SUB EVENTS HERE-->
+			<li class="list-group-item" ng-repeat="concertItem in vm.relatedEvents">
+				<div ng-init="vm.getConcertSales(concertItem)">
+					<div ng-include-template="event_detail_short.html" ng-include-variables="{ event: concertItem }"></div>
+					<!--SUB EVENTS HERE-->
+						<!--<div class="bo-eventshort-subevents">-->
+							<!--<div ng-include-template="event_detail_short.html"></div>-->
+							<!--<div ng-include-template="event_detail_short.html"></div>-->
+							<!--<div ng-include-template="event_detail_short.html"></div>-->
+						<!--</div>-->
+					<!--/SUB EVENTS HERE-->
+				</div>
 			</li>
 			<li class="list-group-item" ng-if="vm.hasMoreRelatedEvents(event)">
 				<a class="bo-onsale-viewall" href ng-click="vm.getMoreRelatedEvents(vm.event)">{{'api_view_more_events_on_sale'|translate}}</a>

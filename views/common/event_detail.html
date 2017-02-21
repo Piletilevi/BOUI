@@ -36,7 +36,19 @@
 		</div>
 		<div>
 			<div class="col-xs-12 col-sm-6">
-				<div ng-include-template="simplestats.html" ng-include-variables="{ currentEvent: event }"></div>
+				<div class="bo-simplestats">
+				 <div class="bo-simplestats-labels">
+					 <span class="bo-simplestats-triangle glyphicon glyphicon-triangle-bottom text-danger"></span>&nbsp;<span class="bo-simplestats-label text-success">{{event.statistics.soldTickets || 0}}</span>&nbsp;/&nbsp;<span class="bo-simplestats-label text-warning">{{event.statistics.bookedTickets || 0}}</span>&nbsp;/&nbsp;<span class="bo-simplestats-label text-danger">{{event.statistics.availableTickets || 0}}</span>
+				 </div>
+				 <div class="clearfix">
+					 <div class="bo-simplestats-pct">{{event.statistics.soldPercent || 0}}%</div><!--
+					 --><div class="bo-simplestats-bar progress">
+						 <div class="progress-bar progress-bar-success" style="width: {{event.statistics.soldPercent}}%" title="sold"></div>
+						 <div class="progress-bar progress-bar-warning" style="width: {{event.statistics.bookedPercent}}%" title="reserved"></div>
+						 <div class="progress-bar progress-bar-danger" style="width: {{event.statistics.availablePercent}}%" title="empty"></div>
+					 </div>
+				 </div>
+				</div>
 			</div>
 			<div class="col-xs-12 col-sm-2">
 				<div class="row">
