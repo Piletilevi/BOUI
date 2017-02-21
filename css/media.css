@@ -5,6 +5,8 @@
 	}
 }
 
+/* Bootstrap xs, md, lg
+================================ */
 @media (min-width: 768px) {
 	.bo-language-dropdown {
 		margin-right: -15px;
@@ -30,8 +32,20 @@
 	li.header_message_link > a {
 		padding-right: 4px;
 	}
+
+	.bo-top-filter-search,
+	.bo-top-filter-daterange {
+		padding-left: 0;
+	}
+
+	.bo-top-filter-toggler > .input-group {
+		margin-right: 0;
+		margin-left: auto;
+	}
 }
 
+/* Bootstrap xs
+================================ */
 @media (max-width: 767px) {
 	.bo-event-share-block {
 		text-align: center;
@@ -160,10 +174,7 @@
 	.bo-external-dropdown .navbar-right > li > a,
 	.bo-external-dropdown .navbar-nav > li > a,
 	.bo-external-dropdown > .bo-external-dropdown-inner > a {
-		padding-left: 50px;
-		padding-right: 19px;
-		padding-top: 13px;
-		padding-bottom: 13px;
+		padding: 13px 19px 13px 50px;
 	}
 
 	.navbar-collapse .navbar-nav > li > a > .fa,
@@ -214,7 +225,6 @@
 
 	.bo-dropdown-tabs {
 		display: none;
-		border: 0 none;
 		position: absolute;
 		top: 100%;
 		left: 0;
@@ -231,8 +241,8 @@
 		background-clip: padding-box;
 		border: 1px solid #ccc;
 		border-radius: 4px;
-		-webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-		box-shadow: 0 6px 12px rgba(0,0,0,.175);
+		-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+		box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 	}
 
 	.bo-dropdown-tabs:after {
@@ -274,16 +284,15 @@
 		border-radius: 0;
 	}
 
-	.bo-inline-buttons {
-		display: block;
-	}
-
-	.bo-inline-drow,
-	.bo-inline-not-drow {
-		margin-bottom: 10px;
+	.bo-top-filter-toggler,
+	.bo-top-filter-search,
+	.bo-top-filter-daterange {
+		padding-bottom: 10px;
 	}
 }
 
+/* Bootstrap sm
+================================ */
 @media (min-width: 768px) and (max-width: 992px) {
 	.bo-logo {
 		width: 100px;
@@ -299,6 +308,8 @@
 	}
 }
 
+/* Bootstrap md
+================================ */
 @media (min-width: 993px) and (max-width: 1199px) {
 	.navbar-nav > li > a {
 		padding-left: 8px;
@@ -306,6 +317,8 @@
 	}
 }
 
+/* Bootstrap lg
+================================ */
 @media (min-width: 1200px) {
 	.bo-right-column {
 		margin-top: 27px;
