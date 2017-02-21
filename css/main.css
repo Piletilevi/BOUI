@@ -916,7 +916,9 @@ a:hover {
 	display: inline-block;
 	background: #4a5867;
 	color: #fff;
-	width: 23px;
+	min-width: 23px;
+	margin: 0 0 0 5px;
+	cursor: pointer;
 	height: 24px;
 	text-align: center;
 	text-decoration: none;
