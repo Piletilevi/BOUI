@@ -26,7 +26,9 @@
 		var mySectorsData = null;
 		var sectorInfo = null;
 		var sectorTickets = null;
-
+		var relatedEvents = null;
+		var loadingRelatedItems = false;
+		
 		var service = {
 			myOpenEvents: function() { return myOpenEvents },
 			myDraftEvents: function() { return myDraftEvents },
@@ -43,9 +45,13 @@
 			mySectorsData: function() { return mySectorsData },
 			sectorInfo: function() { return sectorInfo },
 			sectorTickets: function() { return sectorTickets },
+			relatedEvents: function() { return relatedEvents },
 			reset: reset,
 			getMyEvents: getMyEvents,
 			getMoreEvents: getMoreEvents,
+			getRelatedEvents: getRelatedEvents,
+			getMoreRelatedEvents: getMoreRelatedEvents,
+			hasMoreRelatedEvents: hasMoreRelatedEvents,
 			getEventSales: getEventSales,
 			getEventInfo: getEventInfo,
 			getEventOpSales: getEventOpSales,
@@ -168,8 +174,44 @@
 			}
 		}
 
+		function hasMoreRelatedEvents(event) {
+			if (relatedEvents.length % 5 == 0 && relatedEvents.start != relatedEvents.length + 1) {
+				return true;
+			}
+			return false;
+		}
+		
+		function getMoreRelatedEvents(event) {
+
+			if (loadingRelatedItems)
+				return;
+			
+			if (hasMoreRelatedEvents(event)) {
+				loadingRelatedItems = true;
+				relatedEvents.start = relatedEvents.length + 1;
+				dataService.post('relatedEvents', {id: event.id, type: event.isShow ? 'show' : 'concert', start: relatedEvents.start}).then(function (results) {
+					if (results.status == 'success') {
+						results.data.concerts.forEach(function(eventItem) {
+							relatedEvents.push(eventItem);
+						});
+					}
+					loadingRelatedItems = false;
+				});
+			}
+		}
+		
+		function getRelatedEvents(event) {
+			dataService.post('relatedEvents', {id: event.id, type: event.isShow ? 'show' : 'concert'}).then(function (results) {
+				relatedEvents = null;
+				if (results.status == 'success'){
+					relatedEvents = results.data.concerts;
+					relatedEvents.start = 1;
+				}
+			});
+		}
+		
 		function getEventSales(event) {
-			if (event.isShow || event.concertsCount > 1) {
+			if (event.isShow) {
 				getShowSales(event);
 			} else {
 				getConcertSales(event);
@@ -177,7 +219,7 @@
 		}
 
 		function getEventSalesBySectors(event, filter) {
-			if (event.isShow || event.concertsCount > 1) {
+			if (event.isShow) {
 				//nothing,
 			} else {
 				getConcertSalesBySectors(event, filter);
@@ -193,7 +235,7 @@
 		}
 
 		function getEventOpSales(event, filter) {
-			if (event.isShow || event.concertsCount > 1) {
+			if (event.isShow) {
 				getShowOpSales(event, filter);
 			} else {
 				getConcertOpSales(event, filter);
@@ -238,6 +280,7 @@
 					event.confId = results.data.confId;
 					event.eventPeriod = results.data.eventPeriod;
 					event.sellPeriod = results.data.sellPeriod;
+					event.showId = results.data.showId;
 					event.location = results.data.location;
 					event.websiteUrl = getWebsiteUrl(event);
 				}
@@ -245,7 +288,7 @@
 		}
 
 		function getShowInfo(event) {
-			dataService.post('showInfo', {id: event.id}).then(function (results) {
+			dataService.post('showInfo', {id: event.id, includeConcerts: false}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
 					event.name = results.data.name;
