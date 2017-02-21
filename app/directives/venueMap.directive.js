@@ -284,11 +284,8 @@
                         };
 
                         var requestMapData = function () {
-                            //var url = 'http://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
-                            //    + venueMap.getConfId() + '.svg';
-                            var url = 'http://' + venueMap.getShopDomain() + '/venueplan/110.svg';
-                            console.log('sections', 'http://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/' + venueMap.getConfId() + '.svg');
-                            console.log(url);
+                            var url = 'http://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
+                                + venueMap.getConfId() + '.svg';
                             piletilevi.venuemap.Utilities.sendXhr({
                                 'url': url,
                                 'onSuccess': receiveMapData,
@@ -895,10 +892,8 @@
                             componentElement.appendChild(sectionsElement);
                         };
                         var loadSectionMap = function (sectionId) {
-                            //var url = 'http://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
-                            //    + venueMap.getConfId() + '_' + sectionId + '.svg';
-                            var url = 'http://' + venueMap.getShopDomain() + '/venueplan/110_36521.svg';
-                            console.log('seats', 'http://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/' + venueMap.getConfId() + '_' + sectionId + '.svg');
+                            var url = 'http://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
+                                + venueMap.getConfId() + '_' + sectionId + '.svg';
 
                             piletilevi.venuemap.Utilities.sendXhr({
                                 'url': url,
