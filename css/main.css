@@ -94,6 +94,7 @@ a:hover {
 .bo-logo img {
 	margin-top: -5px;
 	display: inline-block;
+	max-width: 100%;
 }
 
 .navbar-brand.bo-logo img {
