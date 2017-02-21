@@ -63,12 +63,15 @@ a:hover {
 	color: #27394c;
 }
 
-.bo-datarangepicker-button {
-	padding-top: 0;
-	padding-bottom: 0;
+.bo-top-filter-daterange .bo-datarangepicker-button {
+	width: 100%;
 }
 
-.bo-datarangepicker-button input,
+.bo-datarangepicker-button {
+	padding: 0 15px 0 10px;
+}
+
+.bo-datarangepicker-button .form-control,
 .bo-datarangepicker-button .form-control[disabled],
 .bo-datarangepicker-button .form-control[readonly],
 .bo-datarangepicker-button fieldset[disabled] .form-control {
@@ -78,23 +81,10 @@ a:hover {
 	margin: 0;
 	float: none;
 	display: inline-block;
-	width: auto;
 }
 
-.bo-inline-buttons {
-	display: flex;
-}
-
-.bo-inline-drow {
-	flex-grow: 1;
-	display: inline-block;
-	vertical-align: top;
-}
-
-.bo-inline-not-drow {
-	margin-right: 13px;
-	display: inline-block;
-	vertical-align: top;
+.bo-datarangepicker-button .form-control {
+	width: calc(100% - 16px);
 }
 
 /* LOGO
@@ -103,7 +93,9 @@ a:hover {
 .bo-logo img {
 	margin-top: -5px;
 	display: inline-block;
+	max-width: 100%;
 }
+
 .navbar-brand.bo-logo img {
 	max-height: 25px;
 	max-width: 100%;
@@ -123,7 +115,7 @@ a:hover {
 	float: left;
 }
 
-.bo-header-additional-icons .dropdown .caret{
+.bo-header-additional-icons .dropdown .caret {
 	display: none;
 }
 
@@ -221,11 +213,11 @@ a:hover {
 /* Filter
 ================================ */
 
-.bo-filter-block {
+.bo-top-filter-block {
 	margin-bottom: 38px;
 }
 
-.bo-filter-block .bo-hidden-label {
+.bo-top-filter-block .bo-hidden-label {
 	margin-bottom: 3px;
 	margin-top: -25px;
 }
@@ -439,26 +431,37 @@ a:hover {
 
 .bo-event-badge-regular_presale {
 }
+
 .bo-event-badge-future_sale {
 }
+
 .bo-event-badge-hidden_until_sale {
 }
+
 .bo-event-badge-presale_with_code {
 }
+
 .bo-event-badge-sold_out {
 }
+
 .bo-event-badge-no_tickets {
 }
+
 .bo-event-badge-going_now {
 }
+
 .bo-event-badge-free_admission {
 }
+
 .bo-event-badge-presale_at_boxoffices {
 }
+
 .bo-event-badge-past {
 }
+
 .bo-event-badge-canceled {
 }
+
 .bo-event-badge-refund {
 }
 
@@ -474,7 +477,7 @@ a:hover {
 	margin-top: 19px;
 }
 
-.bo-sub-events > .bo-event:first-child{
+.bo-sub-events > .bo-event:first-child {
 	margin-top: 17px;
 }
 
@@ -485,6 +488,7 @@ a:hover {
 .bo-sub-events .bo-event:last-child {
 	margin-bottom: 4px;
 }
+
 /* Pills
 ================================ */
 
@@ -1300,8 +1304,6 @@ a:hover {
 	margin-bottom: 9px;
 }
 
-
-
 .bo-modal-form-empty-input {
 	padding-top: 7px;
 	padding-bottom: 7px;
@@ -1374,52 +1376,51 @@ a:hover {
 	font-size: 14px;
 }
 
-
 /* Scrolling tabs
 ================================ */
 
 .scrollingtabs-wrapper {
-	position:relative;
-	margin:0 auto;
-	overflow:hidden;
-	padding:5px;
-	height:50px;
+	position: relative;
+	margin: 0 auto;
+	overflow: hidden;
+	padding: 5px;
+	height: 50px;
 }
 
 .scrollingtabs-list {
-	position:absolute;
-	left:0px;
-	top:0px;
-	min-width:3000px;
-	margin-left:12px;
-	margin-top:0px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	min-width: 3000px;
+	margin-left: 12px;
+	margin-top: 0px;
 }
 
-.scrollingtabs-list li{
-	display:table-cell;
-	position:relative;
-	text-align:center;
-	cursor:grab;
-	cursor:-webkit-grab;
-	color:#efefef;
-	vertical-align:middle;
+.scrollingtabs-list li {
+	display: table-cell;
+	position: relative;
+	text-align: center;
+	cursor: grab;
+	cursor: -webkit-grab;
+	color: #efefef;
+	vertical-align: middle;
 }
 
 .scrollingtabs-scroller {
-	text-align:center;
-	cursor:pointer;
-	display:none;
-	padding:7px;
-	padding-top:11px;
-	white-space:no-wrap;
-	vertical-align:middle;
-	background-color:#fff;
+	text-align: center;
+	cursor: pointer;
+	display: none;
+	padding: 7px;
+	padding-top: 11px;
+	white-space: no-wrap;
+	vertical-align: middle;
+	background-color: #fff;
 }
 
-.scrollingtabs-scroller-right{
-	float:right;
+.scrollingtabs-scroller-right {
+	float: right;
 }
 
 .scrollingtabs-scroller-left {
-	float:left;
+	float: left;
 }

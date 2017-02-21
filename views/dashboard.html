@@ -23,38 +23,33 @@
 			</div>
 		</div>
 		<div class="col-md-9 col-md-pull-3 bo-center-column">
-			<div class="row bo-filter-block">
-				<div class="col-xs-12 col-sm-3">
-					<div class="visible-lg bo-hidden-label">&nbsp;</div>
+			<div class="bo-top-filter-block row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
 					<h1>{{'api_myevents'|translate}}</h1>
 				</div>
-				<div class="col-xs-12 col-sm-9 bo-inline-buttons">
-					<div class="input-group-lg bo-inline-not-drow">
-						<div class="input-group input-group-lg">
-							<toggle ng-model="vm.filter.groupByShow" on="{{'api_group_by_show'|translate}}" off="{{'api_group_by_concert'|translate}}" size="btn-lg" onstyle="btn-default" offstyle="btn-default"></toggle>
+				<div class="bo-top-filter-toggler col-xs-12 col-sm-2 col-md-2 col-lg-2">
+					<div class="input-group input-group-lg">
+						<toggle ng-model="vm.filter.groupByShow" on="{{'api_group_by_show'|translate}}" off="{{'api_group_by_concert'|translate}}" size="btn-lg" onstyle="btn-default" offstyle="btn-default"></toggle>
+					</div>
+				</div>
+				<div class="bo-top-filter-daterange col-xs-12 col-sm-4 col-md-4 col-lg-3">
+					<div class="input-group-lg">
+						<div class="data_range">
+							<button class="btn btn-default bo-datarangepicker-button btn-lg" type="button" data-control="daterangepicker">
+								<input type="text" class="form-control" ng-model="vm.filter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled />
+								<i class="fa fa-calendar" aria-hidden="true"></i>
+							</button>
 						</div>
 					</div>
-					<div class="bo-inline-not-drow">
-						<div class="input-group-lg">
-							<div class="visible-lg bo-hidden-label"><!--{{'api_event_period'|translate}}:-->&nbsp;</div>
-							<div class="data_range">
-								<button class="btn btn-default bo-datarangepicker-button btn-lg" type="button" data-control="daterangepicker">
-									<input type="text" class="form-control" ng-model="vm.filter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled />
-									<i class="fa fa-calendar" aria-hidden="true"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-					<div class="bo-inline-drow">
-						<div class="visible-lg bo-hidden-label">&nbsp;</div>
-						<div class="input-group input-group-lg">
-							<input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="button" ng-click="vm.search()">
-									<i class="fa fa-{{vm.reset_search ? 'close' : 'search'}}" aria-hidden="true"></i>
-								</button>
-							</span>
-						</div>
+				</div>
+				<div class="bo-top-filter-search col-xs-12 col-sm-6 col-md-6 col-lg-4">
+					<div class="input-group input-group-lg ">
+						<input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button" ng-click="vm.search()">
+								<i class="fa fa-{{vm.reset_search ? 'close' : 'search'}}" aria-hidden="true"></i>
+							</button>
+						</span>
 					</div>
 				</div>
 			</div>
