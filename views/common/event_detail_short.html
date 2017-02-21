@@ -7,15 +7,18 @@
 		<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{event.location}}
 	</div>
 	<div class="bo-eventshort-progress clearfix">
-		<div class="pull-right">
-			<span class="bo-eventshort-progresslabel">
-				{{event.statistics.soldPercent}}%
-			</span>
-		</div>
 		<div class="progress">
 			 <div class="progress-bar progress-bar-success" style="width: {{event.statistics.soldPercent}}%" title="sold">{{event.statistics.soldTickets}}</div>
 			 <div class="progress-bar progress-bar-warning" style="width: {{event.statistics.bookedPercent}}%" title="reserved">{{event.statistics.bookedTickets}}</div>
 			 <div class="progress-bar progress-bar-danger" style="width: {{event.statistics.availablePercent}}%" title="empty">{{event.statistics.availableTickets}}</div>
-		 </div>
+		</div>
+		<div>
+			<div class="bo-eventshort-progresslabel">
+				{{event.statistics.soldPercent}}%
+			</div>
+			<div class="bo-eventshort-pricelabel">
+				some price here €
+			</div>
+		</div>
 	</div>
 </div>

@@ -694,6 +694,20 @@ a:hover {
 .bo-eventshort {
 	padding: 16px 15px 19px;
 	line-height: 22px;
+	background: #ebedf0;
+	border-bottom: 1px solid #dadcdf;
+	-moz-box-shadow: 0 0 0 1px #f7f9fb inset;
+	-webkit-box-shadow: 0 0 0 1px #f7f9fb inset;
+	box-shadow: 0 0 0 1px #f7f9fb inset;
+}
+
+.bo-eventshort .progress {
+	max-width: none;
+}
+
+.bo-eventshort:first-child {
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
 }
 
 .bo-eventshort .fa {
@@ -709,13 +723,28 @@ a:hover {
 	margin-left: 2px;
 }
 
+.bo-eventshort-date {
+	margin-right: 15px;
+}
+
+.bo-eventshort-date .fa {
+	margin-right: 7px;
+}
+
 .bo-eventshort-time {
 	display: inline-block;
-	margin-left: 15px;
+}
+
+.bo-eventshort-time .fa {
+	margin-right: 5px;
 }
 
 .bo-eventshort-venue {
 	margin-left: 4px;
+}
+
+.bo-eventshort-venue .fa {
+	margin-right: 7px;
 }
 
 .bo-eventshort-progress {
@@ -734,10 +763,50 @@ a:hover {
 }
 
 .bo-eventshort-progresslabel {
-	display: inline-block;
-	margin-left: 10px;
 	line-height: 15px;
-	vertical-align: top;
+	float: left;
+	padding-top: 7px;
+}
+
+.bo-eventshort-pricelabel {
+	line-height: 15px;
+	float: right;
+	padding-top: 7px;
+}
+
+.bo-eventshort-subevents {
+	position: relative;
+}
+
+.bo-eventshort-subevents:before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: -1px;
+	margin-left: -8px;
+	border-top: 7px solid #cdd2d8;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+}
+.bo-eventshort-subevents .bo-eventshort:first-child:before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: -2px;
+	margin-left: -8px;
+	border-top: 7px solid #ebedf0;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+}
+
+.bo-eventshort-subevents .bo-eventshort {
+	background: #fff;
+}
+
+.bo-eventshort-subevents .bo-eventshort:last-of-type {
+	border-bottom: 0 none;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
 }
 
 /* Section-selector
@@ -1265,6 +1334,32 @@ a:hover {
 #email_popup_weekdays,
 #email_popup_monthdays {
 	display: none;
+}
+
+
+.bo-confirm-modal .modal-header {
+	background: transparent;
+	padding-left: 23px;
+	padding-top: 10px;
+}
+
+.bo-confirm-modal .modal-title {
+	font-size: 32px;
+	color: #263443;
+}
+
+.bo-modal.bo-confirm-modal .bo-close-btn {
+	right: 23px;
+	top: 21px;
+}
+
+.bo-confirm-modal .modal-footer {
+	padding-right: 26px;
+	padding-bottom: 23px;
+}
+
+.bo-confirm-modal .modal-body {
+	padding: 5px 22px 15px;
 }
 
 /* Close button
