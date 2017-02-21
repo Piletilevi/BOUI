@@ -175,7 +175,7 @@
 		}
 
 		function hasMoreRelatedEvents(event) {
-			if (relatedEvents.length % 5 == 0 && relatedEvents.start != relatedEvents.length + 1) {
+			if (relatedEvents && relatedEvents.length % 5 == 0 && relatedEvents.start != relatedEvents.length + 1) {
 				return true;
 			}
 			return false;
