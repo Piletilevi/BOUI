@@ -9,9 +9,9 @@
         .module('boApp')
         .factory('pointService', PointService);
 
-    PointService.$inject = ['$rootScope', '$location', 'dataService'];
+    PointService.$inject = ['$rootScope', '$location', 'dataService', 'eventService'];
 
-    function PointService($rootScope, $location, dataService) {
+    function PointService($rootScope, $location, dataService, eventService) {
         var service = {
             getPointName: getPointName,
             setPoint: setPoint,
@@ -41,6 +41,7 @@
             $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
 
             if (prevPoint !== pointId) {
+                eventService.reset();
                 $location.path('dashboard');
             }
         }
