@@ -142,11 +142,23 @@
       } else if (tab == 'sectors') {
         eventService.getSectorsData(vm.event, vm.sectorsFilter);
       }
+
+      currentTab = tab;
     };
+
+    var currentTab = 'overview';
+    vm.getCurrentTabCode = function() {
+      if(currentTab == 'overview') {
+        return 'api_' + currentTab;
+      }else {
+        return 'api_by_' + currentTab;
+      }
+    }
 
     vm.setSelectedSectionId = function (selectedSectionId) {
       $scope.selectedSectionId = selectedSectionId;
     };
+
 
     /* watchers */
     $scope.$watch(
