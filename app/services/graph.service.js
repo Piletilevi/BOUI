@@ -9,97 +9,98 @@
   GraphService.$inject = ['colorService', '$translate'];
 
   function GraphService(colorService, $translate) {
-    var service = {
-		overviewBarGraph: {
-		  labels: null,
-		  type: 'StackedBar',
-		  series: null,
-		  colors: [],
-		  datasetOverride: null,
-		  data: null,
-		  options: {
-			scales: {
-			  xAxes: [{
-				stacked: true,
-				ticks: {
-				  maxRotation: 60,
-				  minRotation: 60,
-				}
-			  }],
-			  yAxes: [{
-				stacked: true,
-				display: false
-			  }]
-			}
-		  }
-		},
-      overviewLineGraph: {
-        labels: null,
-        series: [],
-        data: null,
-        colors: [],
-        options: {
-          scales: {
-            yAxes: [{
-              stacked: true
-            }]
-          },
-          legend: {
-            display: true
+    var defaultLineGraph = {
+      labels: null,
+      series: [],
+      data: null,
+      colors: [],
+      options: {
+        scales: {
+          yAxes: [{
+            stacked: true,
+            ticks: {
+              maxTicksLimit: 3
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              maxTicksLimit: 6
+            }
+          }]
+        },
+        legend: {
+          display: true,
+          labels: {
+            boxWidth: 13
           }
-        }
-      },
-      pricetypePieGraph: {
-        labels: null,
-        data: null,
-        options: {
-          legend: {
-            display: true
+        },
+        elements: {
+          point: {
+            radius: 0,
+            hoverRadius: 3,
+            hitRadius: 5
           }
+        },
+        tooltips: {
+          backgroundColor: '#fff',
+          bodyFontColor: '#000',
+          titleFontColor: '#000'
         }
-      },
+      }
+    };
 
-      pricetypeLineGraph: {
-        labels: null,
-        series: [],
-        data: null,
-        colors: [],
-        options: {
-          scales: {
-            yAxes: [{
-              stacked: true
-            }]
-          },
-          legend: {
-            display: true
-          }
-        }
-      },
-      priceclassPieGraph: {
-        labels: null,
-        data: null,
-        options: {
-          legend: {
-            display: true
-          }
-        }
-      },
-      priceclassLineGraph: {
-        labels: null,
-        series: [],
-        data: null,
-        colors: [],
-        options: {
-          scales: {
-            yAxes: [{
-              stacked: true
-            }]
-          },
-          legend: {
-            display: true
-          }
-        }
-      },
+	var defaultBarGraph = {
+	  labels: null,
+	  type: 'StackedBar',
+	  series: null,
+	  colors: [],
+	  datasetOverride: null,
+	  data: null,
+	  options: {
+	  	scales: {
+	  		xAxes: [{
+	  			stacked: true,
+	  			ticks: {
+	  				maxRotation: 60,
+	  				minRotation: 60,
+	  			},
+	  			gridLines: {
+	  				display: false
+	  			},
+	  			categoryPercentage: 1.0
+	  		}],
+	  		yAxes: [{
+	  			stacked: true,
+	  			display: false
+	  		}]
+	  	},
+	  	tooltips: {
+	  		callbacks: {
+	  			label: function(tooltipItems, data) {
+	  				return data.datasets[tooltipItems.datasetIndex].barLabel[tooltipItems.index] + ': ' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
+	  			}
+	  		}
+	  	}
+	  }
+	};
+
+	var defaultPieGraph = {
+	  labels: null,
+	  data: null,
+	  options: {
+		legend: {
+		  display: false
+		},
+		 tooltips: {
+			backgroundColor: '#fff',
+			bodyFontColor: '#000',
+			titleFontColor: '#000'
+		 }
+	  }
+	};
+
+	var service;
+    service = {
       renderOverviewBarGraph: renderOverviewBarGraph,
       renderOverviewLineGraph: renderOverviewLineGraph,
       renderPriceTypePieGraph: renderPriceTypePieGraph,
@@ -107,6 +108,33 @@
       renderPriceClassPieGraph: renderPriceClassPieGraph,
       renderPriceClassLineGraph: renderPriceClassLineGraph
     };
+
+	service.overviewLineGraph = angular.copy(defaultLineGraph);
+	service.overviewBarGraph = angular.copy(defaultBarGraph);
+	service.pricetypePieGraph = angular.copy(defaultPieGraph);
+	service.priceclassPieGraph = angular.copy(defaultPieGraph);
+	service.pricetypeLineGraph = angular.copy(defaultLineGraph);
+
+	angular.merge(service.pricetypeLineGraph, {
+	options: {
+		scales: {
+			yAxes: [{
+				stacked: false,
+				ticks: {
+					maxTicksLimit: 3
+				}
+			}]
+		},
+		elements: {
+			line: {
+				fill: false
+			}
+		}
+	  }
+	});
+
+	service.priceclassLineGraph = angular.copy(service.pricetypeLineGraph);
+
     return service;
 
     function renderOverviewLineGraph(newValue, filter, overviewGraph) {
@@ -157,7 +185,7 @@
             data.push(dataItem);
             series.push($translate.instant(type.typeName));
             step++;
-            colors.push(colorService.getRandomColor((newValue.types.length + 1), step));
+            colors.push(colorService.getColorByType(type.typeName));
           }
         });
         if (labels && labels.length) {
@@ -226,6 +254,7 @@
 			for (var i = 0; i < data.length; i++) {
 				datasetOverride.push({
 					label: '',
+					barLabel: barSeries[i],
 					backgroundColor: colors[i],
 					borderColor: colors[i],
 					data: data[i],
