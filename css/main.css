@@ -858,7 +858,7 @@ a:hover {
 /* Simple stats
 ================================ */
 .bo-simplestats {
-	padding-left: 21px;
+	/*padding-left: 21px;*/
 }
 
 .bo-simplestats-labels {
