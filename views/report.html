@@ -1,4 +1,4 @@
-<div class="col-md-9 bo-center-column">
+<div class="col-xs-12 col-md-9 bo-center-column">
 	<div class="bo-top-filter-block row">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
 			<h1>{{'api_reports'|translate}}</h1>
@@ -71,9 +71,10 @@
 
 				<div class="bo-salesoverview-controls clearfix">
 					<div class="row">
-						<div class="col-sm-5">
+						<div class="col-sm-5 bo-inline-print">
 							<div class="form-inline">
 								<div class="form-group">
+									<span class="visible-print">Sales report for period:</span>
 									<div class="input-group data_range">
 										<input type="text" daterangepicker class="form-control" ng-model="vm.overviewFilter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled />
 										 <span class="input-group-btn">
@@ -86,11 +87,13 @@
 							</div>
 						</div>
 						<div class="bo-chartcontrols col-sm-7 text-right">
+							<span class="visible-print">Displayed by: </span>
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.display=='tickets'}" ng-click="vm.setOverviewDisplay('tickets')">{{'api_tickets'|translate}}</button>
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.display=='revenue'}" ng-click="vm.setOverviewDisplay('revenue')">{{'api_revenue'|translate}}</button>
 							</div>
 							&nbsp;&nbsp;
+							<span class="visible-print"> and </span>
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.groupBy=='day'}" ng-click="vm.setOverviewGroupBy('day')">{{'api_day'|translate}}</button>
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.groupBy=='week'}" ng-click="vm.setOverviewGroupBy('week')">{{'api_week'|translate}}</button>
@@ -103,7 +106,7 @@
 					<canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data" chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series" chart-options="vm.overviewLineGraph.options" chart-dataset-override="vm.overviewLineGraph.datasetOverride" chart-colors="vm.overviewLineGraph.colors">
 					</canvas>
 				</div>
-				<div class="row">
+				<div class="row bo-double-charts-row">
 					<div class="col-lg-6">
 						<div class="bo-chart">
 							<canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data" chart-labels="vm.overviewBarGraph.labels"
@@ -148,7 +151,7 @@
 							</thead>
 							<tbody ng-if="overviewData.groupId != 'generated'">
 								<tr ng-repeat="overviewRow in overviewData.rows" ng-class="{ 'active text-danger': overviewRow.isRefund }">
-									<td style="background-color: {{overviewRow.color}};"></td>
+									<td style="background-color: {{overviewRow.color}}!important;"></td>
 									<td>{{overviewRow.typeName|translate}}:</td>
 									<td>{{overviewRow.count}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
@@ -156,7 +159,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<a href="#" class="btn btn-info">{{'api_view_detailed_report'|translate}}</a>
+						<a href="#" class="btn btn-info bo-detailed-report-link">{{'api_view_detailed_report'|translate}}</a>
 					</div>
 				</div>
 
@@ -201,8 +204,8 @@
 					<canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data" chart-labels="vm.pricetypeLineGraph.labels" chart-series="vm.pricetypeLineGraph.series" chart-options="vm.pricetypeLineGraph.options" chart-colors="vm.pricetypeLineGraph.colors" chart-dataset-override="vm.pricetypeLineGraph.datasetOverride">
 					</canvas>
 				</div>
-				<div class="row">
-					<div class="col-lg-6">
+				<div class="row bo-double-charts-row">
+					<div class="col-lg-5">
 						<div class="bo-chart">
 							<div class="bo-chart-buttons">
 								<div class="btn-group btn-group-sm" role="group">
@@ -213,7 +216,7 @@
 							<canvas id="pricetypePie" class="chart chart-pie" chart-data="vm.pricetypePieGraph.data" chart-labels="vm.pricetypePieGraph.labels" chart-options="vm.pricetypePieGraph.options" chart-colors="vm.pricetypePieGraph.colors"></canvas>
 						</div>
 					</div>
-					<div class="col-lg-6">
+					<div class="col-lg-7">
 						<table ng-repeat="pricetypeData in vm.myPriceTypePieData.sales" class="bo-pricetyperevenuetable table table-condensed table-small">
 							<colgroup>
 								<col>
@@ -251,7 +254,9 @@
 							</thead>
 							<tbody>
 								<tr ng-repeat="pricetypeItem in pricetypeData.priceTypes">
-									<td><span class="bo-dot" style="background-color: {{pricetypeItem.color}}"></span></td>
+									<td>
+										<span class="hidden-print bo-dot" style="background-color: {{pricetypeItem.color}}!important;"></span>
+									</td>
 									<td>{{pricetypeItem.priceTypeName}}</td>
 									<td>{{pricetypeItem.count}}</td>
 									<td>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</td>
@@ -303,8 +308,8 @@
 					<canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data" chart-labels="vm.priceclassLineGraph.labels" chart-series="vm.priceclassLineGraph.series" chart-options="vm.priceclassLineGraph.options" chart-colors="vm.priceclassLineGraph.colors" chart-dataset-override="vm.priceclassLineGraph.datasetOverride" height="100px">
 					</canvas>
 				</div>
-				<div class="row">
-					<div class="col-lg-6">
+				<div class="row bo-double-charts-row">
+					<div class="col-lg-5">
 						<div class="bo-chart">
 							<div class="bo-chart-buttons">
 								<div class="btn-group btn-group-sm" role="group">
@@ -315,7 +320,7 @@
 							<canvas id="priceclassPie" class="chart chart-pie" chart-data="vm.priceclassPieGraph.data" chart-labels="vm.priceclassPieGraph.labels" chart-options="vm.priceclassPieGraph.options" chart-colors="vm.priceclassPieGraph.colors"></canvas>
 						</div>
 					</div>
-					<div class="col-lg-6">
+					<div class="col-lg-7">
 						<table ng-repeat="priceclassData in vm.myPriceClassPieData.sales" class="bo-pricetyperevenuetable table table-condensed table-small">
 							<colgroup>
 								<col>
@@ -353,7 +358,9 @@
 							</thead>
 							<tbody>
 								<tr ng-repeat="priceclassItem in priceclassData.priceClasses">
-									<td><span class="bo-dot" style="background-color: {{priceclassItem.color}}"></span></td>
+									<td>
+										<span class="hidden-print bo-dot" style="background-color: {{priceclassItem.color}}!important;"></span>
+									</td>
 									<td>{{priceclassItem.priceClassName}}</td>
 									<td>{{priceclassItem.count}}</td>
 									<td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</td>
@@ -385,7 +392,7 @@
 					</div>
 				</div>
 
-				<div class="row">
+				<div class="row bo-double-charts-row">
 					<div class="col-lg-6">
 						<div class="bo-sectionselector list-group">
                             <button type="button" class="bo-sectionselector-item list-group-item"
@@ -444,7 +451,7 @@
 				</div>
 
                 <div ng-if="selectedSectionId">
-                    <div class="row">
+                    <div class="row bo-double-charts-row">
                         <div class="col-lg-6">
                             <table class="bo-pricetyperevenuetable table table-condensed table-small">
                                 <colgroup>
@@ -480,42 +487,54 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><span class="bo-dot" style="background-color: #df9617"></span></td>
+                                        <td>
+											<span class="bo-dot" style="background-color: #df9617!important"></span>
+										</td>
                                         <td>I Priceclass (10.00-40.00€)</td>
                                         <td>498</td>
                                         <td>37%</td>
                                         <td>22,886.00 €</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="bo-dot" style="background-color: #448fff"></span></td>
+                                        <td>
+											<span class="bo-dot" style="background-color: #448fff!important"></span>
+										</td>
                                         <td>II Priceclass (5.00-30.00€)</td>
                                         <td>25</td>
                                         <td>4%</td>
                                         <td>330.00 €</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="bo-dot" style="background-color: #c844ff"></span></td>
+                                        <td>
+											<span class="bo-dot" style="background-color: #c844ff!important"></span>
+										</td>
                                         <td>III Priceclass (5.00-30.00€)</td>
                                         <td>33</td>
                                         <td>4%</td>
                                         <td>605.00 €</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="bo-dot" style="background-color: #00ff05"></span></td>
+                                        <td>
+											<span class="bo-dot" style="background-color: #00ff05!important"></span>
+										</td>
                                         <td>IV Priceclass (7.50-35.00€)</td>
                                         <td>20</td>
                                         <td>5%</td>
                                         <td>400.00 €</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="bo-dot" style="background-color: #fff000"></span></td>
+                                        <td>
+											<span class="bo-dot" style="background-color: #fff000!important"></span>
+										</td>
                                         <td>V Priceclass (25.00€)</td>
                                         <td>27</td>
                                         <td>6%</td>
                                         <td>125.00 €</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="bo-dot" style="background-color: #ff5400"></span></td>
+                                        <td>
+											<span class="bo-dot" style="background-color: #ff5400!important"></span>
+										</td>
                                         <td>VI Priceclass (9.00-38.00€)</td>
                                         <td>17</td>
                                         <td>3%</td>
@@ -530,21 +549,27 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><span class="bo-dot" style="background-color: #00ffcc"></span></td>
+                                        <td>
+											<span class="bo-dot" style="background-color: #00ffcc!important"></span>
+										</td>
                                         <td>II Priceclass (9.50-38.00€)</td>
                                         <td>125</td>
                                         <td>10%</td>
                                         <td>7,000.00 €</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="bo-dot" style="background-color: #448fff"></span></td>
+                                        <td>
+											<span class="bo-dot" style="background-color: #448fff!important"></span>
+										</td>
                                         <td>III Priceclass (0.00€)</td>
                                         <td>125</td>
                                         <td>10%</td>
                                         <td>0.00 €</td>
                                     </tr>
                                     <tr class="info">
-                                        <td><span class="bo-dot" style="background-color: #c844ff"></span></td>
+                                        <td>
+											<span class="bo-dot" style="background-color: #c844ff!important"></span>
+										</td>
                                         <td>IV Priceclass (5.00-30.00€)</td>
                                         <td></td>
                                         <td></td>
@@ -565,31 +590,31 @@
                         <div class="col-lg-6">
                             <div class="bo-legend">
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #fff; border: 1px solid;"></span>&nbsp;Available
+                                    <span class="bo-dot" style="background-color: #fff!important; border: 1px solid;"></span>&nbsp;Available
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #51b0f5;"></span>&nbsp;Booked
+                                    <span class="bo-dot" style="background-color: #51b0f5!important;"></span>&nbsp;Booked
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #289b91;"></span>&nbsp;Booked by venue owner
+                                    <span class="bo-dot" style="background-color: #289b91!important;"></span>&nbsp;Booked by venue owner
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #2a31b5;"></span>&nbsp;Sold in salespoint
+                                    <span class="bo-dot" style="background-color: #2a31b5!important;"></span>&nbsp;Sold in salespoint
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #f7572a;"></span>&nbsp;Returned
+                                    <span class="bo-dot" style="background-color: #f7572a!important;"></span>&nbsp;Returned
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #000;"></span>&nbsp;Not available
+                                    <span class="bo-dot" style="background-color: #000!important;"></span>&nbsp;Not available
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #ed8c9b;"></span>&nbsp;Defect
+                                    <span class="bo-dot" style="background-color: #ed8c9b!important;"></span>&nbsp;Defect
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #decc47;"></span>&nbsp;Phone sales
+                                    <span class="bo-dot" style="background-color: #decc47!important;"></span>&nbsp;Phone sales
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #47de4a;"></span>&nbsp;Issued to organizer
+                                    <span class="bo-dot" style="background-color: #47de4a!important;"></span>&nbsp;Issued to organizer
                                 </span>
                             </div>
                             <div class="bo-map">
@@ -636,7 +661,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <span class="bo-dot" style="background-color: #df9617"></span>
+                                    <span class="bo-dot" style="background-color: #df9617!important"></span>
                                 </td>
                                 <td>
                                     Parter
@@ -662,7 +687,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <span class="bo-dot" style="background-color: #448fff"></span>
+                                    <span class="bo-dot" style="background-color: #448fff!important"></span>
                                 </td>
                                 <td>
                                     Parter
@@ -688,7 +713,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <span class="bo-dot" style="background-color: #448fff"></span>
+                                    <span class="bo-dot" style="background-color: #448fff!important"></span>
                                 </td>
                                 <td>
                                     Parter
