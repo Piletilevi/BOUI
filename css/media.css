@@ -49,6 +49,7 @@
 @media (max-width: 767px) {
 	.bo-event-share-block {
 		text-align: center;
+		margin-top: -20px;
 	}
 
 	.bo-header {
