@@ -986,4 +986,26 @@ $app->post('/rejectTicket', function() use ($app)  {
 	}
 });
 
+$app->get('/cache/clear', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $piletileviApi = $app->container->get("piletileviApi");
+
+	$piletileviApi->clearCache();
+
+	$response["status"] = "success";
+	$dataHandler->response(200, $response);
+});
+
+$app->get('/cache/stat', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $piletileviApi = $app->container->get("piletileviApi");
+
+	$statistics = $piletileviApi->getStats();
+
+	$response["status"] = "success";
+	$response["data"] = $statistics;
+	$dataHandler->response(200, $response);
+});
+
+
 ?>
