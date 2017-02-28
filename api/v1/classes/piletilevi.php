@@ -42,6 +42,14 @@ class PiletileviApi {
 		$data['userid']= $username;
 		return $this->send("/user/getSessionKey",$data);
 	}
+	
+	public function clearCache() {
+		$this->cacheManager->clear();
+	}
+
+	public function getStats() {
+		return $this->cacheManager->getStats();
+	}
 
 	public function changePassword($oldPassword, $newPassword) {
 

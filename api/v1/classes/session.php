@@ -16,7 +16,7 @@ class PiletileviSessionHandler {
 
 	public function getSession(){
 		if (!isset($_SESSION)) {
-			session_start();
+			@session_start();
 		}
 		$sess = array();
 		if(isset($_SESSION['user'])) {
@@ -35,7 +35,7 @@ class PiletileviSessionHandler {
 
 	public function destroySession(){
 		if (!isset($_SESSION)) {
-			session_start();
+			@session_start();
 		}
 		if(isset($_SESSION['user'])) {
 			unset($_SESSION['user']);
