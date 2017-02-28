@@ -1,6 +1,7 @@
 @media print {
 	body {
 		-webkit-print-color-adjust: exact;
+		font-size: 16px;
 	}
 
 	.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
@@ -214,6 +215,14 @@
 		color: #2a7ed8!important;
 	}
 
+	.bo-event {
+
+	}
+
+	.bo-salesoverview-controls {
+		margin-bottom: 0;
+	}
+
 	.text-danger {
 		color: #ff3f71!important;
 	}
@@ -239,6 +248,8 @@
 		white-space: nowrap;
 		vertical-align: middle;
 		font-weight: bold;
+		padding: 0;
+		height: auto;
 	}
 
 	.bo-chartcontrols {
@@ -254,6 +265,8 @@
 		white-space: nowrap;
 		padding: 0!important;
 		margin: 0!important;
+		padding: 0!important;
+		height: auto;
 	}
 
 	.bo-chartcontrols button {
@@ -287,11 +300,14 @@
 	img.bo-print-logo {
 		-webkit-filter: invert(1);
 		filter: invert(1);
+		width: 115px;
+		margin-bottom: 6px;
 	}
 
 	.bo-print-footer-table {
 		display: table;
 		float: left;
+		font-size: 14.5px;
 	}
 
 	.bo-print-footer-table > div {
@@ -309,10 +325,20 @@
 
 	.bo-print-copy {
 		float: right;
+		font-size: 14.5px;
 	}
 
 	.bo-print-color-holder {
 		position: relative;
+	}
+
+	.bo-event-title {
+		font-size: 25px;
+		margin-bottom: 6px;
+	}
+
+	.tab-content .panel-body {
+		padding-top: 0;
 	}
 }
 
