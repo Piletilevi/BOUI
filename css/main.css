@@ -32,6 +32,11 @@ a {
 	text-decoration: underline;
 }
 
+a:active,
+a:focus {
+	outline: none;
+}
+
 a:hover {
 	text-decoration: none;
 }
@@ -214,7 +219,7 @@ a:hover {
 ================================ */
 
 .bo-top-filter-block {
-	margin-bottom: 38px;
+	margin-bottom: 20px;
 }
 
 .bo-top-filter-block .bo-hidden-label {
@@ -389,8 +394,7 @@ a:hover {
 
 .bo-event-share-block {
 	color: #b7b7b9;
-	margin-bottom: 6px;
-	margin-top: -20px;
+	margin-bottom: 6px;	
 }
 
 .bo-event-share-block a {
@@ -859,7 +863,7 @@ a:hover {
 /* Simple stats
 ================================ */
 .bo-simplestats {
-	padding-left: 21px;
+	/*padding-left: 21px;*/
 }
 
 .bo-simplestats-labels {
@@ -1376,51 +1380,3 @@ a:hover {
 	font-size: 14px;
 }
 
-/* Scrolling tabs
-================================ */
-
-.scrollingtabs-wrapper {
-	position: relative;
-	margin: 0 auto;
-	overflow: hidden;
-	padding: 5px;
-	height: 50px;
-}
-
-.scrollingtabs-list {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	min-width: 3000px;
-	margin-left: 12px;
-	margin-top: 0px;
-}
-
-.scrollingtabs-list li {
-	display: table-cell;
-	position: relative;
-	text-align: center;
-	cursor: grab;
-	cursor: -webkit-grab;
-	color: #efefef;
-	vertical-align: middle;
-}
-
-.scrollingtabs-scroller {
-	text-align: center;
-	cursor: pointer;
-	display: none;
-	padding: 7px;
-	padding-top: 11px;
-	white-space: no-wrap;
-	vertical-align: middle;
-	background-color: #fff;
-}
-
-.scrollingtabs-scroller-right {
-	float: right;
-}
-
-.scrollingtabs-scroller-left {
-	float: left;
-}

@@ -150,6 +150,20 @@
 						updateCaledarDates(moment(), moment());
 					});
 
+					$("body").on("keyup", "[name='daterangepicker_start']", function() {
+						updateCaledarDates(
+							moment($(this).val(), 'DD.MM.YYYY'),
+							moment($(this).parent().parent().find('[name="daterangepicker_end"]').val(), 'DD.MM.YYYY')
+						);
+					});
+
+					$("body").on("keyup", "[name='daterangepicker_end']", function() {
+						updateCaledarDates(
+							moment($(this).parent().parent().find('[name="daterangepicker_start"]').val(), 'DD.MM.YYYY'),
+							moment($(this).val(), 'DD.MM.YYYY')
+						);
+					});
+
 					$("body").on("click", ".calendar-links > #weekLink", function($event) {
 						$event.preventDefault();
 						updateCaledarDates(moment().startOf('week'), moment().endOf('week'));
