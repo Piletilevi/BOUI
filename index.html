@@ -38,11 +38,15 @@
 <body style="visibility: hidden" ng-class='{forceShow: isTranslated}' >
 
 		<a name="top"></a>
-    <div ng-include="'views/common/template.html'" ng-if="authenticated"></div>
-
+    <div class="bo-header" ng-include="'views/common/template.html'" ng-if="authenticated"></div>
+	<div class="visible-print">
+		<img class="bo-print-logo" src="{{pointMenuLogo}}" />
+	</div>
 	<div class="container bo-main-block">
 		<div data-ng-view="" id="ng-view" class="row slide-animation"></div>
 	</div>
+
+	<div class="bo-print-footer visible-print" ng-include="'views/common/print_footer.html'" ng-if="authenticated"></div>
 
 	<!-- Libs -->
 	<script src="myip.php"></script>
