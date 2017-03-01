@@ -25,6 +25,9 @@
           xAxes: [{
             ticks: {
               maxTicksLimit: 6
+            },
+            gridLines: {
+              display: false
             }
           }]
         },
@@ -49,57 +52,60 @@
       }
     };
 
-	var defaultBarGraph = {
-	  labels: null,
-	  type: 'StackedBar',
-	  series: null,
-	  colors: [],
-	  datasetOverride: null,
-	  data: null,
-	  options: {
-	  	scales: {
-	  		xAxes: [{
-	  			stacked: true,
-	  			ticks: {
-	  				maxRotation: 60,
-	  				minRotation: 60,
-	  			},
-	  			gridLines: {
-	  				display: false
-	  			},
-	  			categoryPercentage: 1.0
-	  		}],
-	  		yAxes: [{
-	  			stacked: true,
-	  			display: false
-	  		}]
-	  	},
-	  	tooltips: {
-	  		callbacks: {
-	  			label: function(tooltipItems, data) {
-	  				return data.datasets[tooltipItems.datasetIndex].barLabel[tooltipItems.index] + ': ' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
-	  			}
-	  		}
-	  	}
-	  }
-	};
+    var defaultBarGraph = {
+      labels: null,
+      type: 'StackedBar',
+      series: null,
+      colors: [],
+      datasetOverride: null,
+      data: null,
+      options: {
+        scales: {
+          xAxes: [{
+            stacked: true,
+            ticks: {
+              maxRotation: 0,
+              minRotation: 0
+            },
+            gridLines: {
+              display: false
+            },
+            categoryPercentage: 1.0
+          }],
+          yAxes: [{
+            stacked: true,
+            display: false,
+            gridLines: {
+              display: false
+            }
+          }]
+        },
+        tooltips: {
+          callbacks: {
+            label: function (tooltipItems, data) {
+              return data.datasets[tooltipItems.datasetIndex].barLabel[tooltipItems.index] + ': ' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
+            }
+          }
+        }
+      }
+    };
 
-	var defaultPieGraph = {
-	  labels: null,
-	  data: null,
-	  options: {
-		legend: {
-		  display: false
-		},
-		 tooltips: {
-			backgroundColor: '#fff',
-			bodyFontColor: '#000',
-			titleFontColor: '#000'
-		 }
-	  }
-	};
+    var defaultPieGraph = {
+      labels: null,
+      data: null,
+      options: {
+        legend: {
+          display: false
+        },
+        tooltips: {
+          backgroundColor: '#fff',
+          bodyFontColor: '#000',
+          titleFontColor: '#000'
+        }
+      }
+    };
 
-	var service;
+    var service;
     service = {
       renderOverviewBarGraph: renderOverviewBarGraph,
       renderOverviewLineGraph: renderOverviewLineGraph,
@@ -109,31 +115,31 @@
       renderPriceClassLineGraph: renderPriceClassLineGraph
     };
 
-	service.overviewLineGraph = angular.copy(defaultLineGraph);
-	service.overviewBarGraph = angular.copy(defaultBarGraph);
-	service.pricetypePieGraph = angular.copy(defaultPieGraph);
-	service.priceclassPieGraph = angular.copy(defaultPieGraph);
-	service.pricetypeLineGraph = angular.copy(defaultLineGraph);
+    service.overviewLineGraph = angular.copy(defaultLineGraph);
+    service.overviewBarGraph = angular.copy(defaultBarGraph);
+    service.pricetypePieGraph = angular.copy(defaultPieGraph);
+    service.priceclassPieGraph = angular.copy(defaultPieGraph);
+    service.pricetypeLineGraph = angular.copy(defaultLineGraph);
 
-	angular.merge(service.pricetypeLineGraph, {
-	options: {
-		scales: {
-			yAxes: [{
-				stacked: false,
-				ticks: {
-					maxTicksLimit: 3
-				}
-			}]
-		},
-		elements: {
-			line: {
-				fill: false
-			}
-		}
-	  }
-	});
+    angular.merge(service.pricetypeLineGraph, {
+      options: {
+        scales: {
+          yAxes: [{
+            stacked: false,
+            ticks: {
+              maxTicksLimit: 3
+            }
+          }]
+        },
+        elements: {
+          line: {
+            fill: false
+          }
+        }
+      }
+    });
 
-	service.priceclassLineGraph = angular.copy(service.pricetypeLineGraph);
+    service.priceclassLineGraph = angular.copy(service.pricetypeLineGraph);
 
     return service;
 
@@ -202,80 +208,80 @@
       }
     }
 
-	function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
-		if (newValue && newValue.sales) {
-			overviewData.generatedCount = 0;
-			overviewData.generatedSum = 0;
-			overviewData.currency = '';
-			var series = [];
-			var labels = [];
-			var data = [];
-			var colors = [];
-			var barSeries = [];
-			var datasetOverride = [];
+    function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
+      if (newValue && newValue.sales) {
+        overviewData.generatedCount = 0;
+        overviewData.generatedSum = 0;
+        overviewData.currency = '';
+        var series = [];
+        var labels = [];
+        var data = [];
+        var colors = [];
+        var barSeries = [];
+        var datasetOverride = [];
 
-			newValue.sales.forEach(function (myOverviewData) {
-				if (myOverviewData.groupId == 'generated') {
-					overviewData.generatedCount = myOverviewData.rowCount;
-					overviewData.generatedSum = myOverviewData.rowSum;
-					overviewData.currency = myOverviewData.currency;
-				}
-        else {
-          labels.push($translate.instant(myOverviewData.groupName));
-          var rowSeries = [];
-          myOverviewData.rows.forEach(function (overviewRow) {
-            rowSeries.push($translate.instant(overviewRow.typeName));
-          });
-          series.push(rowSeries);
+        newValue.sales.forEach(function (myOverviewData) {
+          if (myOverviewData.groupId == 'generated') {
+            overviewData.generatedCount = myOverviewData.rowCount;
+            overviewData.generatedSum = myOverviewData.rowSum;
+            overviewData.currency = myOverviewData.currency;
+          }
+          else {
+            labels.push($translate.instant(myOverviewData.groupName));
+            var rowSeries = [];
+            myOverviewData.rows.forEach(function (overviewRow) {
+              rowSeries.push($translate.instant(overviewRow.typeName));
+            });
+            series.push(rowSeries);
 
-          var step = 0;
-          myOverviewData.rows.forEach(function (overviewRow) {
-            if(typeof(data[step]) == "undefined") {
-              data[step] = [];
-            }
-            data[step].push(overviewRow.count);
+            var step = 0;
+            myOverviewData.rows.forEach(function (overviewRow) {
+              if (typeof(data[step]) == "undefined") {
+                data[step] = [];
+              }
+              data[step].push(overviewRow.count);
 
-            if(typeof(colors[step]) == "undefined") {
-              colors[step] = [];
-            }
-            overviewRow.color = colorService.getColorByType(overviewRow.typeName);
-            colors[step].push(overviewRow.color);
+              if (typeof(colors[step]) == "undefined") {
+                colors[step] = [];
+              }
+              overviewRow.color = colorService.getColorByType(overviewRow.typeName);
+              colors[step].push(overviewRow.color);
 
-            if(typeof(barSeries[step]) == "undefined") {
-              barSeries[step] = [];
-            }
-            barSeries[step].push($translate.instant(overviewRow.typeName));
+              if (typeof(barSeries[step]) == "undefined") {
+                barSeries[step] = [];
+              }
+              barSeries[step].push($translate.instant(overviewRow.typeName));
 
-            step++;
+              step++;
+            });
+          }
+        });
+
+        for (var i = 0; i < data.length; i++) {
+          datasetOverride.push({
+            label: '',
+            barLabel: barSeries[i],
+            backgroundColor: colors[i],
+            borderColor: colors[i],
+            data: data[i],
           });
         }
-			});
 
-			for (var i = 0; i < data.length; i++) {
-				datasetOverride.push({
-					label: '',
-					barLabel: barSeries[i],
-					backgroundColor: colors[i],
-					borderColor: colors[i],
-					data: data[i],
-				});
-			}
+        if (labels && labels.length) {
+          overviewBarGraph.labels = labels;
+          overviewBarGraph.series = series;
+          overviewBarGraph.data = data;
+          overviewBarGraph.datasetOverride = datasetOverride;
+        } else {
+          overviewBarGraph.labels = null;
+          overviewBarGraph.series = null;
+          overviewBarGraph.data = null;
+          overviewBarGraph.datasetOverride = null;
+        }
+      }
+    }
 
-			if (labels && labels.length) {
-				overviewBarGraph.labels = labels;
-				overviewBarGraph.series = series;
-				overviewBarGraph.data = data;
-				overviewBarGraph.datasetOverride = datasetOverride;
-			} else {
-				overviewBarGraph.labels = null;
-				overviewBarGraph.series = null;
-				overviewBarGraph.data = null;
-				overviewBarGraph.datasetOverride = null;
-			}
-		}
-	}
-
-	function renderPriceTypePieGraph(newValue, filter, pricetypeData, pricetypePieGraph) {
+    function renderPriceTypePieGraph(newValue, filter, pricetypeData, pricetypePieGraph) {
       if (newValue && newValue.sales) {
         var step = 0;
         pricetypeData.generatedCount = 0;
@@ -468,7 +474,7 @@
         });
 
         // @TODO Return series in the same sequence as for pie chart from backend
-        series = series.sort(function(a,b){
+        series = series.sort(function (a, b) {
           return (parseInt(a, 10) - parseInt(b, 10));
         });
 
