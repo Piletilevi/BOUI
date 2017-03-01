@@ -1,10 +1,10 @@
-<div class="col-md-3 bo-sidebar" ng-if="related" ng-init="vm.getShowSales(related)">
+<div class="col-md-3 bo-sidebar" ng-if="related">
 	<div class="panel panel-default bo-onsale">
 		<!--<h2 class="bo-sidebar-title hidden-xs">Asd asdasd asd asd a dsasd</h2>-->
 		<ul class="list-group">
 			<li class="list-group-item">
 				<div class="bo-eventshort">
-					<h3 class="bo-eventshort-title">{{related.name}}</h3>
+					<h3 class="bo-eventshort-title"><a href="#/report/show/{{related.id}}">{{related.name}}</a></h3>
 					<div class="bo-eventshort-datetime">
 						<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{related.eventPeriod.start | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventshort-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{related.eventPeriod.start | date:'HH:mm'}}</span>
 					</div>
@@ -29,7 +29,7 @@
 				</div>
 				<div class="bo-eventshort-subevents">
 					<div class="bo-eventshort" ng-repeat="concertItem in related.concerts">
-						<h3 class="bo-eventshort-title" ng-init="vm.getConcertSales(concertItem)">{{concertItem.name}}</h3>
+						<h3 class="bo-eventshort-title"><a href="#/report/concert/{{concertItem.id}}">{{concertItem.name}}</a></h3>
 						<div class="bo-eventshort-datetime">
 							<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{concertItem.eventPeriod.start | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventshort-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{concertItem.eventPeriod.start | date:'HH:mm'}}</span>
 						</div>
@@ -52,7 +52,7 @@
 				</div>
 			</li>
 			<li class="list-group-item" ng-if="vm.hasMoreRelatedEvents(related)">
-				<a class="bo-onsale-viewall" href="#TODO">{{'api_view_all_events_on_sale'|translate}}</a>
+				<a class="bo-onsale-viewall" href ng-click="vm.getMoreRelatedEvents(vm.event)">{{'api_view_all_events_on_sale'|translate}}</a>
 			</li>
 		</ul>
 	</div>

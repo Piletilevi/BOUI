@@ -192,7 +192,8 @@
 				dataService.post('relatedEvents', {id: event.id, type: event.isShow ? 'show' : 'concert', start: relatedEvents.start}).then(function (results) {
 					if (results.status == 'success') {
 						results.data.concerts.forEach(function(eventItem) {
-							relatedEvents.push(eventItem);
+							getConcertSales(eventItem);
+							relatedEvents.concerts.push(eventItem);
 						});
 					}
 					loadingRelatedItems = false;
@@ -205,8 +206,16 @@
 				relatedEvents = null;
 				if (results.status == 'success'){
 					relatedEvents = results.data;
+					processRelatedEvents(relatedEvents);
 				}
 			});
+		}
+		
+		function processRelatedEvents(relatedEvents) {
+			getShowSales(relatedEvents);
+			relatedEvents.concerts.forEach(function(eventItem) {
+				getConcertSales(eventItem);
+			});			
 		}
 		
 		function getEventSales(event) {
@@ -270,7 +279,7 @@
 				}
 			});
 		}
-
+		
 		function getConcertInfo(event) {
 			dataService.post('concertInfo', {id: event.id}).then(function (results) {
 				dataService.page(results);
