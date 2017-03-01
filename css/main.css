@@ -944,6 +944,7 @@ a:hover {
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
+	margin-left: 3px;
 }
 
 /* Cancel button
@@ -1084,54 +1085,37 @@ a:hover {
 	margin: -2px -4px;
 }
 
-/* Price type revenue table
+/* tables
 ================================ */
-.bo-pricetyperevenuetable col:first-child {
-	width: 28px;
-}
-
-.bo-pricetyperevenuetable tbody td:first-child {
-	text-align: center;
-}
-
-.bo-pricetyperevenuetable thead th:nth-child(n+3),
-.bo-pricetyperevenuetable thead td:nth-child(n+3),
-.bo-pricetyperevenuetable tbody td:nth-child(n+3) {
-	text-align: center;
-}
-
-.bo-pricetyperevenuetable tfoot th:nth-child(n+3) {
-	font-weight: bold;
-	text-align: center;
-}
-
-.bo-pricetyperevenuetable tbody td:nth-child(5),
-.bo-pricetyperevenuetable tfoot th:nth-child(5) {
-	text-align: right;
-	white-space: nowrap;
-}
-
-.bo-pricetyperevenuetable.table > thead > tr > th,
-.bo-pricetyperevenuetable.table > tfoot > tr > th {
-	border-top: 8px solid #fff;
-}
-
-/* Revenue table
-================================ */
-.bo-revenuetable col:first-child {
+.bo-chart-table .bo-color-column {
 	width: 24px;
 }
 
-.bo-revenuetable thead th:nth-child(n+3),
-.bo-revenuetable thead td:nth-child(n+3),
-.bo-revenuetable tbody td:nth-child(n+3) {
-	text-align: center;
+.bo-chart-table td.bo-name-column,
+.bo-chart-table th.bo-name-column {
+	text-align: left;
 }
 
-.bo-revenuetable tbody td:nth-child(5),
-.bo-revenuetable thead th:nth-child(5) {
-	text-align: right;
+.bo-chart-table .bo-title-row td {
+	font-weight: bold;
+	color: #fff;
+	border-bottom: 13px solid #fff;
+}
+
+.bo-chart-table .bo-refund-row td,
+.bo-chart-table .bo-refund-row th {
+	color: #ff3f68;
+}
+
+.bo-chart-table td:nth-child(4),
+.bo-chart-table th:nth-child(4),
+.bo-chart-table td:nth-child(5),
+.bo-chart-table th:nth-child(5) {
 	white-space: nowrap;
+}
+
+.bo-chart-table > tbody + tbody {
+	border-top: 0 none;
 }
 
 .bo-revenuetable.table > thead > tr > th {
