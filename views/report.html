@@ -816,32 +816,7 @@
 	</div>
 </div>
 
-<div class="col-md-3 bo-sidebar" ng-if="vm.relatedEvents">
-	<div class="panel panel-default bo-onsale">
-		<!--<h2 class="bo-sidebar-title hidden-xs">{{'api_events_on_sale'|translate}}</h2>-->
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="concertItem in vm.relatedEvents">
-				<div ng-init="vm.getConcertSales(concertItem)">
-					<div ng-include-template="event_detail_short.html" ng-include-variables="{ event: concertItem }"></div>
-					<!--SUB EVENTS HERE-->
-						<!--<div class="bo-eventshort-subevents">-->
-							<!--<div ng-include-template="event_detail_short.html"></div>-->
-							<!--<div ng-include-template="event_detail_short.html"></div>-->
-							<!--<div ng-include-template="event_detail_short.html"></div>-->
-						<!--</div>-->
-					<!--/SUB EVENTS HERE-->
-				</div>
-			</li>
-			<li class="list-group-item" ng-if="vm.hasMoreRelatedEvents(event)">
-				<a class="bo-onsale-viewall" href ng-click="vm.getMoreRelatedEvents(vm.event)">{{'api_view_more_events_on_sale'|translate}}</a>
-			</li>
-		</ul>
-	</div>
-</div>
-
-<!--sidebar events example-->
-<div ng-include-template="event_detail_short_temporary_html.html"></div>
-<!--/sidebar events example-->
+<div ng-include-template="related_events.html" ng-include-variables="{ related: vm.relatedEvents, vm: vm }"></div>
 
 <div id="emal_popup" class="modal fade bo-modal">
 	<div class="modal-dialog">

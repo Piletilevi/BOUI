@@ -175,7 +175,7 @@
 		}
 
 		function hasMoreRelatedEvents(event) {
-			if (relatedEvents && relatedEvents.length % 5 == 0 && relatedEvents.start != relatedEvents.length + 1) {
+			if (relatedEvents && relatedEvents.concerts && relatedEvents.concerts.length % 5 == 0 && relatedEvents.start != relatedEvents.concerts.length + 1) {
 				return true;
 			}
 			return false;
@@ -188,7 +188,7 @@
 			
 			if (hasMoreRelatedEvents(event)) {
 				loadingRelatedItems = true;
-				relatedEvents.start = relatedEvents.length + 1;
+				relatedEvents.start = relatedEvents.concerts.length + 1;
 				dataService.post('relatedEvents', {id: event.id, type: event.isShow ? 'show' : 'concert', start: relatedEvents.start}).then(function (results) {
 					if (results.status == 'success') {
 						results.data.concerts.forEach(function(eventItem) {
@@ -204,7 +204,7 @@
 			dataService.post('relatedEvents', {id: event.id, type: event.isShow ? 'show' : 'concert'}).then(function (results) {
 				relatedEvents = null;
 				if (results.status == 'success'){
-					relatedEvents = results.data.concerts;
+					relatedEvents = results.data;
 				}
 			});
 		}

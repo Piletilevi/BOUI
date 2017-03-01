@@ -241,9 +241,9 @@ $app->post('/relatedEvents', function() use ($app) {
 
 	$response = "";
 	if ($relatedEvents && !property_exists($relatedEvents, 'errors')) {
-		if ($relatedEvents) {
+		if ($relatedEvents && property_exists($myEvents, 'data')) {
 	        $response['status'] = "success";
-	        $response['data'] = $relatedEvents;
+	        $response['data'] = $relatedEvents->data;
 		}
     } else if ($relatedEvents && property_exists($relatedEvents, 'errors')){
         $response['status'] = "error";

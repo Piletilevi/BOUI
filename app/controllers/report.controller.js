@@ -59,6 +59,7 @@
 
     vm.getEventSales = eventService.getEventSales;
 	vm.getConcertSales = eventService.getConcertSales;
+	vm.getShowSales = eventService.getShowSales;
 	vm.getMoreRelatedEvents = eventService.getMoreRelatedEvents;
 	vm.hasMoreRelatedEvents = eventService.hasMoreRelatedEvents;
     vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: ''};
