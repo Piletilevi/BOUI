@@ -160,7 +160,7 @@
 							</tbody>
 							<tfoot ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
 								<tr ng-repeat="overviewRow in overviewData.rows">
-									<td class="bo-name-column" colspan="2">{{overviewRow.typeName}}</td>
+									<td class="bo-name-column" colspan="2">{{overviewRow.typeName|translate}}</td>
 									<td>{{overviewRow.count}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount ? (overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
 									<td>{{overviewRow.sum | number:2}} {{overviewData.currency}}</td>
