@@ -123,7 +123,7 @@
 							</thead>
 							<thead ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'generated'" class="bo-title-row">
 								<tr>
-									<td class="bo-name-column" colspan="2">{{overviewData.groupName}}</td>
+									<td class="bo-name-column" colspan="2">{{overviewData.groupName|translate}}</td>
 									<td>{{overviewData.rowCount}}</td>
 									<td>100%</td>
 									<td>{{overviewData.rowSum | number:2}} {{overviewData.currency}}</td>
@@ -131,7 +131,7 @@
 							</thead>
 							<thead ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
 								<tr>
-									<td class="bo-name-column" colspan="2">{{overviewData.groupName}}</td>
+									<td class="bo-name-column" colspan="2">{{overviewData.groupName|translate}}</td>
 									<td>{{overviewData.rowCount}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
 									<td>{{overviewData.rowSum | number:2}} {{overviewData.currency}}</td>
@@ -140,7 +140,7 @@
 							<tbody ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId != 'venue_occupancy' && overviewData.groupId != 'generated'">
 								<tr>
 									<th></th>
-									<th class="bo-name-column">{{overviewData.groupName}}</th>
+									<th class="bo-name-column">{{overviewData.groupName|translate}}</th>
 									<th>{{overviewData.rowCount}}</th>
 									<th>{{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</th>
 									<th>{{overviewData.rowSum | number:2}} {{overviewData.currency}}</th>
