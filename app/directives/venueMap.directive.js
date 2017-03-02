@@ -303,8 +303,9 @@
                         };
 
                         var requestMapData = function () {
-                            var url = '//' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
+                            var url = 'https://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
                                 + venueMap.getConfId() + '.svg';
+
                             piletilevi.venuemap.Utilities.sendXhr({
                                 'url': url,
                                 'onSuccess': receiveMapData,
@@ -913,7 +914,7 @@
                             componentElement.appendChild(sectionsElement);
                         };
                         var loadSectionMap = function (sectionId) {
-                            var url = '//' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
+                            var url = 'https://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
                                 + venueMap.getConfId() + '_' + sectionId + '.svg';
 
                             piletilevi.venuemap.Utilities.sendXhr({

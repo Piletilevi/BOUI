@@ -159,7 +159,23 @@
 
     vm.setSelectedSectionId = function (selectedSectionId) {
       $scope.selectedSectionId = selectedSectionId;
+      vm.event.seatsMapConfig.sectionId = selectedSectionId;
     };
+
+    vm.resetSelectedSectionId = function (selectedSectionId) {
+      vm.event.sectionsMapConfig.mouseoverPrevSectionId = false;
+      vm.event.sectionsMapConfig.mouseoverSectionId = false;
+      $scope.selectedSectionId = false;
+    };
+
+    vm.setMouseoverSectionId = function (mouseoverSectionId) {
+      vm.event.sectionsMapConfig.mouseoverPrevSectionId = angular.copy($scope.mouseoverSectionId);
+      vm.event.sectionsMapConfig.mouseoverSectionId = mouseoverSectionId;
+      $scope.mouseoverSectionId = mouseoverSectionId;
+    };
+
+    $scope.setSelectedSectionId = vm.setSelectedSectionId;
+    $scope.setMouseoverSectionId = vm.setMouseoverSectionId;
 
 
     /* watchers */
