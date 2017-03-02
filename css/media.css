@@ -178,7 +178,7 @@
 	.bo-event-share-block,
 	.bo-event-badge,
 	.data_range .input-group-btn,
-	.bo-top-filter-block 
+	.bo-top-filter-block,
 	.bo-sidebar {
 		display: none!important;
 	}
@@ -189,6 +189,11 @@
 		border: 0 none;
 		width: 100%;
 		display: block;
+	}
+
+	.panel-body {
+		padding-left: 0;
+		padding-right: 0;
 	}
 
 	.progress-bar-success {
@@ -203,10 +208,16 @@
 		background: #ff4172!important;
 	}
 
-	.container,
-	.bo-center-column {
+	.container {
 		width: 100%;
 		padding: 0;
+		margin: 0;
+	}
+
+	.bo-center-column {
+		width: 100%;
+		padding-top: 0;
+		padding-bottom: 0;
 		margin: 0;
 	}
 
@@ -270,10 +281,19 @@
 		height: auto;
 	}
 
-	.bo-chartcontrols button {
+	.bo-chart-buttons button,
+	.bo-chartcontrols button,
+	.bo-chartcontrols .hidden-print {
 		display: none!important;
 	}
 
+	.bo-chart-buttons * {
+		display: inline-block!important;
+		padding: 0!important;
+		float: none!important;
+	}
+
+	.bo-chart-buttons button.active,
 	.bo-chartcontrols button.active {
 		display: inline-block!important;
 	}
