@@ -69,7 +69,7 @@
                    ng-click="vm.tabSelectEvent('pricetype')">{{'api_by_pricetype'|translate}}</a></li>
             <li><a href="#priceclass" data-toggle="tab" role="tab" aria-controls="priceclass"
                    ng-click="vm.tabSelectEvent('priceclass')">{{'api_by_priceclass'|translate}}</a></li>
-            <li><a href="#sectors" data-toggle="tab" role="tab" aria-controls="sectors"
+            <li ng-if="!vm.event.isShow"><a href="#sectors" data-toggle="tab" role="tab" aria-controls="sectors"
                    ng-click="vm.tabSelectEvent('sectors')">{{'api_by_sectors'|translate}}</a></li>
             <li><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations"
                    ng-click="vm.tabSelectEvent('locations')">{{'api_by_locations'|translate}}</a></li>
