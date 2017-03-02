@@ -348,7 +348,6 @@
           });
         });
 
-        // @TODO Return series in the same sequence as for pie chart from backend
         series = series.sort();
 
         newValue.sales.forEach(function (sale) {
@@ -473,10 +472,22 @@
           });
         });
 
-        // @TODO Return series in the same sequence as for pie chart from backend
-        series = series.sort(function (a, b) {
-          return (parseInt(a, 10) - parseInt(b, 10));
-        });
+        if(service.priceclassPieGraph.labels) {
+          series = series.sort(function (a, b) {
+            for (var key = 0; key < service.priceclassPieGraph.labels.length; key++) {
+              var label = service.priceclassPieGraph.labels[key].replace(/ *\([^)]*\) */g, "");
+              if (label == a) {
+                a = key;
+              }
+              else if (label == b) {
+                b = key;
+              }
+            }
+            if (a == b) return 0;
+            if (a > b) return 1;
+            return -1;
+          });
+        }
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
