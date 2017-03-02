@@ -637,6 +637,10 @@
 		padding-left: 8px;
 		padding-right: 8px;
 	}
+
+	.bo-top-filter-toggler .toggle {
+		width: 100% !important;
+	}
 }
 
 /* Bootstrap md
@@ -645,6 +649,10 @@
 	.navbar-nav > li > a {
 		padding-left: 8px;
 		padding-right: 8px;
+	}
+
+	.bo-top-filter-toggler .toggle {
+		width: 100% !important;
 	}
 }
 
@@ -661,5 +669,9 @@
 
 	.bo-simplestats-pct {
 		width: 61px;
+	}
+
+	.bo-top-filter-toggler .toggle {
+		width: 100% !important;
 	}
 }
