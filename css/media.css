@@ -628,6 +628,11 @@
 	.bo-top-filter-daterange {
 		padding-bottom: 10px;
 	}
+
+	.bo-sidebar,
+	.bo-right-column {
+		display: none;
+	}
 }
 
 /* Bootstrap sm

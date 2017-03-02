@@ -36,9 +36,9 @@
         </div>
     </div>
     <div class="bo-event-share-block">
-        <i class="fa fa-print"></i><a onclick="window.print();">{{'api_print'|translate}}</a> |
-        <i class="fa fa-envelope"></i><a data-toggle="modal" data-target="#emal_popup">{{'api_email'|translate}}</a> |
-        <i class="fa fa-share"></i><a href="">{{'api_export'|translate}}</a>
+        <span><i class="fa fa-print"></i><a onclick="window.print();">{{'api_print'|translate}}</a></span> |
+        <span><i class="fa fa-envelope"></i><a data-toggle="modal" data-target="#emal_popup">{{'api_email'|translate}}</a></span> |
+        <span><i class="fa fa-share"></i><a href="">{{'api_export'|translate}}</a></span>
         <!--<div class="dropdown inline_dropdown">-->
         <!--<span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Export <span class="caret"></span></span>-->
         <!--<ul class="dropdown-menu">-->
@@ -116,7 +116,6 @@
                                         ng-click="vm.setOverviewDisplay('revenue')">{{'api_revenue'|translate}}
                                 </button>
                             </div>
-                            &nbsp;&nbsp;
                             <span class="visible-print"> and </span>
                             <div class="btn-group btn-group-sm" role="group">
                                 <button type="button" class="btn btn-sm btn-default"
@@ -262,7 +261,6 @@
                                         ng-click="vm.setPricetypeDisplay('revenue')">{{'api_revenue'|translate}}
                                 </button>
                             </div>
-                            &nbsp;&nbsp;
                             <div class="btn-group btn-group-sm" role="group">
                                 <button type="button" class="btn btn-sm btn-default"
                                         ng-class="{ 'active': vm.pricetypeFilter.groupBy=='day'}"
@@ -393,7 +391,6 @@
                                         ng-click="vm.setPriceclassDisplay('revenue')">{{'api_revenue'|translate}}
                                 </button>
                             </div>
-                            &nbsp;&nbsp;
                             <div class="btn-group btn-group-sm" role="group">
                                 <button type="button" class="btn btn-sm btn-default"
                                         ng-class="{ 'active': vm.priceclassFilter.groupBy=='day'}"

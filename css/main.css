@@ -397,6 +397,10 @@ a:hover {
 	margin-bottom: 6px;	
 }
 
+.bo-event-share-block > span {
+	white-space: nowrap;
+}
+
 .bo-event-share-block a {
 	font-size: 14px;
 	margin-right: 7px;
@@ -1364,3 +1368,13 @@ a:hover {
 	font-size: 14px;
 }
 
+/* Chart controls
+================================ */
+
+.bo-chartcontrols > .btn-group{
+	margin-bottom: 7px;
+}
+
+.bo-chartcontrols > .btn-group:nth-child(2){
+	margin-left: 7px;
+}
