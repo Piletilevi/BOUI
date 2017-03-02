@@ -241,9 +241,9 @@ $app->post('/relatedEvents', function() use ($app) {
 
 	$response = "";
 	if ($relatedEvents && !property_exists($relatedEvents, 'errors')) {
-		if ($relatedEvents) {
+		if ($relatedEvents && property_exists($relatedEvents, 'data')) {
 	        $response['status'] = "success";
-	        $response['data'] = $relatedEvents;
+	        $response['data'] = $relatedEvents->data;
 		}
     } else if ($relatedEvents && property_exists($relatedEvents, 'errors')){
         $response['status'] = "error";
@@ -739,6 +739,9 @@ $app->post('/eventSalesReportByPriceClass', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	if (property_exists($r->filter, 'sectionId')) {
+		$filter['sectionId'] = $r->filter->sectionId;
+	}
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceClass( $filter );
@@ -985,5 +988,27 @@ $app->post('/rejectTicket', function() use ($app)  {
 		$dataHandler->response(200, $response);
 	}
 });
+
+$app->get('/cache/clear', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $piletileviApi = $app->container->get("piletileviApi");
+
+	$piletileviApi->clearCache();
+
+	$response["status"] = "success";
+	$dataHandler->response(200, $response);
+});
+
+$app->get('/cache/stat', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $piletileviApi = $app->container->get("piletileviApi");
+
+	$statistics = $piletileviApi->getStats();
+
+	$response["status"] = "success";
+	$response["data"] = $statistics;
+	$dataHandler->response(200, $response);
+});
+
 
 ?>

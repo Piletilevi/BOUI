@@ -1,0 +1,60 @@
+<div class="col-md-3 bo-sidebar" ng-if="related">
+	<div class="panel panel-default bo-onsale">
+		<!--<h2 class="bo-sidebar-title hidden-xs">Asd asdasd asd asd a dsasd</h2>-->
+		<ul class="list-group">
+			<li class="list-group-item">
+				<div class="bo-eventshort">
+					<h3 class="bo-eventshort-title"><a href="#/report/show/{{related.id}}">{{related.name}}</a></h3>
+					<div class="bo-eventshort-datetime">
+						<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{related.eventPeriod.start | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventshort-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{related.eventPeriod.start | date:'HH:mm'}}</span>
+					</div>
+					<div class="bo-eventshort-venue">
+						<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; {{related.locations.length === 1 ? related.locations[0].location : ('api_different_venues' | translate)}}
+					</div>
+					<div class="bo-eventshort-progress clearfix">
+						<div class="progress">
+							<div class="progress-bar progress-bar-success" style="width: {{related.statistics.soldPercent}}%" title="sold">{{related.statistics.soldTickets || 0}}</div>
+							<div class="progress-bar progress-bar-warning" style="width: {{related.statistics.bookedPercent}}%" title="reserved">{{related.statistics.bookedTickets || 0}}</div>
+							<div class="progress-bar progress-bar-danger" style="width: {{related.statistics.availablePercent}}%" title="empty">{{related.statistics.availableTickets || 0}}</div>
+						</div>
+						<div>
+							<div class="bo-eventshort-progresslabel">
+								{{related.statistics.soldPercent}}%
+							</div>
+							<div class="bo-eventshort-pricelabel">
+								{{related.statistics.soldSumma | number:2 }} {{related.statistics.currency}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="bo-eventshort-subevents">
+					<div class="bo-eventshort" ng-repeat="concertItem in related.concerts">
+						<h3 class="bo-eventshort-title"><a href="#/report/concert/{{concertItem.id}}">{{concertItem.name}}</a></h3>
+						<div class="bo-eventshort-datetime">
+							<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{concertItem.eventPeriod.start | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventshort-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{concertItem.eventPeriod.start | date:'HH:mm'}}</span>
+						</div>
+						<div class="bo-eventshort-venue">
+							<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; {{concertItem.location}}
+						</div>
+						<div class="bo-eventshort-progress clearfix">
+							<div class="progress">
+								<div class="progress-bar progress-bar-success" style="width: {{concertItem.statistics.soldPercent}}%" title="sold">{{concertItem.statistics.soldTickets || 0}}</div>
+								<div class="progress-bar progress-bar-warning" style="width: {{concertItem.statistics.bookedPercent}}%" title="reserved">{{concertItem.statistics.bookedTickets || 0}}</div>
+								<div class="progress-bar progress-bar-danger" style="width: {{concertItem.statistics.availablePercent}}%" title="empty">{{concertItem.statistics.availableTickets || 0}}</div>
+							</div>
+							<div>
+								<div class="bo-eventshort-progresslabel">
+									{{concertItem.statistics.soldPercent}}%
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="list-group-item" ng-if="vm.hasMoreRelatedEvents(related)">
+				<a class="bo-onsale-viewall" href ng-click="vm.getMoreRelatedEvents(vm.event)">{{'api_view_all_events_on_sale'|translate}}</a>
+			</li>
+		</ul>
+	</div>
+</div>
+

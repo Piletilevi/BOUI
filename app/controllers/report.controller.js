@@ -59,6 +59,7 @@
 
     vm.getEventSales = eventService.getEventSales;
 	vm.getConcertSales = eventService.getConcertSales;
+	vm.getShowSales = eventService.getShowSales;
 	vm.getMoreRelatedEvents = eventService.getMoreRelatedEvents;
 	vm.hasMoreRelatedEvents = eventService.hasMoreRelatedEvents;
     vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: ''};
@@ -66,6 +67,7 @@
     vm.pricetypeFilter = {period: {startDate: null, endDate: null}, display: 'tickets', pieDisplay: 'tickets', groupBy: 'day'};
     vm.priceclassFilter = {
       period: {startDate: null, endDate: null},
+	  sectionId: null,
       pieDisplay: 'tickets',
       display: 'tickets',
       groupBy: 'day'
@@ -142,27 +144,23 @@
       } else if (tab == 'sectors') {
         eventService.getSectorsData(vm.event, vm.sectorsFilter);
       }
+
+      currentTab = tab;
     };
+
+    var currentTab = 'overview';
+    vm.getCurrentTabCode = function() {
+      if(currentTab == 'overview') {
+        return 'api_' + currentTab;
+      }else {
+        return 'api_by_' + currentTab;
+      }
+    }
 
     vm.setSelectedSectionId = function (selectedSectionId) {
       $scope.selectedSectionId = selectedSectionId;
-      vm.event.seatsMapConfig.sectionId = selectedSectionId;
     };
 
-    vm.resetSelectedSectionId = function (selectedSectionId) {
-      vm.event.sectionsMapConfig.mouseoverPrevSectionId = false;
-      vm.event.sectionsMapConfig.mouseoverSectionId = false;
-      $scope.selectedSectionId = false;
-    };
-
-    vm.setMouseoverSectionId = function (mouseoverSectionId) {
-      vm.event.sectionsMapConfig.mouseoverPrevSectionId = angular.copy($scope.mouseoverSectionId);
-      vm.event.sectionsMapConfig.mouseoverSectionId = mouseoverSectionId;
-      $scope.mouseoverSectionId = mouseoverSectionId;
-    };
-
-    $scope.setSelectedSectionId = vm.setSelectedSectionId;
-    $scope.setMouseoverSectionId = vm.setMouseoverSectionId;
 
     /* watchers */
     $scope.$watch(
@@ -177,6 +175,12 @@
 		vm.relatedEvents = eventService.relatedEvents();
       }
     );
+
+    $scope.$watch('selectedSectionId', function (newValue, oldValue) {
+      if (newValue && !angular.equals(newValue, oldValue)) {
+        vm.event.seatsMapConfig.sectionId = newValue;
+      }
+    });
 
     $scope.$watch('vm.myOverviewBarData', function (newValue, oldValue) {
       if (!angular.equals(newValue, oldValue)) {

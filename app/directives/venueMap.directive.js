@@ -75,7 +75,7 @@
                             var xhr = new XMLHttpRequest();
                             xhr.onreadystatechange = function () {
                                 if (xhr.readyState == XMLHttpRequest.DONE) {
-                                    if (xhr.responseText) {
+                                    if (xhr.status == 200) {
                                         options.onSuccess(xhr.responseText);
                                     } else if (options.onFailure) {
                                         options.onFailure();

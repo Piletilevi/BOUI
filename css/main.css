@@ -32,6 +32,11 @@ a {
 	text-decoration: underline;
 }
 
+a:active,
+a:focus {
+	outline: none;
+}
+
 a:hover {
 	text-decoration: none;
 }
@@ -214,7 +219,7 @@ a:hover {
 ================================ */
 
 .bo-top-filter-block {
-	margin-bottom: 38px;
+	margin-bottom: 20px;
 }
 
 .bo-top-filter-block .bo-hidden-label {
@@ -389,8 +394,7 @@ a:hover {
 
 .bo-event-share-block {
 	color: #b7b7b9;
-	margin-bottom: 6px;
-	margin-top: -20px;
+	margin-bottom: 6px;	
 }
 
 .bo-event-share-block a {
@@ -859,7 +863,7 @@ a:hover {
 /* Simple stats
 ================================ */
 .bo-simplestats {
-	padding-left: 21px;
+	/*padding-left: 21px;*/
 }
 
 .bo-simplestats-labels {
@@ -940,6 +944,7 @@ a:hover {
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
+	margin-left: 3px;
 }
 
 /* Cancel button
@@ -1080,54 +1085,37 @@ a:hover {
 	margin: -2px -4px;
 }
 
-/* Price type revenue table
+/* tables
 ================================ */
-.bo-pricetyperevenuetable col:first-child {
-	width: 28px;
-}
-
-.bo-pricetyperevenuetable tbody td:first-child {
-	text-align: center;
-}
-
-.bo-pricetyperevenuetable thead th:nth-child(n+3),
-.bo-pricetyperevenuetable thead td:nth-child(n+3),
-.bo-pricetyperevenuetable tbody td:nth-child(n+3) {
-	text-align: center;
-}
-
-.bo-pricetyperevenuetable tfoot th:nth-child(n+3) {
-	font-weight: bold;
-	text-align: center;
-}
-
-.bo-pricetyperevenuetable tbody td:nth-child(5),
-.bo-pricetyperevenuetable tfoot th:nth-child(5) {
-	text-align: right;
-	white-space: nowrap;
-}
-
-.bo-pricetyperevenuetable.table > thead > tr > th,
-.bo-pricetyperevenuetable.table > tfoot > tr > th {
-	border-top: 8px solid #fff;
-}
-
-/* Revenue table
-================================ */
-.bo-revenuetable col:first-child {
+.bo-chart-table .bo-color-column {
 	width: 24px;
 }
 
-.bo-revenuetable thead th:nth-child(n+3),
-.bo-revenuetable thead td:nth-child(n+3),
-.bo-revenuetable tbody td:nth-child(n+3) {
-	text-align: center;
+.bo-chart-table td.bo-name-column,
+.bo-chart-table th.bo-name-column {
+	text-align: left;
 }
 
-.bo-revenuetable tbody td:nth-child(5),
-.bo-revenuetable thead th:nth-child(5) {
-	text-align: right;
+.bo-chart-table .bo-title-row td {
+	font-weight: bold;
+	color: #fff;
+	border-bottom: 13px solid #fff;
+}
+
+.bo-chart-table .bo-refund-row td,
+.bo-chart-table .bo-refund-row th {
+	color: #ff3f68;
+}
+
+.bo-chart-table td:nth-child(4),
+.bo-chart-table th:nth-child(4),
+.bo-chart-table td:nth-child(5),
+.bo-chart-table th:nth-child(5) {
 	white-space: nowrap;
+}
+
+.bo-chart-table > tbody + tbody {
+	border-top: 0 none;
 }
 
 .bo-revenuetable.table > thead > tr > th {
@@ -1376,51 +1364,3 @@ a:hover {
 	font-size: 14px;
 }
 
-/* Scrolling tabs
-================================ */
-
-.scrollingtabs-wrapper {
-	position: relative;
-	margin: 0 auto;
-	overflow: hidden;
-	padding: 5px;
-	height: 50px;
-}
-
-.scrollingtabs-list {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	min-width: 3000px;
-	margin-left: 12px;
-	margin-top: 0px;
-}
-
-.scrollingtabs-list li {
-	display: table-cell;
-	position: relative;
-	text-align: center;
-	cursor: grab;
-	cursor: -webkit-grab;
-	color: #efefef;
-	vertical-align: middle;
-}
-
-.scrollingtabs-scroller {
-	text-align: center;
-	cursor: pointer;
-	display: none;
-	padding: 7px;
-	padding-top: 11px;
-	white-space: no-wrap;
-	vertical-align: middle;
-	background-color: #fff;
-}
-
-.scrollingtabs-scroller-right {
-	float: right;
-}
-
-.scrollingtabs-scroller-left {
-	float: left;
-}
