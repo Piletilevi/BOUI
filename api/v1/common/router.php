@@ -739,6 +739,9 @@ $app->post('/eventSalesReportByPriceClass', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	if (property_exists($r->filter, 'sectionId')) {
+		$filter['sectionId'] = $r->filter->sectionId;
+	}
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceClass( $filter );

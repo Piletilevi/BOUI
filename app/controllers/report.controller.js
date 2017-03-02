@@ -67,6 +67,7 @@
     vm.pricetypeFilter = {period: {startDate: null, endDate: null}, display: 'tickets', pieDisplay: 'tickets', groupBy: 'day'};
     vm.priceclassFilter = {
       period: {startDate: null, endDate: null},
+	  sectionId: null,
       pieDisplay: 'tickets',
       display: 'tickets',
       groupBy: 'day'
