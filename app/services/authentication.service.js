@@ -8,9 +8,9 @@
         .module('boApp')
         .factory('authService', AuthService);
 
-    AuthService.$inject = ['$rootScope', '$route', '$location', 'dataService', 'pointService'];
+    AuthService.$inject = ['$rootScope', '$route', '$location', 'dataService', 'pointService', 'eventService'];
 
-    function AuthService($rootScope, $route, $location, dataService, pointService) {
+    function AuthService($rootScope, $route, $location, dataService, pointService, eventService) {
         var service = {
             initialize : initialize,
             login : login,
@@ -44,6 +44,7 @@
                 dataService.page(results);
                 dataService.get('session').then(function (results) {
                     if (!results.user) {
+                        eventService.reset();
                         $rootScope.user = null;
                         $rootScope.authenticated = false;
                         $location.path('login');
