@@ -343,8 +343,13 @@
     $scope.$watch('vm.mySectorsData.sales', function (newValue, oldValue) {
       if (!angular.equals(newValue, oldValue)) {
         var sections = newValue.map(function(s) {return s.sectorId;});
-        vm.event.sectionsMapConfig.sections = sections;
-        vm.event.sectionsMapConfig.enabledSections = sections;
+        if(sections.length === 1) {
+          vm.setSelectedSectionId(sections[0]);
+        }
+        else {
+          vm.event.sectionsMapConfig.sections = sections;
+          vm.event.sectionsMapConfig.enabledSections = sections;
+        }
       }
     });
 
