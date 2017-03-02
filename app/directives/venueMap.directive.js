@@ -11,6 +11,7 @@
     function VenueMap($parse) {
         return {
             restrict: 'E',
+            scope: true,
             link: function ($scope, $element, $attributes) {
                 $attributes.$observe('config', function () {
 
@@ -24,6 +25,24 @@
                     };
 
                     piletilevi.venuemap.Config = $parse($attributes.config)($scope);
+
+                    if(piletilevi.venuemap.Config.mouseoverSectionId) {
+                        if(piletilevi.venuemap.Config.mouseoverPrevSectionId) {
+                            var selectedPrevSection = document.getElementById('section' + piletilevi.venuemap.Config.mouseoverPrevSectionId);
+                            if(selectedPrevSection) {
+                                selectedPrevSection.setAttribute("fill", "#cccccc");
+                                selectedPrevSection.setAttribute("opacity", "0");
+                                selectedPrevSection.setAttribute("style", "display: block;");
+                            }
+                        }
+                        var selectedSection = document.getElementById('section' + piletilevi.venuemap.Config.mouseoverSectionId);
+                        if(selectedSection) {
+                            selectedSection.setAttribute("fill", "#75bb01");
+                            selectedSection.setAttribute("opacity", "0.8");
+                            selectedSection.setAttribute("style", "display: block;");
+                        }
+                        return false;
+                    }
 
                     if(!piletilevi.venuemap.Config.confId) {
                         return false;
@@ -284,7 +303,7 @@
                         };
 
                         var requestMapData = function () {
-                            var url = 'http://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
+                            var url = '//' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
                                 + venueMap.getConfId() + '.svg';
                             piletilevi.venuemap.Utilities.sendXhr({
                                 'url': url,
@@ -305,7 +324,7 @@
                                 if (svgDocument) {
                                     var elements = svgDocument.getElementsByTagName('image');
                                     for (var i = elements.length; i--;) {
-                                        elements[i].setAttribute('xlink:href', 'http://' + piletilevi.venuemap.SHOP_DOMAIN
+                                        elements[i].setAttribute('xlink:href', '//' + piletilevi.venuemap.SHOP_DOMAIN
                                             + elements[i].getAttribute('xlink:href'));
                                     }
                                     componentElement.appendChild(document.adoptNode(svgDocument.documentElement));
@@ -382,6 +401,7 @@
                             self.refreshStatus();
                         };
                         this.refreshStatus = function () {
+                            console.log('refreshStatus');
                             if (!enabled) {
                                 this.markDisabled();
                             } else {
@@ -390,6 +410,7 @@
                         };
                         this.mouseOver = function (event) {
                             self.markActive();
+                            venueMap.trigger('sectionMouseover', id);
                         };
                         this.mouseOut = function (event) {
                             self.markInactive();
@@ -892,7 +913,7 @@
                             componentElement.appendChild(sectionsElement);
                         };
                         var loadSectionMap = function (sectionId) {
-                            var url = 'http://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
+                            var url = '//' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
                                 + venueMap.getConfId() + '_' + sectionId + '.svg';
 
                             piletilevi.venuemap.Utilities.sendXhr({
@@ -1431,8 +1452,13 @@
                     map.setSections(piletilevi.venuemap.Config.sections);
                     map.setEnabledSections(piletilevi.venuemap.Config.enabledSections);
 
+                    map.addHandler('sectionMouseover', function (sectionId) {
+                        $scope.setMouseoverSectionId(sectionId);
+                        $scope.$apply();
+                    });
+
                     map.addHandler('sectionSelected', function (sectionId) {
-                        $scope.selectedSectionId = sectionId;
+                        $scope.setSelectedSectionId(sectionId);
                         $scope.$apply();
                     });
 
