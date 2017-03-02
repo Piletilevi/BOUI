@@ -139,6 +139,7 @@
         eventService.getPriceTypeData(vm.event, vm.pricetypeFilter);
         eventService.getPriceTypeGraphData(vm.event, vm.pricetypeFilter);
       } else if (tab == 'priceclass') {
+        vm.priceclassFilter.sectionId = null;
         eventService.getPriceClassData(vm.event, vm.priceclassFilter);
         eventService.getPriceClassGraphData(vm.event, vm.priceclassFilter);
       } else if (tab == 'sectors') {
@@ -160,6 +161,8 @@
     vm.setSelectedSectionId = function (selectedSectionId) {
       $scope.selectedSectionId = selectedSectionId;
       vm.event.seatsMapConfig.sectionId = selectedSectionId;
+      vm.priceclassFilter.sectionId = selectedSectionId;
+      eventService.getPriceClassData(vm.event, vm.priceclassFilter);
     };
 
     vm.resetSelectedSectionId = function (selectedSectionId) {

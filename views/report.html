@@ -440,49 +440,7 @@
                         </div>
                     </div>
                     <div class="col-lg-7">
-                        <table class="bo-pricetyperevenuetable table table-condensed table-small bo-chart-table">
-                            <thead>
-                            <tr>
-                                <th colspan="2" class="bo-name-column">{{'api_priceclass'|translate}}</th>
-                                <th>{{'api_tickets'|translate}}</th>
-                                <th>%</th>
-                                <th>{{'api_revenue'|translate}}</th>
-                            </tr>
-                            </thead>
-                            <thead>
-                            <tr>
-                                <td colspan="2" class="bo-name-column">{{'api_issued_total'|translate}}</td>
-                                <td>{{vm.myPriceClassPieData.generatedCount}}</td>
-                                <td>100%</td>
-                                <td>{{vm.myPriceClassPieData.generatedSum | number:2}}
-                                    {{vm.myPriceClassPieData.currency}}
-                                </td>
-                            </tr>
-                            </thead>
-                            <tbody ng-repeat="priceclassData in vm.myPriceClassPieData.sales">
-                            <tr>
-                                <th></th>
-                                <th class="bo-name-column">{{priceclassData.groupName|translate}}</th>
-                                <th>{{priceclassData.rowCount}}</th>
-                                <th>{{vm.myPriceClassPieData.generatedCount ? ( priceclassData.rowCount /
-                                    vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%
-                                </th>
-                                <th>{{priceclassData.rowSum | number:2}} {{priceclassData.currency}}</th>
-                            </tr>
-                            <tr ng-repeat="priceclassItem in priceclassData.priceClasses">
-                                <td>
-                                    <span class="hidden-print bo-dot"
-                                          style="background-color: {{priceclassItem.color}}!important;"></span>
-                                </td>
-                                <td class="bo-name-column">{{priceclassItem.priceClassName}}</td>
-                                <td>{{priceclassItem.count}}</td>
-                                <td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count /
-                                    vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%
-                                </td>
-                                <td>{{priceclassItem.sum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <div ng-include="'views/common/event_priceclass_table.html'"></div>
                     </div>
                 </div>
 
@@ -585,133 +543,10 @@
                 </div>
             </div>
 
-            <div ng-if="selectedSectionId">
-                <div class="bo-double-charts-row">
+            <div ng-if="selectedSectionId" class="panel-body">
+                <div class="row bo-double-charts-row">
                     <div class="col-lg-6">
-                        <table class="bo-pricetyperevenuetable table table-condensed table-small bo-chart-table">
-                            <thead>
-                            <tr>
-                                <th colspan="2" class="bo-name-column">Pricetype</th>
-                                <th>Tickets</th>
-                                <th>%</th>
-                                <th>Revenue</th>
-                            </tr>
-                            </thead>
-                            <thead class="bo-title-row">
-                            <tr>
-                                <td colspan="2" class="bo-name-column">Generated</td>
-                                <td>1250</td>
-                                <td>100%</td>
-                                <td></td>
-                            </tr>
-                            </thead>
-                            <thead>
-                            <tr>
-                                <td></td>
-                                <td colspan="4" class="bo-name-column">Piletilevi:</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <span class="bo-dot" style="background-color: #df9617!important"></span>
-                                </td>
-                                <td class="bo-name-column">I Priceclass (10.00-40.00€)</td>
-                                <td>498</td>
-                                <td>37%</td>
-                                <td>22,886.00 €</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="bo-dot" style="background-color: #448fff!important"></span>
-                                </td>
-                                <td class="bo-name-column">II Priceclass (5.00-30.00€)</td>
-                                <td>25</td>
-                                <td>4%</td>
-                                <td>330.00 €</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="bo-dot" style="background-color: #c844ff!important"></span>
-                                </td>
-                                <td class="bo-name-column">III Priceclass (5.00-30.00€)</td>
-                                <td>33</td>
-                                <td>4%</td>
-                                <td>605.00 €</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="bo-dot" style="background-color: #00ff05!important"></span>
-                                </td>
-                                <td class="bo-name-column">IV Priceclass (7.50-35.00€)</td>
-                                <td>20</td>
-                                <td>5%</td>
-                                <td>400.00 €</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="bo-dot" style="background-color: #fff000!important"></span>
-                                </td>
-                                <td class="bo-name-column">V Priceclass (25.00€)</td>
-                                <td>27</td>
-                                <td>6%</td>
-                                <td>125.00 €</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="bo-dot" style="background-color: #ff5400!important"></span>
-                                </td>
-                                <td class="bo-name-column">VI Priceclass (9.00-38.00€)</td>
-                                <td>17</td>
-                                <td>3%</td>
-                                <td>100.00 €</td>
-                            </tr>
-                            </tbody>
-                            <thead>
-                            <tr>
-                                <td></td>
-                                <td colspan="4" class="bo-name-column">"Own center name":</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <span class="bo-dot" style="background-color: #00ffcc!important"></span>
-                                </td>
-                                <td class="bo-name-column">II Priceclass (9.50-38.00€)</td>
-                                <td>125</td>
-                                <td>10%</td>
-                                <td>7,000.00 €</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="bo-dot" style="background-color: #448fff!important"></span>
-                                </td>
-                                <td class="bo-name-column">III Priceclass (0.00€)</td>
-                                <td>125</td>
-                                <td>10%</td>
-                                <td>0.00 €</td>
-                            </tr>
-                            <tr class="info">
-                                <td>
-                                    <span class="bo-dot" style="background-color: #c844ff!important"></span>
-                                </td>
-                                <td class="bo-name-column">IV Priceclass (5.00-30.00€)</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <th></th>
-                                <th class="bo-name-column">Sub in total:</th>
-                                <th>850</th>
-                                <th>80%</th>
-                                <th>34,875.00 €</th>
-                            </tr>
-                            </tfoot>
-                        </table>
+                        <div ng-include="'views/common/event_priceclass_table.html'"></div>
                     </div>
                     <div class="col-lg-6">
                         <div class="bo-legend">
