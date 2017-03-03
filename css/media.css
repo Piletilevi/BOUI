@@ -633,6 +633,10 @@
 	.bo-right-column {
 		display: none;
 	}
+
+	.bo-line-chart-container {
+		height: 250px;
+	}
 }
 
 /* Bootstrap sm
@@ -642,6 +646,10 @@
 		padding-left: 8px;
 		padding-right: 8px;
 	}
+
+	.bo-line-chart-container {
+		height: 300px;
+	}
 }
 
 /* Bootstrap md
@@ -650,6 +658,10 @@
 	.navbar-nav > li > a {
 		padding-left: 8px;
 		padding-right: 8px;
+	}
+
+	.bo-line-chart-container {
+		height: 300px;
 	}
 }
 

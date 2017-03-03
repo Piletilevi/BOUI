@@ -1138,6 +1138,10 @@ a:hover {
 	margin-bottom: 10px;
 }
 
+.bo-line-chart-container {
+	height: 350px;
+}
+
 /* Venueplan
 ================================ */
 
