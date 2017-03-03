@@ -303,7 +303,7 @@
                         };
 
                         var requestMapData = function () {
-                            var url = 'https://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
+                            var url = 'https://' + venueMap.getShopDomain() + '/public/upload/seatingplan_svg/'
                                 + venueMap.getConfId() + '.svg';
 
                             piletilevi.venuemap.Utilities.sendXhr({
