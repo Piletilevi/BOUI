@@ -112,7 +112,8 @@
       renderPriceTypePieGraph: renderPriceTypePieGraph,
       renderPriceTypeLineGraph: renderPriceTypeLineGraph,
       renderPriceClassPieGraph: renderPriceClassPieGraph,
-      renderPriceClassLineGraph: renderPriceClassLineGraph
+      renderPriceClassLineGraph: renderPriceClassLineGraph,
+      reset: reset
     };
 
     service.overviewLineGraph = angular.copy(defaultLineGraph);
@@ -142,6 +143,14 @@
     service.priceclassLineGraph = angular.copy(service.pricetypeLineGraph);
 
     return service;
+
+    function reset() {
+      service.overviewLineGraph = angular.copy(defaultLineGraph);
+      service.overviewBarGraph = angular.copy(defaultBarGraph);
+      service.pricetypePieGraph = angular.copy(defaultPieGraph);
+      service.priceclassPieGraph = angular.copy(defaultPieGraph);
+      service.pricetypeLineGraph = angular.copy(defaultLineGraph);
+    }
 
     function renderOverviewLineGraph(newValue, filter, overviewGraph) {
       if (newValue && newValue.sales) {

@@ -74,6 +74,16 @@
 			myOpenCount = 0;
 			myDraftCount = 0;
 			myPastCount = 0;
+			myOverviewData = null;
+			myOverviewGraphData = null;
+			myPriceTypeData = null;
+			myPriceTypeGraphData = null;
+			myPriceClassData = null;
+			myPriceClassGraphData = null;
+			mySectorsData = null;
+			sectorInfo = null;
+			sectorTickets = null;
+			relatedEvents = null;
 		}
 
 		function getMyEvents(filter) {
@@ -263,6 +273,7 @@
 		function getSectorsData(event, filter) {
 			dataService.post('eventSalesReportBySectors', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
 				mySectorsData = null;
+				results.data.sales = [results.data.sales[0]];
 				dataService.page(results);
 				if (results.status == 'success'){
 					mySectorsData = results.data;

@@ -57,6 +57,9 @@
       }
     };
 
+    eventService.reset();
+    graphService.reset();
+
     vm.getEventSales = eventService.getEventSales;
 	vm.getConcertSales = eventService.getConcertSales;
 	vm.getShowSales = eventService.getShowSales;
