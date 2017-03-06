@@ -142,9 +142,9 @@
                             chart-colors="vm.overviewLineGraph.colors">
                     </canvas>
                 </div>
-                <div class="row bo-double-charts-row" ng-if="vm.overviewBarGraph.data">
+                <div class="row bo-double-charts-row">
                     <div class="col-lg-6">
-                        <div class="bo-chart">
+                        <div class="bo-chart" ng-if="vm.overviewBarGraph.data">
                             <canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data"
                                     chart-labels="vm.overviewBarGraph.labels"
                                     chart-options="vm.overviewBarGraph.options"
