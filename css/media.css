@@ -637,6 +637,12 @@
 	.bo-line-chart-container {
 		height: 250px;
 	}
+	
+	.bo-chart-table {
+		max-width: 100%;
+		table-layout: fixed;
+	}
+	
 }
 
 /* Bootstrap sm
