@@ -628,6 +628,21 @@
 	.bo-top-filter-daterange {
 		padding-bottom: 10px;
 	}
+
+	.bo-sidebar,
+	.bo-right-column {
+		display: none;
+	}
+
+	.bo-line-chart-container {
+		height: 250px;
+	}
+	
+	.bo-chart-table {
+		max-width: 100%;
+		table-layout: fixed;
+	}
+	
 }
 
 /* Bootstrap sm
@@ -637,6 +652,10 @@
 		padding-left: 8px;
 		padding-right: 8px;
 	}
+
+	.bo-line-chart-container {
+		height: 300px;
+	}
 }
 
 /* Bootstrap md
@@ -645,6 +664,10 @@
 	.navbar-nav > li > a {
 		padding-left: 8px;
 		padding-right: 8px;
+	}
+
+	.bo-line-chart-container {
+		height: 300px;
 	}
 }
 

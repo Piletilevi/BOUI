@@ -36,9 +36,9 @@
         </div>
     </div>
     <div class="bo-event-share-block">
-        <i class="fa fa-print"></i><a onclick="window.print();">{{'api_print'|translate}}</a> |
-        <i class="fa fa-envelope"></i><a data-toggle="modal" data-target="#emal_popup">{{'api_email'|translate}}</a> |
-        <i class="fa fa-share"></i><a href="">{{'api_export'|translate}}</a>
+        <span><i class="fa fa-print"></i><a onclick="window.print();">{{'api_print'|translate}}</a></span> |
+        <span><i class="fa fa-envelope"></i><a data-toggle="modal" data-target="#emal_popup">{{'api_email'|translate}}</a></span> |
+        <span><i class="fa fa-share"></i><a href="">{{'api_export'|translate}}</a></span>
         <!--<div class="dropdown inline_dropdown">-->
         <!--<span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Export <span class="caret"></span></span>-->
         <!--<ul class="dropdown-menu">-->
@@ -116,7 +116,6 @@
                                         ng-click="vm.setOverviewDisplay('revenue')">{{'api_revenue'|translate}}
                                 </button>
                             </div>
-                            &nbsp;&nbsp;
                             <span class="visible-print"> and </span>
                             <div class="btn-group btn-group-sm" role="group">
                                 <button type="button" class="btn btn-sm btn-default"
@@ -135,7 +134,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bo-chart" ng-if="vm.overviewLineGraph.data">
+                <div class="bo-chart bo-line-chart-container" ng-if="vm.overviewLineGraph.data">
                     <canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data"
                             chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series"
                             chart-options="vm.overviewLineGraph.options"
@@ -158,8 +157,7 @@
                             <thead>
                             <tr>
                                 <th width="7%"></th>
-                                <th width="46%"></th>
-                                <th width="17%">{{'api_tickets'|translate}}</th>
+                                <th colspan="2">{{'api_tickets'|translate}}</th>
                                 <th width="10%">%</th>
                                 <th width="20%">{{'api_revenue'|translate}}</th>
                             </tr>
@@ -262,7 +260,6 @@
                                         ng-click="vm.setPricetypeDisplay('revenue')">{{'api_revenue'|translate}}
                                 </button>
                             </div>
-                            &nbsp;&nbsp;
                             <div class="btn-group btn-group-sm" role="group">
                                 <button type="button" class="btn btn-sm btn-default"
                                         ng-class="{ 'active': vm.pricetypeFilter.groupBy=='day'}"
@@ -280,7 +277,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bo-chart" ng-if="vm.pricetypeLineGraph.data">
+                <div class="bo-chart bo-line-chart-container" ng-if="vm.pricetypeLineGraph.data">
                     <canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data"
                             chart-labels="vm.pricetypeLineGraph.labels" chart-series="vm.pricetypeLineGraph.series"
                             chart-options="vm.pricetypeLineGraph.options" chart-colors="vm.pricetypeLineGraph.colors"
@@ -289,7 +286,7 @@
                 </div>
                 <div class="row bo-double-charts-row">
                     <div class="col-lg-5">
-                        <div class="bo-chart" ng-if="vm.pricetypePieGraph.data">
+                        <div class="bo-chart bo-pie-chart-container" ng-if="vm.pricetypePieGraph.data">
                             <div class="bo-chart-buttons">
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button type="button" class="btn btn-sm btn-default"
@@ -393,7 +390,6 @@
                                         ng-click="vm.setPriceclassDisplay('revenue')">{{'api_revenue'|translate}}
                                 </button>
                             </div>
-                            &nbsp;&nbsp;
                             <div class="btn-group btn-group-sm" role="group">
                                 <button type="button" class="btn btn-sm btn-default"
                                         ng-class="{ 'active': vm.priceclassFilter.groupBy=='day'}"
@@ -411,7 +407,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bo-chart" ng-if="vm.priceclassLineGraph.data">
+                <div class="bo-chart bo-line-chart-container" ng-if="vm.priceclassLineGraph.data">
                     <canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data"
                             chart-labels="vm.priceclassLineGraph.labels" chart-series="vm.priceclassLineGraph.series"
                             chart-options="vm.priceclassLineGraph.options" chart-colors="vm.priceclassLineGraph.colors"
@@ -420,7 +416,7 @@
                 </div>
                 <div class="row bo-double-charts-row">
                     <div class="col-lg-5">
-                        <div class="bo-chart" ng-if="vm.priceclassPieGraph.data">
+                        <div class="bo-chart bo-pie-chart-container" ng-if="vm.priceclassPieGraph.data">
                             <div class="bo-chart-buttons">
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button type="button" class="btn btn-sm btn-default"
@@ -787,22 +783,20 @@
                 </form>
             </div>
         </div>
-    </div>
+        <!-- Tab: locations -->
+        <div class="tab-pane bo-salesoverview panel panel-default" id="locations" role="tabpanel">
+            <div class="panel-body">
+                Locations
+            </div>
+        </div>
 
-    <!-- Tab: locations -->
-    <div class="tab-pane bo-salesoverview panel panel-default" id="locations" role="tabpanel">
-        <div class="panel-body">
-            Locations
+        <!-- Tab: bookings -->
+        <div class="tab-pane bo-salesoverview panel panel-default" id="bookings" role="tabpanel">
+            <div class="panel-body">
+                Bookings
+            </div>
         </div>
     </div>
-
-    <!-- Tab: bookings -->
-    <div class="tab-pane bo-salesoverview panel panel-default" id="bookings" role="tabpanel">
-        <div class="panel-body">
-            Bookings
-        </div>
-    </div>
-</div>
 </div>
 
 <div ng-include-template="related_events.html" ng-include-variables="{ related: vm.relatedEvents, vm: vm }"></div>
