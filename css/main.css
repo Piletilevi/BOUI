@@ -340,16 +340,19 @@ a:hover {
 	margin-top: 6px;
 	margin-bottom: 2px;
 	color: #b7b7b9;
+	margin-right: -15px;
 }
 
-.bo-event-report-link a {
-	margin-right: 23px;
+.bo-event-report-link * {
 	display: inline-block;
 }
 
-.bo-event-report-link span {
+.bo-event-report-link > a {
 	margin-right: 23px;
-	display: inline-block;
+}
+
+.bo-event-report-link-separator {
+	margin-right: 23px;
 }
 
 .bo-event-datetime_block {
@@ -377,12 +380,13 @@ a:hover {
 .bo-event-place {
 	display: inline-block;
 	margin-top: 2px;
+	padding-left: 22px;
 }
 
 .bo-event-place .fa {
 	color: #2a7ed8;
 	margin-right: 7px;
-	margin-left: 2px;
+	margin-left: -20px;
 }
 
 .bo-event-price {
@@ -395,6 +399,10 @@ a:hover {
 .bo-event-share-block {
 	color: #b7b7b9;
 	margin-bottom: 6px;	
+}
+
+.bo-event-share-block > span {
+	white-space: nowrap;
 }
 
 .bo-event-share-block a {
@@ -1134,6 +1142,10 @@ a:hover {
 	margin-bottom: 10px;
 }
 
+.bo-line-chart-container {
+	height: 350px;
+}
+
 /* Venueplan
 ================================ */
 
@@ -1364,3 +1376,19 @@ a:hover {
 	font-size: 14px;
 }
 
+/* Toggle
+================================ */
+
+.bo-top-filter-toggler > .input-group {
+	width: 100%;
+}
+/* Chart controls
+================================ */
+
+.bo-chartcontrols > .btn-group{
+	margin-bottom: 7px;
+}
+
+.bo-chartcontrols > .btn-group:nth-child(2){
+	margin-left: 7px;
+}

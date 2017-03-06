@@ -15,6 +15,8 @@
       data: null,
       colors: [],
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           yAxes: [{
             stacked: true,
@@ -24,7 +26,9 @@
           }],
           xAxes: [{
             ticks: {
-              maxTicksLimit: 6
+              maxTicksLimit: 9,
+              maxRotation: 0,
+              minRotation: 0
             },
             gridLines: {
               display: false

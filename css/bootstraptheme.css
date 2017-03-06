@@ -770,3 +770,8 @@ textarea.form-control {
 	top: 50%;
 	margin-top: -3px;
 }
+
+.chart-pie {
+	max-width: 319px;
+	margin: 0 auto;
+}
