@@ -1376,6 +1376,12 @@ a:hover {
 	font-size: 14px;
 }
 
+/* Toggle
+================================ */
+
+.bo-top-filter-toggler > .input-group {
+	width: 100%;
+}
 /* Chart controls
 ================================ */
 
