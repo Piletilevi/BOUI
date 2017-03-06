@@ -469,6 +469,7 @@
         var labels = [];
         var data = [];
         var colors = [];
+        var ids = [];
         var step = 0;
 
         newValue.sales.forEach(function (sale) {
@@ -477,26 +478,15 @@
                 return e == sellType.priceClassName;
               }).length === 0) {
               series.push(sellType.priceClassName);
+              ids.push(parseInt(sellType.priceClassId, 10));
             }
           });
         });
 
-        if(service.priceclassPieGraph.labels) {
-          series = series.sort(function (a, b) {
-            for (var key = 0; key < service.priceclassPieGraph.labels.length; key++) {
-              var label = service.priceclassPieGraph.labels[key].replace(/ *\([^)]*\) */g, "");
-              if (label == a) {
-                a = key;
-              }
-              else if (label == b) {
-                b = key;
-              }
-            }
-            if (a == b) return 0;
-            if (a > b) return 1;
-            return -1;
-          });
-        }
+        // Sort by priceClassId
+        series = ids.map(function(e,i){return i;})
+              .sort(function(a,b){return ids[a] - ids[b];})
+              .map(function(e){return series[e];});
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
