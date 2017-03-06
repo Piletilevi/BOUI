@@ -99,7 +99,7 @@
 
 				dataService.page(results);
 
-				if (results.status == 'success'){
+				if (results && results.count){
 					myOpenCount = results.count.open;
 					if (results.count.hasMoreOpen) {
 						myOpenCount = myOpenCount + "+";
@@ -114,7 +114,9 @@
 					if (results.count.hasMorePast) {
 						myPastCount = myPastCount + "+";
 					}
-
+				}
+				
+				if (results.status == 'success'){
 					if (filter.status == 'onsale') {
 						myOpenEvents = results.data;
 					} else if (filter.status == 'draft') {
@@ -191,10 +193,12 @@
 				relatedEvents.start = relatedEvents.concerts.length + 1;
 				dataService.post('relatedEvents', {id: event.id, type: event.isShow ? 'show' : 'concert', start: relatedEvents.start}).then(function (results) {
 					if (results.status == 'success') {
-						results.data.concerts.forEach(function(eventItem) {
-							getConcertSales(eventItem);
-							relatedEvents.concerts.push(eventItem);
-						});
+						if (results.data && results.data.concerts) {
+							results.data.concerts.forEach(function(eventItem) {
+								getConcertSales(eventItem);
+								relatedEvents.concerts.push(eventItem);
+							});
+						}
 					}
 					loadingRelatedItems = false;
 				});
@@ -206,7 +210,9 @@
 				relatedEvents = null;
 				if (results.status == 'success'){
 					relatedEvents = results.data;
-					processRelatedEvents(relatedEvents);
+					if (relatedEvents && relatedEvents.concerts) {
+						processRelatedEvents(relatedEvents);
+					}
 				}
 			});
 		}

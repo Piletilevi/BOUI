@@ -8,7 +8,7 @@
 
     VenueMap.$inject = ['$parse', '$location'];
 
-    function VenueMap($parse) {
+    function VenueMap($parse, $location) {
         return {
             restrict: 'E',
             scope: true,
@@ -303,7 +303,7 @@
                         };
 
                         var requestMapData = function () {
-                            var url = 'https://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
+                            var url = $location.protocol() + '://' + venueMap.getShopDomain() + '/public/upload/seatingplan_svg/'
                                 + venueMap.getConfId() + '.svg';
 
                             piletilevi.venuemap.Utilities.sendXhr({
@@ -914,7 +914,7 @@
                             componentElement.appendChild(sectionsElement);
                         };
                         var loadSectionMap = function (sectionId) {
-                            var url = 'https://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
+                            var url = $location.protocol() + '://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
                                 + venueMap.getConfId() + '_' + sectionId + '.svg';
 
                             piletilevi.venuemap.Utilities.sendXhr({

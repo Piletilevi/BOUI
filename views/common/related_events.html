@@ -1,11 +1,14 @@
-<div class="col-md-3 bo-sidebar" ng-if="related">
+<div class="col-md-3 bo-sidebar" ng-if="related && related.id">
 	<div class="panel panel-default bo-onsale">
 		<!--<h2 class="bo-sidebar-title hidden-xs">Asd asdasd asd asd a dsasd</h2>-->
 		<ul class="list-group">
 			<li class="list-group-item">
 				<div class="bo-eventshort">
 					<h3 class="bo-eventshort-title"><a href="#/report/show/{{related.id}}">{{related.name}}</a></h3>
-					<div class="bo-eventshort-datetime">
+					<div class="bo-eventshort-datetime" ng-if="related.eventPeriod.start != related.eventPeriod.end">
+						<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{related.eventPeriod.start | date:'dd.MM.yyyy'}} - {{related.eventPeriod.end | date:'dd.MM.yyyy'}}</span>
+					</div>
+					<div class="bo-eventshort-datetime" ng-if="related.eventPeriod.start == related.eventPeriod.end">
 						<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{related.eventPeriod.start | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventshort-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{related.eventPeriod.start | date:'HH:mm'}}</span>
 					</div>
 					<div class="bo-eventshort-venue">
@@ -45,6 +48,9 @@
 							<div>
 								<div class="bo-eventshort-progresslabel">
 									{{concertItem.statistics.soldPercent}}%
+								</div>
+								<div class="bo-eventshort-pricelabel">
+									{{concertItem.statistics.soldSumma | number:2 }} {{concertItem.statistics.currency}}
 								</div>
 							</div>
 						</div>

@@ -519,22 +519,24 @@
             </div>
 
             <div class="bo-salesoverview-controls panel-body">
-                <div class="col-md-12">
+                <div class="col-md-12" ng-if="selectedSectionId">
                     <div class="form-inline">
                         <div class="form-group">
                             <div class="input-group data_range">
-                                <input type="text" class="form-control" value="01/01/2016 - 01/31/2016"/>
-								  <span class="input-group-btn">
-									 <button class="btn btn-default" type="button">
-                                         <i class="fa fa-calendar" aria-hidden="true"></i>
-                                     </button>
-								  </span>
+                                <input type="text" daterangepicker class="form-control"
+                                       ng-model="vm.sectorsFilter.period" ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                       ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+								 <span class="input-group-btn">
+									<button class="btn btn-default" type="button" data-control="daterangepicker">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    </button>
+								 </span>
                             </div>
                         </div>
-                        <div class="form-group" ng-if="selectedSectionId">
+                        <div class="form-group">
                             <div class="bo-sectionselection form-control">
-                                <span class="bo-sectionselection-text">Selected section: {{(vm.mySectorsData.sales | filter:{sectorId: selectedSectionId})[0].name}}</span>
-                                <a class="bo-sectionselection-button text-danger" ng-click="vm.resetSelectedSectionId(selectedSectionId)">
+                                <span class="bo-sectionselection-text">{{'api_selected_section'|translate}}: {{(vm.mySectorsData.sales | filter:{sectorId: selectedSectionId})[0].name}}</span>
+                                <a class="bo-sectionselection-button text-danger" href ng-click="vm.resetSelectedSectionId(selectedSectionId)">
                                     <span class="bo-sectionselection-icon fa fa-times"></span>
                                 </a>
                             </div>
