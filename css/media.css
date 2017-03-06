@@ -264,7 +264,6 @@
 		vertical-align: middle;
 		width: auto!important;
 		white-space: nowrap;
-		padding: 0!important;
 		margin: 0!important;
 		padding: 0!important;
 		height: auto;
@@ -299,8 +298,8 @@
 	}
 
 	img.bo-print-logo {
-		-webkit-filter: invert(1);
-		filter: invert(1);
+		-webkit-filter: contrast(200%) brightness(0%);
+		filter: contrast(200%) brightness(0%);
 		width: 115px;
 		margin-bottom: 6px;
 	}
