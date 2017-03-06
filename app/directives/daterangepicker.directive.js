@@ -198,20 +198,21 @@
 					renderDateTimePicker();
 				});
 
-				$scope.$watch(function() {
+				var unregister = $scope.$watch(function() {
 					
 					var reRender = false;
 					
-					if (ngModel.$modelValue.startDate && options.startDate != ngModel.$modelValue.startDate) {
+					if (ngModel.$modelValue.startDate) {
 						reRender = true;
 						$element.data('daterangepicker').setStartDate(ngModel.$modelValue.startDate);
 					}
-					if (ngModel.$modelValue.endDate && options.endDate != ngModel.$modelValue.endDate) {
+					if (ngModel.$modelValue.endDate) {
 						reRender = true;
 						$element.data('daterangepicker').setEndDate(ngModel.$modelValue.endDate);
 					}
 					if (reRender) {
 						renderDateTimePicker();
+						unregister();
 					}
 					return $attributes.ngModel;
 				}, function(modelValue, oldModelValue) {

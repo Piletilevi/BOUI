@@ -57,6 +57,9 @@
       }
     };
 
+    eventService.reset();
+    graphService.reset();
+
     vm.getEventSales = eventService.getEventSales;
 	vm.getConcertSales = eventService.getConcertSales;
 	vm.getShowSales = eventService.getShowSales;
@@ -73,9 +76,6 @@
       groupBy: 'day'
     };
     vm.sectorsFilter = {period: {startDate: null, endDate: null}};
-    // Min & Max dates get from api when ready on the backend
-    vm.minFilterDate = moment();
-    vm.maxFilterDate = moment().subtract(7, 'days');
     vm.reset_search = false;
     vm.overviewBarGraph = graphService.overviewBarGraph;
     vm.overviewLineGraph = graphService.overviewLineGraph;
@@ -331,7 +331,6 @@
         vm.sectorsFilter.period.endDate = moment(newSellPeriod.end);
         vm.minFilterDate = vm.overviewFilter.period.startDate;
         vm.maxFilterDate = vm.overviewFilter.period.endDate;
-
         vm.tabSelectEvent('overview');
       }
     });

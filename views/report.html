@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bo-chartcontrols col-sm-7 text-right">
+                        <div class="bo-chartcontrols col-sm-7 text-right" ng-if="vm.overviewLineGraph.data">
                             <span class="visible-print">Displayed by: </span>
                             <div class="btn-group btn-group-sm" role="group">
                                 <button type="button" class="btn btn-sm btn-default"
@@ -135,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bo-chart">
+                <div class="bo-chart" ng-if="vm.overviewLineGraph.data">
                     <canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data"
                             chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series"
                             chart-options="vm.overviewLineGraph.options"
@@ -145,7 +145,7 @@
                 </div>
                 <div class="row bo-double-charts-row">
                     <div class="col-lg-6">
-                        <div class="bo-chart">
+                        <div class="bo-chart" ng-if="vm.overviewBarGraph.data">
                             <canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data"
                                     chart-labels="vm.overviewBarGraph.labels"
                                     chart-options="vm.overviewBarGraph.options"
@@ -154,7 +154,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <table class="bo-revenuetable table table-condensed table-small bo-chart-table">
+                        <table class="bo-revenuetable table table-condensed table-small bo-chart-table" ng-if="vm.myOverviewBarData.sales.length">
                             <thead>
                             <tr>
                                 <th width="7%"></th>
@@ -220,7 +220,7 @@
                             </tr>
                             </tfoot>
                         </table>
-                        <a href="#" class="btn btn-info bo-detailed-report-link">{{'api_view_detailed_report'|translate}}</a>
+                        <a href="#" class="btn btn-info bo-detailed-report-link" ng-if="vm.myOverviewBarData.sales.length">{{'api_view_detailed_report'|translate}}</a>
                     </div>
                 </div>
 
@@ -251,7 +251,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bo-chartcontrols col-sm-7 text-right">
+                        <div class="bo-chartcontrols col-sm-7 text-right" ng-if="vm.pricetypeLineGraph.data">
                             <div class="btn-group btn-group-sm" role="group">
                                 <button type="button" class="btn btn-sm btn-default"
                                         ng-class="{ 'active': vm.pricetypeFilter.display=='tickets'}"
@@ -280,7 +280,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bo-chart">
+                <div class="bo-chart" ng-if="vm.pricetypeLineGraph.data">
                     <canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data"
                             chart-labels="vm.pricetypeLineGraph.labels" chart-series="vm.pricetypeLineGraph.series"
                             chart-options="vm.pricetypeLineGraph.options" chart-colors="vm.pricetypeLineGraph.colors"
@@ -289,7 +289,7 @@
                 </div>
                 <div class="row bo-double-charts-row">
                     <div class="col-lg-5">
-                        <div class="bo-chart">
+                        <div class="bo-chart" ng-if="vm.pricetypePieGraph.data">
                             <div class="bo-chart-buttons">
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button type="button" class="btn btn-sm btn-default"
@@ -309,7 +309,7 @@
                         </div>
                     </div>
                     <div class="col-lg-7">
-                        <table class="bo-pricetyperevenuetable table table-condensed table-small bo-chart-table">
+                        <table class="bo-pricetyperevenuetable table table-condensed table-small bo-chart-table" ng-if="vm.myPriceTypePieData.sales.length">
                             <thead>
                             <tr>
                                 <th class="bo-name-column" colspan="2">{{'api_pricetype'|translate}}</th>
@@ -382,7 +382,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bo-chartcontrols col-sm-7 text-right">
+                        <div class="bo-chartcontrols col-sm-7 text-right" ng-if="vm.priceclassLineGraph.data">
                             <div class="btn-group btn-group-sm" role="group">
                                 <button type="button" class="btn btn-sm btn-default"
                                         ng-class="{ 'active': vm.priceclassFilter.display=='tickets'}"
@@ -411,7 +411,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bo-chart">
+                <div class="bo-chart" ng-if="vm.priceclassLineGraph.data">
                     <canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data"
                             chart-labels="vm.priceclassLineGraph.labels" chart-series="vm.priceclassLineGraph.series"
                             chart-options="vm.priceclassLineGraph.options" chart-colors="vm.priceclassLineGraph.colors"
@@ -420,7 +420,7 @@
                 </div>
                 <div class="row bo-double-charts-row">
                     <div class="col-lg-5">
-                        <div class="bo-chart">
+                        <div class="bo-chart" ng-if="vm.priceclassPieGraph.data">
                             <div class="bo-chart-buttons">
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button type="button" class="btn btn-sm btn-default"
@@ -469,7 +469,7 @@
 
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="bo-sectionselector list-group">
+                        <div class="bo-sectionselector list-group" ng-if="vm.mySectorsData.sales.length">
                             <button type="button" class="bo-sectionselector-item list-group-item"
                                     ng-class="{ 'active': sectorData.sectorId == mouseoverSectionId}"
                                     ng-click="vm.setSelectedSectionId(sectorData.sectorId)"
@@ -511,14 +511,14 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="bo-map">
+                        <div class="bo-map" ng-if="vm.event.sectionsMapConfig.sections.length">
                             <ng-venue-map data-config="{{vm.event.sectionsMapConfig}}"></ng-venue-map>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="bo-salesoverview-controls panel-body">
+            <div class="bo-salesoverview-controls panel-body" ng-if="selectedSectionId">
                 <div class="col-md-12" ng-if="selectedSectionId">
                     <div class="form-inline">
                         <div class="form-group">

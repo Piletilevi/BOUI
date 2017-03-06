@@ -74,6 +74,16 @@
 			myOpenCount = 0;
 			myDraftCount = 0;
 			myPastCount = 0;
+			myOverviewData = null;
+			myOverviewGraphData = null;
+			myPriceTypeData = null;
+			myPriceTypeGraphData = null;
+			myPriceClassData = null;
+			myPriceClassGraphData = null;
+			mySectorsData = null;
+			sectorInfo = null;
+			sectorTickets = null;
+			relatedEvents = null;
 		}
 
 		function getMyEvents(filter) {
