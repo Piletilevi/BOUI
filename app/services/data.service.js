@@ -35,7 +35,6 @@
                   $rootScope.sessionExpired = true;
                   $location.path("/login").search({expired: 1});
 			  }
-			  console.log(response);
 		    });
         };
         

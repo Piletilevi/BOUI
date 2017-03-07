@@ -50,13 +50,18 @@
         vm.hasMoreRelatedEvents = eventService.hasMoreRelatedEvents;
         vm.filter = {period: {startDate: moment().subtract(30, 'days'), endDate: moment().add(1, 'years')}, name: ''};
         vm.filterPeriod = {period: {startDate: null, endDate: null}};
-        vm.overviewFilter = {period: {startDate: null, endDate: null}, display: 'tickets', groupBy: 'day', centerId: ''};
+        vm.overviewFilter = {
+            period: {startDate: null, endDate: null},
+            display: 'tickets',
+            groupBy: 'day',
+            centerId: ''
+        };
         vm.pricetypeFilter = {
             period: {startDate: null, endDate: null},
             display: 'tickets',
             pieDisplay: 'tickets',
             groupBy: 'day',
-			centerId: ''
+            centerId: ''
         };
         vm.priceclassFilter = {
             period: {startDate: null, endDate: null},
@@ -64,7 +69,7 @@
             pieDisplay: 'tickets',
             display: 'tickets',
             groupBy: 'day',
-			centerId: ''
+            centerId: ''
         };
         vm.sectorsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
         vm.locationsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
@@ -78,52 +83,57 @@
 
         vm.filters = [vm.overviewFilter, vm.pricetypeFilter, vm.priceclassFilter, vm.sectorsFilter, vm.locationsFilter];
 
+        vm.reservation = {
+            reservationType: 'with_price',
+            personType: 'private',
+            concertId: $routeParams.id
+        };
         // vm.printPdf = pdfService.printPdf;
 
         //Initialize
         eventService.getEventSales(vm.event);
         eventService.getRelatedEvents(vm.event);
 
-		vm.exportAsCsv = function(currentTab) {
-			var filter;
-			if (currentTab == "overview") {
-				filter = vm.overviewFilter;
-			} else if (currentTab == "pricetype") {
-				filter = vm.pricetypeFilter;
-			} else if (currentTab == "priceclass") {
-				filter = vm.priceclassFilter;
-			} else if (currentTab == "sections") {
-				if ($scope.selectedSectionId) {
-					filter = vm.priceclassFilter;
-				} else {
-					filter = vm.sectorsFilter;
-				}
-			} else if (currentTab == "locations") {
-				filter = vm.locationsFilter;
-			}
-			eventService.exportAsCsv(vm.event, currentTab, filter);
-		}
+        vm.exportAsCsv = function (currentTab) {
+            var filter;
+            if (currentTab == "overview") {
+                filter = vm.overviewFilter;
+            } else if (currentTab == "pricetype") {
+                filter = vm.pricetypeFilter;
+            } else if (currentTab == "priceclass") {
+                filter = vm.priceclassFilter;
+            } else if (currentTab == "sections") {
+                if ($scope.selectedSectionId) {
+                    filter = vm.priceclassFilter;
+                } else {
+                    filter = vm.sectorsFilter;
+                }
+            } else if (currentTab == "locations") {
+                filter = vm.locationsFilter;
+            }
+            eventService.exportAsCsv(vm.event, currentTab, filter);
+        }
 
-		vm.exportAsExcel = function(currentTab) {
-			var filter;
-			if (currentTab == "overview") {
-				filter = vm.overviewFilter;
-			} else if (currentTab == "pricetype") {
-				filter = vm.pricetypeFilter;
-			} else if (currentTab == "priceclass") {
-				filter = vm.priceclassFilter;
-			} else if (currentTab == "sections") {
-				if ($scope.selectedSectionId) {
-					filter = vm.priceclassFilter;
-				} else {
-					filter = vm.sectorsFilter;
-				}
-			} else if (currentTab == "locations") {
-				filter = vm.locationsFilter;
-			}
-			eventService.exportAsExcel(vm.event, currentTab, filter);
-		}
-		
+        vm.exportAsExcel = function (currentTab) {
+            var filter;
+            if (currentTab == "overview") {
+                filter = vm.overviewFilter;
+            } else if (currentTab == "pricetype") {
+                filter = vm.pricetypeFilter;
+            } else if (currentTab == "priceclass") {
+                filter = vm.priceclassFilter;
+            } else if (currentTab == "sections") {
+                if ($scope.selectedSectionId) {
+                    filter = vm.priceclassFilter;
+                } else {
+                    filter = vm.sectorsFilter;
+                }
+            } else if (currentTab == "locations") {
+                filter = vm.locationsFilter;
+            }
+            eventService.exportAsExcel(vm.event, currentTab, filter);
+        }
+
         vm.setOverviewDisplay = function (display) {
             vm.overviewFilter.display = display;
         }
@@ -173,7 +183,7 @@
             else if (tab == 'locations') {
                 eventService.getLocationsData(vm.event, vm.locationsFilter);
             }
-            if(tab != 'sections') {
+            if (tab != 'sections') {
                 $scope.selectedSectionId = false;
             }
 
@@ -204,7 +214,39 @@
             $location.update_path('/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/' + selectedSectionId + '/');
         };
 
-        vm.resetSelectedSectionId = function (selectedSectionId) {
+        vm.setSelectedSeatId = function (selectedSeatId) {
+            $('.place_tooltip').remove();
+            $scope.selectedSeatId = selectedSeatId;
+            eventService.addToBasket(
+                {
+                    concertId: $routeParams.id,
+                    sectionId: $scope.selectedSectionId,
+                    seatId: $scope.selectedSeatId
+                }, function () {
+                    eventService.getMyBasket(
+                        function () {
+                            eventService.getSectorInfo(
+                                {
+                                    concertId: $routeParams.id,
+                                    sectionId: $scope.selectedSectionId
+                                }, function () {
+                                    vm.goToStep2();
+                                });
+                        }
+                    );
+                }
+            );
+        };
+
+        vm.confirmBasket = function () {
+            eventService.confirmBasket(
+                vm.reservation, function () {
+                    console.log('Basket confirmed');
+                }
+            );
+        };
+
+        vm.resetSelectedSectionId = function () {
             vm.event.sectionsMapConfig.mouseoverPrevSectionId = false;
             vm.event.sectionsMapConfig.mouseoverSectionId = false;
             $scope.selectedSectionId = false;
@@ -217,13 +259,113 @@
         };
 
         vm.hasSalesPoint = function () {
-			if (vm.event != null && vm.event.salespoints != null && vm.event.salespoints.length > 1) {
-				return true;
-			}
-			return false;
+            if (vm.event != null && vm.event.salespoints != null && vm.event.salespoints.length > 1) {
+                return true;
+            }
+            return false;
         };
-		
+
+        /* Booking form */
+
+        vm.removeFromBasket = function (ticketId) {
+            eventService.removeFromBasket(
+                ticketId,
+                function () {
+                    vm.myBasket.basket = vm.myBasket.basket.filter(function (ticket) {
+                        return ticket.id != ticketId;
+                    });
+                }
+            );
+        };
+
+        vm.goToSectionsStep = function () {
+            vm.bookingStep = null;
+            $scope.selectedSectionId = false;
+        };
+
+        vm.goToStep2 = function () {
+            vm.bookingStep = 'step2-3';
+        };
+
+        vm.goToStep4 = function () {
+            vm.bookingStep = 'step4';
+        };
+
+        vm.goToStep5 = function () {
+            vm.bookingStep = 'step5';
+        };
+
+        vm.decreaseTicketsCount = function (ttSectorData) {
+            if (ttSectorData.selected > 0) {
+                ttSectorData.selected--;
+            }
+        };
+
+        vm.increaseTicketsCount = function (ttSectorData) {
+            if (ttSectorData.selected < ttSectorData.freeTotal) {
+                ttSectorData.selected++;
+            }
+        };
+
+        vm.ticketsCount = function () {
+            var ticketsCount = 0;
+            angular.forEach(vm.sectorInfo.ttSector, function (ttSector) {
+                angular.forEach(ttSector.ttSectorData, function (ttSectorData) {
+                    ticketsCount += ttSectorData.selected;
+                });
+            });
+            return ticketsCount;
+        };
+
+        vm.offerTickets = function () {
+            var classes = [],
+                sectionId = null;
+            angular.forEach(vm.sectorInfo.ttSector, function (ttSector) {
+                if (!sectionId) {
+                    sectionId = ttSector.sectorId;
+                }
+                angular.forEach(ttSector.ttSectorData, function (ttSectorData) {
+                    if (ttSectorData.selected > 0) {
+                        classes[ttSectorData.priceClass] = ttSectorData.selected;
+                    }
+                });
+            });
+            if (classes.length > 0) {
+                eventService.addToBasket(
+                    {
+                        concertId: $routeParams.id,
+                        sectionId: sectionId,
+                        classes: classes
+                    }, function () {
+                        eventService.getMyBasket(
+                            function () {
+                                eventService.getSectorInfo(
+                                    {
+                                        concertId: $routeParams.id,
+                                        sectionId: $scope.selectedSectionId
+                                    });
+                            }
+                        );
+                    }
+                );
+            }
+
+        };
+
+        vm.decreaseBasketDiscount = function () {
+            if (vm.reservation.discount > 0) {
+                vm.reservation.discount--;
+            }
+        };
+
+        vm.increaseBasketDiscount = function () {
+            if (vm.reservation.discount < 100) {
+                vm.reservation.discount++;
+            }
+        };
+
         $scope.setSelectedSectionId = vm.setSelectedSectionId;
+        $scope.setSelectedSeatId = vm.setSelectedSeatId;
         $scope.setMouseoverSectionId = vm.setMouseoverSectionId;
 
 
@@ -297,6 +439,8 @@
                 vm.myPriceTypeLineData = eventService.myPriceTypeGraphData();
                 vm.myPriceClassPieData = eventService.myPriceClassData();
                 vm.myPriceClassLineData = eventService.myPriceClassGraphData();
+                vm.myBasket = eventService.myBasket();
+                vm.sectorInfo = eventService.sectorInfo();
                 vm.mySectorsData = eventService.mySectorsData();
                 vm.myLocationsData = eventService.myLocationsData();
                 vm.relatedEvents = eventService.relatedEvents();
@@ -325,10 +469,10 @@
         //Rerender charts in overview tab when language has been changed. Other tabs' charts don't have translations.
         $rootScope.$on('$translateChangeSuccess', function () {
             if ($location.path().indexOf("report") != -1) {
-              if (vm.currentTab == 'overview'){
-                graphService.renderOverviewBarGraph(vm.myOverviewBarData, vm.myOverviewBarData, vm.overviewBarGraph);
-                graphService.renderOverviewLineGraph(vm.myOverviewLineData, vm.overviewFilter, vm.overviewLineGraph);
-              }
+                if (vm.currentTab == 'overview') {
+                    graphService.renderOverviewBarGraph(vm.myOverviewBarData, vm.myOverviewBarData, vm.overviewBarGraph);
+                    graphService.renderOverviewLineGraph(vm.myOverviewLineData, vm.overviewFilter, vm.overviewLineGraph);
+                }
             }
         });
         $scope.$watch('vm.myOverviewBarData', function (newValue, oldValue) {
@@ -389,7 +533,7 @@
                 eventService.getOverviewGraphData(vm.event, vm.overviewFilter);
             }
         });
-		
+
         $scope.$watch('vm.pricetypeFilter.pieDisplay', function (newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
                 if (vm.myPriceTypePieData == null) {
@@ -422,7 +566,7 @@
                 eventService.getPriceTypeGraphData(vm.event, vm.pricetypeFilter);
             }
         });
-		
+
         $scope.$watch('vm.priceclassFilter.pieDisplay', function (newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
                 if (vm.myPriceClassPieData == null) {
@@ -467,7 +611,7 @@
                 eventService.getLocationsData(vm.event, vm.locationsFilter);
             }
         });
-		
+
         vm.search = function () {
             localStorage.setItem('reportsFilter', JSON.stringify(vm.filter));
             $location.path('dashboard');

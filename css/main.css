@@ -1155,13 +1155,24 @@ button.bo-sectionselector-item.list-group-item {
     background: #fff;
     top: 0;
     left: 0;
-    z-index: 200;
+    z-index: 2;
     padding: 20px 0;
     display: none;
 }
 
+.bo-map .piletilevi_venue_map_places_sections_fullscreen .bo-mapcontrols {
+    float: left;
+}
+
+.bo-map .piletilevi_venue_map_places_sections_fullscreen .piletilevi_venue_map,
+.bo-map .piletilevi_venue_map_places_sections_fullscreen .piletilevi_venue_map_places,
+.bo-map .piletilevi_venue_map_places_sections_fullscreen .piletilevi_venue_map_places_sections {
+    height: 100%;
+    width: 100%;
+}
+
 .bo-map .piletilevi_venue_map_places_sections_fullscreen .places_map_section {
-    height: 100% !important;
+    height: 85% !important;
     width: 100% !important;
 }
 
