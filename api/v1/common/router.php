@@ -383,13 +383,13 @@ $app->post('/concertInfo', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->concertInfo( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -406,13 +406,13 @@ $app->post('/showInfo', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->showInfo( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
