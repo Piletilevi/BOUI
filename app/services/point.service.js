@@ -31,6 +31,10 @@
             return $rootScope.user.salesPoints.find(findPoint).name
         }
 
+        function getPointLinks() {
+            return $rootScope.user.salesPoints.find(findPoint).links
+        }
+		
         function setPoint(pointId) {
             var prevPoint = $rootScope.user.point;
             dataService.post('setPoint', {'pointId': pointId });
@@ -39,6 +43,7 @@
             $rootScope.pointMenuLogo = getPointMenuLogo();
             $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor();
             $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
+            $rootScope.eventLinks = getPointLinks();
 
             if (prevPoint !== pointId) {
                 eventService.reset();
