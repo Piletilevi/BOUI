@@ -29,12 +29,8 @@
 			vm.filter = JSON.parse(localStorage.getItem('reportsFilter'));
 			vm.filter.period.startDate = moment(vm.filter.period.startDate);
 			vm.filter.period.endDate = moment(vm.filter.period.endDate);
+			vm.reset_search = vm.filter.name && vm.filter.name.length > 0;
 			localStorage.removeItem('reportsFilter');
-		}
-
-		if(localStorage.getItem('resetSearch')) {
-			vm.reset_search = JSON.parse(localStorage.getItem('resetSearch'));
-			localStorage.removeItem('resetSearch');
 		}
 
 		//scroll to top

@@ -95,7 +95,6 @@
       }
       vm.reset_search = true;
       localStorage.setItem('reportsFilter', JSON.stringify(vm.filter));
-      localStorage.setItem('resetSearch', JSON.stringify(vm.reset_search));
       $location.path('dashboard');
     };
 
@@ -308,16 +307,14 @@
     $scope.$watch('vm.filter.period', function (newPeriod, oldPeriod) {
       if (newPeriod !== oldPeriod) {
         localStorage.setItem('reportsFilter', JSON.stringify(vm.filter));
-        localStorage.setItem('resetSearch', JSON.stringify(vm.reset_search));
         $location.path('dashboard');
       }
     });
 
-    $scope.$watch('vm.filter.name', function (newFilter, oldFilter) {
-      if (newFilter !== oldFilter) {
-        vm.reset_search = false;
-      }
-    });
+    vm.search = function() {
+      localStorage.setItem('reportsFilter', JSON.stringify(vm.filter));
+      $location.path('dashboard');
+    };
 
     $scope.$watch('vm.event.sellPeriod', function (newSellPeriod, oldSellPeriod) {
       if (newSellPeriod !== oldSellPeriod) {
