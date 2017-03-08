@@ -102,6 +102,9 @@
 			filter.pastStart = null;
 			filter.loadingItems = true;
 
+			filter.period.startDate = moment(filter.period.startDate).utc().add(filter.period.startDate.utcOffset(), 'm');
+			filter.period.endDate = moment(filter.period.endDate).utc().add(filter.period.endDate.utcOffset(), 'm');
+
 			dataService.post('myEvents', {filter: filter}).then(function (results) {
 				myOpenCount = 0;
 				myDraftCount = 0;
@@ -125,7 +128,7 @@
 						myPastCount = myPastCount + "+";
 					}
 				}
-				
+
 				if (results.status == 'success'){
 					if (filter.status == 'onsale') {
 						myOpenEvents = results.data;
@@ -192,12 +195,12 @@
 			}
 			return false;
 		}
-		
+
 		function getMoreRelatedEvents(event) {
 
 			if (loadingRelatedItems)
 				return;
-			
+
 			if (hasMoreRelatedEvents(event)) {
 				loadingRelatedItems = true;
 				relatedEvents.start = relatedEvents.concerts.length + 1;
@@ -214,7 +217,7 @@
 				});
 			}
 		}
-		
+
 		function getRelatedEvents(event) {
 			dataService.post('relatedEvents', {id: event.id, type: event.isShow ? 'show' : 'concert'}).then(function (results) {
 				relatedEvents = null;
@@ -226,14 +229,14 @@
 				}
 			});
 		}
-		
+
 		function processRelatedEvents(relatedEvents) {
 			getShowSales(relatedEvents);
 			relatedEvents.concerts.forEach(function(eventItem) {
 				getConcertSales(eventItem);
-			});			
+			});
 		}
-		
+
 		function getEventSales(event) {
 			if (event.isShow) {
 				getShowSales(event);
@@ -295,7 +298,7 @@
 				}
 			});
 		}
-		
+
 		function getConcertInfo(event) {
 			dataService.post('concertInfo', {id: event.id}).then(function (results) {
 				dataService.page(results);
@@ -346,6 +349,7 @@
 
 		function getOverviewData(event, filter) {
 			dataService.post('eventSalesReportByStatus', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+				console.log('eventSalesReportByStatus');
 				myOverviewData = null;
 				dataService.page(results);
 				if (results.status == 'success'){
