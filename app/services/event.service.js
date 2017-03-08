@@ -102,8 +102,11 @@
 			filter.pastStart = null;
 			filter.loadingItems = true;
 
-			filter.period.startDate = moment(filter.period.startDate).utc().add(filter.period.startDate.utcOffset(), 'm');
-			filter.period.endDate = moment(filter.period.endDate).utc().add(filter.period.endDate.utcOffset(), 'm');
+			var startDateUtcOffset = filter.period.startDate.utcOffset(),
+				endDateUtcOffset = filter.period.endDate.utcOffset();
+
+			filter.period.startDate = moment(filter.period.startDate).utc().add(startDateUtcOffset, 'm').startOf('day');
+			filter.period.endDate =  moment(filter.period.endDate).utc().add(endDateUtcOffset, 'm').endOf('day');
 
 			dataService.post('myEvents', {filter: filter}).then(function (results) {
 				myOpenCount = 0;
