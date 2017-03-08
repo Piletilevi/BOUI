@@ -102,8 +102,8 @@
 			filter.pastStart = null;
 			filter.loadingItems = true;
 
-			var startDateUtcOffset = filter.period.startDate.utcOffset(),
-				endDateUtcOffset = filter.period.endDate.utcOffset();
+			var startDateUtcOffset = moment(filter.period.startDate).utcOffset(),
+				endDateUtcOffset = moment(filter.period.endDate).utcOffset();
 
 			filter.period.startDate = moment(filter.period.startDate).utc().add(startDateUtcOffset, 'm').startOf('day');
 			filter.period.endDate =  moment(filter.period.endDate).utc().add(endDateUtcOffset, 'm').endOf('day');
