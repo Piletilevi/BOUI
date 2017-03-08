@@ -361,6 +361,18 @@
       }
     });
 
+    $scope.$watch('vm.pricetypeFilter.period', function (newPeriod, oldPeriod) {
+      if (newPeriod !== oldPeriod) {
+        vm.tabSelectEvent('pricetype');
+      }
+    });
+
+    $scope.$watch('vm.priceclassFilter.period', function (newPeriod, oldPeriod) {
+      if (newPeriod !== oldPeriod) {
+        vm.tabSelectEvent('priceclass');
+      }
+    });
+
     $scope.$watch('vm.sectorsFilter.period', function (newPeriod, oldPeriod) {
       if (newPeriod !== oldPeriod) {
         vm.tabSelectEvent('sectors');
