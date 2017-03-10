@@ -30,6 +30,8 @@
 			vm.filter.period.startDate = moment(vm.filter.period.startDate);
 			vm.filter.period.endDate = moment(vm.filter.period.endDate);
 			vm.reset_search = vm.filter.name && vm.filter.name.length > 0;
+			vm.filter.status = 'onsale';
+			eventService.getMyEvents(vm.filter);
 			localStorage.removeItem('reportsFilter');
 		}
 
