@@ -137,10 +137,12 @@
 
 				function updateCaledarDates(startDate, endDate) {
 					setTimeout(function() {
-						$element.data('daterangepicker').setStartDate(startDate);
-						$element.data('daterangepicker').setEndDate(endDate);
-						$element.data('daterangepicker').updateView();
-						$element.data('daterangepicker').updateCalendars();
+                        if($element.data('daterangepicker')) {
+                            $element.data('daterangepicker').setStartDate(startDate);
+                            $element.data('daterangepicker').setEndDate(endDate);
+                            $element.data('daterangepicker').updateView();
+                            $element.data('daterangepicker').updateCalendars();
+                        }
 					}, 1);
 				}
 
@@ -175,11 +177,15 @@
 					});
 
 					$("body").on("click", ".resetBtn", function($event) {
-						$element.data('daterangepicker').setStartDate(moment().subtract(7, 'days'));
-						$element.data('daterangepicker').setEndDate(moment().add(1, 'years'));
-						$element.data('daterangepicker').updateView();
-						$element.data('daterangepicker').updateCalendars();
-						$element.data('daterangepicker').hide();
+                        setTimeout(function() {
+                            if($element.data('daterangepicker')) {
+                                $element.data('daterangepicker').setStartDate(moment().subtract(7, 'days'));
+                                $element.data('daterangepicker').setEndDate(moment().add(1, 'years'));
+                                $element.data('daterangepicker').updateView();
+                                $element.data('daterangepicker').updateCalendars();
+                                $element.data('daterangepicker').hide();
+                            }
+                        }, 1);
 					});
 
 					$datepickerWrapper.on("click", function() {
