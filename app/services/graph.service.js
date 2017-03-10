@@ -348,6 +348,7 @@
         var series = [];
         var labels = [];
         var data = [];
+        var ids = [];
         var colors = [];
         var step = 0;
 
@@ -357,11 +358,15 @@
                 return e == sellType.priceTypeName;
               }).length === 0) {
               series.push(sellType.priceTypeName);
+              ids.push(parseInt(sellType.priceTypeId, 10));
             }
           });
         });
 
-        series = series.sort();
+        // Sort by priceTypeId
+        series = ids.map(function(e,i){return i;})
+            .sort(function(a,b){return ids[a] - ids[b];})
+            .map(function(e){return series[e];});
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
