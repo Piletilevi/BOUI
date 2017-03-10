@@ -66,6 +66,7 @@
 	vm.getMoreRelatedEvents = eventService.getMoreRelatedEvents;
 	vm.hasMoreRelatedEvents = eventService.hasMoreRelatedEvents;
     vm.filter = {period: {startDate: moment().subtract(7, 'days'), endDate: moment().add(1, 'years')}, name: ''};
+    vm.filterPeriod = {period: {startDate: null, endDate: null}};
     vm.overviewFilter = {period: {startDate: null, endDate: null}, display: 'tickets', groupBy: 'day'};
     vm.pricetypeFilter = {period: {startDate: null, endDate: null}, display: 'tickets', pieDisplay: 'tickets', groupBy: 'day'};
     vm.priceclassFilter = {
@@ -144,7 +145,6 @@
       } else if (tab == 'sectors') {
         eventService.getSectorsData(vm.event, vm.sectorsFilter);
       }
-
       currentTab = tab;
     };
 
@@ -318,6 +318,8 @@
 
     $scope.$watch('vm.event.sellPeriod', function (newSellPeriod, oldSellPeriod) {
       if (newSellPeriod !== oldSellPeriod) {
+        vm.filterPeriod.startDate = moment(newSellPeriod.start);
+        vm.filterPeriod.endDate = moment(newSellPeriod.end);
         vm.overviewFilter.period.startDate = moment(newSellPeriod.start);
         vm.overviewFilter.period.endDate = moment(newSellPeriod.end);
         vm.pricetypeFilter.period.startDate = moment(newSellPeriod.start);
@@ -352,27 +354,13 @@
       }
     });
 
-    $scope.$watch('vm.overviewFilter.period', function (newPeriod, oldPeriod) {
+    $scope.$watch('vm.filterPeriod', function (newPeriod, oldPeriod) {
       if (newPeriod !== oldPeriod) {
-        vm.tabSelectEvent('overview');
-      }
-    });
-
-    $scope.$watch('vm.pricetypeFilter.period', function (newPeriod, oldPeriod) {
-      if (newPeriod !== oldPeriod) {
-        vm.tabSelectEvent('pricetype');
-      }
-    });
-
-    $scope.$watch('vm.priceclassFilter.period', function (newPeriod, oldPeriod) {
-      if (newPeriod !== oldPeriod) {
-        vm.tabSelectEvent('priceclass');
-      }
-    });
-
-    $scope.$watch('vm.sectorsFilter.period', function (newPeriod, oldPeriod) {
-      if (newPeriod !== oldPeriod) {
-        vm.tabSelectEvent('sectors');
+        vm.overviewFilter.period = vm.filterPeriod;
+        vm.pricetypeFilter.period = vm.filterPeriod;
+        vm.priceclassFilter.period = vm.filterPeriod;
+        vm.sectorsFilter.period = vm.filterPeriod;
+        vm.tabSelectEvent(currentTab);
       }
     });
 

@@ -83,7 +83,7 @@
                                     <span class="visible-print">Sales report for period:</span>
                                     <div class="input-group data_range">
                                         <input type="text" daterangepicker class="form-control"
-                                               ng-model="vm.overviewFilter.period"
+                                               ng-model="vm.filterPeriod"
                                                ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 										 <span class="input-group-btn">
@@ -186,7 +186,7 @@
                                 <div class="form-group">
                                     <div class="input-group data_range">
                                         <input type="text" daterangepicker class="form-control"
-                                               ng-model="vm.pricetypeFilter.period"
+                                               ng-model="vm.filterPeriod"
                                                ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 										 <span class="input-group-btn">
@@ -296,7 +296,7 @@
                                 <div class="form-group">
                                     <div class="input-group data_range">
                                         <input type="text" daterangepicker class="form-control"
-                                               ng-model="vm.priceclassFilter.period"
+                                               ng-model="vm.filterPeriod"
                                                ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 										 <span class="input-group-btn">
@@ -402,7 +402,7 @@
                         <div class="form-group">
                             <div class="input-group data_range">
                                 <input type="text" daterangepicker class="form-control"
-                                       ng-model="vm.sectorsFilter.period" ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                       ng-model="vm.filterPeriod" ng-attr-data-min-date="{{vm.minFilterDate}}"
                                        ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 								 <span class="input-group-btn">
 									<button class="btn btn-default" type="button" data-control="daterangepicker">
@@ -471,7 +471,7 @@
                         <div class="form-group">
                             <div class="input-group data_range">
                                 <input type="text" daterangepicker class="form-control"
-                                       ng-model="vm.sectorsFilter.period" ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                       ng-model="vm.filterPeriod" ng-attr-data-min-date="{{vm.minFilterDate}}"
                                        ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 								 <span class="input-group-btn">
 									<button class="btn btn-default" type="button" data-control="daterangepicker">

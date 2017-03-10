@@ -22,7 +22,7 @@
 
 
 				var showCompareSelect = $attributes.hasOwnProperty("showcompareselect") ? true : false;
-
+                var defaultValuesSet = false;
 				var options = {};
 				options.locale = {};
 				options.locale.format = 'DD.MM.YYYY';
@@ -114,8 +114,8 @@
 						'</div>';
 
 					options.autoApply = false;
-					options.minDate = $attributes.minDate ? $attributes.minDate : false;
-					options.maxDate = $attributes.maxDate ? $attributes.maxDate : false;
+					options.minDate = $attributes.minDate ? moment($attributes.minDate) : false;
+					options.maxDate = $attributes.maxDate ? moment($attributes.maxDate) : false;
 
 					$element.daterangepicker(options, function(start, end, label) {
 						var modelValue = ngModel.$viewValue;
@@ -198,34 +198,23 @@
 					renderDateTimePicker();
 				});
 
-				var unregister = $scope.$watch(function() {
-					
-					var reRender = false;
-					
-					if (ngModel.$modelValue.startDate) {
-						reRender = true;
-						$element.data('daterangepicker').setStartDate(ngModel.$modelValue.startDate);
-					}
-					if (ngModel.$modelValue.endDate) {
-						reRender = true;
-						$element.data('daterangepicker').setEndDate(ngModel.$modelValue.endDate);
-					}
-					if (reRender) {
-						renderDateTimePicker();
-						unregister();
-					}
-					return $attributes.ngModel;
+				$scope.$watch(function() {
+                    if (ngModel.$modelValue.startDate && ngModel.$modelValue.endDate && !defaultValuesSet) {
+                        $element.data('daterangepicker').setStartDate(ngModel.$modelValue.startDate);
+                        $element.data('daterangepicker').setEndDate(ngModel.$modelValue.endDate);
+                        defaultValuesSet = true;
+                    }
+					return ngModel.$modelValue.startDate;
 				}, function(modelValue, oldModelValue) {
-					if (!ngModel.$modelValue || (!ngModel.$modelValue.startDate)) {
-						return;
+					if(!angular.equals(modelValue, oldModelValue)) {
+						if (ngModel.$modelValue.startDate) {
+							$element.data('daterangepicker').setStartDate(ngModel.$modelValue.startDate);
+						}
+						if (ngModel.$modelValue.endDate) {
+							$element.data('daterangepicker').setEndDate(ngModel.$modelValue.endDate);
+						}
+						renderDateTimePicker();
 					}
-
-					if (oldModelValue !== modelValue) {
-						return;
-					}
-
-					$element.data('daterangepicker').updateView();
-					$element.data('daterangepicker').updateCalendars();
 				});
 			}
 
