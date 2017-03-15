@@ -43,9 +43,9 @@
 				 <div class="clearfix">
 					 <div class="bo-simplestats-pct">{{event.statistics.soldPercent || 0}}%</div><!--
 					 --><div class="bo-simplestats-bar progress">
-						 <div class="progress-bar progress-bar-success" style="width: {{event.statistics.soldPercent}}%" title="sold"></div>
-						 <div class="progress-bar progress-bar-warning" style="width: {{event.statistics.bookedPercent}}%" title="reserved"></div>
-						 <div class="progress-bar progress-bar-danger" style="width: {{event.statistics.availablePercent}}%" title="empty"></div>
+						 <div class="progress-bar progress-bar-success" style="width: {{event.statistics.soldPercent}}%" title="{{'api_overview_sold_total'|translate}}"></div>
+						 <div class="progress-bar progress-bar-warning" style="width: {{event.statistics.bookedPercent}}%" title="{{'api_overview_reserved_total'|translate}}"></div>
+						 <div class="progress-bar progress-bar-danger" style="width: {{event.statistics.availablePercent}}%" title="{{'api_avail_for_sale'|translate}}"></div>
 					 </div>
 				 </div>
 				</div>

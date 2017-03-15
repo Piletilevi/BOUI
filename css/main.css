@@ -533,6 +533,7 @@ a:hover {
 	border-radius: 4px;
 	color: #263443;
 	border: 1px solid #cfd4da;
+	overflow: hidden;
 }
 
 .bo-widgetbox .control-label {
