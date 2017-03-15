@@ -159,7 +159,7 @@
 								</tr>
 								<tr ng-repeat="overviewRow in overviewData.rows" class="{{overviewRow.isRefund ? 'text-danger' : ''}}">
 									<td>
-										<span class="bo-dot" style="background-color: {{overviewRow.color}}"></span>
+										<span class="bo-dot" style="background-color: {{overviewRow.color}}!important;"></span>
 									</td>
 									<td class="bo-name-column">{{overviewRow.typeName|translate}}:</td>
 									<td>{{overviewRow.count}}</td>
@@ -265,7 +265,7 @@
 									<th>{{pricetypeData.rowSum | number:2}} {{pricetypeData.currency}}</th>
 								</tr>
 								<tr ng-repeat="pricetypeItem in pricetypeData.priceTypes">
-									<td><span class="bo-dot" style="background-color: {{pricetypeItem.color}}"></span></td>
+									<td><span class="bo-dot" style="background-color: {{pricetypeItem.color}}!important;"></span></td>
 									<td class="bo-name-column">{{pricetypeItem.priceTypeName}} <span ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice | number:2) + "-" + (pricetypeItem.maxPrice | number:2) : (pricetypeItem.minPrice | number:2)}})</span></td>
 									<td>{{pricetypeItem.count}}</td>
 									<td>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</td>
@@ -361,7 +361,7 @@
 								<th>{{priceclassData.rowSum | number:2}} {{priceclassData.currency}}</th>
 							</tr>
 							<tr ng-repeat="priceclassItem in priceclassData.priceClasses">
-								<td><span class="bo-dot" style="background-color: {{priceclassItem.color}}"></span></td>
+								<td><span class="bo-dot" style="background-color: {{priceclassItem.color}}!important;"></span></td>
 								<td class="bo-name-column">{{priceclassItem.priceClassName}} <span ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice | number:2) + "-" + (priceclassItem.maxPrice | number:2) : (priceclassItem.minPrice | number:2)}})</span></td>
 								<td>{{priceclassItem.count}}</td>
 								<td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</td>
