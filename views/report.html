@@ -111,67 +111,73 @@
 						</div>
 					</div>
 				</div>
-				<div class="bo-chart">
-					<canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data" chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series" chart-options="vm.overviewLineGraph.options" chart-dataset-override="vm.overviewLineGraph.datasetOverride" chart-colors="vm.overviewLineGraph.colors">
-					</canvas>
+				<div ng-if="vm.myOverviewBarData.sales.length === 0">
+					<div class="bo-no-data-msg">
+						{{'no_data_available'|translate}}
+					</div>
 				</div>
-				<div class="row bo-double-charts-row">
-					<div class="col-lg-6">
-						<div class="bo-chart">
-							<canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data" chart-labels="vm.overviewBarGraph.labels"
-							chart-options="vm.overviewBarGraph.options" chart-series="vm.overviewBarGraph.series" chart-colors="vm.overviewBarGraph.colors" chart-dataset-override="vm.overviewBarGraph.datasetOverride"></canvas>
+				<div ng-if="vm.myOverviewBarData.sales.length > 0">
+					<div class="bo-chart">
+						<canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data" chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series" chart-options="vm.overviewLineGraph.options" chart-dataset-override="vm.overviewLineGraph.datasetOverride" chart-colors="vm.overviewLineGraph.colors">
+						</canvas>
+					</div>
+					<div class="row bo-double-charts-row">
+						<div class="col-lg-6">
+							<div class="bo-chart">
+								<canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data" chart-labels="vm.overviewBarGraph.labels"
+								chart-options="vm.overviewBarGraph.options" chart-series="vm.overviewBarGraph.series" chart-colors="vm.overviewBarGraph.colors" chart-dataset-override="vm.overviewBarGraph.datasetOverride"></canvas>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<table ng-repeat="overviewData in vm.myOverviewBarData.sales" class="bo-revenuetable table table-condensed table-small">
+								<colgroup ng-if="$first">
+									<col>
+									<col>
+									<col>
+									<col>
+									<col>
+								</colgroup>
+								<thead ng-if="$first">
+									<tr>
+										<td width="7%"></td>
+										<td width="46%"></td>
+										<td width="17%">{{'api_tickets'|translate}}</td>
+										<td width="10%">%</td>
+										<td width="20%">{{'api_revenue'|translate}}</td>
+									</tr>
+								</thead>
+								<tbody ng-if="$first">
+									<tr class="info">
+										<td></td>
+										<td>{{'api_generated'|translate}}</td>
+										<td>{{vm.myOverviewBarData.generatedCount}}</td>
+										<td>100%</td>
+										<td>{{vm.myOverviewBarData.generatedSum | number:2}} {{vm.myOverviewBarData.currency}}</td>
+									</tr>
+								</tbody>
+								<thead ng-if="overviewData.groupId != 'generated'">
+									<tr>
+										<th width="7%"></th>
+										<th width="46%">{{overviewData.groupName|translate}}:</th>
+										<th width="17%">{{overviewData.rowCount}}</th>
+										<th width="10%">{{vm.myOverviewBarData.generatedCount ? ( overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</th>
+										<th width="20%">{{overviewData.rowSum | number:2}} {{vm.myOverviewBarData.currency}}</th>
+									</tr>
+								</thead>
+								<tbody ng-if="overviewData.groupId != 'generated'">
+									<tr ng-repeat="overviewRow in overviewData.rows" ng-class="{ 'active text-danger': overviewRow.isRefund }">
+										<td style="background-color: {{overviewRow.color}}!important;"></td>
+										<td>{{overviewRow.typeName|translate}}:</td>
+										<td>{{overviewRow.count}}</td>
+										<td>{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
+										<td>{{overviewRow.sum | number:2}} {{vm.myOverviewBarData.currency}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<a href="#" class="btn btn-info bo-detailed-report-link">{{'api_view_detailed_report'|translate}}</a>
 						</div>
 					</div>
-					<div class="col-lg-6">
-						<table ng-repeat="overviewData in vm.myOverviewBarData.sales" class="bo-revenuetable table table-condensed table-small">
-							<colgroup ng-if="$first">
-								<col>
-								<col>
-								<col>
-								<col>
-								<col>
-							</colgroup>
-							<thead ng-if="$first">
-								<tr>
-									<td width="7%"></td>
-									<td width="46%"></td>
-									<td width="17%">{{'api_tickets'|translate}}</td>
-									<td width="10%">%</td>
-									<td width="20%">{{'api_revenue'|translate}}</td>
-								</tr>
-							</thead>
-							<tbody ng-if="$first">
-								<tr class="info">
-									<td></td>
-									<td>{{'api_generated'|translate}}</td>
-									<td>{{vm.myOverviewBarData.generatedCount}}</td>
-									<td>100%</td>
-									<td>{{vm.myOverviewBarData.generatedSum | number:2}} {{vm.myOverviewBarData.currency}}</td>
-								</tr>
-							</tbody>
-							<thead ng-if="overviewData.groupId != 'generated'">
-								<tr>
-									<th width="7%"></th>
-									<th width="46%">{{overviewData.groupName|translate}}:</th>
-									<th width="17%">{{overviewData.rowCount}}</th>
-									<th width="10%">{{vm.myOverviewBarData.generatedCount ? ( overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</th>
-									<th width="20%">{{overviewData.rowSum | number:2}} {{vm.myOverviewBarData.currency}}</th>
-								</tr>
-							</thead>
-							<tbody ng-if="overviewData.groupId != 'generated'">
-								<tr ng-repeat="overviewRow in overviewData.rows" ng-class="{ 'active text-danger': overviewRow.isRefund }">
-									<td style="background-color: {{overviewRow.color}}!important;"></td>
-									<td>{{overviewRow.typeName|translate}}:</td>
-									<td>{{overviewRow.count}}</td>
-									<td>{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{overviewRow.sum | number:2}} {{vm.myOverviewBarData.currency}}</td>
-								</tr>
-							</tbody>
-						</table>
-						<a href="#" class="btn btn-info bo-detailed-report-link">{{'api_view_detailed_report'|translate}}</a>
-					</div>
 				</div>
-
             </div>
         </div>
 
@@ -214,74 +220,80 @@
 						</div>
 					</div>
 				</div>
-				<div class="bo-chart">
-					<canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data" chart-labels="vm.pricetypeLineGraph.labels" chart-series="vm.pricetypeLineGraph.series" chart-options="vm.pricetypeLineGraph.options" chart-colors="vm.pricetypeLineGraph.colors" chart-dataset-override="vm.pricetypeLineGraph.datasetOverride">
-					</canvas>
+				<div ng-if="vm.myPriceTypePieData.sales.length === 0">
+					<div class="bo-no-data-msg">
+						{{'no_data_available'|translate}}
+					</div>
 				</div>
-				<div class="row bo-double-charts-row">
-					<div class="col-lg-5">
-						<div class="bo-chart">
-							<div class="bo-chart-buttons">
-								<div class="btn-group btn-group-sm" role="group">
-									<span class="visible-print">Displayed by: </span>
-									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='tickets'}" ng-click="vm.setPricetypePieDisplay('tickets')">{{'api_tickets'|translate}}</button>
-									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='revenue'}" ng-click="vm.setPricetypePieDisplay('revenue')">{{'api_revenue'|translate}}</button>
+				<div ng-if="vm.myPriceTypePieData.sales.length > 0">
+					<div class="bo-chart">
+						<canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data" chart-labels="vm.pricetypeLineGraph.labels" chart-series="vm.pricetypeLineGraph.series" chart-options="vm.pricetypeLineGraph.options" chart-colors="vm.pricetypeLineGraph.colors" chart-dataset-override="vm.pricetypeLineGraph.datasetOverride">
+						</canvas>
+					</div>
+					<div class="row bo-double-charts-row">
+						<div class="col-lg-5">
+							<div class="bo-chart">
+								<div class="bo-chart-buttons">
+									<div class="btn-group btn-group-sm" role="group">
+										<span class="visible-print">Displayed by: </span>
+										<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='tickets'}" ng-click="vm.setPricetypePieDisplay('tickets')">{{'api_tickets'|translate}}</button>
+										<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='revenue'}" ng-click="vm.setPricetypePieDisplay('revenue')">{{'api_revenue'|translate}}</button>
+									</div>
 								</div>
+								<canvas id="pricetypePie" class="chart chart-pie" chart-data="vm.pricetypePieGraph.data" chart-labels="vm.pricetypePieGraph.labels" chart-options="vm.pricetypePieGraph.options" chart-colors="vm.pricetypePieGraph.colors"></canvas>
 							</div>
-							<canvas id="pricetypePie" class="chart chart-pie" chart-data="vm.pricetypePieGraph.data" chart-labels="vm.pricetypePieGraph.labels" chart-options="vm.pricetypePieGraph.options" chart-colors="vm.pricetypePieGraph.colors"></canvas>
+						</div>
+						<div class="col-lg-7">
+							<table ng-repeat="pricetypeData in vm.myPriceTypePieData.sales" class="bo-pricetyperevenuetable table table-condensed table-small">
+								<colgroup>
+									<col>
+									<col>
+									<col>
+									<col>
+									<col>
+								</colgroup>
+								<thead ng-if="$first">
+									<tr>
+										<td></td>
+										<td>{{'api_pricetype'|translate}}</td>
+										<td>{{'api_tickets'|translate}}</td>
+										<td>%</td>
+										<td>{{'api_revenue'|translate}}</td>
+									</tr>
+								</thead>
+								<tbody ng-if="$first">
+									<tr class="info">
+										<td></td>
+										<td>{{'api_issued_total'|translate}}</td>
+										<td>{{vm.myPriceTypePieData.generatedCount}}</td>
+										<td>100%</td>
+										<td>{{vm.myPriceTypePieData.generatedSum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
+									</tr>
+								</tbody>
+								<thead>
+									<tr>
+										<th></th>
+										<th>{{pricetypeData.groupName|translate}}</th>
+										<th>{{pricetypeData.rowCount}}</th>
+										<th>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeData.rowCount / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</th>
+										<th>{{pricetypeData.rowSum | number:2}} {{pricetypeData.currency}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="pricetypeItem in pricetypeData.priceTypes">
+										<td>
+											<span class="hidden-print bo-dot" style="background-color: {{pricetypeItem.color}}!important;"></span>
+										</td>
+										<td>{{pricetypeItem.priceTypeName}} <span ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice | number:2) + "-" + (pricetypeItem.maxPrice | number:2) : (pricetypeItem.minPrice | number:2)}})</span></td>
+										<td>{{pricetypeItem.count}}</td>
+										<td>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</td>
+										<td>{{pricetypeItem.sum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					<div class="col-lg-7">
-						<table ng-repeat="pricetypeData in vm.myPriceTypePieData.sales" class="bo-pricetyperevenuetable table table-condensed table-small">
-							<colgroup>
-								<col>
-								<col>
-								<col>
-								<col>
-								<col>
-							</colgroup>
-							<thead ng-if="$first">
-								<tr>
-									<td></td>
-									<td>{{'api_pricetype'|translate}}</td>
-									<td>{{'api_tickets'|translate}}</td>
-									<td>%</td>
-									<td>{{'api_revenue'|translate}}</td>
-								</tr>
-							</thead>
-							<tbody ng-if="$first">
-								<tr class="info">
-									<td></td>
-									<td>{{'api_issued_total'|translate}}</td>
-									<td>{{vm.myPriceTypePieData.generatedCount}}</td>
-									<td>100%</td>
-									<td>{{vm.myPriceTypePieData.generatedSum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
-								</tr>
-							</tbody>
-							<thead>
-								<tr>
-									<th></th>
-									<th>{{pricetypeData.groupName|translate}}</th>
-									<th>{{pricetypeData.rowCount}}</th>
-									<th>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeData.rowCount / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</th>
-									<th>{{pricetypeData.rowSum | number:2}} {{pricetypeData.currency}}</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="pricetypeItem in pricetypeData.priceTypes">
-									<td>
-										<span class="hidden-print bo-dot" style="background-color: {{pricetypeItem.color}}!important;"></span>
-									</td>
-									<td>{{pricetypeItem.priceTypeName}} <span ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice | number:2) + "-" + (pricetypeItem.maxPrice | number:2) : (pricetypeItem.minPrice | number:2)}})</span></td>
-									<td>{{pricetypeItem.count}}</td>
-									<td>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{pricetypeItem.sum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
 				</div>
-
             </div>
         </div>
 
@@ -324,73 +336,79 @@
 						</div>
 					</div>
 				</div>
-				<div class="bo-chart">
-					<canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data" chart-labels="vm.priceclassLineGraph.labels" chart-series="vm.priceclassLineGraph.series" chart-options="vm.priceclassLineGraph.options" chart-colors="vm.priceclassLineGraph.colors" chart-dataset-override="vm.priceclassLineGraph.datasetOverride" height="100px">
-					</canvas>
+				<div ng-if="vm.myPriceClassPieData.sales.length === 0">
+					<div class="bo-no-data-msg">
+						{{'no_data_available'|translate}}
+					</div>
 				</div>
-				<div class="row bo-double-charts-row">
-					<div class="col-lg-5">
-						<div class="bo-chart">
-							<div class="bo-chart-buttons">
-								<div class="btn-group btn-group-sm" role="group">
-									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='tickets'}" ng-click="vm.setPriceclassPieDisplay('tickets')">{{'api_tickets'|translate}}</button>
-									<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='revenue'}" ng-click="vm.setPriceclassPieDisplay('revenue')">{{'api_revenue'|translate}}</button>
+				<div ng-if="vm.myPriceClassPieData.sales.length > 0">
+					<div class="bo-chart">
+						<canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data" chart-labels="vm.priceclassLineGraph.labels" chart-series="vm.priceclassLineGraph.series" chart-options="vm.priceclassLineGraph.options" chart-colors="vm.priceclassLineGraph.colors" chart-dataset-override="vm.priceclassLineGraph.datasetOverride" height="100px">
+						</canvas>
+					</div>
+					<div class="row bo-double-charts-row">
+						<div class="col-lg-5">
+							<div class="bo-chart">
+								<div class="bo-chart-buttons">
+									<div class="btn-group btn-group-sm" role="group">
+										<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='tickets'}" ng-click="vm.setPriceclassPieDisplay('tickets')">{{'api_tickets'|translate}}</button>
+										<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='revenue'}" ng-click="vm.setPriceclassPieDisplay('revenue')">{{'api_revenue'|translate}}</button>
+									</div>
 								</div>
+								<canvas id="priceclassPie" class="chart chart-pie" chart-data="vm.priceclassPieGraph.data" chart-labels="vm.priceclassPieGraph.labels" chart-options="vm.priceclassPieGraph.options" chart-colors="vm.priceclassPieGraph.colors"></canvas>
 							</div>
-							<canvas id="priceclassPie" class="chart chart-pie" chart-data="vm.priceclassPieGraph.data" chart-labels="vm.priceclassPieGraph.labels" chart-options="vm.priceclassPieGraph.options" chart-colors="vm.priceclassPieGraph.colors"></canvas>
+						</div>
+						<div class="col-lg-7">
+							<table ng-repeat="priceclassData in vm.myPriceClassPieData.sales" class="bo-pricetyperevenuetable table table-condensed table-small">
+								<colgroup>
+									<col>
+									<col>
+									<col>
+									<col>
+									<col>
+								</colgroup>
+								<thead ng-if="$first">
+									<tr>
+										<td></td>
+										<td>{{'api_priceclass'|translate}}</td>
+										<td>{{'api_tickets'|translate}}</td>
+										<td>%</td>
+										<td>{{'api_revenue'|translate}}</td>
+									</tr>
+								</thead>
+								<tbody ng-if="$first">
+									<tr class="info">
+										<td></td>
+										<td>{{'api_issued_total'|translate}}</td>
+										<td>{{vm.myPriceClassPieData.generatedCount}}</td>
+										<td>100%</td>
+										<td>{{vm.myPriceClassPieData.generatedSum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
+									</tr>
+								</tbody>
+								<thead>
+									<tr>
+										<th></th>
+										<th>{{priceclassData.groupName|translate}}</th>
+										<th>{{priceclassData.rowCount}}</th>
+										<th>{{vm.myPriceClassPieData.generatedCount ? ( priceclassData.rowCount / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</th>
+										<th>{{priceclassData.rowSum | number:2}} {{priceclassData.currency}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="priceclassItem in priceclassData.priceClasses">
+										<td>
+											<span class="hidden-print bo-dot" style="background-color: {{priceclassItem.color}}!important;"></span>
+										</td>
+										<td>{{priceclassItem.priceClassName}} <span ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice | number:2) + "-" + (priceclassItem.maxPrice | number:2) : (priceclassItem.minPrice | number:2)}})</span></td>
+										<td>{{priceclassItem.count}}</td>
+										<td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</td>
+										<td>{{priceclassItem.sum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					<div class="col-lg-7">
-						<table ng-repeat="priceclassData in vm.myPriceClassPieData.sales" class="bo-pricetyperevenuetable table table-condensed table-small">
-							<colgroup>
-								<col>
-								<col>
-								<col>
-								<col>
-								<col>
-							</colgroup>
-							<thead ng-if="$first">
-								<tr>
-									<td></td>
-									<td>{{'api_priceclass'|translate}}</td>
-									<td>{{'api_tickets'|translate}}</td>
-									<td>%</td>
-									<td>{{'api_revenue'|translate}}</td>
-								</tr>
-							</thead>
-							<tbody ng-if="$first">
-								<tr class="info">
-									<td></td>
-									<td>{{'api_issued_total'|translate}}</td>
-									<td>{{vm.myPriceClassPieData.generatedCount}}</td>
-									<td>100%</td>
-									<td>{{vm.myPriceClassPieData.generatedSum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
-								</tr>
-							</tbody>
-							<thead>
-								<tr>
-									<th></th>
-									<th>{{priceclassData.groupName|translate}}</th>
-									<th>{{priceclassData.rowCount}}</th>
-									<th>{{vm.myPriceClassPieData.generatedCount ? ( priceclassData.rowCount / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</th>
-									<th>{{priceclassData.rowSum | number:2}} {{priceclassData.currency}}</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="priceclassItem in priceclassData.priceClasses">
-									<td>
-										<span class="hidden-print bo-dot" style="background-color: {{priceclassItem.color}}!important;"></span>
-									</td>
-									<td>{{priceclassItem.priceClassName}} <span ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice | number:2) + "-" + (priceclassItem.maxPrice | number:2) : (priceclassItem.minPrice | number:2)}})</span></td>
-									<td>{{priceclassItem.count}}</td>
-									<td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{priceclassItem.sum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
 				</div>
-
             </div>
         </div>
 
@@ -414,7 +432,13 @@
                     </div>
                 </div>
 
-                <div class="row">
+				<div ng-if="vm.mySectorsData.sales.length === 0">
+					<div class="bo-no-data-msg">
+						{{'no_data_available'|translate}}
+					</div>
+				</div>
+
+                <div class="row" ng-if="vm.mySectorsData.sales.length > 0">
                     <div class="col-lg-6">
                         <div class="bo-sectionselector list-group" ng-if="vm.mySectorsData.sales.length">
                             <button type="button" class="bo-sectionselector-item list-group-item"

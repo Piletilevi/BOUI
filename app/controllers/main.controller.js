@@ -22,6 +22,7 @@
             else return true;
         }
 
+        vm.login = authService.getRememberedUser();
 	}
 
 })();

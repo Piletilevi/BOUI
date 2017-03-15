@@ -668,6 +668,13 @@ a:hover {
 	margin-bottom: 6px;
 }
 
+.bo-no-data-msg {
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: bold;
+	margin: 20px 0;
+}
+
 /* Small checkbox
 ================================ */
 

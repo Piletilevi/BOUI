@@ -17,7 +17,8 @@
             logout : logout,
             verifySession : verifySession,
             checkUserAuth : checkUserAuth,
-            changePassword : changePassword
+            changePassword : changePassword,
+            getRememberedUser: getRememberedUser
         };
         return service;
         
@@ -25,6 +26,7 @@
         }
         
         function login (customer) {
+            rememberMe(customer);
 			dataService.getIp().then(function(result) {
 				customer['clientip'] = result.ip;
 				dataService.post('login', {customer: customer})
@@ -37,6 +39,19 @@
 			}, function(e) {
 				//alert("error");
 			});
+        }
+
+        function rememberMe(customer) {
+            if(customer && customer.rememberMe) {
+                localStorage.setItem('bo-user', JSON.stringify(customer));
+            }
+            else {
+                localStorage.removeItem('bo-user');
+            }
+        }
+
+        function getRememberedUser() {
+            return JSON.parse(localStorage.getItem('bo-user'));
         }
 
         function logout(){
