@@ -211,7 +211,6 @@
 					if (results.status == 'success') {
 						if (results.data && results.data.concerts) {
 							results.data.concerts.forEach(function(eventItem) {
-								getConcertSales(eventItem);
 								relatedEvents.concerts.push(eventItem);
 							});
 						}
@@ -226,17 +225,7 @@
 				relatedEvents = null;
 				if (results.status == 'success'){
 					relatedEvents = results.data;
-					if (relatedEvents && relatedEvents.concerts) {
-						processRelatedEvents(relatedEvents);
-					}
 				}
-			});
-		}
-
-		function processRelatedEvents(relatedEvents) {
-			getShowSales(relatedEvents);
-			relatedEvents.concerts.forEach(function(eventItem) {
-				getConcertSales(eventItem);
 			});
 		}
 
@@ -276,6 +265,13 @@
 			dataService.post('concertSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
+					event.name = results.data.name;
+					event.confId = results.data.confId;
+					event.eventPeriod = results.data.eventPeriod;
+					event.sellPeriod = results.data.sellPeriod;
+					event.showId = results.data.showId;
+					event.location = results.data.location;
+					event.websiteUrl = getWebsiteUrl(event);
 					event.statistics = results.data.statistics;
 					event.websiteUrl = getWebsiteUrl(event);
 				}
@@ -296,6 +292,12 @@
 			dataService.post('showSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
+					event.name = results.data.name;
+					event.eventPeriod = results.data.eventPeriod;
+					event.locations = results.data.locations;
+					event.concerts = results.data.concerts;
+					event.concertsCount = results.data.concertsCount;
+					event.sellPeriod = results.data.sellPeriod;
 					event.statistics = results.data.statistics;
 					event.websiteUrl = getWebsiteUrl(event);
 				}
@@ -352,7 +354,6 @@
 
 		function getOverviewData(event, filter) {
 			dataService.post('eventSalesReportByStatus', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
-				console.log('eventSalesReportByStatus');
 				myOverviewData = null;
 				dataService.page(results);
 				if (results.status == 'success'){

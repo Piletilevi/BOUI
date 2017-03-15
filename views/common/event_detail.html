@@ -62,7 +62,7 @@
 		<span ng-if="event.websiteUrl"><span ng-if="showReportLink" class="bo-event-report-link-separator">|</span><a href="{{event.websiteUrl}}" target="_blank">{{'api_view_website'|translate}}</a></span>
 	</div>
 	<div ng-if="event.concerts" id="bo-sub-events{{event.id}}" class="bo-sub-events collapse">
-		<div class="panel panel-default bo-event" ng-repeat="concertItem in event.concerts" ng-init="vm.getEventSales(concertItem)">
+		<div class="panel panel-default bo-event" ng-repeat="concertItem in event.concerts">
 			<div ng-include-template="event_detail.html" ng-include-variables="{ event: concertItem, showEditLink: true, showReportLink: true }"></div>
 		</div>
 	</div>

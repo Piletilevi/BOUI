@@ -86,7 +86,6 @@
     vm.priceclassLineGraph = graphService.priceclassLineGraph;
 
 	//Initialize
-    eventService.getEventInfo(vm.event);
     eventService.getEventSales(vm.event);
     eventService.getRelatedEvents(vm.event);
 
