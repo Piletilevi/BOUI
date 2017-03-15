@@ -722,6 +722,16 @@ a:hover {
 	-moz-box-shadow: 0 0 0 1px #f7f9fb inset;
 	-webkit-box-shadow: 0 0 0 1px #f7f9fb inset;
 	box-shadow: 0 0 0 1px #f7f9fb inset;
+	display: block;
+	position: relative;
+}
+
+.bo-eventshort-overlay {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .bo-eventshort .progress {
@@ -810,6 +820,7 @@ a:hover {
 	border-top: 7px solid #cdd2d8;
 	border-left: 9px solid transparent;
 	border-right: 9px solid transparent;
+	z-index: 1;
 }
 .bo-eventshort-subevents .bo-eventshort:first-child:before {
 	content: "";
@@ -820,6 +831,7 @@ a:hover {
 	border-top: 7px solid #ebedf0;
 	border-left: 9px solid transparent;
 	border-right: 9px solid transparent;
+	z-index: 1;
 }
 
 .bo-eventshort-subevents .bo-eventshort {
