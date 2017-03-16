@@ -159,7 +159,7 @@
 								</tr>
 								<tr ng-repeat="overviewRow in overviewData.rows" class="{{overviewRow.isRefund ? 'text-danger' : ''}}">
 									<td>
-										<span class="bo-dot" style="background-color: {{overviewRow.color}}!important;"></span>
+										<span class="bo-dot fa fa-circle" style="color: {{overviewRow.color}}!important;"></span>
 									</td>
 									<td class="bo-name-column">{{overviewRow.typeName|translate}}:</td>
 									<td>{{overviewRow.count}}</td>
@@ -265,7 +265,7 @@
 									<th>{{pricetypeData.rowSum | number:2}} {{pricetypeData.currency}}</th>
 								</tr>
 								<tr ng-repeat="pricetypeItem in pricetypeData.priceTypes">
-									<td><span class="bo-dot" style="background-color: {{pricetypeItem.color}}!important;"></span></td>
+									<td><span class="bo-dot fa fa-circle" style="color: {{pricetypeItem.color}}!important;"></span></td>
 									<td class="bo-name-column">{{pricetypeItem.priceTypeName}} <span ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice | number:2) + "-" + (pricetypeItem.maxPrice | number:2) : (pricetypeItem.minPrice | number:2)}})</span></td>
 									<td>{{pricetypeItem.count}}</td>
 									<td>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</td>
@@ -361,7 +361,7 @@
 								<th>{{priceclassData.rowSum | number:2}} {{priceclassData.currency}}</th>
 							</tr>
 							<tr ng-repeat="priceclassItem in priceclassData.priceClasses">
-								<td><span class="bo-dot" style="background-color: {{priceclassItem.color}}!important;"></span></td>
+								<td><span class="bo-dot fa fa-circle" style="color: {{priceclassItem.color}}!important;"></span></td>
 								<td class="bo-name-column">{{priceclassItem.priceClassName}} <span ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice | number:2) + "-" + (priceclassItem.maxPrice | number:2) : (priceclassItem.minPrice | number:2)}})</span></td>
 								<td>{{priceclassItem.count}}</td>
 								<td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</td>
@@ -481,32 +481,32 @@
                     <div class="col-lg-6">
                         <div class="bo-legend">
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot"
-                                          style="background-color: #fff!important; border: 1px solid;"></span>&nbsp;Available
+                                    <span class="bo-dot fa fa-circle"
+                                          style="color: #fff!important; border: 1px solid;"></span>&nbsp;Available
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #51b0f5!important;"></span>&nbsp;Booked
+                                    <span class="bo-dot fa fa-circle" style="color: #51b0f5!important;"></span>&nbsp;Booked
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #289b91!important;"></span>&nbsp;Booked by venue owner
+                                    <span class="bo-dot fa fa-circle" style="color: #289b91!important;"></span>&nbsp;Booked by venue owner
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #2a31b5!important;"></span>&nbsp;Sold in salespoint
+                                    <span class="bo-dot fa fa-circle" style="color: #2a31b5!important;"></span>&nbsp;Sold in salespoint
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #f7572a!important;"></span>&nbsp;Returned
+                                    <span class="bo-dot fa fa-circle" style="color: #f7572a!important;"></span>&nbsp;Returned
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #000!important;"></span>&nbsp;Not available
+                                    <span class="bo-dot fa fa-circle" style="color: #000!important;"></span>&nbsp;Not available
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #ed8c9b!important;"></span>&nbsp;Defect
+                                    <span class="bo-dot fa fa-circle" style="color: #ed8c9b!important;"></span>&nbsp;Defect
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #decc47!important;"></span>&nbsp;Phone sales
+                                    <span class="bo-dot fa fa-circle" style="color: #decc47!important;"></span>&nbsp;Phone sales
                                 </span>
                                 <span class="bo-legend-item">
-                                    <span class="bo-dot" style="background-color: #47de4a!important;"></span>&nbsp;Issued to organizer
+                                    <span class="bo-dot fa fa-circle" style="color: #47de4a!important;"></span>&nbsp;Issued to organizer
                                 </span>
                         </div>
                         <div class="bo-map">
@@ -553,7 +553,7 @@
                     <tbody>
                     <tr>
                         <td>
-                            <span class="bo-dot" style="background-color: #df9617!important"></span>
+                            <span class="bo-dot fa fa-circle" style="color: #df9617!important"></span>
                         </td>
                         <td>
                             Parter
@@ -579,7 +579,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="bo-dot" style="background-color: #448fff!important"></span>
+                            <span class="bo-dot fa fa-circle" style="color: #448fff!important"></span>
                         </td>
                         <td>
                             Parter
@@ -605,7 +605,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="bo-dot" style="background-color: #448fff!important"></span>
+                            <span class="bo-dot fa fa-circle" style="color: #448fff!important"></span>
                         </td>
                         <td>
                             Parter
