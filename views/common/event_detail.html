@@ -12,7 +12,7 @@
 		<!--<div class="bo-event-badge bo-event-badge-past label-primary">Past event</div>-->
 		<!--<div class="bo-event-badge bo-event-badge-canceled label-danger">Event is suspended</div>-->
 		<!--<div class="bo-event-badge bo-event-badge-refund label-danger">Refund</div>-->
-		<a ng-if="event.concertsCount" class="bo-event-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events{{event.id}}" aria-expanded="false">
+		<a ng-if="event.concertsCount && showConcerts" class="bo-event-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events{{event.id}}" aria-expanded="false">
 		<span class="glyphicon glyphicon-triangle-top"></span>
 		<span class="glyphicon glyphicon-triangle-bottom"></span>
 		<span class="badge">{{event.concertsCount}}</span>
@@ -61,7 +61,7 @@
 	<div class="bo-event-report-link"><!--a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showEditLink">{{'api_edit'|translate}}</a><span ng-if="showEditLink">|</span--><a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showReportLink">{{'api_view_report'|translate}}</a>
 		<span ng-if="event.websiteUrl"><span ng-if="showReportLink" class="bo-event-report-link-separator">|</span><a href="{{event.websiteUrl}}" target="_blank">{{'api_view_website'|translate}}</a></span>
 	</div>
-	<div ng-if="event.concerts" id="bo-sub-events{{event.id}}" class="bo-sub-events collapse">
+	<div ng-if="event.concerts && showConcerts" id="bo-sub-events{{event.id}}" class="bo-sub-events collapse">
 		<div class="panel panel-default bo-event" ng-repeat="concertItem in event.concerts">
 			<div ng-include-template="event_detail.html" ng-include-variables="{ event: concertItem, showEditLink: true, showReportLink: true }"></div>
 		</div>

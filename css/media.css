@@ -679,6 +679,10 @@
 	.bo-line-chart-container {
 		height: 300px;
 	}
+
+	.bo-sidebar {
+		clear: both;
+	}
 }
 
 /* Bootstrap md
