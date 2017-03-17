@@ -4,7 +4,7 @@
 		<ul class="list-group">
 			<li class="list-group-item">
 				<div class="bo-eventshort">
-					<h3 class="bo-eventshort-title"><a href="#/report/show/{{related.id}}">{{related.name}}</a></h3>
+					<h3 class="bo-eventshort-title">{{related.name}}</h3>
 					<div class="bo-eventshort-datetime" ng-if="related.eventPeriod.start != related.eventPeriod.end">
 						<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{related.eventPeriod.start | date:'dd.MM.yyyy'}} - {{related.eventPeriod.end | date:'dd.MM.yyyy'}}</span>
 					</div>
@@ -33,7 +33,7 @@
 				</div>
 				<div class="bo-eventshort-subevents">
 					<div class="bo-eventshort" ng-repeat="concertItem in related.concerts">
-						<h3 class="bo-eventshort-title"><a href="#/report/concert/{{concertItem.id}}">{{concertItem.name}}</a></h3>
+						<h3 class="bo-eventshort-title">{{concertItem.name}}</h3>
 						<div class="bo-eventshort-datetime">
 							<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{concertItem.eventPeriod.start | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventshort-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{concertItem.eventPeriod.start | date:'HH:mm'}}</span>
 						</div>
