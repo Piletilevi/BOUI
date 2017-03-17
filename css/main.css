@@ -1399,3 +1399,53 @@ a:hover {
 .bo-chartcontrols > .btn-group:nth-child(2){
 	margin-left: 7px;
 }
+
+/* Color Inverse
+================================ */
+
+.bo-light-gamma .navbar {
+	background: #fff;
+	color: #000;
+}
+
+.bo-light-gamma .navbar-nav > li > a {
+	color: #000;
+}
+
+.bo-light-gamma .bo-user-name {
+	color: #000;
+}
+
+.bo-light-gamma .navbar-nav > li.active > a,
+.bo-light-gamma .navbar-nav > li.active > a:hover,
+.bo-light-gamma .navbar-nav > li.active > a:focus {
+	color: #fff;
+	background-color: #4a5867;
+}
+
+.bo-light-gamma .navbar-nav > li > a:hover,
+.bo-light-gamma .navbar-nav > li > a:focus {
+	color: #000;
+}
+
+.bo-light-gamma .bo-pills-block {
+	color: #fff;
+	background-color: #4a5867;
+}
+
+.bo-light-gamma .nav-pills > li > a {
+	opacity: 0.8;
+	color: #fff;
+}
+.bo-light-gamma .nav-pills > li > a:focus,
+.bo-light-gamma .nav-pills > li > a:hover {
+	color: #fff;
+	opacity: 1;
+}
+
+.bo-light-gamma .nav-pills > li.active > a,
+.bo-light-gamma .nav-pills > li.active > a:focus,
+.bo-light-gamma .nav-pills > li.active > a:hover {
+	color: #fff;
+	opacity: 1;
+}
