@@ -501,6 +501,11 @@ a:hover {
 	margin-bottom: 4px;
 }
 
+.bo-sub-events-hidden .bo-event-toggle,
+.bo-sub-events-hidden .bo-sub-events {
+	display: none;
+}
+
 /* Pills
 ================================ */
 
