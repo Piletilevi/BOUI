@@ -390,10 +390,10 @@
 		padding-right: 4px;
 	}
 
-	.bo-top-filter-search,
-	.bo-top-filter-daterange {
+	.bo-top-filter-search {
 		padding-left: 0;
 	}
+
 
 	.bo-top-filter-toggler > .input-group {
 		margin-right: 0;
@@ -641,8 +641,7 @@
 		-moz-border-radius: 0;
 		border-radius: 0;
 	}
-
-	.bo-top-filter-toggler,
+	
 	.bo-top-filter-search,
 	.bo-top-filter-daterange {
 		padding-bottom: 10px;
@@ -672,10 +671,6 @@
 		padding-right: 8px;
 	}
 
-	.bo-top-filter-toggler .toggle {
-		width: 100% !important;
-	}
-
 	.bo-line-chart-container {
 		height: 300px;
 	}
@@ -687,10 +682,6 @@
 	.navbar-nav > li > a {
 		padding-left: 8px;
 		padding-right: 8px;
-	}
-
-	.bo-top-filter-toggler .toggle {
-		width: 100% !important;
 	}
 
 	.bo-line-chart-container {
@@ -711,9 +702,5 @@
 
 	.bo-simplestats-pct {
 		width: 61px;
-	}
-
-	.bo-top-filter-toggler .toggle {
-		width: 100% !important;
 	}
 }

@@ -24,12 +24,7 @@
 		</div>
 		<div class="col-md-9 col-md-pull-3 bo-center-column">
 			<div class="bo-top-filter-block row">
-				<div class="bo-top-filter-toggler col-xs-12 col-sm-3 col-md-3 col-lg-2">
-					<div class="input-group input-group-lg">
-						<toggle ng-model="vm.filter.groupByShow" on="{{'api_group_by_show'|translate}}" off="{{'api_group_by_concert'|translate}}" size="btn-lg" onstyle="btn-default" offstyle="btn-default"></toggle>
-					</div>
-				</div>
-				<div class="bo-top-filter-daterange col-xs-12 col-sm-4 col-md-4 col-lg-3">
+				<div class="bo-top-filter-daterange col-xs-12 col-sm-4 col-md-4 col-lg-4">
 					<div class="input-group-lg">
 						<div class="data_range">
 							<button class="btn btn-default bo-datarangepicker-button btn-lg" type="button" data-control="daterangepicker">
@@ -39,7 +34,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="bo-top-filter-search col-xs-12 col-sm-5 col-md-5 col-lg-7">
+				<div class="bo-top-filter-search col-xs-12 col-sm-8 col-md-8 col-lg-8">
 					<div class="input-group input-group-lg ">
 						<input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
 						<span class="input-group-btn">
@@ -50,19 +45,24 @@
 					</div>
 				</div>
 			</div>
-
-			<ul class="nav nav-tabs" role="tablist" id="myeventstab">
-				<li class="active">
-					<a href="#onsale" data-toggle="tab" role="tab" aria-controls="onsale" ng-click="vm.tabSelectEvent('onsale')">{{'api_on_sale'|translate}}
-						<span class="badge">{{vm.salesCount}}</span></a></li>
-				<li>
-					<a href="#draft" data-toggle="tab" role="tab" aria-controls="draft" ng-click="vm.tabSelectEvent('draft')">{{'api_draft'|translate}}
-						<span class="badge">{{vm.draftCount}}</span></a></li>
-				<li>
-					<a href="#past" data-toggle="tab" role="tab" aria-controls="past" ng-click="vm.tabSelectEvent('past')">{{'api_past'|translate}}
-						<span class="badge">{{vm.pastCount}}</span></a></li>
-			</ul>
-
+			<div class="bo-tabs-holder">
+				<ul class="nav nav-tabs" role="tablist" id="myeventstab">
+					<li class="active">
+						<a href="#onsale" data-toggle="tab" role="tab" aria-controls="onsale" ng-click="vm.tabSelectEvent('onsale')">{{'api_on_sale'|translate}}
+							<span class="badge">{{vm.salesCount}}</span></a></li>
+					<li>
+						<a href="#draft" data-toggle="tab" role="tab" aria-controls="draft" ng-click="vm.tabSelectEvent('draft')">{{'api_draft'|translate}}
+							<span class="badge">{{vm.draftCount}}</span></a></li>
+					<li>
+						<a href="#past" data-toggle="tab" role="tab" aria-controls="past" ng-click="vm.tabSelectEvent('past')">{{'api_past'|translate}}
+							<span class="badge">{{vm.pastCount}}</span></a></li>
+				</ul>
+				<div class="bo-top-filter-toggler">
+					<div class="input-group input-group-lg">
+						<toggle ng-model="vm.filter.groupByShow" on="{{'api_group_by_show'|translate}}" off="{{'api_group_by_concert'|translate}}" size="btn-lg" onstyle="btn-default" offstyle="btn-default"></toggle>
+					</div>
+				</div>
+			</div>
 			<div class="tab-content" infinite-scroll="vm.getMoreEvents()" infinite-scroll-disabled="vm.filter.loadingItems" infinite-scroll-distance="1">
 				<!-- Tab: on sale events -->
 				<div class="tab-pane active" id="onsale" role="tabpanel">
