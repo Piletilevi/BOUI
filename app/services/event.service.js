@@ -273,6 +273,9 @@
 					event.location = results.data.location;
 					event.statistics = results.data.statistics;
 					event.websiteUrl = results.data.websiteUrl;
+					event.status = results.data.status;
+					event.statusKey = results.data.statusKey;
+					event.labelCode = results.data.labelCode;
 				}
 			});
 		}
@@ -299,6 +302,9 @@
 					event.sellPeriod = results.data.sellPeriod;
 					event.statistics = results.data.statistics;
 					event.websiteUrl = results.data.websiteUrl;
+					event.status = results.data.status;
+					event.statusKey = results.data.statusKey;
+					event.labelCode = results.data.labelCode;
 				}
 			});
 		}
@@ -314,6 +320,9 @@
 					event.showId = results.data.showId;
 					event.location = results.data.location;
 					event.websiteUrl = results.data.websiteUrl;
+					event.status = results.data.status;
+					event.statusKey = results.data.statusKey;
+					event.labelCode = results.data.labelCode;
 				}
 			});
 		}
@@ -329,6 +338,9 @@
 					event.concertsCount = results.data.concertsCount;
 					event.sellPeriod = results.data.sellPeriod;
 					event.websiteUrl = results.data.websiteUrl;
+					event.status = results.data.status;
+					event.statusKey = results.data.statusKey;
+					event.labelCode = results.data.labelCode;
 				}
 			});
 		}
