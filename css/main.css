@@ -1391,9 +1391,19 @@ a:hover {
 
 /* Toggle
 ================================ */
+.bo-top-filter-toggler {
+	float: right;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.bo-top-filter-toggler .toggle {
+	width: 50px;
+}
 
 .bo-top-filter-toggler > .input-group {
-	width: 100%;
+	width: auto;
 }
 /* Chart controls
 ================================ */
@@ -1404,6 +1414,13 @@ a:hover {
 
 .bo-chartcontrols > .btn-group:nth-child(2){
 	margin-left: 7px;
+}
+
+
+/* Tabs
+================================ */
+.bo-tabs-holder {
+	position: relative;
 }
 
 /* Left column
