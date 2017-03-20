@@ -655,10 +655,6 @@
 	.bo-right-column {
 		display: none;
 	}
-
-	.bo-line-chart-container {
-		height: 300px;
-	}
 	
 	.bo-chart-table {
 		max-width: 100%;
@@ -684,7 +680,7 @@
 	}
 
 	.bo-line-chart-container {
-		height: 400px;
+		height: 300px;
 	}
 
 	.bo-sidebar {
@@ -709,7 +705,7 @@
 	}
 
 	.bo-line-chart-container {
-		height: 400px;
+		height: 350px;
 	}
 }
 
