@@ -75,7 +75,7 @@
                         <div class="col-sm-5 bo-inline-print">
                             <div class="form-inline">
                                 <div class="form-group">
-                                    <span class="visible-print">Sales report for period:</span>
+                                    <span class="visible-print">{{'api_print_period'|translate}}</span>
                                     <div class="input-group data_range">
                                         <input type="text" daterangepicker class="form-control"
                                                ng-model="vm.filterPeriod"
@@ -92,12 +92,12 @@
 							</div>
 						</div>
 						<div class="bo-chartcontrols col-sm-7 text-right">
-							<span class="visible-print">Displayed by: </span>
+							<span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.display=='tickets'}" ng-click="vm.setOverviewDisplay('tickets')">{{'api_tickets'|translate}}</button>
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.display=='revenue'}" ng-click="vm.setOverviewDisplay('revenue')">{{'api_revenue'|translate}}</button>
 							</div>
-							<span class="visible-print"> and </span>
+							<span class="visible-print">{{'api_print_display_and'|translate}}</span>
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.groupBy=='day'}" ng-click="vm.setOverviewGroupBy('day')">{{'api_day'|translate}}</button>
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.groupBy=='week'}" ng-click="vm.setOverviewGroupBy('week')">{{'api_week'|translate}}</button>
@@ -189,9 +189,10 @@
 
                 <div class="bo-salesoverview-controls clearfix">
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-5 bo-inline-print">
                             <div class="form-inline">
                                 <div class="form-group">
+									<span class="visible-print">{{'api_print_period'|translate}}</span>
                                     <div class="input-group data_range">
                                         <input type="text" daterangepicker class="form-control"
                                                ng-model="vm.filterPeriod"
@@ -208,12 +209,12 @@
 							</div>
 						</div>
 						<div class="bo-chartcontrols col-sm-7 text-right">
-							<span class="visible-print">Displayed by: </span>
+							<span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.display=='tickets'}" ng-click="vm.setPricetypeDisplay('tickets')">{{'api_tickets'|translate}}</button>
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.display=='revenue'}" ng-click="vm.setPricetypeDisplay('revenue')">{{'api_revenue'|translate}}</button>
 							</div>
-							<span class="visible-print"> and </span>
+							<span class="visible-print">{{'api_print_display_and'|translate}}</span>
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.groupBy=='day'}" ng-click="vm.setPricetypeGroupBy('day')">{{'api_day'|translate}}</button>
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.groupBy=='week'}" ng-click="vm.setPricetypeGroupBy('week')">{{'api_week'|translate}}</button>
@@ -237,7 +238,7 @@
 							<div class="bo-chart">
 								<div class="bo-chart-buttons">
 									<div class="btn-group btn-group-sm" role="group">
-										<span class="visible-print">Displayed by: </span>
+										<span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
 										<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='tickets'}" ng-click="vm.setPricetypePieDisplay('tickets')">{{'api_tickets'|translate}}</button>
 										<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='revenue'}" ng-click="vm.setPricetypePieDisplay('revenue')">{{'api_revenue'|translate}}</button>
 									</div>
@@ -292,9 +293,10 @@
 
                 <div class="bo-salesoverview-controls clearfix">
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-5 bo-inline-print">
                             <div class="form-inline">
                                 <div class="form-group">
+									<span class="visible-print">{{'api_print_period'|translate}}</span>
                                     <div class="input-group data_range">
                                         <input type="text" daterangepicker class="form-control"
                                                ng-model="vm.filterPeriod"
@@ -311,12 +313,12 @@
 							</div>
 						</div>
 						<div class="bo-chartcontrols col-sm-7 text-right">
-							<span class="visible-print">Displayed by: </span>
+							<span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.display=='tickets'}" ng-click="vm.setPriceclassDisplay('tickets')">{{'api_tickets'|translate}}</button>
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.display=='revenue'}" ng-click="vm.setPriceclassDisplay('revenue')">{{'api_revenue'|translate}}</button>
 							</div>
-							<span class="visible-print"> and </span>
+							<span class="visible-print">{{'api_print_display_and'|translate}}</span>
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.groupBy=='day'}" ng-click="vm.setPriceclassGroupBy('day')">{{'api_day'|translate}}</button>
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.groupBy=='week'}" ng-click="vm.setPriceclassGroupBy('week')">{{'api_week'|translate}}</button>
@@ -391,10 +393,11 @@
         <!-- Tab: sectors -->
         <div class="tab-pane bo-salesoverview panel panel-default" id="sectors" role="tabpanel">
             <div class="panel-body" ng-if="!selectedSectionId">
-                <div class="bo-salesoverview-controls clearfix">
+                <div class="bo-salesoverview-controls clearfix bo-inline-print">
                     <div class="form-inline">
                         <div class="form-group">
-                            <div class="input-group data_range">
+							<span class="visible-print">{{'api_print_period'|translate}}</span>
+							<div class="input-group data_range">
                                 <input type="text" daterangepicker class="form-control"
                                        ng-model="vm.filterPeriod" ng-attr-data-min-date="{{vm.minFilterDate}}"
                                        ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
@@ -466,10 +469,11 @@
             </div>
 
             <div class="bo-salesoverview-controls panel-body" ng-if="selectedSectionId">
-                <div class="col-md-12" ng-if="selectedSectionId">
+                <div class="col-md-12 bo-inline-print" ng-if="selectedSectionId">
                     <div class="form-inline">
                         <div class="form-group">
-                            <div class="input-group data_range">
+							<span class="visible-print">{{'api_print_period'|translate}}</span>
+							<div class="input-group data_range">
                                 <input type="text" daterangepicker class="form-control"
                                        ng-model="vm.filterPeriod" ng-attr-data-min-date="{{vm.minFilterDate}}"
                                        ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
