@@ -16,9 +16,9 @@
 					</div>
 					<div class="bo-eventshort-progress clearfix">
 						<div class="progress">
-							<div class="progress-bar progress-bar-success" style="flex-grow: {{related.statistics.soldPercent}}" title="sold">{{related.statistics.soldTickets || 0}}</div>
-							<div class="progress-bar progress-bar-warning" style="flex-grow: {{related.statistics.bookedPercent}}" title="reserved">{{related.statistics.bookedTickets || 0}}</div>
-							<div class="progress-bar progress-bar-danger" style="flex-grow: {{related.statistics.availablePercent}}" title="empty">{{related.statistics.availableTickets || 0}}</div>
+							<div class="progress-bar progress-bar-success" style="flex-grow: {{related.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}">{{related.statistics.soldTickets || 0}}</div>
+							<div class="progress-bar progress-bar-warning" style="flex-grow: {{related.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}">{{related.statistics.bookedTickets || 0}}</div>
+							<div class="progress-bar progress-bar-danger" style="flex-grow: {{related.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}">{{related.statistics.availableTickets || 0}}</div>
 						</div>
 						<div>
 							<div class="bo-eventshort-progresslabel">
@@ -42,9 +42,9 @@
 						</div>
 						<div class="bo-eventshort-progress clearfix">
 							<div class="progress">
-								<div class="progress-bar progress-bar-success" style="flex-grow: {{concertItem.statistics.soldPercent}}" title="sold">{{concertItem.statistics.soldTickets || 0}}</div>
-								<div class="progress-bar progress-bar-warning" style="flex-grow: {{concertItem.statistics.bookedPercent}}" title="reserved">{{concertItem.statistics.bookedTickets || 0}}</div>
-								<div class="progress-bar progress-bar-danger" style="flex-grow: {{concertItem.statistics.availablePercent}}" title="empty">{{concertItem.statistics.availableTickets || 0}}</div>
+								<div class="progress-bar progress-bar-success" style="flex-grow: {{concertItem.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}">{{concertItem.statistics.soldTickets || 0}}</div>
+								<div class="progress-bar progress-bar-warning" style="flex-grow: {{concertItem.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}">{{concertItem.statistics.bookedTickets || 0}}</div>
+								<div class="progress-bar progress-bar-danger" style="flex-grow: {{concertItem.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}">{{concertItem.statistics.availableTickets || 0}}</div>
 							</div>
 							<div>
 								<div class="bo-eventshort-progresslabel">

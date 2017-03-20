@@ -360,6 +360,10 @@
 	.tab-content .panel-body {
 		padding-top: 0;
 	}
+
+	.bo-dot::before {
+		color: inherit!important;
+	}
 }
 
 /* Bootstrap xs, md, lg
