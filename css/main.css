@@ -538,6 +538,7 @@ a:hover {
 	border-radius: 4px;
 	color: #263443;
 	border: 1px solid #cfd4da;
+	overflow: hidden;
 }
 
 .bo-widgetbox .control-label {
@@ -1403,6 +1404,20 @@ a:hover {
 
 .bo-chartcontrols > .btn-group:nth-child(2){
 	margin-left: 7px;
+}
+
+/* Left column
+================================ */
+.bo-left-colum-usermenu {
+}
+
+.bo-left-colum-usermenu .dropdown-toggle {
+	display: none;
+}
+
+.bo-left-colum-usermenu .dropdown-menu {
+	display: block;
+	width: 100%;
 }
 
 /* Color Inverse
