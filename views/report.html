@@ -117,7 +117,7 @@
 					</div>
 				</div>
 				<div ng-if="vm.myOverviewBarData.sales.length > 0">
-					<div class="bo-chart">
+					<div class="bo-chart bo-line-chart-container">
 						<canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data" chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series" chart-options="vm.overviewLineGraph.options" chart-dataset-override="vm.overviewLineGraph.datasetOverride" chart-colors="vm.overviewLineGraph.colors">
 						</canvas>
 					</div>
@@ -226,7 +226,7 @@
 					</div>
 				</div>
 				<div ng-if="vm.myPriceTypePieData.sales.length > 0">
-					<div class="bo-chart">
+					<div class="bo-chart bo-line-chart-container">
 						<canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data" chart-labels="vm.pricetypeLineGraph.labels" chart-series="vm.pricetypeLineGraph.series" chart-options="vm.pricetypeLineGraph.options" chart-colors="vm.pricetypeLineGraph.colors" chart-dataset-override="vm.pricetypeLineGraph.datasetOverride">
 						</canvas>
 					</div>
@@ -342,7 +342,7 @@
 					</div>
 				</div>
 				<div ng-if="vm.myPriceClassPieData.sales.length > 0">
-					<div class="bo-chart">
+					<div class="bo-chart bo-line-chart-container">
 						<canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data" chart-labels="vm.priceclassLineGraph.labels" chart-series="vm.priceclassLineGraph.series" chart-options="vm.priceclassLineGraph.options" chart-colors="vm.priceclassLineGraph.colors" chart-dataset-override="vm.priceclassLineGraph.datasetOverride" height="100px">
 						</canvas>
 					</div>
