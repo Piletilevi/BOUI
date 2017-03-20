@@ -391,9 +391,12 @@
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	max-width: 294px;
+	display: flex;
 }
 
 .progress-bar {
+	float: none;
+	width: auto;
 }
 
 .progress-bar-success {
