@@ -661,6 +661,14 @@
 		max-width: 100%;
 		table-layout: fixed;
 	}
+
+	.bo-sub-events-hidden .bo-event-toggle {
+		display: inline;
+	}
+
+	.bo-sub-events-hidden .bo-sub-events.collapse.in {
+		display: block;
+	}
 	
 }
 
@@ -678,6 +686,18 @@
 
 	.bo-line-chart-container {
 		height: 400px;
+	}
+
+	.bo-sidebar {
+		clear: both;
+	}
+
+	.bo-sub-events-hidden .bo-event-toggle {
+		display: inline;
+	}
+
+	.bo-sub-events-hidden .bo-sub-events.collapse.in {
+		display: block;
 	}
 }
 
