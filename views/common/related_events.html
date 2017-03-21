@@ -16,9 +16,9 @@
 					</div>
 					<div class="bo-eventshort-progress clearfix">
 						<div class="progress">
-							<div class="progress-bar progress-bar-success" style="flex-grow: {{related.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}">{{related.statistics.soldTickets || 0}}</div>
-							<div class="progress-bar progress-bar-warning" style="flex-grow: {{related.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}">{{related.statistics.bookedTickets || 0}}</div>
-							<div class="progress-bar progress-bar-danger" style="flex-grow: {{related.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}">{{related.statistics.availableTickets || 0}}</div>
+							<div class="progress-bar progress-bar-success" ng-if="related.statistics.soldTickets" style="flex-grow: {{related.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}">&nbsp;{{related.statistics.soldTickets}}&nbsp;</div>
+							<div class="progress-bar progress-bar-warning" ng-if="related.statistics.bookedTickets" style="flex-grow: {{related.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}">&nbsp;{{related.statistics.bookedTickets}}&nbsp;</div>
+							<div class="progress-bar progress-bar-danger" ng-if="related.statistics.availableTickets" style="flex-grow: {{related.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}">&nbsp;{{related.statistics.availableTickets}}&nbsp;</div>
 						</div>
 						<div>
 							<div class="bo-eventshort-progresslabel">
@@ -42,9 +42,9 @@
 						</div>
 						<div class="bo-eventshort-progress clearfix">
 							<div class="progress">
-								<div class="progress-bar progress-bar-success" style="flex-grow: {{concertItem.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}">{{concertItem.statistics.soldTickets || 0}}</div>
-								<div class="progress-bar progress-bar-warning" style="flex-grow: {{concertItem.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}">{{concertItem.statistics.bookedTickets || 0}}</div>
-								<div class="progress-bar progress-bar-danger" style="flex-grow: {{concertItem.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}">{{concertItem.statistics.availableTickets || 0}}</div>
+								<div class="progress-bar progress-bar-success" ng-if="concertItem.statistics.soldTickets" style="flex-grow: {{concertItem.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}">&nbsp;{{concertItem.statistics.soldTickets}}&nbsp;</div>
+								<div class="progress-bar progress-bar-warning" ng-if="concertItem.statistics.bookedTickets" style="flex-grow: {{concertItem.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}">&nbsp;{{concertItem.statistics.bookedTickets}}&nbsp;</div>
+								<div class="progress-bar progress-bar-danger" ng-if="concertItem.statistics.availableTickets" style="flex-grow: {{concertItem.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}">&nbsp;{{concertItem.statistics.availableTickets}}&nbsp;</div>
 							</div>
 							<div>
 								<div class="bo-eventshort-progresslabel">
