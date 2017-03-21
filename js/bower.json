@@ -32,7 +32,8 @@
     "angular-bootstrap-toggle": "^0.1.2",
     "angular-block-ui": "^0.2.2",
     "html2canvas": "^0.4.1",
-    "pdfmake": "^0.1.26"
+    "pdfmake": "^0.1.26",
+    "angular-smart-table": "^2.1.8"
   },
   "resolutions": {
     "angular": "1.6.1",
