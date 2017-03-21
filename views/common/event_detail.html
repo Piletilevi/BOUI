@@ -1,17 +1,6 @@
 <div class="panel-body">
 	<h3 class="bo-event-title">
-		<!--<div class="bo-event-badge bo-event-badge-regular_presale label-info">Presale</div>-->
-		<!--<div class="bo-event-badge bo-event-badge-future_sale label-info">Future presale</div>-->
-		<!--<div class="bo-event-badge bo-event-badge-hidden_until_sale label-info">Presale starts at the right time</div>-->
-		<!--<div class="bo-event-badge bo-event-badge-presale_with_code label-info">Priority sale</div>-->
-		<!--<div class="bo-event-badge bo-event-badge-sold_out label-success">Sold out</div>-->
-		<div class="bo-event-badge bo-event-badge-no_tickets label-danger">No tickets available</div>
-		<!--<div class="bo-event-badge bo-event-badge-going_now label-info">Presale has ended</div>-->
-		<!--<div class="bo-event-badge bo-event-badge-free_admission label-info">Free admission</div>-->
-		<!--<div class="bo-event-badge bo-event-badge-presale_at_boxoffices label-info">Only sales points</div>-->
-		<!--<div class="bo-event-badge bo-event-badge-past label-primary">Past event</div>-->
-		<!--<div class="bo-event-badge bo-event-badge-canceled label-danger">Event is suspended</div>-->
-		<!--<div class="bo-event-badge bo-event-badge-refund label-danger">Refund</div>-->
+		<div class="bo-event-badge bo-event-badge-{{event.status}} label-{{event.labelCode}}">{{event.statusKey}}</div>
 		<a ng-if="event.concertsCount" class="bo-event-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events{{event.id}}" aria-expanded="false">
 		<span class="glyphicon glyphicon-triangle-top"></span>
 		<span class="glyphicon glyphicon-triangle-bottom"></span>
@@ -43,9 +32,9 @@
 				 <div class="clearfix">
 					 <div class="bo-simplestats-pct">{{event.statistics.soldPercent || 0}}%</div><!--
 					 --><div class="bo-simplestats-bar progress">
-						 <div class="progress-bar progress-bar-success" style="width: {{event.statistics.soldPercent}}%" title="sold"></div>
-						 <div class="progress-bar progress-bar-warning" style="width: {{event.statistics.bookedPercent}}%" title="reserved"></div>
-						 <div class="progress-bar progress-bar-danger" style="width: {{event.statistics.availablePercent}}%" title="empty"></div>
+						 <div class="progress-bar progress-bar-success" style="flex-grow: {{event.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}"></div>
+						 <div class="progress-bar progress-bar-warning" style="flex-grow: {{event.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}"></div>
+						 <div class="progress-bar progress-bar-danger" style="flex-grow: {{event.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}"></div>
 					 </div>
 				 </div>
 				</div>

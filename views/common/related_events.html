@@ -4,7 +4,7 @@
 		<ul class="list-group">
 			<li class="list-group-item">
 				<div class="bo-eventshort">
-					<h3 class="bo-eventshort-title"><a href="#/report/show/{{related.id}}">{{related.name}}</a></h3>
+					<h3 class="bo-eventshort-title">{{related.name}}</h3>
 					<div class="bo-eventshort-datetime" ng-if="related.eventPeriod.start != related.eventPeriod.end">
 						<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{related.eventPeriod.start | date:'dd.MM.yyyy'}} - {{related.eventPeriod.end | date:'dd.MM.yyyy'}}</span>
 					</div>
@@ -16,9 +16,9 @@
 					</div>
 					<div class="bo-eventshort-progress clearfix">
 						<div class="progress">
-							<div class="progress-bar progress-bar-success" style="width: {{related.statistics.soldPercent}}%" title="sold">{{related.statistics.soldTickets || 0}}</div>
-							<div class="progress-bar progress-bar-warning" style="width: {{related.statistics.bookedPercent}}%" title="reserved">{{related.statistics.bookedTickets || 0}}</div>
-							<div class="progress-bar progress-bar-danger" style="width: {{related.statistics.availablePercent}}%" title="empty">{{related.statistics.availableTickets || 0}}</div>
+							<div class="progress-bar progress-bar-success" style="flex-grow: {{related.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}">{{related.statistics.soldTickets || 0}}</div>
+							<div class="progress-bar progress-bar-warning" style="flex-grow: {{related.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}">{{related.statistics.bookedTickets || 0}}</div>
+							<div class="progress-bar progress-bar-danger" style="flex-grow: {{related.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}">{{related.statistics.availableTickets || 0}}</div>
 						</div>
 						<div>
 							<div class="bo-eventshort-progresslabel">
@@ -29,10 +29,11 @@
 							</div>
 						</div>
 					</div>
+					<a class="bo-eventshort-overlay" href="#/report/show/{{related.id}}"></a>
 				</div>
 				<div class="bo-eventshort-subevents">
 					<div class="bo-eventshort" ng-repeat="concertItem in related.concerts">
-						<h3 class="bo-eventshort-title"><a href="#/report/concert/{{concertItem.id}}">{{concertItem.name}}</a></h3>
+						<h3 class="bo-eventshort-title">{{concertItem.name}}</h3>
 						<div class="bo-eventshort-datetime">
 							<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{concertItem.eventPeriod.start | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventshort-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{concertItem.eventPeriod.start | date:'HH:mm'}}</span>
 						</div>
@@ -41,9 +42,9 @@
 						</div>
 						<div class="bo-eventshort-progress clearfix">
 							<div class="progress">
-								<div class="progress-bar progress-bar-success" style="width: {{concertItem.statistics.soldPercent}}%" title="sold">{{concertItem.statistics.soldTickets || 0}}</div>
-								<div class="progress-bar progress-bar-warning" style="width: {{concertItem.statistics.bookedPercent}}%" title="reserved">{{concertItem.statistics.bookedTickets || 0}}</div>
-								<div class="progress-bar progress-bar-danger" style="width: {{concertItem.statistics.availablePercent}}%" title="empty">{{concertItem.statistics.availableTickets || 0}}</div>
+								<div class="progress-bar progress-bar-success" style="flex-grow: {{concertItem.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}">{{concertItem.statistics.soldTickets || 0}}</div>
+								<div class="progress-bar progress-bar-warning" style="flex-grow: {{concertItem.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}">{{concertItem.statistics.bookedTickets || 0}}</div>
+								<div class="progress-bar progress-bar-danger" style="flex-grow: {{concertItem.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}">{{concertItem.statistics.availableTickets || 0}}</div>
 							</div>
 							<div>
 								<div class="bo-eventshort-progresslabel">
@@ -54,6 +55,7 @@
 								</div>
 							</div>
 						</div>
+						<a class="bo-eventshort-overlay" href="#/report/concert/{{concertItem.id}}"></a>
 					</div>
 				</div>
 			</li>

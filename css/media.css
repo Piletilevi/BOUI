@@ -360,6 +360,10 @@
 	.tab-content .panel-body {
 		padding-top: 0;
 	}
+
+	.bo-dot::before {
+		color: inherit!important;
+	}
 }
 
 /* Bootstrap xs, md, lg
@@ -390,10 +394,10 @@
 		padding-right: 4px;
 	}
 
-	.bo-top-filter-search,
-	.bo-top-filter-daterange {
+	.bo-top-filter-search {
 		padding-left: 0;
 	}
+
 
 	.bo-top-filter-toggler > .input-group {
 		margin-right: 0;
@@ -641,8 +645,7 @@
 		-moz-border-radius: 0;
 		border-radius: 0;
 	}
-
-	.bo-top-filter-toggler,
+	
 	.bo-top-filter-search,
 	.bo-top-filter-daterange {
 		padding-bottom: 10px;
@@ -652,14 +655,18 @@
 	.bo-right-column {
 		display: none;
 	}
-
-	.bo-line-chart-container {
-		height: 250px;
-	}
 	
 	.bo-chart-table {
 		max-width: 100%;
 		table-layout: fixed;
+	}
+
+	.bo-sub-events-hidden .bo-event-toggle {
+		display: inline;
+	}
+
+	.bo-sub-events-hidden .bo-sub-events.collapse.in {
+		display: block;
 	}
 	
 }
@@ -672,12 +679,20 @@
 		padding-right: 8px;
 	}
 
-	.bo-top-filter-toggler .toggle {
-		width: 100% !important;
-	}
-
 	.bo-line-chart-container {
 		height: 300px;
+	}
+
+	.bo-sidebar {
+		clear: both;
+	}
+
+	.bo-sub-events-hidden .bo-event-toggle {
+		display: inline;
+	}
+
+	.bo-sub-events-hidden .bo-sub-events.collapse.in {
+		display: block;
 	}
 }
 
@@ -689,12 +704,8 @@
 		padding-right: 8px;
 	}
 
-	.bo-top-filter-toggler .toggle {
-		width: 100% !important;
-	}
-
 	.bo-line-chart-container {
-		height: 300px;
+		height: 350px;
 	}
 }
 
@@ -711,9 +722,5 @@
 
 	.bo-simplestats-pct {
 		width: 61px;
-	}
-
-	.bo-top-filter-toggler .toggle {
-		width: 100% !important;
 	}
 }

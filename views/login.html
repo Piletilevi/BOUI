@@ -47,7 +47,7 @@
 										<div class="bo-smallcheckbox">
 											<div class="checkbox">
 												<input type="checkbox" id="remember-me" ng-model="vm.login.rememberMe">
-												<label for="remember-me">Remember me</label>
+												<label for="remember-me">{{"api_login_remember"|translate}}</label>
 											</div>
 										</div>
 									</div>
@@ -65,14 +65,15 @@
 
 					</div><!-- /bo-widgetbox-main -->
 				</div><!-- /bo-widgetbox-body -->
-				<div class="bo-widgetbox-footer">
+				<!--password restore is hidden now-->
+				<div class="bo-widgetbox-footer" style="display: none;">
 					<div class="row">
 						<div class="col-sm-12 text-center">
 							<a data-target="#forgotten" class="bo-forgotten-toggle collapsed" data-toggle="collapse" aria-expanded="false">Cant remember your username/password?</a>
 						</div>
 					</div>
 				</div>
-				<div id="forgotten" class="collapse">
+				<div id="forgotten" class="collapse" style="display: none;">
 					<div class="bo-widgetbox-forgotten">
 						<div class="row">
 							<div class="col-sm-12">

@@ -271,9 +271,11 @@
 					event.sellPeriod = results.data.sellPeriod;
 					event.showId = results.data.showId;
 					event.location = results.data.location;
-					event.websiteUrl = getWebsiteUrl(event);
 					event.statistics = results.data.statistics;
-					event.websiteUrl = getWebsiteUrl(event);
+					event.websiteUrl = results.data.websiteUrl;
+					event.status = results.data.status;
+					event.statusKey = results.data.statusKey;
+					event.labelCode = results.data.labelCode;
 				}
 			});
 		}
@@ -299,7 +301,10 @@
 					event.concertsCount = results.data.concertsCount;
 					event.sellPeriod = results.data.sellPeriod;
 					event.statistics = results.data.statistics;
-					event.websiteUrl = getWebsiteUrl(event);
+					event.websiteUrl = results.data.websiteUrl;
+					event.status = results.data.status;
+					event.statusKey = results.data.statusKey;
+					event.labelCode = results.data.labelCode;
 				}
 			});
 		}
@@ -314,7 +319,10 @@
 					event.sellPeriod = results.data.sellPeriod;
 					event.showId = results.data.showId;
 					event.location = results.data.location;
-					event.websiteUrl = getWebsiteUrl(event);
+					event.websiteUrl = results.data.websiteUrl;
+					event.status = results.data.status;
+					event.statusKey = results.data.statusKey;
+					event.labelCode = results.data.labelCode;
 				}
 			});
 		}
@@ -329,7 +337,10 @@
 					event.concerts = results.data.concerts;
 					event.concertsCount = results.data.concertsCount;
 					event.sellPeriod = results.data.sellPeriod;
-					event.websiteUrl = getWebsiteUrl(event);
+					event.websiteUrl = results.data.websiteUrl;
+					event.status = results.data.status;
+					event.statusKey = results.data.statusKey;
+					event.labelCode = results.data.labelCode;
 				}
 			});
 		}

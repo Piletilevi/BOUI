@@ -507,6 +507,11 @@ a:hover {
 	margin-bottom: 4px;
 }
 
+.bo-sub-events-hidden .bo-event-toggle,
+.bo-sub-events-hidden .bo-sub-events {
+	display: none;
+}
+
 /* Pills
 ================================ */
 
@@ -539,6 +544,7 @@ a:hover {
 	border-radius: 4px;
 	color: #263443;
 	border: 1px solid #cfd4da;
+	overflow: hidden;
 }
 
 .bo-widgetbox .control-label {
@@ -728,6 +734,16 @@ a:hover {
 	-moz-box-shadow: 0 0 0 1px #f7f9fb inset;
 	-webkit-box-shadow: 0 0 0 1px #f7f9fb inset;
 	box-shadow: 0 0 0 1px #f7f9fb inset;
+	display: block;
+	position: relative;
+}
+
+.bo-eventshort-overlay {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .bo-eventshort .progress {
@@ -816,6 +832,7 @@ a:hover {
 	border-top: 7px solid #cdd2d8;
 	border-left: 9px solid transparent;
 	border-right: 9px solid transparent;
+	z-index: 1;
 }
 .bo-eventshort-subevents .bo-eventshort:first-child:before {
 	content: "";
@@ -826,6 +843,7 @@ a:hover {
 	border-top: 7px solid #ebedf0;
 	border-left: 9px solid transparent;
 	border-right: 9px solid transparent;
+	z-index: 1;
 }
 
 .bo-eventshort-subevents .bo-eventshort {
@@ -956,15 +974,6 @@ a:hover {
 ================================ */
 .bo-dot {
 	display: inline-block;
-	width: 10px;
-	height: 10px;
-	background: lightgray;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
 	margin-left: 3px;
 }
 
@@ -1156,7 +1165,7 @@ a:hover {
 }
 
 .bo-line-chart-container {
-	height: 350px;
+	height: 400px;
 }
 
 /* Venueplan
@@ -1391,9 +1400,19 @@ a:hover {
 
 /* Toggle
 ================================ */
+.bo-top-filter-toggler {
+	float: right;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.bo-top-filter-toggler .toggle {
+	width: 50px;
+}
 
 .bo-top-filter-toggler > .input-group {
-	width: 100%;
+	width: auto;
 }
 /* Chart controls
 ================================ */
@@ -1404,4 +1423,75 @@ a:hover {
 
 .bo-chartcontrols > .btn-group:nth-child(2){
 	margin-left: 7px;
+}
+
+
+/* Tabs
+================================ */
+.bo-tabs-holder {
+	position: relative;
+}
+
+/* Left column
+================================ */
+.bo-left-colum-usermenu {
+}
+
+.bo-left-colum-usermenu .dropdown-toggle {
+	display: none;
+}
+
+.bo-left-colum-usermenu .dropdown-menu {
+	display: block;
+	width: 100%;
+}
+
+/* Color Inverse
+================================ */
+
+.bo-light-gamma .navbar {
+	background: #fff;
+	color: #000;
+}
+
+.bo-light-gamma .navbar-nav > li > a {
+	color: #000;
+}
+
+.bo-light-gamma .bo-user-name {
+	color: #000;
+}
+
+.bo-light-gamma .navbar-nav > li.active > a,
+.bo-light-gamma .navbar-nav > li.active > a:hover,
+.bo-light-gamma .navbar-nav > li.active > a:focus {
+	color: #fff;
+	background-color: #4a5867;
+}
+
+.bo-light-gamma .navbar-nav > li > a:hover,
+.bo-light-gamma .navbar-nav > li > a:focus {
+	color: #000;
+}
+
+.bo-light-gamma .bo-pills-block {
+	color: #fff;
+	background-color: #4a5867;
+}
+
+.bo-light-gamma .nav-pills > li > a {
+	opacity: 0.8;
+	color: #fff;
+}
+.bo-light-gamma .nav-pills > li > a:focus,
+.bo-light-gamma .nav-pills > li > a:hover {
+	color: #fff;
+	opacity: 1;
+}
+
+.bo-light-gamma .nav-pills > li.active > a,
+.bo-light-gamma .nav-pills > li.active > a:focus,
+.bo-light-gamma .nav-pills > li.active > a:hover {
+	color: #fff;
+	opacity: 1;
 }

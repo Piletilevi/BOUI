@@ -144,8 +144,8 @@
 
 .nav-tabs {
 	border-bottom: 1px solid #eef1f5;
-	min-width: 100%;
 	margin-bottom: 13px;
+	margin-right: 124px;
 }
 
 .nav-tabs::after {
@@ -391,9 +391,12 @@
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	max-width: 294px;
+	display: flex;
 }
 
 .progress-bar {
+	float: none;
+	width: auto;
 }
 
 .progress-bar-success {
