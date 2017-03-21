@@ -1401,10 +1401,8 @@ a:hover {
 /* Toggle
 ================================ */
 .bo-top-filter-toggler {
-	float: right;
-	position: absolute;
-	bottom: 0;
-	right: 0;
+	margin-left: 8px;
+	padding-top: 3px;
 }
 
 .bo-top-filter-toggler .toggle {
@@ -1429,7 +1427,11 @@ a:hover {
 /* Tabs
 ================================ */
 .bo-tabs-holder {
-	position: relative;
+	display: flex;
+}
+
+.bo-tabs-holder .nav-tabs {
+	flex-grow: 100;
 }
 
 /* Left column
