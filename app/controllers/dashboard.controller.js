@@ -57,6 +57,13 @@
 		vm.tabSelectEvent = function (status) {
 			vm.filter.status = status;
 			eventService.getMyEvents(vm.filter);
+
+			var toggler = angular.element("#onSaleToggler");
+			if(status == 'onsale') {
+				toggler.show();
+			}else {
+				toggler.hide();
+			}
 		};
 
 		vm.getMoreEvents = function () {
