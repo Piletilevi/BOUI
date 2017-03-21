@@ -14,9 +14,9 @@
         'blockUI',
 		'infinite-scroll',
 		'ui.toggle',
-		'chart.js'
+		'chart.js',
+        'ceibo.components.table.export'
     ]);
-
     angular.module('boApp').run(runApp);
     runApp.$inject = ['authService', 'translationService', 'pointService', 'menuService'];
     function runApp( authService, translationService, pointService, menuService){

@@ -163,7 +163,7 @@
         var data = [];
         var colors = [];
         var step = 0;
-        var maxTicks = 0;
+        var totals = [];
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
@@ -196,6 +196,10 @@
                 }
               }
             });
+            if(!totals[dataItem.length]) {
+              totals[dataItem.length] = 0;
+            }
+            totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
           });
           if (!dataItem.every(function (v) {
@@ -212,11 +216,13 @@
           overviewGraph.series = series;
           overviewGraph.data = data;
           overviewGraph.colors = colors;
+          overviewGraph.totals = totals;
         } else {
           overviewGraph.labels = null;
           overviewGraph.series = null;
           overviewGraph.data = null;
           overviewGraph.colors = null;
+          overviewGraph.totals = null
         }
       }
     }

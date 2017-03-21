@@ -35,12 +35,12 @@
 
 		</script>
 </head>
-<body style="visibility: hidden" ng-class='{forceShow: isTranslated}' >
+<body style="visibility: hidden" ng-class='{forceShow: isTranslated}' block-ui>
 
 		<a name="top"></a>
     <div class="bo-header" ng-include="'views/common/template.html'" ng-if="authenticated"></div>
 	<div class="visible-print">
-		<img class="bo-print-logo" src="{{pointMenuLogo}}" />
+		<img class="bo-print-logo" ng-src="{{pointMenuLogo}}" />
 	</div>
 	<div class="container bo-main-block">
 		<div data-ng-view="" id="ng-view" class="row slide-animation"></div>
@@ -71,7 +71,18 @@
 	<script src="js/bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
 	<script src="js/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
 	<script src="js/bower_components/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.min.js"></script>
-
+	<script src="js/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+	<script src="js/custom_components/angular-export-table/export/table-export-directive.js"></script>
+	<script src="js/custom_components/angular-export-table/export/table-export-option-directive.js"></script>
+	<script src="js/custom_components/angular-export-table/export/smartTableDirectives.js"></script>
+	<script src="js/custom_components/angular-export-table/kayalshri-table-export.jquery.plugin-a891806/table-export.js"></script>
+	<script src="js/custom_components/angular-export-table/kayalshri-table-export.jquery.plugin-a891806/jquery.base64.js"></script>
+	<script src="js/custom_components/angular-export-table/kayalshri-table-export.jquery.plugin-a891806/html2canvas.js"></script>
+	<script src="js/custom_components/angular-export-table/kayalshri-table-export.jquery.plugin-a891806/jspdf/jspdf.js"></script>
+	<script src="js/custom_components/angular-export-table/kayalshri-table-export.jquery.plugin-a891806/jspdf/libs/base64.js"></script>
+	<script src="js/custom_components/angular-export-table/kayalshri-table-export.jquery.plugin-a891806/jspdf/libs/sprintf.js"></script>
+	<script src="js/bower_components/html2canvas/build/html2canvas.min.js"></script>
+	<script src="js/bower_components/pdfmake/build/pdfmake.min.js"></script>
 	<script src="js/backoffice.js"></script>
 	<script src="app/app.module.js"></script>
 
@@ -97,6 +108,7 @@
 	<script src="app/services/news.service.js"></script>
 	<script src="app/services/color.service.js"></script>
 	<script src="app/services/graph.service.js"></script>
+	<script src="app/services/pdf.service.js"></script>
 
 	<script src="app/controllers/main.controller.js"></script>
 	<script src="app/controllers/dashboard.controller.js"></script>

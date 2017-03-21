@@ -5,9 +5,9 @@
   angular.module('boApp')
     .controller('reportController', ReportController);
 
-  ReportController.$inject = ['$scope', '$routeParams', '$location', '$anchorScroll', 'eventService', 'graphService'];
+  ReportController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$anchorScroll', 'eventService', 'graphService', 'pdfService'];
 
-  function ReportController($scope, $routeParams, $location, $anchorScroll, eventService, graphService) {
+  function ReportController($scope, $rootScope, $routeParams, $location, $anchorScroll, eventService, graphService, pdfService) {
 
     if (!$routeParams && !$routeParams.id) {
       $location.path('dashboard');
@@ -60,6 +60,7 @@
     eventService.reset();
     graphService.reset();
 
+    vm.getDatetime = new Date();
     vm.getEventSales = eventService.getEventSales;
 	vm.getConcertSales = eventService.getConcertSales;
 	vm.getShowSales = eventService.getShowSales;
@@ -84,6 +85,7 @@
     vm.pricetypeLineGraph = graphService.pricetypeLineGraph;
     vm.priceclassPieGraph = graphService.priceclassPieGraph;
     vm.priceclassLineGraph = graphService.priceclassLineGraph;
+    // vm.printPdf = pdfService.printPdf;
 
 	//Initialize
     eventService.getEventSales(vm.event);
@@ -144,15 +146,15 @@
       } else if (tab == 'sectors') {
         eventService.getSectorsData(vm.event, vm.sectorsFilter);
       }
-      currentTab = tab;
+      vm.currentTab = tab;
     };
 
-    var currentTab = 'overview';
-    vm.getCurrentTabCode = function() {
-      if(currentTab == 'overview') {
-        return 'api_' + currentTab;
+    vm.currentTab = 'overview';
+    vm.getcurrentTabCode = function() {
+      if(vm.currentTab == 'overview') {
+        return 'api_' + vm.currentTab;
       }else {
-        return 'api_by_' + currentTab;
+        return 'api_by_' + vm.currentTab;
       }
     }
 
@@ -173,6 +175,25 @@
       vm.event.sectionsMapConfig.mouseoverPrevSectionId = angular.copy($scope.mouseoverSectionId);
       vm.event.sectionsMapConfig.mouseoverSectionId = mouseoverSectionId;
       $scope.mouseoverSectionId = mouseoverSectionId;
+    };
+
+    vm.exportXls = function() {
+      //var data1 = [{a:1,b:10},{a:2,b:20}];
+      //var data2 = [{a:100,b:10},{a:200,b:20}];
+      //var opts = [{sheetid:'One',header:true},{sheetid:'Two',header:false}];
+      //var res = alasql('SELECT INTO XLSX("report.xlsx",?) FROM ?',
+      //    [opts,[data1,data2]]);
+
+      var uri = 'data:application/vnd.ms-excel;base64,'
+          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+          , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+          , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+
+      return function(table, name) {
+        if (!table.nodeType) table = document.getElementById(table)
+        var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+        window.location.href = uri + base64(format(template, ctx))
+      }
     };
 
     $scope.setSelectedSectionId = vm.setSelectedSectionId;
@@ -359,7 +380,7 @@
         vm.pricetypeFilter.period = vm.filterPeriod;
         vm.priceclassFilter.period = vm.filterPeriod;
         vm.sectorsFilter.period = vm.filterPeriod;
-        vm.tabSelectEvent(currentTab);
+        vm.tabSelectEvent(vm.currentTab);
       }
     });
 

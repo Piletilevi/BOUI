@@ -1,0 +1,88 @@
+<tbody>
+<tr>
+    <td>{{vm.event.name}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>{{vm.event.eventPeriod.start | date:'dd.MM.yyyy HH:mm'}} - {{vm.event.eventPeriod.end | date:'dd.MM.yyyy HH:mm'}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>{{vm.event.location}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>{{'api_print_period'|translate}} {{vm.event.sellPeriod.start | date:'dd.MM.yyyy'}} - {{vm.event.sellPeriod.end | date:'dd.MM.yyyy'}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tbody ng-repeat="overviewData in vm.myOverviewBarData.sales">
+<tr ng-if="$first">
+    <td></td>
+    <td><strong>{{'api_tickets'|translate}}</strong></td>
+    <td><strong>%</strong></td>
+    <td><strong>{{'api_revenue'|translate}}</strong></td>
+</tr>
+<tr ng-if="$first">
+    <td><strong>{{'api_generated'|translate}}</strong></td>
+    <td>{{vm.myOverviewBarData.generatedCount}}</td>
+    <td>100%</td>
+    <td>{{vm.myOverviewBarData.generatedSum | number:2}}</td>
+</tr>
+<tr ng-if="overviewData.groupId != 'generated'">
+    <td><strong>{{overviewData.groupName|translate}}:</strong></td>
+    <td>{{overviewData.rowCount}}</td>
+    <td>{{vm.myOverviewBarData.generatedCount ? ( overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
+    <td>{{overviewData.rowSum | number:2}}</td>
+</tr>
+<tr ng-if="overviewData.groupId != 'generated'" ng-repeat="overviewRow in overviewData.rows" ng-class="{ 'active text-danger': overviewRow.isRefund }">
+    <td>{{overviewRow.typeName|translate}}:</td>
+    <td>{{overviewRow.count}}</td>
+    <td>{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}</td>
+    <td>{{overviewRow.sum | number:2}}</td>
+</tr>
+</tbody>
+
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+
+<tr>
+    <td><strong>{{'api_date'|translate}}</strong></td>
+    <td ng-repeat="series in vm.overviewLineGraph.series"><strong>{{series}}</strong></td>
+    <td><strong>{{'api_total'|translate}}</strong></td>
+</tr>
+
+<tr ng-repeat="(key, label) in vm.overviewLineGraph.labels">
+    <td>{{label}}</td>
+    <td ng-repeat="data in vm.overviewLineGraph.data">{{data[key]}}</td>
+    <td>{{vm.overviewLineGraph.totals[key]}}</td>
+</tr>
+
+
+<tbody ng-include="'views/common/report_export/export_footer.html'"></tbody>

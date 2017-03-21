@@ -30,18 +30,28 @@
     <div class="bo-event-share-block">
         <span><i class="fa fa-print"></i><a onclick="window.print();">{{'api_print'|translate}}</a></span> |
         <span><i class="fa fa-envelope"></i><a data-toggle="modal" data-target="#emal_popup">{{'api_email'|translate}}</a></span> |
-        <span><i class="fa fa-share"></i><a href="">{{'api_export'|translate}}</a></span>
-        <!--<div class="dropdown inline_dropdown">-->
-        <!--<span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Export <span class="caret"></span></span>-->
-        <!--<ul class="dropdown-menu">-->
-        <!--<li><a href="#">Action</a></li>-->
-        <!--<li><a href="#">Another action</a></li>-->
-        <!--<li><a href="#">Something else here</a></li>-->
-        <!--<li role="separator" class="divider"></li>-->
-        <!--<li><a href="#">Separated link</a></li>-->
-        <!--</ul>-->
-        <!--</div>-->
+        <div class="dropdown inline_dropdown">
+        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{'api_export'|translate}} <span class="caret"></span></span>
+        <ul class="table-export dropdown-menu"
+			table-selector="vm.currentTab"
+			export-options="{type: 'pdf', escape: true, tableName: 'bo-report'}">
+			<li te-option te-value="'pdf'" te-param="'type'">
+				<a href="">PDF</a>
+			</li>
+
+			<li te-option te-value="'excel'" te-param="'type'">
+				<a href="">Excel</a>
+			</li>
+
+			<li te-option te-value="'csv'" te-param="'type'">
+				<a href="">CSV</a>
+			</li>
+        </ul>
+        </div>
     </div>
+
+	<table id="{{vm.currentTab}}" ng-include="'views/report_export/'+vm.currentTab+'.html'" class="visually-hidden"></table>
+
     <div class="panel panel-default bo-event">
         <div ng-include-template="event_detail.html"
              ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false }"></div>
@@ -111,11 +121,12 @@
 						</div>
 					</div>
 				</div>
-				<div ng-if="vm.myOverviewBarData.sales.length === 0">
+				<div ng-if="!vm.myOverviewBarData.sales || vm.myOverviewBarData.sales.length === 0">
 					<div class="bo-no-data-msg">
 						{{'api_no_data_available'|translate}}
 					</div>
 				</div>
+
 				<div ng-if="vm.myOverviewBarData.sales.length > 0">
 					<div class="bo-chart">
 						<canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data" chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series" chart-options="vm.overviewLineGraph.options" chart-dataset-override="vm.overviewLineGraph.datasetOverride" chart-colors="vm.overviewLineGraph.colors">
@@ -220,7 +231,7 @@
 						</div>
 					</div>
 				</div>
-				<div ng-if="vm.myPriceTypePieData.sales.length === 0">
+				<div ng-if="!vm.myPriceTypePieData || vm.myPriceTypePieData.sales.length === 0">
 					<div class="bo-no-data-msg">
 						{{'api_no_data_available'|translate}}
 					</div>
@@ -336,7 +347,7 @@
 						</div>
 					</div>
 				</div>
-				<div ng-if="vm.myPriceClassPieData.sales.length === 0">
+				<div ng-if="!vm.myPriceClassPieData || vm.myPriceClassPieData.sales.length === 0">
 					<div class="bo-no-data-msg">
 						{{'api_no_data_available'|translate}}
 					</div>
@@ -432,7 +443,7 @@
                     </div>
                 </div>
 
-				<div ng-if="vm.mySectorsData.sales.length === 0">
+				<div ng-if="!vm.mySectorsData || vm.mySectorsData.sales.length === 0">
 					<div class="bo-no-data-msg">
 						{{'api_no_data_available'|translate}}
 					</div>
