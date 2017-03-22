@@ -23,6 +23,17 @@
         return service;
         
         function initialize(){
+            $rootScope.hasFullAccess = function(name) {
+                var hasFullAccess = false;
+                if($rootScope.user && $rootScope.user.roles) {
+                    $rootScope.user.roles.every(function (role) {
+                        if (role.name === name && role.fullAccess === true) {
+                            hasFullAccess = true;
+                        }
+                    });
+                }
+                return hasFullAccess;
+            }
         }
         
         function login (customer) {
@@ -91,6 +102,9 @@
                     $rootScope.authenticated = true;
                     $rootScope.user = results.user;
                     pointService.setPoint($rootScope.user.point);
+                    $rootScope.user.roles = [
+                        {"name": "api_reports", "fullAccess": true, "readAccess": false}
+                    ];
                     if (typeof($location.search().key) !== 'undefined') {
                         $location.search('key', null);
                     }

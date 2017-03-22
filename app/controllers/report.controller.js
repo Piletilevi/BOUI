@@ -9,7 +9,7 @@
 
   function ReportController($scope, $rootScope, $routeParams, $location, $anchorScroll, eventService, graphService, pdfService) {
 
-    if (!$routeParams && !$routeParams.id) {
+    if (!$routeParams && !$routeParams.id || !$rootScope.hasFullAccess('api_reports')) {
       $location.path('dashboard');
     }
 

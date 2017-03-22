@@ -42,26 +42,26 @@
 				<li class="active" ng-style="{'background-color' : pointMenuActiveColor}">
 					<a href><i class="fa fa-suitcase" aria-hidden="true"></i><span class="hidden-md hidden-sm">  {{'bo_elem040'|translate}} </span></a>
 				</li>
-				<li>
+				<li ng-if="hasFullAccess('api_bo')">
 					<a href><i class="fa fa-university" aria-hidden="true"></i><span class="hidden-md hidden-sm" ng-cloak> {{'meny_02'|translate }}</span></a>
 				</li>
-				<li>
+				<li ng-if="hasFullAccess('api_administration')">
 					<a href><i class="fa fa-wrench" aria-hidden="true"></i><span class="hidden-md hidden-sm" ng-cloak> {{'meny_03'|translate }}</span></a>
 				</li>
-				<li>
+				<li ng-if="hasFullAccess('api_reports')">
 					<a href><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-md hidden-sm" ng-cloak> {{'meny_05'|translate }}</span></a>
 				</li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown" ng-if="authenticated && user.salesPoints[1]" ng-include="'views/common/sales_points.html'"></li>
+				<li class="dropdown" ng-if="authenticated && user.salesPoints[1] && hasFullAccess('api_salespoint')" ng-include="'views/common/sales_points.html'"></li>
 				<li class="" ng-if="authenticated && !user.salesPoints[1] ">
 					<a class="not-clickable" href><span class="hidden-sm">
                                 {{getPointName()}}
                             </span></a>
 				</li>
 				<li ng-if="authenticated" class="header_message_link">
-					<a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>
+					<a href="#"><i class="fa fa-envelope" ng-if="hasFullAccess('api_header_messages')" aria-hidden="true"></i>
 						<span class="visible-xs-inline">Messages</span></a>
 				</li>
 				<li class="dropdown" ng-if="authenticated" ng-include="'views/common/user_menu.html'"></li>

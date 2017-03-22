@@ -2,7 +2,7 @@
 	<i class="fa fa-user" aria-hidden="true"></i>
 	<span class="bo-user"><span class="bo-user-name">{{user.name}}</span><br />{{user.organization}}</span><span class="caret"></span></a>
 <ul class="dropdown-menu">
-	<li><a href ng-click="toChangePassword();">{{"api_menu_change_password"|translate}}</a></li>
+	<li><a href ng-click="toChangePassword();" ng-if="hasFullAccess('api_header_password_change')">{{"api_menu_change_password"|translate}}</a></li>
 	<li role="separator" class="divider"></li>
 	<li><a href ng-click="logout();">{{"pood_002"|translate}} &nbsp;<i class="fa fa-sign-out"></i></a></li>
 	<li><a href ng-click="toOldBO();">{{"api_menu_to_old_bo"|translate}}</a></li>
