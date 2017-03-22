@@ -246,7 +246,11 @@
             overviewData.currency = myOverviewData.currency;
           }
           else {
-            labels.push($translate.instant(myOverviewData.groupName));
+            if(myOverviewData.groupName == 'api_overview_venue_occupancy') {
+              labels.push($translate.instant('api_tickets_available'));
+            }else {
+              labels.push($translate.instant(myOverviewData.groupName));
+            }
             var rowSeries = [];
             myOverviewData.rows.forEach(function (overviewRow) {
               rowSeries.push($translate.instant(overviewRow.typeName));
