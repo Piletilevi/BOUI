@@ -57,7 +57,7 @@
 						<a href="#past" data-toggle="tab" role="tab" aria-controls="past" ng-click="vm.tabSelectEvent('past')">{{'api_past'|translate}}
 							<span class="badge">{{vm.pastCount}}</span></a></li>
 				</ul>
-				<div class="bo-top-filter-toggler">
+				<div id="onSaleToggler" class="bo-top-filter-toggler">
 					<div class="input-group input-group-lg">
 						<toggle ng-model="vm.filter.groupByShow" on="{{'api_group_by_show'|translate}}" off="{{'api_group_by_concert'|translate}}" size="btn-lg" onstyle="btn-default" offstyle="btn-default"></toggle>
 					</div>
