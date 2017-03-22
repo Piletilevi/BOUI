@@ -274,7 +274,7 @@
 					event.statistics = results.data.statistics;
 					event.websiteUrl = results.data.websiteUrl;
 					event.status = results.data.status;
-					event.statusKey = results.data.statusKey;
+					event.statusName = results.data.statusName;
 					event.labelCode = results.data.labelCode;
 				}
 			});
@@ -303,7 +303,7 @@
 					event.statistics = results.data.statistics;
 					event.websiteUrl = results.data.websiteUrl;
 					event.status = results.data.status;
-					event.statusKey = results.data.statusKey;
+					event.statusName = results.data.statusName;
 					event.labelCode = results.data.labelCode;
 				}
 			});
@@ -321,7 +321,7 @@
 					event.location = results.data.location;
 					event.websiteUrl = results.data.websiteUrl;
 					event.status = results.data.status;
-					event.statusKey = results.data.statusKey;
+					event.statusName = results.data.statusName;
 					event.labelCode = results.data.labelCode;
 				}
 			});
@@ -339,7 +339,7 @@
 					event.sellPeriod = results.data.sellPeriod;
 					event.websiteUrl = results.data.websiteUrl;
 					event.status = results.data.status;
-					event.statusKey = results.data.statusKey;
+					event.statusName = results.data.statusName;
 					event.labelCode = results.data.labelCode;
 				}
 			});
