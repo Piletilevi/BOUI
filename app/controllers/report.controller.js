@@ -9,7 +9,7 @@
 
   function ReportController($scope, $rootScope, $routeParams, $location, $anchorScroll, eventService, graphService, pdfService) {
 
-    if (!$routeParams && !$routeParams.id || !$rootScope.hasFullAccess('api_reports')) {
+    if (!$routeParams && !$routeParams.id) {
       $location.path('dashboard');
     }
 
@@ -149,7 +149,7 @@
       vm.currentTab = tab;
     };
 
-    vm.currentTab = 'overview';
+    vm.currentTab = false;
     vm.getcurrentTabCode = function() {
       if(vm.currentTab == 'overview') {
         return 'api_' + vm.currentTab;
@@ -201,6 +201,48 @@
 
 
     /* watchers */
+
+    $rootScope.$watch('user', function () {
+      if($rootScope.user) {
+        if (!$rootScope.hasFullAccess('api_reports')) {
+          $location.path('dashboard');
+        }
+        else {
+          var accessRights = [
+            {
+              accessRight: 'api_reports_reservations',
+              tab: 'booking'
+            },
+            {
+              accessRight: 'api_reports_locations',
+              tab: 'locations'
+            },
+            {
+              accessRight: 'api_reports_sections',
+              tab: 'sectors'
+            },
+            {
+              accessRight: 'api_reports_priceclass',
+              tab: 'priceclass'
+            },
+            {
+              accessRight: 'api_reports_pricetype',
+              tab: 'pricetype'
+            },
+            {
+              accessRight: 'api_reports_overview',
+              tab: 'overview'
+            }
+          ];
+          angular.forEach(accessRights, function(accessRight) {
+            if ($rootScope.hasFullAccess(accessRight.accessRight)) {
+              vm.currentTab = accessRight.tab;
+            }
+          });
+        }
+      }
+    });
+
     $scope.$watch(
       function () {
         vm.myOverviewBarData = eventService.myOverviewData();
@@ -350,7 +392,7 @@
         vm.sectorsFilter.period.endDate = moment(newSellPeriod.end);
         vm.minFilterDate = vm.overviewFilter.period.startDate;
         vm.maxFilterDate = vm.overviewFilter.period.endDate;
-        vm.tabSelectEvent('overview');
+        vm.tabSelectEvent(vm.currentTab);
       }
     });
 

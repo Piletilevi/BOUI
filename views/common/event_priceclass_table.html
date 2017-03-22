@@ -4,7 +4,7 @@
         <th colspan="2" class="bo-name-column">{{'api_priceclass'|translate}}</th>
         <th>{{'api_tickets'|translate}}</th>
         <th>%</th>
-        <th>{{'api_revenue'|translate}}</th>
+        <th ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</th>
     </tr>
     </thead>
     <thead>
@@ -12,7 +12,7 @@
         <td colspan="2" class="bo-name-column">{{'api_issued_total'|translate}}</td>
         <td>{{vm.myPriceClassPieData.generatedCount}}</td>
         <td>100%</td>
-        <td>{{vm.myPriceClassPieData.generatedSum | number:2}}
+        <td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myPriceClassPieData.generatedSum | number:2}}
             {{vm.myPriceClassPieData.currency}}
         </td>
     </tr>
@@ -25,7 +25,7 @@
         <th>{{vm.myPriceClassPieData.generatedCount ? ( priceclassData.rowCount /
             vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%
         </th>
-        <th>{{priceclassData.rowSum | number:2}} {{priceclassData.currency}}</th>
+        <th ng-if="hasFullAccess('api_reports_revenue')">{{priceclassData.rowSum | number:2}} {{priceclassData.currency}}</th>
     </tr>
     <tr ng-repeat="priceclassItem in priceclassData.priceClasses">
         <td>
@@ -37,7 +37,7 @@
         <td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count /
             vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%
         </td>
-        <td>{{priceclassItem.sum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
+        <td ng-if="hasFullAccess('api_reports_revenue')">{{priceclassItem.sum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
     </tr>
     </tbody>
 </table>

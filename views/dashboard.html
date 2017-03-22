@@ -47,13 +47,13 @@
 			</div>
 			<div class="bo-tabs-holder">
 				<ul class="nav nav-tabs" role="tablist" id="myeventstab">
-					<li class="active">
+					<li ng-class="{'active': vm.tabActive == 'onsale'}" ng-if="hasFullAccess('api_reports_dashboard_tab_on_sale')">
 						<a href="#onsale" data-toggle="tab" role="tab" aria-controls="onsale" ng-click="vm.tabSelectEvent('onsale')">{{'api_on_sale'|translate}}
 							<span class="badge">{{vm.salesCount}}</span></a></li>
-					<li>
+					<li ng-class="{'active': vm.tabActive == 'draft'}" ng-if="hasFullAccess('api_reports_dashboard_tab_not_active')">
 						<a href="#draft" data-toggle="tab" role="tab" aria-controls="draft" ng-click="vm.tabSelectEvent('draft')">{{'api_draft'|translate}}
 							<span class="badge">{{vm.draftCount}}</span></a></li>
-					<li>
+					<li ng-class="{'active': vm.tabActive == 'past'}" ng-if="hasFullAccess('api_reports_dashboard_tab_past')">
 						<a href="#past" data-toggle="tab" role="tab" aria-controls="past" ng-click="vm.tabSelectEvent('past')">{{'api_past'|translate}}
 							<span class="badge">{{vm.pastCount}}</span></a></li>
 				</ul>

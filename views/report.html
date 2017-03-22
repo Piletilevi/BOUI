@@ -23,9 +23,9 @@
         </div>
     </div>
     <div class="bo-event-share-block">
-        <span><i class="fa fa-print"></i><a onclick="window.print();">{{'api_print'|translate}}</a></span> |
-        <span><i class="fa fa-envelope"></i><a data-toggle="modal" data-target="#emal_popup">{{'api_email'|translate}}</a></span> |
-        <div class="dropdown inline_dropdown">
+        <span ng-if="hasFullAccess('api_reports_export_print')"><i class="fa fa-print"></i><a onclick="window.print();">{{'api_print'|translate}}</a> |</span>
+        <span ng-if="hasFullAccess('api_reports_export_email')"><i class="fa fa-envelope"></i><a data-toggle="modal" data-target="#emal_popup">{{'api_email'|translate}}</a> |</span>
+        <div class="dropdown inline_dropdown" ng-if="hasFullAccess('api_reports_export_to_file')">
         <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{'api_export'|translate}} <span class="caret"></span></span>
         <ul class="table-export dropdown-menu"
 			table-selector="vm.currentTab"
@@ -60,17 +60,17 @@
             </a>
         </div>
         <ul class="nav nav-tabs bo-dropdown-tabs" role="tablist" id="reportdatatab">
-            <li class="active"><a href="#overview" data-toggle="tab" role="tab" aria-controls="overview"
+            <li ng-show="hasFullAccess('api_reports_overview')" ng-class="{'active': vm.currentTab == 'overview'}"><a href="#overview" data-toggle="tab" role="tab" aria-controls="overview"
                                   ng-click="vm.tabSelectEvent('overview')">{{'api_overview'|translate}}</a></li>
-            <li><a href="#pricetype" data-toggle="tab" role="tab" aria-controls="pricetype"
+            <li ng-show="hasFullAccess('api_reports_pricetype')" ng-class="{'active': vm.currentTab == 'pricetype'}"><a href="#pricetype" data-toggle="tab" role="tab" aria-controls="pricetype"
                    ng-click="vm.tabSelectEvent('pricetype')">{{'api_by_pricetype'|translate}}</a></li>
-            <li><a href="#priceclass" data-toggle="tab" role="tab" aria-controls="priceclass"
+            <li ng-show="hasFullAccess('api_reports_priceclass')" ng-class="{'active': vm.currentTab == 'priceclass'}"><a href="#priceclass" data-toggle="tab" role="tab" aria-controls="priceclass"
                    ng-click="vm.tabSelectEvent('priceclass')">{{'api_by_priceclass'|translate}}</a></li>
-            <li ng-hide="vm.event.isShow"><a href="#sectors" data-toggle="tab" role="tab" aria-controls="sectors"
+            <li ng-show="hasFullAccess('api_reports_sections')" ng-class="{'active': vm.currentTab == 'sectors'}" ng-hide="vm.event.isShow"><a href="#sectors" data-toggle="tab" role="tab" aria-controls="sectors"
                    ng-click="vm.tabSelectEvent('sectors')">{{'api_by_sectors'|translate}}</a></li>
-            <li><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations"
+            <li ng-show="hasFullAccess('api_reports_locations')" ng-class="{'active': vm.currentTab == 'locations'}"><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations"
                    ng-click="vm.tabSelectEvent('locations')">{{'api_by_locations'|translate}}</a></li>
-            <li><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings"
+            <li ng-show="hasFullAccess('api_reports_reservations')" ng-class="{'active': vm.currentTab == 'bookings'}"><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings"
                    ng-click="vm.tabSelectEvent('bookings')">{{'api_bookings'|translate}}</a></li>
         </ul>
     </div>
@@ -105,7 +105,7 @@
 							<span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.display=='tickets'}" ng-click="vm.setOverviewDisplay('tickets')">{{'api_tickets'|translate}}</button>
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.display=='revenue'}" ng-click="vm.setOverviewDisplay('revenue')">{{'api_revenue'|translate}}</button>
+								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.display=='revenue'}" ng-if="hasFullAccess('api_reports_revenue')" ng-click="vm.setOverviewDisplay('revenue')">{{'api_revenue'|translate}}</button>
 							</div>
 							<span class="visible-print">{{'api_print_display_and'|translate}}</span>
 							<div class="btn-group btn-group-sm" role="group">
@@ -142,7 +142,7 @@
 									<th width="46%"></th>
 									<th width="17%">{{'api_tickets'|translate}}</th>
 									<th width="10%">%</th>
-									<th width="20%">{{'api_revenue'|translate}}</th>
+									<th width="20%" ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</th>
 									</tr>
 								</thead>
 							<thead class="bo-title-row">
@@ -150,7 +150,7 @@
 									<td class="bo-name-column" colspan="2">{{'api_overview_generated_total'|translate}}</td>
 										<td>{{vm.myOverviewBarData.generatedCount}}</td>
 										<td>100%</td>
-										<td>{{vm.myOverviewBarData.generatedSum | number:2}} {{vm.myOverviewBarData.currency}}</td>
+										<td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myOverviewBarData.generatedSum | number:2}} {{vm.myOverviewBarData.currency}}</td>
 									</tr>
 							</thead>
 							<thead ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
@@ -158,7 +158,7 @@
 									<td class="bo-name-column" colspan="2">{{overviewData.groupName|translate}}</td>
 									<td>{{overviewData.rowCount}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{overviewData.rowSum | number:2}} {{vm.myOverviewBarData.currency}}</td>
+									<td ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum | number:2}} {{vm.myOverviewBarData.currency}}</td>
 									</tr>
 								</thead>
 							<tbody ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId != 'venue_occupancy' && overviewData.groupId != 'generated'">
@@ -167,7 +167,7 @@
 									<th class="bo-name-column">{{overviewData.groupName|translate}}</th>
 									<th>{{overviewData.rowCount}}</th>
 									<th>{{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</th>
-									<th>{{overviewData.rowSum | number:2}} {{vm.myOverviewBarData.currency}}</th>
+									<th ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum | number:2}} {{vm.myOverviewBarData.currency}}</th>
 								</tr>
 								<tr ng-repeat="overviewRow in overviewData.rows" class="{{overviewRow.isRefund ? 'text-danger' : ''}}">
 									<td>
@@ -176,7 +176,7 @@
 									<td class="bo-name-column">{{overviewRow.typeName|translate}}:</td>
 										<td>{{overviewRow.count}}</td>
 										<td>{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
-										<td>{{overviewRow.sum | number:2}} {{vm.myOverviewBarData.currency}}</td>
+										<td ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum | number:2}} {{vm.myOverviewBarData.currency}}</td>
 									</tr>
 								</tbody>
 							<thead ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
@@ -184,7 +184,7 @@
 									<td class="bo-name-column" colspan="2">{{overviewRow.typeName|translate}}</td>
 									<td>{{overviewRow.count}}</td>
 									<td>{{vm.myOverviewBarData.generatedCount ? (overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td>{{overviewRow.sum | number:2}} {{vm.myOverviewBarData.currency}}</td>
+									<td ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum | number:2}} {{vm.myOverviewBarData.currency}}</td>
 								</tr>
 							</thead>
 							</table>
@@ -223,7 +223,7 @@
 							<span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.display=='tickets'}" ng-click="vm.setPricetypeDisplay('tickets')">{{'api_tickets'|translate}}</button>
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.display=='revenue'}" ng-click="vm.setPricetypeDisplay('revenue')">{{'api_revenue'|translate}}</button>
+								<button type="button" class="btn btn-sm btn-default" ng-if="hasFullAccess('api_reports_revenue')" ng-class="{ 'active': vm.pricetypeFilter.display=='revenue'}" ng-click="vm.setPricetypeDisplay('revenue')">{{'api_revenue'|translate}}</button>
 							</div>
 							<span class="visible-print">{{'api_print_display_and'|translate}}</span>
 							<div class="btn-group btn-group-sm" role="group">
@@ -251,7 +251,7 @@
 									<div class="btn-group btn-group-sm" role="group">
 										<span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
 										<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='tickets'}" ng-click="vm.setPricetypePieDisplay('tickets')">{{'api_tickets'|translate}}</button>
-										<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='revenue'}" ng-click="vm.setPricetypePieDisplay('revenue')">{{'api_revenue'|translate}}</button>
+										<button type="button" ng-if="hasFullAccess('api_reports_revenue')" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='revenue'}" ng-click="vm.setPricetypePieDisplay('revenue')">{{'api_revenue'|translate}}</button>
 									</div>
 								</div>
 								<canvas id="pricetypePie" class="chart chart-pie" chart-data="vm.pricetypePieGraph.data" chart-labels="vm.pricetypePieGraph.labels" chart-options="vm.pricetypePieGraph.options" chart-colors="vm.pricetypePieGraph.colors"></canvas>
@@ -264,7 +264,7 @@
 									<th class="bo-name-column" colspan="2">{{'api_pricetype'|translate}}</th>
 									<th>{{'api_tickets'|translate}}</th>
 									<th>%</th>
-									<th>{{'api_revenue'|translate}}</th>
+									<th ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</th>
 									</tr>
 								</thead>
 							<thead>
@@ -272,7 +272,7 @@
 									<td colspan="2" class="bo-name-column">{{'api_issued_total'|translate}}</td>
 										<td>{{vm.myPriceTypePieData.generatedCount}}</td>
 										<td>100%</td>
-										<td>{{vm.myPriceTypePieData.generatedSum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
+										<td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myPriceTypePieData.generatedSum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
 									</tr>
 							</thead>
 							<tbody ng-repeat="pricetypeData in vm.myPriceTypePieData.sales">
@@ -281,14 +281,14 @@
 									<th class="bo-name-column">{{pricetypeData.groupName|translate}}</th>
 										<th>{{pricetypeData.rowCount}}</th>
 										<th>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeData.rowCount / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</th>
-										<th>{{pricetypeData.rowSum | number:2}} {{pricetypeData.currency}}</th>
+										<th ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeData.rowSum | number:2}} {{pricetypeData.currency}}</th>
 									</tr>
 									<tr ng-repeat="pricetypeItem in pricetypeData.priceTypes">
 									<td><span class="bo-dot fa fa-circle" style="color: {{pricetypeItem.color}}!important;"></span></td>
 									<td class="bo-name-column">{{pricetypeItem.priceTypeName}} <span ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice | number:2) + "-" + (pricetypeItem.maxPrice | number:2) : (pricetypeItem.minPrice | number:2)}})</span></td>
 										<td>{{pricetypeItem.count}}</td>
 										<td>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</td>
-										<td>{{pricetypeItem.sum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
+										<td ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeItem.sum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -327,7 +327,7 @@
 							<span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
 							<div class="btn-group btn-group-sm" role="group">
 								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.display=='tickets'}" ng-click="vm.setPriceclassDisplay('tickets')">{{'api_tickets'|translate}}</button>
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.display=='revenue'}" ng-click="vm.setPriceclassDisplay('revenue')">{{'api_revenue'|translate}}</button>
+								<button type="button" ng-if="hasFullAccess('api_reports_revenue')" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.display=='revenue'}" ng-click="vm.setPriceclassDisplay('revenue')">{{'api_revenue'|translate}}</button>
 							</div>
 							<span class="visible-print">{{'api_print_display_and'|translate}}</span>
 							<div class="btn-group btn-group-sm" role="group">
@@ -354,7 +354,7 @@
 								<div class="bo-chart-buttons">
 									<div class="btn-group btn-group-sm" role="group">
 										<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='tickets'}" ng-click="vm.setPriceclassPieDisplay('tickets')">{{'api_tickets'|translate}}</button>
-										<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='revenue'}" ng-click="vm.setPriceclassPieDisplay('revenue')">{{'api_revenue'|translate}}</button>
+										<button type="button" ng-if="hasFullAccess('api_reports_revenue')" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='revenue'}" ng-click="vm.setPriceclassPieDisplay('revenue')">{{'api_revenue'|translate}}</button>
 									</div>
 								</div>
 								<canvas id="priceclassPie" class="chart chart-pie" chart-data="vm.priceclassPieGraph.data" chart-labels="vm.priceclassPieGraph.labels" chart-options="vm.priceclassPieGraph.options" chart-colors="vm.priceclassPieGraph.colors"></canvas>
@@ -367,7 +367,7 @@
 								<th colspan="2" class="bo-name-column">{{'api_priceclass'|translate}}</th>
 								<th>{{'api_tickets'|translate}}</th>
 								<th>%</th>
-								<th>{{'api_revenue'|translate}}</th>
+								<th ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</th>
 							</tr>
 							</thead>
 							<thead>
@@ -375,7 +375,7 @@
 								<td colspan="2" class="bo-name-column">{{'api_issued_total'|translate}}</td>
 								<td>{{vm.myPriceClassPieData.generatedCount}}</td>
 								<td>100%</td>
-								<td>{{vm.myPriceClassPieData.generatedSum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
+								<td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myPriceClassPieData.generatedSum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
 							</tr>
 							</thead>
 							<tbody ng-repeat="priceclassData in vm.myPriceClassPieData.sales">
@@ -384,14 +384,14 @@
 								<th class="bo-name-column">{{priceclassData.groupName|translate}}</th>
 								<th>{{priceclassData.rowCount}}</th>
 								<th>{{vm.myPriceClassPieData.generatedCount ? ( priceclassData.rowCount / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</th>
-								<th>{{priceclassData.rowSum | number:2}} {{priceclassData.currency}}</th>
+								<th ng-if="hasFullAccess('api_reports_revenue')">{{priceclassData.rowSum | number:2}} {{priceclassData.currency}}</th>
 							</tr>
 							<tr ng-repeat="priceclassItem in priceclassData.priceClasses">
 								<td><span class="bo-dot fa fa-circle" style="color: {{priceclassItem.color}}!important;"></span></td>
 								<td class="bo-name-column">{{priceclassItem.priceClassName}} <span ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice | number:2) + "-" + (priceclassItem.maxPrice | number:2) : (priceclassItem.minPrice | number:2)}})</span></td>
 								<td>{{priceclassItem.count}}</td>
 								<td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</td>
-								<td>{{priceclassItem.sum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
+								<td ng-if="hasFullAccess('api_reports_revenue')">{{priceclassItem.sum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
 							</tr>
 							</tbody>
 						</table>
@@ -440,7 +440,7 @@
                                     {{sectorData.name}}
                                 </div>
                                 <div class="clearfix">
-                                    <div class="bo-sectionselector-itemprice">{{sectorData.statistics.soldSumma |
+                                    <div class="bo-sectionselector-itemprice" ng-if="hasFullAccess('api_reports_revenue')">{{sectorData.statistics.soldSumma |
                                         number:2}}
                                         {{sectorData.statistics.currency}}
                                     </div>
