@@ -102,15 +102,6 @@
                     $rootScope.authenticated = true;
                     $rootScope.user = results.user;
                     pointService.setPoint($rootScope.user.point);
-                    $rootScope.user.roles = [
-                        {"name": "api_reports", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_overview", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_pricetype", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_priceclass", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_sections", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_locations", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_dashboard_tab_on_sale", "fullAccess": true, "readAccess": false}
-                    ];
                     if (typeof($location.search().key) !== 'undefined') {
                         $location.search('key', null);
                     }
