@@ -364,6 +364,10 @@
 	.bo-dot::before {
 		color: inherit!important;
 	}
+
+	.bo-line-chart-container {
+		height: auto!important;
+	}
 }
 
 /* Bootstrap xs, md, lg
