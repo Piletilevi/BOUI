@@ -101,7 +101,7 @@
         });
 
         $scope.$watch('vm.filter.period', function (newPeriod, oldPeriod) {
-            if (newPeriod !== oldPeriod) {
+            if (!angular.isUndefined(oldPeriod) && newPeriod !== oldPeriod) {
                 eventService.reset();
                 eventService.getMyEvents(vm.filter);
             }
@@ -121,7 +121,7 @@
         });
 
         $scope.$watch('vm.filter.groupByShow', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
+            if (!angular.isUndefined(oldValue) && newValue !== oldValue) {
                 eventService.reset();
                 eventService.getMyEvents(vm.filter);
             }
