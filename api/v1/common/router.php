@@ -428,14 +428,14 @@ $app->post('/concertSales', function() use ($app)  {
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->concertSales( $filter );
-	
-	if ($reportResponse) {
+
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -452,15 +452,16 @@ $app->post('/showSales', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->showSales( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
+
 });
 
 $app->post('/concertOpSales', function() use ($app)  {
@@ -478,13 +479,13 @@ $app->post('/concertOpSales', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->concertOpSales( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -504,13 +505,13 @@ $app->post('/showOpSales', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->showOpSales( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
