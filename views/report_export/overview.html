@@ -36,26 +36,35 @@
     <td></td>
     <td></td>
 </tr>
-<tbody ng-repeat="overviewData in vm.myOverviewBarData.sales">
-<tr ng-if="$first">
+
+<tr>
     <td></td>
     <td><strong>{{'api_tickets'|translate}}</strong></td>
     <td><strong>%</strong></td>
     <td ng-if="hasFullAccess('api_reports_revenue')"><strong>{{'api_revenue'|translate}}</strong></td>
 </tr>
-<tr ng-if="$first">
+<tr>
     <td><strong>{{'api_generated'|translate}}</strong></td>
     <td>{{vm.myOverviewBarData.generatedCount}}</td>
     <td>100%</td>
     <td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myOverviewBarData.generatedSum | number:2}}</td>
 </tr>
-<tr ng-if="overviewData.groupId != 'generated'">
+
+<tr ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
     <td><strong>{{overviewData.groupName|translate}}:</strong></td>
     <td>{{overviewData.rowCount}}</td>
     <td>{{vm.myOverviewBarData.generatedCount ? ( overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
     <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum | number:2}}</td>
 </tr>
-<tr ng-if="overviewData.groupId != 'generated'" ng-repeat="overviewRow in overviewData.rows" ng-class="{ 'active text-danger': overviewRow.isRefund }">
+
+<tbody ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId != 'venue_occupancy' && overviewData.groupId != 'generated'">
+<tr>
+    <td><strong>{{overviewData.groupName|translate}}:</strong></td>
+    <td>{{overviewData.rowCount}}</td>
+    <td>{{vm.myOverviewBarData.generatedCount ? ( overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum | number:2}}</td>
+</tr>
+<tr ng-repeat="overviewRow in overviewData.rows" ng-class="{ 'active text-danger': overviewRow.isRefund }">
     <td>{{overviewRow.typeName|translate}}:</td>
     <td>{{overviewRow.count}}</td>
     <td>{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
