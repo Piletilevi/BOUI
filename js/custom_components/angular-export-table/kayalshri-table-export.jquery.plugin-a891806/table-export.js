@@ -257,15 +257,14 @@ THE SOFTWARE.*/
 						console.log(excel);
 					}
 
-					var excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:"+defaults.type+"' xmlns='http://www.w3.org/TR/REC-html40'>";
+					var excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>";
 					excelFile += "<head>";
 					excelFile += "<!--[if gte mso 9]>";
-					excelFile += "<xml>";
+					excelFile += "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>";
 					excelFile += "<x:ExcelWorkbook>";
 					excelFile += "<x:ExcelWorksheets>";
 					excelFile += "<x:ExcelWorksheet>";
 					excelFile += "<x:Name>";
-					excelFile += "{worksheet}";
 					excelFile += "</x:Name>";
 					excelFile += "<x:WorksheetOptions>";
 					excelFile += "<x:DisplayGridlines/>";

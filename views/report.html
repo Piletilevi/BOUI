@@ -25,14 +25,12 @@
     <div class="bo-event-share-block">
         <span ng-if="hasFullAccess('api_reports_export_print')"><i class="fa fa-print"></i><a onclick="window.print();">{{'api_print'|translate}}</a> |</span>
         <span ng-if="hasFullAccess('api_reports_export_email')"><i class="fa fa-envelope"></i><a data-toggle="modal" data-target="#emal_popup">{{'api_email'|translate}}</a> |</span>
-        <div class="dropdown inline_dropdown" ng-if="hasFullAccess('api_reports_export_to_file')">
+		<div class="dropdown inline_dropdown" ng-if="hasFullAccess('api_reports_export_to_file')">
         <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{'api_export'|translate}} <span class="caret"></span></span>
-        <ul class="table-export dropdown-menu"
+
+			<ul class="table-export dropdown-menu"
 			table-selector="vm.currentTab"
-			export-options="{type: 'pdf', escape: true, tableName: 'bo-report'}">
-			<li te-option te-value="'pdf'" te-param="'type'">
-				<a href="">PDF</a>
-			</li>
+			export-options="{type: 'pdf', escape: true, tableName: vm.getExportFileName(vm.event)}">
 
 			<li te-option te-value="'excel'" te-param="'type'">
 				<a href="">Excel</a>
