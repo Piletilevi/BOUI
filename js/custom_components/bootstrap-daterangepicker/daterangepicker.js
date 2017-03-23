@@ -479,6 +479,9 @@
                     this.startDate.minute(Math.floor(this.startDate.minute() / this.timePickerIncrement) * this.timePickerIncrement);
             }
 
+            var startDateUtcOffset = moment(this.startDate).utcOffset();
+            this.startDate = moment(this.startDate).utc().add(startDateUtcOffset, 'm').startOf('day');
+
             if (!this.isShowing)
                 this.updateElement();
 
@@ -508,6 +511,9 @@
                 this.endDate = this.startDate.clone().add(this.dateLimit);
 
             this.previousRightTime = this.endDate.clone();
+
+            var endDateUtcOffset = moment(this.endDate).utcOffset();
+            this.endDate = moment(this.endDate).utc().add(endDateUtcOffset, 'm').endOf('day');
 
             if (!this.isShowing)
                 this.updateElement();
