@@ -6,7 +6,8 @@
     <td></td>
 </tr>
 <tr>
-    <td>{{vm.event.eventPeriod.start | date:'dd.MM.yyyy HH:mm'}} - {{vm.event.eventPeriod.end | date:'dd.MM.yyyy HH:mm'}}</td>
+    <td ng-if="event.isShow">{{vm.event.eventPeriod.start | date:'dd.MM.yyyy'}} - {{vm.event.eventPeriod.end | date:'dd.MM.yyyy'}}</td>
+    <td ng-if="!event.isShow">{{vm.event.eventPeriod.start | date:'dd.MM.yyyy HH:mm'}}</td>
     <td></td>
     <td></td>
     <td></td>
