@@ -43,11 +43,13 @@
         </div>
     </div>
 
-	<table id="{{vm.currentTab}}" ng-include="'views/report_export/'+vm.currentTab+'.html'" class="visually-hidden"></table>
+	<table id="{{vm.currentTab}}"
+		   ng-if="['overview', 'pricetype', 'priceclass'].indexOf(vm.currentTab) > -1"
+		   ng-include="'views/report_export/'+vm.currentTab+'.html'" class="visually-hidden"></table>
 
     <div class="panel panel-default bo-event">
         <div class="bo-sub-events-hidden" ng-include-template="event_detail.html"
-             ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false}"></div>
+             ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, hasFullAccess: hasFullAccess('api_reports_revenue')}"></div>
     </div>
     <div class="bo-dropdown-tabs-wrapper">
         <div class="visible-xs">

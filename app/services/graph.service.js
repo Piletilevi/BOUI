@@ -3,8 +3,8 @@
   'use strict';
 
   angular
-    .module('boApp')
-    .factory('graphService', GraphService);
+      .module('boApp')
+      .factory('graphService', GraphService);
 
   GraphService.$inject = ['colorService', '$translate'];
 
@@ -203,8 +203,8 @@
             dataItem.push(dataItemValue);
           });
           if (!dataItem.every(function (v) {
-              return v === 0;
-            })) {
+                return v === 0;
+              })) {
             data.push(dataItem);
             series.push($translate.instant(type.typeName));
             step++;
@@ -319,7 +319,7 @@
         newValue.sales.forEach(function (myPricetypeData) {
           myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
             labels.push(pricetypeRow.priceTypeName +
-              ' (' + Math.round(pricetypeRow.count / pricetypeData.generatedCount * 100) + '%)');
+                ' (' + Math.round(pricetypeRow.count / pricetypeData.generatedCount * 100) + '%)');
           });
         });
 
@@ -357,12 +357,13 @@
         var ids = [];
         var colors = [];
         var step = 0;
+        var totals = [];
 
         newValue.sales.forEach(function (sale) {
           sale.sellTypes.forEach(function (sellType) {
             if ($.grep(series, function (e) {
-                return e == sellType.priceTypeName;
-              }).length === 0) {
+                  return e == sellType.priceTypeName;
+                }).length === 0) {
               series.push(sellType.priceTypeName);
               ids.push(parseInt(sellType.priceTypeId, 10));
             }
@@ -408,6 +409,10 @@
                 }
               }
             });
+            if(!totals[dataItem.length]) {
+              totals[dataItem.length] = 0;
+            }
+            totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
           });
           data.push(dataItem);
@@ -420,11 +425,13 @@
           pricetypeGraph.series = series;
           pricetypeGraph.data = data;
           pricetypeGraph.colors = colors;
+          pricetypeGraph.totals = totals;
         } else {
           pricetypeGraph.labels = null;
           pricetypeGraph.series = null;
           pricetypeGraph.data = null;
           pricetypeGraph.colors = null;
+          pricetypeGraph.totals = null;
         }
       }
     }
@@ -448,7 +455,7 @@
         newValue.sales.forEach(function (myPriceclassData) {
           myPriceclassData.priceClasses.forEach(function (priceclassRow) {
             labels.push(priceclassRow.priceClassName +
-              ' (' + Math.round(priceclassRow.count / priceclassData.generatedCount * 100) + '%)');
+                ' (' + Math.round(priceclassRow.count / priceclassData.generatedCount * 100) + '%)');
           });
         });
 
@@ -486,12 +493,13 @@
         var colors = [];
         var ids = [];
         var step = 0;
+        var totals = [];
 
         newValue.sales.forEach(function (sale) {
           sale.sellTypes.forEach(function (sellType) {
             if ($.grep(series, function (e) {
-                return e == sellType.priceClassName;
-              }).length === 0) {
+                  return e == sellType.priceClassName;
+                }).length === 0) {
               series.push(sellType.priceClassName);
               ids.push(parseInt(sellType.priceClassId, 10));
             }
@@ -500,8 +508,8 @@
 
         // Sort by priceClassId
         series = ids.map(function(e,i){return i;})
-              .sort(function(a,b){return ids[a] - ids[b];})
-              .map(function(e){return series[e];});
+            .sort(function(a,b){return ids[a] - ids[b];})
+            .map(function(e){return series[e];});
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
@@ -537,6 +545,10 @@
                 }
               }
             });
+            if(!totals[dataItem.length]) {
+              totals[dataItem.length] = 0;
+            }
+            totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
           });
           data.push(dataItem);
@@ -548,11 +560,13 @@
           priceclassGraph.series = series;
           priceclassGraph.data = data;
           priceclassGraph.colors = colors;
+          priceclassGraph.totals = totals;
         } else {
           priceclassGraph.labels = null;
           priceclassGraph.series = null;
           priceclassGraph.data = null;
           priceclassGraph.colors = null;
+          priceclassGraph.totals = null;
         }
       }
     }
