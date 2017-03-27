@@ -116,7 +116,7 @@
 						</div>
 					</div>
 				</div>
-				<div ng-if="!vm.myOverviewBarData.sales || vm.myOverviewBarData.sales.length === 0">
+				<div ng-if="vm.myOverviewBarData.sales.length === 0">
 					<div class="bo-no-data-msg">
 						{{'api_no_data_available'|translate}}
 					</div>
@@ -234,7 +234,7 @@
 						</div>
 					</div>
 				</div>
-				<div ng-if="!vm.myPriceTypePieData || vm.myPriceTypePieData.sales.length === 0">
+				<div ng-if="vm.myPriceTypePieData.sales.length === 0">
 					<div class="bo-no-data-msg">
 						{{'api_no_data_available'|translate}}
 					</div>
@@ -338,7 +338,7 @@
 						</div>
 					</div>
 				</div>
-				<div ng-if="!vm.myPriceClassPieData || vm.myPriceClassPieData.sales.length === 0">
+				<div ng-if="vm.myPriceClassPieData.sales.length === 0">
 					<div class="bo-no-data-msg">
 						{{'api_no_data_available'|translate}}
 					</div>
@@ -422,7 +422,7 @@
                     </div>
                 </div>
 
-				<div ng-if="!vm.mySectorsData || vm.mySectorsData.sales.length === 0">
+				<div ng-if="vm.mySectorsData.sales.length === 0">
 					<div class="bo-no-data-msg">
 						{{'api_no_data_available'|translate}}
 					</div>
