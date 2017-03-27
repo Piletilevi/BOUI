@@ -3,10 +3,8 @@
         <div class="row bo-sub-menu">
             <div class="hidden-xs col-sm-12">
                 <ul class="nav nav-pills">
-                    <li role="presentation" class="active"><a href="#/dashboard">{{'api_myevents'|translate }}</a></li>
-                    <li role="presentation"><a href="#/advertisement">{{'api_advertisement'|translate }}</a></li>
-                    <li role="presentation"><a href="#/venueplan">{{'bo_hall012'|translate }}</a></li>
-                    <li role="presentation"><a href="#/news">{{'api_news'|translate }}</a></li>
+                    <li role="presentation" class="active" ng-if="hasFullAccess('api_reports_sub_prmtr_db')"><a href="#/dashboard">{{'api_myevents'|translate }}</a></li>
+                    <li role="presentation" ng-if="hasFullAccess('api_reports_sub_advertisement')"><a href="#/advertisement">{{'api_advertisement'|translate }}</a></li>
                 </ul>
             </div>
         </div>
