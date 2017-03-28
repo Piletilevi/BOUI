@@ -205,6 +205,9 @@
 				});
 
 				$scope.$watch(function() {
+					if(!ngModel.$modelValue) {
+						return false;
+					}
                     if (ngModel.$modelValue.startDate && ngModel.$modelValue.endDate && !defaultValuesSet) {
                         $element.data('daterangepicker').setStartDate(ngModel.$modelValue.startDate);
                         $element.data('daterangepicker').setEndDate(ngModel.$modelValue.endDate);

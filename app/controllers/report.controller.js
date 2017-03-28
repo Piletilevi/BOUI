@@ -5,17 +5,13 @@
   angular.module('boApp')
     .controller('reportController', ReportController);
 
-  ReportController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$anchorScroll', '$filter', 'eventService', 'graphService', 'pdfService'];
+  ReportController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$filter', 'eventService', 'graphService', 'pdfService'];
 
-  function ReportController($scope, $rootScope, $routeParams, $location, $anchorScroll, $filter, eventService, graphService, pdfService) {
+  function ReportController($scope, $rootScope, $routeParams, $location, $filter, eventService, graphService, pdfService) {
 
     if (!$routeParams && !$routeParams.id) {
       $location.path('dashboard');
     }
-
-    //scroll to top
-    $location.hash('top');
-    $anchorScroll();
 
     //initially set those objects to null to avoid undefined error
     var vm = this;
