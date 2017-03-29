@@ -280,6 +280,20 @@
 				dataService.page(results);
 				if (results.status == 'success'){
 					mySectorsData = results.data;
+					mySectorsData.salesTotal = {
+						soldTickets: 0,
+						bookedTickets: 0,
+						availableTickets: 0,
+						soldPercent: 0,
+						soldSumma: 0
+					};
+					angular.forEach(mySectorsData.sales,function(sectorItem){
+						mySectorsData.salesTotal.soldTickets += sectorItem.statistics.soldTickets;
+						mySectorsData.salesTotal.bookedTickets += sectorItem.statistics.bookedTickets;
+						mySectorsData.salesTotal.availableTickets += sectorItem.statistics.availableTickets;
+						mySectorsData.salesTotal.soldPercent += sectorItem.statistics.soldPercent;
+						mySectorsData.salesTotal.soldSumma += sectorItem.statistics.soldSumma;
+					});
 				}
 			});
 		}
