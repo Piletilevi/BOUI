@@ -62,7 +62,7 @@
 	vm.getShowSales = eventService.getShowSales;
 	vm.getMoreRelatedEvents = eventService.getMoreRelatedEvents;
 	vm.hasMoreRelatedEvents = eventService.hasMoreRelatedEvents;
-    vm.filter = {period: {startDate: moment().subtract(1, 'years'), endDate: moment().add(1, 'years')}, name: ''};
+    vm.filter = {period: {startDate: moment().subtract(30, 'days'), endDate: moment().add(1, 'years')}, name: ''};
     vm.filterPeriod = {period: {startDate: null, endDate: null}};
     vm.overviewFilter = {period: {startDate: null, endDate: null}, display: 'tickets', groupBy: 'day'};
     vm.pricetypeFilter = {period: {startDate: null, endDate: null}, display: 'tickets', pieDisplay: 'tickets', groupBy: 'day'};

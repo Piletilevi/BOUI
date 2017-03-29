@@ -65,7 +65,7 @@
 
 
                 vm.filter = {
-                    period: {startDate: moment().subtract(1, 'years'), endDate: moment().add(1, 'years')},
+                    period: {startDate: moment().subtract(30, 'days'), endDate: moment().add(1, 'years')},
                     name: '',
                     status: vm.tabActive,
                     loadingItems: false,
