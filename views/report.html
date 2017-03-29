@@ -44,7 +44,7 @@
     </div>
 
 	<table id="{{vm.currentTab}}"
-		   ng-if="['overview', 'pricetype', 'priceclass' 'sectors'].indexOf(vm.currentTab) > -1"
+		   ng-if="['overview', 'pricetype', 'priceclass', 'sectors'].indexOf(vm.currentTab) > -1"
 		   ng-include="'views/report_export/'+vm.currentTab+'.html'" class="visually-hidden"></table>
 
     <div class="panel panel-default bo-event">
