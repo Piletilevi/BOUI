@@ -48,7 +48,7 @@
     <td>{{'api_issued_total'|translate}}</td>
     <td>{{vm.myPriceTypePieData.generatedCount}}</td>
     <td>100%</td>
-    <td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myPriceTypePieData.generatedSum.toFixed(2)}}</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myPriceTypePieData.generatedSum.toFixed(2).replace(".", ",")}}</td>
 </tr>
 
 <tbody ng-repeat="pricetypeData in vm.myPriceTypePieData.sales">
@@ -56,13 +56,13 @@
     <td><strong>{{pricetypeData.groupName|translate}}</strong></td>
     <td>{{pricetypeData.rowCount}}</td>
     <td>{{(vm.myPriceTypePieData.generatedCount ? ( pricetypeData.rowCount / vm.myPriceTypePieData.generatedCount ) * 100 : 0).toFixed(0)}}%</td>
-    <td ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeData.rowSum.toFixed(2)}}</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeData.rowSum.toFixed(2).replace(".", ",")}}</td>
 </tr>
 <tr ng-repeat="pricetypeItem in pricetypeData.priceTypes">
     <td>{{pricetypeItem.priceTypeName}} <span ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice.toFixed(2)) + "-" + (pricetypeItem.maxPrice.toFixed(2)) : (pricetypeItem.minPrice.toFixed(2))}})</span></td>
     <td>{{pricetypeItem.count}}</td>
     <td>{{(vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0).toFixed(0)}}%</td>
-    <td ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeItem.sum.toFixed(2)}}</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeItem.sum.toFixed(2).replace(".", ",")}}</td>
 </tr>
 </tbody>
 

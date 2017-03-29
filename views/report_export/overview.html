@@ -48,14 +48,14 @@
     <td><strong>{{'api_generated'|translate}}</strong></td>
     <td>{{vm.myOverviewBarData.generatedCount}}</td>
     <td>100%</td>
-    <td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myOverviewBarData.generatedSum.toFixed(2)}}</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myOverviewBarData.generatedSum.toFixed(2).replace(".", ",")}}</td>
 </tr>
 
 <tr ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
     <td><strong>{{overviewData.groupName|translate}}:</strong></td>
     <td>{{overviewData.rowCount}}</td>
     <td>{{(vm.myOverviewBarData.generatedCount ? ( overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0).toFixed(0)}}%</td>
-    <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum.toFixed(2)}}</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum.toFixed(2).replace(".", ",")}}</td>
 </tr>
 
 <tbody ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId != 'venue_occupancy' && overviewData.groupId != 'generated'">
@@ -63,13 +63,13 @@
     <td><strong>{{overviewData.groupName|translate}}:</strong></td>
     <td>{{overviewData.rowCount}}</td>
     <td>{{(vm.myOverviewBarData.generatedCount ? ( overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0).toFixed(0)}}%</td>
-    <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum.toFixed(2)}}</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum.toFixed(2).replace(".", ",")}}</td>
 </tr>
 <tr ng-repeat="overviewRow in overviewData.rows" ng-class="{ 'active text-danger': overviewRow.isRefund }">
     <td>{{overviewRow.typeName|translate}}:</td>
     <td>{{overviewRow.count}}</td>
     <td>{{(vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0).toFixed(0)}}%</td>
-    <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum.toFixed(2)}}</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum.toFixed(2).replace(".", ",")}}</td>
 </tr>
 </tbody>
 <tbody ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
@@ -77,7 +77,7 @@
     <td><strong>{{overviewRow.typeName|translate}}</strong></td>
     <td>{{overviewRow.count}}</td>
     <td>{{vm.myOverviewBarData.generatedCount ? (overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
-    <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum.toFixed(2)}}</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum.toFixed(2).replace(".", ",")}}</td>
 </tr>
 </tbody>
 <tr>

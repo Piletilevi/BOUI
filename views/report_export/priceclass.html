@@ -48,7 +48,7 @@
     <td><strong>{{'api_issued_total'|translate}}</strong></td>
     <td>{{vm.myPriceClassPieData.generatedCount}}</td>
     <td>100%</td>
-    <td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myPriceClassPieData.generatedSum.toFixed(2)}}</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myPriceClassPieData.generatedSum.toFixed(2).replace(".", ",")}}</td>
 </tr>
 
 <tbody ng-repeat="priceclassData in vm.myPriceClassPieData.sales">
@@ -56,13 +56,13 @@
     <td><strong>{{priceclassData.groupName|translate}}</strong></td>
     <td>{{priceclassData.rowCount}}</td>
     <td>{{(vm.myPriceClassPieData.generatedCount ? ( priceclassData.rowCount / vm.myPriceClassPieData.generatedCount ) * 100 : 0).toFixed(0)}}%</td>
-    <td ng-if="hasFullAccess('api_reports_revenue')">{{priceclassData.rowSum.toFixed(2)}}</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{priceclassData.rowSum.toFixed(2).replace(".", ",")}}</td>
 </tr>
 <tr ng-repeat="priceclassItem in priceclassData.priceClasses">
-    <td>{{priceclassItem.priceClassName}} <span ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice.toFixed(2)) + "-" + (priceclassItem.maxPrice.toFixed(2)) : (priceclassItem.minPrice.toFixed(2))}})</span></td>
+    <td>{{priceclassItem.priceClassName}} <span ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice.toFixed(2).replace(".", ",")) + "-" + (priceclassItem.maxPrice.toFixed(2).replace(".", ",")) : (priceclassItem.minPrice.toFixed(2).replace(".", ","))}})</span></td>
     <td>{{priceclassItem.count}}</td>
     <td>{{(vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0).toFixed(0)}}%</td>
-    <td ng-if="hasFullAccess('api_reports_revenue')">{{priceclassItem.sum.toFixed(2)}}</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{priceclassItem.sum.toFixed(2).replace(".", ",")}}</td>
 </tr>
 </tbody>
 
