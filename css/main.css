@@ -428,6 +428,11 @@ a:hover {
 	margin-left: 3px;
 }
 
+.bo-event-share-block .dropdown-toggle {
+	color: #000;
+	cursor: pointer;
+}
+
 /* Event Badges
 ================================ */
 

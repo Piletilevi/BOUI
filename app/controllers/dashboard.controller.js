@@ -5,9 +5,10 @@
     angular.module('boApp')
         .controller('dashboardController', DashboardController);
 
-    DashboardController.$inject = ['$scope', '$rootScope', 'eventService', 'newsService', '$location', '$anchorScroll'];
+    DashboardController.$inject = ['$scope', '$rootScope', 'eventService', 'newsService'];
 
-    function DashboardController($scope, $rootScope, eventService, newsService, $location, $anchorScroll) {
+    function DashboardController($scope, $rootScope, eventService, newsService) {
+
         //initially set those objects to null to avoid undefined error
         var vm = this;
         vm.news = [];
@@ -17,6 +18,7 @@
         vm.reset_search = false;
         vm.getEventSalesReport = eventService.getEventSalesReport;
         vm.tabActive = 'onsale';
+
 
         vm.tabSelectEvent = function (status) {
             vm.filter.status = status;
@@ -45,8 +47,9 @@
             }
         );
 
-        $rootScope.$watch('user', function () {
+        var userListener = $rootScope.$watch('user', function (newUser, oldUser) {
             if($rootScope.user) {
+                userListener();
                 if (!$rootScope.hasFullAccess('api_reports_dashboard_tab_on_sale')) {
                     vm.tabActive = 'draft';
                 }
@@ -62,7 +65,7 @@
 
 
                 vm.filter = {
-                    period: {startDate: moment().subtract(1, 'years'), endDate: moment().add(1, 'years')},
+                    period: {startDate: moment().subtract(30, 'days'), endDate: moment().add(1, 'years')},
                     name: '',
                     status: vm.tabActive,
                     loadingItems: false,
@@ -75,13 +78,8 @@
                     vm.filter.period.endDate = moment(vm.filter.period.endDate);
                     vm.reset_search = vm.filter.name && vm.filter.name.length > 0;
                     vm.filter.status = vm.tabActive;
-                    eventService.getMyEvents(vm.filter);
                     localStorage.removeItem('reportsFilter');
                 }
-
-                //scroll to top
-                $location.hash('top');
-                $anchorScroll();
 
                 //vm.news = newsService.news();
                 vm.search = function () {
@@ -95,13 +93,12 @@
 
                 vm.getEventSales = eventService.getEventSales;
                 vm.getEventInfo = eventService.getEventInfo;
-
                 eventService.getMyEvents(vm.filter);
             }
         });
 
         $scope.$watch('vm.filter.period', function (newPeriod, oldPeriod) {
-            if (newPeriod !== oldPeriod) {
+            if (!angular.isUndefined(oldPeriod) && !angular.equals(newPeriod, oldPeriod)) {
                 eventService.reset();
                 eventService.getMyEvents(vm.filter);
             }
@@ -121,7 +118,7 @@
         });
 
         $scope.$watch('vm.filter.groupByShow', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
+            if (!angular.isUndefined(oldValue) && newValue !== oldValue) {
                 eventService.reset();
                 eventService.getMyEvents(vm.filter);
             }

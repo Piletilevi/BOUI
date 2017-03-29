@@ -102,12 +102,6 @@
 			filter.pastStart = null;
 			filter.loadingItems = true;
 
-			var startDateUtcOffset = moment(filter.period.startDate).utcOffset(),
-				endDateUtcOffset = moment(filter.period.endDate).utcOffset();
-
-			filter.period.startDate = moment(filter.period.startDate).utc().add(startDateUtcOffset, 'm').startOf('day');
-			filter.period.endDate =  moment(filter.period.endDate).utc().add(endDateUtcOffset, 'm').endOf('day');
-
 			dataService.post('myEvents', {filter: filter}).then(function (results) {
 				myOpenCount = 0;
 				myDraftCount = 0;
@@ -274,7 +268,7 @@
 					event.statistics = results.data.statistics;
 					event.websiteUrl = results.data.websiteUrl;
 					event.status = results.data.status;
-					event.statusKey = results.data.statusKey;
+					event.statusName = results.data.statusName;
 					event.labelCode = results.data.labelCode;
 				}
 			});
@@ -303,7 +297,7 @@
 					event.statistics = results.data.statistics;
 					event.websiteUrl = results.data.websiteUrl;
 					event.status = results.data.status;
-					event.statusKey = results.data.statusKey;
+					event.statusName = results.data.statusName;
 					event.labelCode = results.data.labelCode;
 				}
 			});
@@ -321,7 +315,7 @@
 					event.location = results.data.location;
 					event.websiteUrl = results.data.websiteUrl;
 					event.status = results.data.status;
-					event.statusKey = results.data.statusKey;
+					event.statusName = results.data.statusName;
 					event.labelCode = results.data.labelCode;
 				}
 			});
@@ -339,7 +333,7 @@
 					event.sellPeriod = results.data.sellPeriod;
 					event.websiteUrl = results.data.websiteUrl;
 					event.status = results.data.status;
-					event.statusKey = results.data.statusKey;
+					event.statusName = results.data.statusName;
 					event.labelCode = results.data.labelCode;
 				}
 			});

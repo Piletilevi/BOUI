@@ -1,0 +1,97 @@
+<tbody>
+<tr>
+    <td>{{vm.event.name}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td ng-if="event.isShow">{{vm.event.eventPeriod.start | date:'dd.MM.yyyy'}} - {{vm.event.eventPeriod.end | date:'dd.MM.yyyy'}}</td>
+    <td ng-if="!event.isShow">{{vm.event.eventPeriod.start | date:'dd.MM.yyyy HH:mm'}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>{{vm.event.location}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>{{'api_print_period'|translate}}: {{vm.event.sellPeriod.start | date:'dd.MM.yyyy'}} - {{vm.event.sellPeriod.end | date:'dd.MM.yyyy'}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>{{'api_print_display'|translate}}: {{vm.pricetypeFilter.display=='tickets' ? ('api_tickets'|translate) : ('api_revenue'|translate)}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+
+<tr>
+    <td><strong>{{'api_pricetype'|translate}}</strong></td>
+    <td><strong>{{'api_tickets'|translate}}</strong></td>
+    <td><strong>%</strong></td>
+    <td ng-if="hasFullAccess('api_reports_revenue')"><strong>{{'api_revenue'|translate}}</strong></td>
+</tr>
+<tr>
+    <td>{{'api_issued_total'|translate}}</td>
+    <td>{{vm.myPriceTypePieData.generatedCount}}</td>
+    <td>100%</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myPriceTypePieData.generatedSum.toFixed(2).replace(".", ",")}}</td>
+</tr>
+
+<tbody ng-repeat="pricetypeData in vm.myPriceTypePieData.sales">
+<tr>
+    <td><strong>{{pricetypeData.groupName|translate}}</strong></td>
+    <td>{{pricetypeData.rowCount}}</td>
+    <td>{{(vm.myPriceTypePieData.generatedCount ? ( pricetypeData.rowCount / vm.myPriceTypePieData.generatedCount ) * 100 : 0).toFixed(0)}}%</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeData.rowSum.toFixed(2).replace(".", ",")}}</td>
+</tr>
+<tr ng-repeat="pricetypeItem in pricetypeData.priceTypes">
+    <td>{{pricetypeItem.priceTypeName}} <span ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice.toFixed(2)) + "-" + (pricetypeItem.maxPrice.toFixed(2)) : (pricetypeItem.minPrice.toFixed(2))}})</span></td>
+    <td>{{pricetypeItem.count}}</td>
+    <td>{{(vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0).toFixed(0)}}%</td>
+    <td ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeItem.sum.toFixed(2).replace(".", ",")}}</td>
+</tr>
+</tbody>
+
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+
+<tr>
+    <td><strong>{{'api_print_period'|translate}}</strong></td>
+    <td ng-repeat="series in vm.pricetypeLineGraph.series"><strong>{{series}}</strong></td>
+    <td><strong>{{'api_print_total'|translate}}</strong></td>
+</tr>
+
+<tr ng-repeat="(key, label) in vm.pricetypeLineGraph.labels">
+    <td>{{label}}</td>
+    <td ng-repeat="data in vm.pricetypeLineGraph.data">{{data[key]}}</td>
+    <td>{{vm.pricetypeLineGraph.totals[key]}}</td>
+</tr>
+
+
+<tbody ng-include="'views/common/report_export/export_footer.html'"></tbody>

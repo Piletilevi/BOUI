@@ -30,13 +30,13 @@
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
-            .when('/report/:type/:id', {
+            .when('/report/:type/:id/', {
                 title: 'Report',
                 templateUrl: 'views/report.html',
                 controller: 'reportController',
                 controllerAs: 'vm'
             })
-            .when('/dashboard', {
+            .when('/dashboard/', {
                 title: 'Dashboard',
                 templateUrl: 'views/dashboard.html',
                 controller: 'dashboardController',

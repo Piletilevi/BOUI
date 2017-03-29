@@ -80,6 +80,7 @@ THE SOFTWARE.*/
 					doc.target = '_blank';
 					doc.download = defaults.tableName+'.'+defaults.type;
 					doc.href = 'data:application/'+defaults.type+';filename=exportData;'+base64data;
+					$('body').append(doc);
 					doc.click();
 
 				}else if(defaults.type == 'sql'){
@@ -257,15 +258,14 @@ THE SOFTWARE.*/
 						console.log(excel);
 					}
 
-					var excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:"+defaults.type+"' xmlns='http://www.w3.org/TR/REC-html40'>";
+					var excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>";
 					excelFile += "<head>";
 					excelFile += "<!--[if gte mso 9]>";
-					excelFile += "<xml>";
+					excelFile += "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>";
 					excelFile += "<x:ExcelWorkbook>";
 					excelFile += "<x:ExcelWorksheets>";
 					excelFile += "<x:ExcelWorksheet>";
 					excelFile += "<x:Name>";
-					excelFile += "{worksheet}";
 					excelFile += "</x:Name>";
 					excelFile += "<x:WorksheetOptions>";
 					excelFile += "<x:DisplayGridlines/>";
@@ -288,6 +288,7 @@ THE SOFTWARE.*/
 					xls.target = '_blank';
 					xls.download = defaults.tableName+'.xls';
 					xls.href = 'data:application/vnd.ms-'+defaults.type+';filename=exportData.doc;'+base64data;
+					$('body').append(xls);
 					xls.click();
 
 				}else if(defaults.type == 'png'){

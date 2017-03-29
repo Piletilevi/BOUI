@@ -5,21 +5,17 @@
   angular.module('boApp')
     .controller('reportController', ReportController);
 
-  ReportController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$anchorScroll', 'eventService', 'graphService', 'pdfService'];
+  ReportController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$filter', 'eventService', 'graphService', 'pdfService'];
 
-  function ReportController($scope, $rootScope, $routeParams, $location, $anchorScroll, eventService, graphService, pdfService) {
+  function ReportController($scope, $rootScope, $routeParams, $location, $filter, eventService, graphService, pdfService) {
 
     if (!$routeParams && !$routeParams.id) {
       $location.path('dashboard');
     }
 
-    //scroll to top
-    $location.hash('top');
-    $anchorScroll();
-
     //initially set those objects to null to avoid undefined error
     var vm = this;
-    var prevFilterName = null;
+
     vm.event = {
       id: $routeParams.id,
       isShow: $routeParams.type == 'show',
@@ -66,7 +62,7 @@
 	vm.getShowSales = eventService.getShowSales;
 	vm.getMoreRelatedEvents = eventService.getMoreRelatedEvents;
 	vm.hasMoreRelatedEvents = eventService.hasMoreRelatedEvents;
-    vm.filter = {period: {startDate: moment().subtract(1, 'years'), endDate: moment().add(1, 'years')}, name: ''};
+    vm.filter = {period: {startDate: moment().subtract(30, 'days'), endDate: moment().add(1, 'years')}, name: ''};
     vm.filterPeriod = {period: {startDate: null, endDate: null}};
     vm.overviewFilter = {period: {startDate: null, endDate: null}, display: 'tickets', groupBy: 'day'};
     vm.pricetypeFilter = {period: {startDate: null, endDate: null}, display: 'tickets', pieDisplay: 'tickets', groupBy: 'day'};
@@ -177,22 +173,9 @@
       $scope.mouseoverSectionId = mouseoverSectionId;
     };
 
-    vm.exportXls = function() {
-      //var data1 = [{a:1,b:10},{a:2,b:20}];
-      //var data2 = [{a:100,b:10},{a:200,b:20}];
-      //var opts = [{sheetid:'One',header:true},{sheetid:'Two',header:false}];
-      //var res = alasql('SELECT INTO XLSX("report.xlsx",?) FROM ?',
-      //    [opts,[data1,data2]]);
-
-      var uri = 'data:application/vnd.ms-excel;base64,'
-          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-          , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
-          , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
-
-      return function(table, name) {
-        if (!table.nodeType) table = document.getElementById(table)
-        var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
-        window.location.href = uri + base64(format(template, ctx))
+    vm.getExportFileName = function (event) {
+      if(event.eventPeriod) {
+        return 'Report-' + vm.currentTab + '-' + event.name + '-' + $filter('date')(event.eventPeriod.start, "dd.MM.yyyy") + '-' + $filter('date')(event.eventPeriod.end, "dd.MM.yyyy");
       }
     };
 

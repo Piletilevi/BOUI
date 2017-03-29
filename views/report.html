@@ -25,14 +25,12 @@
     <div class="bo-event-share-block">
         <span ng-if="hasFullAccess('api_reports_export_print')"><i class="fa fa-print"></i><a onclick="window.print();">{{'api_print'|translate}}</a> |</span>
         <span ng-if="hasFullAccess('api_reports_export_email')"><i class="fa fa-envelope"></i><a data-toggle="modal" data-target="#emal_popup">{{'api_email'|translate}}</a> |</span>
-        <div class="dropdown inline_dropdown" ng-if="hasFullAccess('api_reports_export_to_file')">
+		<div class="dropdown inline_dropdown" ng-if="hasFullAccess('api_reports_export_to_file')">
         <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{'api_export'|translate}} <span class="caret"></span></span>
-        <ul class="table-export dropdown-menu"
+
+			<ul class="table-export dropdown-menu"
 			table-selector="vm.currentTab"
-			export-options="{type: 'pdf', escape: true, tableName: 'bo-report'}">
-			<li te-option te-value="'pdf'" te-param="'type'">
-				<a href="">PDF</a>
-			</li>
+			export-options="{type: 'pdf', escape: true, tableName: vm.getExportFileName(vm.event)}">
 
 			<li te-option te-value="'excel'" te-param="'type'">
 				<a href="">Excel</a>
@@ -45,11 +43,13 @@
         </div>
     </div>
 
-	<table id="{{vm.currentTab}}" ng-include="'views/report_export/'+vm.currentTab+'.html'" class="visually-hidden"></table>
+	<table id="{{vm.currentTab}}"
+		   ng-if="['overview', 'pricetype', 'priceclass'].indexOf(vm.currentTab) > -1"
+		   ng-include="'views/report_export/'+vm.currentTab+'.html'" class="visually-hidden"></table>
 
     <div class="panel panel-default bo-event">
         <div class="bo-sub-events-hidden" ng-include-template="event_detail.html"
-             ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false}"></div>
+             ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, hasFullAccess: hasFullAccess('api_reports_revenue')}"></div>
     </div>
     <div class="bo-dropdown-tabs-wrapper">
         <div class="visible-xs">
@@ -116,7 +116,7 @@
 						</div>
 					</div>
 				</div>
-				<div ng-if="!vm.myOverviewBarData.sales || vm.myOverviewBarData.sales.length === 0">
+				<div ng-if="vm.myOverviewBarData.sales.length === 0">
 					<div class="bo-no-data-msg">
 						{{'api_no_data_available'|translate}}
 					</div>
@@ -234,7 +234,7 @@
 						</div>
 					</div>
 				</div>
-				<div ng-if="!vm.myPriceTypePieData || vm.myPriceTypePieData.sales.length === 0">
+				<div ng-if="vm.myPriceTypePieData.sales.length === 0">
 					<div class="bo-no-data-msg">
 						{{'api_no_data_available'|translate}}
 					</div>
@@ -338,7 +338,7 @@
 						</div>
 					</div>
 				</div>
-				<div ng-if="!vm.myPriceClassPieData || vm.myPriceClassPieData.sales.length === 0">
+				<div ng-if="vm.myPriceClassPieData.sales.length === 0">
 					<div class="bo-no-data-msg">
 						{{'api_no_data_available'|translate}}
 					</div>
@@ -422,7 +422,7 @@
                     </div>
                 </div>
 
-				<div ng-if="!vm.mySectorsData || vm.mySectorsData.sales.length === 0">
+				<div ng-if="vm.mySectorsData.sales.length === 0">
 					<div class="bo-no-data-msg">
 						{{'api_no_data_available'|translate}}
 					</div>
