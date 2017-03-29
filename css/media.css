@@ -158,7 +158,7 @@
 		margin-left: 8.33333333%;
 	}
 	.col-sm-offset-0 {
-		margin-left: 0%;
+		margin-left: 0;
 	}
 
 	*,
@@ -363,6 +363,10 @@
 
 	.bo-dot::before {
 		color: inherit!important;
+	}
+
+	.bo-line-chart-container {
+		height: auto!important;
 	}
 }
 
