@@ -4,7 +4,7 @@
 			<div class="input-group-lg">
 				<div class="data_range">
 					<button class="btn btn-default bo-datarangepicker-button btn-lg" type="button" data-control="daterangepicker">
-						<input type="text" class="form-control" ng-model="vm.filter.period" ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled />
+						<input type="text" class="form-control" ng-model="vm.filter.period" daterangepicker-neutral-timezone ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled />
 						<i class="fa fa-calendar" aria-hidden="true"></i>
 					</button>
 				</div>
@@ -89,6 +89,7 @@
                                     <div class="input-group data_range">
                                         <input type="text" daterangepicker class="form-control"
                                                ng-model="vm.filterPeriod"
+											   daterangepicker-neutral-timezone
                                                ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 										 <span class="input-group-btn">
