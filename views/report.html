@@ -208,6 +208,7 @@
                                     <div class="input-group data_range">
                                         <input type="text" daterangepicker class="form-control"
                                                ng-model="vm.filterPeriod"
+											   daterangepicker-neutral-timezone
                                                ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 										 <span class="input-group-btn">
@@ -312,6 +313,7 @@
                                     <div class="input-group data_range">
                                         <input type="text" daterangepicker class="form-control"
                                                ng-model="vm.filterPeriod"
+											   daterangepicker-neutral-timezone
                                                ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 										 <span class="input-group-btn">
@@ -411,7 +413,7 @@
 							<span class="visible-print">{{'api_print_period'|translate}}</span>
 							<div class="input-group data_range">
                                 <input type="text" daterangepicker class="form-control"
-                                       ng-model="vm.filterPeriod" ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                       ng-model="vm.filterPeriod" daterangepicker-neutral-timezone ng-attr-data-min-date="{{vm.minFilterDate}}"
                                        ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 								 <span class="input-group-btn">
 									<button class="btn btn-default" type="button" data-control="daterangepicker">
@@ -487,7 +489,7 @@
 							<span class="visible-print">{{'api_print_period'|translate}}</span>
 							<div class="input-group data_range">
                                 <input type="text" daterangepicker class="form-control"
-                                       ng-model="vm.filterPeriod" ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                       ng-model="vm.filterPeriod" daterangepicker-neutral-timezone ng-attr-data-min-date="{{vm.minFilterDate}}"
                                        ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 								 <span class="input-group-btn">
 									<button class="btn btn-default" type="button" data-control="daterangepicker">
