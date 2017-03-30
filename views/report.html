@@ -1,18 +1,22 @@
 <div class="col-xs-12 col-md-9 bo-center-column">
-	<div class="bo-top-filter-block row">
-		<div class="bo-top-filter-daterange col-xs-12 col-sm-4 col-md-4 col-lg-4">
-			<div class="input-group-lg">
-				<div class="data_range">
-					<button class="btn btn-default bo-datarangepicker-button btn-lg" type="button" data-control="daterangepicker">
-						<input type="text" class="form-control" ng-model="vm.filter.period" daterangepicker-neutral-timezone ng-attr-data-min-date="{{vm.minFilterDate}}" ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled />
-						<i class="fa fa-calendar" aria-hidden="true"></i>
-					</button>
-				</div>
-			</div>
-		</div>
-		<div class="bo-top-filter-search col-xs-12 col-sm-8 col-md-8 col-lg-8">
-			<div class="input-group input-group-lg">
-				<input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}" ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
+    <div class="bo-top-filter-block row">
+        <div class="bo-top-filter-daterange col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <div class="input-group-lg">
+                <div class="data_range">
+                    <button class="btn btn-default bo-datarangepicker-button btn-lg" type="button"
+                            data-control="daterangepicker">
+                        <input type="text" class="form-control" ng-model="vm.filter.period"
+                               daterangepicker-neutral-timezone ng-attr-data-min-date="{{vm.minFilterDate}}"
+                               ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled/>
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="bo-top-filter-search col-xs-12 col-sm-8 col-md-8 col-lg-8">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}"
+                       ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
 
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="button" ng-click="vm.search()">
@@ -22,501 +26,678 @@
             </div>
         </div>
     </div>
-    <div class="bo-event-share-block">
-        <span ng-if="hasFullAccess('api_reports_export_print')"><i class="fa fa-print"></i><a onclick="window.print();">{{'api_print'|translate}}</a> |</span>
-        <span ng-if="hasFullAccess('api_reports_export_email')"><i class="fa fa-envelope"></i><a data-toggle="modal" data-target="#emal_popup">{{'api_email'|translate}}</a> |</span>
-		<div class="dropdown inline_dropdown" ng-if="hasFullAccess('api_reports_export_to_file')">
-        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{'api_export'|translate}} <span class="caret"></span></span>
+    <div ng-if="vm.event.name">
+        <div class="bo-event-share-block">
+            <span ng-if="hasFullAccess('api_reports_export_print')"><i class="fa fa-print"></i><a
+                    onclick="window.print();">{{'api_print'|translate}}</a> |</span>
+            <span ng-if="hasFullAccess('api_reports_export_email')"><i class="fa fa-envelope"></i><a data-toggle="modal"
+                                                                                                     data-target="#emal_popup">{{'api_email'|translate}}</a> |</span>
+            <div class="dropdown inline_dropdown" ng-if="hasFullAccess('api_reports_export_to_file')">
+                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{'api_export'|translate}} <span
+                        class="caret"></span></span>
 
-			<ul class="table-export dropdown-menu"
-			table-selector="vm.currentTab"
-			export-options="{type: 'pdf', escape: true, tableName: vm.getExportFileName(vm.event)}">
+                <ul class="table-export dropdown-menu"
+                    table-selector="vm.currentTab"
+                    export-options="{type: 'pdf', escape: true, tableName: vm.getExportFileName(vm.event)}">
 
-			<li te-option te-value="'excel'" te-param="'type'">
-				<a href="">Excel</a>
-			</li>
+                    <li te-option te-value="'excel'" te-param="'type'">
+                        <a href="">Excel</a>
+                    </li>
 
-			<li te-option te-value="'csv'" te-param="'type'">
-				<a href="">CSV</a>
-			</li>
-        </ul>
+                    <li te-option te-value="'csv'" te-param="'type'">
+                        <a href="">CSV</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
 
-	<table id="{{vm.currentTab}}"
-		   ng-if="['overview', 'pricetype', 'priceclass', 'sectors'].indexOf(vm.currentTab) > -1"
-		   ng-include="'views/report_export/'+vm.currentTab+'.html'" class="visually-hidden"></table>
+        <table id="{{vm.currentTab}}"
+               ng-if="['overview', 'pricetype', 'priceclass', 'sectors'].indexOf(vm.currentTab) > -1"
+               ng-include="'views/report_export/'+vm.currentTab+'.html'" class="visually-hidden"></table>
 
-    <div class="panel panel-default bo-event">
-        <div class="bo-sub-events-hidden" ng-include-template="event_detail.html"
-             ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, hasFullAccess: hasFullAccess('api_reports_revenue')}"></div>
-    </div>
-    <div class="bo-dropdown-tabs-wrapper">
-        <div class="visible-xs">
-            <a class="dropdown-toggle btn btn-default btn-dropdown" data-target="#reportdatatab" data-toggle="dropdown"
-               role="button" aria-haspopup="true" aria-expanded="false">
-                <span>{{vm.getCurrentTabCode()|translate}}</span>
-                <span class="caret"></span>
-            </a>
+        <div class="panel panel-default bo-event">
+            <div class="bo-sub-events-hidden" ng-include-template="event_detail.html"
+                 ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, hasFullAccess: hasFullAccess('api_reports_revenue')}"></div>
         </div>
-        <ul class="nav nav-tabs bo-dropdown-tabs" role="tablist" id="reportdatatab">
-            <li ng-show="hasFullAccess('api_reports_overview')" ng-class="{'active': vm.currentTab == 'overview'}"><a href="#overview" data-toggle="tab" role="tab" aria-controls="overview"
-                                  ng-click="vm.tabSelectEvent('overview')">{{'api_overview'|translate}}</a></li>
-            <li ng-show="hasFullAccess('api_reports_pricetype')" ng-class="{'active': vm.currentTab == 'pricetype'}"><a href="#pricetype" data-toggle="tab" role="tab" aria-controls="pricetype"
-                   ng-click="vm.tabSelectEvent('pricetype')">{{'api_by_pricetype'|translate}}</a></li>
-            <li ng-show="hasFullAccess('api_reports_priceclass')" ng-class="{'active': vm.currentTab == 'priceclass'}"><a href="#priceclass" data-toggle="tab" role="tab" aria-controls="priceclass"
-                   ng-click="vm.tabSelectEvent('priceclass')">{{'api_by_priceclass'|translate}}</a></li>
-            <li ng-show="hasFullAccess('api_reports_sections')" ng-class="{'active': vm.currentTab == 'sectors'}" ng-hide="vm.event.isShow"><a href="#sectors" data-toggle="tab" role="tab" aria-controls="sectors"
-                   ng-click="vm.tabSelectEvent('sectors')">{{'api_by_sectors'|translate}}</a></li>
-            <li ng-show="hasFullAccess('api_reports_locations')" ng-class="{'active': vm.currentTab == 'locations'}"><a href="#locations" data-toggle="tab" role="tab" aria-controls="locations"
-                   ng-click="vm.tabSelectEvent('locations')">{{'api_by_locations'|translate}}</a></li>
-            <li ng-show="hasFullAccess('api_reports_reservations')" ng-class="{'active': vm.currentTab == 'bookings'}"><a href="#bookings" data-toggle="tab" role="tab" aria-controls="bookings"
-                   ng-click="vm.tabSelectEvent('bookings')">{{'api_bookings'|translate}}</a></li>
-        </ul>
-    </div>
+        <div class="bo-dropdown-tabs-wrapper">
+            <div class="visible-xs">
+                <a class="dropdown-toggle btn btn-default btn-dropdown" data-target="#reportdatatab"
+                   data-toggle="dropdown"
+                   role="button" aria-haspopup="true" aria-expanded="false">
+                    <span>{{vm.getCurrentTabCode()|translate}}</span>
+                    <span class="caret"></span>
+                </a>
+            </div>
+            <ul class="nav nav-tabs bo-dropdown-tabs" role="tablist" id="reportdatatab">
+                <li ng-show="hasFullAccess('api_reports_overview')" ng-class="{'active': vm.currentTab == 'overview'}">
+                    <a href="#overview" data-toggle="tab" role="tab" aria-controls="overview"
+                       ng-click="vm.tabSelectEvent('overview')">{{'api_overview'|translate}}</a></li>
+                <li ng-show="hasFullAccess('api_reports_pricetype')"
+                    ng-class="{'active': vm.currentTab == 'pricetype'}"><a href="#pricetype" data-toggle="tab"
+                                                                           role="tab" aria-controls="pricetype"
+                                                                           ng-click="vm.tabSelectEvent('pricetype')">{{'api_by_pricetype'|translate}}</a>
+                </li>
+                <li ng-show="hasFullAccess('api_reports_priceclass')"
+                    ng-class="{'active': vm.currentTab == 'priceclass'}"><a href="#priceclass" data-toggle="tab"
+                                                                            role="tab" aria-controls="priceclass"
+                                                                            ng-click="vm.tabSelectEvent('priceclass')">{{'api_by_priceclass'|translate}}</a>
+                </li>
+                <li ng-show="hasFullAccess('api_reports_sections')" ng-class="{'active': vm.currentTab == 'sectors'}"
+                    ng-hide="vm.event.isShow"><a href="#sectors" data-toggle="tab" role="tab" aria-controls="sectors"
+                                                 ng-click="vm.tabSelectEvent('sectors')">{{'api_by_sectors'|translate}}</a>
+                </li>
+                <li ng-show="hasFullAccess('api_reports_locations')"
+                    ng-class="{'active': vm.currentTab == 'locations'}"><a href="#locations" data-toggle="tab"
+                                                                           role="tab" aria-controls="locations"
+                                                                           ng-click="vm.tabSelectEvent('locations')">{{'api_by_locations'|translate}}</a>
+                </li>
+                <li ng-show="hasFullAccess('api_reports_reservations')"
+                    ng-class="{'active': vm.currentTab == 'bookings'}"><a href="#bookings" data-toggle="tab" role="tab"
+                                                                          aria-controls="bookings"
+                                                                          ng-click="vm.tabSelectEvent('bookings')">{{'api_bookings'|translate}}</a>
+                </li>
+            </ul>
+        </div>
 
-    <div class="tab-content">
-        <!-- Tab: overview -->
-        <div class="tab-pane active bo-salesoverview panel panel-default" id="overview" role="tabpanel">
-            <div class="panel-body">
+        <div class="tab-content">
+            <!-- Tab: overview -->
+            <div class="tab-pane active bo-salesoverview panel panel-default" id="overview" role="tabpanel">
+                <div class="panel-body">
 
-                <div class="bo-salesoverview-controls clearfix">
-                    <div class="row">
-                        <div class="col-sm-5 bo-inline-print">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                    <div class="input-group data_range">
-                                        <input type="text" daterangepicker class="form-control"
-                                               ng-model="vm.filterPeriod"
-											   daterangepicker-neutral-timezone
-                                               ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                               ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+                    <div class="bo-salesoverview-controls clearfix">
+                        <div class="row">
+                            <div class="col-sm-5 bo-inline-print">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <span class="visible-print">{{'api_print_period'|translate}}</span>
+                                        <div class="input-group data_range">
+                                            <input type="text" daterangepicker class="form-control"
+                                                   ng-model="vm.filterPeriod"
+                                                   daterangepicker-neutral-timezone
+                                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 										 <span class="input-group-btn">
 											<button class="btn btn-default" type="button"
                                                     data-control="daterangepicker">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </button>
 										 </span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="bo-chartcontrols col-sm-7 text-right">
-							<span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
-							<div class="btn-group btn-group-sm" role="group">
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.display=='tickets'}" ng-click="vm.setOverviewDisplay('tickets')">{{'api_tickets'|translate}}</button>
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.display=='revenue'}" ng-if="hasFullAccess('api_reports_revenue')" ng-click="vm.setOverviewDisplay('revenue')">{{'api_revenue'|translate}}</button>
-							</div>
-							<span class="visible-print">{{'api_print_display_and'|translate}}</span>
-							<div class="btn-group btn-group-sm" role="group">
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.groupBy=='day'}" ng-click="vm.setOverviewGroupBy('day')">{{'api_day'|translate}}</button>
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.groupBy=='week'}" ng-click="vm.setOverviewGroupBy('week')">{{'api_week'|translate}}</button>
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.overviewFilter.groupBy=='month'}" ng-click="vm.setOverviewGroupBy('month')">{{'api_month'|translate}}</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div ng-if="vm.myOverviewBarData.sales.length === 0">
-					<div class="bo-no-data-msg">
-						{{'api_no_data_available'|translate}}
-					</div>
-				</div>
-
-				<div ng-if="vm.myOverviewBarData.sales.length > 0">
-					<div class="bo-chart bo-line-chart-container">
-						<canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data" chart-labels="vm.overviewLineGraph.labels" chart-series="vm.overviewLineGraph.series" chart-options="vm.overviewLineGraph.options" chart-dataset-override="vm.overviewLineGraph.datasetOverride" chart-colors="vm.overviewLineGraph.colors">
-						</canvas>
-					</div>
-					<div class="row bo-double-charts-row">
-						<div class="col-lg-6">
-							<div class="bo-chart">
-								<canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data" chart-labels="vm.overviewBarGraph.labels"
-								chart-options="vm.overviewBarGraph.options" chart-series="vm.overviewBarGraph.series" chart-colors="vm.overviewBarGraph.colors" chart-dataset-override="vm.overviewBarGraph.datasetOverride"></canvas>
-							</div>
-						</div>
-						<div class="col-lg-6">
-						<table class="bo-revenuetable table table-condensed table-small bo-chart-table">
-							<thead>
-									<tr>
-									<th width="7%"></th>
-									<th width="46%"></th>
-									<th width="17%">{{'api_tickets'|translate}}</th>
-									<th width="10%">%</th>
-									<th width="20%" ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</th>
-									</tr>
-								</thead>
-							<thead class="bo-title-row">
-								<tr>
-									<td class="bo-name-column" colspan="2">{{'api_overview_generated_total'|translate}}</td>
-										<td>{{vm.myOverviewBarData.generatedCount}}</td>
-										<td>100%</td>
-										<td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myOverviewBarData.generatedSum | number:2}} {{vm.myOverviewBarData.currency}}</td>
-									</tr>
-							</thead>
-							<thead ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
-									<tr>
-									<td class="bo-name-column" colspan="2">{{overviewData.groupName|translate}}</td>
-									<td>{{overviewData.rowCount}}</td>
-									<td>{{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum | number:2}} {{vm.myOverviewBarData.currency}}</td>
-									</tr>
-								</thead>
-							<tbody ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId != 'venue_occupancy' && overviewData.groupId != 'generated'">
-								<tr>
-									<th></th>
-									<th class="bo-name-column">{{overviewData.groupName|translate}}</th>
-									<th>{{overviewData.rowCount}}</th>
-									<th>{{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</th>
-									<th ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum | number:2}} {{vm.myOverviewBarData.currency}}</th>
-								</tr>
-								<tr ng-repeat="overviewRow in overviewData.rows" class="{{overviewRow.isRefund ? 'text-danger' : ''}}">
-									<td>
-										<span class="bo-dot fa fa-circle" style="color: {{overviewRow.color}}!important;"></span>
-									</td>
-									<td class="bo-name-column">{{overviewRow.typeName|translate}}:</td>
-										<td>{{overviewRow.count}}</td>
-										<td>{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
-										<td ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum | number:2}} {{vm.myOverviewBarData.currency}}</td>
-									</tr>
-								</tbody>
-							<thead ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
-								<tr ng-repeat="overviewRow in overviewData.rows">
-									<td class="bo-name-column" colspan="2">{{overviewRow.typeName|translate}}</td>
-									<td>{{overviewRow.count}}</td>
-									<td>{{vm.myOverviewBarData.generatedCount ? (overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
-									<td ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum | number:2}} {{vm.myOverviewBarData.currency}}</td>
-								</tr>
-							</thead>
-							</table>
-						</div>
-					</div>
-				</div>
-            </div>
-        </div>
-
-        <!-- Tab: price types -->
-        <div class="tab-pane bo-salesoverview panel panel-default" id="pricetype" role="tabpanel">
-            <div class="panel-body">
-
-                <div class="bo-salesoverview-controls clearfix">
-                    <div class="row">
-                        <div class="col-sm-5 bo-inline-print">
-                            <div class="form-inline">
-                                <div class="form-group">
-									<span class="visible-print">{{'api_print_period'|translate}}</span>
-                                    <div class="input-group data_range">
-                                        <input type="text" daterangepicker class="form-control"
-                                               ng-model="vm.filterPeriod"
-											   daterangepicker-neutral-timezone
-                                               ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                               ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-										 <span class="input-group-btn">
-											<button class="btn btn-default" type="button"
-                                                    data-control="daterangepicker">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </button>
-										 </span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="bo-chartcontrols col-sm-7 text-right">
-							<span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
-							<div class="btn-group btn-group-sm" role="group">
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.display=='tickets'}" ng-click="vm.setPricetypeDisplay('tickets')">{{'api_tickets'|translate}}</button>
-								<button type="button" class="btn btn-sm btn-default" ng-if="hasFullAccess('api_reports_revenue')" ng-class="{ 'active': vm.pricetypeFilter.display=='revenue'}" ng-click="vm.setPricetypeDisplay('revenue')">{{'api_revenue'|translate}}</button>
-							</div>
-							<span class="visible-print">{{'api_print_display_and'|translate}}</span>
-							<div class="btn-group btn-group-sm" role="group">
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.groupBy=='day'}" ng-click="vm.setPricetypeGroupBy('day')">{{'api_day'|translate}}</button>
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.groupBy=='week'}" ng-click="vm.setPricetypeGroupBy('week')">{{'api_week'|translate}}</button>
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.groupBy=='month'}" ng-click="vm.setPricetypeGroupBy('month')">{{'api_month'|translate}}</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div ng-if="vm.myPriceTypePieData.sales.length === 0">
-					<div class="bo-no-data-msg">
-						{{'api_no_data_available'|translate}}
-					</div>
-				</div>
-				<div ng-if="vm.myPriceTypePieData.sales.length > 0">
-					<div class="bo-chart bo-line-chart-container">
-						<canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data" chart-labels="vm.pricetypeLineGraph.labels" chart-series="vm.pricetypeLineGraph.series" chart-options="vm.pricetypeLineGraph.options" chart-colors="vm.pricetypeLineGraph.colors" chart-dataset-override="vm.pricetypeLineGraph.datasetOverride">
-						</canvas>
-					</div>
-					<div class="row bo-double-charts-row">
-						<div class="col-lg-5">
-							<div class="bo-chart">
-								<div class="bo-chart-buttons">
-									<div class="btn-group btn-group-sm" role="group">
-										<span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
-										<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='tickets'}" ng-click="vm.setPricetypePieDisplay('tickets')">{{'api_tickets'|translate}}</button>
-										<button type="button" ng-if="hasFullAccess('api_reports_revenue')" class="btn btn-sm btn-default" ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='revenue'}" ng-click="vm.setPricetypePieDisplay('revenue')">{{'api_revenue'|translate}}</button>
-									</div>
-								</div>
-								<canvas id="pricetypePie" class="chart chart-pie" chart-data="vm.pricetypePieGraph.data" chart-labels="vm.pricetypePieGraph.labels" chart-options="vm.pricetypePieGraph.options" chart-colors="vm.pricetypePieGraph.colors"></canvas>
-							</div>
-						</div>
-						<div class="col-lg-7">
-						<table class="bo-pricetyperevenuetable table table-condensed table-small bo-chart-table">
-							<thead>
-									<tr>
-									<th class="bo-name-column" colspan="2">{{'api_pricetype'|translate}}</th>
-									<th>{{'api_tickets'|translate}}</th>
-									<th>%</th>
-									<th ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</th>
-									</tr>
-								</thead>
-							<thead>
-								<tr>
-									<td colspan="2" class="bo-name-column">{{'api_issued_total'|translate}}</td>
-										<td>{{vm.myPriceTypePieData.generatedCount}}</td>
-										<td>100%</td>
-										<td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myPriceTypePieData.generatedSum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
-									</tr>
-							</thead>
-							<tbody ng-repeat="pricetypeData in vm.myPriceTypePieData.sales">
-									<tr>
-										<th></th>
-									<th class="bo-name-column">{{pricetypeData.groupName|translate}}</th>
-										<th>{{pricetypeData.rowCount}}</th>
-										<th>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeData.rowCount / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</th>
-										<th ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeData.rowSum | number:2}} {{pricetypeData.currency}}</th>
-									</tr>
-									<tr ng-repeat="pricetypeItem in pricetypeData.priceTypes">
-									<td><span class="bo-dot fa fa-circle" style="color: {{pricetypeItem.color}}!important;"></span></td>
-									<td class="bo-name-column">{{pricetypeItem.priceTypeName}} <span ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice | number:2) + "-" + (pricetypeItem.maxPrice | number:2) : (pricetypeItem.minPrice | number:2)}})</span></td>
-										<td>{{pricetypeItem.count}}</td>
-										<td>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</td>
-										<td ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeItem.sum | number:2}} {{vm.myPriceTypePieData.currency}}</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-            </div>
-        </div>
-
-        <!-- Tab: price classes -->
-        <div class="tab-pane bo-salesoverview panel panel-default" id="priceclass" role="tabpanel">
-            <div class="panel-body">
-
-                <div class="bo-salesoverview-controls clearfix">
-                    <div class="row">
-                        <div class="col-sm-5 bo-inline-print">
-                            <div class="form-inline">
-                                <div class="form-group">
-									<span class="visible-print">{{'api_print_period'|translate}}</span>
-                                    <div class="input-group data_range">
-                                        <input type="text" daterangepicker class="form-control"
-                                               ng-model="vm.filterPeriod"
-											   daterangepicker-neutral-timezone
-                                               ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                               ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-										 <span class="input-group-btn">
-											<button class="btn btn-default" type="button"
-                                                    data-control="daterangepicker">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </button>
-										 </span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="bo-chartcontrols col-sm-7 text-right">
-							<span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
-							<div class="btn-group btn-group-sm" role="group">
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.display=='tickets'}" ng-click="vm.setPriceclassDisplay('tickets')">{{'api_tickets'|translate}}</button>
-								<button type="button" ng-if="hasFullAccess('api_reports_revenue')" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.display=='revenue'}" ng-click="vm.setPriceclassDisplay('revenue')">{{'api_revenue'|translate}}</button>
-							</div>
-							<span class="visible-print">{{'api_print_display_and'|translate}}</span>
-							<div class="btn-group btn-group-sm" role="group">
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.groupBy=='day'}" ng-click="vm.setPriceclassGroupBy('day')">{{'api_day'|translate}}</button>
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.groupBy=='week'}" ng-click="vm.setPriceclassGroupBy('week')">{{'api_week'|translate}}</button>
-								<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.groupBy=='month'}" ng-click="vm.setPriceclassGroupBy('month')">{{'api_month'|translate}}</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div ng-if="vm.myPriceClassPieData.sales.length === 0">
-					<div class="bo-no-data-msg">
-						{{'api_no_data_available'|translate}}
-					</div>
-				</div>
-				<div ng-if="vm.myPriceClassPieData.sales.length > 0">
-					<div class="bo-chart bo-line-chart-container">
-						<canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data" chart-labels="vm.priceclassLineGraph.labels" chart-series="vm.priceclassLineGraph.series" chart-options="vm.priceclassLineGraph.options" chart-colors="vm.priceclassLineGraph.colors" chart-dataset-override="vm.priceclassLineGraph.datasetOverride" height="100px">
-						</canvas>
-					</div>
-					<div class="row bo-double-charts-row">
-						<div class="col-lg-5">
-							<div class="bo-chart">
-								<div class="bo-chart-buttons">
-									<div class="btn-group btn-group-sm" role="group">
-										<button type="button" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='tickets'}" ng-click="vm.setPriceclassPieDisplay('tickets')">{{'api_tickets'|translate}}</button>
-										<button type="button" ng-if="hasFullAccess('api_reports_revenue')" class="btn btn-sm btn-default" ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='revenue'}" ng-click="vm.setPriceclassPieDisplay('revenue')">{{'api_revenue'|translate}}</button>
-									</div>
-								</div>
-								<canvas id="priceclassPie" class="chart chart-pie" chart-data="vm.priceclassPieGraph.data" chart-labels="vm.priceclassPieGraph.labels" chart-options="vm.priceclassPieGraph.options" chart-colors="vm.priceclassPieGraph.colors"></canvas>
-							</div>
-						</div>
-					<div class="col-lg-7">
-						<table class="bo-pricetyperevenuetable table table-condensed table-small bo-chart-table">
-							<thead>
-							<tr>
-								<th colspan="2" class="bo-name-column">{{'api_priceclass'|translate}}</th>
-								<th>{{'api_tickets'|translate}}</th>
-								<th>%</th>
-								<th ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</th>
-							</tr>
-							</thead>
-							<thead>
-							<tr>
-								<td colspan="2" class="bo-name-column">{{'api_issued_total'|translate}}</td>
-								<td>{{vm.myPriceClassPieData.generatedCount}}</td>
-								<td>100%</td>
-								<td ng-if="hasFullAccess('api_reports_revenue')">{{vm.myPriceClassPieData.generatedSum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
-							</tr>
-							</thead>
-							<tbody ng-repeat="priceclassData in vm.myPriceClassPieData.sales">
-							<tr>
-								<th></th>
-								<th class="bo-name-column">{{priceclassData.groupName|translate}}</th>
-								<th>{{priceclassData.rowCount}}</th>
-								<th>{{vm.myPriceClassPieData.generatedCount ? ( priceclassData.rowCount / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</th>
-								<th ng-if="hasFullAccess('api_reports_revenue')">{{priceclassData.rowSum | number:2}} {{priceclassData.currency}}</th>
-							</tr>
-							<tr ng-repeat="priceclassItem in priceclassData.priceClasses">
-								<td><span class="bo-dot fa fa-circle" style="color: {{priceclassItem.color}}!important;"></span></td>
-								<td class="bo-name-column">{{priceclassItem.priceClassName}} <span ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice | number:2) + "-" + (priceclassItem.maxPrice | number:2) : (priceclassItem.minPrice | number:2)}})</span></td>
-								<td>{{priceclassItem.count}}</td>
-								<td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</td>
-								<td ng-if="hasFullAccess('api_reports_revenue')">{{priceclassItem.sum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-					</div>
-				</div>
-            </div>
-        </div>
-
-        <!-- Tab: sectors -->
-        <div class="tab-pane bo-salesoverview panel panel-default" id="sectors" role="tabpanel">
-            <div class="panel-body" ng-if="!selectedSectionId">
-                <div class="bo-salesoverview-controls clearfix bo-inline-print">
-                    <div class="form-inline">
-                        <div class="form-group">
-							<span class="visible-print">{{'api_print_period'|translate}}</span>
-							<div class="input-group data_range">
-                                <input type="text" daterangepicker class="form-control"
-                                       ng-model="vm.filterPeriod" daterangepicker-neutral-timezone ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                       ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-								 <span class="input-group-btn">
-									<button class="btn btn-default" type="button" data-control="daterangepicker">
-                                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                                    </button>
-								 </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-				<div ng-if="vm.mySectorsData.sales.length === 0">
-					<div class="bo-no-data-msg">
-						{{'api_no_data_available'|translate}}
-					</div>
-				</div>
-
-                <div class="row" ng-if="vm.mySectorsData.sales.length > 0">
-                    <div class="col-lg-6">
-                        <div class="bo-sectionselector list-group" ng-if="vm.mySectorsData.sales.length">
-                            <button type="button" class="bo-sectionselector-item list-group-item"
-                                    ng-class="{ 'active': sectorData.sectorId == mouseoverSectionId}"
-                                    ng-click="vm.setSelectedSectionId(sectorData.sectorId)"
-                                    ng-mouseover="vm.setMouseoverSectionId(sectorData.sectorId)"
-                                    ng-repeat="sectorData in vm.mySectorsData.sales">
-                                <div class="bo-sectionse1lector-itemtitle">
-                                    {{sectorData.name}}
-                                </div>
-                                <div class="clearfix">
-                                    <div class="bo-sectionselector-itemprice" ng-if="hasFullAccess('api_reports_revenue')">{{sectorData.statistics.soldSumma |
-                                        number:2}}
-                                        {{sectorData.statistics.currency}}
-                                    </div>
-                                    <div class="bo-simplestats-labels">
-                                        <span class="bo-simplestats-triangle glyphicon glyphicon-triangle-bottom text-danger"></span>&nbsp;<span
-                                            class="bo-simplestats-label text-success">{{sectorData.statistics.soldTickets || 0}}</span>&nbsp;/&nbsp;<span
-                                            class="bo-simplestats-label text-warning">{{sectorData.statistics.bookedTickets || 0}}</span>&nbsp;/&nbsp;<span
-                                            class="bo-simplestats-label text-danger">{{sectorData.statistics.availableTickets || 0}}</span>
-                                    </div>
-                                    <div class="clearfix">
-                                        <div class="bo-simplestats-pct">{{sectorData.statistics.soldPercent || 0}}%
-                                        </div><!--
-										 -->
-                                        <div class="bo-simplestats-bar progress">
-                                            <div class="progress-bar progress-bar-success"
-                                                 style="flex-grow: {{sectorData.statistics.soldPercent}}"
-                                                 title="{{'api_overview_sold_total'|translate}}"></div>
-                                            <div class="progress-bar progress-bar-warning"
-                                                 style="flex-grow: {{sectorData.statistics.bookedPercent}}"
-                                                 title="{{'api_overview_reserved_total'|translate}}"></div>
-                                            <div class="progress-bar progress-bar-danger"
-                                                 style="flex-grow: {{sectorData.statistics.availablePercent}}"
-                                                 title="{{'api_avail_for_sale'|translate}}"></div>
                                         </div>
                                     </div>
                                 </div>
-
-                            </button>
+                            </div>
+                            <div class="bo-chartcontrols col-sm-7 text-right">
+                                <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.overviewFilter.display=='tickets'}"
+                                            ng-click="vm.setOverviewDisplay('tickets')">{{'api_tickets'|translate}}
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.overviewFilter.display=='revenue'}"
+                                            ng-if="hasFullAccess('api_reports_revenue')"
+                                            ng-click="vm.setOverviewDisplay('revenue')">{{'api_revenue'|translate}}
+                                    </button>
+                                </div>
+                                <span class="visible-print">{{'api_print_display_and'|translate}}</span>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.overviewFilter.groupBy=='day'}"
+                                            ng-click="vm.setOverviewGroupBy('day')">{{'api_day'|translate}}
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.overviewFilter.groupBy=='week'}"
+                                            ng-click="vm.setOverviewGroupBy('week')">{{'api_week'|translate}}
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.overviewFilter.groupBy=='month'}"
+                                            ng-click="vm.setOverviewGroupBy('month')">{{'api_month'|translate}}
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="bo-map" ng-if="vm.event.sectionsMapConfig.sections.length">
-                            <ng-venue-map data-config="{{vm.event.sectionsMapConfig}}"></ng-venue-map>
+                    <div ng-if="vm.myOverviewBarData.sales.length === 0">
+                        <div class="bo-no-data-msg">
+                            {{'api_no_data_available'|translate}}
+                        </div>
+                    </div>
+
+                    <div ng-if="vm.myOverviewBarData.sales.length > 0">
+                        <div class="bo-chart bo-line-chart-container">
+                            <canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data"
+                                    chart-labels="vm.overviewLineGraph.labels"
+                                    chart-series="vm.overviewLineGraph.series"
+                                    chart-options="vm.overviewLineGraph.options"
+                                    chart-dataset-override="vm.overviewLineGraph.datasetOverride"
+                                    chart-colors="vm.overviewLineGraph.colors">
+                            </canvas>
+                        </div>
+                        <div class="row bo-double-charts-row">
+                            <div class="col-lg-6">
+                                <div class="bo-chart">
+                                    <canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data"
+                                            chart-labels="vm.overviewBarGraph.labels"
+                                            chart-options="vm.overviewBarGraph.options"
+                                            chart-series="vm.overviewBarGraph.series"
+                                            chart-colors="vm.overviewBarGraph.colors"
+                                            chart-dataset-override="vm.overviewBarGraph.datasetOverride"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <table class="bo-revenuetable table table-condensed table-small bo-chart-table">
+                                    <thead>
+                                    <tr>
+                                        <th width="7%"></th>
+                                        <th width="46%"></th>
+                                        <th width="17%">{{'api_tickets'|translate}}</th>
+                                        <th width="10%">%</th>
+                                        <th width="20%" ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{'api_revenue'|translate}}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <thead class="bo-title-row">
+                                    <tr>
+                                        <td class="bo-name-column" colspan="2">
+                                            {{'api_overview_generated_total'|translate}}
+                                        </td>
+                                        <td>{{vm.myOverviewBarData.generatedCount}}</td>
+                                        <td>100%</td>
+                                        <td ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{vm.myOverviewBarData.generatedSum | number:2}}
+                                            {{vm.myOverviewBarData.currency}}
+                                        </td>
+                                    </tr>
+                                    </thead>
+                                    <thead ng-repeat="overviewData in vm.myOverviewBarData.sales"
+                                           ng-if="overviewData.groupId == 'venue_occupancy'">
+                                    <tr>
+                                        <td class="bo-name-column" colspan="2">{{overviewData.groupName|translate}}</td>
+                                        <td>{{overviewData.rowCount}}</td>
+                                        <td>{{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount /
+                                            vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </td>
+                                        <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum |
+                                            number:2}} {{vm.myOverviewBarData.currency}}
+                                        </td>
+                                    </tr>
+                                    </thead>
+                                    <tbody ng-repeat="overviewData in vm.myOverviewBarData.sales"
+                                           ng-if="overviewData.groupId != 'venue_occupancy' && overviewData.groupId != 'generated'">
+                                    <tr>
+                                        <th></th>
+                                        <th class="bo-name-column">{{overviewData.groupName|translate}}</th>
+                                        <th>{{overviewData.rowCount}}</th>
+                                        <th>{{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount /
+                                            vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </th>
+                                        <th ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum |
+                                            number:2}} {{vm.myOverviewBarData.currency}}
+                                        </th>
+                                    </tr>
+                                    <tr ng-repeat="overviewRow in overviewData.rows"
+                                        class="{{overviewRow.isRefund ? 'text-danger' : ''}}">
+                                        <td>
+                                            <span class="bo-dot fa fa-circle"
+                                                  style="color: {{overviewRow.color}}!important;"></span>
+                                        </td>
+                                        <td class="bo-name-column">{{overviewRow.typeName|translate}}:</td>
+                                        <td>{{overviewRow.count}}</td>
+                                        <td>{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) *
+                                            overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 |
+                                            number:0}}%
+                                        </td>
+                                        <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum | number:2}}
+                                            {{vm.myOverviewBarData.currency}}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <thead ng-repeat="overviewData in vm.myOverviewBarData.sales"
+                                           ng-if="overviewData.groupId == 'venue_occupancy'">
+                                    <tr ng-repeat="overviewRow in overviewData.rows">
+                                        <td class="bo-name-column" colspan="2">{{overviewRow.typeName|translate}}</td>
+                                        <td>{{overviewRow.count}}</td>
+                                        <td>{{vm.myOverviewBarData.generatedCount ? (overviewRow.count /
+                                            vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </td>
+                                        <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum | number:2}}
+                                            {{vm.myOverviewBarData.currency}}
+                                        </td>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="bo-salesoverview-controls panel-body" ng-if="selectedSectionId">
-                <div class="col-md-12 bo-inline-print" ng-if="selectedSectionId">
-                    <div class="form-inline">
-                        <div class="form-group">
-							<span class="visible-print">{{'api_print_period'|translate}}</span>
-							<div class="input-group data_range">
-                                <input type="text" daterangepicker class="form-control"
-                                       ng-model="vm.filterPeriod" daterangepicker-neutral-timezone ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                       ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+            <!-- Tab: price types -->
+            <div class="tab-pane bo-salesoverview panel panel-default" id="pricetype" role="tabpanel">
+                <div class="panel-body">
+
+                    <div class="bo-salesoverview-controls clearfix">
+                        <div class="row">
+                            <div class="col-sm-5 bo-inline-print">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <span class="visible-print">{{'api_print_period'|translate}}</span>
+                                        <div class="input-group data_range">
+                                            <input type="text" daterangepicker class="form-control"
+                                                   ng-model="vm.filterPeriod"
+                                                   daterangepicker-neutral-timezone
+                                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+										 <span class="input-group-btn">
+											<button class="btn btn-default" type="button"
+                                                    data-control="daterangepicker">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </button>
+										 </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bo-chartcontrols col-sm-7 text-right">
+                                <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.pricetypeFilter.display=='tickets'}"
+                                            ng-click="vm.setPricetypeDisplay('tickets')">{{'api_tickets'|translate}}
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-if="hasFullAccess('api_reports_revenue')"
+                                            ng-class="{ 'active': vm.pricetypeFilter.display=='revenue'}"
+                                            ng-click="vm.setPricetypeDisplay('revenue')">{{'api_revenue'|translate}}
+                                    </button>
+                                </div>
+                                <span class="visible-print">{{'api_print_display_and'|translate}}</span>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.pricetypeFilter.groupBy=='day'}"
+                                            ng-click="vm.setPricetypeGroupBy('day')">{{'api_day'|translate}}
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.pricetypeFilter.groupBy=='week'}"
+                                            ng-click="vm.setPricetypeGroupBy('week')">{{'api_week'|translate}}
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.pricetypeFilter.groupBy=='month'}"
+                                            ng-click="vm.setPricetypeGroupBy('month')">{{'api_month'|translate}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="vm.myPriceTypePieData.sales.length === 0">
+                        <div class="bo-no-data-msg">
+                            {{'api_no_data_available'|translate}}
+                        </div>
+                    </div>
+                    <div ng-if="vm.myPriceTypePieData.sales.length > 0">
+                        <div class="bo-chart bo-line-chart-container">
+                            <canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data"
+                                    chart-labels="vm.pricetypeLineGraph.labels"
+                                    chart-series="vm.pricetypeLineGraph.series"
+                                    chart-options="vm.pricetypeLineGraph.options"
+                                    chart-colors="vm.pricetypeLineGraph.colors"
+                                    chart-dataset-override="vm.pricetypeLineGraph.datasetOverride">
+                            </canvas>
+                        </div>
+                        <div class="row bo-double-charts-row">
+                            <div class="col-lg-5">
+                                <div class="bo-chart">
+                                    <div class="bo-chart-buttons">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
+                                            <button type="button" class="btn btn-sm btn-default"
+                                                    ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='tickets'}"
+                                                    ng-click="vm.setPricetypePieDisplay('tickets')">
+                                                {{'api_tickets'|translate}}
+                                            </button>
+                                            <button type="button" ng-if="hasFullAccess('api_reports_revenue')"
+                                                    class="btn btn-sm btn-default"
+                                                    ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='revenue'}"
+                                                    ng-click="vm.setPricetypePieDisplay('revenue')">
+                                                {{'api_revenue'|translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <canvas id="pricetypePie" class="chart chart-pie"
+                                            chart-data="vm.pricetypePieGraph.data"
+                                            chart-labels="vm.pricetypePieGraph.labels"
+                                            chart-options="vm.pricetypePieGraph.options"
+                                            chart-colors="vm.pricetypePieGraph.colors"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <table class="bo-pricetyperevenuetable table table-condensed table-small bo-chart-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="bo-name-column" colspan="2">{{'api_pricetype'|translate}}</th>
+                                        <th>{{'api_tickets'|translate}}</th>
+                                        <th>%</th>
+                                        <th ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <thead>
+                                    <tr>
+                                        <td colspan="2" class="bo-name-column">{{'api_issued_total'|translate}}</td>
+                                        <td>{{vm.myPriceTypePieData.generatedCount}}</td>
+                                        <td>100%</td>
+                                        <td ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{vm.myPriceTypePieData.generatedSum | number:2}}
+                                            {{vm.myPriceTypePieData.currency}}
+                                        </td>
+                                    </tr>
+                                    </thead>
+                                    <tbody ng-repeat="pricetypeData in vm.myPriceTypePieData.sales">
+                                    <tr>
+                                        <th></th>
+                                        <th class="bo-name-column">{{pricetypeData.groupName|translate}}</th>
+                                        <th>{{pricetypeData.rowCount}}</th>
+                                        <th>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeData.rowCount /
+                                            vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </th>
+                                        <th ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeData.rowSum |
+                                            number:2}} {{pricetypeData.currency}}
+                                        </th>
+                                    </tr>
+                                    <tr ng-repeat="pricetypeItem in pricetypeData.priceTypes">
+                                        <td><span class="bo-dot fa fa-circle"
+                                                  style="color: {{pricetypeItem.color}}!important;"></span></td>
+                                        <td class="bo-name-column">{{pricetypeItem.priceTypeName}} <span
+                                                ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice | number:2) + "-" + (pricetypeItem.maxPrice | number:2) : (pricetypeItem.minPrice | number:2)}})</span>
+                                        </td>
+                                        <td>{{pricetypeItem.count}}</td>
+                                        <td>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count /
+                                            vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </td>
+                                        <td ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeItem.sum |
+                                            number:2}} {{vm.myPriceTypePieData.currency}}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: price classes -->
+            <div class="tab-pane bo-salesoverview panel panel-default" id="priceclass" role="tabpanel">
+                <div class="panel-body">
+
+                    <div class="bo-salesoverview-controls clearfix">
+                        <div class="row">
+                            <div class="col-sm-5 bo-inline-print">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <span class="visible-print">{{'api_print_period'|translate}}</span>
+                                        <div class="input-group data_range">
+                                            <input type="text" daterangepicker class="form-control"
+                                                   ng-model="vm.filterPeriod"
+                                                   daterangepicker-neutral-timezone
+                                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+										 <span class="input-group-btn">
+											<button class="btn btn-default" type="button"
+                                                    data-control="daterangepicker">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </button>
+										 </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bo-chartcontrols col-sm-7 text-right">
+                                <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.priceclassFilter.display=='tickets'}"
+                                            ng-click="vm.setPriceclassDisplay('tickets')">{{'api_tickets'|translate}}
+                                    </button>
+                                    <button type="button" ng-if="hasFullAccess('api_reports_revenue')"
+                                            class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.priceclassFilter.display=='revenue'}"
+                                            ng-click="vm.setPriceclassDisplay('revenue')">{{'api_revenue'|translate}}
+                                    </button>
+                                </div>
+                                <span class="visible-print">{{'api_print_display_and'|translate}}</span>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.priceclassFilter.groupBy=='day'}"
+                                            ng-click="vm.setPriceclassGroupBy('day')">{{'api_day'|translate}}
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.priceclassFilter.groupBy=='week'}"
+                                            ng-click="vm.setPriceclassGroupBy('week')">{{'api_week'|translate}}
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-default"
+                                            ng-class="{ 'active': vm.priceclassFilter.groupBy=='month'}"
+                                            ng-click="vm.setPriceclassGroupBy('month')">{{'api_month'|translate}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="vm.myPriceClassPieData.sales.length === 0">
+                        <div class="bo-no-data-msg">
+                            {{'api_no_data_available'|translate}}
+                        </div>
+                    </div>
+                    <div ng-if="vm.myPriceClassPieData.sales.length > 0">
+                        <div class="bo-chart bo-line-chart-container">
+                            <canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data"
+                                    chart-labels="vm.priceclassLineGraph.labels"
+                                    chart-series="vm.priceclassLineGraph.series"
+                                    chart-options="vm.priceclassLineGraph.options"
+                                    chart-colors="vm.priceclassLineGraph.colors"
+                                    chart-dataset-override="vm.priceclassLineGraph.datasetOverride" height="100px">
+                            </canvas>
+                        </div>
+                        <div class="row bo-double-charts-row">
+                            <div class="col-lg-5">
+                                <div class="bo-chart">
+                                    <div class="bo-chart-buttons">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-sm btn-default"
+                                                    ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='tickets'}"
+                                                    ng-click="vm.setPriceclassPieDisplay('tickets')">
+                                                {{'api_tickets'|translate}}
+                                            </button>
+                                            <button type="button" ng-if="hasFullAccess('api_reports_revenue')"
+                                                    class="btn btn-sm btn-default"
+                                                    ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='revenue'}"
+                                                    ng-click="vm.setPriceclassPieDisplay('revenue')">
+                                                {{'api_revenue'|translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <canvas id="priceclassPie" class="chart chart-pie"
+                                            chart-data="vm.priceclassPieGraph.data"
+                                            chart-labels="vm.priceclassPieGraph.labels"
+                                            chart-options="vm.priceclassPieGraph.options"
+                                            chart-colors="vm.priceclassPieGraph.colors"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <table class="bo-pricetyperevenuetable table table-condensed table-small bo-chart-table">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="2" class="bo-name-column">{{'api_priceclass'|translate}}</th>
+                                        <th>{{'api_tickets'|translate}}</th>
+                                        <th>%</th>
+                                        <th ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <thead>
+                                    <tr>
+                                        <td colspan="2" class="bo-name-column">{{'api_issued_total'|translate}}</td>
+                                        <td>{{vm.myPriceClassPieData.generatedCount}}</td>
+                                        <td>100%</td>
+                                        <td ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{vm.myPriceClassPieData.generatedSum | number:2}}
+                                            {{vm.myPriceClassPieData.currency}}
+                                        </td>
+                                    </tr>
+                                    </thead>
+                                    <tbody ng-repeat="priceclassData in vm.myPriceClassPieData.sales">
+                                    <tr>
+                                        <th></th>
+                                        <th class="bo-name-column">{{priceclassData.groupName|translate}}</th>
+                                        <th>{{priceclassData.rowCount}}</th>
+                                        <th>{{vm.myPriceClassPieData.generatedCount ? ( priceclassData.rowCount /
+                                            vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </th>
+                                        <th ng-if="hasFullAccess('api_reports_revenue')">{{priceclassData.rowSum |
+                                            number:2}} {{priceclassData.currency}}
+                                        </th>
+                                    </tr>
+                                    <tr ng-repeat="priceclassItem in priceclassData.priceClasses">
+                                        <td><span class="bo-dot fa fa-circle"
+                                                  style="color: {{priceclassItem.color}}!important;"></span></td>
+                                        <td class="bo-name-column">{{priceclassItem.priceClassName}} <span
+                                                ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice | number:2) + "-" + (priceclassItem.maxPrice | number:2) : (priceclassItem.minPrice | number:2)}})</span>
+                                        </td>
+                                        <td>{{priceclassItem.count}}</td>
+                                        <td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count /
+                                            vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </td>
+                                        <td ng-if="hasFullAccess('api_reports_revenue')">{{priceclassItem.sum |
+                                            number:2}} {{vm.myPriceClassPieData.currency}}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: sectors -->
+            <div class="tab-pane bo-salesoverview panel panel-default" id="sectors" role="tabpanel">
+                <div class="panel-body" ng-if="!selectedSectionId">
+                    <div class="bo-salesoverview-controls clearfix bo-inline-print">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <span class="visible-print">{{'api_print_period'|translate}}</span>
+                                <div class="input-group data_range">
+                                    <input type="text" daterangepicker class="form-control"
+                                           ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
+                                           ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 								 <span class="input-group-btn">
 									<button class="btn btn-default" type="button" data-control="daterangepicker">
                                         <i class="fa fa-calendar" aria-hidden="true"></i>
                                     </button>
 								 </span>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="bo-sectionselection form-control">
-                                <span class="bo-sectionselection-text">{{'api_selected_section'|translate}}: {{(vm.mySectorsData.sales | filter:{sectorId: selectedSectionId})[0].name}}</span>
-                                <a class="bo-sectionselection-button text-danger" href ng-click="vm.resetSelectedSectionId(selectedSectionId)">
-                                    <span class="bo-sectionselection-icon fa fa-times"></span>
-                                </a>
+                    </div>
+
+                    <div ng-if="vm.mySectorsData.sales.length === 0">
+                        <div class="bo-no-data-msg">
+                            {{'api_no_data_available'|translate}}
+                        </div>
+                    </div>
+
+                    <div class="row" ng-if="vm.mySectorsData.sales.length > 0">
+                        <div class="col-lg-6">
+                            <div class="bo-sectionselector list-group" ng-if="vm.mySectorsData.sales.length">
+                                <button type="button" class="bo-sectionselector-item list-group-item"
+                                        ng-class="{ 'active': sectorData.sectorId == mouseoverSectionId}"
+                                        ng-click="vm.setSelectedSectionId(sectorData.sectorId)"
+                                        ng-mouseover="vm.setMouseoverSectionId(sectorData.sectorId)"
+                                        ng-repeat="sectorData in vm.mySectorsData.sales">
+                                    <div class="bo-sectionse1lector-itemtitle">
+                                        {{sectorData.name}}
+                                    </div>
+                                    <div class="clearfix">
+                                        <div class="bo-sectionselector-itemprice"
+                                             ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{sectorData.statistics.soldSumma |
+                                            number:2}}
+                                            {{sectorData.statistics.currency}}
+                                        </div>
+                                        <div class="bo-simplestats-labels">
+                                            <span class="bo-simplestats-triangle glyphicon glyphicon-triangle-bottom text-danger"></span>&nbsp;<span
+                                                class="bo-simplestats-label text-success">{{sectorData.statistics.soldTickets || 0}}</span>&nbsp;/&nbsp;<span
+                                                class="bo-simplestats-label text-warning">{{sectorData.statistics.bookedTickets || 0}}</span>&nbsp;/&nbsp;<span
+                                                class="bo-simplestats-label text-danger">{{sectorData.statistics.availableTickets || 0}}</span>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="bo-simplestats-pct">{{sectorData.statistics.soldPercent || 0}}%
+                                            </div><!--
+										 -->
+                                            <div class="bo-simplestats-bar progress">
+                                                <div class="progress-bar progress-bar-success"
+                                                     style="flex-grow: {{sectorData.statistics.soldPercent}}"
+                                                     title="{{'api_overview_sold_total'|translate}}"></div>
+                                                <div class="progress-bar progress-bar-warning"
+                                                     style="flex-grow: {{sectorData.statistics.bookedPercent}}"
+                                                     title="{{'api_overview_reserved_total'|translate}}"></div>
+                                                <div class="progress-bar progress-bar-danger"
+                                                     style="flex-grow: {{sectorData.statistics.availablePercent}}"
+                                                     title="{{'api_avail_for_sale'|translate}}"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="bo-map" ng-if="vm.event.sectionsMapConfig.sections.length">
+                                <ng-venue-map data-config="{{vm.event.sectionsMapConfig}}"></ng-venue-map>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div ng-if="selectedSectionId" class="panel-body">
-                <div class="row bo-double-charts-row">
-                    <div class="col-lg-6">
-                        <div ng-include="'views/common/event_priceclass_table.html'"></div>
+                <div class="bo-salesoverview-controls panel-body" ng-if="selectedSectionId">
+                    <div class="col-md-12 bo-inline-print" ng-if="selectedSectionId">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <span class="visible-print">{{'api_print_period'|translate}}</span>
+                                <div class="input-group data_range">
+                                    <input type="text" daterangepicker class="form-control"
+                                           ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
+                                           ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+								 <span class="input-group-btn">
+									<button class="btn btn-default" type="button" data-control="daterangepicker">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    </button>
+								 </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="bo-sectionselection form-control">
+                                    <span class="bo-sectionselection-text">{{'api_selected_section'|translate}}: {{(vm.mySectorsData.sales | filter:{sectorId: selectedSectionId})[0].name}}</span>
+                                    <a class="bo-sectionselection-button text-danger" href
+                                       ng-click="vm.resetSelectedSectionId(selectedSectionId)">
+                                        <span class="bo-sectionselection-icon fa fa-times"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="bo-legend">
+                </div>
+
+                <div ng-if="selectedSectionId" class="panel-body">
+                    <div class="row bo-double-charts-row">
+                        <div class="col-lg-6">
+                            <div ng-include="'views/common/event_priceclass_table.html'"></div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="bo-legend">
                                 <span class="bo-legend-item">
                                     <span class="bo-dot fa fa-circle"
                                           style="color: #fff!important; border: 1px solid;"></span>&nbsp;Available
@@ -545,359 +726,362 @@
                                 <span class="bo-legend-item">
                                     <span class="bo-dot fa fa-circle" style="color: #47de4a!important;"></span>&nbsp;Issued to organizer
                                 </span>
-                        </div>
-                        <div class="bo-map">
-                            <ng-venue-map data-config="{{vm.event.seatsMapConfig}}"></ng-venue-map>
-                        </div>
-                    </div>
-                </div>
-                <h4>Selected seats:</h4>
-                <table class="bo-seatstable table table-striped table-condensed table-small">
-                    <colgroup>
-                        <col class="bo-seatstable-colorcolumn">
-                        <col class="bo-seatstable-sectorcolumn">
-                        <col class="bo-seatstable-rowcolumn">
-                        <col class="bo-seatstable-seatcolumn">
-                        <col class="bo-seatstable-pricetypecolumn">
-                        <col class="bo-seatstable-pricecolumn">
-                        <col class="bo-seatstable-statuscolumn">
-                        <col class="bo-seatstable-controlcolumn">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>
-                            Sector
-                        </th>
-                        <th>
-                            Row
-                        </th>
-                        <th>
-                            Seat
-                        </th>
-                        <th>
-                            Pricetype
-                        </th>
-                        <th>
-                            Price
-                        </th>
-                        <th>
-                            Status
-                        </th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <span class="bo-dot fa fa-circle" style="color: #df9617!important"></span>
-                        </td>
-                        <td>
-                            Parter
-                        </td>
-                        <td>
-                            3
-                        </td>
-                        <td>
-                            12
-                        </td>
-                        <td>
-                            Senior
-                        </td>
-                        <td>
-                            13.00 €
-                        </td>
-                        <td>
-                            Sold
-                        </td>
-                        <td>
-                            <a href="#" class="bo-cancel fa fa-times text-danger"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="bo-dot fa fa-circle" style="color: #448fff!important"></span>
-                        </td>
-                        <td>
-                            Parter
-                        </td>
-                        <td>
-                            3
-                        </td>
-                        <td>
-                            13
-                        </td>
-                        <td>
-                            Full price
-                        </td>
-                        <td>
-                            26.00 €
-                        </td>
-                        <td>
-                            <a href="#">Reserved to Name Fullname</a>
-                        </td>
-                        <td>
-                            <a href="#" class="bo-cancel fa fa-times text-danger"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="bo-dot fa fa-circle" style="color: #448fff!important"></span>
-                        </td>
-                        <td>
-                            Parter
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            20
-                        </td>
-                        <td>
-                            <select class="bo-seatstable-selection form-control input-sm">
-                                <option>Full price</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                            </select>
-                        </td>
-                        <td>
-                            26.00 €
-                        </td>
-                        <td>
-                            Available
-                        </td>
-                        <td>
-                            <a href="#" class="bo-cancel fa fa-times text-danger"></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <h4>Reservation:</h4>
-                <form class="bo-reservationform form-horizontal">
-                    <div class="form-group">
-                        <div class="col-sm-offset-4 col-sm-5">
-                            <div class="radio">
-                                <input type="radio" name="exampleradio" id="exampleradio1" value="1" checked="checked">
-                                <label for="exampleradio1">
-                                    -&nbsp;Reservation
-                                </label>
                             </div>
-                            <div class="radio">
-                                <input type="radio" name="exampleradio" id="exampleradio2" value="2">
-                                <label for="exampleradio2">
-                                    -&nbsp;Invitation
-                                </label>
+                            <div class="bo-map">
+                                <ng-venue-map data-config="{{vm.event.seatsMapConfig}}"></ng-venue-map>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group"></div>
-                    <div class="form-group"></div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Company:</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control">
+                    <h4>Selected seats:</h4>
+                    <table class="bo-seatstable table table-striped table-condensed table-small">
+                        <colgroup>
+                            <col class="bo-seatstable-colorcolumn">
+                            <col class="bo-seatstable-sectorcolumn">
+                            <col class="bo-seatstable-rowcolumn">
+                            <col class="bo-seatstable-seatcolumn">
+                            <col class="bo-seatstable-pricetypecolumn">
+                            <col class="bo-seatstable-pricecolumn">
+                            <col class="bo-seatstable-statuscolumn">
+                            <col class="bo-seatstable-controlcolumn">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>
+                                Sector
+                            </th>
+                            <th>
+                                Row
+                            </th>
+                            <th>
+                                Seat
+                            </th>
+                            <th>
+                                Pricetype
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <span class="bo-dot fa fa-circle" style="color: #df9617!important"></span>
+                            </td>
+                            <td>
+                                Parter
+                            </td>
+                            <td>
+                                3
+                            </td>
+                            <td>
+                                12
+                            </td>
+                            <td>
+                                Senior
+                            </td>
+                            <td>
+                                13.00 €
+                            </td>
+                            <td>
+                                Sold
+                            </td>
+                            <td>
+                                <a href="#" class="bo-cancel fa fa-times text-danger"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="bo-dot fa fa-circle" style="color: #448fff!important"></span>
+                            </td>
+                            <td>
+                                Parter
+                            </td>
+                            <td>
+                                3
+                            </td>
+                            <td>
+                                13
+                            </td>
+                            <td>
+                                Full price
+                            </td>
+                            <td>
+                                26.00 €
+                            </td>
+                            <td>
+                                <a href="#">Reserved to Name Fullname</a>
+                            </td>
+                            <td>
+                                <a href="#" class="bo-cancel fa fa-times text-danger"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="bo-dot fa fa-circle" style="color: #448fff!important"></span>
+                            </td>
+                            <td>
+                                Parter
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                20
+                            </td>
+                            <td>
+                                <select class="bo-seatstable-selection form-control input-sm">
+                                    <option>Full price</option>
+                                    <option>Option 2</option>
+                                    <option>Option 3</option>
+                                </select>
+                            </td>
+                            <td>
+                                26.00 €
+                            </td>
+                            <td>
+                                Available
+                            </td>
+                            <td>
+                                <a href="#" class="bo-cancel fa fa-times text-danger"></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h4>Reservation:</h4>
+                    <form class="bo-reservationform form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-5">
+                                <div class="radio">
+                                    <input type="radio" name="exampleradio" id="exampleradio1" value="1"
+                                           checked="checked">
+                                    <label for="exampleradio1">
+                                        -&nbsp;Reservation
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <input type="radio" name="exampleradio" id="exampleradio2" value="2">
+                                    <label for="exampleradio2">
+                                        -&nbsp;Invitation
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Name:</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Surname:</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">E-mail:</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Discount:</label>
-                        <div class="col-sm-3">
-                            <div class="input-group">
+                        <div class="form-group"></div>
+                        <div class="form-group"></div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Company:</label>
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control">
-                                <span class="input-group-addon">%</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Price with discount:</label>
-                        <div class="col-sm-5">
-                            <div class="form-control-static">
-                                <strong>50.00 €</strong>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Name:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Comment:</label>
-                        <div class="col-sm-5">
-                            <textarea class="form-control" rows="5"></textarea>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Surname:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-4 col-sm-5">
-                            <button type="submit" class="btn btn-info">Save and send reservation to client</button>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">E-mail:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-4 col-sm-5">
-                            <a href="#">Only save reservation</a>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Discount:</label>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Price with discount:</label>
+                            <div class="col-sm-5">
+                                <div class="form-control-static">
+                                    <strong>50.00 €</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Comment:</label>
+                            <div class="col-sm-5">
+                                <textarea class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-5">
+                                <button type="submit" class="btn btn-info">Save and send reservation to client</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-5">
+                                <a href="#">Only save reservation</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-        <!-- Tab: locations -->
-        <div class="tab-pane bo-salesoverview panel panel-default" id="locations" role="tabpanel">
-            <div class="panel-body">
-                Locations
+            <!-- Tab: locations -->
+            <div class="tab-pane bo-salesoverview panel panel-default" id="locations" role="tabpanel">
+                <div class="panel-body">
+                    Locations
+                </div>
             </div>
-        </div>
 
-        <!-- Tab: bookings -->
-        <div class="tab-pane bo-salesoverview panel panel-default" id="bookings" role="tabpanel">
-            <div class="panel-body">
-                Bookings
+            <!-- Tab: bookings -->
+            <div class="tab-pane bo-salesoverview panel panel-default" id="bookings" role="tabpanel">
+                <div class="panel-body">
+                    Bookings
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div ng-include-template="related_events.html" ng-include-variables="{ related: vm.relatedEvents, vm: vm }"></div>
+    <div ng-include-template="related_events.html" ng-include-variables="{ related: vm.relatedEvents, vm: vm }"></div>
 
-<div id="emal_popup" class="modal fade bo-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn btn-sm btn-default bo-close-btn" data-dismiss="modal"><i
-                        class="fa fa-times"></i></button>
-                <h4 class="modal-title"><i class="fa fa-envelope"/>Email report: By pricetype</h4>
-            </div>
-            <div class="modal-body">
-                <h2>Rammstein</h2>
-                <div class="bo-modal-datetime_block">
-                    <div>
-                        <div class="bo-modal-date">26.01.2017</div>
-                        <div class="bo-modal-time">18:30</div>
-                    </div>
-                    <div class="bo-modal-place">Kino Sõprus, Tallinn</div>
+    <div id="emal_popup" class="modal fade bo-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn btn-sm btn-default bo-close-btn" data-dismiss="modal"><i
+                            class="fa fa-times"></i></button>
+                    <h4 class="modal-title"><i class="fa fa-envelope"/>Email report: By pricetype</h4>
                 </div>
-                <form class="form-horizontal bo-modal-form" role="form">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">From:</label>
-                        <div class="col-sm-9 bo-modal-form-empty-input">
-                            john.longfamilyname@promoter.com
+                <div class="modal-body">
+                    <h2>Rammstein</h2>
+                    <div class="bo-modal-datetime_block">
+                        <div>
+                            <div class="bo-modal-date">26.01.2017</div>
+                            <div class="bo-modal-time">18:30</div>
                         </div>
+                        <div class="bo-modal-place">Kino Sõprus, Tallinn</div>
                     </div>
-                    <div class="form-group">
-                        <label for="input1" class="col-sm-3 control-label">Receiver email:</label>
-                        <div class="col-sm-9">
-                            <input class="form-control" type="text" value="" id="input1">
+                    <form class="form-horizontal bo-modal-form" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">From:</label>
+                            <div class="col-sm-9 bo-modal-form-empty-input">
+                                john.longfamilyname@promoter.com
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="input2" class="col-sm-3 control-label">Subject:</label>
-                        <div class="col-sm-9">
-                            <input class="form-control" type="text" value="" id="input2">
+                        <div class="form-group">
+                            <label for="input1" class="col-sm-3 control-label">Receiver email:</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" value="" id="input1">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group form-group-sm">
-                        <label for="input3" class="col-sm-3 control-label">Attachment:</label>
-                        <div class="col-sm-9">
-                            <select id="input3" class="form-control" selectpicker ng-model="someNameHere1">
-                                <option>Csv</option>
-                                <option>Xls</option>
-                                <option>Pdf</option>
-                            </select>
+                        <div class="form-group">
+                            <label for="input2" class="col-sm-3 control-label">Subject:</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" value="" id="input2">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group form-group-sm">
-                        <label for="input4" class="col-sm-3 control-label">Frequency:</label>
-                        <div class="col-sm-9">
-                            <select id="input4" class="form-control bo-modal-form-frequency" selectpicker
-                                    ng-model="someNameHere2" frequency>
-                                <option>Once</option>
-                                <option>Daily</option>
-                                <option>Weekly</option>
-                                <option>Montly</option>
-                                <option>Quarterly</option>
-                            </select>
-                            <div class="bo-modal-form-frequency-servant">
-                                <div id="email_popup_periods" class="bo-modal-form-period">Period: 10.06.2016 -
-                                    10.01.2017
-                                </div>
-                                <div id="email_popup_weekdays" class="btn-group bo-modal-form-weekdays btn-group-sm">
-                                    <button type="button" class="btn btn-primary">M</button>
-                                    <button type="button" class="btn btn-default">T</button>
-                                    <button type="button" class="btn btn-default">W</button>
-                                    <button type="button" class="btn btn-default">T</button>
-                                    <button type="button" class="btn btn-default">F</button>
-                                    <button type="button" class="btn btn-default">S</button>
-                                    <button type="button" class="btn btn-default">S</button>
-                                </div>
-                                <div id="email_popup_monthdays" class="bo-modal-form-monthdays">
-                                    <select class="form-control" selectpicker ng-model="someNameHere3">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                        <option value="17">17</option>
-                                        <option value="18">18</option>
-                                        <option value="19">19</option>
-                                        <option value="20">20</option>
-                                        <option value="21">21</option>
-                                        <option value="22">22</option>
-                                        <option value="23">23</option>
-                                        <option value="24">24</option>
-                                        <option value="25">25</option>
-                                        <option value="26">26</option>
-                                        <option value="27">27</option>
-                                        <option value="28">28</option>
-                                    </select>
+                        <div class="form-group form-group-sm">
+                            <label for="input3" class="col-sm-3 control-label">Attachment:</label>
+                            <div class="col-sm-9">
+                                <select id="input3" class="form-control" selectpicker ng-model="someNameHere1">
+                                    <option>Csv</option>
+                                    <option>Xls</option>
+                                    <option>Pdf</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label for="input4" class="col-sm-3 control-label">Frequency:</label>
+                            <div class="col-sm-9">
+                                <select id="input4" class="form-control bo-modal-form-frequency" selectpicker
+                                        ng-model="someNameHere2" frequency>
+                                    <option>Once</option>
+                                    <option>Daily</option>
+                                    <option>Weekly</option>
+                                    <option>Montly</option>
+                                    <option>Quarterly</option>
+                                </select>
+                                <div class="bo-modal-form-frequency-servant">
+                                    <div id="email_popup_periods" class="bo-modal-form-period">Period: 10.06.2016 -
+                                        10.01.2017
+                                    </div>
+                                    <div id="email_popup_weekdays"
+                                         class="btn-group bo-modal-form-weekdays btn-group-sm">
+                                        <button type="button" class="btn btn-primary">M</button>
+                                        <button type="button" class="btn btn-default">T</button>
+                                        <button type="button" class="btn btn-default">W</button>
+                                        <button type="button" class="btn btn-default">T</button>
+                                        <button type="button" class="btn btn-default">F</button>
+                                        <button type="button" class="btn btn-default">S</button>
+                                        <button type="button" class="btn btn-default">S</button>
+                                    </div>
+                                    <div id="email_popup_monthdays" class="bo-modal-form-monthdays">
+                                        <select class="form-control" selectpicker ng-model="someNameHere3">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group form-group-sm">
-                        <label for="input5" class="col-sm-3 control-label">Active for:</label>
-                        <div class="col-sm-9">
-                            <select id="input5" class="form-control" selectpicker ng-model="someNameHere4">
-                                <option>1 month</option>
-                                <option>2 months</option>
-                                <option>3 months</option>
-                            </select>
+                        <div class="form-group form-group-sm">
+                            <label for="input5" class="col-sm-3 control-label">Active for:</label>
+                            <div class="col-sm-9">
+                                <select id="input5" class="form-control" selectpicker ng-model="someNameHere4">
+                                    <option>1 month</option>
+                                    <option>2 months</option>
+                                    <option>3 months</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="input6" class="col-sm-3 control-label">Comment:</label>
-                        <div class="col-sm-9">
-                            <textarea id="input6" class="form-control"></textarea>
+                        <div class="form-group">
+                            <label for="input6" class="col-sm-3 control-label">Comment:</label>
+                            <div class="col-sm-9">
+                                <textarea id="input6" class="form-control"></textarea>
+                            </div>
                         </div>
-                    </div>
 
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="" class="bo-modal-view-all">View all email reports</a>
-                <button type="button" class="btn btn-success">Send</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="" class="bo-modal-view-all">View all email reports</a>
+                    <button type="button" class="btn btn-success">Send</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
