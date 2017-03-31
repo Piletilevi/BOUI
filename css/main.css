@@ -411,7 +411,7 @@ a:hover {
 	white-space: nowrap;
 }
 
-.bo-event-share-block a {
+.bo-event-share-block > span > a {
 	font-size: 14px;
 	margin-right: 7px;
 	text-decoration: none;
@@ -429,7 +429,6 @@ a:hover {
 }
 
 .bo-event-share-block .dropdown-toggle {
-	color: #000;
 	cursor: pointer;
 }
 
