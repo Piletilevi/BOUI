@@ -146,7 +146,7 @@
     };
 
     vm.currentTab = false;
-    vm.getcurrentTabCode = function() {
+    vm.getCurrentTabCode = function() {
       if(vm.currentTab == 'overview') {
         return 'api_' + vm.currentTab;
       }else {
