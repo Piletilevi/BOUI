@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-    <div ng-if="vm.event.name">
+    <div ng-show="vm.event.name">
         <div class="bo-event-share-block">
             <span ng-if="hasFullAccess('api_reports_export_print')"><i class="fa fa-print"></i><a
                     onclick="window.print();">{{'api_print'|translate}}</a> |</span>
@@ -948,139 +948,140 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div ng-include-template="related_events.html" ng-include-variables="{ related: vm.relatedEvents, vm: vm }"></div>
+        <div ng-include-template="related_events.html"
+             ng-include-variables="{ related: vm.relatedEvents, vm: vm }"></div>
 
-    <div id="emal_popup" class="modal fade bo-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn btn-sm btn-default bo-close-btn" data-dismiss="modal"><i
-                            class="fa fa-times"></i></button>
-                    <h4 class="modal-title"><i class="fa fa-envelope"/>Email report: By pricetype</h4>
-                </div>
-                <div class="modal-body">
-                    <h2>Rammstein</h2>
-                    <div class="bo-modal-datetime_block">
-                        <div>
-                            <div class="bo-modal-date">26.01.2017</div>
-                            <div class="bo-modal-time">18:30</div>
-                        </div>
-                        <div class="bo-modal-place">Kino Sõprus, Tallinn</div>
+        <div id="emal_popup" class="modal fade bo-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn btn-sm btn-default bo-close-btn" data-dismiss="modal"><i
+                                class="fa fa-times"></i></button>
+                        <h4 class="modal-title"><i class="fa fa-envelope"/>Email report: By pricetype</h4>
                     </div>
-                    <form class="form-horizontal bo-modal-form" role="form">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">From:</label>
-                            <div class="col-sm-9 bo-modal-form-empty-input">
-                                john.longfamilyname@promoter.com
+                    <div class="modal-body">
+                        <h2>Rammstein</h2>
+                        <div class="bo-modal-datetime_block">
+                            <div>
+                                <div class="bo-modal-date">26.01.2017</div>
+                                <div class="bo-modal-time">18:30</div>
                             </div>
+                            <div class="bo-modal-place">Kino Sõprus, Tallinn</div>
                         </div>
-                        <div class="form-group">
-                            <label for="input1" class="col-sm-3 control-label">Receiver email:</label>
-                            <div class="col-sm-9">
-                                <input class="form-control" type="text" value="" id="input1">
+                        <form class="form-horizontal bo-modal-form" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">From:</label>
+                                <div class="col-sm-9 bo-modal-form-empty-input">
+                                    john.longfamilyname@promoter.com
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="input2" class="col-sm-3 control-label">Subject:</label>
-                            <div class="col-sm-9">
-                                <input class="form-control" type="text" value="" id="input2">
+                            <div class="form-group">
+                                <label for="input1" class="col-sm-3 control-label">Receiver email:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" value="" id="input1">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group form-group-sm">
-                            <label for="input3" class="col-sm-3 control-label">Attachment:</label>
-                            <div class="col-sm-9">
-                                <select id="input3" class="form-control" selectpicker ng-model="someNameHere1">
-                                    <option>Csv</option>
-                                    <option>Xls</option>
-                                    <option>Pdf</option>
-                                </select>
+                            <div class="form-group">
+                                <label for="input2" class="col-sm-3 control-label">Subject:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" value="" id="input2">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group form-group-sm">
-                            <label for="input4" class="col-sm-3 control-label">Frequency:</label>
-                            <div class="col-sm-9">
-                                <select id="input4" class="form-control bo-modal-form-frequency" selectpicker
-                                        ng-model="someNameHere2" frequency>
-                                    <option>Once</option>
-                                    <option>Daily</option>
-                                    <option>Weekly</option>
-                                    <option>Montly</option>
-                                    <option>Quarterly</option>
-                                </select>
-                                <div class="bo-modal-form-frequency-servant">
-                                    <div id="email_popup_periods" class="bo-modal-form-period">Period: 10.06.2016 -
-                                        10.01.2017
-                                    </div>
-                                    <div id="email_popup_weekdays"
-                                         class="btn-group bo-modal-form-weekdays btn-group-sm">
-                                        <button type="button" class="btn btn-primary">M</button>
-                                        <button type="button" class="btn btn-default">T</button>
-                                        <button type="button" class="btn btn-default">W</button>
-                                        <button type="button" class="btn btn-default">T</button>
-                                        <button type="button" class="btn btn-default">F</button>
-                                        <button type="button" class="btn btn-default">S</button>
-                                        <button type="button" class="btn btn-default">S</button>
-                                    </div>
-                                    <div id="email_popup_monthdays" class="bo-modal-form-monthdays">
-                                        <select class="form-control" selectpicker ng-model="someNameHere3">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                            <option value="13">13</option>
-                                            <option value="14">14</option>
-                                            <option value="15">15</option>
-                                            <option value="16">16</option>
-                                            <option value="17">17</option>
-                                            <option value="18">18</option>
-                                            <option value="19">19</option>
-                                            <option value="20">20</option>
-                                            <option value="21">21</option>
-                                            <option value="22">22</option>
-                                            <option value="23">23</option>
-                                            <option value="24">24</option>
-                                            <option value="25">25</option>
-                                            <option value="26">26</option>
-                                            <option value="27">27</option>
-                                            <option value="28">28</option>
-                                        </select>
+                            <div class="form-group form-group-sm">
+                                <label for="input3" class="col-sm-3 control-label">Attachment:</label>
+                                <div class="col-sm-9">
+                                    <select id="input3" class="form-control" selectpicker ng-model="someNameHere1">
+                                        <option>Csv</option>
+                                        <option>Xls</option>
+                                        <option>Pdf</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label for="input4" class="col-sm-3 control-label">Frequency:</label>
+                                <div class="col-sm-9">
+                                    <select id="input4" class="form-control bo-modal-form-frequency" selectpicker
+                                            ng-model="someNameHere2" frequency>
+                                        <option>Once</option>
+                                        <option>Daily</option>
+                                        <option>Weekly</option>
+                                        <option>Montly</option>
+                                        <option>Quarterly</option>
+                                    </select>
+                                    <div class="bo-modal-form-frequency-servant">
+                                        <div id="email_popup_periods" class="bo-modal-form-period">Period: 10.06.2016 -
+                                            10.01.2017
+                                        </div>
+                                        <div id="email_popup_weekdays"
+                                             class="btn-group bo-modal-form-weekdays btn-group-sm">
+                                            <button type="button" class="btn btn-primary">M</button>
+                                            <button type="button" class="btn btn-default">T</button>
+                                            <button type="button" class="btn btn-default">W</button>
+                                            <button type="button" class="btn btn-default">T</button>
+                                            <button type="button" class="btn btn-default">F</button>
+                                            <button type="button" class="btn btn-default">S</button>
+                                            <button type="button" class="btn btn-default">S</button>
+                                        </div>
+                                        <div id="email_popup_monthdays" class="bo-modal-form-monthdays">
+                                            <select class="form-control" selectpicker ng-model="someNameHere3">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                                                <option value="24">24</option>
+                                                <option value="25">25</option>
+                                                <option value="26">26</option>
+                                                <option value="27">27</option>
+                                                <option value="28">28</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group form-group-sm">
-                            <label for="input5" class="col-sm-3 control-label">Active for:</label>
-                            <div class="col-sm-9">
-                                <select id="input5" class="form-control" selectpicker ng-model="someNameHere4">
-                                    <option>1 month</option>
-                                    <option>2 months</option>
-                                    <option>3 months</option>
-                                </select>
+                            <div class="form-group form-group-sm">
+                                <label for="input5" class="col-sm-3 control-label">Active for:</label>
+                                <div class="col-sm-9">
+                                    <select id="input5" class="form-control" selectpicker ng-model="someNameHere4">
+                                        <option>1 month</option>
+                                        <option>2 months</option>
+                                        <option>3 months</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="input6" class="col-sm-3 control-label">Comment:</label>
-                            <div class="col-sm-9">
-                                <textarea id="input6" class="form-control"></textarea>
+                            <div class="form-group">
+                                <label for="input6" class="col-sm-3 control-label">Comment:</label>
+                                <div class="col-sm-9">
+                                    <textarea id="input6" class="form-control"></textarea>
+                                </div>
                             </div>
-                        </div>
 
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <a href="" class="bo-modal-view-all">View all email reports</a>
-                    <button type="button" class="btn btn-success">Send</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="" class="bo-modal-view-all">View all email reports</a>
+                        <button type="button" class="btn btn-success">Send</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
