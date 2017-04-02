@@ -208,30 +208,18 @@ class PiletileviApi {
 
 	public function concertSales($filter) {
 		
-		$cacheItem = $this->cacheManager->getItem("concertSales".$filter["id"]);
-		$reportData = $cacheItem->get();
+		$data['filter'] = $filter;
 
-		if(is_null($reportData) || !is_object($reportData)) {
-			$data['filter'] = $filter;
-			$reportData = $this->send( "/event/concertSales", $data );
-			$cacheItem->set($reportData)->expiresAfter(600);
-			$this->cacheManager->save($cacheItem);
-		}
+		$reportData = $this->send( "/event/concertSales", $data );
 
 		return $reportData;
 	}
 
 	public function showSales($filter) {
 		
-		$cacheItem = $this->cacheManager->getItem("showSales".$filter["id"]);
-		$reportData = $cacheItem->get();
+		$data['filter'] = $filter;
 
-		if(is_null($reportData) || !is_object($reportData)) {
-			$data['filter'] = $filter;
-			$reportData = $this->send( "/event/showSales", $data );
-			$cacheItem->set($reportData)->expiresAfter(600);
-			$this->cacheManager->save($cacheItem);
-		}
+		$reportData = $this->send( "/event/showSales", $data );
 		
 		return $reportData;
 	}

@@ -532,13 +532,13 @@ $app->post('/eventSalesReportByStatus', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByStatus( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -559,13 +559,38 @@ $app->post('/eventSalesReportByDate', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByDate( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->get('/test', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+
+	$filter = array();
+	$filter['eventId'] = "184460";
+	$filter['isShow'] = false;
+	$filter['startDate'] = "2015-11-10T08:00:00.000Z";
+	$filter['endDate'] = "2015-03-10T16:00:00.000Z";
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesReportByDate( $filter );
+	
+	print_r($reportResponse);
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -586,13 +611,13 @@ $app->post('/eventSalesReportByWeek', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByWeek( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -613,13 +638,13 @@ $app->post('/eventSalesReportByMonth', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByMonth( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -640,13 +665,13 @@ $app->post('/eventSalesReportByPriceType', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceType( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -667,13 +692,13 @@ $app->post('/eventSalesReportByPriceTypeDate', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceTypeDate( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -694,13 +719,13 @@ $app->post('/eventSalesReportByPriceTypeWeek', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceTypeWeek( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -721,13 +746,13 @@ $app->post('/eventSalesReportByPriceTypeMonth', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceTypeMonth( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -751,13 +776,13 @@ $app->post('/eventSalesReportByPriceClass', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceClass( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -778,13 +803,13 @@ $app->post('/eventSalesReportByPriceClassDate', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceClassDate( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -805,13 +830,13 @@ $app->post('/eventSalesReportByPriceClassWeek', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceClassWeek( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -832,13 +857,13 @@ $app->post('/eventSalesReportByPriceClassMonth', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceClassMonth( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -859,13 +884,13 @@ $app->post('/eventSalesReportBySectors', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportBySectors( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -883,13 +908,13 @@ $app->post('/ticketStatus', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->ticketStatus( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -906,13 +931,13 @@ $app->post('/concertInfoOfVenue', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->concertInfoOfVenue( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -933,13 +958,13 @@ $app->post('/sectionInfo', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->sectionInfo( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -960,13 +985,13 @@ $app->post('/sectionTickets', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->sectionTickets( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
@@ -983,13 +1008,13 @@ $app->post('/rejectTicket', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->rejectTicket( $filter );
 	
-	if ($reportResponse) {
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
-        $response["errors"] = array("error" => "no response");
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
 	}
 });
