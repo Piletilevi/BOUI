@@ -24,6 +24,8 @@ class PiletileviApi {
 		$this->currentLang = $session['lang'];
 
 		$this->settings = $this->app->config("settings");
+		
+		$this->dataHandler = $this->app->container->get("dataHandler");
 	}
 
 	public static function getInstance($refresh = false) {
@@ -155,11 +157,11 @@ class PiletileviApi {
 		return $ticketStatusData;
 	}
 
-	public function concertInfoOfVenue($filter) {
+	public function concertData($filter) {
 		
 		$data['filter']= $filter;
 
-		$concertInfoData = $this->send( "/venue/getConcertInfo", $data );
+		$concertInfoData = $this->send( "/venue/getConcertData", $data );
 		
 		return $concertInfoData;
 	}
@@ -453,7 +455,11 @@ class PiletileviApi {
 
 		//$this->app->log->debug( print_r($response->headers,true) );
 		//$this->app->log->debug( print_r($response->body) );
-
+		
+		if ($response->hasErrors()) {
+			$this->app->halt($response->code);
+		}
+		
 		return $response->body;
 	}
 
