@@ -610,11 +610,11 @@ label {
 	-moz-box-shadow: 0 5px 6px rgba(49, 61, 74, 0.1);
 	-webkit-box-shadow: 0 5px 6px rgba(49, 61, 74, 0.1);
 	box-shadow: 0 5px 6px rgba(49, 61, 74, 0.1);
+	border-radius: 0;
 }
 
 .navbar-nav > li > .dropdown-menu {
 	min-width: 100%;
-	border-radius: 0;
 }
 
 .dropdown-menu > li > a {
