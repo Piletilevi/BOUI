@@ -949,9 +949,6 @@
             </div>
         </div>
 
-        <div ng-include-template="related_events.html"
-             ng-include-variables="{ related: vm.relatedEvents, vm: vm }"></div>
-
         <div id="emal_popup" class="modal fade bo-modal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -1087,6 +1084,9 @@
         </div>
     </div>
 </div>
+<div ng-show="vm.event.name" ng-include-template="related_events.html"
+     ng-include-variables="{ related: vm.relatedEvents, vm: vm }"></div>
+
 <script language="JavaScript">
     <!--
 
