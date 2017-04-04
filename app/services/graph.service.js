@@ -330,7 +330,6 @@
         newValue.sales.forEach(function (myPricetypeData) {
           myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
             step++;
-            pricetypeRow.color = colorService.getRandomColor(labels.length, step);
             colors.push(pricetypeRow.color);
             if (filter.pieDisplay === 'tickets') {
               data.push(pricetypeRow.count);
@@ -360,7 +359,6 @@
         var data = [];
         var ids = [];
         var colors = [];
-        var step = 0;
         var totals = [];
 
         newValue.sales.forEach(function (sale) {
@@ -369,6 +367,7 @@
                   return e == sellType.priceTypeName;
                 }).length === 0) {
               series.push(sellType.priceTypeName);
+              colors.push(sellType.color);
               ids.push(parseInt(sellType.priceTypeId, 10));
             }
           });
@@ -378,6 +377,10 @@
         series = ids.map(function(e,i){return i;})
             .sort(function(a,b){return ids[a] - ids[b];})
             .map(function(e){return series[e];});
+
+        colors = ids.map(function(e,i){return i;})
+            .sort(function(a,b){return ids[a] - ids[b];})
+            .map(function(e){return colors[e];});
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
@@ -398,9 +401,7 @@
         });
 
         series.forEach(function (seriesItem) {
-          step++;
           var dataItem = [];
-          var color = colorService.getRandomColor(series.length, step);
 
           newValue.sales.forEach(function (sale) {
             var dataItemValue = 0;
@@ -420,7 +421,6 @@
             dataItem.push(dataItemValue);
           });
           data.push(dataItem);
-          colors.push(color);
         });
 
 
@@ -442,7 +442,6 @@
 
     function renderPriceClassPieGraph(newValue, filter, priceclassData, priceclassPieGraph) {
       if (newValue && newValue.sales) {
-        var step = 0;
         priceclassData.generatedCount = 0;
         priceclassData.generatedSum = 0;
         priceclassData.currency = '';
@@ -465,8 +464,6 @@
 
         newValue.sales.forEach(function (myPriceclassData) {
           myPriceclassData.priceClasses.forEach(function (priceclassRow) {
-            step++;
-            priceclassRow.color = colorService.getRandomColor(labels.length, step);
             colors.push(priceclassRow.color);
             if (filter.pieDisplay == 'tickets') {
               data.push(priceclassRow.count);
@@ -496,7 +493,6 @@
         var data = [];
         var colors = [];
         var ids = [];
-        var step = 0;
         var totals = [];
 
         newValue.sales.forEach(function (sale) {
@@ -505,6 +501,7 @@
                   return e == sellType.priceClassName;
                 }).length === 0) {
               series.push(sellType.priceClassName);
+              colors.push(sellType.color);
               ids.push(parseInt(sellType.priceClassId, 10));
             }
           });
@@ -514,6 +511,11 @@
         series = ids.map(function(e,i){return i;})
             .sort(function(a,b){return ids[a] - ids[b];})
             .map(function(e){return series[e];});
+
+        // Sort by priceClassId
+        colors = ids.map(function(e,i){return i;})
+            .sort(function(a,b){return ids[a] - ids[b];})
+            .map(function(e){return colors[e];});
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
@@ -534,9 +536,7 @@
         });
 
         series.forEach(function (seriesItem) {
-          step++;
           var dataItem = [];
-          var color = colorService.getRandomColor(series.length, step);
 
           newValue.sales.forEach(function (sale) {
             var dataItemValue = 0;
@@ -556,7 +556,6 @@
             dataItem.push(dataItemValue);
           });
           data.push(dataItem);
-          colors.push(color);
         });
 
         if (labels && labels.length) {
