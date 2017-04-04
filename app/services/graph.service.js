@@ -220,7 +220,7 @@
         } else {
           overviewGraph.labels = null;
           overviewGraph.series = null;
-          overviewGraph.data = null;
+          overviewGraph.data = [];
           overviewGraph.colors = null;
           overviewGraph.totals = null
         }
@@ -433,7 +433,7 @@
         } else {
           pricetypeGraph.labels = null;
           pricetypeGraph.series = null;
-          pricetypeGraph.data = null;
+          pricetypeGraph.data = [];
           pricetypeGraph.colors = null;
           pricetypeGraph.totals = null;
         }
@@ -567,7 +567,7 @@
         } else {
           priceclassGraph.labels = null;
           priceclassGraph.series = null;
-          priceclassGraph.data = null;
+          priceclassGraph.data = [];
           priceclassGraph.colors = null;
           priceclassGraph.totals = null;
         }

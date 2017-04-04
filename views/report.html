@@ -157,13 +157,14 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-if="vm.myOverviewBarData.sales.length === 0">
+
+                    <div ng-if="vm.overviewLineGraph.data.length === 0">
                         <div class="bo-no-data-msg">
                             {{'api_no_data_available'|translate}}
                         </div>
                     </div>
 
-                    <div ng-if="vm.myOverviewBarData.sales.length > 0">
+                    <div ng-if="vm.overviewLineGraph.data.length > 0">
                         <div class="bo-chart bo-line-chart-container">
                             <canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data"
                                     chart-labels="vm.overviewLineGraph.labels"
@@ -330,12 +331,12 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-if="vm.myPriceTypePieData.sales.length === 0">
+                    <div ng-if="vm.pricetypeLineGraph.data.length === 0">
                         <div class="bo-no-data-msg">
                             {{'api_no_data_available'|translate}}
                         </div>
                     </div>
-                    <div ng-if="vm.myPriceTypePieData.sales.length > 0">
+                    <div ng-if="vm.pricetypeLineGraph.data.length > 0">
                         <div class="bo-chart bo-line-chart-container">
                             <canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data"
                                     chart-labels="vm.pricetypeLineGraph.labels"
@@ -484,12 +485,12 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-if="vm.myPriceClassPieData.sales.length === 0">
+                    <div ng-if="vm.priceclassLineGraph.data.length === 0">
                         <div class="bo-no-data-msg">
                             {{'api_no_data_available'|translate}}
                         </div>
                     </div>
-                    <div ng-if="vm.myPriceClassPieData.sales.length > 0">
+                    <div ng-if="vm.priceclassLineGraph.data.length > 0">
                         <div class="bo-chart bo-line-chart-container">
                             <canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data"
                                     chart-labels="vm.priceclassLineGraph.labels"
