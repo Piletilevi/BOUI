@@ -42,6 +42,12 @@
                 controller: 'dashboardController',
                 controllerAs: 'vm'
             })
+            .when('/dashboard/:type', {
+                title: 'Dashboard',
+                templateUrl: 'views/dashboard.html',
+                controller: 'dashboardController',
+                controllerAs: 'vm'
+            })
             .when('/', {
                 title: 'Login',
                 templateUrl: 'views/login.html',

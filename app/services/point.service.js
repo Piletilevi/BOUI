@@ -34,10 +34,10 @@
         function getPointLinks() {
             return $rootScope.user.salesPoints.find(findPoint).links
         }
-		
+
         function setPoint(pointId) {
             var prevPoint = $rootScope.user.point;
-            dataService.post('setPoint', {'pointId': pointId });
+            dataService.post('setPoint', {'pointId': pointId});
 
             $rootScope.user.point = pointId;
             $rootScope.pointMenuLogo = getPointMenuLogo();
@@ -47,7 +47,9 @@
 
             if (prevPoint !== pointId) {
                 eventService.reset();
-                $location.path('dashboard');
+                if ($location.path().indexOf("dashboard") == -1) {
+                    $location.path('dashboard');
+                }
             }
         }
 

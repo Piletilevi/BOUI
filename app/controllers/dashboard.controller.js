@@ -5,9 +5,9 @@
     angular.module('boApp')
         .controller('dashboardController', DashboardController);
 
-    DashboardController.$inject = ['$scope', '$rootScope', 'eventService', 'newsService'];
+    DashboardController.$inject = ['$scope', '$rootScope', '$routeParams', 'eventService', 'newsService'];
 
-    function DashboardController($scope, $rootScope, eventService, newsService) {
+    function DashboardController($scope, $rootScope, $routeParams, eventService, newsService) {
 
         //initially set those objects to null to avoid undefined error
         var vm = this;
@@ -17,20 +17,7 @@
         vm.pastCount = 0;
         vm.reset_search = false;
         vm.getEventSalesReport = eventService.getEventSalesReport;
-        vm.tabActive = 'onsale';
-
-
-        vm.tabSelectEvent = function (status) {
-            vm.filter.status = status;
-            eventService.getMyEvents(vm.filter);
-
-            var toggler = angular.element("#onSaleToggler");
-            if (status == 'onsale') {
-                toggler.show();
-            } else {
-                toggler.hide();
-            }
-        };
+        vm.tabActive = $routeParams.type ? $routeParams.type : 'onsale';
 
         vm.getMoreEvents = function () {
             eventService.getMoreEvents(vm.filter);
@@ -47,22 +34,23 @@
             }
         );
 
-        var userListener = $rootScope.$watch('user', function (newUser, oldUser) {
+        var userListener = $rootScope.$watch('user', function () {
             if($rootScope.user) {
                 userListener();
-                if (!$rootScope.hasFullAccess('api_reports_dashboard_tab_on_sale')) {
-                    vm.tabActive = 'draft';
+                var tabs = [];
+                if($rootScope.hasFullAccess('api_reports_dashboard_tab_on_sale')) {
+                    tabs.push('onsale');
                 }
-                if (!$rootScope.hasFullAccess('api_reports_dashboard_tab_not_active')
-                    && !$rootScope.hasFullAccess('api_reports_dashboard_tab_on_sale')) {
-                    vm.tabActive = 'past';
+                if($rootScope.hasFullAccess('api_reports_dashboard_tab_not_active')) {
+                    tabs.push('draft');
                 }
-                if (!$rootScope.hasFullAccess('api_reports_dashboard_tab_not_active')
-                    && !$rootScope.hasFullAccess('api_reports_dashboard_tab_on_sale')
-                    && !$rootScope.hasFullAccess('api_reports_dashboard_tab_past')) {
-                    vm.tabActive = false;
+                if($rootScope.hasFullAccess('api_reports_dashboard_tab_past')) {
+                    tabs.push('past');
                 }
 
+                if(tabs.indexOf(vm.tabActive) === -1) {
+                    vm.tabActive = tabs[0];
+                }
 
                 vm.filter = {
                     period: {startDate: moment().subtract(30, 'days'), endDate: moment().add(1, 'years')},
@@ -93,6 +81,7 @@
 
                 vm.getEventSales = eventService.getEventSales;
                 vm.getEventInfo = eventService.getEventInfo;
+
                 eventService.getMyEvents(vm.filter);
             }
         });
