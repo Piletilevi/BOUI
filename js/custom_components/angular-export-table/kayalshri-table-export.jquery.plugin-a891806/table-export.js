@@ -38,6 +38,31 @@ THE SOFTWARE.*/
 				var options = $.extend(defaults, options);
 				var el = this;
 
+				function b64toBlob(b64Data, contentType) {
+					contentType = contentType || '';
+					var sliceSize = 512;
+					b64Data = b64Data.replace(/^[^,]+,/, '');
+					b64Data = b64Data.replace(/\s/g, '');
+					var byteCharacters = window.atob(b64Data);
+					var byteArrays = [];
+
+					for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+						var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+						var byteNumbers = new Array(slice.length);
+						for (var i = 0; i < slice.length; i++) {
+							byteNumbers[i] = slice.charCodeAt(i);
+						}
+
+						var byteArray = new Uint8Array(byteNumbers);
+
+						byteArrays.push(byteArray);
+					}
+
+					var blob = new Blob(byteArrays, {type: contentType});
+					return blob;
+				}
+
 				if(defaults.type == 'csv' || defaults.type == 'txt'){
 
 					// Header
@@ -75,13 +100,21 @@ THE SOFTWARE.*/
 						console.log(tdData);
 					}
 					var base64data = "base64," + $.base64.encode(tdData);
+					var ua = window.navigator.userAgent;
+					var msie = ua.indexOf("MSIE ");
 
-					var doc = document.createElement("a");
-					doc.target = '_blank';
-					doc.download = defaults.tableName+'.'+defaults.type;
-					doc.href = 'data:application/'+defaults.type+';filename=exportData;'+base64data;
-					$('body').append(doc);
-					doc.click();
+					if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+					{
+						navigator.msSaveBlob(new Blob([tdData], { type: 'text/csv;charset=utf-8;' }), defaults.tableName + '.' + defaults.type);
+					}
+					else {
+						var doc = document.createElement("a");
+						doc.target = '_blank';
+						doc.download = defaults.tableName + '.' + defaults.type;
+						doc.href = 'data:application/' + defaults.type + ';filename=exportData;' + base64data;
+						$('body').append(doc);
+						doc.click();
+					}
 
 				}else if(defaults.type == 'sql'){
 
@@ -284,12 +317,21 @@ THE SOFTWARE.*/
 					var base64data = "base64," + $.base64.encode(excelFile);
 					//window.open('data:application/vnd.ms-'+defaults.type+';filename=exportData.doc;' + base64data);
 
-					var xls = document.createElement("a");
-					xls.target = '_blank';
-					xls.download = defaults.tableName+'.xls';
-					xls.href = 'data:application/vnd.ms-'+defaults.type+';filename=exportData.doc;'+base64data;
-					$('body').append(xls);
-					xls.click();
+					var ua = window.navigator.userAgent;
+					var msie = ua.indexOf("MSIE ");
+
+					if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+					{
+						navigator.msSaveBlob(new Blob([excelFile], { type: 'application/vnd.ms-' + defaults.type + ';charset=utf-8;' }), defaults.tableName + '.xls');
+					}
+					else {
+						var xls = document.createElement("a");
+						xls.target = '_blank';
+						xls.download = defaults.tableName + '.xls';
+						xls.href = 'data:application/vnd.ms-' + defaults.type + ';filename=exportData.doc;' + base64data;
+						$('body').append(xls);
+						xls.click();
+					}
 
 				}else if(defaults.type == 'png'){
 					html2canvas($(el), {
