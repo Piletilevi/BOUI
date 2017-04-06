@@ -199,7 +199,7 @@
                                             <th>
                                                 {{'api_overview_generated_total'|translate}}
                                             </th>
-                                            <td data-label="{{'api_tickets'|translate}}: " data-append="100%">{{vm.myOverviewBarData.generatedCount}}</td>
+                                            <td data-label="{{'api_tickets'|translate}}: ">{{vm.myOverviewBarData.generatedCount}}</td>
                                             <td class="bo-reporttable-percent">100%</td>
                                             <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
                                                 {{vm.myOverviewBarData.generatedSum | number:2}}
@@ -369,9 +369,9 @@
                                     <tbody>
                                         <tr class="bo-table-title-row">
                                             <th>{{'api_issued_total'|translate}}</th>
-                                            <td>{{vm.myPriceTypePieData.generatedCount}}</td>
+                                            <td data-label="{{'api_tickets'|translate}}: ">{{vm.myPriceTypePieData.generatedCount}}</td>
                                             <td>100%</td>
-                                            <td ng-if="hasFullAccess('api_reports_revenue')">
+                                            <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
                                                 {{vm.myPriceTypePieData.generatedSum | number:2}}
                                                 {{vm.myPriceTypePieData.currency}}
                                             </td>
@@ -380,11 +380,11 @@
                                     <tbody ng-repeat="pricetypeData in vm.myPriceTypePieData.sales">
                                     <tr class="bo-table-secondarytitle-row">
                                         <th><span class="bo-table-dot-title"><span class="bo-dot fa fa-circle"></span>{{pricetypeData.groupName|translate}}</span></th>
-                                        <td>{{pricetypeData.rowCount}}</td>
+                                        <td data-label="{{'api_tickets'|translate}}: ">{{pricetypeData.rowCount}}</td>
                                         <td>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeData.rowCount /
                                             vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%
                                         </td>
-                                        <td ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeData.rowSum |
+                                        <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeData.rowSum |
                                             number:2}} {{pricetypeData.currency}}
                                         </td>
                                     </tr>
@@ -392,11 +392,11 @@
                                         <th><span class="bo-table-dot-title"><span class="bo-dot fa fa-circle" style="color: {{pricetypeItem.color}}!important;"></span>{{pricetypeItem.priceTypeName}} <span
                                                 ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice | number:2) + "-" + (pricetypeItem.maxPrice | number:2) : (pricetypeItem.minPrice | number:2)}})</span></span>
                                         </th>
-                                        <td>{{pricetypeItem.count}}</td>
+                                        <td data-label="{{'api_tickets'|translate}}: ">{{pricetypeItem.count}}</td>
                                         <td>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count /
                                             vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%
                                         </td>
-                                        <td ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeItem.sum |
+                                        <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">{{pricetypeItem.sum |
                                             number:2}} {{vm.myPriceTypePieData.currency}}
                                         </td>
                                     </tr>
@@ -519,9 +519,9 @@
                                     <tbody>
                                         <tr class="bo-table-title-row">
                                             <th>{{'api_issued_total'|translate}}</th>
-                                            <td>{{vm.myPriceClassPieData.generatedCount}}</td>
+                                            <td data-label="{{'api_tickets'|translate}}: ">{{vm.myPriceClassPieData.generatedCount}}</td>
                                             <td>100%</td>
-                                            <td ng-if="hasFullAccess('api_reports_revenue')">
+                                            <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
                                                 {{vm.myPriceClassPieData.generatedSum | number:2}}
                                                 {{vm.myPriceClassPieData.currency}}
                                             </td>
@@ -530,11 +530,11 @@
                                     <tbody ng-repeat="priceclassData in vm.myPriceClassPieData.sales">
                                         <tr class="bo-table-secondarytitle-row">
                                             <th><span class="bo-table-dot-title"><span class="bo-dot fa fa-circle"></span>{{priceclassData.groupName|translate}}</span></th>
-                                            <td>{{priceclassData.rowCount}}</td>
+                                            <td data-label="{{'api_tickets'|translate}}: ">{{priceclassData.rowCount}}</td>
                                             <td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassData.rowCount /
                                                 vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%
                                             </td>
-                                            <td ng-if="hasFullAccess('api_reports_revenue')">{{priceclassData.rowSum |
+                                            <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">{{priceclassData.rowSum |
                                                 number:2}} {{priceclassData.currency}}
                                             </td>
                                         </tr>
@@ -542,11 +542,11 @@
                                             <th><span class="bo-table-dot-title"><span class="bo-dot fa fa-circle" style="color: {{priceclassItem.color}}!important;"></span>{{priceclassItem.priceClassName}} <span
                                                     ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice | number:2) + "-" + (priceclassItem.maxPrice | number:2) : (priceclassItem.minPrice | number:2)}})</span></span>
                                             </th>
-                                            <td>{{priceclassItem.count}}</td>
+                                            <td data-label="{{'api_tickets'|translate}}: ">{{priceclassItem.count}}</td>
                                             <td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count /
                                                 vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%
                                             </td>
-                                            <td ng-if="hasFullAccess('api_reports_revenue')">{{priceclassItem.sum |
+                                            <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">{{priceclassItem.sum |
                                                 number:2}} {{vm.myPriceClassPieData.currency}}
                                             </td>
                                         </tr>
