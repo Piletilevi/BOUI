@@ -979,7 +979,7 @@ a:hover {
 ================================ */
 .bo-dot {
     display: inline-block;
-    margin-left: 3px;
+    color: transparent;
 }
 
 /* Cancel button
@@ -1122,6 +1122,20 @@ a:hover {
 
 /* tables
 ================================ */
+.bo-table-dot-title {
+    position: relative;
+    display: block;
+    padding-left: 27px;
+}
+
+.bo-table-dot-title .bo-dot {
+    left: 5px;
+    top: 4px;
+    margin-right: 10px;
+    display: inline-block;
+    position: absolute;
+}
+
 .bo-table > tbody > tr > td,
 .bo-table > tbody > tr > th,
 .bo-table > tfoot > tr > td,

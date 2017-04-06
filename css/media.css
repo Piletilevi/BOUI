@@ -710,23 +710,34 @@
         display: none;
     }
 
-    /*.bo-table {*/
-        /*max-width: 100%;*/
-        /*table-layout: fixed;*/
-    /*}*/
+    .bo-table {
+        max-width: 100%;
+        table-layout: fixed;
+    }
 
-    /*.bo-revenuetable {*/
+    .bo-table {
+    }
 
-    /*}*/
+    .bo-table td,
+    .bo-table th {
+        display: block;
+    }
 
-    /*.bo-revenuetable td,*/
-    /*.bo-revenuetable th {*/
-        /*display: block;*/
-    /*}*/
+    .bo-table > thead {
+        display: none;
+    }
 
-    /*.bo-revenuetable .bo-name-column {*/
-        /*display: none;*/
-    /*}*/
+    .bo-table > tbody > tr > th {
+        font-weight: bold
+    }
+
+    .bo-table > tbody > tr > td {
+        text-align: left;
+    }
+
+    .bo-table > tbody > tr > td::before {
+        content: attr(data-label);
+    }
 
     .bo-sub-events-hidden .bo-event-toggle {
         display: inline;
