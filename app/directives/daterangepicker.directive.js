@@ -151,47 +151,48 @@
 				}
 
 				ngModel.$render = function() {
-					$datepickerWrapper.on("click", ".calendar-links > #todayLink", function($event) {
+					var datepickerContainer = '[data-binded-model="'+$element.attr('ng-model')+'"]';
+
+					$('body').on("click", datepickerContainer + " .calendar-links > #todayLink", function($event) {
 						$event.preventDefault();
 						updateCaledarDates(moment(), moment());
 					});
 
-					$datepickerWrapper.on("keyup", "[name='daterangepicker_start']", function() {
+					$('body').on("keyup", datepickerContainer + " [name='daterangepicker_start']", function() {
 						updateCaledarDates(
 							moment($(this).val(), 'DD.MM.YYYY'),
 							moment($(this).parent().parent().find('[name="daterangepicker_end"]').val(), 'DD.MM.YYYY')
 						);
 					});
 
-					$datepickerWrapper.on("keyup", "[name='daterangepicker_end']", function() {
+					$('body').on("keyup", datepickerContainer + " [name='daterangepicker_end']", function() {
 						updateCaledarDates(
 							moment($(this).parent().parent().find('[name="daterangepicker_start"]').val(), 'DD.MM.YYYY'),
 							moment($(this).val(), 'DD.MM.YYYY')
 						);
 					});
 
-					$datepickerWrapper.on("click", ".calendar-links > #weekLink", function($event) {
-						console.log($element);
+					$('body').on("click", datepickerContainer + " .calendar-links > #weekLink", function($event) {
 						$event.preventDefault();
 						updateCaledarDates(moment().startOf('week').add(1, 'days'), moment().endOf('week').add(1, 'days'));
 					});
 
-					$datepickerWrapper.on("click", ".calendar-links > #lastWeekLink", function($event) {
+					$('body').on("click", datepickerContainer + " .calendar-links > #lastWeekLink", function($event) {
 						$event.preventDefault();
 						updateCaledarDates(moment().subtract(7, 'days').startOf('week').add(1, 'days'), moment().subtract(7, 'days').endOf('week').add(1, 'days'));
 					});
 
-					$datepickerWrapper.on("click", ".calendar-links > #lastMonthLink", function($event) {
+					$('body').on("click", datepickerContainer + " .calendar-links > #lastMonthLink", function($event) {
 						$event.preventDefault();
 						updateCaledarDates(moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month'));
 					});
 
-					$datepickerWrapper.on("click", ".calendar-links > #monthLink", function($event) {
+					$('body').on("click", datepickerContainer + " .calendar-links > #monthLink", function($event) {
 						$event.preventDefault();
 						updateCaledarDates(moment().startOf('month'), moment().endOf('month'));
 					});
 
-					$datepickerWrapper.on("click", ".resetBtn", function($event) {
+					$('body').on("click", datepickerContainer + " .resetBtn", function($event) {
                         setTimeout(function() {
                             if($element.data('daterangepicker')) {
                                 $element.data('daterangepicker').setStartDate(moment().subtract(7, 'days'));

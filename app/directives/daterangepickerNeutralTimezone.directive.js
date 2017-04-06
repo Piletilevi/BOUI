@@ -11,7 +11,6 @@
 			require: 'ngModel',
 			link: function (scope, element, attrs, ctrl) {
 				ctrl.$parsers.push(function (value) {
-					console.log(value, 'parser');
 					if (value.startDate && value.endDate) {
 						var startDateUtcOffset = moment(value.startDate).utcOffset();
 						var startDate = moment(value.startDate).utc().add(startDateUtcOffset, 'm').startOf('day');

@@ -27,7 +27,6 @@
     }
 }(this, function(moment, $) {
     var DateRangePicker = function(element, options, cb) {
-
         //default settings for options
         this.parentEl = 'body';
         this.element = $(element);
@@ -384,6 +383,7 @@
 
         if ((typeof options.ranges === 'undefined' && !this.singleDatePicker) || this.alwaysShowCalendars) {
             this.container.addClass('show-calendar');
+            this.container.attr('data-binded-model', $(element).attr('ng-model'));
         }
 
         this.container.addClass('opens' + this.opens);
