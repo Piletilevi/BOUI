@@ -109,7 +109,8 @@
                         $location.path('dashboard');
                     }
                 } else {
-                    if(!$rootScope.authenticated && typeof($location.search().key) !== 'undefined'){
+                    $rootScope.authenticated = false;
+                    if(typeof($location.search().key) !== 'undefined'){
                         var searchkey =  $location.search().key;
                         $location.search('key', null);
                         verifySession(searchkey);

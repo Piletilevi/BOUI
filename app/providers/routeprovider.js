@@ -66,7 +66,6 @@
     function runRouteProvider ( $rootScope, $log, authService) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;
-            $rootScope.authenticated = false;
             authService.checkUserAuth(next);
         });
     }
