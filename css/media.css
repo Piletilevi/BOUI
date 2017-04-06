@@ -728,6 +728,7 @@
     .bo-table-report > tbody > tr {
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-between;
         padding-left: 20px;
     }
 
@@ -742,6 +743,11 @@
 
     .bo-table-report > tbody > tr > td {
         text-align: left;
+        display: flex;
+        justify-content: space-between;
+    }
+    .bo-table-report > tbody > tr > td:nth-child(2) {
+        flex-grow: 10;
     }
 
     .bo-table-report > tbody > tr > th:first-child {
