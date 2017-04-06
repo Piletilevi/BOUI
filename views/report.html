@@ -185,7 +185,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <table class="bo-revenuetable table table-condensed table-small bo-table">
+                                <table class="bo-revenuetable table table-condensed table-small bo-table-report">
                                     <thead>
                                     <tr>
                                         <th width="46%"></th>
@@ -199,9 +199,9 @@
                                             <th>
                                                 {{'api_overview_generated_total'|translate}}
                                             </th>
-                                            <td data-label="{{'api_tickets'|translate}}: ">{{vm.myOverviewBarData.generatedCount}}</td>
-                                            <td>100%</td>
-                                            <td ng-if="hasFullAccess('api_reports_revenue')" data-label="{{'api_revenue'|translate}}: ">
+                                            <td data-label="{{'api_tickets'|translate}}: " data-append="100%">{{vm.myOverviewBarData.generatedCount}}</td>
+                                            <td class="bo-reporttable-percent">100%</td>
+                                            <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
                                                 {{vm.myOverviewBarData.generatedSum | number:2}}
                                                 {{vm.myOverviewBarData.currency}}
                                             </td>
@@ -211,10 +211,10 @@
                                         <tr class="bo-table-title-row">
                                             <th>{{overviewData.groupName|translate}}</th>
                                             <td data-label="{{'api_tickets'|translate}}: ">{{overviewData.rowCount}}</td>
-                                            <td>{{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount /
+                                            <td class="bo-reporttable-percent">{{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount /
                                                 vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
                                             </td>
-                                            <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum |
+                                            <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum |
                                                 number:2}} {{vm.myOverviewBarData.currency}}
                                             </td>
                                         </tr>
@@ -223,23 +223,18 @@
                                            ng-if="overviewData.groupId != 'venue_occupancy' && overviewData.groupId != 'generated'">
                                         <tr class="bo-table-secondarytitle-row">
                                             <th><span class="bo-table-dot-title"><span class="bo-dot fa fa-circle"></span>{{overviewData.groupName|translate}}</span></th>
-                                            <td>{{overviewData.rowCount}}</td>
-                                            <td>{{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount /
-                                                vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
-                                            </td>
-                                            <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum |
+                                            <td data-label="{{'api_tickets'|translate}}: ">{{overviewData.rowCount}}</td>
+                                            <td class="bo-reporttable-percent">{{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
+                                            <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">{{overviewData.rowSum |
                                                 number:2}} {{vm.myOverviewBarData.currency}}
                                             </td>
                                         </tr>
                                         <tr ng-repeat="overviewRow in overviewData.rows"
                                             class="{{overviewRow.isRefund ? 'text-danger' : ''}}">
                                             <th><span class="bo-table-dot-title"><span class="bo-dot fa fa-circle" style="color: {{overviewRow.color}}!important;"></span>{{overviewRow.typeName|translate}}:</span></th>
-                                            <td>{{overviewRow.count}}</td>
-                                            <td>{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) *
-                                                overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 |
-                                                number:0}}%
-                                            </td>
-                                            <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum | number:2}}
+                                            <td data-label="{{'api_tickets'|translate}}: ">{{overviewRow.count}}</td>
+                                            <td class="bo-reporttable-percent">{{vm.myOverviewBarData.generatedCount ? ( (overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
+                                            <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum | number:2}}
                                                 {{vm.myOverviewBarData.currency}}
                                             </td>
                                         </tr>
@@ -248,11 +243,9 @@
                                            ng-if="overviewData.groupId == 'venue_occupancy'">
                                         <tr class="bo-table-title-row" ng-repeat="overviewRow in overviewData.rows">
                                             <th>{{overviewRow.typeName|translate}}</th>
-                                            <td>{{overviewRow.count}}</td>
-                                            <td>{{vm.myOverviewBarData.generatedCount ? (overviewRow.count /
-                                                vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
-                                            </td>
-                                            <td ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum | number:2}}
+                                            <td data-label="{{'api_tickets'|translate}}: ">{{overviewRow.count}}</td>
+                                            <td class="bo-reporttable-percent">{{vm.myOverviewBarData.generatedCount ? (overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%</td>
+                                            <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">{{overviewRow.sum | number:2}}
                                                 {{vm.myOverviewBarData.currency}}
                                             </td>
                                         </tr>
@@ -363,7 +356,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-7">
-                                <table class="bo-pricetyperevenuetable table table-condensed table-small bo-table">
+                                <table class="bo-pricetyperevenuetable table table-condensed table-small bo-table-report">
                                     <thead>
                                         <tr>
                                             <th>{{'api_pricetype'|translate}}</th>
@@ -513,7 +506,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-7">
-                                <table class="bo-pricetyperevenuetable table table-condensed table-small bo-table">
+                                <table class="bo-pricetyperevenuetable table table-condensed table-small bo-table-report">
                                     <thead>
                                         <tr>
                                             <th>{{'api_priceclass'|translate}}</th>
