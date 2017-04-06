@@ -404,7 +404,7 @@ a:hover {
 
 .bo-event-share-block {
 	color: #b7b7b9;
-	margin-bottom: 6px;	
+	margin-bottom: 6px;
 }
 
 .bo-event-share-block > span {
@@ -838,6 +838,7 @@ a:hover {
 	border-right: 9px solid transparent;
 	z-index: 1;
 }
+
 .bo-eventshort-subevents .bo-eventshort:first-child:before {
 	content: "";
 	position: absolute;
@@ -978,7 +979,7 @@ a:hover {
 ================================ */
 .bo-dot {
 	display: inline-block;
-	margin-left: 3px;
+	color: transparent;
 }
 
 /* Cancel button
@@ -1121,34 +1122,133 @@ a:hover {
 
 /* tables
 ================================ */
-.bo-chart-table .bo-color-column {
-	width: 24px;
+.bo-table-dot-title {
+	position: relative;
+	display: block;
+	padding-left: 27px;
 }
 
-.bo-chart-table td.bo-name-column,
-.bo-chart-table th.bo-name-column {
+.bo-table-dot-title .bo-dot {
+	left: 5px;
+	top: 4px;
+	margin-right: 10px;
+	display: inline-block;
+	position: absolute;
+}
+
+.bo-table-report > tbody > tr > td,
+.bo-table-report > tbody > tr > th,
+.bo-table-report > tfoot > tr > td,
+.bo-table-report > tfoot > tr > th,
+.bo-table-report > thead > tr > td,
+.bo-table-report > thead > tr > th {
+	border: 0;
+}
+
+/* thead */
+.bo-table-report > thead > tr {
+	background: transparent;
+}
+
+.bo-table-report > thead > tr > td,
+.bo-table-report > thead > tr > th {
+	color: #040e19;
+	text-align: right;
+}
+
+.bo-table-report > thead > tr > th:first-child {
 	text-align: left;
 }
 
-.bo-chart-table .bo-title-row td {
+/* tbody */
+.bo-table-report > tbody > tr {
+	background: #f2f4f6;
+	text-align: right;
+}
+
+.bo-table-report > tbody > tr > th {
+	font-weight: normal;
+	text-align: left;
+}
+
+.bo-table-report > tbody > tr:nth-child(even) {
+	background: #fff;
+}
+
+.bo-table-report > tbody > tr > th:first-child,
+.bo-table-report > tbody > tr > td:first-child {
+	border-left: 1px solid #f2f4f6;
+}
+
+.bo-table-report > tbody > tr > td:last-child {
+	border-right: 1px solid #f2f4f6;
+}
+
+.bo-table-report > tbody:last-child > tr:last-child td,
+.bo-table-report > tbody:last-child > tr:last-child th {
+	border-bottom: 1px solid #f2f4f6;
+}
+
+.bo-table-report .bo-color-column {
+	width: 24px;
+}
+
+.bo-table-report > tbody > .bo-table-title-row {
+	background: #4a5867;
+}
+
+.bo-table-report > tbody > .bo-table-title-row > th,
+.bo-table-report > tbody > .bo-table-title-row > td {
+	color: #d9e1eb;
+}
+
+.bo-table-report > tbody > .bo-table-title-row > td:first-child,
+.bo-table-report > tbody > .bo-table-title-row > th:first-child {
+	border-left: 1px solid #4a5867;
+}
+
+.bo-table-report > tbody > .bo-table-title-row > th:last-child,
+.bo-table-report > tbody > .bo-table-title-row > td:last-child {
+	border-right: 1px solid #4a5867;
+}
+
+.bo-table-report > tbody > .bo-table-title-row-bold > th,
+.bo-table-report > tbody > .bo-table-title-row-bold > td {
 	font-weight: bold;
 	color: #fff;
 	border-bottom: 13px solid #fff;
 }
 
-.bo-chart-table .bo-refund-row td,
-.bo-chart-table .bo-refund-row th {
+.bo-table-report > tbody > .bo-table-secondarytitle-row {
+	background: #d0d4d9;
+}
+
+.bo-table-report > tbody > .bo-table-secondarytitle-row > td:first-child {
+	border-left: 1px solid #d0d4d9;
+}
+
+.bo-table-report > tbody > .bo-table-secondarytitle-row > td:last-child {
+	border-right: 1px solid #d0d4d9;
+}
+
+.bo-table-report > tbody > .bo-table-secondarytitle-row > th,
+.bo-table-report > tbody > .bo-table-secondarytitle-row > td {
+	color: #040e19;
+}
+
+.bo-table-report .bo-refund-row td,
+.bo-table-report .bo-refund-row th {
 	color: #ff3f68;
 }
 
-.bo-chart-table td:nth-child(4),
-.bo-chart-table th:nth-child(4),
-.bo-chart-table td:nth-child(5),
-.bo-chart-table th:nth-child(5) {
+.bo-table-report td:nth-child(4),
+.bo-table-report th:nth-child(4),
+.bo-table-report td:nth-child(5),
+.bo-table-report th:nth-child(5) {
 	white-space: nowrap;
 }
 
-.bo-chart-table > tbody + tbody {
+.bo-table-report > tbody + tbody {
 	border-top: 0 none;
 }
 
@@ -1364,7 +1464,6 @@ a:hover {
 	display: none;
 }
 
-
 .bo-confirm-modal .modal-header {
 	background: transparent;
 	padding-left: 23px;
@@ -1416,17 +1515,17 @@ a:hover {
 .bo-top-filter-toggler > .input-group {
 	width: auto;
 }
+
 /* Chart controls
 ================================ */
 
-.bo-chartcontrols > .btn-group{
+.bo-chartcontrols > .btn-group {
 	margin-bottom: 7px;
 }
 
-.bo-chartcontrols > .btn-group:nth-child(2){
+.bo-chartcontrols > .btn-group:nth-child(2) {
 	margin-left: 7px;
 }
-
 
 /* Tabs
 ================================ */
@@ -1489,6 +1588,7 @@ a:hover {
 	opacity: 0.8;
 	color: #fff;
 }
+
 .bo-light-gamma .nav-pills > li > a:focus,
 .bo-light-gamma .nav-pills > li > a:hover {
 	color: #fff;
