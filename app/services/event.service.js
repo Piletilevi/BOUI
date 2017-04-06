@@ -468,16 +468,6 @@
 		}
 
 		function getSectorInfo(event, filter) {
-			dataService.post('sectionInfo', {concertId: event.id, sectionId: event.sectorId, filter: filter}).then(function (results) {
-				sectorInfo = null;
-				dataService.page(results);
-				if (results.status == 'success'){
-					sectorInfo = results.data;
-				}
-			});
-		}
-
-		function getSectorInfo(event, filter) {
 			dataService.post('sectionInfo', {concertId: event.id, filter: filter}).then(function (results) {
 				sectorInfo = null;
 				dataService.page(results);
