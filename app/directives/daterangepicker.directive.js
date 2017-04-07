@@ -192,17 +192,17 @@
 						updateCaledarDates(moment().startOf('month'), moment().endOf('month'));
 					});
 
-					$('body').on("click", datepickerContainer + " .resetBtn", function($event) {
-                        setTimeout(function() {
-                            if($element.data('daterangepicker')) {
-                                $element.data('daterangepicker').setStartDate(moment().subtract(7, 'days'));
-                                $element.data('daterangepicker').setEndDate(moment().add(1, 'years'));
-                                $element.data('daterangepicker').updateView();
-                                $element.data('daterangepicker').updateCalendars();
-                                $element.data('daterangepicker').hide();
-                            }
-                        }, 1);
-					});
+					//$('body').on("click", datepickerContainer + " .resetBtn", function($event) {
+                     //   setTimeout(function() {
+                     //       if($element.data('daterangepicker')) {
+                     //           $element.data('daterangepicker').setStartDate(moment().subtract(7, 'days'));
+                     //           $element.data('daterangepicker').setEndDate(moment().add(1, 'years'));
+                     //           $element.data('daterangepicker').updateView();
+                     //           $element.data('daterangepicker').updateCalendars();
+                     //           $element.data('daterangepicker').hide();
+                     //       }
+                     //   }, 1);
+					//});
 
 					$datepickerWrapper.on("click", function() {
 						$element.data('daterangepicker').show();
