@@ -61,12 +61,16 @@
 
     }
     
-    runRouteProvider.$inject=['$rootScope', '$log', 'authService'];
+    runRouteProvider.$inject=['$rootScope', '$log', '$location', 'authService'];
 
-    function runRouteProvider ( $rootScope, $log, authService) {
+    function runRouteProvider ( $rootScope, $log, $location, authService) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;
             authService.checkUserAuth(next);
+        });
+
+        $rootScope.$on('$routeChangeSuccess', function(){
+            ga('send', 'pageview', $location.path());
         });
     }
 
