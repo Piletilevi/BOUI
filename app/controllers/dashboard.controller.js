@@ -15,8 +15,6 @@
         vm.salesCount = 0;
         vm.draftCount = 0;
         vm.pastCount = 0;
-        vm.reset_search = false;
-        vm.getEventSalesReport = eventService.getEventSalesReport;
         vm.tabActive = $routeParams.type ? $routeParams.type : 'onsale';
 
         vm.getMoreEvents = function () {
@@ -34,68 +32,44 @@
             }
         );
 
-        var userListener = $rootScope.$watch('user', function () {
-            if($rootScope.user) {
+        var userListener = $scope.$watch('$root.user', function () {
+            if ($rootScope.user) {
                 userListener();
                 var tabs = [];
-                if($rootScope.hasFullAccess('api_reports_dashboard_tab_on_sale')) {
+                if ($rootScope.hasFullAccess('api_reports_dashboard_tab_on_sale')) {
                     tabs.push('onsale');
                 }
-                if($rootScope.hasFullAccess('api_reports_dashboard_tab_not_active')) {
+                if ($rootScope.hasFullAccess('api_reports_dashboard_tab_not_active')) {
                     tabs.push('draft');
                 }
-                if($rootScope.hasFullAccess('api_reports_dashboard_tab_past')) {
+                if ($rootScope.hasFullAccess('api_reports_dashboard_tab_past')) {
                     tabs.push('past');
                 }
 
-                if(tabs.indexOf(vm.tabActive) === -1) {
+                if (tabs.indexOf(vm.tabActive) === -1) {
                     vm.tabActive = tabs[0];
                 }
 
-                vm.filter = {
-                    period: {startDate: moment().subtract(30, 'days'), endDate: moment().add(1, 'years')},
-                    name: '',
-                    status: vm.tabActive,
-                    loadingItems: false,
-                    groupByShow: false
-                };
+                // vm.news = newsService.news();
 
-                if (localStorage.getItem('reportsFilter')) {
-                    vm.filter = JSON.parse(localStorage.getItem('reportsFilter'));
-                    vm.filter.period.startDate = moment(vm.filter.period.startDate);
-                    vm.filter.period.endDate = moment(vm.filter.period.endDate);
-                    vm.reset_search = vm.filter.name && vm.filter.name.length > 0;
+                if (angular.isUndefined(vm.filter)) {
+                    vm.filter = angular.copy($rootScope.eventsFilter);
                     vm.filter.status = vm.tabActive;
-                    localStorage.removeItem('reportsFilter');
-                }
-
-                //vm.news = newsService.news();
-                vm.search = function () {
-                    if (vm.reset_search) {
-                        vm.filter.name = '';
-                    }
-                    vm.reset_search = true;
-                    eventService.reset();
                     eventService.getMyEvents(vm.filter);
-                };
-
-                vm.getEventSales = eventService.getEventSales;
-                vm.getEventInfo = eventService.getEventInfo;
-
-                eventService.getMyEvents(vm.filter);
+                }
             }
         });
 
-        $scope.$watch('vm.filter.period', function (newPeriod, oldPeriod) {
-            if (!angular.isUndefined(oldPeriod) && !angular.equals(newPeriod, oldPeriod)) {
+        $scope.$watch('$root.eventsFilter', function (newEventsFilter, oldEventsFilter) {
+            if (angular.isUndefined(vm.filter) || angular.isUndefined(newEventsFilter)) {
+                return;
+            }
+            if (!angular.equals(newEventsFilter.period, vm.filter.period) ||
+                !angular.equals(newEventsFilter.name, vm.filter.name)) {
+                vm.filter = angular.copy(newEventsFilter);
+                vm.filter.status = vm.tabActive;
                 eventService.reset();
                 eventService.getMyEvents(vm.filter);
-            }
-        });
-
-        $scope.$watch('vm.filter.name', function (newFilter, oldFilter) {
-            if (newFilter !== oldFilter) {
-                vm.reset_search = false;
             }
         });
 

@@ -87,15 +87,6 @@
     eventService.getEventSales(vm.event);
     eventService.getRelatedEvents(vm.event);
 
-    vm.getEventOpSales = function () {
-      if (vm.reset_search) {
-        vm.filter.name = '';
-      }
-      vm.reset_search = true;
-      localStorage.setItem('reportsFilter', JSON.stringify(vm.filter));
-      $location.path('dashboard');
-    };
-
     vm.setOverviewDisplay = function (display) {
       vm.overviewFilter.display = display;
     }
@@ -346,13 +337,6 @@
     $scope.$watch('vm.priceclassFilter.groupBy', function (newValue, oldValue) {
       if (!angular.equals(newValue, oldValue)) {
         eventService.getPriceClassGraphData(vm.event, vm.priceclassFilter);
-      }
-    });
-
-    $scope.$watch('vm.filter.period', function (newPeriod, oldPeriod) {
-      if (newPeriod !== oldPeriod) {
-        localStorage.setItem('reportsFilter', JSON.stringify(vm.filter));
-        $location.path('dashboard');
       }
     });
 
