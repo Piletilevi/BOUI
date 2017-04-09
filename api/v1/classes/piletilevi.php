@@ -123,6 +123,14 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function myEventsCount($filter) {
+		
+		$data['filter']= $filter;
+		$reportData = $this->send( "/event/myEventsCount", $data );
+		
+		return $reportData;
+	}
+	
 	public function relatedEvents($filter) {
 		
 		$filter['limit'] = 5;

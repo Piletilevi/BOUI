@@ -28,11 +28,17 @@
         }
 
         function getPointName() {
-            return $rootScope.user.salesPoints.find(findPoint).name
+            if ($rootScope.user.salesPoints != null) {
+				return $rootScope.user.salesPoints.find(findPoint).name
+			}
+			return "";
         }
 
         function getPointLinks() {
-            return $rootScope.user.salesPoints.find(findPoint).links
+            if ($rootScope.user.salesPoints != null) {
+				return $rootScope.user.salesPoints.find(findPoint).links
+			}
+			return "";
         }
 
         function setPoint(pointId) {

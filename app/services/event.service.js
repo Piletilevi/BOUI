@@ -48,6 +48,7 @@
 			relatedEvents: function() { return relatedEvents },
 			reset: reset,
 			getMyEvents: getMyEvents,
+			getMyEventsCount: getMyEventsCount,
 			getMoreEvents: getMoreEvents,
 			getRelatedEvents: getRelatedEvents,
 			getMoreRelatedEvents: getMoreRelatedEvents,
@@ -101,8 +102,26 @@
 			filter.draftStart = null;
 			filter.pastStart = null;
 			filter.loadingItems = true;
-
+			
+			getMyEventsCount(filter);
+			
 			dataService.post('myEvents', {filter: filter}).then(function (results) {
+				dataService.page(results);
+				if (results.status == 'success'){
+					if (filter.status == 'onsale') {
+						myOpenEvents = results.data;
+					} else if (filter.status == 'draft') {
+						myDraftEvents = results.data;
+					} else {
+						myPastEvents = results.data;
+					}
+					filter.loadingItems = false;
+				}
+			});
+		}
+
+		function getMyEventsCount(filter) {
+			dataService.post('myEventsCount', {filter: filter}).then(function (results) {
 				myOpenCount = 0;
 				myDraftCount = 0;
 				myPastCount = 0;
@@ -125,20 +144,9 @@
 						myPastCount = myPastCount + "+";
 					}
 				}
-
-				if (results.status == 'success'){
-					if (filter.status == 'onsale') {
-						myOpenEvents = results.data;
-					} else if (filter.status == 'draft') {
-						myDraftEvents = results.data;
-					} else {
-						myPastEvents = results.data;
-					}
-					filter.loadingItems = false;
-				}
 			});
 		}
-
+		
 		function getMoreEvents(filter) {
 
 			if (filter.loadingItems)

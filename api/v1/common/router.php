@@ -189,6 +189,10 @@ $app->post('/myEvents', function() use ($app) {
 			if (property_exists($r->filter, 'pastStart')) {
 				$filter['start'] = $r->filter->pastStart;
 			}
+		} else if ($r->filter->status == "draft") {
+			if (property_exists($r->filter, 'draftStart')) {
+				$filter['start'] = $r->filter->draftStart;
+			}
 		}
 	}
 	if (property_exists($r->filter, 'period')) {
@@ -207,17 +211,68 @@ $app->post('/myEvents', function() use ($app) {
 	
 	$response = "";
 	if ($myEvents && !property_exists($myEvents, 'errors')) {
-		if ($myEvents && property_exists($myEvents, 'count')) {
-			$response['count'] = $myEvents->count;
-		} else {
-			$response['count'] = "";
-		}
 		if ($myEvents && property_exists($myEvents, 'data')) {
 	        $response['status'] = "success";
 	        $response['data'] = $myEvents->data;
 		} else {
 	        $response['status'] = "info";
 	        $response['message'] = "Empty result";
+		}
+    } else if ($myEvents && property_exists($myEvents, 'errors')){
+        $response['status'] = "error";
+        $response['message'] = $dataHandler->getMessages($myEvents->errors);
+    }
+
+	$dataHandler->response(200, $response);
+});
+
+$app->post('/myEventsCount', function() use ($app) {
+    $dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$filter = array();
+	if (property_exists($r->filter, 'name')) {
+		$filter['name'] = $r->filter->name;
+	}
+	if (property_exists($r->filter, 'groupByShow')) {
+		$filter['groupByShow'] = $r->filter->groupByShow;
+	}
+	if (property_exists($r->filter, 'status')) {
+		$filter['status'] = $r->filter->status;
+		if ($r->filter->status == "onsale") {
+			if (property_exists($r->filter, 'openStart')) {
+				$filter['start'] = $r->filter->openStart;
+			}
+		} else if ($r->filter->status == "past") {
+			if (property_exists($r->filter, 'pastStart')) {
+				$filter['start'] = $r->filter->pastStart;
+			}
+		} else if ($r->filter->status == "draft") {
+			if (property_exists($r->filter, 'draftStart')) {
+				$filter['start'] = $r->filter->draftStart;
+			}
+		}
+	}
+	if (property_exists($r->filter, 'period')) {
+		if (property_exists($r->filter->period, 'startDate')) {
+			$filter['startDate'] = $r->filter->period->startDate;
+		}
+		if (property_exists($r->filter->period, 'endDate')) {
+			$filter['endDate'] = $r->filter->period->endDate;
+		}
+	}
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $myEvents = $piletileviApi->myEventsCount($filter);
+
+    //$app->log->debug( print_r($myEvents,true) );
+	
+	$response = "";
+	if ($myEvents && !property_exists($myEvents, 'errors')) {
+		if ($myEvents && property_exists($myEvents, 'count')) {
+			$response['count'] = $myEvents->count;
+		} else {
+			$response['count'] = "";
 		}
     } else if ($myEvents && property_exists($myEvents, 'errors')){
         $response['status'] = "error";
