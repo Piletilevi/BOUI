@@ -54,8 +54,8 @@
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown" ng-if="authenticated && user.salesPoints[1] && hasFullAccess('api_salespoint')" ng-include="'views/common/sales_points.html'"></li>
-				<li class="" ng-if="authenticated && !user.salesPoints[1] && hasFullAccess('api_salespoint')">
+				<li class="dropdown" ng-if="authenticated && user.salesPoints[1]" ng-include="'views/common/sales_points.html'"></li>
+				<li class="" ng-if="authenticated && !user.salesPoints[1]">
 					<a class="not-clickable" href><span class="hidden-sm">
                                 {{getPointName()}}
                             </span></a>
