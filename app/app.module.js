@@ -17,6 +17,10 @@
 		'chart.js',
         'ceibo.components.table.export'
     ]);
+    angular.module('boApp').config(function(blockUIConfig) {
+        blockUIConfig.autoInjectBodyBlock = false;
+    });
+
     angular.module('boApp').run(runApp);
     runApp.$inject = ['authService', 'translationService', 'pointService', 'menuService'];
     function runApp( authService, translationService, pointService, menuService){

@@ -42,7 +42,7 @@
 
     </script>
 </head>
-<body style="visibility: hidden" ng-class='{forceShow: isTranslated}' autoscroll="true" block-ui>
+<body style="visibility: hidden" ng-class='{forceShow: isTranslated}' autoscroll="true">
 
 <a name="top"></a>
 <div class="bo-header" ng-include="'views/common/template.html'" ng-if="authenticated"></div>
@@ -81,7 +81,9 @@
     </div>
     </div>
 
-    <div data-ng-view="" id="ng-view" class="row slide-animation"></div>
+    <div>
+        <div data-ng-view="" id="ng-view" class="row slide-animation"></div>
+    </div>
 </div>
     <div class="bo-print-footer visible-print" ng-include="'views/common/print_footer.html'"
          ng-if="authenticated"></div>

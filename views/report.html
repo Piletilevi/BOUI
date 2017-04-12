@@ -26,7 +26,7 @@
                ng-if="['overview', 'pricetype', 'priceclass', 'sectors'].indexOf(vm.currentTab) > -1"
                ng-include="'views/report_export/'+vm.currentTab+'.html'" class="visually-hidden"></table>
 
-        <div class="panel panel-default bo-event">
+        <div class="panel panel-default bo-event" block-ui block-ui-pattern="/concertSales/">
             <div class="bo-sub-events-hidden" ng-include-template="event_detail.html"
                  ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, hasFullAccess: hasFullAccess('api_reports_revenue')}"></div>
         </div>
@@ -70,7 +70,7 @@
             </ul>
         </div>
 
-        <div class="tab-content">
+        <div class="tab-content" block-ui block-ui-pattern="/eventSalesReport/">
             <!-- Tab: overview -->
             <div class="tab-pane active bo-salesoverview panel panel-default" id="overview" role="tabpanel">
                 <div class="panel-body">

@@ -1602,3 +1602,10 @@ a:hover {
 	color: #fff;
 	opacity: 1;
 }
+
+/* Block ui
+================================ */
+
+.block-ui {
+	min-height: 150px;
+}
