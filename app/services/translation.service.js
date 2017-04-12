@@ -37,13 +37,36 @@
                 });
             }
         }
+
+        function getMomentLocaleCode(code) {
+            var momentLocaleCode = 'en-gb';
+            switch(code.toLowerCase()) {
+                case 'est':
+                    momentLocaleCode = 'et';
+                    break;
+                case 'lat':
+                    momentLocaleCode = 'lt';
+                    break;
+                case 'rus':
+                    momentLocaleCode = 'ru';
+                    break;
+                case 'lit':
+                    momentLocaleCode = 'lv';
+                    break;
+                case 'fin':
+                    momentLocaleCode = 'fi';
+            }
+            return momentLocaleCode;
+        }
+
         function setLangValue(lang){
             if (lang !== $rootScope.language) {
                 $translate.use(lang.code);
                 $rootScope.language = lang;
+                moment.locale(getMomentLocaleCode(lang.code));
                 dataService.post('setLanguage', {'lang': lang });
             }
-        };
+        }
 
         function initialize(){
 
