@@ -689,7 +689,7 @@ a:hover {
 	text-transform: uppercase;
 	text-align: center;
 	font-weight: bold;
-	margin: 20px 0;
+	margin: 32px 0;
 }
 
 /* Small checkbox
@@ -1608,4 +1608,5 @@ a:hover {
 
 .block-ui {
 	min-height: 150px;
+	background: #fff;
 }
