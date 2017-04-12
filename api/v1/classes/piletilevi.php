@@ -421,7 +421,7 @@ class PiletileviApi {
 		$papiConfig = $this->getPapiConfig();
 		$envConfig = $this->getEnvConfig();
 		
-		if (is_object($this->currentUser)) {
+		if (is_object($this->currentUser) && property_exists($this->currentUser, 'userId') && property_exists($this->currentUser, 'point')) {
 			if (!isset($data['userid'])) {
 				$data['userid']= $this->currentUser->userId;
 			}
