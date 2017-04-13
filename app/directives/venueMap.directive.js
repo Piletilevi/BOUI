@@ -918,8 +918,6 @@
                             var url = $location.protocol() + '://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
                                 + venueMap.getConfId() + '_' + sectionId + '.svg';
 
-                            var url = 'http://localhost:83/venueplan/public/upload/seatingplan_section_svg/110_36521.svg';
-
                             piletilevi.venuemap.Utilities.sendXhr({
                                 'url': url,
                                 'onSuccess': function (response) {
