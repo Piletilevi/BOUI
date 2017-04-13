@@ -15,7 +15,8 @@
 		'infinite-scroll',
 		'ui.toggle',
 		'chart.js',
-        'ceibo.components.table.export'
+        'ceibo.components.table.export',
+        'sticky'
     ]);
     angular.module('boApp').config(function(blockUIConfig) {
         blockUIConfig.autoInjectBodyBlock = false;
