@@ -179,7 +179,7 @@
 
 					$('body').on("click", datepickerContainer + " .calendar-links > #lastWeekLink", function($event) {
 						$event.preventDefault();
-						updateCaledarDates(moment().subtract(7, 'days').startOf('week').add(1, 'days'), moment().subtract(7, 'days').endOf('week').add(1, 'days'));
+						updateCaledarDates(moment().subtract(7, 'days').startOf('week'), moment().subtract(7, 'days').endOf('week'));
 					});
 
 					$('body').on("click", datepickerContainer + " .calendar-links > #lastMonthLink", function($event) {
