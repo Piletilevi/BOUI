@@ -47,7 +47,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="bo-event-report-link"><!--a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showEditLink">{{'api_edit'|translate}}</a><span ng-if="showEditLink">|</span--><a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}/" ng-if="showReportLink">{{'api_view_report'|translate}}</a>
+	<div class="bo-event-report-link"><!--a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showEditLink">{{'api_edit'|translate}}</a><span ng-if="showEditLink">|</span--><a href="#/report/{{event.concertsCount ? 'show' : 'event'}}/{{event.id}}/" ng-if="showReportLink">{{'api_view_report'|translate}}</a>
 		<span ng-if="event.websiteUrl"><span ng-if="showReportLink" class="bo-event-report-link-separator">|</span><a href="{{event.websiteUrl}}" target="_blank">{{'api_view_website'|translate}}</a></span>
 	</div>
 	<div ng-if="event.concerts" id="bo-sub-events{{event.id}}" class="bo-sub-events collapse">
