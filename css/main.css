@@ -433,6 +433,9 @@ a:hover {
 	cursor: pointer;
 }
 
+.bo-event-report-tab-panes .tab-pane {
+	min-height: 300px;
+}
 /* Event Badges
 ================================ */
 
@@ -1608,4 +1611,8 @@ a:hover {
 
 .block-ui {
 	min-height: 150px;
+}
+
+.block-ui.events-loader {
+	background: #fff;
 }
