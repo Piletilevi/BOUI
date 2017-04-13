@@ -174,7 +174,7 @@
 
 					$('body').on("click", datepickerContainer + " .calendar-links > #weekLink", function($event) {
 						$event.preventDefault();
-						updateCaledarDates(moment().startOf('week').add(1, 'days'), moment().endOf('week').add(1, 'days'));
+						updateCaledarDates(moment().startOf('week'), moment());
 					});
 
 					$('body').on("click", datepickerContainer + " .calendar-links > #lastWeekLink", function($event) {
