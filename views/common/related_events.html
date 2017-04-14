@@ -29,7 +29,7 @@
 							</div>
 						</div>
 					</div>
-					<a class="bo-eventshort-overlay" href="#/report/show/{{related.id}}"></a>
+					<a class="bo-eventshort-overlay" href="#/report/{{user.point}}/show/{{related.id}}"></a>
 				</div>
 				<div class="bo-eventshort-subevents">
 					<div class="bo-eventshort" ng-repeat="concertItem in related.concerts">
@@ -55,7 +55,7 @@
 								</div>
 							</div>
 						</div>
-						<a class="bo-eventshort-overlay" href="#/report/event/{{concertItem.id}}"></a>
+						<a class="bo-eventshort-overlay" href="#/report/{{user.point}}/event/{{concertItem.id}}"></a>
 					</div>
 				</div>
 			</li>
