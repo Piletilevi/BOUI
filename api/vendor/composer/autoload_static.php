@@ -21,9 +21,9 @@ class ComposerStaticInit2e3a373787dc82374402aec81b80f734
             'Psr\\Cache\\' => 10,
             'Predis\\' => 7,
         ),
-        'F' => 
+        'L' => 
         array (
-            'Firebase\\JWT\\' => 13,
+            'Lcobucci\\JWT\\' => 13,
         ),
     );
 
@@ -48,9 +48,9 @@ class ComposerStaticInit2e3a373787dc82374402aec81b80f734
         array (
             0 => __DIR__ . '/..' . '/predis/predis/src',
         ),
-        'Firebase\\JWT\\' => 
+        'Lcobucci\\JWT\\' => 
         array (
-            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+            0 => __DIR__ . '/..' . '/lcobucci/jwt/src',
         ),
     );
 

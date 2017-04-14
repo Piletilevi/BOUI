@@ -1,10 +1,10 @@
 {
     "require": {
         "slim/slim": "^2.6",
-		"firebase/php-jwt": "^3.0",
 		"nategood/httpful": "*",
 		"slim/logger": "0.1.*",
-        "phpFastCache/phpFastCache": "^5.0"
+        "phpFastCache/phpFastCache": "^5.0",
+        "lcobucci/jwt": "^3.2"
         
 	}
 }

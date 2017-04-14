@@ -1,6 +1,7 @@
 <?php
 use Httpful\Request;
-use Firebase\JWT\JWT;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Slim\Slim;
 
 class PiletileviApi {
@@ -420,7 +421,7 @@ class PiletileviApi {
 	private function send($url, $data, $plain = false) {
 		$papiConfig = $this->getPapiConfig();
 		$envConfig = $this->getEnvConfig();
-		
+
 		if (is_object($this->currentUser) && property_exists($this->currentUser, 'userId') && property_exists($this->currentUser, 'point')) {
 			if (!isset($data['userid'])) {
 				$data['userid']= $this->currentUser->userId;
@@ -443,18 +444,19 @@ class PiletileviApi {
 		$envName   = $envConfig["name"];  // Retrieve the env name from config file
 
 		$uri = $this->getBasePath().$url;
-
-		$payload = array(
-			'iat'  => $issuedAt,         // Issued at: time when the token was generated
-			'jti'  => $tokenId,          // Json Token Id: an unique identifier for the token
-			'iss'  => $envName,          // Issuer
-			'nbf'  => $notBefore,        // Not before
-			'exp'  => $expire,           // Expire
-			'data' => $data
-		);
-
-		$msg = JWT::encode( $payload, $papiConfig["jwtsecret"] );
-		$request = \Httpful\Request::post($uri)->body($msg)->timeout($papiConfig["timeout"]);
+		
+		$signer = new Sha256();
+		
+		$token = (new Builder())->setId($tokenId)
+								->setIssuer($envName)
+								->setIssuedAt($issuedAt)
+								->setNotBefore($notBefore)
+								->setExpiration($expire)
+								->set('data', $data)
+								->sign($signer, $papiConfig["jwtsecret"])
+								->getToken();
+		
+		$request = \Httpful\Request::post($uri)->body($token)->timeout($papiConfig["timeout"]);
 
 		if ($plain) {
 			$request->withoutAutoParsing();
