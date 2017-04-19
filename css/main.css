@@ -126,71 +126,34 @@ a:hover {
 	float: left;
 }
 
-.bo-header-additional-icons .dropdown .caret {
+.bo-header-additional-icons > li > a {
+	height: 50px;
+}
+
+.bo-header-additional-icons > .dropdown > .caret,
+.bo-header-additional-icons > .dropdown > .dropdown-toggle > span {
 	display: none;
 }
 
-/* header mobile dropdown
-================================ */
-
-.bo-external-dropdown {
-	display: none;
-	margin-left: -15px;
-	margin-right: -15px;
-	padding-right: 15px;
-	padding-left: 15px;
+.bo-header-additional-icons > .dropdown.bo-language-dropdown > .dropdown-toggle > span {
+	display: inline-block;
 }
-
-.bo-external-dropdown.open {
-	display: block;
-}
-
-.bo-external-dropdown .dropdown-toggle {
+.bo-header-additional-icons > .dropdown.bo-language-dropdown > .dropdown-toggle > span.caret {
 	display: none;
 }
 
-.bo-external-dropdown .dropdown-menu {
-	background-color: transparent;
-	border: 0 none;
-	box-shadow: none;
-	float: none;
-	margin-top: 0;
+.nav.bo-header-additional-icons > li {
 	position: static;
-	width: auto;
-	display: block;
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
-	border-radius: 0;
 }
 
-.bo-external-dropdown .bo-external-dropdown-inner > a.dropdown-toggle {
-	/*display: block;*/
-	background: #fff;
+.navbar-nav.bo-header-additional-icons .open .dropdown-menu {
+	position: absolute;
+	top: 50px;
+	border-bottom: 1px solid #e3e5e8;
 }
 
-.bo-external-dropdown.open .dropdown > a,
-.bo-external-dropdown.open .dropdown > a:focus,
-.bo-external-dropdown.open .dropdown > a:hover {
-	background: #fff;
-	color: #27394c;
-}
-
-.bo-external-dropdown.open .dropdown > a .bo-user-name,
-.bo-external-dropdown.open .dropdown > a:focus .bo-user-name,
-.bo-external-dropdown.open .dropdown > a:hover .bo-user-name {
-	color: #27394c;
-}
-
-.bo-external-dropdown .dropdown-menu > li > a {
-	padding: 5px 15px 5px 25px;
-}
-
-.bo-external-dropdown .dropdown-menu > li > a:hover {
-	background: #fff;
-}
-
-.bo-external-dropdown-inner {
-	margin: 7.5px -15px;
+.navbar-nav.bo-header-additional-icons .open .dropdown-menu > li > a {
+	line-height: 1.357;
 }
 
 /* Sidebar
@@ -1615,4 +1578,8 @@ a:hover {
 
 .block-ui.events-loader {
 	background: #fff;
+}}
+
+.asd .dropdown-menu {
+	position: relative;
 }

@@ -44,7 +44,7 @@
 </head>
 <body style="visibility: hidden" ng-class='{forceShow: isTranslated}' autoscroll="true">
 
-<div class="bo-header" ng-include="'views/common/template.html'" ng-if="authenticated"></div>
+<div ng-include="'views/common/template.html'" ng-if="authenticated"></div>
 <div class="visible-print">
     <img class="bo-print-logo" ng-src="{{pointMenuLogo}}"/>
 </div>
