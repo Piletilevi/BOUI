@@ -126,6 +126,7 @@
                 eventService.getSectorsData(vm.event, vm.sectorsFilter);
             }
             vm.currentTab = tab;
+            $location.update_path('/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/' + tab);
         };
 
         vm.currentTab = false;
@@ -141,10 +142,9 @@
             $scope.selectedSectionId = selectedSectionId;
             vm.event.seatsMapConfig.sectionId = selectedSectionId;
             vm.priceclassFilter.sectionId = selectedSectionId;
-            vm.event.id = 200069;
-            vm.priceclassFilter.sectionId = 9498;
             eventService.getPriceClassData(vm.event, vm.priceclassFilter);
             eventService.getSectorTickets(vm.event, vm.priceclassFilter);
+            $location.update_path('/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sectors/' + selectedSectionId + '/');
         };
 
         vm.resetSelectedSectionId = function (selectedSectionId) {
@@ -171,8 +171,8 @@
 
         /* watchers */
 
-        $rootScope.$watch('user', function () {
-            if ($rootScope.user) {
+        $rootScope.$watch('user', function (oldUser, newUser) {
+            if ($rootScope.user && !angular.equals(oldUser, newUser)) {
                 if (!$rootScope.hasFullAccess('api_reports')) {
                     $location.path('dashboard');
                 }
@@ -203,11 +203,25 @@
                             tab: 'overview'
                         }
                     ];
-                    angular.forEach(accessRights, function (accessRight) {
-                        if ($rootScope.hasFullAccess(accessRight.accessRight)) {
-                            vm.currentTab = accessRight.tab;
-                        }
-                    });
+                    if ($routeParams.reportType) {
+                        angular.forEach(accessRights, function (accessRight) {
+                            if ($rootScope.hasFullAccess(accessRight.accessRight) && accessRight.tab == $routeParams.reportType) {
+                                vm.currentTab = accessRight.tab;
+                                if($routeParams.sectorId) {
+                                    $scope.selectedSectionId = $routeParams.sectorId;
+                                    vm.event.seatsMapConfig.sectionId = $routeParams.sectorId;
+                                    vm.priceclassFilter.sectionId = $routeParams.sectorId;
+                                }
+                            }
+                        });
+                    }
+                    if (!vm.currentTab) {
+                        angular.forEach(accessRights, function (accessRight) {
+                            if ($rootScope.hasFullAccess(accessRight.accessRight)) {
+                                vm.currentTab = accessRight.tab;
+                            }
+                        });
+                    }
                 }
             }
         });
