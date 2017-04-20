@@ -172,7 +172,7 @@
         /* watchers */
 
         $rootScope.$watch('user', function (oldUser, newUser) {
-            if ($rootScope.user && !angular.equals(oldUser, newUser)) {
+            if ($rootScope.user) {
                 if (!$rootScope.hasFullAccess('api_reports')) {
                     $location.path('dashboard');
                 }
