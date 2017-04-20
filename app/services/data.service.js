@@ -4,9 +4,9 @@
     angular.module('boApp')
         .factory("dataService", DataService);
 
-    DataService.$inject = ['$http','bo', '$q'];
+    DataService.$inject = ['$http','bo', '$q', '$location'];
 
-    function DataService($http, bo, $q) { // This service connects to our REST API
+    function DataService($http, bo, $q, $location) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
 
@@ -29,7 +29,12 @@
         function get (q) {
             return $http.get(serviceBase + q).then(function (results) {
                 return results.data;
-            });
+            }), function errorCallback(response) {
+  			  if (response.status == 403) {
+				  $location.path("/login");
+			  }
+			  console.log(response);
+		    });
         };
         
         function getIp () {
@@ -47,19 +52,34 @@
         function post (q, object) {
 			return $http.post(serviceBase + q, object).then(function (results) {
 				return results.data;
-            });
+            }), function errorCallback(response) {
+  			  if (response.status == 403) {
+				  $location.path("/login");
+			  }
+			  console.log(response);
+		    });
         };
         
         function put (q, object) {
             return $http.put(serviceBase + q, object).then(function (results) {
                 return results.data;
-            });
+            }), function errorCallback(response) {
+  			  if (response.status == 403) {
+				  $location.path("/login");
+			  }
+			  console.log(response);
+		    });
         };
         
         function del (q) {
             return $http.delete(serviceBase + q).then(function (results) {
                 return results.data;
-            });
+            }), function errorCallback(response) {
+  			  if (response.status == 403) {
+				  $location.path("/login");
+			  }
+			  console.log(response);
+		    });
         };
     }
 })();

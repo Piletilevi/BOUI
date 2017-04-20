@@ -1036,7 +1036,7 @@ $app->get('/test', function() use ($app)  {
 	$filter['endDate'] = "2017-05-01T16:10:00.000Z";
 
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->sectionInfo( $filter );
+    $reportResponse = $piletileviApi->sectionTickets( $filter );
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
