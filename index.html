@@ -44,7 +44,7 @@
 </head>
 <body style="visibility: hidden" ng-class='{forceShow: isTranslated}' autoscroll="true">
 
-<div class="bo-header" ng-include="'views/common/template.html'" ng-if="authenticated"></div>
+<div ng-include="'views/common/template.html'" ng-if="authenticated"></div>
 <div class="visible-print">
     <img class="bo-print-logo" ng-src="{{pointMenuLogo}}"/>
 </div>
@@ -112,6 +112,7 @@
     <script src="js/bower_components/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.min.js"></script>
     <script src="js/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
     <script src="js/bower_components/ngSticky/dist/sticky.min.js"></script>
+    <script src="js/bower_components/angular-location-update/angular-location-update.min.js"></script>
     <script src="js/custom_components/angular-export-table/export/table-export-directive.js"></script>
     <script src="js/custom_components/angular-export-table/export/table-export-option-directive.js"></script>
     <script src="js/custom_components/angular-export-table/export/smartTableDirectives.js"></script>

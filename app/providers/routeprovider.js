@@ -30,7 +30,19 @@
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
-            .when('/report/:pointId/:type/:id/', {
+            .when('/report/:pointId/:type/:id', {
+                title: 'Report',
+                templateUrl: 'views/report.html',
+                controller: 'reportController',
+                controllerAs: 'vm'
+            })
+            .when('/report/:pointId/:type/:id/:reportType', {
+                title: 'Report',
+                templateUrl: 'views/report.html',
+                controller: 'reportController',
+                controllerAs: 'vm'
+            })
+            .when('/report/:pointId/:type/:id/:reportType/:sectorId', {
                 title: 'Report',
                 templateUrl: 'views/report.html',
                 controller: 'reportController',

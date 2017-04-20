@@ -16,7 +16,8 @@
 		'ui.toggle',
 		'chart.js',
         'ceibo.components.table.export',
-        'sticky'
+        'sticky',
+        'ngLocationUpdate'
     ]);
     angular.module('boApp').config(function(blockUIConfig) {
         blockUIConfig.autoInjectBodyBlock = false;

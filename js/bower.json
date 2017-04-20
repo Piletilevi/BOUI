@@ -34,7 +34,8 @@
     "html2canvas": "^0.4.1",
     "pdfmake": "^0.1.26",
     "angular-smart-table": "^2.1.8",
-    "ngSticky": "^1.8.13"
+    "ngSticky": "^1.8.13",
+    "angular-location-update": "^0.0.2"
   },
   "resolutions": {
     "angular": "1.6.1",

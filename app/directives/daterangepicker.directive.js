@@ -189,7 +189,7 @@
 
 					$('body').on("click", datepickerContainer + " .calendar-links > #monthLink", function($event) {
 						$event.preventDefault();
-						updateCaledarDates(moment().startOf('month'), moment().endOf('month'));
+						updateCaledarDates(moment().startOf('month'), moment());
 					});
 
 					//$('body').on("click", datepickerContainer + " .resetBtn", function($event) {
