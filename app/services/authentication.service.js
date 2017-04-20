@@ -35,21 +35,28 @@
                 return hasFullAccess;
             }
         }
-        
+
         function login (customer) {
             rememberMe(customer);
-			dataService.getIp().then(function(result) {
-				customer['clientip'] = result.ip;
-				dataService.post('login', {customer: customer})
-					.then(function (results) {
-						dataService.page(results);
-						if (results.status == "success") {
-							$location.path('dashboard');
-						}
-					});
-			}, function(e) {
-				//alert("error");
-			});
+            dataService.getIp().then(function(result) {
+                customer['clientip'] = result.ip;
+                dataService.post('login', {customer: customer})
+                    .then(function (results) {
+                        dataService.page(results);
+                        if (results.status == "success") {
+                            var redirectUrl = localStorage.getItem('redirectUrl');
+                            if(redirectUrl) {
+                                localStorage.removeItem('redirectUrl');
+                                $location.path(redirectUrl);
+                            }
+                            else {
+                                $location.path('dashboard');
+                            }
+                        }
+                    });
+            }, function(e) {
+                //alert("error");
+            });
         }
 
         function rememberMe(customer) {
@@ -118,6 +125,9 @@
 
                     if (nextUrl == '/login') {
                     } else {
+                        if($location.path() !== '/login') {
+                            localStorage.setItem('redirectUrl', $location.path());
+                        }
                         $location.path("/login");
                     }
                 }
