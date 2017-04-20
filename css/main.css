@@ -1578,8 +1578,11 @@ a:hover {
 
 .block-ui.events-loader {
 	background: #fff;
-}}
+}
 
+.block-ui.events-loader[aria-busy="false"] {
+	display: none;
+}
 .asd .dropdown-menu {
 	position: relative;
 }
