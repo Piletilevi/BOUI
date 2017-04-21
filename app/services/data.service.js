@@ -29,8 +29,8 @@
         function get (q) {
             return $http.get(serviceBase + q).then(function (results) {
                 return results.data;
-            }), function errorCallback(response) {
-  			  if (response.status == 403) {
+            }, function errorCallback(response) {
+  			  if (response.status == 401) {
 				  $location.path("/login");
 			  }
 			  console.log(response);
@@ -52,8 +52,8 @@
         function post (q, object) {
 			return $http.post(serviceBase + q, object).then(function (results) {
 				return results.data;
-            }), function errorCallback(response) {
-  			  if (response.status == 403) {
+            }, function errorCallback(response) {
+  			  if (response.status == 401) {
 				  $location.path("/login");
 			  }
 			  console.log(response);
@@ -63,8 +63,8 @@
         function put (q, object) {
             return $http.put(serviceBase + q, object).then(function (results) {
                 return results.data;
-            }), function errorCallback(response) {
-  			  if (response.status == 403) {
+            }, function errorCallback(response) {
+  			  if (response.status == 401) {
 				  $location.path("/login");
 			  }
 			  console.log(response);
@@ -74,8 +74,8 @@
         function del (q) {
             return $http.delete(serviceBase + q).then(function (results) {
                 return results.data;
-            }), function errorCallback(response) {
-  			  if (response.status == 403) {
+            }, function errorCallback(response) {
+  			  if (response.status == 401) {
 				  $location.path("/login");
 			  }
 			  console.log(response);

@@ -8,7 +8,10 @@
 	</a>{{event.name}}</h3>
 	<div class="row">
 		<div class="col-sm-4 bo-event-datetime_block" ng-if="!event.concertsCount">
-			<div>
+			<div ng-if="event.eventPeriod.start != event.eventPeriod.end">
+				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.eventPeriod.start | date:'dd.MM.yyyy'}} - {{event.eventPeriod.end | date:'dd.MM.yyyy'}}</div>
+			</div>
+			<div ng-if="event.eventPeriod.start == event.eventPeriod.end">
 				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.eventPeriod.start | date:'dd.MM.yyyy'}}</div>
 				<div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> {{event.eventPeriod.start | date:'HH:mm'}}</div>
 			</div>
