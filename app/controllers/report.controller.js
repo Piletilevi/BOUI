@@ -125,18 +125,28 @@
             } else if (tab == 'sectors') {
                 eventService.getSectorsData(vm.event, vm.sectorsFilter);
             }
+
+            if(tab != 'sectors') {
+                $scope.selectedSectionId = false;
+            }
+
             vm.currentTab = tab;
-            $location.update_path('/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/' + tab);
+            var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/' + tab;
+            if (tab == 'sectors' && $scope.selectedSectionId) {
+                newPath += '/' + $scope.selectedSectionId;
+            }
+            $location.update_path(newPath);
         };
 
         vm.currentTab = false;
+
         vm.getCurrentTabCode = function () {
             if (vm.currentTab == 'overview') {
                 return 'api_' + vm.currentTab;
             } else {
                 return 'api_by_' + vm.currentTab;
             }
-        }
+        };
 
         vm.setSelectedSectionId = function (selectedSectionId) {
             $scope.selectedSectionId = selectedSectionId;
@@ -172,57 +182,56 @@
         /* watchers */
 
         $rootScope.$watch('user', function (oldUser, newUser) {
-            if ($rootScope.user) {
+            if ($rootScope.user && !angular.equals(oldUser, newUser)) {
                 if (!$rootScope.hasFullAccess('api_reports')) {
                     $location.path('dashboard');
                 }
-                else {
-                    var accessRights = [
-                        {
-                            accessRight: 'api_reports_reservations',
-                            tab: 'booking'
-                        },
-                        {
-                            accessRight: 'api_reports_locations',
-                            tab: 'locations'
-                        },
-                        {
-                            accessRight: 'api_reports_sections',
-                            tab: 'sectors'
-                        },
-                        {
-                            accessRight: 'api_reports_priceclass',
-                            tab: 'priceclass'
-                        },
-                        {
-                            accessRight: 'api_reports_pricetype',
-                            tab: 'pricetype'
-                        },
-                        {
-                            accessRight: 'api_reports_overview',
-                            tab: 'overview'
-                        }
-                    ];
-                    if ($routeParams.reportType) {
-                        angular.forEach(accessRights, function (accessRight) {
-                            if ($rootScope.hasFullAccess(accessRight.accessRight) && accessRight.tab == $routeParams.reportType) {
-                                vm.currentTab = accessRight.tab;
-                                if($routeParams.sectorId) {
-                                    $scope.selectedSectionId = $routeParams.sectorId;
-                                    vm.event.seatsMapConfig.sectionId = $routeParams.sectorId;
-                                    vm.priceclassFilter.sectionId = $routeParams.sectorId;
-                                }
-                            }
-                        });
-                    }
-                    if (!vm.currentTab) {
-                        angular.forEach(accessRights, function (accessRight) {
-                            if ($rootScope.hasFullAccess(accessRight.accessRight)) {
-                                vm.currentTab = accessRight.tab;
-                            }
-                        });
-                    }
+            }
+
+            var accessRights = [
+                {
+                    accessRight: 'api_reports_reservations',
+                    tab: 'booking'
+                },
+                {
+                    accessRight: 'api_reports_locations',
+                    tab: 'locations'
+                },
+                {
+                    accessRight: 'api_reports_sections',
+                    tab: 'sectors'
+                },
+                {
+                    accessRight: 'api_reports_priceclass',
+                    tab: 'priceclass'
+                },
+                {
+                    accessRight: 'api_reports_pricetype',
+                    tab: 'pricetype'
+                },
+                {
+                    accessRight: 'api_reports_overview',
+                    tab: 'overview'
                 }
+            ];
+
+            if ($routeParams.reportType && !vm.currentTab) {
+                angular.forEach(accessRights, function (accessRight) {
+                    if ($rootScope.hasFullAccess(accessRight.accessRight) && accessRight.tab == $routeParams.reportType) {
+                        vm.currentTab = accessRight.tab;
+                        if ($routeParams.sectorId) {
+                            vm.setSelectedSectionId($routeParams.sectorId);
+                        }
+                    }
+                });
+            }
+
+            if (!vm.currentTab) {
+                angular.forEach(accessRights, function (accessRight) {
+                    if ($rootScope.hasFullAccess(accessRight.accessRight)) {
+                        vm.currentTab = accessRight.tab;
+                    }
+                });
             }
         });
 
@@ -248,27 +257,23 @@
 
         $scope.$watch('vm.sectorTickets', function (newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
-                var priceClasses = [],
-                    seatsInfo = [];
-                angular.forEach(newValue.sections.section[0].priceClasses[0].priceClass, function (priceClass) {
-                    priceClasses.push({
-                        id: priceClass.id,
-                        color: priceClass.color
-                    });
-                    angular.forEach(priceClass.priceTypes, function (priceTypes) {
-                        angular.forEach(priceTypes, function (priceType) {
-                            angular.forEach(priceType, function (priceTypeItem) {
-                                seatsInfo.push({
-                                    id: priceTypeItem.id,
-                                    price: priceTypeItem.price,
-                                    priceClass: priceClass.id
-                                });
-                            });
+                var priceClasses = [];
+
+                angular.forEach(vm.myPriceClassPieData.sales, function (sale) {
+                    angular.forEach(sale.priceClasses, function (priceClass) {
+                        priceClasses.push({
+                           id: priceClass.priceClassId,
+                           color: priceClass.color
                         });
                     });
                 });
+
+                angular.forEach(newValue.ticket, function (ticket) {
+                    ticket.available = !!ticket.status;
+                });
+
                 vm.event.seatsMapConfig.priceClasses = priceClasses;
-                vm.event.seatsMapConfig.seatsInfo = seatsInfo;
+                vm.event.seatsMapConfig.seatsInfo = newValue.ticket;
             }
         });
 
