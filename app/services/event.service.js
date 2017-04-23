@@ -270,6 +270,7 @@
 					event.name = results.data.name;
 					event.confId = results.data.confId;
 					event.eventPeriod = results.data.eventPeriod;
+					event.isSamePeriod = isSamePeriod(event.eventPeriod);
 					event.sellPeriod = results.data.sellPeriod;
 					event.showId = results.data.showId;
 					event.location = results.data.location;
@@ -312,6 +313,7 @@
 				if (results.status == 'success'){
 					event.name = results.data.name;
 					event.eventPeriod = results.data.eventPeriod;
+					event.isSamePeriod = isSamePeriod(event.eventPeriod);
 					event.locations = results.data.locations;
 					event.concerts = results.data.concerts;
 					event.concertsCount = results.data.concertsCount;
@@ -325,6 +327,22 @@
 			});
 		}
 
+		function isSamePeriod(period) {
+			var start = new Date(period.start);
+			var end = new Date(period.end);
+			
+			console.log(start);
+			console.log(end);
+			
+			console.log(start.getFullYear() === end.getFullYear()
+				&& start.getDate() === end.getDate()
+				&& start.getMonth() === end.getMonth());
+				
+			return start.getFullYear() === end.getFullYear()
+				&& start.getDate() === end.getDate()
+				&& start.getMonth() === end.getMonth();
+		}
+		
 		function getConcertInfo(event) {
 			dataService.post('concertInfo', {id: event.id}).then(function (results) {
 				dataService.page(results);

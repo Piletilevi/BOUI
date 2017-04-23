@@ -8,20 +8,20 @@
 	</a>{{event.name}}</h3>
 	<div class="row">
 		<div class="col-sm-4 bo-event-datetime_block" ng-if="!event.concertsCount">
-			<div ng-if="event.eventPeriod.start != event.eventPeriod.end">
+			<div ng-if="!event.isSamePeriod">
 				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.eventPeriod.start | date:'dd.MM.yyyy'}} - {{event.eventPeriod.end | date:'dd.MM.yyyy'}}</div>
 			</div>
-			<div ng-if="event.eventPeriod.start == event.eventPeriod.end">
+			<div ng-if="event.isSamePeriod">
 				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.eventPeriod.start | date:'dd.MM.yyyy'}}</div>
 				<div class="bo-event-time"><i class="fa fa-clock-o" aria-hidden="true"></i> {{event.eventPeriod.start | date:'HH:mm'}}</div>
 			</div>
 			<div class="bo-event-place"><i class="fa fa-map-marker active" aria-hidden="true"></i> {{event.location}} </div>
 		</div>
 		<div class="col-sm-4 bo-event-datetime_block" ng-if="event.concertsCount">
-			<div ng-if="event.eventPeriod.start != event.eventPeriod.end">
+			<div ng-if="!event.eventPeriod.start.sameDay(event.eventPeriod.end)">
 				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.eventPeriod.start | date:'dd.MM.yyyy'}} - {{event.eventPeriod.end | date:'dd.MM.yyyy'}}</div>
 			</div>
-			<div ng-if="event.eventPeriod.start == event.eventPeriod.end">
+			<div ng-if="event.eventPeriod.start.sameDay(event.eventPeriod.end)">
 				<div class="bo-event-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.eventPeriod.start | date:'dd.MM.yyyy'}}</div>
 			</div>
 			<div class="bo-event-place" ng-if="event.locations"><i class="fa fa-map-marker active" aria-hidden="true"></i> {{event.locations.length === 1 ? event.locations[0].location : ('api_different_venues' | translate)}}</div>
