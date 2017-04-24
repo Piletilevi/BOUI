@@ -12,7 +12,6 @@
         if (!$routeParams && !$routeParams.id) {
             $location.path('dashboard');
         }
-
         //initially set those objects to null to avoid undefined error
         var vm = this;
 
@@ -277,6 +276,15 @@
             }
         });
 
+        //Rerender charts in overview tab when language has been changed. Other tabs' charts don't have translations.
+        $rootScope.$on('$translateChangeSuccess', function () {
+            if ($location.path().indexOf("report") != -1) {
+              if (vm.currentTab == 'overview'){
+                graphService.renderOverviewBarGraph(vm.myOverviewBarData, vm.myOverviewBarData, vm.overviewBarGraph);
+                graphService.renderOverviewLineGraph(vm.myOverviewLineData, vm.overviewFilter, vm.overviewLineGraph);
+              }
+            }
+        });
         $scope.$watch('vm.myOverviewBarData', function (newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
                 graphService.renderOverviewBarGraph(newValue, vm.myOverviewBarData, vm.overviewBarGraph);
