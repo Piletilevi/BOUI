@@ -182,7 +182,10 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
-
+        var positiveSum = 0;
+        var negativeSum = 0;
+        var positiveTotal = 0;
+        var negativeTotal = 0;
         newValue.types.forEach(function (type) {
           var dataItem = [];
           newValue.sales.forEach(function (sale) {
@@ -201,6 +204,13 @@
             }
             totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
+            if (dataItemValue > 0){
+              positiveSum += dataItemValue;
+              positiveTotal++;
+            }else if (dataItemValue < 0) {
+              negativeSum += dataItemValue;
+              negativeTotal++;
+            }
           });
           if (!dataItem.every(function (v) {
                 return v === 0;
@@ -211,7 +221,14 @@
             colors.push(colorService.getColorByType(type.typeName));
           }
         });
+
         if (labels && labels.length) {
+          if (positiveTotal > 0){
+            overviewGraph.options.scales.yAxes[0].ticks.max =positiveSum/positiveTotal * 5;
+          }
+          if (negativeTotal > 0){
+            overviewGraph.options.scales.yAxes[0].ticks.min =negativeSum/negativeTotal * 5;
+          }
           overviewGraph.labels = labels;
           overviewGraph.series = series;
           overviewGraph.data = data;
@@ -399,6 +416,10 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
+        var positiveSum = 0;
+        var negativeSum = 0;
+        var positiveTotal = 0;
+        var negativeTotal = 0;
 
         series.forEach(function (seriesItem) {
           var dataItem = [];
@@ -419,12 +440,27 @@
             }
             totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
+            if (dataItemValue > 0){
+              positiveSum += dataItemValue;
+              positiveTotal++;
+            }else if (dataItemValue < 0) {
+              negativeSum += dataItemValue;
+              negativeTotal++;
+            }
+
           });
           data.push(dataItem);
         });
 
 
         if (labels && labels.length) {
+          if (positiveTotal > 0){
+            pricetypeGraph.options.scales.yAxes[0].ticks.max =positiveSum/positiveTotal * 5;
+          }
+          if (negativeTotal > 0){
+            pricetypeGraph.options.scales.yAxes[0].ticks.min =negativeSum/negativeTotal * 5;
+          }
+
           pricetypeGraph.labels = labels;
           pricetypeGraph.series = series;
           pricetypeGraph.data = data;
@@ -534,6 +570,10 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
+        var positiveSum = 0;
+        var negativeSum = 0;
+        var positiveTotal = 0;
+        var negativeTotal = 0;
 
         series.forEach(function (seriesItem) {
           var dataItem = [];
@@ -554,11 +594,25 @@
             }
             totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
+            if (dataItemValue > 0){
+              positiveSum += dataItemValue;
+              positiveTotal++;
+            }else if (dataItemValue < 0) {
+              negativeSum += dataItemValue;
+              negativeTotal++;
+            }
           });
           data.push(dataItem);
         });
 
         if (labels && labels.length) {
+          if (positiveTotal > 0){
+            priceclassGraph.options.scales.yAxes[0].ticks.max =positiveSum/positiveTotal * 5;
+          }
+          if (negativeTotal > 0){
+            priceclassGraph.options.scales.yAxes[0].ticks.min =negativeSum/negativeTotal * 5;
+          }
+
           priceclassGraph.labels = labels;
           priceclassGraph.series = series;
           priceclassGraph.data = data;
