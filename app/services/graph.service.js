@@ -182,10 +182,7 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
-        var positiveSum = 0;
-        var negativeSum = 0;
-        var positiveTotal = 0;
-        var negativeTotal = 0;
+        var stats = new GraphStats();
         newValue.types.forEach(function (type) {
           var dataItem = [];
           newValue.sales.forEach(function (sale) {
@@ -204,13 +201,7 @@
             }
             totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
-            if (dataItemValue > 0){
-              positiveSum += dataItemValue;
-              positiveTotal++;
-            }else if (dataItemValue < 0) {
-              negativeSum += dataItemValue;
-              negativeTotal++;
-            }
+            stats.updateStats(stats, dataItemValue);
           });
           if (!dataItem.every(function (v) {
                 return v === 0;
@@ -223,11 +214,13 @@
         });
 
         if (labels && labels.length) {
-          if (positiveTotal > 0){
-            overviewGraph.options.scales.yAxes[0].ticks.max =positiveSum/positiveTotal * 5;
+          var max = stats.getStatsMax();
+          if (max !== false){
+            overviewGraph.options.scales.yAxes[0].ticks.max = max;
           }
-          if (negativeTotal > 0){
-            overviewGraph.options.scales.yAxes[0].ticks.min =negativeSum/negativeTotal * 5;
+          var min = stats.getStatsMin();
+          if (min !== false){
+            overviewGraph.options.scales.yAxes[0].ticks.min = min;
           }
           overviewGraph.labels = labels;
           overviewGraph.series = series;
@@ -416,11 +409,8 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
-        var positiveSum = 0;
-        var negativeSum = 0;
-        var positiveTotal = 0;
-        var negativeTotal = 0;
 
+        var stats = new GraphStats();
         series.forEach(function (seriesItem) {
           var dataItem = [];
 
@@ -440,27 +430,20 @@
             }
             totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
-            if (dataItemValue > 0){
-              positiveSum += dataItemValue;
-              positiveTotal++;
-            }else if (dataItemValue < 0) {
-              negativeSum += dataItemValue;
-              negativeTotal++;
-            }
-
+            stats.updateStats(stats, dataItemValue);
           });
           data.push(dataItem);
         });
 
-
         if (labels && labels.length) {
-          if (positiveTotal > 0){
-            pricetypeGraph.options.scales.yAxes[0].ticks.max =positiveSum/positiveTotal * 5;
+          var max = stats.getStatsMax();
+          if (max !== false){
+            pricetypeGraph.options.scales.yAxes[0].ticks.max = max;
           }
-          if (negativeTotal > 0){
-            pricetypeGraph.options.scales.yAxes[0].ticks.min =negativeSum/negativeTotal * 5;
+          var min = stats.getStatsMin();
+          if (min !== false){
+            pricetypeGraph.options.scales.yAxes[0].ticks.min = min;
           }
-
           pricetypeGraph.labels = labels;
           pricetypeGraph.series = series;
           pricetypeGraph.data = data;
@@ -570,10 +553,7 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
-        var positiveSum = 0;
-        var negativeSum = 0;
-        var positiveTotal = 0;
-        var negativeTotal = 0;
+        var stats = new GraphStats();
 
         series.forEach(function (seriesItem) {
           var dataItem = [];
@@ -594,25 +574,20 @@
             }
             totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
-            if (dataItemValue > 0){
-              positiveSum += dataItemValue;
-              positiveTotal++;
-            }else if (dataItemValue < 0) {
-              negativeSum += dataItemValue;
-              negativeTotal++;
-            }
+            stats.updateStats(stats, dataItemValue);
           });
           data.push(dataItem);
         });
 
         if (labels && labels.length) {
-          if (positiveTotal > 0){
-            priceclassGraph.options.scales.yAxes[0].ticks.max =positiveSum/positiveTotal * 5;
+          var max = stats.getStatsMax();
+          if (max !== false){
+            priceclassGraph.options.scales.yAxes[0].ticks.max = max;
           }
-          if (negativeTotal > 0){
-            priceclassGraph.options.scales.yAxes[0].ticks.min =negativeSum/negativeTotal * 5;
+          var min = stats.getStatsMin();
+          if (min !== false){
+            priceclassGraph.options.scales.yAxes[0].ticks.min = min;
           }
-
           priceclassGraph.labels = labels;
           priceclassGraph.series = series;
           priceclassGraph.data = data;
@@ -627,6 +602,49 @@
         }
       }
     }
-
+    function GraphStats(){
+        var coefficient = 5;
+        var positiveSum = 0;
+        var negativeSum = 0;
+        var positiveTotal = 0;
+        var negativeTotal = 0;
+        var positiveMax = 0;
+        var negativeMin = 0;
+        this.updateStats = function (stats, value){
+          if (value > 0){
+            positiveSum += value;
+            positiveTotal++;
+          }else if (value < 0) {
+            negativeSum += value;
+            negativeTotal++;
+          }
+          if (value > positiveMax){
+            positiveMax = value;
+          }
+          if (value < negativeMin){
+            negativeMin = value;
+          }
+        };
+        this.getStatsMax = function(){
+          var max = false;
+          if (positiveTotal  > 0){
+            max = positiveSum/positiveTotal * coefficient;
+            if (max > positiveMax){
+              max = positiveMax;
+            }
+          }
+          return max;
+        };
+        this.getStatsMin = function(){
+          var min = false;
+          if (negativeTotal > 0){
+            min = negativeSum/negativeTotal * coefficient;
+            if (min < negativeMin){
+              min = negativeMin;
+            }
+          }
+          return min;
+        };
+    }
   }
 })();
