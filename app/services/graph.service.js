@@ -214,14 +214,9 @@
         });
 
         if (labels && labels.length) {
-          var max = stats.getStatsMax();
-          if (max !== false) {
-            overviewGraph.options.scales.yAxes[0].ticks.max = max;
-          }
-          var min = stats.getStatsMin();
-          if (min !== false) {
-            overviewGraph.options.scales.yAxes[0].ticks.min = min;
-          }
+          overviewGraph.options.scales.yAxes[0].ticks.max = stats.getStatsMax();
+          overviewGraph.options.scales.yAxes[0].ticks.min = stats.getStatsMin();
+
           overviewGraph.labels = labels;
           overviewGraph.series = series;
           overviewGraph.data = data;
@@ -448,14 +443,9 @@
         });
 
         if (labels && labels.length) {
-          var max = stats.getStatsMax();
-          if (max !== false) {
-            pricetypeGraph.options.scales.yAxes[0].ticks.max = max;
-          }
-          var min = stats.getStatsMin();
-          if (min !== false) {
-            pricetypeGraph.options.scales.yAxes[0].ticks.min = min;
-          }
+          pricetypeGraph.options.scales.yAxes[0].ticks.max = stats.getStatsMax();
+          pricetypeGraph.options.scales.yAxes[0].ticks.min = stats.getStatsMin();
+
           pricetypeGraph.labels = labels;
           pricetypeGraph.series = series;
           pricetypeGraph.data = data;
@@ -604,14 +594,9 @@
         });
 
         if (labels && labels.length) {
-          var max = stats.getStatsMax();
-          if (max !== false) {
-            priceclassGraph.options.scales.yAxes[0].ticks.max = max;
-          }
-          var min = stats.getStatsMin();
-          if (min !== false) {
-            priceclassGraph.options.scales.yAxes[0].ticks.min = min;
-          }
+          priceclassGraph.options.scales.yAxes[0].ticks.max = stats.getStatsMax();
+          priceclassGraph.options.scales.yAxes[0].ticks.min = stats.getStatsMin();
+
           priceclassGraph.labels = labels;
           priceclassGraph.series = series;
           priceclassGraph.data = data;
@@ -651,7 +636,7 @@
         }
       };
       this.getStatsMax = function () {
-        var max = false;
+        var max = 0;
         if (positiveTotal > 0) {
           max = positiveSum / positiveTotal * coefficient;
           if (max > positiveMax) {
@@ -661,7 +646,7 @@
         return max;
       };
       this.getStatsMin = function () {
-        var min = false;
+        var min = 0;
         if (negativeTotal > 0) {
           min = negativeSum / negativeTotal * coefficient;
           if (min < negativeMin) {
