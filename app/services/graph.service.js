@@ -3,8 +3,8 @@
   'use strict';
 
   angular
-      .module('boApp')
-      .factory('graphService', GraphService);
+    .module('boApp')
+    .factory('graphService', GraphService);
 
   GraphService.$inject = ['colorService', '$translate'];
 
@@ -196,7 +196,7 @@
                 }
               }
             });
-            if(!totals[dataItem.length]) {
+            if (!totals[dataItem.length]) {
               totals[dataItem.length] = 0;
             }
             totals[dataItem.length] += dataItemValue;
@@ -204,8 +204,8 @@
             stats.updateStats(stats, dataItemValue);
           });
           if (!dataItem.every(function (v) {
-                return v === 0;
-              })) {
+              return v === 0;
+            })) {
             data.push(dataItem);
             series.push($translate.instant(type.typeName));
             step++;
@@ -215,11 +215,11 @@
 
         if (labels && labels.length) {
           var max = stats.getStatsMax();
-          if (max !== false){
+          if (max !== false) {
             overviewGraph.options.scales.yAxes[0].ticks.max = max;
           }
           var min = stats.getStatsMin();
-          if (min !== false){
+          if (min !== false) {
             overviewGraph.options.scales.yAxes[0].ticks.min = min;
           }
           overviewGraph.labels = labels;
@@ -256,9 +256,9 @@
             overviewData.currency = myOverviewData.currency;
           }
           else {
-            if(myOverviewData.groupName == 'api_overview_venue_occupancy') {
+            if (myOverviewData.groupName == 'api_overview_venue_occupancy') {
               labels.push($translate.instant('api_avail_for_sale'));
-            }else {
+            } else {
               labels.push($translate.instant(myOverviewData.groupName));
             }
             var rowSeries = [];
@@ -333,7 +333,7 @@
         newValue.sales.forEach(function (myPricetypeData) {
           myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
             labels.push(pricetypeRow.priceTypeName +
-                ' (' + Math.round(pricetypeRow.count / pricetypeData.generatedCount * 100) + '%)');
+              ' (' + Math.round(pricetypeRow.count / pricetypeData.generatedCount * 100) + '%)');
           });
         });
 
@@ -374,8 +374,8 @@
         newValue.sales.forEach(function (sale) {
           sale.sellTypes.forEach(function (sellType) {
             if ($.grep(series, function (e) {
-                  return e == sellType.priceTypeName;
-                }).length === 0) {
+                return e == sellType.priceTypeName;
+              }).length === 0) {
               series.push(sellType.priceTypeName);
               colors.push(sellType.color);
               ids.push(parseInt(sellType.priceTypeId, 10));
@@ -384,13 +384,25 @@
         });
 
         // Sort by priceTypeId
-        series = ids.map(function(e,i){return i;})
-            .sort(function(a,b){return ids[a] - ids[b];})
-            .map(function(e){return series[e];});
+        series = ids.map(function (e, i) {
+            return i;
+          })
+          .sort(function (a, b) {
+            return ids[a] - ids[b];
+          })
+          .map(function (e) {
+            return series[e];
+          });
 
-        colors = ids.map(function(e,i){return i;})
-            .sort(function(a,b){return ids[a] - ids[b];})
-            .map(function(e){return colors[e];});
+        colors = ids.map(function (e, i) {
+            return i;
+          })
+          .sort(function (a, b) {
+            return ids[a] - ids[b];
+          })
+          .map(function (e) {
+            return colors[e];
+          });
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
@@ -425,7 +437,7 @@
                 }
               }
             });
-            if(!totals[dataItem.length]) {
+            if (!totals[dataItem.length]) {
               totals[dataItem.length] = 0;
             }
             totals[dataItem.length] += dataItemValue;
@@ -437,11 +449,11 @@
 
         if (labels && labels.length) {
           var max = stats.getStatsMax();
-          if (max !== false){
+          if (max !== false) {
             pricetypeGraph.options.scales.yAxes[0].ticks.max = max;
           }
           var min = stats.getStatsMin();
-          if (min !== false){
+          if (min !== false) {
             pricetypeGraph.options.scales.yAxes[0].ticks.min = min;
           }
           pricetypeGraph.labels = labels;
@@ -477,7 +489,7 @@
         newValue.sales.forEach(function (myPriceclassData) {
           myPriceclassData.priceClasses.forEach(function (priceclassRow) {
             labels.push(priceclassRow.priceClassName +
-                ' (' + Math.round(priceclassRow.count / priceclassData.generatedCount * 100) + '%)');
+              ' (' + Math.round(priceclassRow.count / priceclassData.generatedCount * 100) + '%)');
           });
         });
 
@@ -517,8 +529,8 @@
         newValue.sales.forEach(function (sale) {
           sale.sellTypes.forEach(function (sellType) {
             if ($.grep(series, function (e) {
-                  return e == sellType.priceClassName;
-                }).length === 0) {
+                return e == sellType.priceClassName;
+              }).length === 0) {
               series.push(sellType.priceClassName);
               colors.push(sellType.color);
               ids.push(parseInt(sellType.priceClassId, 10));
@@ -527,14 +539,26 @@
         });
 
         // Sort by priceClassId
-        series = ids.map(function(e,i){return i;})
-            .sort(function(a,b){return ids[a] - ids[b];})
-            .map(function(e){return series[e];});
+        series = ids.map(function (e, i) {
+            return i;
+          })
+          .sort(function (a, b) {
+            return ids[a] - ids[b];
+          })
+          .map(function (e) {
+            return series[e];
+          });
 
         // Sort by priceClassId
-        colors = ids.map(function(e,i){return i;})
-            .sort(function(a,b){return ids[a] - ids[b];})
-            .map(function(e){return colors[e];});
+        colors = ids.map(function (e, i) {
+            return i;
+          })
+          .sort(function (a, b) {
+            return ids[a] - ids[b];
+          })
+          .map(function (e) {
+            return colors[e];
+          });
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
@@ -569,7 +593,7 @@
                 }
               }
             });
-            if(!totals[dataItem.length]) {
+            if (!totals[dataItem.length]) {
               totals[dataItem.length] = 0;
             }
             totals[dataItem.length] += dataItemValue;
@@ -581,11 +605,11 @@
 
         if (labels && labels.length) {
           var max = stats.getStatsMax();
-          if (max !== false){
+          if (max !== false) {
             priceclassGraph.options.scales.yAxes[0].ticks.max = max;
           }
           var min = stats.getStatsMin();
-          if (min !== false){
+          if (min !== false) {
             priceclassGraph.options.scales.yAxes[0].ticks.min = min;
           }
           priceclassGraph.labels = labels;
@@ -602,49 +626,50 @@
         }
       }
     }
-    function GraphStats(){
-        var coefficient = 5;
-        var positiveSum = 0;
-        var negativeSum = 0;
-        var positiveTotal = 0;
-        var negativeTotal = 0;
-        var positiveMax = 0;
-        var negativeMin = 0;
-        this.updateStats = function (stats, value){
-          if (value > 0){
-            positiveSum += value;
-            positiveTotal++;
-          }else if (value < 0) {
-            negativeSum += value;
-            negativeTotal++;
+
+    function GraphStats() {
+      var coefficient = 5;
+      var positiveSum = 0;
+      var negativeSum = 0;
+      var positiveTotal = 0;
+      var negativeTotal = 0;
+      var positiveMax = 0;
+      var negativeMin = 0;
+      this.updateStats = function (stats, value) {
+        if (value > 0) {
+          positiveSum += value;
+          positiveTotal++;
+        } else if (value < 0) {
+          negativeSum += value;
+          negativeTotal++;
+        }
+        if (value > positiveMax) {
+          positiveMax = value;
+        }
+        if (value < negativeMin) {
+          negativeMin = value;
+        }
+      };
+      this.getStatsMax = function () {
+        var max = false;
+        if (positiveTotal > 0) {
+          max = positiveSum / positiveTotal * coefficient;
+          if (max > positiveMax) {
+            max = positiveMax;
           }
-          if (value > positiveMax){
-            positiveMax = value;
+        }
+        return max;
+      };
+      this.getStatsMin = function () {
+        var min = false;
+        if (negativeTotal > 0) {
+          min = negativeSum / negativeTotal * coefficient;
+          if (min < negativeMin) {
+            min = negativeMin;
           }
-          if (value < negativeMin){
-            negativeMin = value;
-          }
-        };
-        this.getStatsMax = function(){
-          var max = false;
-          if (positiveTotal  > 0){
-            max = positiveSum/positiveTotal * coefficient;
-            if (max > positiveMax){
-              max = positiveMax;
-            }
-          }
-          return max;
-        };
-        this.getStatsMin = function(){
-          var min = false;
-          if (negativeTotal > 0){
-            min = negativeSum/negativeTotal * coefficient;
-            if (min < negativeMin){
-              min = negativeMin;
-            }
-          }
-          return min;
-        };
+        }
+        return min;
+      };
     }
   }
 })();
