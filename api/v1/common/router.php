@@ -1017,7 +1017,7 @@ $app->post('/sectionTickets', function() use ($app)  {
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
-		$response["data"] = $reportResponse;
+		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
@@ -1040,7 +1040,7 @@ $app->get('/test', function() use ($app)  {
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
-		$response["data"] = $reportResponse;
+		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
