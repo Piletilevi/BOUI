@@ -256,23 +256,13 @@
 
         $scope.$watch('vm.sectorTickets', function (newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
-                var priceClasses = [];
-
-                angular.forEach(vm.myPriceClassPieData.sales, function (sale) {
-                    angular.forEach(sale.priceClasses, function (priceClass) {
-                        priceClasses.push({
-                           id: priceClass.priceClassId,
-                           color: priceClass.color
-                        });
-                    });
-                });
-
-                angular.forEach(newValue.ticket, function (ticket) {
+                angular.forEach(newValue.tickets, function (ticket) {
                     ticket.available = !!ticket.status;
+                    ticket.priceClass = ticket.priceClassId;
                 });
 
-                vm.event.seatsMapConfig.priceClasses = priceClasses;
-                vm.event.seatsMapConfig.seatsInfo = newValue.ticket;
+                vm.event.seatsMapConfig.priceClasses = newValue.priceClasses;
+                vm.event.seatsMapConfig.seatsInfo = newValue.tickets;
             }
         });
 
