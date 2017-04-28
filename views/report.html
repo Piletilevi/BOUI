@@ -53,9 +53,9 @@
                                                                             role="tab" aria-controls="priceclass"
                                                                             ng-click="vm.tabSelectEvent('priceclass')">{{'api_by_priceclass'|translate}}</a>
                 </li>
-                <li ng-show="hasFullAccess('api_reports_sections')" ng-class="{'active': vm.currentTab == 'sectors'}"
-                    ng-hide="vm.event.isShow"><a href="#sectors" data-toggle="tab" role="tab" aria-controls="sectors"
-                                                 ng-click="vm.tabSelectEvent('sectors')">{{'api_by_sectors'|translate}}</a>
+                <li ng-show="hasFullAccess('api_reports_sections')" ng-class="{'active': vm.currentTab == 'sections'}"
+                    ng-hide="vm.event.isShow"><a href="#sections" data-toggle="tab" role="tab" aria-controls="sections"
+                                                 ng-click="vm.tabSelectEvent('sections')">{{'api_by_sectors'|translate}}</a>
                 </li>
                 <li ng-show="hasFullAccess('api_reports_locations')"
                     ng-class="{'active': vm.currentTab == 'locations'}"><a href="#locations" data-toggle="tab"
@@ -567,8 +567,8 @@
                 </div>
             </div>
 
-            <!-- Tab: sectors -->
-            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'sectors'}" id="sectors" role="tabpanel">
+            <!-- Tab: sections -->
+            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'sections'}" id="sections" role="tabpanel">
                 <div class="panel-body" ng-if="!selectedSectionId">
                     <div class="bo-salesoverview-controls clearfix bo-inline-print">
                         <div class="form-inline">

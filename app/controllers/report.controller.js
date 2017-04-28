@@ -121,17 +121,17 @@
                 vm.priceclassFilter.sectionId = null;
                 eventService.getPriceClassData(vm.event, vm.priceclassFilter);
                 eventService.getPriceClassGraphData(vm.event, vm.priceclassFilter);
-            } else if (tab == 'sectors') {
+            } else if (tab == 'sections') {
                 eventService.getSectorsData(vm.event, vm.sectorsFilter);
             }
 
-            if(tab != 'sectors') {
+            if(tab != 'sections') {
                 $scope.selectedSectionId = false;
             }
 
             vm.currentTab = tab;
             var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/' + tab;
-            if (tab == 'sectors' && $scope.selectedSectionId) {
+            if (tab == 'sections' && $scope.selectedSectionId) {
                 newPath += '/' + $scope.selectedSectionId;
             }
             $location.update_path(newPath);
@@ -153,7 +153,7 @@
             vm.priceclassFilter.sectionId = selectedSectionId;
             eventService.getPriceClassData(vm.event, vm.priceclassFilter);
             eventService.getSectorTickets(vm.event, vm.priceclassFilter);
-            $location.update_path('/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sectors/' + selectedSectionId + '/');
+            $location.update_path('/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/' + selectedSectionId + '/');
         };
 
         vm.resetSelectedSectionId = function (selectedSectionId) {
@@ -198,7 +198,7 @@
                 },
                 {
                     accessRight: 'api_reports_sections',
-                    tab: 'sectors'
+                    tab: 'sections'
                 },
                 {
                     accessRight: 'api_reports_priceclass',
