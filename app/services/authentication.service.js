@@ -108,6 +108,10 @@
                 if (results.user) {
                     $rootScope.authenticated = true;
                     $rootScope.user = results.user;
+                    var userPoint = $filter('filter')($rootScope.user.salesPoints, function (s) {return s.id == next.params.pointId;})[0];
+                    if(next.params.pointId && userPoint) {
+                        $rootScope.user.point = userPoint.id;
+                    }
                     pointService.setPoint($rootScope.user.point);
                     if (typeof($location.search().key) !== 'undefined') {
                         $location.search('key', null);
