@@ -370,6 +370,15 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function eventSalesReportByLocation($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByLocation", $data );
+		
+		return $reportData;
+	}
+	
 	public function boUrl(){
 		return $this->getBoUrl();
 	}

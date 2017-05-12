@@ -1026,6 +1026,33 @@ $app->post('/sectionTickets', function() use ($app)  {
 	}
 });
 
+$app->post('/eventSalesReportByLocation', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id', 'type'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['eventId'] = $r->id;
+	$filter['isShow'] = $r->type=="show";
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesReportByLocation( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
 $app->get('/test', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
@@ -1036,7 +1063,7 @@ $app->get('/test', function() use ($app)  {
 	$filter['endDate'] = "2017-05-01T16:10:00.000Z";
 
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->sectionTickets( $filter );
+    $reportResponse = $piletileviApi->eventSalesReportByLocation( $filter );
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
