@@ -219,7 +219,13 @@
                     if ($rootScope.hasFullAccess(accessRight.accessRight) && accessRight.tab == $routeParams.reportType) {
                         vm.currentTab = accessRight.tab;
                         if ($routeParams.sectorId) {
-                            vm.setSelectedSectionId($routeParams.sectorId);
+                            $scope.$watch('vm.event.sellPeriod', function (newSellPeriod, oldSellPeriod) {
+                                if (newSellPeriod !== oldSellPeriod) {
+                                    vm.priceclassFilter.period.startDate = moment(newSellPeriod.start);
+                                    vm.priceclassFilter.period.endDate = moment(newSellPeriod.end);
+                                    vm.setSelectedSectionId($routeParams.sectorId);
+                                }
+                            });
                         }
                     }
                 });
@@ -257,10 +263,10 @@
         $scope.$watch('vm.sectorTickets', function (newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
                 angular.forEach(newValue.tickets, function (ticket) {
-                    ticket.available = !!ticket.status;
+                    ticket.id = ticket.seatId;
+                    //ticket.available = true;
                     ticket.priceClass = ticket.priceClassId;
                 });
-
                 vm.event.seatsMapConfig.priceClasses = newValue.priceClasses;
                 vm.event.seatsMapConfig.seatsInfo = newValue.tickets;
             }

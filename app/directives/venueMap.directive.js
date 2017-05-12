@@ -402,7 +402,6 @@
                             self.refreshStatus();
                         };
                         this.refreshStatus = function () {
-                            console.log('refreshStatus');
                             if (!enabled) {
                                 this.markDisabled();
                             } else {
@@ -942,8 +941,6 @@
                             if (sectionId == currentSection) {
                                 self.update();
                             }
-
-                            console.log(map.getComponentElement());
                         };
                         this.update = function () {
                             if (currentSection != venueMap.getSelectedSection() && maps[currentSection]) {
@@ -996,8 +993,6 @@
                                 return;
                             }
                             displayed = newDisplayed;
-                            console.log('displ pl ' + currentSection)
-                            console.log(maps)
                             if (displayed && currentSection && maps[currentSection]) {
                                 maps[currentSection].setDisplayed(true);
                             }
@@ -1152,7 +1147,6 @@
                             //svgElement.style.marginTop = -componentElement.clientHeight / 2 + 'px';
                         };
                         this.setDisplayed = function (newDisplayed) {
-                            console.log('setDisplayed ' + newDisplayed)
                             if (displayed != newDisplayed) {
                                 displayed = newDisplayed;
                                 componentElement.style.display = displayed ? '' : 'none';
