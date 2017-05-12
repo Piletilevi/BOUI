@@ -1057,10 +1057,9 @@ $app->get('/test', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
 	$filter = array();
-	$filter['concertId'] = 200069;
-	$filter['sectionId'] = 9498;
-	$filter['startDate'] = "2016-10-25T18:19:40.000Z";
-	$filter['endDate'] = "2017-05-01T16:10:00.000Z";
+	$filter['eventId'] = 198613;
+	$filter['startDate'] = "2016-10-12T18:19:40.000Z";
+	$filter['endDate'] = "2017-05-12T16:10:00.000Z";
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByLocation( $filter );
