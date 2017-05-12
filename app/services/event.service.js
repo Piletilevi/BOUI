@@ -22,6 +22,7 @@
 		var myPriceTypeData = null;
 		var myPriceTypeGraphData = null;
 		var myPriceClassData = null;
+		var myLocationsData = null;
 		var myPriceClassGraphData = null;
 		var mySectorsData = null;
 		var sectorInfo = null;
@@ -41,6 +42,7 @@
 			myPriceTypeData: function() { return myPriceTypeData },
 			myPriceTypeGraphData: function() { return myPriceTypeGraphData },
 			myPriceClassData: function() { return myPriceClassData },
+			myLocationsData: function() { return myLocationsData },
 			myPriceClassGraphData: function() { return myPriceClassGraphData },
 			mySectorsData: function() { return mySectorsData },
 			sectorInfo: function() { return sectorInfo },
@@ -60,6 +62,7 @@
 			getOverviewGraphData : getOverviewGraphData,
 			getPriceTypeData : getPriceTypeData,
 			getPriceClassData : getPriceClassData,
+			getLocationsData : getLocationsData,
 			getPriceClassGraphData : getPriceClassGraphData,
 			getPriceTypeGraphData : getPriceTypeGraphData,
 			getSectorsData: getSectorsData,
@@ -82,6 +85,7 @@
 			myPriceClassData = null;
 			myPriceClassGraphData = null;
 			mySectorsData = null;
+			myLocationsData = null;
 			sectorInfo = null;
 			sectorTickets = null;
 			relatedEvents = null;
@@ -407,6 +411,42 @@
 				dataService.page(results);
 				if (results.status == 'success'){
 					myPriceClassData = results.data;
+				}
+			});
+		}
+
+		function getLocationsData(event, filter) {
+			dataService.post('eventSalesReportByLocations', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+				myLocationsData = null;
+				if(results && results.data.sales.length > 0) {
+					results.data.salesTotal = {
+						internetCount: 0,
+						spCount: 0,
+						totalCount: 0,
+						totalSum: 0,
+						percent: 100,
+						currency: results.data.sales[0].currency
+					};
+					angular.forEach(results.data.sales, function (country) {
+						country.totalCount = country.spCount + country.internetCount;
+						country.totalSum = country.spSum + country.internetSum;
+						results.data.salesTotal.internetCount += country.internetCount;
+						results.data.salesTotal.spCount += country.spCount;
+						results.data.salesTotal.totalCount += country.totalCount;
+						results.data.salesTotal.totalSum += country.totalSum;
+					});
+					angular.forEach(results.data.sales, function (country) {
+						country.percent = country.totalCount / results.data.salesTotal.totalCount * 100;
+						angular.forEach(country.cities, function (city) {
+							city.totalCount = city.spCount + city.internetCount;
+							city.totalSum = city.spSum + city.internetSum;
+							city.percent = city.totalCount / results.data.salesTotal.totalCount * 100;
+						});
+					});
+				}
+				dataService.page(results);
+				if (results.status == 'success'){
+					myLocationsData = results.data;
 				}
 			});
 		}

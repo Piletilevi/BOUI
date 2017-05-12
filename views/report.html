@@ -694,7 +694,85 @@
             <!-- Tab: locations -->
             <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'locations'}" id="locations" role="tabpanel">
                 <div class="panel-body">
-                    Locations
+                    <div class="bo-salesoverview-controls clearfix">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <span class="visible-print">{{'api_print_period'|translate}}</span>
+                                <div class="input-group data_range">
+                                    <input type="text" daterangepicker class="form-control"
+                                           ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
+                                           ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+                                     <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-control="daterangepicker">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </button>
+                                     </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table ng-if="vm.myLocationsData.sales.length > 0" class="bo-locationstable table table-condensed table-small bo-table-report">
+                        <thead>
+                        <tr>
+                            <th>
+                                {{'api_locations_location'|translate}}
+                            </th>
+                            <th>
+                                {{'api_locations_internet'|translate}}
+                            </th>
+                            <th>
+                                {{'api_locations_salespoints'|translate}}
+                            </th>
+                            <th>
+                                {{'api_locations_total'|translate}}
+                            </th>
+                            <th>
+                                %
+                            </th>
+                            <th>
+                                {{'api_locations_revenue'|translate}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tr class="bo-table-title-row bo-table-title-row-bold">
+                            <td>{{'api_locations_all_sales'|translate}}</td>
+                            <td>{{vm.myLocationsData.salesTotal.internetCount}}</td>
+                            <td>{{vm.myLocationsData.salesTotal.spCount}}</td>
+                            <td>{{vm.myLocationsData.salesTotal.totalCount}}</td>
+                            <td>{{vm.myLocationsData.salesTotal.percent}}%</td>
+                            <td ng-if="hasFullAccess('api_reports_revenue')">
+                                {{(vm.myLocationsData.salesTotal.totalSum) | number:2}} {{vm.myLocationsData.salesTotal.currency}}
+                            </td>
+                        </tr>
+                        <tbody ng-repeat="locationData in vm.myLocationsData.sales">
+                            <tr class="bo-table-secondarytitle-row">
+                                <td>{{locationData.country|translate}}</td>
+                                <td>{{locationData.internetCount}}</td>
+                                <td>{{locationData.spCount}}</td>
+                                <td>{{locationData.totalCount}}</td>
+                                <td>{{(locationData.percent) | number:0}}</td>
+                                <td ng-if="hasFullAccess('api_reports_revenue')">
+                                    {{(locationData.totalSum) | number:2}} {{locationData.currency}}
+                                </td>
+                            </tr>
+                            <tr ng-repeat="city in locationData.cities">
+                                <td>{{city.city|translate}}</td>
+                                <td>{{city.internetCount}}</td>
+                                <td>{{city.spCount}}</td>
+                                <td>{{city.totalCount}}</td>
+                                <td>{{(city.percent) | number:0}}%</td>
+                                <td ng-if="hasFullAccess('api_reports_revenue')">
+                                    {{(city.totalSum) | number:2}} {{city.currency}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="vm.myLocationsData.sales.length == 0">
+                        <div class="bo-no-data-msg">
+                            {{'api_no_data_available'|translate}}
+                        </div>
+                    </div>
                 </div>
             </div>
 

@@ -65,6 +65,7 @@
             groupBy: 'day'
         };
         vm.sectorsFilter = {period: {startDate: null, endDate: null}};
+        vm.locationsFilter = {period: {startDate: null, endDate: null}};
         vm.reset_search = false;
         vm.overviewBarGraph = graphService.overviewBarGraph;
         vm.overviewLineGraph = graphService.overviewLineGraph;
@@ -124,7 +125,9 @@
             } else if (tab == 'sections') {
                 eventService.getSectorsData(vm.event, vm.sectorsFilter);
             }
-
+            else if (tab == 'locations') {
+                eventService.getLocationsData(vm.event, vm.locationsFilter);
+            }
             if(tab != 'sections') {
                 $scope.selectedSectionId = false;
             }
@@ -249,6 +252,7 @@
                 vm.myPriceClassPieData = eventService.myPriceClassData();
                 vm.myPriceClassLineData = eventService.myPriceClassGraphData();
                 vm.mySectorsData = eventService.mySectorsData();
+                vm.myLocationsData = eventService.myLocationsData();
                 vm.relatedEvents = eventService.relatedEvents();
                 vm.sectorTickets = eventService.sectorTickets();
             }
@@ -402,6 +406,8 @@
                 vm.priceclassFilter.period.endDate = moment(newSellPeriod.end);
                 vm.sectorsFilter.period.startDate = moment(newSellPeriod.start);
                 vm.sectorsFilter.period.endDate = moment(newSellPeriod.end);
+                vm.locationsFilter.period.startDate = moment(newSellPeriod.start);
+                vm.locationsFilter.period.endDate = moment(newSellPeriod.end);
                 vm.minFilterDate = vm.overviewFilter.period.startDate;
                 vm.maxFilterDate = vm.overviewFilter.period.endDate;
                 vm.tabSelectEvent(vm.currentTab);
@@ -436,6 +442,7 @@
                 vm.pricetypeFilter.period = vm.filterPeriod;
                 vm.priceclassFilter.period = vm.filterPeriod;
                 vm.sectorsFilter.period = vm.filterPeriod;
+                vm.locationsFilter.period = vm.filterPeriod;
                 vm.tabSelectEvent(vm.currentTab);
             }
         });
