@@ -416,7 +416,7 @@
 		}
 
 		function getLocationsData(event, filter) {
-			dataService.post('eventSalesReportByLocations', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+			dataService.post('eventSalesReportByLocation', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
 				myLocationsData = null;
 				if(results && results.data.sales.length > 0) {
 					results.data.salesTotal = {
