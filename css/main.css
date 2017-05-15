@@ -1223,6 +1223,13 @@ a:hover {
 	border-top: 8px solid #fff;
 }
 
+.bo-locationstable.table  > tbody > .bo-table-title-row-bold > td {
+	border-bottom: none;
+}
+
+.bo-locationstable > tbody > .bo-table-secondarytitle-row td {
+	font-weight: bold;
+}
 /* Chart
 ================================ */
 .bo-chart {
