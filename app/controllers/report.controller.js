@@ -268,7 +268,7 @@
             if (!angular.equals(newValue, oldValue)) {
                 angular.forEach(newValue.tickets, function (ticket) {
                     ticket.id = ticket.seatId;
-                    //ticket.available = true;
+                    ticket.available = !!ticket.status;
                     ticket.priceClass = ticket.priceClassId;
                 });
                 vm.event.seatsMapConfig.priceClasses = newValue.priceClasses;
