@@ -52,51 +52,6 @@
         ]
     },
     {
-        "name": "firebase/php-jwt",
-        "version": "v3.0.0",
-        "version_normalized": "3.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/firebase/php-jwt.git",
-            "reference": "fa8a06e96526eb7c0eeaa47e4f39be59d21f16e1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/firebase/php-jwt/zipball/fa8a06e96526eb7c0eeaa47e4f39be59d21f16e1",
-            "reference": "fa8a06e96526eb7c0eeaa47e4f39be59d21f16e1",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2015-07-22 18:31:08",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Firebase\\JWT\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Neuman Vong",
-                "email": "neuman+pear@twilio.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Anant Narayanan",
-                "email": "anant@php.net",
-                "role": "Developer"
-            }
-        ],
-        "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
-        "homepage": "https://github.com/firebase/php-jwt"
-    },
-    {
         "name": "slim/logger",
         "version": "0.1.0",
         "version_normalized": "0.1.0.0",
@@ -135,58 +90,6 @@
             }
         ],
         "description": "Slim Framework logger"
-    },
-    {
-        "name": "phpfastcache/phpssdb",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/PHPSocialNetwork/phpssdb.git",
-            "reference": "6755b00200d28ce59cfabde2274d41b045acae98"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/PHPSocialNetwork/phpssdb/zipball/6755b00200d28ce59cfabde2274d41b045acae98",
-            "reference": "6755b00200d28ce59cfabde2274d41b045acae98",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.0"
-        },
-        "time": "2016-07-02 12:58:46",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "phpssdb\\": "src/phpssdb/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Khoa Bui",
-                "email": "khoaofgod@gmail.com",
-                "homepage": "http://www.phpfastcache.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Georges.L",
-                "email": "contact@geolim4.com",
-                "homepage": "https://github.com/Geolim4",
-                "role": "Developer"
-            }
-        ],
-        "description": "PHP SSDB Driver for phpFastCache",
-        "homepage": "http://www.phpfastcache.com",
-        "keywords": [
-            "cache",
-            "driver",
-            "ssdb"
-        ]
     },
     {
         "name": "predis/predis",
@@ -338,18 +241,130 @@
         ]
     },
     {
-        "name": "phpfastcache/phpfastcache",
-        "version": "5.0.14",
-        "version_normalized": "5.0.14.0",
+        "name": "lcobucci/jwt",
+        "version": "3.2.1",
+        "version_normalized": "3.2.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/PHPSocialNetwork/phpfastcache.git",
-            "reference": "ab27cf51e35f55f72a8ff6e742806e1f2b013ee5"
+            "url": "https://github.com/lcobucci/jwt.git",
+            "reference": "ddce703826f9c5229781933b1a39069e38e6a0f3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/ab27cf51e35f55f72a8ff6e742806e1f2b013ee5",
-            "reference": "ab27cf51e35f55f72a8ff6e742806e1f2b013ee5",
+            "url": "https://api.github.com/repos/lcobucci/jwt/zipball/ddce703826f9c5229781933b1a39069e38e6a0f3",
+            "reference": "ddce703826f9c5229781933b1a39069e38e6a0f3",
+            "shasum": ""
+        },
+        "require": {
+            "ext-openssl": "*",
+            "php": ">=5.5"
+        },
+        "require-dev": {
+            "mdanter/ecc": "~0.3.1",
+            "mikey179/vfsstream": "~1.5",
+            "phpmd/phpmd": "~2.2",
+            "phpunit/php-invoker": "~1.1",
+            "phpunit/phpunit": "~4.5",
+            "squizlabs/php_codesniffer": "~2.3"
+        },
+        "suggest": {
+            "mdanter/ecc": "Required to use Elliptic Curves based algorithms."
+        },
+        "time": "2016-10-31 20:09:32",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Lcobucci\\JWT\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Luís Otávio Cobucci Oblonczyk",
+                "email": "lcobucci@gmail.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "A simple library to work with JSON Web Token and JSON Web Signature",
+        "keywords": [
+            "JWS",
+            "jwt"
+        ]
+    },
+    {
+        "name": "phpfastcache/phpssdb",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PHPSocialNetwork/phpssdb.git",
+            "reference": "60cc285bf622664d9899da699503754259e8c970"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/PHPSocialNetwork/phpssdb/zipball/60cc285bf622664d9899da699503754259e8c970",
+            "reference": "60cc285bf622664d9899da699503754259e8c970",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2017-04-21 22:22:57",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "phpssdb\\": "src/phpssdb/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Khoa Bui",
+                "email": "khoaofgod@gmail.com",
+                "homepage": "http://www.phpfastcache.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Georges.L",
+                "email": "contact@geolim4.com",
+                "homepage": "https://github.com/Geolim4",
+                "role": "Developer"
+            }
+        ],
+        "description": "PHP SSDB Driver for phpFastCache",
+        "homepage": "http://www.phpfastcache.com",
+        "keywords": [
+            "cache",
+            "driver",
+            "ssdb"
+        ]
+    },
+    {
+        "name": "phpfastcache/phpfastcache",
+        "version": "5.0.16",
+        "version_normalized": "5.0.16.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PHPSocialNetwork/phpfastcache.git",
+            "reference": "a24094a3af45773b7f43e98e37c37349d25f4ad0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/a24094a3af45773b7f43e98e37c37349d25f4ad0",
+            "reference": "a24094a3af45773b7f43e98e37c37349d25f4ad0",
             "shasum": ""
         },
         "require": {
@@ -369,7 +384,7 @@
             "ext-redis": "*",
             "ext-sqlite": "*"
         },
-        "time": "2017-01-05 18:23:13",
+        "time": "2017-04-13 20:34:32",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

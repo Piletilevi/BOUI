@@ -22,7 +22,7 @@
 
 
 				var showCompareSelect = $attributes.hasOwnProperty("showcompareselect") ? true : false;
-
+                var defaultValuesSet = false;
 				var options = {};
 				options.locale = {};
 				options.locale.format = 'DD.MM.YYYY';
@@ -70,6 +70,9 @@
 						'<a href="#" id="todayLink">' + $translate.instant('api_calendar_today') + '</a>|' +
 						'<a href="#" id="weekLink">' + $translate.instant('api_calendar_week') + '</a>|' +
 						'<a href="#" id="monthLink">' + $translate.instant('api_calendar_month') + '</a></div>' +
+						'<div class="calendar-links">' +
+						'<a href="#" id="lastWeekLink">' + $translate.instant('api_calendar_last_week') + '</a>|' +
+						'<a href="#" id="lastMonthLink">' + $translate.instant('api_calendar_last_month') + '</a></div>' +
 						'<div class="daterangepicker_input_wrapper">' +
 						'<div class="daterangepicker_input">' +
 						'<input class="input-mini form-control" type="text" name="daterangepicker_start" value="" />' +
@@ -106,16 +109,17 @@
 					options.template +=
 						'<div class="range_inputs">' +
 						'<button class="applyBtn" disabled="disabled" type="button"></button> ' +
-						'<button class="cancelBtn" type="button"></button>' +
 						'<button class="btn resetBtn" type="button">' + $translate.instant('api_calendar_resetLabel') + '</button>' +
 						'<div class="clearer"></div>' +
 						'</div>' +
 						'</div>' +
+						'<button class="cancelBtn" type="button"></button>' +
 						'</div>';
 
 					options.autoApply = false;
 					options.minDate = $attributes.minDate ? moment($attributes.minDate) : false;
 					options.maxDate = $attributes.maxDate ? moment($attributes.maxDate) : false;
+
 
 					$element.daterangepicker(options, function(start, end, label) {
 						var modelValue = ngModel.$viewValue;
@@ -137,36 +141,68 @@
 
 				function updateCaledarDates(startDate, endDate) {
 					setTimeout(function() {
-						$element.data('daterangepicker').setStartDate(startDate);
-						$element.data('daterangepicker').setEndDate(endDate);
-						$element.data('daterangepicker').updateView();
-						$element.data('daterangepicker').updateCalendars();
+                        if($element.data('daterangepicker')) {
+							$element.data('daterangepicker').setStartDate(startDate);
+                            $element.data('daterangepicker').setEndDate(endDate);
+                            $element.data('daterangepicker').updateView();
+                            $element.data('daterangepicker').updateCalendars();
+                        }
 					}, 1);
 				}
 
 				ngModel.$render = function() {
-					$("body").on("click", ".calendar-links > #todayLink", function($event) {
+					var datepickerContainer = '[data-binded-model="'+$element.attr('ng-model')+'"]';
+
+					$('body').on("click", datepickerContainer + " .calendar-links > #todayLink", function($event) {
 						$event.preventDefault();
 						updateCaledarDates(moment(), moment());
 					});
 
-					$("body").on("click", ".calendar-links > #weekLink", function($event) {
-						$event.preventDefault();
-						updateCaledarDates(moment().startOf('week'), moment().endOf('week'));
+					$('body').on("keyup", datepickerContainer + " [name='daterangepicker_start']", function() {
+						updateCaledarDates(
+							moment($(this).val(), 'DD.MM.YYYY'),
+							moment($(this).parent().parent().find('[name="daterangepicker_end"]').val(), 'DD.MM.YYYY')
+						);
 					});
 
-					$("body").on("click", ".calendar-links > #monthLink", function($event) {
-						$event.preventDefault();
-						updateCaledarDates(moment().startOf('month'), moment().endOf('month'));
+					$('body').on("keyup", datepickerContainer + " [name='daterangepicker_end']", function() {
+						updateCaledarDates(
+							moment($(this).parent().parent().find('[name="daterangepicker_start"]').val(), 'DD.MM.YYYY'),
+							moment($(this).val(), 'DD.MM.YYYY')
+						);
 					});
 
-					$("body").on("click", ".resetBtn", function($event) {
-						$element.data('daterangepicker').setStartDate(moment().subtract(7, 'days'));
-						$element.data('daterangepicker').setEndDate(moment().add(1, 'years'));
-						$element.data('daterangepicker').updateView();
-						$element.data('daterangepicker').updateCalendars();
-						$element.data('daterangepicker').hide();
+					$('body').on("click", datepickerContainer + " .calendar-links > #weekLink", function($event) {
+						$event.preventDefault();
+						updateCaledarDates(moment().startOf('week'), moment());
 					});
+
+					$('body').on("click", datepickerContainer + " .calendar-links > #lastWeekLink", function($event) {
+						$event.preventDefault();
+						updateCaledarDates(moment().subtract(7, 'days').startOf('week'), moment().subtract(7, 'days').endOf('week'));
+					});
+
+					$('body').on("click", datepickerContainer + " .calendar-links > #lastMonthLink", function($event) {
+						$event.preventDefault();
+						updateCaledarDates(moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month'));
+					});
+
+					$('body').on("click", datepickerContainer + " .calendar-links > #monthLink", function($event) {
+						$event.preventDefault();
+						updateCaledarDates(moment().startOf('month'), moment());
+					});
+
+					//$('body').on("click", datepickerContainer + " .resetBtn", function($event) {
+                     //   setTimeout(function() {
+                     //       if($element.data('daterangepicker')) {
+                     //           $element.data('daterangepicker').setStartDate(moment().subtract(7, 'days'));
+                     //           $element.data('daterangepicker').setEndDate(moment().add(1, 'years'));
+                     //           $element.data('daterangepicker').updateView();
+                     //           $element.data('daterangepicker').updateCalendars();
+                     //           $element.data('daterangepicker').hide();
+                     //       }
+                     //   }, 1);
+					//});
 
 					$datepickerWrapper.on("click", function() {
 						$element.data('daterangepicker').show();
@@ -185,32 +221,29 @@
 				});
 
 				$scope.$watch(function() {
-					
-					var reRender = false;
-					
-					if (ngModel.$modelValue.startDate && options.startDate != ngModel.$modelValue.startDate) {
-						reRender = true;
-						$element.data('daterangepicker').setStartDate(ngModel.$modelValue.startDate);
+					if(!ngModel.$modelValue) {
+						return false;
 					}
-					if (ngModel.$modelValue.endDate && options.endDate != ngModel.$modelValue.endDate) {
-						reRender = true;
-						$element.data('daterangepicker').setEndDate(ngModel.$modelValue.endDate);
-					}
-					if (reRender) {
+                    if (ngModel.$modelValue.startDate && ngModel.$modelValue.endDate && !defaultValuesSet) {
+                        $element.data('daterangepicker').setStartDate(ngModel.$modelValue.startDate);
+                        $element.data('daterangepicker').setEndDate(ngModel.$modelValue.endDate);
+                        defaultValuesSet = true;
+                    }
+					return ngModel.$modelValue.startDate;
+				}, function(modelValue, oldModelValue) {
+					if(!angular.equals(modelValue, oldModelValue)) {
+						if (ngModel.$modelValue.startDate) {
+							var startDateUtcOffset = moment(ngModel.$modelValue.startDate).utcOffset();
+							ngModel.$modelValue.startDate = moment(ngModel.$modelValue.startDate).utc().add(startDateUtcOffset, 'm').startOf('day');
+							$element.data('daterangepicker').setStartDate(ngModel.$modelValue.startDate);
+						}
+						if (ngModel.$modelValue.endDate) {
+							var endDateUtcOffset = moment(ngModel.$modelValue.endDate).utcOffset();
+							ngModel.$modelValue.endDate = moment(ngModel.$modelValue.endDate).utc().add(endDateUtcOffset, 'm').endOf('day');
+							$element.data('daterangepicker').setEndDate(ngModel.$modelValue.endDate);
+						}
 						renderDateTimePicker();
 					}
-					return $attributes.ngModel;
-				}, function(modelValue, oldModelValue) {
-					if (!ngModel.$modelValue || (!ngModel.$modelValue.startDate)) {
-						return;
-					}
-
-					if (oldModelValue !== modelValue) {
-						return;
-					}
-
-					$element.data('daterangepicker').updateView();
-					$element.data('daterangepicker').updateCalendars();
 				});
 			}
 

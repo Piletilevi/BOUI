@@ -22,11 +22,14 @@
 		var myPriceTypeData = null;
 		var myPriceTypeGraphData = null;
 		var myPriceClassData = null;
+		var myLocationsData = null;
 		var myPriceClassGraphData = null;
 		var mySectorsData = null;
 		var sectorInfo = null;
 		var sectorTickets = null;
-
+		var relatedEvents = null;
+		var loadingRelatedItems = false;
+		
 		var service = {
 			myOpenEvents: function() { return myOpenEvents },
 			myDraftEvents: function() { return myDraftEvents },
@@ -39,13 +42,19 @@
 			myPriceTypeData: function() { return myPriceTypeData },
 			myPriceTypeGraphData: function() { return myPriceTypeGraphData },
 			myPriceClassData: function() { return myPriceClassData },
+			myLocationsData: function() { return myLocationsData },
 			myPriceClassGraphData: function() { return myPriceClassGraphData },
 			mySectorsData: function() { return mySectorsData },
 			sectorInfo: function() { return sectorInfo },
 			sectorTickets: function() { return sectorTickets },
+			relatedEvents: function() { return relatedEvents },
 			reset: reset,
 			getMyEvents: getMyEvents,
+			getMyEventsCount: getMyEventsCount,
 			getMoreEvents: getMoreEvents,
+			getRelatedEvents: getRelatedEvents,
+			getMoreRelatedEvents: getMoreRelatedEvents,
+			hasMoreRelatedEvents: hasMoreRelatedEvents,
 			getEventSales: getEventSales,
 			getEventInfo: getEventInfo,
 			getEventOpSales: getEventOpSales,
@@ -53,6 +62,7 @@
 			getOverviewGraphData : getOverviewGraphData,
 			getPriceTypeData : getPriceTypeData,
 			getPriceClassData : getPriceClassData,
+			getLocationsData : getLocationsData,
 			getPriceClassGraphData : getPriceClassGraphData,
 			getPriceTypeGraphData : getPriceTypeGraphData,
 			getSectorsData: getSectorsData,
@@ -68,6 +78,17 @@
 			myOpenCount = 0;
 			myDraftCount = 0;
 			myPastCount = 0;
+			myOverviewData = null;
+			myOverviewGraphData = null;
+			myPriceTypeData = null;
+			myPriceTypeGraphData = null;
+			myPriceClassData = null;
+			myPriceClassGraphData = null;
+			mySectorsData = null;
+			myLocationsData = null;
+			sectorInfo = null;
+			sectorTickets = null;
+			relatedEvents = null;
 		}
 
 		function getMyEvents(filter) {
@@ -85,15 +106,33 @@
 			filter.draftStart = null;
 			filter.pastStart = null;
 			filter.loadingItems = true;
-
+			
+			getMyEventsCount(filter);
+			
 			dataService.post('myEvents', {filter: filter}).then(function (results) {
+				dataService.page(results);
+				if (results.status == 'success'){
+					if (filter.status == 'onsale') {
+						myOpenEvents = results.data;
+					} else if (filter.status == 'draft') {
+						myDraftEvents = results.data;
+					} else {
+						myPastEvents = results.data;
+					}
+					filter.loadingItems = false;
+				}
+			});
+		}
+
+		function getMyEventsCount(filter) {
+			dataService.post('myEventsCount', {filter: filter}).then(function (results) {
 				myOpenCount = 0;
 				myDraftCount = 0;
 				myPastCount = 0;
 
 				dataService.page(results);
 
-				if (results.status == 'success'){
+				if (results && results.count){
 					myOpenCount = results.count.open;
 					if (results.count.hasMoreOpen) {
 						myOpenCount = myOpenCount + "+";
@@ -108,19 +147,10 @@
 					if (results.count.hasMorePast) {
 						myPastCount = myPastCount + "+";
 					}
-
-					if (filter.status == 'onsale') {
-						myOpenEvents = results.data;
-					} else if (filter.status == 'draft') {
-						myDraftEvents = results.data;
-					} else {
-						myPastEvents = results.data;
-					}
-					filter.loadingItems = false;
 				}
 			});
 		}
-
+		
 		function getMoreEvents(filter) {
 
 			if (filter.loadingItems)
@@ -168,8 +198,45 @@
 			}
 		}
 
+		function hasMoreRelatedEvents(event) {
+			if (relatedEvents && relatedEvents.concerts && relatedEvents.concerts.length % 5 == 0 && relatedEvents.start != relatedEvents.concerts.length + 1) {
+				return true;
+			}
+			return false;
+		}
+
+		function getMoreRelatedEvents(event) {
+
+			if (loadingRelatedItems)
+				return;
+
+			if (hasMoreRelatedEvents(event)) {
+				loadingRelatedItems = true;
+				relatedEvents.start = relatedEvents.concerts.length + 1;
+				dataService.post('relatedEvents', {id: event.id, type: event.isShow ? 'show' : 'concert', start: relatedEvents.start}).then(function (results) {
+					if (results.status == 'success') {
+						if (results.data && results.data.concerts) {
+							results.data.concerts.forEach(function(eventItem) {
+								relatedEvents.concerts.push(eventItem);
+							});
+						}
+					}
+					loadingRelatedItems = false;
+				});
+			}
+		}
+
+		function getRelatedEvents(event) {
+			dataService.post('relatedEvents', {id: event.id, type: event.isShow ? 'show' : 'concert'}).then(function (results) {
+				relatedEvents = null;
+				if (results.status == 'success'){
+					relatedEvents = results.data;
+				}
+			});
+		}
+
 		function getEventSales(event) {
-			if (event.isShow || event.concertsCount > 1) {
+			if (event.isShow) {
 				getShowSales(event);
 			} else {
 				getConcertSales(event);
@@ -177,7 +244,7 @@
 		}
 
 		function getEventSalesBySectors(event, filter) {
-			if (event.isShow || event.concertsCount > 1) {
+			if (event.isShow) {
 				//nothing,
 			} else {
 				getConcertSalesBySectors(event, filter);
@@ -193,7 +260,7 @@
 		}
 
 		function getEventOpSales(event, filter) {
-			if (event.isShow || event.concertsCount > 1) {
+			if (event.isShow) {
 				getShowOpSales(event, filter);
 			} else {
 				getConcertOpSales(event, filter);
@@ -204,8 +271,18 @@
 			dataService.post('concertSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
+					event.name = results.data.name;
+					event.confId = results.data.confId;
+					event.eventPeriod = results.data.eventPeriod;
+					event.isSamePeriod = results.data.isSamePeriod;
+					event.sellPeriod = results.data.sellPeriod;
+					event.showId = results.data.showId;
+					event.location = results.data.location;
 					event.statistics = results.data.statistics;
-					event.websiteUrl = getWebsiteUrl(event);
+					event.websiteUrl = results.data.websiteUrl;
+					event.status = results.data.status;
+					event.statusName = results.data.statusName;
+					event.labelCode = results.data.labelCode;
 				}
 			});
 		}
@@ -216,6 +293,20 @@
 				dataService.page(results);
 				if (results.status == 'success'){
 					mySectorsData = results.data;
+					mySectorsData.salesTotal = {
+						soldTickets: 0,
+						bookedTickets: 0,
+						availableTickets: 0,
+						soldPercent: 0,
+						soldSumma: 0
+					};
+					angular.forEach(mySectorsData.sales,function(sectorItem){
+						mySectorsData.salesTotal.soldTickets += sectorItem.statistics.soldTickets;
+						mySectorsData.salesTotal.bookedTickets += sectorItem.statistics.bookedTickets;
+						mySectorsData.salesTotal.availableTickets += sectorItem.statistics.availableTickets;
+						mySectorsData.salesTotal.soldPercent += sectorItem.statistics.soldPercent;
+						mySectorsData.salesTotal.soldSumma += sectorItem.statistics.soldSumma;
+					});
 				}
 			});
 		}
@@ -224,8 +315,18 @@
 			dataService.post('showSales', {id: event.id}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
+					event.name = results.data.name;
+					event.eventPeriod = results.data.eventPeriod;
+					event.isSamePeriod = results.data.isSamePeriod;
+					event.locations = results.data.locations;
+					event.concerts = results.data.concerts;
+					event.concertsCount = results.data.concertsCount;
+					event.sellPeriod = results.data.sellPeriod;
 					event.statistics = results.data.statistics;
-					event.websiteUrl = getWebsiteUrl(event);
+					event.websiteUrl = results.data.websiteUrl;
+					event.status = results.data.status;
+					event.statusName = results.data.statusName;
+					event.labelCode = results.data.labelCode;
 				}
 			});
 		}
@@ -238,14 +339,18 @@
 					event.confId = results.data.confId;
 					event.eventPeriod = results.data.eventPeriod;
 					event.sellPeriod = results.data.sellPeriod;
+					event.showId = results.data.showId;
 					event.location = results.data.location;
-					event.websiteUrl = getWebsiteUrl(event);
+					event.websiteUrl = results.data.websiteUrl;
+					event.status = results.data.status;
+					event.statusName = results.data.statusName;
+					event.labelCode = results.data.labelCode;
 				}
 			});
 		}
 
 		function getShowInfo(event) {
-			dataService.post('showInfo', {id: event.id}).then(function (results) {
+			dataService.post('showInfo', {id: event.id, includeConcerts: false}).then(function (results) {
 				dataService.page(results);
 				if (results.status == 'success'){
 					event.name = results.data.name;
@@ -254,7 +359,10 @@
 					event.concerts = results.data.concerts;
 					event.concertsCount = results.data.concertsCount;
 					event.sellPeriod = results.data.sellPeriod;
-					event.websiteUrl = getWebsiteUrl(event);
+					event.websiteUrl = results.data.websiteUrl;
+					event.status = results.data.status;
+					event.statusName = results.data.statusName;
+					event.labelCode = results.data.labelCode;
 				}
 			});
 		}
@@ -303,6 +411,42 @@
 				dataService.page(results);
 				if (results.status == 'success'){
 					myPriceClassData = results.data;
+				}
+			});
+		}
+
+		function getLocationsData(event, filter) {
+			dataService.post('eventSalesReportByLocation', {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (results) {
+				myLocationsData = null;
+				if(results && results.data.sales.length > 0) {
+					results.data.salesTotal = {
+						internetCount: 0,
+						spCount: 0,
+						totalCount: 0,
+						totalSum: 0,
+						percent: 100,
+						currency: results.data.sales[0].currency
+					};
+					angular.forEach(results.data.sales, function (country) {
+						country.totalCount = country.spCount + country.internetCount;
+						country.totalSum = country.spSum + country.internetSum;
+						results.data.salesTotal.internetCount += country.internetCount;
+						results.data.salesTotal.spCount += country.spCount;
+						results.data.salesTotal.totalCount += country.totalCount;
+						results.data.salesTotal.totalSum += country.totalSum;
+					});
+					angular.forEach(results.data.sales, function (country) {
+						country.percent = country.totalCount / results.data.salesTotal.totalCount * 100;
+						angular.forEach(country.cities, function (city) {
+							city.totalCount = city.spCount + city.internetCount;
+							city.totalSum = city.spSum + city.internetSum;
+							city.percent = city.totalCount / results.data.salesTotal.totalCount * 100;
+						});
+					});
+				}
+				dataService.page(results);
+				if (results.status == 'success'){
+					myLocationsData = results.data;
 				}
 			});
 		}
@@ -374,17 +518,7 @@
 		}
 
 		function getSectorInfo(event, filter) {
-			dataService.post('sectionInfo', {concertId: event.id, sectionId: event.sectorId, filter: filter}).then(function (results) {
-				sectorInfo = null;
-				dataService.page(results);
-				if (results.status == 'success'){
-					sectorInfo = results.data;
-				}
-			});
-		}
-
-		function getSectorInfo(event, filter) {
-			dataService.post('sectionInfo', {concertId: event.id, sectionId: event.sectorId, filter: filter}).then(function (results) {
+			dataService.post('sectionInfo', {concertId: event.id, filter: filter}).then(function (results) {
 				sectorInfo = null;
 				dataService.page(results);
 				if (results.status == 'success'){
@@ -394,7 +528,7 @@
 		}
 
 		function getSectorTickets(event, filter) {
-			dataService.post('sectionTickets', {concertId: event.id, sectionId: event.sectorId, filter: filter}).then(function (results) {
+			dataService.post('sectionTickets', {concertId: event.id, filter: filter}).then(function (results) {
 				sectorTickets = null;
 				dataService.page(results);
 				if (results.status == 'success'){
@@ -404,15 +538,27 @@
 		}
 				
 		function getWebsiteUrl(event) {
+
+			var urlParts = [],
+				links = $rootScope.eventLinks;
+				
+			if (event.isShow) {
+				urlParts.push(links.showUrl);
+			} else {
+				urlParts.push(links.concertUrl);
+			}
+
+			/* TODO translate and replace url path
 			var urlParts = ['http://www.piletilevi.ee'],
 				availableLanguages = ['est', 'rus', 'eng', 'fin'],
 				currentLang = $translate.proposedLanguage().toLowerCase();
 			if(availableLanguages.indexOf(currentLang) == -1) {
 				return false;
-			}
-			urlParts.push(currentLang);
+			}*/
+			
+			//urlParts.push(currentLang);
 			urlParts.push((event.isShow ? 'show' : 'concert') + '=' + event.id);
-			return urlParts.join('/');
+			return urlParts.join('');
 		}
 
 	}

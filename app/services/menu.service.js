@@ -37,25 +37,23 @@
         function toOldBo() {
             var boBasicUrl = '';
             dataService.getBoUrl().then(function(results) {
-                if (results.status === "success") {
+				if (results.status === "success") {
                     boBasicUrl = results.boBaseUrl;
-                }
-                else  boBasicUrl = '';
+					if ($rootScope.authenticated) {
+						dataService.getIp().then(function(result) {
+							dataService.post('getSessionKey',{'username':$rootScope.user.userId,'clientip':result.ip}).then(function (sessionResults) {
+								if (sessionResults.status === "success") {
+									var bourl = boBasicUrl.replace("{sessionkey}", sessionResults.boSession.sessionkey);
+									$window.location.href = bourl;
+								}
+							});
+						}, function(e) {
+							//alert("error");
+						});
+
+					}
+				}
             });
-
-            if ($rootScope.authenticated) {
-                dataService.getIp().then(function(result) {
-                    dataService.post('getSessionKey',{'username':$rootScope.user.userId,'clientip':result.ip}).then(function (results) {
-                        if (results.status === "success") {
-                            var bourl = boBasicUrl.replace("{sessionkey}", results.boSession.sessionkey);
-                            $window.location.href = bourl;
-                        }
-                    });
-                }, function(e) {
-                    //alert("error");
-                });
-
-            }
         }
     }
 })();

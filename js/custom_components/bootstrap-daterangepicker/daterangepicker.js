@@ -27,7 +27,6 @@
     }
 }(this, function(moment, $) {
     var DateRangePicker = function(element, options, cb) {
-
         //default settings for options
         this.parentEl = 'body';
         this.element = $(element);
@@ -37,6 +36,8 @@
         this.maxDate = false;
         this.dateLimit = false;
         this.autoApply = false;
+        this.defaultStartDate = false;
+        this.defaultEndDate = false;
         this.singleDatePicker = false;
         this.showDropdowns = false;
         this.showWeekNumbers = false;
@@ -384,6 +385,7 @@
 
         if ((typeof options.ranges === 'undefined' && !this.singleDatePicker) || this.alwaysShowCalendars) {
             this.container.addClass('show-calendar');
+            this.container.attr('data-binded-model', $(element).attr('ng-model'));
         }
 
         this.container.addClass('opens' + this.opens);
@@ -423,6 +425,7 @@
         this.container.find('.ranges')
             .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
             .on('click.daterangepicker', 'button.cancelBtn', $.proxy(this.clickCancel, this))
+            .on('click.daterangepicker', 'button.resetBtn', $.proxy(this.clickReset, this))
             .on('click.daterangepicker', 'li', $.proxy(this.clickRange, this))
             .on('mouseenter.daterangepicker', 'li', $.proxy(this.hoverRange, this))
             .on('mouseleave.daterangepicker', 'li', $.proxy(this.updateFormInputs, this));
@@ -1109,10 +1112,20 @@
 
             $(".daterangepicker")
 				.on('click', 'button.applyBtn', $.proxy(this.clickApply, this))
+                .on('click', 'button.resetBtn', $.proxy(this.clickReset, this))
 	            .on('click', 'button.cancelBtn', $.proxy(this.clickCancel, this));
 
             this.oldStartDate = this.startDate.clone();
             this.oldEndDate = this.endDate.clone();
+
+            if(!$(this.element).attr('data-default-start-date')) {
+                $(this.element).attr('data-default-start-date', this.startDate.clone().format(this.locale.format));
+            }
+            
+            if(!$(this.element).attr('data-default-end-date')) {
+                $(this.element).attr('data-default-end-date', this.endDate.clone().format(this.locale.format));
+            }
+
             this.previousRightTime = this.endDate.clone();
 
             this.updateView();
@@ -1403,6 +1416,14 @@
             this.hide();
             this.element.trigger('cancel.daterangepicker', this);
         },
+
+        clickReset: function(e) {
+            this.startDate = moment($(this.element).attr('data-default-start-date'), this.locale.format);
+            this.endDate = moment($(this.element).attr('data-default-end-date'), this.locale.format);
+            this.hide();
+            this.element.trigger('reset.daterangepicker', this);
+        },
+
 
         monthOrYearChanged: function(e) {
             var isLeft = $(e.target).closest('.calendar').hasClass('left'),

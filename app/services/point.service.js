@@ -2,23 +2,23 @@
  * Created by kaur on 20.09.2016.
  */
 
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('boApp')
         .factory('pointService', PointService);
 
-    PointService.$inject = ['$rootScope', '$location', 'dataService'];
+    PointService.$inject = ['$rootScope', '$location', 'dataService', 'eventService'];
 
-    function PointService($rootScope, $location, dataService) {
+    function PointService($rootScope, $location, dataService, eventService) {
         var service = {
-            getPointName : getPointName,
-            setPoint : setPoint,
-            getPointMenuBackgroundColor:getPointMenuBackgroundColor,
-            getPointMenuActiveColor:getPointMenuActiveColor,
-            getPointMenuLogo:getPointMenuLogo,
-            initialize:initialize
+            getPointName: getPointName,
+            setPoint: setPoint,
+            getPointMenuBackgroundColor: getPointMenuBackgroundColor,
+            getPointMenuActiveColor: getPointMenuActiveColor,
+            getPointMenuLogo: getPointMenuLogo,
+            initialize: initialize
         };
         return service;
 
@@ -27,24 +27,39 @@
             return point.id === $rootScope.user.point;
         }
 
-        function getPointName(){
-            return $rootScope.user.salesPoints.find(findPoint).name
+        function getPointName() {
+            if ($rootScope.user.salesPoints != null) {
+				return $rootScope.user.salesPoints.find(findPoint).name
+			}
+			return "";
         }
 
-        function setPoint(pointId, isInit){
-            isInit = typeof isInit !== 'undefined' ? isInit : false;
-                dataService.post('setPoint', {'pointId': pointId });
+        function getPointLinks() {
+            if ($rootScope.user.salesPoints != null) {
+				return $rootScope.user.salesPoints.find(findPoint).links
+			}
+			return "";
+        }
 
-            if($rootScope.user.point !== pointId || isInit) {
-                $rootScope.user.point = pointId;
-                $rootScope.pointMenuLogo = getPointMenuLogo();
-                $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor();
-                $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
-                $location.path('dashboard');
+        function setPoint(pointId) {
+            var prevPoint = $rootScope.user.point;
+            dataService.post('setPoint', {'pointId': pointId});
+
+            $rootScope.user.point = pointId;
+            $rootScope.pointMenuLogo = getPointMenuLogo();
+            $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor();
+            $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
+            $rootScope.eventLinks = getPointLinks();
+
+            if (prevPoint !== pointId) {
+                eventService.reset();
+                if ($location.path().indexOf("dashboard") == -1) {
+                    $location.path('dashboard');
+                }
             }
         }
 
-        function getPointMenuLogo(){
+        function getPointMenuLogo() {
             var settings = getPointSettings();
             if (settings != null) {
                 var setting = settings.find(getPointTopMenuLogo);
@@ -55,7 +70,7 @@
             return "img/logo.png";
         }
 
-        function getPointMenuBackgroundColor(){
+        function getPointMenuBackgroundColor() {
             var settings = getPointSettings();
             if (settings != null) {
                 var setting = settings.find(getPointTopMenuBackgroundColorSetting);
@@ -66,7 +81,7 @@
             return "";
         }
 
-        function getPointMenuActiveColor(){
+        function getPointMenuActiveColor() {
             var settings = getPointSettings();
             if (settings != null) {
                 var setting = settings.find(getPointTopMenuColorSetting);
@@ -106,7 +121,7 @@
             return [];
         }
 
-        function  initialize() {
+        function initialize() {
             $rootScope.getPointName = getPointName;
             $rootScope.setPoint = setPoint;
         }

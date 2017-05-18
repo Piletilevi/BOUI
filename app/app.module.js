@@ -14,8 +14,14 @@
         'blockUI',
 		'infinite-scroll',
 		'ui.toggle',
-		'chart.js'
+		'chart.js',
+        'ceibo.components.table.export',
+        'sticky',
+        'ngLocationUpdate'
     ]);
+    angular.module('boApp').config(function(blockUIConfig) {
+        blockUIConfig.autoInjectBodyBlock = false;
+    });
 
     angular.module('boApp').run(runApp);
     runApp.$inject = ['authService', 'translationService', 'pointService', 'menuService'];

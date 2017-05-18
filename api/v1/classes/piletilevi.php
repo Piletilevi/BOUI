@@ -1,6 +1,7 @@
 <?php
 use Httpful\Request;
-use Firebase\JWT\JWT;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Slim\Slim;
 
 class PiletileviApi {
@@ -24,6 +25,8 @@ class PiletileviApi {
 		$this->currentLang = $session['lang'];
 
 		$this->settings = $this->app->config("settings");
+		
+		$this->dataHandler = $this->app->container->get("dataHandler");
 	}
 
 	public static function getInstance($refresh = false) {
@@ -41,6 +44,14 @@ class PiletileviApi {
 			'langId' => $this->currentLang->code);
 		$data['userid']= $username;
 		return $this->send("/user/getSessionKey",$data);
+	}
+	
+	public function clearCache() {
+		$this->cacheManager->clear();
+	}
+
+	public function getStats() {
+		return $this->cacheManager->getStats();
 	}
 
 	public function changePassword($oldPassword, $newPassword) {
@@ -113,6 +124,24 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function myEventsCount($filter) {
+		
+		$data['filter']= $filter;
+		$reportData = $this->send( "/event/myEventsCount", $data );
+		
+		return $reportData;
+	}
+	
+	public function relatedEvents($filter) {
+		
+		$filter['limit'] = 5;
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/event/relatedEvents", $data );
+		
+		return $reportData;
+	}
+	
 	public function concertInfo($filter) {
 		
 		$cacheItem = $this->cacheManager->getItem("concertInfo".$filter["id"]);
@@ -137,11 +166,11 @@ class PiletileviApi {
 		return $ticketStatusData;
 	}
 
-	public function concertInfoOfVenue($filter) {
+	public function concertData($filter) {
 		
 		$data['filter']= $filter;
 
-		$concertInfoData = $this->send( "/venue/getConcertInfo", $data );
+		$concertInfoData = $this->send( "/venue/getConcertData", $data );
 		
 		return $concertInfoData;
 	}
@@ -190,30 +219,18 @@ class PiletileviApi {
 
 	public function concertSales($filter) {
 		
-		$cacheItem = $this->cacheManager->getItem("concertSales".$filter["id"]);
-		$reportData = $cacheItem->get();
+		$data['filter'] = $filter;
 
-		if(is_null($reportData) || !is_object($reportData)) {
-			$data['filter'] = $filter;
-			$reportData = $this->send( "/event/concertSales", $data );
-			$cacheItem->set($reportData)->expiresAfter(600);
-			$this->cacheManager->save($cacheItem);
-		}
+		$reportData = $this->send( "/event/concertSales", $data );
 
 		return $reportData;
 	}
 
 	public function showSales($filter) {
 		
-		$cacheItem = $this->cacheManager->getItem("showSales".$filter["id"]);
-		$reportData = $cacheItem->get();
+		$data['filter'] = $filter;
 
-		if(is_null($reportData) || !is_object($reportData)) {
-			$data['filter'] = $filter;
-			$reportData = $this->send( "/event/showSales", $data );
-			$cacheItem->set($reportData)->expiresAfter(600);
-			$this->cacheManager->save($cacheItem);
-		}
+		$reportData = $this->send( "/event/showSales", $data );
 		
 		return $reportData;
 	}
@@ -353,6 +370,15 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function eventSalesReportByLocation($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByLocation", $data );
+		
+		return $reportData;
+	}
+	
 	public function boUrl(){
 		return $this->getBoUrl();
 	}
@@ -404,8 +430,8 @@ class PiletileviApi {
 	private function send($url, $data, $plain = false) {
 		$papiConfig = $this->getPapiConfig();
 		$envConfig = $this->getEnvConfig();
-		
-		if (is_object($this->currentUser)) {
+
+		if (is_object($this->currentUser) && property_exists($this->currentUser, 'userId') && property_exists($this->currentUser, 'point')) {
 			if (!isset($data['userid'])) {
 				$data['userid']= $this->currentUser->userId;
 			}
@@ -427,18 +453,19 @@ class PiletileviApi {
 		$envName   = $envConfig["name"];  // Retrieve the env name from config file
 
 		$uri = $this->getBasePath().$url;
-
-		$payload = array(
-			'iat'  => $issuedAt,         // Issued at: time when the token was generated
-			'jti'  => $tokenId,          // Json Token Id: an unique identifier for the token
-			'iss'  => $envName,          // Issuer
-			'nbf'  => $notBefore,        // Not before
-			'exp'  => $expire,           // Expire
-			'data' => $data
-		);
-
-		$msg = JWT::encode( $payload, $papiConfig["jwtsecret"] );
-		$request = \Httpful\Request::post($uri)->body($msg)->timeout($papiConfig["timeout"]);
+		
+		$signer = new Sha256();
+		
+		$token = (new Builder())->setId($tokenId)
+								->setIssuer($envName)
+								->setIssuedAt($issuedAt)
+								->setNotBefore($notBefore)
+								->setExpiration($expire)
+								->set('data', $data)
+								->sign($signer, $papiConfig["jwtsecret"])
+								->getToken();
+		
+		$request = \Httpful\Request::post($uri)->body($token)->timeout($papiConfig["timeout"]);
 
 		if ($plain) {
 			$request->withoutAutoParsing();
@@ -447,7 +474,11 @@ class PiletileviApi {
 
 		//$this->app->log->debug( print_r($response->headers,true) );
 		//$this->app->log->debug( print_r($response->body) );
-
+		
+		if ($response->hasErrors()) {
+			$this->app->halt($response->code);
+		}
+		
 		return $response->body;
 	}
 

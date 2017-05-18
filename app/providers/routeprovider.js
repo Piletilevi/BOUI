@@ -30,13 +30,31 @@
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
-            .when('/report/:type/:id', {
+            .when('/report/:pointId/:type/:id', {
                 title: 'Report',
                 templateUrl: 'views/report.html',
                 controller: 'reportController',
                 controllerAs: 'vm'
             })
-            .when('/dashboard', {
+            .when('/report/:pointId/:type/:id/:reportType', {
+                title: 'Report',
+                templateUrl: 'views/report.html',
+                controller: 'reportController',
+                controllerAs: 'vm'
+            })
+            .when('/report/:pointId/:type/:id/:reportType/:sectorId', {
+                title: 'Report',
+                templateUrl: 'views/report.html',
+                controller: 'reportController',
+                controllerAs: 'vm'
+            })
+            .when('/dashboard/', {
+                title: 'Dashboard',
+                templateUrl: 'views/dashboard.html',
+                controller: 'dashboardController',
+                controllerAs: 'vm'
+            })
+            .when('/dashboard/:type', {
                 title: 'Dashboard',
                 templateUrl: 'views/dashboard.html',
                 controller: 'dashboardController',
@@ -55,13 +73,16 @@
 
     }
     
-    runRouteProvider.$inject=['$rootScope', '$log', 'authService'];
+    runRouteProvider.$inject=['$rootScope', '$log', '$location', 'authService'];
 
-    function runRouteProvider ( $rootScope, $log, authService) {
+    function runRouteProvider ( $rootScope, $log, $location, authService) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;
-            $rootScope.authenticated = false;
             authService.checkUserAuth(next);
+        });
+
+        $rootScope.$on('$routeChangeSuccess', function(){
+            ga('send', 'pageview', $location.path());
         });
     }
 

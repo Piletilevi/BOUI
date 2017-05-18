@@ -9,105 +9,152 @@
   GraphService.$inject = ['colorService', '$translate'];
 
   function GraphService(colorService, $translate) {
-    var service = {
-		overviewBarGraph: {
-		  labels: null,
-		  type: 'StackedBar',
-		  series: null,
-		  colors: [],
-		  datasetOverride: null,
-		  data: null,
-		  options: {
-			scales: {
-			  xAxes: [{
-				stacked: true,
-				ticks: {
-				  maxRotation: 60,
-				  minRotation: 60,
-				}
-			  }],
-			  yAxes: [{
-				stacked: true,
-				display: false
-			  }]
-			}
-		  }
-		},
-      overviewLineGraph: {
-        labels: null,
-        series: [],
-        data: null,
-        colors: [],
-        options: {
-          scales: {
-            yAxes: [{
-              stacked: true
-            }]
-          },
-          legend: {
-            display: true
+    var defaultLineGraph = {
+      labels: null,
+      series: [],
+      data: null,
+      colors: [],
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
+            stacked: true,
+            ticks: {
+              maxTicksLimit: 3
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              maxTicksLimit: 9,
+              maxRotation: 0,
+              minRotation: 0
+            },
+            gridLines: {
+              display: false
+            }
+          }]
+        },
+        legend: {
+          display: true,
+          labels: {
+            boxWidth: 13
           }
-        }
-      },
-      pricetypePieGraph: {
-        labels: null,
-        data: null,
-        options: {
-          legend: {
-            display: true
+        },
+        elements: {
+          point: {
+            radius: 0,
+            hoverRadius: 3,
+            hitRadius: 5
           }
+        },
+        tooltips: {
+          backgroundColor: '#fff',
+          bodyFontColor: '#000',
+          titleFontColor: '#000'
         }
-      },
+      }
+    };
 
-      pricetypeLineGraph: {
-        labels: null,
-        series: [],
-        data: null,
-        colors: [],
-        options: {
-          scales: {
-            yAxes: [{
-              stacked: true
-            }]
-          },
-          legend: {
-            display: true
+    var defaultBarGraph = {
+      labels: null,
+      type: 'StackedBar',
+      series: null,
+      colors: [],
+      datasetOverride: null,
+      data: null,
+      options: {
+        scales: {
+          xAxes: [{
+            stacked: true,
+            ticks: {
+              maxRotation: 0,
+              minRotation: 0
+            },
+            gridLines: {
+              display: false
+            },
+            categoryPercentage: 1.0
+          }],
+          yAxes: [{
+            stacked: true,
+            display: false,
+            gridLines: {
+              display: false
+            }
+          }]
+        },
+        tooltips: {
+          callbacks: {
+            label: function (tooltipItems, data) {
+              return data.datasets[tooltipItems.datasetIndex].barLabel[tooltipItems.index] + ': ' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
+            }
           }
         }
-      },
-      priceclassPieGraph: {
-        labels: null,
-        data: null,
-        options: {
-          legend: {
-            display: true
-          }
+      }
+    };
+
+    var defaultPieGraph = {
+      labels: null,
+      data: null,
+      options: {
+        legend: {
+          display: false
+        },
+        tooltips: {
+          backgroundColor: '#fff',
+          bodyFontColor: '#000',
+          titleFontColor: '#000'
         }
-      },
-      priceclassLineGraph: {
-        labels: null,
-        series: [],
-        data: null,
-        colors: [],
-        options: {
-          scales: {
-            yAxes: [{
-              stacked: true
-            }]
-          },
-          legend: {
-            display: true
-          }
-        }
-      },
+      }
+    };
+
+    var service;
+    service = {
       renderOverviewBarGraph: renderOverviewBarGraph,
       renderOverviewLineGraph: renderOverviewLineGraph,
       renderPriceTypePieGraph: renderPriceTypePieGraph,
       renderPriceTypeLineGraph: renderPriceTypeLineGraph,
       renderPriceClassPieGraph: renderPriceClassPieGraph,
-      renderPriceClassLineGraph: renderPriceClassLineGraph
+      renderPriceClassLineGraph: renderPriceClassLineGraph,
+      reset: reset
     };
+
+    service.overviewLineGraph = angular.copy(defaultLineGraph);
+    service.overviewBarGraph = angular.copy(defaultBarGraph);
+    service.pricetypePieGraph = angular.copy(defaultPieGraph);
+    service.priceclassPieGraph = angular.copy(defaultPieGraph);
+    service.pricetypeLineGraph = angular.copy(defaultLineGraph);
+
+    angular.merge(service.pricetypeLineGraph, {
+      options: {
+        scales: {
+          yAxes: [{
+            stacked: false,
+            ticks: {
+              maxTicksLimit: 3
+            }
+          }]
+        },
+        elements: {
+          line: {
+            fill: false
+          }
+        }
+      }
+    });
+
+    service.priceclassLineGraph = angular.copy(service.pricetypeLineGraph);
+
     return service;
+
+    function reset() {
+      service.overviewLineGraph = angular.copy(defaultLineGraph);
+      service.overviewBarGraph = angular.copy(defaultBarGraph);
+      service.pricetypePieGraph = angular.copy(defaultPieGraph);
+      service.priceclassPieGraph = angular.copy(defaultPieGraph);
+      service.pricetypeLineGraph = angular.copy(defaultLineGraph);
+    }
 
     function renderOverviewLineGraph(newValue, filter, overviewGraph) {
       if (newValue && newValue.sales) {
@@ -116,7 +163,7 @@
         var data = [];
         var colors = [];
         var step = 0;
-        var maxTicks = 0;
+        var totals = [];
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
@@ -135,7 +182,7 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
-
+        var stats = new GraphStats();
         newValue.types.forEach(function (type) {
           var dataItem = [];
           newValue.sales.forEach(function (sale) {
@@ -149,7 +196,12 @@
                 }
               }
             });
+            if (!totals[dataItem.length]) {
+              totals[dataItem.length] = 0;
+            }
+            totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
+            stats.updateStats(stats, dataItemValue);
           });
           if (!dataItem.every(function (v) {
               return v === 0;
@@ -157,96 +209,107 @@
             data.push(dataItem);
             series.push($translate.instant(type.typeName));
             step++;
-            colors.push(colorService.getRandomColor((newValue.types.length + 1), step));
+            colors.push(colorService.getColorByType(type.typeName));
           }
         });
+
         if (labels && labels.length) {
+          overviewGraph.options.scales.yAxes[0].ticks.max = stats.getStatsMax();
+          overviewGraph.options.scales.yAxes[0].ticks.min = stats.getStatsMin();
+
           overviewGraph.labels = labels;
           overviewGraph.series = series;
           overviewGraph.data = data;
           overviewGraph.colors = colors;
+          overviewGraph.totals = totals;
         } else {
           overviewGraph.labels = null;
           overviewGraph.series = null;
-          overviewGraph.data = null;
+          overviewGraph.data = [];
           overviewGraph.colors = null;
+          overviewGraph.totals = null
         }
       }
     }
 
-	function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
-		if (newValue && newValue.sales) {
-			overviewData.generatedCount = 0;
-			overviewData.generatedSum = 0;
-			overviewData.currency = '';
-			var series = [];
-			var labels = [];
-			var data = [];
-			var colors = [];
-			var barSeries = [];
-			var datasetOverride = [];
+    function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
+      if (newValue && newValue.sales) {
+        overviewData.generatedCount = 0;
+        overviewData.generatedSum = 0;
+        overviewData.currency = '';
+        var series = [];
+        var labels = [];
+        var data = [];
+        var colors = [];
+        var barSeries = [];
+        var datasetOverride = [];
 
-			newValue.sales.forEach(function (myOverviewData) {
-				if (myOverviewData.groupId == 'generated') {
-					overviewData.generatedCount = myOverviewData.rowCount;
-					overviewData.generatedSum = myOverviewData.rowSum;
-					overviewData.currency = myOverviewData.currency;
-				}
-        else {
-          labels.push($translate.instant(myOverviewData.groupName));
-          var rowSeries = [];
-          myOverviewData.rows.forEach(function (overviewRow) {
-            rowSeries.push($translate.instant(overviewRow.typeName));
-          });
-          series.push(rowSeries);
-
-          var step = 0;
-          myOverviewData.rows.forEach(function (overviewRow) {
-            if(typeof(data[step]) == "undefined") {
-              data[step] = [];
+        newValue.sales.forEach(function (myOverviewData) {
+          if (myOverviewData.groupId == 'generated') {
+            overviewData.generatedCount = myOverviewData.rowCount;
+            overviewData.generatedSum = myOverviewData.rowSum;
+            overviewData.currency = myOverviewData.currency;
+          }
+          else {
+            if (myOverviewData.groupName == 'api_overview_venue_occupancy') {
+              labels.push($translate.instant('api_avail_for_sale'));
+            } else {
+              labels.push($translate.instant(myOverviewData.groupName));
             }
-            data[step].push(overviewRow.count);
+            var rowSeries = [];
+            myOverviewData.rows.forEach(function (overviewRow) {
+              rowSeries.push($translate.instant(overviewRow.typeName));
+            });
+            series.push(rowSeries);
 
-            if(typeof(colors[step]) == "undefined") {
-              colors[step] = [];
-            }
-            overviewRow.color = colorService.getColorByType(overviewRow.typeName);
-            colors[step].push(overviewRow.color);
+            var step = 0;
+            myOverviewData.rows.forEach(function (overviewRow) {
+              if (typeof(data[step]) == "undefined") {
+                data[step] = [];
+              }
+              data[step].push(overviewRow.count);
 
-            if(typeof(barSeries[step]) == "undefined") {
-              barSeries[step] = [];
-            }
-            barSeries[step].push($translate.instant(overviewRow.typeName));
+              if (typeof(colors[step]) == "undefined") {
+                colors[step] = [];
+              }
+              overviewRow.color = colorService.getColorByType(overviewRow.typeName);
+              colors[step].push(overviewRow.color);
 
-            step++;
+              if (typeof(barSeries[step]) == "undefined") {
+                barSeries[step] = [];
+              }
+              barSeries[step].push($translate.instant(overviewRow.typeName));
+
+              step++;
+            });
+          }
+        });
+
+        for (var i = 0; i < data.length; i++) {
+          datasetOverride.push({
+            label: '',
+            barLabel: barSeries[i],
+            backgroundColor: colors[i],
+            borderColor: colors[i],
+            data: data[i],
           });
         }
-			});
 
-			for (var i = 0; i < data.length; i++) {
-				datasetOverride.push({
-					label: '',
-					backgroundColor: colors[i],
-					borderColor: colors[i],
-					data: data[i],
-				});
-			}
+        if (labels && labels.length) {
+          overviewBarGraph.labels = labels;
+          overviewBarGraph.series = series;
+          overviewBarGraph.data = data;
+          overviewBarGraph.datasetOverride = datasetOverride;
+        } else {
+          overviewBarGraph.labels = null;
+          overviewBarGraph.series = null;
+          overviewBarGraph.data = null;
+          overviewBarGraph.datasetOverride = null;
+        }
+      }
+    }
 
-			if (labels && labels.length) {
-				overviewBarGraph.labels = labels;
-				overviewBarGraph.series = series;
-				overviewBarGraph.data = data;
-				overviewBarGraph.datasetOverride = datasetOverride;
-			} else {
-				overviewBarGraph.labels = null;
-				overviewBarGraph.series = null;
-				overviewBarGraph.data = null;
-				overviewBarGraph.datasetOverride = null;
-			}
-		}
-	}
-
-	function renderPriceTypePieGraph(newValue, filter, pricetypeData, pricetypePieGraph) {
+    function renderPriceTypePieGraph(newValue, filter, pricetypeData, pricetypePieGraph) {
       if (newValue && newValue.sales) {
         var step = 0;
         pricetypeData.generatedCount = 0;
@@ -272,7 +335,6 @@
         newValue.sales.forEach(function (myPricetypeData) {
           myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
             step++;
-            pricetypeRow.color = colorService.getRandomColor(labels.length, step);
             colors.push(pricetypeRow.color);
             if (filter.pieDisplay === 'tickets') {
               data.push(pricetypeRow.count);
@@ -300,8 +362,9 @@
         var series = [];
         var labels = [];
         var data = [];
+        var ids = [];
         var colors = [];
-        var step = 0;
+        var totals = [];
 
         newValue.sales.forEach(function (sale) {
           sale.sellTypes.forEach(function (sellType) {
@@ -309,12 +372,32 @@
                 return e == sellType.priceTypeName;
               }).length === 0) {
               series.push(sellType.priceTypeName);
+              colors.push(sellType.color);
+              ids.push(parseInt(sellType.priceTypeId, 10));
             }
           });
         });
 
-        // @TODO Return series in the same sequence as for pie chart from backend
-        series = series.sort();
+        // Sort by priceTypeId
+        series = ids.map(function (e, i) {
+            return i;
+          })
+          .sort(function (a, b) {
+            return ids[a] - ids[b];
+          })
+          .map(function (e) {
+            return series[e];
+          });
+
+        colors = ids.map(function (e, i) {
+            return i;
+          })
+          .sort(function (a, b) {
+            return ids[a] - ids[b];
+          })
+          .map(function (e) {
+            return colors[e];
+          });
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
@@ -334,10 +417,9 @@
           }
         });
 
+        var stats = new GraphStats();
         series.forEach(function (seriesItem) {
-          step++;
           var dataItem = [];
-          var color = colorService.getRandomColor(series.length, step);
 
           newValue.sales.forEach(function (sale) {
             var dataItemValue = 0;
@@ -350,30 +432,37 @@
                 }
               }
             });
+            if (!totals[dataItem.length]) {
+              totals[dataItem.length] = 0;
+            }
+            totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
+            stats.updateStats(stats, dataItemValue);
           });
           data.push(dataItem);
-          colors.push(color);
         });
 
-
         if (labels && labels.length) {
+          pricetypeGraph.options.scales.yAxes[0].ticks.max = stats.getStatsMax();
+          pricetypeGraph.options.scales.yAxes[0].ticks.min = stats.getStatsMin();
+
           pricetypeGraph.labels = labels;
           pricetypeGraph.series = series;
           pricetypeGraph.data = data;
           pricetypeGraph.colors = colors;
+          pricetypeGraph.totals = totals;
         } else {
           pricetypeGraph.labels = null;
           pricetypeGraph.series = null;
-          pricetypeGraph.data = null;
+          pricetypeGraph.data = [];
           pricetypeGraph.colors = null;
+          pricetypeGraph.totals = null;
         }
       }
     }
 
     function renderPriceClassPieGraph(newValue, filter, priceclassData, priceclassPieGraph) {
       if (newValue && newValue.sales) {
-        var step = 0;
         priceclassData.generatedCount = 0;
         priceclassData.generatedSum = 0;
         priceclassData.currency = '';
@@ -396,8 +485,6 @@
 
         newValue.sales.forEach(function (myPriceclassData) {
           myPriceclassData.priceClasses.forEach(function (priceclassRow) {
-            step++;
-            priceclassRow.color = colorService.getRandomColor(labels.length, step);
             colors.push(priceclassRow.color);
             if (filter.pieDisplay == 'tickets') {
               data.push(priceclassRow.count);
@@ -426,7 +513,8 @@
         var labels = [];
         var data = [];
         var colors = [];
-        var step = 0;
+        var ids = [];
+        var totals = [];
 
         newValue.sales.forEach(function (sale) {
           sale.sellTypes.forEach(function (sellType) {
@@ -434,14 +522,33 @@
                 return e == sellType.priceClassName;
               }).length === 0) {
               series.push(sellType.priceClassName);
+              colors.push(sellType.color);
+              ids.push(parseInt(sellType.priceClassId, 10));
             }
           });
         });
 
-        // @TODO Return series in the same sequence as for pie chart from backend
-        series = series.sort(function(a,b){
-          return (parseInt(a, 10) - parseInt(b, 10));
-        });
+        // Sort by priceClassId
+        series = ids.map(function (e, i) {
+            return i;
+          })
+          .sort(function (a, b) {
+            return ids[a] - ids[b];
+          })
+          .map(function (e) {
+            return series[e];
+          });
+
+        // Sort by priceClassId
+        colors = ids.map(function (e, i) {
+            return i;
+          })
+          .sort(function (a, b) {
+            return ids[a] - ids[b];
+          })
+          .map(function (e) {
+            return colors[e];
+          });
 
         newValue.sales.forEach(function (sale) {
           if (filter.groupBy == 'day') {
@@ -460,11 +567,10 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
+        var stats = new GraphStats();
 
         series.forEach(function (seriesItem) {
-          step++;
           var dataItem = [];
-          var color = colorService.getRandomColor(series.length, step);
 
           newValue.sales.forEach(function (sale) {
             var dataItemValue = 0;
@@ -477,25 +583,78 @@
                 }
               }
             });
+            if (!totals[dataItem.length]) {
+              totals[dataItem.length] = 0;
+            }
+            totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
+            stats.updateStats(stats, dataItemValue);
           });
           data.push(dataItem);
-          colors.push(color);
         });
 
         if (labels && labels.length) {
+          priceclassGraph.options.scales.yAxes[0].ticks.max = stats.getStatsMax();
+          priceclassGraph.options.scales.yAxes[0].ticks.min = stats.getStatsMin();
+
           priceclassGraph.labels = labels;
           priceclassGraph.series = series;
           priceclassGraph.data = data;
           priceclassGraph.colors = colors;
+          priceclassGraph.totals = totals;
         } else {
           priceclassGraph.labels = null;
           priceclassGraph.series = null;
-          priceclassGraph.data = null;
+          priceclassGraph.data = [];
           priceclassGraph.colors = null;
+          priceclassGraph.totals = null;
         }
       }
     }
 
+    function GraphStats() {
+      var coefficient = 5;
+      var positiveSum = 0;
+      var negativeSum = 0;
+      var positiveTotal = 0;
+      var negativeTotal = 0;
+      var positiveMax = 0;
+      var negativeMin = 0;
+      this.updateStats = function (stats, value) {
+        if (value > 0) {
+          positiveSum += value;
+          positiveTotal++;
+        } else if (value < 0) {
+          negativeSum += value;
+          negativeTotal++;
+        }
+        if (value > positiveMax) {
+          positiveMax = value;
+        }
+        if (value < negativeMin) {
+          negativeMin = value;
+        }
+      };
+      this.getStatsMax = function () {
+        var max = 0;
+        if (positiveTotal > 0) {
+          max = positiveSum / positiveTotal * coefficient;
+          if (max > positiveMax) {
+            max = positiveMax;
+          }
+        }
+        return max;
+      };
+      this.getStatsMin = function () {
+        var min = 0;
+        if (negativeTotal > 0) {
+          min = negativeSum / negativeTotal * coefficient;
+          if (min < negativeMin) {
+            min = negativeMin;
+          }
+        }
+        return min;
+      };
+    }
   }
 })();

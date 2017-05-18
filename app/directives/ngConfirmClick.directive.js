@@ -3,7 +3,9 @@
 	angular.module('boApp')
 		.directive('ngConfirmClick', ngConfirmClick);
 
-	function ngConfirmClick() {
+	ngConfirmClick.$inject = ['$translate'];
+
+	function ngConfirmClick($translate) {
 		return {
 			priority: -1,
 			restrict: 'A',
@@ -13,7 +15,9 @@
 
 				element.bind('click', function(e) {
 					var message = attrs.ngConfirmClick;
-					var description = attrs.ngConfirmDescription;
+					var description = $translate.instant('api_clickConfirmDescription');
+					var pointName = attrs.ngPointName;
+					description = description.replace('%pointName%', pointName);
 					if (message) {
 						e.stopImmediatePropagation();
 						e.preventDefault();
