@@ -15,7 +15,7 @@
 
 				element.bind('click', function(e) {
 					var message = attrs.ngConfirmClick;
-					var description = $translate.instant('api_clickConfirmDescription');
+					var description = $translate.instant(attrs.ngConfirmDescription);
 					var pointName = attrs.ngPointName;
 					description = description.replace('%pointName%', pointName);
 					if (message) {
