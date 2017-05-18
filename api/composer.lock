@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+    "hash": "775efe03b0a94d669fbd229b3842f49e",
     "content-hash": "f6d96d926ca94b9bcd3365484e6f32d6",
     "packages": [
         {
@@ -62,7 +63,7 @@
                 "JWS",
                 "jwt"
             ],
-            "time": "2016-10-31T20:09:32+00:00"
+            "time": "2016-10-31 20:09:32"
         },
         {
             "name": "nategood/httpful",
@@ -112,20 +113,20 @@
                 "rest",
                 "restful"
             ],
-            "time": "2015-10-26T16:11:30+00:00"
+            "time": "2015-10-26 16:11:30"
         },
         {
             "name": "phpfastcache/phpfastcache",
-            "version": "5.0.15",
+            "version": "5.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPSocialNetwork/phpfastcache.git",
-                "reference": "f9c09668b313dd53a6417be42e4af02649914a89"
+                "reference": "a24094a3af45773b7f43e98e37c37349d25f4ad0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/f9c09668b313dd53a6417be42e4af02649914a89",
-                "reference": "f9c09668b313dd53a6417be42e4af02649914a89",
+                "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/a24094a3af45773b7f43e98e37c37349d25f4ad0",
+                "reference": "a24094a3af45773b7f43e98e37c37349d25f4ad0",
                 "shasum": ""
             },
             "require": {
@@ -198,20 +199,20 @@
                 "zend memory cache",
                 "zend server"
             ],
-            "time": "2017-02-04T01:09:40+00:00"
+            "time": "2017-04-13 20:34:32"
         },
         {
             "name": "phpfastcache/phpssdb",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPSocialNetwork/phpssdb.git",
-                "reference": "6755b00200d28ce59cfabde2274d41b045acae98"
+                "reference": "60cc285bf622664d9899da699503754259e8c970"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPSocialNetwork/phpssdb/zipball/6755b00200d28ce59cfabde2274d41b045acae98",
-                "reference": "6755b00200d28ce59cfabde2274d41b045acae98",
+                "url": "https://api.github.com/repos/PHPSocialNetwork/phpssdb/zipball/60cc285bf622664d9899da699503754259e8c970",
+                "reference": "60cc285bf622664d9899da699503754259e8c970",
                 "shasum": ""
             },
             "require": {
@@ -248,7 +249,7 @@
                 "driver",
                 "ssdb"
             ],
-            "time": "2016-07-02T12:58:46+00:00"
+            "time": "2017-04-21 22:22:57"
         },
         {
             "name": "predis/predis",
@@ -298,7 +299,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2016-06-16T16:22:20+00:00"
+            "time": "2016-06-16 16:22:20"
         },
         {
             "name": "psr/cache",
@@ -344,7 +345,7 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2016-08-06T20:24:11+00:00"
+            "time": "2016-08-06 20:24:11"
         },
         {
             "name": "slim/logger",
@@ -382,7 +383,7 @@
                 }
             ],
             "description": "Slim Framework logger",
-            "time": "2014-07-16T20:11:26+00:00"
+            "time": "2014-07-16 20:11:26"
         },
         {
             "name": "slim/slim",
@@ -429,7 +430,7 @@
                 "rest",
                 "router"
             ],
-            "time": "2017-01-07T12:21:41+00:00"
+            "time": "2017-01-07 12:21:41"
         }
     ],
     "packages-dev": [],
