@@ -24,7 +24,7 @@ body {
 	font-size: 15px;
 	color: #040e19;
 	font-family: 'PT Sans', sans-serif;
-	background: #e3e5e8;
+	background: #e3e6ec;
 }
 
 a {
@@ -149,7 +149,7 @@ a:hover {
 .navbar-nav.bo-header-additional-icons .open .dropdown-menu {
 	position: absolute;
 	top: 50px;
-	border-bottom: 1px solid #e3e5e8;
+	border-bottom: 1px solid #e3e6ec;
 }
 
 .navbar-nav.bo-header-additional-icons .open .dropdown-menu > li > a {
@@ -459,28 +459,34 @@ a:hover {
 
 .bo-sub-events {
 	border-top: 1px solid #dadcdf;
-	padding-left: 19px;
-	padding-right: 19px;
+	padding-left: 12px;
+	padding-right: 12px;
 	margin-right: -19px;
 	margin-left: -19px;
 	margin-top: 19px;
 }
 
 .bo-sub-events > .bo-event:first-child {
-	margin-top: 17px;
+	margin-top: 13px;
 }
 
 .bo-sub-events .bo-event {
-	margin-bottom: 18px;
+	margin-bottom: 13px;
 }
 
 .bo-sub-events .bo-event:last-child {
-	margin-bottom: 4px;
+	margin-bottom: 0px;
 }
 
 .bo-sub-events-hidden .bo-event-toggle,
 .bo-sub-events-hidden .bo-sub-events {
 	display: none;
+}
+
+.bo-sub-events .panel-body {
+	padding-top: 15px;
+	padding-left: 14px;
+	padding-right: 14px;
 }
 
 /* Pills
@@ -497,7 +503,7 @@ a:hover {
 	content: "";
 	position: absolute;
 	width: 100%;
-	border-bottom: 1px solid #e3e5e8;
+	border-bottom: 1px solid #e3e6ec;
 	bottom: 1px;
 	left: 0;
 }
@@ -527,7 +533,7 @@ a:hover {
 }
 
 .bo-widgetbox-header {
-	background: #4a5867;
+	background: #576778;
 	color: #b7c1cd;
 	line-height: 65px;
 	padding-right: 30px;
@@ -700,7 +706,7 @@ a:hover {
 .bo-eventshort {
 	padding: 16px 15px 19px;
 	line-height: 22px;
-	background: #ebedf0;
+	background: #edf0f4;
 	border-bottom: 1px solid #dadcdf;
 	-moz-box-shadow: 0 0 0 1px #f7f9fb inset;
 	-webkit-box-shadow: 0 0 0 1px #f7f9fb inset;
@@ -812,7 +818,7 @@ a:hover {
 	left: 50%;
 	top: -2px;
 	margin-left: -8px;
-	border-top: 7px solid #ebedf0;
+	border-top: 7px solid #edf0f4;
 	border-left: 9px solid transparent;
 	border-right: 9px solid transparent;
 	z-index: 1;
@@ -959,7 +965,7 @@ a:hover {
 ================================ */
 .bo-reservationform {
 	display: block;
-	background: #e3e5e8;
+	background: #e3e6ec;
 	padding: 9px 9px 15px;
 	border-radius: 3px;
 }
@@ -994,7 +1000,7 @@ a:hover {
 .bo-mapcontrols-item {
 	position: relative;
 	display: inline-block;
-	background: #4a5867;
+	background: #576778;
 	color: #fff;
 	min-width: 23px;
 	margin: 0 0 0 5px;
@@ -1002,7 +1008,7 @@ a:hover {
 	height: 24px;
 	text-align: center;
 	text-decoration: none;
-	border: 3px solid #4a5867;
+	border: 3px solid #576778;
 }
 
 .bo-mapcontrols-item i {
@@ -1019,12 +1025,12 @@ a:hover {
 
 .bo-mapcontrols-resize {
 	background: #fff;
-	color: #4a5867;
+	color: #576778;
 	margin-right: 12px;
 }
 
 .bo-mapcontrols-resize:hover {
-	color: #4a5867;
+	color: #576778;
 }
 
 .bo-mapcontrols-resize:before {
@@ -1161,7 +1167,7 @@ a:hover {
 }
 
 .bo-table-report > tbody > .bo-table-title-row {
-	background: #4a5867;
+	background: #576778;
 }
 
 .bo-table-report > tbody > .bo-table-title-row > th,
@@ -1171,12 +1177,12 @@ a:hover {
 
 .bo-table-report > tbody > .bo-table-title-row > td:first-child,
 .bo-table-report > tbody > .bo-table-title-row > th:first-child {
-	border-left: 1px solid #4a5867;
+	border-left: 1px solid #576778;
 }
 
 .bo-table-report > tbody > .bo-table-title-row > th:last-child,
 .bo-table-report > tbody > .bo-table-title-row > td:last-child {
-	border-right: 1px solid #4a5867;
+	border-right: 1px solid #576778;
 }
 
 .bo-table-report > tbody > .bo-table-title-row-bold > th,
@@ -1545,7 +1551,7 @@ a:hover {
 .bo-light-gamma .navbar-nav > li.active > a:hover,
 .bo-light-gamma .navbar-nav > li.active > a:focus {
 	color: #fff;
-	background-color: #4a5867;
+	background-color: #576778;
 }
 
 .bo-light-gamma .navbar-nav > li > a:hover,
@@ -1555,7 +1561,7 @@ a:hover {
 
 .bo-light-gamma .bo-pills-block {
 	color: #fff;
-	background-color: #4a5867;
+	background-color: #576778;
 }
 
 .bo-light-gamma .nav-pills > li > a {

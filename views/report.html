@@ -81,18 +81,17 @@
                                 <div class="form-inline">
                                     <div class="form-group">
                                         <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                        <div class="input-group data_range">
-                                            <input type="text" daterangepicker class="form-control"
-                                                   ng-model="vm.filterPeriod"
-                                                   daterangepicker-neutral-timezone
-                                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-										 <span class="input-group-btn">
-											<button class="btn btn-default" type="button"
-                                                    data-control="daterangepicker">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </button>
-										 </span>
+                                        <div class="input-group">
+                                            <div class="data_range">
+                                                <button class="btn btn-default bo-datarangepicker-button" type="button" data-control="daterangepicker">
+                                                    <input type="text" daterangepicker class="form-control"
+                                                           ng-model="vm.filterPeriod"
+                                                           daterangepicker-neutral-timezone
+                                                           ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                                           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -263,17 +262,15 @@
                                     <div class="form-group">
                                         <span class="visible-print">{{'api_print_period'|translate}}</span>
                                         <div class="input-group data_range">
-                                            <input type="text" daterangepicker class="form-control"
-                                                   ng-model="vm.filterPeriod"
-                                                   daterangepicker-neutral-timezone
-                                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-										 <span class="input-group-btn">
-											<button class="btn btn-default" type="button"
+											<button class="btn btn-default bo-datarangepicker-button" type="button"
                                                     data-control="daterangepicker">
+                                                <input type="text" daterangepicker class="form-control"
+                                                       ng-model="vm.filterPeriod"
+                                                       daterangepicker-neutral-timezone
+                                                       ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                                       ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </button>
-										 </span>
                                         </div>
                                     </div>
                                 </div>
@@ -421,17 +418,15 @@
                                     <div class="form-group">
                                         <span class="visible-print">{{'api_print_period'|translate}}</span>
                                         <div class="input-group data_range">
-                                            <input type="text" daterangepicker class="form-control"
-                                                   ng-model="vm.filterPeriod"
-                                                   daterangepicker-neutral-timezone
-                                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-										 <span class="input-group-btn">
-											<button class="btn btn-default" type="button"
+											<button class="btn btn-default bo-datarangepicker-button" type="button"
                                                     data-control="daterangepicker">
+                                                <input type="text" daterangepicker class="form-control"
+                                                       ng-model="vm.filterPeriod"
+                                                       daterangepicker-neutral-timezone
+                                                       ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                                       ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </button>
-										 </span>
                                         </div>
                                     </div>
                                 </div>
@@ -575,15 +570,14 @@
                             <div class="form-group">
                                 <span class="visible-print">{{'api_print_period'|translate}}</span>
                                 <div class="input-group data_range">
-                                    <input type="text" daterangepicker class="form-control"
-                                           ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
-                                           ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-								 <span class="input-group-btn">
-									<button class="btn btn-default" type="button" data-control="daterangepicker">
+									<button class="btn btn-default bo-datarangepicker-button" type="button" data-control="daterangepicker">
+                                        <input type="text" daterangepicker class="form-control"
+                                               ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
+                                               ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                               ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
                                         <i class="fa fa-calendar" aria-hidden="true"></i>
                                     </button>
-								 </span>
+
                                 </div>
                             </div>
                         </div>
@@ -654,15 +648,13 @@
                             <div class="form-group">
                                 <span class="visible-print">{{'api_print_period'|translate}}</span>
                                 <div class="input-group data_range">
-                                    <input type="text" daterangepicker class="form-control"
-                                           ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
-                                           ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-								 <span class="input-group-btn">
-									<button class="btn btn-default" type="button" data-control="daterangepicker">
+									<button class="btn btn-default bo-datarangepicker-button" type="button" data-control="daterangepicker">
+                                        <input type="text" daterangepicker class="form-control"
+                                               ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
+                                               ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                               ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
                                         <i class="fa fa-calendar" aria-hidden="true"></i>
                                     </button>
-								 </span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -699,15 +691,13 @@
                             <div class="form-group">
                                 <span class="visible-print">{{'api_print_period'|translate}}</span>
                                 <div class="input-group data_range">
-                                    <input type="text" daterangepicker class="form-control"
-                                           ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
-                                           ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" data-control="daterangepicker">
-                                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                                        </button>
-                                     </span>
+                                    <button class="btn btn-default bo-datarangepicker-button" type="button" data-control="daterangepicker">
+                                        <input type="text" daterangepicker class="form-control"
+                                               ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
+                                               ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                               ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
