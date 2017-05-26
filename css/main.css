@@ -1593,3 +1593,34 @@ a:hover {
 .asd .dropdown-menu {
 	position: relative;
 }
+
+/* Sliding and dropdowned tabs
+================================ */
+.ng-sliding-tabs {
+	white-space: nowrap;
+	display: inline-block;
+	width: 100%;
+}
+
+.ng-sliding-tabs > li {
+	float: none;
+	display: inline-block;
+}
+
+.bo-dropdown-tabs-wrapper {
+	position: relative;
+}
+
+.sliding-tabs-dropdown {
+	position: absolute;
+	right: 0;
+	top: 13px;
+}
+.sliding-tabs-dropdown .dropdown-toggle {
+	color: #27394c;
+	text-decoration: none;
+}
+
+.container {
+	width: auto;
+}
