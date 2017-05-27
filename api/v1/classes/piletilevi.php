@@ -383,7 +383,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/csvReport/priceType", $data );
+		$reportData = $this->send( "/csvReport/priceType", $data, true );
 		
 		return $reportData;
 	}
@@ -392,7 +392,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/csvReport/priceClass", $data );
+		$reportData = $this->send( "/csvReport/priceClass", $data, true );
 		
 		return $reportData;
 	}
@@ -401,7 +401,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/csvReport/sectors", $data );
+		$reportData = $this->send( "/csvReport/sectors", $data, true );
 		
 		return $reportData;
 	}
