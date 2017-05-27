@@ -1057,13 +1057,16 @@ $app->get('/test', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
 	$filter = array();
-	$filter['eventId'] = 198613;
+	$filter['eventId'] = 10000009;
 	$filter['startDate'] = "2016-10-12T18:19:40.000Z";
 	$filter['endDate'] = "2017-05-12T16:10:00.000Z";
 
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->eventSalesReportByLocation( $filter );
+    $reportResponse = $piletileviApi->eventSalesCsvReportByOverview( $filter );
 	
+	print_r($reportResponse);
+	
+	/*
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
@@ -1072,7 +1075,7 @@ $app->get('/test', function() use ($app)  {
 	    $response["status"] = "error";
         $response["message"] = $dataHandler->getMessages($reportResponse->errors);
 		$dataHandler->response(200, $response);
-	}
+	}*/
 });
 
 $app->post('/rejectTicket', function() use ($app)  {

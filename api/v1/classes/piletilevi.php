@@ -370,6 +370,42 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function eventSalesCsvReportByOverview($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/csvReport/overview", $data, true );
+		
+		return $reportData;
+	}
+
+	public function eventSalesCsvReportByPriceType($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/csvReport/priceType", $data );
+		
+		return $reportData;
+	}
+
+	public function eventSalesCsvReportByPriceClass($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/csvReport/priceClass", $data );
+		
+		return $reportData;
+	}
+	
+	public function eventSalesCsvReportBySectors($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/csvReport/sectors", $data );
+		
+		return $reportData;
+	}
+	
 	public function eventSalesReportByLocation($filter) {
 		
 		$data['filter']= $filter;
@@ -471,7 +507,7 @@ class PiletileviApi {
 			$request->withoutAutoParsing();
 		}
 		$response = $request->send();
-
+		
 		//$this->app->log->debug( print_r($response->headers,true) );
 		//$this->app->log->debug( print_r($response->body) );
 		
