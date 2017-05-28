@@ -9,22 +9,19 @@
 		<span class="dropdown inline_dropdown" ng-if="hasFullAccess('api_reports_export_to_file')">
 			<i class="fa fa-share"></i><a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                           aria-expanded="true">{{'api_export'|translate}}</a>
-			<ul class="table-export dropdown-menu"
-                table-selector="vm.currentTab"
-                export-options="{type: 'pdf', escape: true, tableName: vm.getExportFileName(vm.event)}">
-                <li te-option te-value="'excel'" te-param="'type'">
-                    <a href=""><i class="fa fa-file-excel-o"></i>Excel</a>
+			<ul class="table-export dropdown-menu">
+                <li>
+                    <a href="" ng-click="vm.exportAsExcel(vm.currentTab)"><i class="fa fa-file-excel-o"></i>Excel</a>
                 </li>
-                <li te-option te-value="'csv'" te-param="'type'">
-                    <a href=""><i class="fa fa-file-text-o"></i>CSV</a>
+                <li>
+                    <a href="" ng-click="vm.exportAsCsv(vm.currentTab)"><i class="fa fa-file-text-o"></i>CSV</a>
                 </li>
             </ul>
         </span>
         </div>
 
         <table id="{{vm.currentTab}}"
-               ng-if="['overview', 'pricetype', 'priceclass', 'sectors'].indexOf(vm.currentTab) > -1"
-               ng-include="'views/report_export/'+vm.currentTab+'.html'" class="visually-hidden"></table>
+               ng-if="['overview', 'pricetype', 'priceclass', 'sectors'].indexOf(vm.currentTab) > -1" class="visually-hidden"></table>
 
         <div class="panel panel-default bo-event" block-ui block-ui-pattern="/concertSales/">
             <div class="bo-sub-events-hidden" ng-include-template="event_detail.html"

@@ -5,9 +5,9 @@
     angular.module('boApp')
         .controller('reportController', ReportController);
 
-    ReportController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$filter', 'eventService', 'graphService', 'pdfService'];
+    ReportController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$filter', 'eventService', 'graphService'];
 
-    function ReportController($scope, $rootScope, $routeParams, $location, $filter, eventService, graphService, pdfService) {
+    function ReportController($scope, $rootScope, $routeParams, $location, $filter, eventService, graphService) {
 
         if (!$routeParams && !$routeParams.id) {
             $location.path('dashboard');
@@ -73,11 +73,32 @@
         vm.pricetypeLineGraph = graphService.pricetypeLineGraph;
         vm.priceclassPieGraph = graphService.priceclassPieGraph;
         vm.priceclassLineGraph = graphService.priceclassLineGraph;
+        vm.exportAsExcel = eventService.exportAsExcel;
         // vm.printPdf = pdfService.printPdf;
 
         //Initialize
         eventService.getEventSales(vm.event);
         eventService.getRelatedEvents(vm.event);
+
+		vm.exportAsCsv = function(currentTab) {
+			var filter;
+			if (currentTab == "overview") {
+				filter = vm.overviewFilter;
+			} else if (currentTab == "pricetype") {
+				filter = vm.pricetypeFilter;
+			} else if (currentTab == "priceclass") {
+				filter = vm.priceclassFilter;
+			} else if (currentTab == "sectors") {
+				if ($scope.selectedSectionId) {
+					filter = vm.priceclassFilter;
+				} else {
+					filter = vm.sectorsFilter;
+				}
+			} else if (currentTab == "locations") {
+				filter = vm.locationsFilter;
+			}
+			eventService.exportAsCsv(vm.event, currentTab, filter);
+		}
 
         vm.setOverviewDisplay = function (display) {
             vm.overviewFilter.display = display;
@@ -170,13 +191,7 @@
             vm.event.sectionsMapConfig.mouseoverSectionId = mouseoverSectionId;
             $scope.mouseoverSectionId = mouseoverSectionId;
         };
-
-        vm.getExportFileName = function (event) {
-            if (event.eventPeriod) {
-                return 'Report-' + vm.currentTab + '-' + event.name + '-' + $filter('date')(event.eventPeriod.start, "dd.MM.yyyy") + '-' + $filter('date')(event.eventPeriod.end, "dd.MM.yyyy");
-            }
-        };
-
+		
         $scope.setSelectedSectionId = vm.setSelectedSectionId;
         $scope.setMouseoverSectionId = vm.setMouseoverSectionId;
 

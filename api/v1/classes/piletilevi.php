@@ -405,6 +405,24 @@ class PiletileviApi {
 		
 		return $reportData;
 	}
+
+	public function eventSalesCsvReportBySector($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/csvReport/sector", $data, true );
+		
+		return $reportData;
+	}
+
+	public function eventSalesCsvReportByLocation($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/csvReport/location", $data, true );
+		
+		return $reportData;
+	}
 	
 	public function eventSalesReportByLocation($filter) {
 		
