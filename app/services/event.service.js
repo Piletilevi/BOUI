@@ -6,9 +6,9 @@
 		.module('boApp')
 		.factory('eventService', EventService);
 
-	EventService.$inject = ['$rootScope', '$translate', 'dataService'];
+	EventService.$inject = ['$rootScope', '$translate', 'dataService', '$filter', 'FileSaver', 'Blob'];
 
-	function EventService($rootScope, $translate, dataService) {
+	function EventService($rootScope, $translate, dataService, $filter, FileSaver, Blob) {
 
 		var myOpenEvents = null;
 		var myDraftEvents = null;
@@ -67,7 +67,9 @@
 			getPriceTypeGraphData : getPriceTypeGraphData,
 			getSectorsData: getSectorsData,
 			getSectorInfo: getSectorInfo,
-			getSectorTickets: getSectorTickets
+			getSectorTickets: getSectorTickets,
+			exportAsExcel: exportAsExcel, 
+			exportAsCsv: exportAsCsv 
 		};
 		return service;
 
@@ -536,7 +538,63 @@
 				}
 			});
 		}
-				
+
+        function getExportFileName(event, currentTab, type) {
+            if (event.eventPeriod) {
+                return 'Report-' + currentTab + '-' + event.name + '-' + $filter('date')(event.eventPeriod.start, "dd.MM.yyyy") + '-' + $filter('date')(event.eventPeriod.end, "dd.MM.yyyy") + "." + type;
+            }
+        };
+		
+		function exportAsExcel(event, currentTab, filter) {
+			var callMethod;
+			if (currentTab == 'overview') {
+				callMethod = 'getXlsByOverview';
+			} else if (currentTab == 'pricetype') {
+				callMethod = 'getXlsByPriceType';
+			} else if (currentTab == 'priceclass') {
+				callMethod = 'getXlsByPriceClass';
+			} else if (currentTab == 'sectors') {
+				if (filter.sectionId) {
+					callMethod = 'getXlsByPriceClass';
+				} else {
+					callMethod = 'getXlsBySectors';
+				}
+			} else if (currentTab == 'locations') {
+				callMethod = 'getXlsByLocation';
+			}
+			if (callMethod) {
+				dataService.post(callMethod, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (data) {
+					var file = new Blob([data], { type: 'application/vnd.ms-excel;charset=charset=utf-8' });
+					FileSaver.saveAs(file, getExportFileName(event, currentTab, 'xls'));
+				});
+			}
+		}
+
+		function exportAsCsv(event, currentTab, filter) {
+			var callMethod;
+			if (currentTab == 'overview') {
+				callMethod = 'getCsvByOverview';
+			} else if (currentTab == 'pricetype') {
+				callMethod = 'getCsvByPriceType';
+			} else if (currentTab == 'priceclass') {
+				callMethod = 'getCsvByPriceClass';
+			} else if (currentTab == 'sectors') {
+				if (filter.sectionId) {
+					callMethod = 'getCsvByPriceClass';
+				} else {
+					callMethod = 'getCsvBySectors';
+				}
+			} else if (currentTab == 'locations') {
+				callMethod = 'getCsvByLocation';
+			}
+			if (callMethod) {
+				dataService.post(callMethod, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (data) {
+					var file = new Blob([data], { type: 'text/csv' });
+					FileSaver.saveAs(file, getExportFileName(event, currentTab, 'csv'));
+				});
+			}
+		}
+		
 		function getWebsiteUrl(event) {
 
 			var urlParts = [],

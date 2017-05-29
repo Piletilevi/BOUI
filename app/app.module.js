@@ -15,9 +15,9 @@
 		'infinite-scroll',
 		'ui.toggle',
 		'chart.js',
-        'ceibo.components.table.export',
         'sticky',
-        'ngLocationUpdate'
+        'ngLocationUpdate',
+		'ngFileSaver'
     ]);
     angular.module('boApp').config(function(blockUIConfig) {
         blockUIConfig.autoInjectBodyBlock = false;
