@@ -6,9 +6,9 @@
 		.module('boApp')
 		.factory('eventService', EventService);
 
-	EventService.$inject = ['$rootScope', '$translate', 'dataService', '$filter', 'FileSaver', 'Blob', '$scope'];
+	EventService.$inject = ['$rootScope', '$translate', 'dataService', '$filter', 'FileSaver', 'Blob'];
 
-	function EventService($rootScope, $translate, dataService, $filter, FileSaver, Blob, $scope) {
+	function EventService($rootScope, $translate, dataService, $filter, FileSaver, Blob) {
 
 		var myOpenEvents = null;
 		var myDraftEvents = null;
@@ -554,7 +554,7 @@
 			} else if (currentTab == 'priceclass') {
 				callMethod = 'getXlsByPriceClass';
 			} else if (currentTab == 'sectors') {
-				if ($scope.selectedSectionId) {
+				if (filter.sectionId) {
 					callMethod = 'getXlsByPriceClass';
 				} else {
 					callMethod = 'getXlsBySectors';
@@ -579,7 +579,7 @@
 			} else if (currentTab == 'priceclass') {
 				callMethod = 'getCsvByPriceClass';
 			} else if (currentTab == 'sectors') {
-				if ($scope.selectedSectionId) {
+				if (filter.sectionId) {
 					callMethod = 'getCsvByPriceClass';
 				} else {
 					callMethod = 'getCsvBySectors';
