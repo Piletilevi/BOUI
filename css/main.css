@@ -856,6 +856,13 @@ a:hover {
 	overflow: hidden;
 }
 
+.bo-sectionselector-item.active, .bo-sectionselector-item.active:focus, .bo-sectionselector-item.active:hover {
+	z-index: 2;
+	color: #fff;
+	background-color: #e3e5e8;
+	border-color: #dcdcdc;
+}
+
 /* Sales overview
 ================================ */
 .bo-salesoverview-controls {
@@ -1230,8 +1237,12 @@ a:hover {
 .bo-locationstable > tbody > .bo-table-secondarytitle-row td {
 	font-weight: bold;
 }
-/* Chart
-================================ */
+
+.bo-locationstable .text-danger {
+	color: #ff3f71 !important;
+}
+	/* Chart
+    ================================ */
 .bo-chart {
 	text-align: center;
 	margin-bottom: 20px;
