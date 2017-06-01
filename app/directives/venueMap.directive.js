@@ -26,17 +26,17 @@
 
                     piletilevi.venuemap.Config = $parse($attributes.config)($scope);
 
-                    if(piletilevi.venuemap.Config.mouseoverSectionId) {
-                        if(piletilevi.venuemap.Config.mouseoverPrevSectionId) {
+                    if (piletilevi.venuemap.Config.mouseoverSectionId) {
+                        if (piletilevi.venuemap.Config.mouseoverPrevSectionId) {
                             var selectedPrevSection = document.getElementById('section' + piletilevi.venuemap.Config.mouseoverPrevSectionId);
-                            if(selectedPrevSection) {
+                            if (selectedPrevSection) {
                                 selectedPrevSection.setAttribute("fill", "#cccccc");
                                 selectedPrevSection.setAttribute("opacity", "0");
                                 selectedPrevSection.setAttribute("style", "display: block;");
                             }
                         }
                         var selectedSection = document.getElementById('section' + piletilevi.venuemap.Config.mouseoverSectionId);
-                        if(selectedSection) {
+                        if (selectedSection) {
                             selectedSection.setAttribute("fill", "#75bb01");
                             selectedSection.setAttribute("opacity", "0.8");
                             selectedSection.setAttribute("style", "display: block;");
@@ -44,7 +44,7 @@
                         return false;
                     }
 
-                    if(!piletilevi.venuemap.Config.confId) {
+                    if (!piletilevi.venuemap.Config.confId) {
                         return false;
                     }
 
@@ -941,6 +941,8 @@
                             if (sectionId == currentSection) {
                                 self.update();
                             }
+
+                            $element.find('.bo-mapcontrols').show();
                         };
                         this.update = function () {
                             if (currentSection != venueMap.getSelectedSection() && maps[currentSection]) {
@@ -1100,7 +1102,7 @@
                                     var placeElement = false;
                                     for (var i = 0; i < seatsInfo.length; i++) {
                                         var seatInfo = seatsInfo[i];
-                                        if(svgElement.getElementById('place_' + seatInfo.id)) {
+                                        if (svgElement.getElementById('place_' + seatInfo.id)) {
                                             if (placeElement = svgElement.getElementById('place_' + seatInfo.id)) {
                                                 if (!placesIndex[seatInfo.id]) {
                                                     var placeObject = new piletilevi.venuemap.PlacesMapPlace(venueMap, placeElement, self);
@@ -1477,7 +1479,7 @@
                         map.addSectionDetails(sectionDetails);
                         map.setSelectedSection(piletilevi.venuemap.Config.sectionId);
 
-                        $element.append('<div class="bo-mapcontrols">' +
+                        $element.append('<div class="bo-mapcontrols" style="display: none">' +
                             '<span class="bo-mapcontrols-item btn_zoomin"><i class="fa fa-plus" aria-hidden="true"></i></span>' +
                             '<span class="bo-mapcontrols-item btn_zoomout"><i class="fa fa-minus" aria-hidden="true"></i></span> ' +
                             '<span class="bo-mapcontrols-item btn_zoomreset">Reset Zoom</span>' +
@@ -1495,6 +1497,7 @@
                         btnZoomReset.on('click', function (event) {
                             map.setZoomLevel(0);
                         });
+
                     }
 
                     map.build();
