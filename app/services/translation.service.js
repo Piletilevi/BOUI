@@ -7,9 +7,9 @@
         .module('boApp')
         .factory('translationService', TranslationService);
 
-    TranslationService.$inject = ['$rootScope', '$translate', 'dataService'];
+    TranslationService.$inject = ['$rootScope', '$routeParams', '$translate', 'dataService'];
 
-    function TranslationService($rootScope, $translate, dataService) {
+    function TranslationService($rootScope, $routeParams, $translate, dataService) {
         var service = {
             initialize : initialize,
             sessionLanguage : sessionLanguage,
@@ -45,13 +45,13 @@
                     momentLocaleCode = 'et';
                     break;
                 case 'lat':
-                    momentLocaleCode = 'lt';
+                    momentLocaleCode = 'lv';
                     break;
                 case 'rus':
                     momentLocaleCode = 'ru';
                     break;
                 case 'lit':
-                    momentLocaleCode = 'lv';
+                    momentLocaleCode = 'lt';
                     break;
                 case 'fin':
                     momentLocaleCode = 'fi';
