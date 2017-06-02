@@ -287,8 +287,8 @@
 }
 
 .btn-primary {
-    background-color: #4a5867;
-    border-color: #4a5867;
+    background-color: #5e7287;
+    border-color: #5e7287;
 }
 
 .btn-primary:hover {
@@ -360,6 +360,29 @@
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+.btn.form-control {
+    text-align: left;
+}
+
+.btn.form-control.dropdown-toggle {
+    padding-right: 35px;
+}
+
+.btn.form-control .caret {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px dashed;
+    margin-left: 9px;
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    margin-top: -2px;
+}
+
+.btn-default .form-control {
+    height: 34px;
 }
 
 .input-group-lg > .form-control,
@@ -625,14 +648,21 @@ fieldset[disabled] .btn {
 }
 
 textarea.form-control {
-    min-height: 132px;
+    min-height: 122px;
 }
 
 .btn-group-sm > .btn,
 .btn-sm {
-    font-size: 15px;
+    font-size: 14px;
     padding-left: 8px;
     padding-right: 8px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.btn-group-sm > .btn .fa,
+.btn-sm .fa {
+    font-size: 13px;
 }
 
 .form-group-sm .form-control {
@@ -702,4 +732,89 @@ textarea.form-control {
 .chart-pie {
     max-width: 319px;
     margin: 0 auto;
+}
+
+.table {
+    margin-bottom: 24px;
+}
+
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+    padding: 10px 12px;
+}
+
+.table thead tr td,
+.table thead tr th {
+    background: #5e7287;
+    color: #fff;
+    border-top: 1px solid #5e7287;
+    padding-top: 8px;
+    padding-bottom: 9px;
+}
+
+.table thead tr td:first-child,
+.table thead tr th:first-child {
+    border-left: 1px solid #5e7287;
+}
+
+.table thead tr td:last-child,
+.table thead tr th:last-child {
+    border-right: 1px solid #5e7287;
+}
+
+.table thead tr td + td,
+.table thead tr th + td,
+.table thead tr td + th,
+.table thead tr th + th {
+    border-left: 1px solid #6b8198;
+}
+
+.table tbody td {
+    border: 1px solid #dadcdf;
+}
+
+.table tbody tr td,
+.table tbody tr th {
+
+}
+
+.table tfoot tr td,
+.table tfoot tr th {
+
+}
+
+.table > tbody > tr > td.align-middle,
+.table > tbody > tr > th.align-middle,
+.table > tfoot > tr > td.align-middle,
+.table > tfoot > tr > th.align-middle,
+.table > thead > tr > td.align-middle,
+.table > thead > tr > th.align-middle,
+.align-middle {
+    vertical-align: middle;
+}
+
+.table > tbody > tr.row-align-middle > td,
+.table > tbody > tr.row-align-middle > th,
+.table > tfoot > tr.row-align-middle > td,
+.table > tfoot > tr.row-align-middle > th,
+.table > thead > tr.row-align-middle > td,
+.table > thead > tr.row-align-middle > th {
+    vertical-align: middle;
+}
+
+.table-condensed > tbody > tr > td,
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > td,
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > thead > tr > th {
+    padding: 5px;
+}
+
+.form-inline .has-feedback .form-control-feedback {
+    line-height: 34px;
 }
