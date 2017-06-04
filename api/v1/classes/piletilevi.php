@@ -370,6 +370,15 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function eventSalesReportByLocation($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/report/eventSalesReportByLocation", $data );
+		
+		return $reportData;
+	}
+	
 	public function eventSalesCsvReportByOverview($filter) {
 		
 		$data['filter']= $filter;
@@ -406,15 +415,6 @@ class PiletileviApi {
 		return $reportData;
 	}
 
-	public function eventSalesCsvReportBySector($filter) {
-		
-		$data['filter']= $filter;
-
-		$reportData = $this->send( "/csvReport/sector", $data, true );
-		
-		return $reportData;
-	}
-
 	public function eventSalesCsvReportByLocation($filter) {
 		
 		$data['filter']= $filter;
@@ -423,12 +423,48 @@ class PiletileviApi {
 		
 		return $reportData;
 	}
-	
-	public function eventSalesReportByLocation($filter) {
+
+	public function eventSalesXlsReportByOverview($filter) {
 		
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/report/eventSalesReportByLocation", $data );
+		$reportData = $this->send( "/xlsReport/overview", $data, true );
+		
+		return $reportData;
+	}
+
+	public function eventSalesXlsReportByPriceType($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/xlsReport/priceType", $data, true );
+		
+		return $reportData;
+	}
+
+	public function eventSalesXlsReportByPriceClass($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/xlsReport/priceClass", $data, true );
+		
+		return $reportData;
+	}
+	
+	public function eventSalesXlsReportBySectors($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/xlsReport/sectors", $data, true );
+		
+		return $reportData;
+	}
+
+	public function eventSalesXlsReportByLocation($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/xlsReport/location", $data, true );
 		
 		return $reportData;
 	}
@@ -532,8 +568,11 @@ class PiletileviApi {
 		if ($response->hasErrors()) {
 			$this->app->halt($response->code);
 		}
-		
-		return $response->body;
+		if ($plain) { 
+			return $response->raw_body;
+		} else {
+			return $response->body;
+		}
 	}
 
 	private function getBasePath() {

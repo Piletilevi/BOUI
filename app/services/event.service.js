@@ -563,7 +563,7 @@
 				callMethod = 'getXlsByLocation';
 			}
 			if (callMethod) {
-				dataService.post(callMethod, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (data) {
+				dataService.postBinary(callMethod, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (data) {
 					var file = new Blob([data], { type: 'application/vnd.ms-excel;charset=charset=utf-8' });
 					FileSaver.saveAs(file, getExportFileName(event, currentTab, 'xls'));
 				});
@@ -588,7 +588,7 @@
 				callMethod = 'getCsvByLocation';
 			}
 			if (callMethod) {
-				dataService.post(callMethod, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (data) {
+				dataService.postBinary(callMethod, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (data) {
 					var file = new Blob([data], { type: 'text/csv' });
 					FileSaver.saveAs(file, getExportFileName(event, currentTab, 'csv'));
 				});

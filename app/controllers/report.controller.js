@@ -73,7 +73,6 @@
         vm.pricetypeLineGraph = graphService.pricetypeLineGraph;
         vm.priceclassPieGraph = graphService.priceclassPieGraph;
         vm.priceclassLineGraph = graphService.priceclassLineGraph;
-        vm.exportAsExcel = eventService.exportAsExcel;
         // vm.printPdf = pdfService.printPdf;
 
         //Initialize
@@ -100,6 +99,26 @@
 			eventService.exportAsCsv(vm.event, currentTab, filter);
 		}
 
+		vm.exportAsExcel = function(currentTab) {
+			var filter;
+			if (currentTab == "overview") {
+				filter = vm.overviewFilter;
+			} else if (currentTab == "pricetype") {
+				filter = vm.pricetypeFilter;
+			} else if (currentTab == "priceclass") {
+				filter = vm.priceclassFilter;
+			} else if (currentTab == "sectors") {
+				if ($scope.selectedSectionId) {
+					filter = vm.priceclassFilter;
+				} else {
+					filter = vm.sectorsFilter;
+				}
+			} else if (currentTab == "locations") {
+				filter = vm.locationsFilter;
+			}
+			eventService.exportAsExcel(vm.event, currentTab, filter);
+		}
+		
         vm.setOverviewDisplay = function (display) {
             vm.overviewFilter.display = display;
         }

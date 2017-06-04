@@ -16,6 +16,7 @@
             getIp : getIp,
             getBoUrl : getBoUrl,
             post : post,
+            postBinary : postBinary,
             put : put,
             delete : del
         };
@@ -52,6 +53,17 @@
         function post (q, object) {
 			return $http.post(serviceBase + q, object).then(function (results) {
 				return results.data;
+            }, function errorCallback(response) {
+  			  if (response.status == 401) {
+				  $location.path("/login");
+			  }
+			  console.log(response);
+		    });
+        };
+
+        function postBinary (q, object) {
+			return $http.post(serviceBase + q, object, {responseType: "arraybuffer"}).then(function (response) {
+				return response.data;
             }, function errorCallback(response) {
   			  if (response.status == 401) {
 				  $location.path("/login");
