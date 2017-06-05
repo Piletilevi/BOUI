@@ -748,7 +748,7 @@
                             <td>{{vm.myLocationsData.salesTotal.internetCount}}</td>
                             <td>{{vm.myLocationsData.salesTotal.spCount}}</td>
                             <td ng-class="{'text-danger': vm.myLocationsData.salesTotal.refundCount}">
-                                {{vm.myLocationsData.salesTotal.refundCount ? '-' + vm.myLocationsData.salesTotal.refundCount : 0}}
+                                {{vm.myLocationsData.salesTotal.refundCount}}
                             </td>
                             <td>{{vm.myLocationsData.salesTotal.totalCount}}</td>
                             <td>{{vm.myLocationsData.salesTotal.percent}}%</td>
@@ -763,7 +763,7 @@
                             <td>{{locationData.internetCount}}</td>
                             <td>{{locationData.spCount}}</td>
                             <td ng-class="{'text-danger': locationData.refundCount}">
-                                {{locationData.refundCount ? '-' + locationData.refundCount : 0}}
+                                {{locationData.refundCount}}
                             </td>
                             <td>{{locationData.totalCount}}</td>
                             <td>{{(locationData.percent) | number:0}}%</td>
@@ -775,7 +775,7 @@
                             <td>{{city.city|translate}}</td>
                             <td>{{city.internetCount}}</td>
                             <td>{{city.spCount}}</td>
-                            <td ng-class="{'text-danger': city.refundCount}">{{city.refundCount ? '-' + city.refundCount : 0}}</td>
+                            <td ng-class="{'text-danger': city.refundCount}">{{city.refundCount}}</td>
                             <td>{{city.totalCount}}</td>
                             <td>{{(city.percent) | number:0}}%</td>
                             <td ng-if="hasFullAccess('api_reports_revenue')">
