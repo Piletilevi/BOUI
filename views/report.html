@@ -72,7 +72,7 @@
             <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'overview'}" id="overview" role="tabpanel">
                 <div class="panel-body">
 
-                    <div class="bo-salesoverview-controls clearfix">
+                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
                         <div class="row">
                             <div class="col-sm-5 bo-inline-print">
                                 <div class="form-inline">
@@ -156,12 +156,12 @@
                                 <table class="bo-revenuetable table table-condensed table-small bo-table-report">
                                     <thead>
                                     <tr>
-                                        <th width="46%"></th>
-                                        <th width="17%">{{'api_tickets'|translate}}</th>
-                                        <th width="10%">%</th>
-                                        <th width="20%" ng-if="hasFullAccess('api_reports_revenue')">
+                                        <td width="46%"></td>
+                                        <td width="17%">{{'api_tickets'|translate}}</td>
+                                        <td width="10%">%</td>
+                                        <td width="20%" ng-if="hasFullAccess('api_reports_revenue')">
                                             {{'api_revenue'|translate}}
-                                        </th>
+                                        </td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -252,7 +252,7 @@
             <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'pricetype'}" id="pricetype" role="tabpanel">
                 <div class="panel-body">
 
-                    <div class="bo-salesoverview-controls clearfix">
+                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
                         <div class="row">
                             <div class="col-sm-5 bo-inline-print">
                                 <div class="form-inline">
@@ -348,11 +348,11 @@
                                 <table class="bo-pricetyperevenuetable table table-condensed table-small bo-table-report">
                                     <thead>
                                     <tr>
-                                        <th>{{'api_pricetype'|translate}}</th>
-                                        <th>{{'api_tickets'|translate}}</th>
-                                        <th>%</th>
-                                        <th ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}
-                                        </th>
+                                        <td>{{'api_pricetype'|translate}}</td>
+                                        <td>{{'api_tickets'|translate}}</td>
+                                        <td>%</td>
+                                        <td ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}
+                                        </td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -408,7 +408,7 @@
             <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'priceclass'}" id="priceclass" role="tabpanel">
                 <div class="panel-body">
 
-                    <div class="bo-salesoverview-controls clearfix">
+                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
                         <div class="row">
                             <div class="col-sm-5 bo-inline-print">
                                 <div class="form-inline">
@@ -503,11 +503,11 @@
                                 <table class="bo-pricetyperevenuetable table table-condensed table-small bo-table-report">
                                     <thead>
                                     <tr>
-                                        <th>{{'api_priceclass'|translate}}</th>
-                                        <th>{{'api_tickets'|translate}}</th>
-                                        <th>%</th>
-                                        <th ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}
-                                        </th>
+                                        <td>{{'api_priceclass'|translate}}</td>
+                                        <td>{{'api_tickets'|translate}}</td>
+                                        <td>%</td>
+                                        <td ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}
+                                        </td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -562,7 +562,7 @@
             <!-- Tab: sections -->
             <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'sections'}" id="sections" role="tabpanel">
                 <div class="panel-body" ng-if="!selectedSectionId">
-                    <div class="bo-salesoverview-controls clearfix bo-inline-print">
+                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix bo-inline-print">
                         <div class="form-inline">
                             <div class="form-group">
                                 <span class="visible-print">{{'api_print_period'|translate}}</span>
@@ -713,7 +713,7 @@
             <!-- Tab: locations -->
             <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'locations'}" id="locations" role="tabpanel">
                 <div class="panel-body">
-                    <div class="bo-salesoverview-controls clearfix">
+                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
                         <div class="form-inline">
                             <div class="form-group">
                                 <span class="visible-print">{{'api_print_period'|translate}}</span>
@@ -732,22 +732,22 @@
                     <table ng-if="vm.myLocationsData.sales.length > 0" class="bo-locationstable table table-condensed table-small bo-table-report">
                         <thead>
                         <tr>
-                            <th></th>
-                            <th>
+                            <td></td>
+                            <td>
                                 {{'api_locations_internet'|translate}}
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 {{'api_locations_salespoints'|translate}}
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 {{'api_locations_total'|translate}}
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 %
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 {{'api_locations_revenue'|translate}}
-                            </th>
+                            </td>
                         </tr>
                         </thead>
                         <tr class="bo-table-title-row bo-table-title-row-bold">
