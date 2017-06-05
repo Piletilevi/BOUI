@@ -533,7 +533,7 @@ a:hover {
 }
 
 .bo-widgetbox-header {
-	background: #576778;
+	background: #5e7287;
 	color: #b7c1cd;
 	line-height: 65px;
 	padding-right: 30px;
@@ -1000,7 +1000,7 @@ a:hover {
 .bo-mapcontrols-item {
 	position: relative;
 	display: inline-block;
-	background: #576778;
+	background: #5e7287;
 	color: #fff;
 	min-width: 23px;
 	margin: 0 0 0 5px;
@@ -1008,7 +1008,7 @@ a:hover {
 	height: 24px;
 	text-align: center;
 	text-decoration: none;
-	border: 3px solid #576778;
+	border: 3px solid #5e7287;
 }
 
 .bo-mapcontrols-item i {
@@ -1025,12 +1025,12 @@ a:hover {
 
 .bo-mapcontrols-resize {
 	background: #fff;
-	color: #576778;
+	color: #5e7287;
 	margin-right: 12px;
 }
 
 .bo-mapcontrols-resize:hover {
-	color: #576778;
+	color: #5e7287;
 }
 
 .bo-mapcontrols-resize:before {
@@ -1167,7 +1167,7 @@ a:hover {
 }
 
 .bo-table-report > tbody > .bo-table-title-row {
-	background: #576778;
+	background: #5e7287;
 }
 
 .bo-table-report > tbody > .bo-table-title-row > th,
@@ -1177,12 +1177,12 @@ a:hover {
 
 .bo-table-report > tbody > .bo-table-title-row > td:first-child,
 .bo-table-report > tbody > .bo-table-title-row > th:first-child {
-	border-left: 1px solid #576778;
+	border-left: 1px solid #5e7287;
 }
 
 .bo-table-report > tbody > .bo-table-title-row > th:last-child,
 .bo-table-report > tbody > .bo-table-title-row > td:last-child {
-	border-right: 1px solid #576778;
+	border-right: 1px solid #5e7287;
 }
 
 .bo-table-report > tbody > .bo-table-title-row-bold > th,
@@ -1551,7 +1551,7 @@ a:hover {
 .bo-light-gamma .navbar-nav > li.active > a:hover,
 .bo-light-gamma .navbar-nav > li.active > a:focus {
 	color: #fff;
-	background-color: #576778;
+	background-color: #5e7287;
 }
 
 .bo-light-gamma .navbar-nav > li > a:hover,
@@ -1561,7 +1561,7 @@ a:hover {
 
 .bo-light-gamma .bo-pills-block {
 	color: #fff;
-	background-color: #576778;
+	background-color: #5e7287;
 }
 
 .bo-light-gamma .nav-pills > li > a {
