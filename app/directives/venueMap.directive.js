@@ -917,6 +917,9 @@
                             var url = $location.protocol() + '://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
                                 + venueMap.getConfId() + '_' + sectionId + '.svg';
 
+                            var url = 'http://localhost:83/venueplan/public/upload/seatingplan_section_svg/4333_26437.svg';
+
+
                             piletilevi.venuemap.Utilities.sendXhr({
                                 'url': url,
                                 'onSuccess': function (response) {
@@ -1139,7 +1142,7 @@
                             var mapHeight = componentElement.offsetHeight / 100 * (100 + zoomPercentage);
                             svgElement.setAttribute('width', mapWidth + 'px');
                             svgElement.setAttribute('height', mapHeight + 'px');
-                            if (zoomLevel === 0) {
+                            if (zoomPercentage == 0) {
                                 componentElement.style.overflow = 'hidden';
                             } else {
                                 componentElement.style.overflow = 'auto';
