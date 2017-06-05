@@ -435,7 +435,7 @@
 	}
 
 	.navbar-nav > li > a.bo-user-dropdown > .fa {
-		margin-right: 18px;
+		margin-right: 6px;
 	}
 
 	.navbar-nav > li > a.bo-user-dropdown .bo-user {
@@ -553,23 +553,23 @@
 	}
 
 	.navbar-nav .open .dropdown-toggle {
-		border-bottom: 1px solid #e3e5e8;
+		border-bottom: 1px solid #e3e6ec;
 	}
 
 	.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
-		border-color: #e3e5e8;
+		border-color: #e3e6ec;
 	}
 
 	.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-		color: #4a5867;
+		color: #5e7287;
 	}
 
 	.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
-		color: #4a5867;
+		color: #5e7287;
 	}
 
 	.navbar-inverse .navbar-nav .open .dropdown-menu .divider {
-		background-color: #e3e5e8;
+		background-color: #e3e6ec;
 	}
 
 	.bo-user .bo-user-name {
@@ -788,6 +788,9 @@
 		display: block;
 	}
 
+	.navbar.navbar-inverse {
+		border-bottom: 0 none;
+	}
 }
 
 /* Bootstrap sm
@@ -841,5 +844,9 @@
 
 	.bo-simplestats-pct {
 		width: 61px;
+	}
+
+	.container {
+		max-width: 1440px;
 	}
 }

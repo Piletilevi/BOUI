@@ -32,7 +32,7 @@
 }
 
 .daterangepicker .calendar-table thead tr:first-child th {
-	background: #e3e5e8;
+	background: #e3e6ec;
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
 	border-radius: 0;
@@ -102,6 +102,7 @@
 .daterangepicker .calendar-links {
 	font-size: 14px;
 	margin-bottom: 11px;
+	color: #b7b7b9;
 }
 
 .daterangepicker .calendar-links a {
@@ -208,7 +209,7 @@
 .daterangepicker .checkbox label::before {
 	height: 21px;
 	width: 22px;
-	background: #ebedf0;
+	background: #edf0f4;
 	border-color: #cdd2d8;
 }
 
