@@ -11,7 +11,7 @@
 			link: function(scope, elem, attrs) {
 				var tabs = new SlidingTabs(elem);
 				tabs.setTextMore($translate.instant('api_report_tabs_more'));
-				tabs.initialize();//???
+				tabs.initialize();//must be loaded after all tabs rendered, not working well
 			}
 		}
 	}
