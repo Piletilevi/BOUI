@@ -12,6 +12,7 @@
         //initially set those objects to null to avoid undefined error
         var vm = this;
         vm.news = [];
+        vm.tabs = [];
         vm.salesCount = 0;
         vm.draftCount = 0;
         vm.pastCount = 0;
@@ -35,19 +36,18 @@
         var userListener = $scope.$watch('$root.user', function () {
             if ($rootScope.user) {
                 userListener();
-                var tabs = [];
                 if ($rootScope.hasFullAccess('api_reports_dashboard_tab_on_sale')) {
-                    tabs.push('onsale');
+                    vm.tabs.push('onsale');
                 }
                 if ($rootScope.hasFullAccess('api_reports_dashboard_tab_not_active')) {
-                    tabs.push('draft');
+                    vm.tabs.push('draft');
                 }
                 if ($rootScope.hasFullAccess('api_reports_dashboard_tab_past')) {
-                    tabs.push('past');
+                    vm.tabs.push('past');
                 }
 
-                if (tabs.indexOf(vm.tabActive) === -1) {
-                    vm.tabActive = tabs[0];
+                if (vm.tabs.indexOf(vm.tabActive) === -1) {
+                    vm.tabActive = vm.tabs[0];
                 }
 
                 // vm.news = newsService.news();
@@ -84,6 +84,25 @@
             if (!angular.isUndefined(oldValue) && newValue !== oldValue) {
                 eventService.reset();
                 eventService.getMyEvents(vm.filter);
+            }
+        });
+
+        $scope.$watchCollection('[vm.salesCount, vm.draftCount, vm.pastCount]', function (oldVal, newVal) {
+            if(!angular.equals(oldVal, newVal)) {
+                if (vm.tabActive === 'onsale' && vm.salesCount === 0) {
+                    if (vm.draftCount === 0 && vm.pastCount != 0 && vm.tabs.indexOf('past') !== -1) {
+                        vm.tabActive = 'past';
+                    }
+                    else if (vm.draftCount != 0 && vm.tabs.indexOf('draft') !== -1) {
+                        vm.tabActive = 'draft';
+                    }
+                }
+                if (vm.tabActive === 'draft' && vm.draftCount === 0) {
+                    if (vm.pastCount != 0 && vm.tabs.indexOf('past') !== -1) {
+                        vm.tabActive = 'past';
+                    }
+                }
+                vm.filter.status = vm.tabActive;
             }
         });
 
