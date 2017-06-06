@@ -13,6 +13,8 @@
         vm.signup = {};
         vm.validPassword = validPassword;
 
+        vm.expired = $location.search().expired;
+
 		vm.doLogin = authService.login;
         vm.changePassword = authService.changePassword;
 

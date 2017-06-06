@@ -4,9 +4,9 @@
     angular.module('boApp')
         .factory("dataService", DataService);
 
-    DataService.$inject = ['$http','bo', '$q', '$location'];
+    DataService.$inject = ['$http','bo', '$q', '$location', '$rootScope'];
 
-    function DataService($http, bo, $q, $location) { // This service connects to our REST API
+    function DataService($http, bo, $q, $location, $rootScope) { // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
 
@@ -32,7 +32,8 @@
                 return results.data;
             }, function errorCallback(response) {
   			  if (response.status == 401) {
-				  $location.path("/login");
+                  $rootScope.sessionExpired = true;
+                  $location.path("/login").search({expired: 1});
 			  }
 			  console.log(response);
 		    });
@@ -55,7 +56,7 @@
 				return results.data;
             }, function errorCallback(response) {
   			  if (response.status == 401) {
-				  $location.path("/login");
+                  $location.path("/login").search({expired: 1});
 			  }
 			  console.log(response);
 		    });
@@ -66,7 +67,7 @@
 				return response.data;
             }, function errorCallback(response) {
   			  if (response.status == 401) {
-				  $location.path("/login");
+                  $location.path("/login").search({expired: 1});
 			  }
 			  console.log(response);
 		    });
@@ -77,7 +78,7 @@
                 return results.data;
             }, function errorCallback(response) {
   			  if (response.status == 401) {
-				  $location.path("/login");
+                  $location.path("/login").search({expired: 1});
 			  }
 			  console.log(response);
 		    });
@@ -88,7 +89,7 @@
                 return results.data;
             }, function errorCallback(response) {
   			  if (response.status == 401) {
-				  $location.path("/login");
+                  $location.path("/login").search({expired: 1});
 			  }
 			  console.log(response);
 		    });
