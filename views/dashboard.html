@@ -22,7 +22,7 @@
 </div>
 <div class="col-xs-12 col-md-9 bo-center-column">
 
-<div class="bo-tabs-holder">
+    <div class="bo-tabs-holder">
         <ul class="nav nav-tabs" role="tablist" id="myeventstab">
             <li ng-class="{'active': vm.tabActive == 'onsale'}"
                 ng-show="hasFullAccess('api_reports_dashboard_tab_on_sale')">
@@ -56,6 +56,13 @@
                              ng-include-variables="{ event: eventItem, vm: vm, showEditLink: true, showReportLink: true, hasFullAccess: hasFullAccess('api_reports_revenue'), user: user}"></div>
                     </div>
                 </div>
+                <div class="panel panel-default" ng-if="vm.myOpenEvents && vm.myOpenEvents.length == 0">
+                    <div class="bo-event-error">
+                        <div class="alert alert-danger">
+                            {{'api_no_events_found'|translate}}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="bo-events" ng-if="vm.tabActive === 'draft'" infinite-scroll="vm.getMoreEvents()"
@@ -67,6 +74,13 @@
                              ng-include-variables="{ event: eventItem, vm: vm, showEditLink: true, showReportLink: true, hasFullAccess: hasFullAccess('api_reports_revenue'), user: user}"></div>
                     </div>
                 </div>
+                <div class="panel panel-default" ng-if="vm.myDraftEvents && vm.myDraftEvents.length == 0">
+                    <div class="bo-event-error">
+                        <div class="alert alert-danger">
+                            {{'api_no_events_found'|translate}}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="bo-events" ng-if="vm.tabActive === 'past'" infinite-scroll="vm.getMoreEvents()"
@@ -76,6 +90,13 @@
                     <div class="panel panel-default" ng-class="{ 'bo-event': !eventItem.isShow}">
                         <div ng-include-template="event_detail.html"
                              ng-include-variables="{ event: eventItem, vm: vm, showEditLink: true, showReportLink: true, hasFullAccess: hasFullAccess('api_reports_revenue'), user: user}"></div>
+                    </div>
+                </div>
+                <div class="panel panel-default" ng-if="vm.myPastEvents && vm.myPastEvents.length == 0">
+                    <div class="bo-event-error">
+                        <div class="alert alert-danger">
+                            {{'api_no_events_found'|translate}}
+                        </div>
                     </div>
                 </div>
             </div>

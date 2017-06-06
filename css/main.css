@@ -399,6 +399,10 @@ a:hover {
 .bo-event-report-tab-panes .tab-pane {
 	min-height: 300px;
 }
+
+.bo-event-error {
+	padding: 17px 10px 0 10px;
+}
 /* Event Badges
 ================================ */
 
