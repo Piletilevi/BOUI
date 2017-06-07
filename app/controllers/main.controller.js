@@ -4,8 +4,8 @@
 	angular.module('boApp')
         .controller('mainController', MainController);
 
-    MainController.$inject=['authService', '$location', '$scope', '$rootScope'];
-    function MainController (authService, $location, $scope, $rootScope) {
+    MainController.$inject=['authService', '$location', '$scope', '$rootScope', '$cookies'];
+    function MainController (authService, $location, $scope, $rootScope, $cookies) {
 		//initially set those objects to null to avoid undefined error
         var vm = this;
         vm.login = {};
@@ -29,6 +29,7 @@
         // Filter
 
         function assingEventsFilter() {
+            $cookies.putObject('boDashboardFilter', {filter: vm.filter, resetSearch: vm.reset_search});
             $rootScope.eventsFilter = angular.copy(vm.filter);
             if ($location.path().indexOf("dashboard") == -1) {
                 $location.path('dashboard');
@@ -48,6 +49,12 @@
         var endDateUtcOffset = moment(vm.filter.period.endDate).utcOffset();
         vm.filter.period.endDate = moment(vm.filter.period.endDate).utc().add(endDateUtcOffset, 'm').endOf('day');
 
+        if($cookies.getObject('boDashboardFilter')) {
+            vm.filter = $cookies.getObject('boDashboardFilter').filter;
+            vm.reset_search = $cookies.getObject('boDashboardFilter').resetSearch;
+            vm.filter.period.startDate = moment(vm.filter.period.startDate).utc().startOf('day');
+            vm.filter.period.endDate = moment(vm.filter.period.endDate).utc().startOf('day');
+        }
 
         $rootScope.eventsFilter = angular.copy(vm.filter);
 
