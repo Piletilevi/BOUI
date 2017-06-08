@@ -14,9 +14,17 @@
     font-size: 17px;
 }
 
+.container {
+    width: auto;
+}
+
 .navbar-inverse {
-    background: #4a5867;
+    background: #5e7287;
     color: #b7c1cd;
+}
+
+.navbar.navbar-inverse {
+    border-bottom: 1px solid #fff;
 }
 
 .navbar-inverse .navbar-nav > li > a {
@@ -25,7 +33,7 @@
 
 .navbar-inverse .navbar-nav > li > a > span,
 .navbar-inverse .navbar-nav > li > a > .fa {
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover > span,
@@ -46,7 +54,7 @@
 .navbar-inverse .navbar-nav > .active > a > .fa,
 .navbar-inverse .navbar-nav > .active > a:focus > .fa,
 .navbar-inverse .navbar-nav > .active > a:hover > .fa {
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 .navbar-inverse .navbar-nav > .open > a,
@@ -62,7 +70,7 @@
 .navbar-inverse .navbar-nav > .open > a > .fa,
 .navbar-inverse .navbar-nav > .open > a:focus > .fa,
 .navbar-inverse .navbar-nav > .open > a:hover > .fa {
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 .navbar-nav > li > a {
@@ -181,11 +189,11 @@
 }
 
 .nav-tabs > li.active {
-    background: #e3e5e8;
+    background: #e3e6ec;
     border-left: 1px solid #ced1d8;
     border-right: 1px solid #ced1d8;
     border-top: 1px solid #ced1d8;
-    border-bottom: 1px solid #e3e5e8;
+    border-bottom: 1px solid #e3e6ec;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -194,7 +202,7 @@
 .nav-tabs > li.active a::after {
     content: "";
     display: block;
-    border-bottom: 1px solid #e3e5e8;
+    border-bottom: 1px solid #e3e6ec;
     position: absolute;
 
     bottom: -3px;
@@ -225,7 +233,7 @@
     padding: 3px 7px 3px;
     font-size: 14px;
     font-weight: bold;
-    background-color: #4a5867;
+    background-color: #5e7287;
 }
 
 .btn {
@@ -287,8 +295,8 @@
 }
 
 .btn-primary {
-    background-color: #4a5867;
-    border-color: #4a5867;
+    background-color: #5e7287;
+    border-color: #5e7287;
 }
 
 .btn-primary:hover {
@@ -297,7 +305,7 @@
 }
 
 .btn-default {
-    background-color: #ebedf0;
+    background-color: #edf0f4;
     border-color: #cdd2d8;
     -moz-box-shadow: 0 0 0 1px #f7f9fb inset;
     -webkit-box-shadow: 0 0 0 1px #f7f9fb inset;
@@ -305,7 +313,7 @@
 }
 
 .btn-default:hover {
-    background-color: #c3c8cd;
+    background-color: #d1d6df;
     border-color: #c1c4c8;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -355,11 +363,34 @@
 }
 
 .form-control:focus {
-    background-color: #ebedf0;
+    background-color: #edf0f4;
     border-color: #cdd2d8;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+.btn.form-control {
+    text-align: left;
+}
+
+.btn.form-control.dropdown-toggle {
+    padding-right: 35px;
+}
+
+.btn.form-control .caret {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px dashed;
+    margin-left: 9px;
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    margin-top: -2px;
+}
+
+.btn-default .form-control {
+    height: 34px;
 }
 
 .input-group-lg > .form-control,
@@ -532,7 +563,7 @@ label {
 
 .dropdown-menu {
     padding-bottom: 12px;
-    border: 1px solid #e3e5e8;
+    border: 1px solid #e3e6ec;
     -moz-box-shadow: 0 5px 6px rgba(49, 61, 74, 0.1);
     -webkit-box-shadow: 0 5px 6px rgba(49, 61, 74, 0.1);
     box-shadow: 0 5px 6px rgba(49, 61, 74, 0.1);
@@ -577,7 +608,7 @@ fieldset[disabled] .btn {
 }
 
 .label-primary {
-    background-color: #4a5867;
+    background-color: #5e7287;
 }
 
 .label-warning {
@@ -596,8 +627,8 @@ fieldset[disabled] .btn {
 }
 
 .modal-header {
-    background: #4a5867;
-    color: #ebedf0;
+    background: #5e7287;
+    color: #edf0f4;
     border-bottom: 0 none;
     -webkit-border-radius: 5px 5px 0 0;
     -moz-border-radius: 5px 5px 0 0;
@@ -625,14 +656,21 @@ fieldset[disabled] .btn {
 }
 
 textarea.form-control {
-    min-height: 132px;
+    min-height: 122px;
 }
 
 .btn-group-sm > .btn,
 .btn-sm {
-    font-size: 15px;
+    font-size: 14px;
     padding-left: 8px;
     padding-right: 8px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.btn-group-sm > .btn .fa,
+.btn-sm .fa {
+    font-size: 13px;
 }
 
 .form-group-sm .form-control {
@@ -686,7 +724,7 @@ textarea.form-control {
 }
 
 .btn-dropdown {
-    color: #4a5867;
+    color: #5e7287;
     text-decoration: none;
     display: block;
     text-align: left;
@@ -702,4 +740,89 @@ textarea.form-control {
 .chart-pie {
     max-width: 319px;
     margin: 0 auto;
+}
+
+.table {
+    margin-bottom: 24px;
+}
+
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+    padding: 10px 12px;
+}
+
+.table thead tr td,
+.table thead tr th {
+    background: #5e7287;
+    color: #fff;
+    border-top: 1px solid #5e7287;
+    padding-top: 8px;
+    padding-bottom: 9px;
+}
+
+.table thead tr td:first-child,
+.table thead tr th:first-child {
+    border-left: 1px solid #5e7287;
+}
+
+.table thead tr td:last-child,
+.table thead tr th:last-child {
+    border-right: 1px solid #5e7287;
+}
+
+.table thead tr td + td,
+.table thead tr th + td,
+.table thead tr td + th,
+.table thead tr th + th {
+    border-left: 1px solid #6b8198;
+}
+
+.table tbody td {
+    border: 1px solid #dadcdf;
+}
+
+.table tbody tr td,
+.table tbody tr th {
+
+}
+
+.table tfoot tr td,
+.table tfoot tr th {
+
+}
+
+.table > tbody > tr > td.align-middle,
+.table > tbody > tr > th.align-middle,
+.table > tfoot > tr > td.align-middle,
+.table > tfoot > tr > th.align-middle,
+.table > thead > tr > td.align-middle,
+.table > thead > tr > th.align-middle,
+.align-middle {
+    vertical-align: middle;
+}
+
+.table > tbody > tr.row-align-middle > td,
+.table > tbody > tr.row-align-middle > th,
+.table > tfoot > tr.row-align-middle > td,
+.table > tfoot > tr.row-align-middle > th,
+.table > thead > tr.row-align-middle > td,
+.table > thead > tr.row-align-middle > th {
+    vertical-align: middle;
+}
+
+.table-condensed > tbody > tr > td,
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > td,
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > thead > tr > th {
+    padding: 5px;
+}
+
+.form-inline .has-feedback .form-control-feedback {
+    line-height: 34px;
 }

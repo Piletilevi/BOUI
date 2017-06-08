@@ -21,10 +21,10 @@
 }
 
 body {
-    font-size: 15px;
-    color: #040e19;
-    font-family: 'PT Sans', sans-serif;
-    background: #e3e5e8;
+	font-size: 15px;
+	color: #040e19;
+	font-family: 'PT Sans', sans-serif;
+	background: #e3e6ec;
 }
 
 a {
@@ -92,10 +92,57 @@ a:hover {
     width: calc(100% - 16px);
 }
 
+.bo-datarangepicker-button .fa {
+	vertical-align: middle;
+}
+
 .visually-hidden {
     position: fixed;
     z-index: -1;
     opacity: 0;
+}
+
+.form-horizontal .bo-control-label,
+.bo-control-label {
+	text-align: left;
+}
+
+.bo-wide-button {
+	width: 100%;
+}
+
+.table > tbody > tr > td.bo-no-leftright-padding,
+.table > tbody > tr > th.bo-no-leftright-padding,
+.table > tfoot > tr > td.bo-no-leftright-padding,
+.table > tfoot > tr > th.bo-no-leftright-padding,
+.table > thead > tr > td.bo-no-leftright-padding,
+.table > thead > tr > th.bo-no-leftright-padding,
+.bo-no-leftright-padding {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.table .bo-shortcell {
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.bo-first-heading {
+	margin-top: 0;
+}
+
+.bo-inactivearea {
+	position: relative;
+}
+
+.bo-inactivearea .bo-over {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	opacity: 0.63;
 }
 
 /* LOGO
@@ -148,9 +195,9 @@ a:hover {
 }
 
 .navbar-nav.bo-header-additional-icons .open .dropdown-menu {
-    position: absolute;
-    top: 50px;
-    border-bottom: 1px solid #e3e5e8;
+	position: absolute;
+	top: 50px;
+	border-bottom: 1px solid #e3e6ec;
 }
 
 .navbar-nav.bo-header-additional-icons .open .dropdown-menu > li > a {
@@ -464,29 +511,35 @@ a:hover {
 ================================ */
 
 .bo-sub-events {
-    border-top: 1px solid #dadcdf;
-    padding-left: 19px;
-    padding-right: 19px;
-    margin-right: -19px;
-    margin-left: -19px;
-    margin-top: 19px;
+	border-top: 1px solid #dadcdf;
+	padding-left: 12px;
+	padding-right: 12px;
+	margin-right: -19px;
+	margin-left: -19px;
+	margin-top: 19px;
 }
 
 .bo-sub-events > .bo-event:first-child {
-    margin-top: 17px;
+	margin-top: 13px;
 }
 
 .bo-sub-events .bo-event {
-    margin-bottom: 18px;
+	margin-bottom: 13px;
 }
 
 .bo-sub-events .bo-event:last-child {
-    margin-bottom: 4px;
+	margin-bottom: 0px;
 }
 
 .bo-sub-events-hidden .bo-event-toggle,
 .bo-sub-events-hidden .bo-sub-events {
     display: none;
+}
+
+.bo-sub-events .panel-body {
+	padding-top: 15px;
+	padding-left: 14px;
+	padding-right: 14px;
 }
 
 /* Pills
@@ -500,12 +553,12 @@ a:hover {
 }
 
 .bo-pills-block::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    border-bottom: 1px solid #e3e5e8;
-    bottom: 1px;
-    left: 0;
+	content: "";
+	position: absolute;
+	width: 100%;
+	border-bottom: 1px solid #e3e6ec;
+	bottom: 1px;
+	left: 0;
 }
 
 /* Widget box (login, pass change forms)
@@ -533,14 +586,14 @@ a:hover {
 }
 
 .bo-widgetbox-header {
-    background: #4a5867;
-    color: #b7c1cd;
-    line-height: 65px;
-    padding-right: 30px;
-    padding-left: 34px;
-    -moz-border-radius: 4px 4px 0 0;
-    -webkit-border-radius: 4px 4px 0 0;
-    border-radius: 4px 4px 0 0;
+	background: #5e7287;
+	color: #b7c1cd;
+	line-height: 65px;
+	padding-right: 30px;
+	padding-left: 34px;
+	-moz-border-radius: 4px 4px 0 0;
+	-webkit-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
 }
 
 .bo-widgetbox-body {
@@ -704,15 +757,15 @@ a:hover {
 /* Event-short
 ================================ */
 .bo-eventshort {
-    padding: 16px 15px 19px;
-    line-height: 22px;
-    background: #ebedf0;
-    border-bottom: 1px solid #dadcdf;
-    -moz-box-shadow: 0 0 0 1px #f7f9fb inset;
-    -webkit-box-shadow: 0 0 0 1px #f7f9fb inset;
-    box-shadow: 0 0 0 1px #f7f9fb inset;
-    display: block;
-    position: relative;
+	padding: 16px 15px 19px;
+	line-height: 22px;
+	background: #edf0f4;
+	border-bottom: 1px solid #dadcdf;
+	-moz-box-shadow: 0 0 0 1px #f7f9fb inset;
+	-webkit-box-shadow: 0 0 0 1px #f7f9fb inset;
+	box-shadow: 0 0 0 1px #f7f9fb inset;
+	display: block;
+	position: relative;
 }
 
 .bo-eventshort-overlay {
@@ -813,15 +866,15 @@ a:hover {
 }
 
 .bo-eventshort-subevents .bo-eventshort:first-child:before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: -2px;
-    margin-left: -8px;
-    border-top: 7px solid #ebedf0;
-    border-left: 9px solid transparent;
-    border-right: 9px solid transparent;
-    z-index: 1;
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: -2px;
+	margin-left: -8px;
+	border-top: 7px solid #edf0f4;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+	z-index: 1;
 }
 
 .bo-eventshort-subevents .bo-eventshort {
@@ -872,7 +925,6 @@ a:hover {
 /* Sales overview
 ================================ */
 .bo-salesoverview-controls {
-    margin-bottom: 33px;
 }
 
 .bo-salesoverview-controls .form-group {
@@ -942,6 +994,7 @@ a:hover {
 
 .bo-sectionselection-icon {
     vertical-align: middle;
+	font-size: 18px;
 }
 
 .bo-sectionselection-text {
@@ -971,10 +1024,10 @@ a:hover {
 /* Cancel button
 ================================ */
 .bo-reservationform {
-    display: block;
-    background: #e3e5e8;
-    padding: 9px 9px 15px;
-    border-radius: 3px;
+	display: block;
+	background: #e3e6ec;
+	padding: 9px 9px 15px;
+	border-radius: 3px;
 }
 
 /* Legend
@@ -1012,25 +1065,36 @@ a:hover {
 }
 
 .bo-mapcontrols-item {
-    position: relative;
-    display: inline-block;
-    background: #4a5867;
-    color: #fff;
-    min-width: 23px;
-    margin: 0 0 0 5px;
-    cursor: pointer;
-    height: 24px;
-    text-align: center;
-    text-decoration: none;
-    border: 3px solid #4a5867;
+	position: relative;
+	display: inline-block;
+	background: #5e7287;
+	color: #fff;
+	min-width: 26px;
+	margin: 0 0 0 4px;
+	cursor: pointer;
+	height: 25px;
+	text-align: center;
+	text-decoration: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	line-height: 23px;
 }
 
 .bo-mapcontrols-item i {
-    vertical-align: top;
-    line-height: 18px;
-    font-size: 14px;
-    position: relative;
-    z-index: 1;
+	vertical-align: middle;
+	line-height: 1;
+	font-size: 16px;
+	position: relative;
+	z-index: 1;
+}
+
+.bo-mapcontrols-item.btn_fullscreen i {
+	font-size: 18px;
+}
+
+.bo-mapcontrols-item.btn_zoomreset {
+	padding: 0 5px;
 }
 
 .bo-mapcontrols-item:hover {
@@ -1038,13 +1102,13 @@ a:hover {
 }
 
 .bo-mapcontrols-resize {
-    background: #fff;
-    color: #4a5867;
-    margin-right: 12px;
+	background: #fff;
+	color: #5e7287;
+	margin-right: 12px;
 }
 
 .bo-mapcontrols-resize:hover {
-    color: #4a5867;
+	color: #5e7287;
 }
 
 .bo-mapcontrols-resize:before {
@@ -1167,10 +1231,30 @@ a:hover {
 .bo-table-report > thead > tr > th {
     color: #040e19;
     text-align: right;
+	background: transparent;
+	border-top: 0 none;
 }
 
+.bo-table-report > thead > tr > td:first-child,
 .bo-table-report > thead > tr > th:first-child {
-    text-align: left;
+	border-left: 0 none;
+}
+
+.bo-table-report > thead > tr > td:last-child,
+.bo-table-report > thead > tr > th:last-child {
+	border-right: 0 none;
+}
+
+.bo-table-report > thead > tr > td + td,
+.bo-table-report > thead > tr > th + td,
+.bo-table-report > thead > tr > td + th,
+.bo-table-report > thead > tr > th + th {
+	border-left: 0 none;
+}
+
+.bo-table-report > thead > tr > th:first-child,
+.bo-table-report > thead > tr > td:first-child {
+	text-align: left;
 }
 
 /* tbody */
@@ -1207,7 +1291,7 @@ a:hover {
 }
 
 .bo-table-report > tbody > .bo-table-title-row {
-    background: #4a5867;
+	background: #5e7287;
 }
 
 .bo-table-report > tbody > .bo-table-title-row > th,
@@ -1217,12 +1301,12 @@ a:hover {
 
 .bo-table-report > tbody > .bo-table-title-row > td:first-child,
 .bo-table-report > tbody > .bo-table-title-row > th:first-child {
-    border-left: 1px solid #4a5867;
+	border-left: 1px solid #5e7287;
 }
 
 .bo-table-report > tbody > .bo-table-title-row > th:last-child,
 .bo-table-report > tbody > .bo-table-title-row > td:last-child {
-    border-right: 1px solid #4a5867;
+	border-right: 1px solid #5e7287;
 }
 
 .bo-table-report > tbody > .bo-table-title-row-bold > th,
@@ -1279,6 +1363,26 @@ a:hover {
 
 .bo-locationstable .text-danger {
     color: #ff3f71 !important;
+}
+
+
+.bo-table-dropdown {
+
+}
+
+.bo-table-dropdown .dropdown-toggle {
+	padding: 2px 6px;
+	height: 27px;
+	padding-right: 31px;
+}
+
+.bo-table-dropdown .dropdown-menu {
+	left: auto;
+	right: 0;
+}
+
+.bo-table-dropdown .btn .caret {
+	right: 9px;
 }
 
 /* Chart
@@ -1562,6 +1666,14 @@ a:hover {
     flex-grow: 100;
 }
 
+.bo-tabs-controls {
+	margin-bottom: 33px;
+}
+
+.bo-tabs-controls-short {
+	margin-bottom: 8px;
+}
+
 /* Left column
 ================================ */
 .bo-left-colum-usermenu {
@@ -1595,8 +1707,8 @@ a:hover {
 .bo-light-gamma .navbar-nav > li.active > a,
 .bo-light-gamma .navbar-nav > li.active > a:hover,
 .bo-light-gamma .navbar-nav > li.active > a:focus {
-    color: #fff;
-    background-color: #4a5867;
+	color: #fff;
+	background-color: #5e7287;
 }
 
 .bo-light-gamma .navbar-nav > li > a:hover,
@@ -1605,8 +1717,8 @@ a:hover {
 }
 
 .bo-light-gamma .bo-pills-block {
-    color: #fff;
-    background-color: #4a5867;
+	color: #fff;
+	background-color: #5e7287;
 }
 
 .bo-light-gamma .nav-pills > li > a {
@@ -1644,4 +1756,184 @@ a:hover {
 
 .asd .dropdown-menu {
     position: relative;
+}
+
+/* Plus minus
+================================ */
+
+.table td .bo-plusminus {
+	white-space: nowrap;
+}
+
+.bo-plusminus-button {
+	display: inline-block;
+	background: #5e7287;
+	color: #fff;
+	height: 25px;
+	border: 1px solid #576778;
+	vertical-align: middle;
+	width: 24px;
+	text-align: center;
+	line-height: 24px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.bo-plusminus-minus {
+	border-right: 0 none;
+	border-bottom-left-radius: 3px;
+	border-top-left-radius: 3px;
+}
+
+.bo-plusminus-plus {
+	border-left: 0 none;
+	border-bottom-right-radius: 3px;
+	border-top-right-radius: 3px;
+}
+
+.bo-plusminus-input {
+	display: inline-block;
+	text-align: center;
+	background: #edf0f4;
+	color: #040e19;
+	width: 37px;
+	border: 0 none;
+	height: 25px;
+	vertical-align: middle;
+	font-size: 14px;
+	padding: 0;
+}
+
+/* reservation
+================================ */
+
+.bo-reservation-selected-section-title {
+	padding-top: 7px;
+}
+
+.bo-reservation-table {
+	margin-bottom: 28px;
+}
+
+.bo-reservation-table tr td {
+	/*padding: 2px 0 3px;*/
+	line-height: 26px;
+}
+
+.bo-reservation-table tr td:first-child {
+	min-width: 125px;
+	padding-right: 15px;
+}
+
+.bo-reservation-table-title {
+	margin-bottom: 15px;
+}
+
+.bo-reservation-email-data {
+	margin-bottom: 80px;
+}
+
+.bo-reservation-inline-buttons {
+	margin-bottom: 14px;
+}
+
+.bo-reservation-selected-type {
+	margin-bottom: 19px;
+}
+
+.bo-reservation-form-block {
+	margin-bottom: 21px;
+}
+
+.bo-reservation-phone .form-group:first-child {
+	padding-right: 6px;
+}
+
+.bo-reservation-phone .form-group:last-child {
+	padding-left: 0;
+}
+
+.bo-reservation-footer-butons {
+	padding-top: 4px;
+}
+
+/* tabledrop
+================================ */
+
+.bo-tabledrop-table tbody + tbody {
+	border-top: 0 none;
+}
+
+.bo-tabledrop-master {
+	cursor: pointer;
+}
+
+tbody:not(.collapsed) .bo-tabledrop-master,
+.bo-tabledrop {
+	background: #edf0f4;
+}
+
+tbody:not(.collapsed) .bo-tabledrop-master td,
+.bo-tabledrop td {
+	position: relative;
+	-webkit-box-shadow: 0px 0px 0px 1px #f7f9fb inset;
+	-moz-box-shadow: 0px 0px 0px 1px #f7f9fb inset;
+	box-shadow: 0px 0px 0px 1px #f7f9fb inset;
+}
+
+.collapsed .bo-tabledrop {
+	display: none;
+}
+.bo-tabledrop.collapsing {
+	position: static;
+}
+
+.bo-tabledrop-notes {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.bo-tabledrop-notes-item:first-child {
+	padding-right: 10px;
+}
+
+.bo-tabledrop-notes-item:first-child::before {
+	content: "";
+	position: absolute;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-bottom: 6px solid #cdd2d8;
+	height: 2px;
+	background: #edf0f4;
+	top: -7px;
+	left: 40px;
+}
+
+.bo-tabledrop-notes-item:first-child::after {
+	content: "";
+	position: absolute;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-bottom: 7px solid #edf0f4;
+	top: -6px;
+	left: 39px;
+}
+
+
+/* form inline
+================================ */
+
+.bo-form-inline {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 22px;
+}
+
+.bo-form-inline .form-group + .form-group {
+	margin-left: 3px;
+}
+
+.bo-form-inline .form-group > input.form-control {
+	width: 100%;
 }

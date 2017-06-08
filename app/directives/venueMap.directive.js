@@ -1492,6 +1492,7 @@
 
                         $element.append('<div class="bo-mapcontrols" style="display: none">' +
                             '<i class="fa fa-expand btn_expand"></i>' +
+                            '<span class="bo-mapcontrols-item btn_fullscreen"><i class="fa fa-arrows-alt" aria-hidden="true"></i></span>' +
                             '<span class="bo-mapcontrols-item btn_zoomin"><i class="fa fa-plus" aria-hidden="true"></i></span>' +
                             '<span class="bo-mapcontrols-item btn_zoomout"><i class="fa fa-minus" aria-hidden="true"></i></span> ' +
                             '<span class="bo-mapcontrols-item btn_zoomreset">Reset Zoom</span>' +

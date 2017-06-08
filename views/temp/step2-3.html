@@ -1,0 +1,252 @@
+<!-- reservation step 2-3 -->
+<div class="row">
+	<div class="col-md-6 bo-inline-print" ng-if="selectedSectionId">
+		<div class="bo-tabs-controls bo-reservation-controls">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group bo-reservation-selected-section-title">
+						Selected section: <span>Porand</span>
+					</div>
+				</div>
+				<div class="col-md-6 text-right">
+					<div class="form-group">
+						<button class="btn btn-default" type="button">
+							Select other section
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<table class="table table-small">
+				<thead>
+				<tr>
+					<td>Type</td>
+					<td class="text-center">Quantity</td>
+					<td></td>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>I Priceclass (10.00€)</td>
+					<td class="text-center">15</td>
+					<td class="bo-shortcell text-center">
+						<div class="bo-plusminus">
+							<div class="bo-plusminus-button bo-plusminus-minus">
+								<i class="fa fa-minus"></i>
+							</div><input type="text" class="bo-plusminus-input" value="1"
+							/><div class="bo-plusminus-button bo-plusminus-plus">
+								<i class="fa fa-plus"></i>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>I Priceclass (10.00€)</td>
+					<td class="text-center">15</td>
+					<td class="bo-shortcell text-center">
+						<div class="bo-plusminus">
+							<div class="bo-plusminus-button bo-plusminus-minus">
+								<i class="fa fa-minus"></i>
+							</div><input type="text" class="bo-plusminus-input" value="1"
+							/><div class="bo-plusminus-button bo-plusminus-plus">
+								<i class="fa fa-plus"></i>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>I Priceclass (10.00€)</td>
+					<td class="text-center">15</td>
+					<td class="bo-shortcell text-center">
+						<div class="bo-plusminus">
+							<div class="bo-plusminus-button bo-plusminus-minus">
+								<i class="fa fa-minus"></i>
+							</div><input type="text" class="bo-plusminus-input" value="1"
+							/><div class="bo-plusminus-button bo-plusminus-plus">
+								<i class="fa fa-plus"></i>
+							</div>
+						</div>
+					</td>
+				</tr>
+				</tbody>
+				<tfoot>
+				<tr>
+					<td class="align-middle bo-no-leftright-padding">
+						<button class="btn btn-info btn-sm">Offer tickets</button>
+					</td>
+					<td class="text-center align-middle">Total:</td>
+					<td class="text-center align-middle">3</td>
+				</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+	<div class="col-md-6 text-right">
+		<div class="bo-tabs-controls bo-reservation-controls">
+			<div class="form-inline">
+				<div class="form-group">
+					<button class="btn btn-warning" type="button">
+						Exit reservation mode&nbsp;&nbsp;
+						<i class="fa fa-times" aria-hidden="true"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<h4>Selected seats:</h4>
+<table class="table table-small">
+	<tbody>
+	<tr class="row-align-middle">
+		<td>ID 1234567</td>
+		<td class="text-center">Section 101</td>
+		<td class="text-center">Row 1</td>
+		<td class="text-center">Seat 101</td>
+		<td class="text-center bo-shortcell">
+            <div class="dropdown bo-table-dropdown">
+                <button class="btn form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				   aria-expanded="true">Selected pricetype
+					<span class="caret"></span>
+				</button>
+                <ul class="dropdown-menu">
+					<li>
+						<a href="">Excel</a>
+					</li>
+					<li>
+						<a href="">CSV</a>
+					</li>
+				</ul>
+            </div>
+		</td>
+		<td class="text-center">0.00€</td>
+		<td class="text-center">
+			<a class="text-danger" href=""><i class="fa fa-times"></i></a>
+		</td>
+	</tr>
+	<tr class="row-align-middle">
+		<td>ID 1234567</td>
+		<td class="text-center">Section 101</td>
+		<td class="text-center">Row 1</td>
+		<td class="text-center">Seat 101</td>
+		<td class="text-center bo-shortcell">
+            <div class="dropdown bo-table-dropdown">
+                <button class="btn form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				   aria-expanded="true">Selected pricetype
+					<span class="caret"></span>
+				</button>
+                <ul class="dropdown-menu">
+					<li>
+						<a href="">Excel</a>
+					</li>
+					<li>
+						<a href="">CSV</a>
+					</li>
+				</ul>
+            </div>
+		</td>
+		<td class="text-center">0.00€</td>
+		<td class="text-center">
+			<a class="text-danger" href=""><i class="fa fa-times"></i></a>
+		</td>
+	</tr>
+	</tbody>
+</table>
+<div class="bo-inactivearea">
+	<h4>Reservation type:</h4>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-inline bo-reservation-inline-buttons">
+				<div class="form-group">
+					<button class="btn btn-primary btn-lg" type="button">
+						With price
+					</button>
+				</div>
+				&nbsp;
+				<div class="form-group">
+					<button class="btn btn-default btn-lg" type="button">
+						Invitation
+					</button>
+				</div>
+			</div>
+			<h4>Reservation expires_on:</h4>
+								<div class="dropdown inline_dropdown">
+									<button class="btn form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+									   aria-expanded="true">20.12.2017
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="">some date</a>
+										</li>
+									</ul>
+								</div>
+								<div class="dropdown inline_dropdown">
+									<button class="btn form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+									   aria-expanded="true">12
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="">12</a>
+										</li>
+									</ul>
+								</div>
+								<div class="dropdown inline_dropdown">
+									<button class="btn form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+									   aria-expanded="true">00
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="">00</a>
+										</li>
+									</ul>
+								</div>
+		</div>
+		<div class="col-md-6">
+			<table class="table table-small">
+				<tbody>
+				<tr>
+					<td class="text-right">Amount:</td>
+					<td class="text-center">3 ticket(s)</td>
+				</tr>
+				<tr>
+					<td class="text-right">Subtotal:</td>
+					<td class="text-center">300.10€</td>
+				</tr>
+				<tr>
+					<td class="text-right">Discount:</td>
+					<td class="text-center bo-shortcell">
+						<div class="bo-plusminus">
+							<div class="bo-plusminus-button bo-plusminus-minus">
+								<i class="fa fa-minus"></i>
+							</div><input type="text" class="bo-plusminus-input" value="50%"
+							/><div class="bo-plusminus-button bo-plusminus-plus">
+								<i class="fa fa-plus"></i>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-right">Fee:</td>
+					<td class="text-center">0.50€</td>
+				</tr>
+				<tr>
+					<td class="text-right">To pay:</td>
+					<td class="text-center">250.10€</td>
+				</tr>
+				</tbody>
+				<tfoot>
+				<tr>
+					<td></td>
+					<td class="bo-no-leftright-padding">
+						<button class="btn btn-info bo-wide-button">Make reservation</button>
+					</td>
+				</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+	<div class="bo-over"></div>
+</div>

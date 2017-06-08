@@ -75,27 +75,26 @@
                  id="overview" role="tabpanel">
                 <div class="panel-body">
 
-                    <div class="bo-salesoverview-controls clearfix">
+                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
                         <div class="row">
                             <div class="col-sm-5 bo-inline-print">
                                 <div class="form-inline">
                                     <div class="form-group">
                                         <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                        <div class="input-group data_range">
+                                        <div class="input-group">
+                                            <div class="data_range">
+                                                <button class="btn btn-default bo-datarangepicker-button" type="button" data-control="daterangepicker">
                                             <input type="text" daterangepicker class="form-control"
                                                    ng-model="vm.filterPeriod"
                                                    daterangepicker-neutral-timezone
                                                    ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-										 <span class="input-group-btn">
-											<button class="btn btn-default" type="button"
-                                                    data-control="daterangepicker">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </button>
-										 </span>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                             <div class="bo-chartcontrols col-sm-7 text-right">
                                 <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
@@ -160,12 +159,12 @@
                                 <table class="bo-revenuetable table table-condensed table-small bo-table-report">
                                     <thead>
                                     <tr>
-                                        <th width="46%"></th>
-                                        <th width="17%">{{'api_tickets'|translate}}</th>
-                                        <th width="10%">%</th>
-                                        <th width="20%" ng-if="hasFullAccess('api_reports_revenue')">
+                                        <td width="46%"></td>
+                                        <td width="17%">{{'api_tickets'|translate}}</td>
+                                        <td width="10%">%</td>
+                                        <td width="20%" ng-if="hasFullAccess('api_reports_revenue')">
                                             {{'api_revenue'|translate}}
-                                        </th>
+                                        </td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -257,24 +256,22 @@
                  id="pricetype" role="tabpanel">
                 <div class="panel-body">
 
-                    <div class="bo-salesoverview-controls clearfix">
+                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
                         <div class="row">
                             <div class="col-sm-5 bo-inline-print">
                                 <div class="form-inline">
                                     <div class="form-group">
                                         <span class="visible-print">{{'api_print_period'|translate}}</span>
                                         <div class="input-group data_range">
+											<button class="btn btn-default bo-datarangepicker-button" type="button"
+                                                    data-control="daterangepicker">
                                             <input type="text" daterangepicker class="form-control"
                                                    ng-model="vm.filterPeriod"
                                                    daterangepicker-neutral-timezone
                                                    ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-										 <span class="input-group-btn">
-											<button class="btn btn-default" type="button"
-                                                    data-control="daterangepicker">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </button>
-										 </span>
                                         </div>
                                     </div>
                                 </div>
@@ -355,11 +352,11 @@
                                 <table class="bo-pricetyperevenuetable table table-condensed table-small bo-table-report">
                                     <thead>
                                     <tr>
-                                        <th>{{'api_pricetype'|translate}}</th>
-                                        <th>{{'api_tickets'|translate}}</th>
-                                        <th>%</th>
-                                        <th ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}
-                                        </th>
+                                        <td>{{'api_pricetype'|translate}}</td>
+                                        <td>{{'api_tickets'|translate}}</td>
+                                        <td>%</td>
+                                        <td ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}
+                                        </td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -416,24 +413,22 @@
                  id="priceclass" role="tabpanel">
                 <div class="panel-body">
 
-                    <div class="bo-salesoverview-controls clearfix">
+                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
                         <div class="row">
                             <div class="col-sm-5 bo-inline-print">
                                 <div class="form-inline">
                                     <div class="form-group">
                                         <span class="visible-print">{{'api_print_period'|translate}}</span>
                                         <div class="input-group data_range">
+											<button class="btn btn-default bo-datarangepicker-button" type="button"
+                                                    data-control="daterangepicker">
                                             <input type="text" daterangepicker class="form-control"
                                                    ng-model="vm.filterPeriod"
                                                    daterangepicker-neutral-timezone
                                                    ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-										 <span class="input-group-btn">
-											<button class="btn btn-default" type="button"
-                                                    data-control="daterangepicker">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </button>
-										 </span>
                                         </div>
                                     </div>
                                 </div>
@@ -513,11 +508,11 @@
                                 <table class="bo-pricetyperevenuetable table table-condensed table-small bo-table-report">
                                     <thead>
                                     <tr>
-                                        <th>{{'api_priceclass'|translate}}</th>
-                                        <th>{{'api_tickets'|translate}}</th>
-                                        <th>%</th>
-                                        <th ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}
-                                        </th>
+                                        <td>{{'api_priceclass'|translate}}</td>
+                                        <td>{{'api_tickets'|translate}}</td>
+                                        <td>%</td>
+                                        <td ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}
+                                        </td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -573,20 +568,19 @@
             <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'sections'}"
                  id="sections" role="tabpanel">
                 <div class="panel-body" ng-if="!selectedSectionId">
-                    <div class="bo-salesoverview-controls clearfix bo-inline-print">
+                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix bo-inline-print">
                         <div class="form-inline">
                             <div class="form-group">
                                 <span class="visible-print">{{'api_print_period'|translate}}</span>
                                 <div class="input-group data_range">
+									<button class="btn btn-default bo-datarangepicker-button" type="button" data-control="daterangepicker">
                                     <input type="text" daterangepicker class="form-control"
                                            ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
                                            ng-attr-data-min-date="{{vm.minFilterDate}}"
                                            ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-								 <span class="input-group-btn">
-									<button class="btn btn-default" type="button" data-control="daterangepicker">
                                         <i class="fa fa-calendar" aria-hidden="true"></i>
                                     </button>
-								 </span>
+
                                 </div>
                             </div>
                         </div>
@@ -651,22 +645,20 @@
                     </div>
                 </div>
 
-                <div class="panel-body">
-                    <div class="bo-salesoverview-controls" ng-if="selectedSectionId">
-                        <div class="bo-inline-print" ng-if="selectedSectionId">
+                <div class="bo-tabs-controls panel-body" ng-if="selectedSectionId">
+                    <div class="row bo-salesoverview-controls">
+                        <div class="col-md-8 bo-inline-print" ng-if="selectedSectionId">
                             <div class="form-inline">
                                 <div class="form-group">
                                     <span class="visible-print">{{'api_print_period'|translate}}</span>
                                     <div class="input-group data_range">
-                                        <input type="text" daterangepicker class="form-control"
-                                               ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
-                                               ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                               ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-								 <span class="input-group-btn">
-									<button class="btn btn-default" type="button" data-control="daterangepicker">
-                                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                                    </button>
-								 </span>
+                                        <button class="btn btn-default bo-datarangepicker-button" type="button" data-control="daterangepicker">
+                                            <input type="text" daterangepicker class="form-control"
+                                                   ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
+                                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -677,6 +669,16 @@
                                             <span class="bo-sectionselection-icon fa fa-times"></span>
                                         </a>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <button class="btn btn-info" type="button">
+                                        {{'api_reservation_make'|translate}}&nbsp;&nbsp;
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -696,25 +698,40 @@
                     </div>
                 </div>
 
+                <div class="panel-body">
+                    <!--reservation step 2-3-->
+                    <h1>STEP 2-3</h1>
+                    <div ng-include="'views/temp/step2-3.html'"></div>
+
+                    <!--reservation step 4-->
+                    <h1>STEP 4</h1>
+                    <div ng-include="'views/temp/step4.html'"></div>
+
+                    <!--reservation step 5-->
+                    <h1>STEP 5</h1>
+                    <div ng-include="'views/temp/step5.html'"></div>
+
+                    <!--reservations list-->
+                    <h1>RESERVATIONS LIST</h1>
+                    <div ng-include="'views/temp/list.html'"></div>
+                </div>
             </div>
             <!-- Tab: locations -->
             <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'locations'}"
                  id="locations" role="tabpanel">
                 <div class="panel-body">
-                    <div class="bo-salesoverview-controls clearfix">
+                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
                         <div class="form-inline">
                             <div class="form-group">
                                 <span class="visible-print">{{'api_print_period'|translate}}</span>
                                 <div class="input-group data_range">
+                                    <button class="btn btn-default bo-datarangepicker-button" type="button" data-control="daterangepicker">
                                     <input type="text" daterangepicker class="form-control"
                                            ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
                                            ng-attr-data-min-date="{{vm.minFilterDate}}"
                                            ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" data-control="daterangepicker">
                                             <i class="fa fa-calendar" aria-hidden="true"></i>
                                         </button>
-                                     </span>
                                 </div>
                             </div>
                         </div>
@@ -723,25 +740,25 @@
                            class="bo-locationstable table table-condensed table-small bo-table-report">
                         <thead>
                         <tr>
-                            <th></th>
-                            <th>
+                            <td></td>
+                            <td>
                                 {{'api_locations_internet'|translate}}
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 {{'api_locations_salespoints'|translate}}
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 {{'api_locations_refund'|translate}}
                             </th>
                             <th>
                                 {{'api_locations_total'|translate}}
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 %
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 {{'api_locations_revenue'|translate}}
-                            </th>
+                            </td>
                         </tr>
                         </thead>
                         <tr class="bo-table-title-row bo-table-title-row-bold">
