@@ -1074,6 +1074,27 @@ $app->post('/getCsvByOverview', function() use ($app)  {
 	$dataHandler->responseAsCsv(200, $reportResponse);
 });
 
+$app->post('/getXlsByOverview', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id', 'type'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['eventId'] = $r->id;
+	$filter['isShow'] = $r->type=="show";
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['display'] = $r->filter->display;
+	$filter['groupBy'] = $r->filter->groupBy;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesXlsReportByOverview( $filter );
+	
+	$dataHandler->responseAsXls(200, $reportResponse);
+});
+
 $app->post('/getCsvByPriceType', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
@@ -1093,6 +1114,27 @@ $app->post('/getCsvByPriceType', function() use ($app)  {
     $reportResponse = $piletileviApi->eventSalesCsvReportByPriceType( $filter );
 	
 	$dataHandler->responseAsCsv(200, $reportResponse);
+});
+
+$app->post('/getXlsByPriceType', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id', 'type'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['eventId'] = $r->id;
+	$filter['isShow'] = $r->type=="show";
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['display'] = $r->filter->display;
+	$filter['groupBy'] = $r->filter->groupBy;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesXlsReportByPriceType( $filter );
+	
+	$dataHandler->responseAsXls(200, $reportResponse);
 });
 
 $app->post('/getCsvByPriceClass', function() use ($app)  {
@@ -1117,6 +1159,28 @@ $app->post('/getCsvByPriceClass', function() use ($app)  {
 	$dataHandler->responseAsCsv(200, $reportResponse);
 });
 
+$app->post('/getXlsByPriceClass', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id', 'type'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['eventId'] = $r->id;
+	$filter['isShow'] = $r->type=="show";
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['display'] = $r->filter->display;
+	$filter['groupBy'] = $r->filter->groupBy;
+	$filter['sectionId'] = $r->filter->sectionId;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesXlsReportByPriceClass( $filter );
+	
+	$dataHandler->responseAsXls(200, $reportResponse);
+});
+
 $app->post('/getCsvBySectors', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
@@ -1134,6 +1198,25 @@ $app->post('/getCsvBySectors', function() use ($app)  {
     $reportResponse = $piletileviApi->eventSalesCsvReportBySectors( $filter );
 	
 	$dataHandler->responseAsCsv(200, $reportResponse);
+});
+
+$app->post('/getXlsBySectors', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id', 'type'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['eventId'] = $r->id;
+	$filter['isShow'] = $r->type=="show";
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesXlsReportBySectors( $filter );
+	
+	$dataHandler->responseAsXls(200, $reportResponse);
 });
 
 $app->post('/getCsvByLocation', function() use ($app)  {
@@ -1155,6 +1238,25 @@ $app->post('/getCsvByLocation', function() use ($app)  {
 	$dataHandler->responseAsCsv(200, $reportResponse);
 });
 
+$app->post('/getXlsByLocation', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('id', 'type'), $r);
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+	$filter['eventId'] = $r->id;
+	$filter['isShow'] = $r->type=="show";
+	$filter['startDate'] = $r->filter->period->startDate;
+	$filter['endDate'] = $r->filter->period->endDate;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->eventSalesXlsReportByLocation( $filter );
+	
+	$dataHandler->responseAsXls(200, $reportResponse);
+});
+
 $app->get('/test', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
@@ -1166,9 +1268,9 @@ $app->get('/test', function() use ($app)  {
 	$filter['groupBy'] = "day";
 
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->eventSalesCsvReportByLocation( $filter );
+    $reportResponse = $piletileviApi->eventSalesCsvReportBySectors( $filter );
 	
-	$dataHandler->responseAsCsv(200, $reportResponse);
+	$dataHandler->responseAsXls(200, $reportResponse);
 });
 
 $app->post('/rejectTicket', function() use ($app)  {

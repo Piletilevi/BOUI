@@ -1,4 +1,5 @@
 <div class="col-xs-12 col-md-9 bo-center-column">
+    <bo-container backoffice-options="{'time-out': 3000}"></bo-container>
 
     <div ng-show="vm.event.name">
         <div class="bo-event-share-block">
@@ -21,7 +22,8 @@
         </div>
 
         <table id="{{vm.currentTab}}"
-               ng-if="['overview', 'pricetype', 'priceclass', 'sectors'].indexOf(vm.currentTab) > -1" class="visually-hidden"></table>
+               ng-if="['overview', 'pricetype', 'priceclass', 'sectors'].indexOf(vm.currentTab) > -1"
+               class="visually-hidden"></table>
 
         <div class="panel panel-default bo-event" block-ui block-ui-pattern="/concertSales/">
             <div class="bo-sub-events-hidden" ng-include-template="event_detail.html"
@@ -69,7 +71,8 @@
 
         <div class="tab-content bo-event-report-tab-panes" block-ui block-ui-pattern="/eventSalesReport/">
             <!-- Tab: overview -->
-            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'overview'}" id="overview" role="tabpanel">
+            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'overview'}"
+                 id="overview" role="tabpanel">
                 <div class="panel-body">
 
                     <div class="bo-salesoverview-controls clearfix">
@@ -250,7 +253,8 @@
             </div>
 
             <!-- Tab: price types -->
-            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'pricetype'}" id="pricetype" role="tabpanel">
+            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'pricetype'}"
+                 id="pricetype" role="tabpanel">
                 <div class="panel-body">
 
                     <div class="bo-salesoverview-controls clearfix">
@@ -408,7 +412,8 @@
             </div>
 
             <!-- Tab: price classes -->
-            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'priceclass'}" id="priceclass" role="tabpanel">
+            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'priceclass'}"
+                 id="priceclass" role="tabpanel">
                 <div class="panel-body">
 
                     <div class="bo-salesoverview-controls clearfix">
@@ -565,7 +570,8 @@
             </div>
 
             <!-- Tab: sections -->
-            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'sections'}" id="sections" role="tabpanel">
+            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'sections'}"
+                 id="sections" role="tabpanel">
                 <div class="panel-body" ng-if="!selectedSectionId">
                     <div class="bo-salesoverview-controls clearfix bo-inline-print">
                         <div class="form-inline">
@@ -645,51 +651,55 @@
                     </div>
                 </div>
 
-                <div class="bo-salesoverview-controls panel-body" ng-if="selectedSectionId">
-                    <div class="col-md-12 bo-inline-print" ng-if="selectedSectionId">
-                        <div class="form-inline">
-                            <div class="form-group">
-                                <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                <div class="input-group data_range">
-                                    <input type="text" daterangepicker class="form-control"
-                                           ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
-                                           ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+                <div class="panel-body">
+                    <div class="bo-salesoverview-controls" ng-if="selectedSectionId">
+                        <div class="bo-inline-print" ng-if="selectedSectionId">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <span class="visible-print">{{'api_print_period'|translate}}</span>
+                                    <div class="input-group data_range">
+                                        <input type="text" daterangepicker class="form-control"
+                                               ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
+                                               ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                               ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
 								 <span class="input-group-btn">
 									<button class="btn btn-default" type="button" data-control="daterangepicker">
                                         <i class="fa fa-calendar" aria-hidden="true"></i>
                                     </button>
 								 </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="bo-sectionselection form-control">
+                                        <span class="bo-sectionselection-text">{{'api_selected_section'|translate}}: {{(vm.mySectorsData.sales | filter:{sectorId: selectedSectionId})[0].name}}</span>
+                                        <a class="bo-sectionselection-button text-danger" href
+                                           ng-click="vm.resetSelectedSectionId(selectedSectionId)">
+                                            <span class="bo-sectionselection-icon fa fa-times"></span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="bo-sectionselection form-control">
-                                    <span class="bo-sectionselection-text">{{'api_selected_section'|translate}}: {{(vm.mySectorsData.sales | filter:{sectorId: selectedSectionId})[0].name}}</span>
-                                    <a class="bo-sectionselection-button text-danger" href
-                                       ng-click="vm.resetSelectedSectionId(selectedSectionId)">
-                                        <span class="bo-sectionselection-icon fa fa-times"></span>
-                                    </a>
+                        </div>
+                    </div>
+
+                    <div ng-if="selectedSectionId">
+                        <div class="row bo-double-charts-row">
+                            <div class="col-lg-6">
+                                <div ng-include="'views/common/event_priceclass_table.html'"></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="bo-map">
+                                    <ng-venue-map data-config="{{vm.event.seatsMapConfig}}"></ng-venue-map>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div ng-if="selectedSectionId" class="panel-body">
-                    <div class="row bo-double-charts-row">
-                        <div class="col-lg-6">
-                            <div ng-include="'views/common/event_priceclass_table.html'"></div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="bo-map">
-                                <ng-venue-map data-config="{{vm.event.seatsMapConfig}}"></ng-venue-map>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- Tab: locations -->
-            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'locations'}" id="locations" role="tabpanel">
+            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'locations'}"
+                 id="locations" role="tabpanel">
                 <div class="panel-body">
                     <div class="bo-salesoverview-controls clearfix">
                         <div class="form-inline">
@@ -709,7 +719,8 @@
                             </div>
                         </div>
                     </div>
-                    <table ng-if="vm.myLocationsData.sales.length > 0" class="bo-locationstable table table-condensed table-small bo-table-report">
+                    <table ng-if="vm.myLocationsData.sales.length > 0"
+                           class="bo-locationstable table table-condensed table-small bo-table-report">
                         <thead>
                         <tr>
                             <th></th>
@@ -718,6 +729,9 @@
                             </th>
                             <th>
                                 {{'api_locations_salespoints'|translate}}
+                            </th>
+                            <th>
+                                {{'api_locations_refund'|translate}}
                             </th>
                             <th>
                                 {{'api_locations_total'|translate}}
@@ -734,33 +748,41 @@
                             <td>{{'api_locations_all_sales'|translate}}</td>
                             <td>{{vm.myLocationsData.salesTotal.internetCount}}</td>
                             <td>{{vm.myLocationsData.salesTotal.spCount}}</td>
+                            <td ng-class="{'text-danger': vm.myLocationsData.salesTotal.refundCount}">
+                                {{vm.myLocationsData.salesTotal.refundCount}}
+                            </td>
                             <td>{{vm.myLocationsData.salesTotal.totalCount}}</td>
                             <td>{{vm.myLocationsData.salesTotal.percent}}%</td>
                             <td ng-if="hasFullAccess('api_reports_revenue')">
-                                {{(vm.myLocationsData.salesTotal.totalSum) | number:2}} {{vm.myLocationsData.salesTotal.currency}}
+                                {{(vm.myLocationsData.salesTotal.totalSum) | number:2}}
+                                {{vm.myLocationsData.salesTotal.currency}}
                             </td>
                         </tr>
                         <tbody ng-repeat="locationData in vm.myLocationsData.sales">
-                            <tr class="bo-table-secondarytitle-row">
-                                <td>{{locationData.country|translate}}</td>
-                                <td>{{locationData.internetCount}}</td>
-                                <td>{{locationData.spCount}}</td>
-                                <td>{{locationData.totalCount}}</td>
-                                <td>{{(locationData.percent) | number:0}}</td>
-                                <td ng-if="hasFullAccess('api_reports_revenue')">
-                                    {{(locationData.totalSum) | number:2}} {{locationData.currency}}
-                                </td>
-                            </tr>
-                            <tr ng-repeat="city in locationData.cities">
-                                <td>{{city.city|translate}}</td>
-                                <td>{{city.internetCount}}</td>
-                                <td>{{city.spCount}}</td>
-                                <td>{{city.totalCount}}</td>
-                                <td>{{(city.percent) | number:0}}%</td>
-                                <td ng-if="hasFullAccess('api_reports_revenue')">
-                                    {{(city.totalSum) | number:2}} {{city.currency}}
-                                </td>
-                            </tr>
+                        <tr class="bo-table-secondarytitle-row">
+                            <td>{{locationData.country|translate}}</td>
+                            <td>{{locationData.internetCount}}</td>
+                            <td>{{locationData.spCount}}</td>
+                            <td ng-class="{'text-danger': locationData.refundCount}">
+                                {{locationData.refundCount}}
+                            </td>
+                            <td>{{locationData.totalCount}}</td>
+                            <td>{{(locationData.percent) | number:0}}%</td>
+                            <td ng-if="hasFullAccess('api_reports_revenue')">
+                                {{(locationData.totalSum) | number:2}} {{locationData.currency}}
+                            </td>
+                        </tr>
+                        <tr ng-repeat="city in locationData.cities">
+                            <td>{{city.city|translate}}</td>
+                            <td>{{city.internetCount}}</td>
+                            <td>{{city.spCount}}</td>
+                            <td ng-class="{'text-danger': city.refundCount}">{{city.refundCount}}</td>
+                            <td>{{city.totalCount}}</td>
+                            <td>{{(city.percent) | number:0}}%</td>
+                            <td ng-if="hasFullAccess('api_reports_revenue')">
+                                {{(city.totalSum) | number:2}} {{city.currency}}
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                     <div ng-if="vm.myLocationsData.sales.length == 0">
@@ -772,7 +794,8 @@
             </div>
 
             <!-- Tab: bookings -->
-            <div class="tab-pane bo-salesoverview panel"ng-class="{'active': vm.currentTab == 'bookings'}" id="bookings" role="tabpanel">
+            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'bookings'}"
+                 id="bookings" role="tabpanel">
                 <div class="panel-body">
                     Bookings
                 </div>

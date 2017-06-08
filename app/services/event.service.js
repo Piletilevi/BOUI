@@ -113,16 +113,15 @@
 			
 			dataService.post('myEvents', {filter: filter}).then(function (results) {
 				dataService.page(results);
-				if (results.status == 'success'){
-					if (filter.status == 'onsale') {
-						myOpenEvents = results.data;
-					} else if (filter.status == 'draft') {
-						myDraftEvents = results.data;
-					} else {
-						myPastEvents = results.data;
-					}
-					filter.loadingItems = false;
+
+				if (filter.status == 'onsale') {
+					myOpenEvents = results.status == 'success' ? results.data : [];
+				} else if (filter.status == 'draft') {
+					myDraftEvents = results.status == 'success' ? results.data : [];
+				} else {
+					myPastEvents = results.status == 'success' ? results.data : [];
 				}
+				filter.loadingItems = false;
 			});
 		}
 
@@ -424,6 +423,7 @@
 					results.data.salesTotal = {
 						internetCount: 0,
 						spCount: 0,
+						refundCount: 0,
 						totalCount: 0,
 						totalSum: 0,
 						percent: 100,
@@ -433,6 +433,7 @@
 						country.totalCount = country.spCount + country.internetCount;
 						country.totalSum = country.spSum + country.internetSum;
 						results.data.salesTotal.internetCount += country.internetCount;
+						results.data.salesTotal.refundCount += country.refundCount;
 						results.data.salesTotal.spCount += country.spCount;
 						results.data.salesTotal.totalCount += country.totalCount;
 						results.data.salesTotal.totalSum += country.totalSum;
@@ -563,7 +564,7 @@
 				callMethod = 'getXlsByLocation';
 			}
 			if (callMethod) {
-				dataService.post(callMethod, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (data) {
+				dataService.postBinary(callMethod, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (data) {
 					var file = new Blob([data], { type: 'application/vnd.ms-excel;charset=charset=utf-8' });
 					FileSaver.saveAs(file, getExportFileName(event, currentTab, 'xls'));
 				});
@@ -588,7 +589,7 @@
 				callMethod = 'getCsvByLocation';
 			}
 			if (callMethod) {
-				dataService.post(callMethod, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (data) {
+				dataService.postBinary(callMethod, {id: event.id, type: event.isShow ? 'show' : 'concert', filter: filter}).then(function (data) {
 					var file = new Blob([data], { type: 'text/csv' });
 					FileSaver.saveAs(file, getExportFileName(event, currentTab, 'csv'));
 				});

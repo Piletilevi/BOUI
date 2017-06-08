@@ -120,6 +120,15 @@ class DataHandler {
 		$this->app->contentType('text/csv');
 		echo $response;
 	}
+
+	public function responseAsXls($status_code, $response) {
+		// Http response code
+		$this->app->status($status_code);
+
+		// setting response content type to json
+		$this->app->contentType('application/vnd.ms-excel');
+		echo $response;
+	}
 	
 	private function getTokens() {
 		return $this->settings["tokens"];

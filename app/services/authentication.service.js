@@ -8,9 +8,9 @@
         .module('boApp')
         .factory('authService', AuthService);
 
-    AuthService.$inject = ['$rootScope', '$route', '$location', '$filter', 'dataService', 'pointService', 'eventService'];
+    AuthService.$inject = ['$rootScope', '$route', '$location', '$filter', 'dataService', 'pointService', 'eventService', '$cookies'];
 
-    function AuthService($rootScope, $route, $location, $filter, dataService, pointService, eventService) {
+    function AuthService($rootScope, $route, $location, $filter, dataService, pointService, eventService, $cookies) {
         var service = {
             initialize : initialize,
             login : login,
@@ -77,6 +77,7 @@
                 dataService.page(results);
                 dataService.get('session').then(function (results) {
                     if (!results.user) {
+                        $cookies.remove('boDashboardFilter');
                         eventService.reset();
                         $rootScope.user = null;
                         $rootScope.authenticated = false;
