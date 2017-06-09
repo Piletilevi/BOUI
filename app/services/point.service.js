@@ -18,6 +18,7 @@
             getPointMenuBackgroundColor: getPointMenuBackgroundColor,
             getPointMenuActiveColor: getPointMenuActiveColor,
             getPointMenuLogo: getPointMenuLogo,
+            getPointMenuGamma: getPointMenuGamma,
             initialize: initialize
         };
         return service;
@@ -50,6 +51,7 @@
             $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor();
             $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
             $rootScope.eventLinks = getPointLinks();
+            $rootScope.pointMenuGamma = getPointMenuGamma();
 
             if (prevPoint !== pointId) {
                 eventService.reset();
@@ -57,6 +59,19 @@
                     $location.path('dashboard');
                 }
             }
+        }
+
+        function getPointMenuGamma() {
+            var settings = getPointSettings();
+            if (settings != null) {
+                var setting = settings.find(getPointTopMenuGamma);
+                if (setting != null) {
+                    if (setting.value == "true") {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         function getPointMenuLogo() {
@@ -109,6 +124,13 @@
         function getPointTopMenuColorSetting(setting) {
             if (setting != null) {
                 return setting.name === "api_topmenu_color";
+            }
+            return;
+        }
+
+        function getPointTopMenuGamma(setting) {
+            if (setting != null) {
+                return setting.name === "api_headerGamma";
             }
             return;
         }
