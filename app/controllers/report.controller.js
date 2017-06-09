@@ -50,22 +50,24 @@
         vm.hasMoreRelatedEvents = eventService.hasMoreRelatedEvents;
         vm.filter = {period: {startDate: moment().subtract(30, 'days'), endDate: moment().add(1, 'years')}, name: ''};
         vm.filterPeriod = {period: {startDate: null, endDate: null}};
-        vm.overviewFilter = {period: {startDate: null, endDate: null}, display: 'tickets', groupBy: 'day'};
+        vm.overviewFilter = {period: {startDate: null, endDate: null}, display: 'tickets', groupBy: 'day', centerId: ''};
         vm.pricetypeFilter = {
             period: {startDate: null, endDate: null},
             display: 'tickets',
             pieDisplay: 'tickets',
-            groupBy: 'day'
+            groupBy: 'day',
+			centerId: ''
         };
         vm.priceclassFilter = {
             period: {startDate: null, endDate: null},
             sectionId: null,
             pieDisplay: 'tickets',
             display: 'tickets',
-            groupBy: 'day'
+            groupBy: 'day',
+			centerId: ''
         };
-        vm.sectorsFilter = {period: {startDate: null, endDate: null}};
-        vm.locationsFilter = {period: {startDate: null, endDate: null}};
+        vm.sectorsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
+        vm.locationsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
         vm.reset_search = false;
         vm.overviewBarGraph = graphService.overviewBarGraph;
         vm.overviewLineGraph = graphService.overviewLineGraph;
@@ -209,6 +211,13 @@
             vm.event.sectionsMapConfig.mouseoverPrevSectionId = angular.copy($scope.mouseoverSectionId);
             vm.event.sectionsMapConfig.mouseoverSectionId = mouseoverSectionId;
             $scope.mouseoverSectionId = mouseoverSectionId;
+        };
+
+        vm.hasSalesPoint = function () {
+			if (vm.event != null && vm.event.salespoints != null && vm.event.salespoints.length > 1) {
+				return true;
+			}
+			return false;
         };
 		
         $scope.setSelectedSectionId = vm.setSelectedSectionId;
@@ -371,6 +380,13 @@
             }
         });
 
+        $scope.$watch('vm.overviewFilter.centerId', function (newValue, oldValue) {
+            if (!angular.equals(newValue, oldValue)) {
+                eventService.getOverviewData(vm.event, vm.overviewFilter);
+                eventService.getOverviewGraphData(vm.event, vm.overviewFilter);
+            }
+        });
+		
         $scope.$watch('vm.pricetypeFilter.pieDisplay', function (newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
                 if (vm.myPriceTypePieData == null) {
@@ -397,6 +413,13 @@
             }
         });
 
+        $scope.$watch('vm.pricetypeFilter.centerId', function (newValue, oldValue) {
+            if (!angular.equals(newValue, oldValue)) {
+                eventService.getPriceTypeData(vm.event, vm.pricetypeFilter);
+                eventService.getPriceTypeGraphData(vm.event, vm.pricetypeFilter);
+            }
+        });
+		
         $scope.$watch('vm.priceclassFilter.pieDisplay', function (newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
                 if (vm.myPriceClassPieData == null) {
@@ -423,6 +446,25 @@
             }
         });
 
+        $scope.$watch('vm.priceclassFilter.centerId', function (newValue, oldValue) {
+            if (!angular.equals(newValue, oldValue)) {
+                eventService.getPriceClassData(vm.event, vm.priceclassFilter);
+                eventService.getPriceClassGraphData(vm.event, vm.priceclassFilter);
+            }
+        });
+
+        $scope.$watch('vm.sectorsFilter.centerId', function (newValue, oldValue) {
+            if (!angular.equals(newValue, oldValue)) {
+                eventService.getSectorsData(vm.event, vm.sectorsFilter);
+            }
+        });
+
+        $scope.$watch('vm.locationsFilter.centerId', function (newValue, oldValue) {
+            if (!angular.equals(newValue, oldValue)) {
+                eventService.getLocationsData(vm.event, vm.locationsFilter);
+            }
+        });
+		
         vm.search = function () {
             localStorage.setItem('reportsFilter', JSON.stringify(vm.filter));
             $location.path('dashboard');

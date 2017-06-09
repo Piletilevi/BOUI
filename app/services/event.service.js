@@ -284,6 +284,7 @@
 					event.status = results.data.status;
 					event.statusName = results.data.statusName;
 					event.labelCode = results.data.labelCode;
+					event.salespoints = results.data.salespoints;
 				}
 			});
 		}
@@ -328,6 +329,7 @@
 					event.status = results.data.status;
 					event.statusName = results.data.statusName;
 					event.labelCode = results.data.labelCode;
+					event.salespoints = results.data.salespoints;
 				}
 			});
 		}
@@ -346,6 +348,7 @@
 					event.status = results.data.status;
 					event.statusName = results.data.statusName;
 					event.labelCode = results.data.labelCode;
+					event.salespoints = results.data.salespoints;
 				}
 			});
 		}
@@ -364,6 +367,7 @@
 					event.status = results.data.status;
 					event.statusName = results.data.statusName;
 					event.labelCode = results.data.labelCode;
+					event.salespoints = results.data.salespoints;
 				}
 			});
 		}

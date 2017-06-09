@@ -583,6 +583,7 @@ $app->post('/eventSalesReportByStatus', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByStatus( $filter );
@@ -610,6 +611,7 @@ $app->post('/eventSalesReportByDate', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByDate( $filter );
@@ -637,6 +639,7 @@ $app->post('/eventSalesReportByWeek', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByWeek( $filter );
@@ -664,6 +667,7 @@ $app->post('/eventSalesReportByMonth', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByMonth( $filter );
@@ -691,6 +695,7 @@ $app->post('/eventSalesReportByPriceType', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceType( $filter );
@@ -718,6 +723,7 @@ $app->post('/eventSalesReportByPriceTypeDate', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceTypeDate( $filter );
@@ -745,6 +751,7 @@ $app->post('/eventSalesReportByPriceTypeWeek', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceTypeWeek( $filter );
@@ -772,6 +779,7 @@ $app->post('/eventSalesReportByPriceTypeMonth', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceTypeMonth( $filter );
@@ -802,6 +810,7 @@ $app->post('/eventSalesReportByPriceClass', function() use ($app)  {
 	if (property_exists($r->filter, 'sectionId')) {
 		$filter['sectionId'] = $r->filter->sectionId;
 	}
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceClass( $filter );
@@ -829,6 +838,7 @@ $app->post('/eventSalesReportByPriceClassDate', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceClassDate( $filter );
@@ -856,6 +866,7 @@ $app->post('/eventSalesReportByPriceClassWeek', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceClassWeek( $filter );
@@ -883,6 +894,7 @@ $app->post('/eventSalesReportByPriceClassMonth', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByPriceClassMonth( $filter );
@@ -910,6 +922,7 @@ $app->post('/eventSalesReportBySectors', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportBySectors( $filter );
@@ -1038,6 +1051,7 @@ $app->post('/eventSalesReportByLocation', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesReportByLocation( $filter );
@@ -1067,6 +1081,7 @@ $app->post('/getCsvByOverview', function() use ($app)  {
 	$filter['endDate'] = $r->filter->period->endDate;
 	$filter['display'] = $r->filter->display;
 	$filter['groupBy'] = $r->filter->groupBy;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesCsvReportByOverview( $filter );
@@ -1088,6 +1103,7 @@ $app->post('/getXlsByOverview', function() use ($app)  {
 	$filter['endDate'] = $r->filter->period->endDate;
 	$filter['display'] = $r->filter->display;
 	$filter['groupBy'] = $r->filter->groupBy;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesXlsReportByOverview( $filter );
@@ -1109,6 +1125,7 @@ $app->post('/getCsvByPriceType', function() use ($app)  {
 	$filter['endDate'] = $r->filter->period->endDate;
 	$filter['display'] = $r->filter->display;
 	$filter['groupBy'] = $r->filter->groupBy;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesCsvReportByPriceType( $filter );
@@ -1130,6 +1147,7 @@ $app->post('/getXlsByPriceType', function() use ($app)  {
 	$filter['endDate'] = $r->filter->period->endDate;
 	$filter['display'] = $r->filter->display;
 	$filter['groupBy'] = $r->filter->groupBy;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesXlsReportByPriceType( $filter );
@@ -1152,6 +1170,7 @@ $app->post('/getCsvByPriceClass', function() use ($app)  {
 	$filter['display'] = $r->filter->display;
 	$filter['groupBy'] = $r->filter->groupBy;
 	$filter['sectionId'] = $r->filter->sectionId;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesCsvReportByPriceClass( $filter );
@@ -1174,6 +1193,7 @@ $app->post('/getXlsByPriceClass', function() use ($app)  {
 	$filter['display'] = $r->filter->display;
 	$filter['groupBy'] = $r->filter->groupBy;
 	$filter['sectionId'] = $r->filter->sectionId;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesXlsReportByPriceClass( $filter );
@@ -1193,6 +1213,7 @@ $app->post('/getCsvBySectors', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesCsvReportBySectors( $filter );
@@ -1212,6 +1233,7 @@ $app->post('/getXlsBySectors', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesXlsReportBySectors( $filter );
@@ -1231,6 +1253,7 @@ $app->post('/getCsvByLocation', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesCsvReportByLocation( $filter );
@@ -1250,6 +1273,7 @@ $app->post('/getXlsByLocation', function() use ($app)  {
 	$filter['isShow'] = $r->type=="show";
 	$filter['startDate'] = $r->filter->period->startDate;
 	$filter['endDate'] = $r->filter->period->endDate;
+	$filter['centerId'] = $r->filter->centerId;
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->eventSalesXlsReportByLocation( $filter );
