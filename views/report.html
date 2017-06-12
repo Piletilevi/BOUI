@@ -812,7 +812,7 @@
                                 {{(locationData.totalSum) | number:2}} {{locationData.currency}}
                             </td>
                         </tr>
-                        <tr ng-repeat="city in locationData.cities">
+                        <tr ng-repeat="city in locationData.cities" ng-if="!locationData.showAllCities && $index < 5 || locationData.showAllCities">
                             <td>{{city.city|translate}}</td>
                             <td>{{city.internetCount}}</td>
                             <td>{{city.spCount}}</td>
@@ -821,6 +821,14 @@
                             <td>{{(city.percent) | number:0}}%</td>
                             <td ng-if="hasFullAccess('api_reports_revenue')">
                                 {{(city.totalSum) | number:2}} {{city.currency}}
+                            </td>
+                        </tr>
+                        <tr ng-if="locationData.cities.length > 4">
+                            <td colspan="7">
+                                <button class="btn btn-primary pull-left" ng-click="locationData.showAllCities = !locationData.showAllCities">
+                                    <span ng-if="!locationData.showAllCities">{{'api_view_more'|translate}}</span>
+                                    <span ng-if="locationData.showAllCities">{{'api_collapse'|translate}}</span>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
