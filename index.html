@@ -58,7 +58,10 @@
                         <button class="btn btn-default bo-datarangepicker-button btn-lg" type="button"
                                 data-control="daterangepicker">
                             <input type="text" class="form-control" daterangepicker-neutral-timezone
-                                   ng-model="vm.filter.period" ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                   ng-model="vm.filter.period"
+                                   ng-attr-data-default-start-date="{{vm.defaultStartDate}}"
+                                   ng-attr-data-default-end-date="{{vm.defaultEndDate}}"
+                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled/>
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                         </button>

@@ -29,6 +29,7 @@
         // Filter
 
         function assingEventsFilter() {
+            console.log('assign');
             $cookies.putObject('boDashboardFilter', {filter: vm.filter, resetSearch: vm.reset_search});
             $rootScope.eventsFilter = angular.copy(vm.filter);
             if ($location.path().indexOf("dashboard") == -1) {
@@ -36,8 +37,11 @@
             }
         }
 
+        vm.defaultStartDate = moment().subtract(30, 'days');
+        vm.defaultEndDate = moment().add(1, 'years');
+
         vm.filter = {
-            period: {startDate: moment().subtract(30, 'days'), endDate: moment().add(1, 'years')},
+            period: {startDate: vm.defaultStartDate, endDate: vm.defaultEndDate},
             name: '',
             loadingItems: false,
             groupByShow: false

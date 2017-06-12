@@ -119,7 +119,8 @@
 					options.autoApply = false;
 					options.minDate = $attributes.minDate ? moment($attributes.minDate) : false;
 					options.maxDate = $attributes.maxDate ? moment($attributes.maxDate) : false;
-
+					options.defaultStartDate = $attributes.defaultStartDate ? moment($attributes.defaultStartDate) : false;
+					options.defaultEndDate = $attributes.defaultEndDate ? moment($attributes.defaultEndDate) : false;
 
 					$element.daterangepicker(options, function(start, end, label) {
 						var modelValue = ngModel.$viewValue;

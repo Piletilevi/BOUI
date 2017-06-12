@@ -186,6 +186,12 @@
         if (typeof options.endDate === 'object')
             this.endDate = moment(options.endDate);
 
+        if (typeof options.defaultStartDate === 'object')
+            this.defaultStartDate = moment(options.defaultStartDate);
+
+        if (typeof options.defaultEndDate === 'object')
+            this.defaultEndDate = moment(options.defaultEndDate);
+
         if (typeof options.minDate === 'object')
             this.minDate = moment(options.minDate);
 
@@ -1418,8 +1424,8 @@
         },
 
         clickReset: function(e) {
-            this.startDate = moment($(this.element).attr('data-default-start-date'), this.locale.format);
-            this.endDate = moment($(this.element).attr('data-default-end-date'), this.locale.format);
+            this.startDate = this.defaultStartDate || moment($(this.element).attr('data-default-start-date'), this.locale.format);
+            this.endDate = this.defaultEndDate || moment($(this.element).attr('data-default-end-date'), this.locale.format);
             this.hide();
             this.element.trigger('reset.daterangepicker', this);
         },
