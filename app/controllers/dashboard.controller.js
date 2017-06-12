@@ -5,9 +5,9 @@
     angular.module('boApp')
         .controller('dashboardController', DashboardController);
 
-    DashboardController.$inject = ['$scope', '$rootScope', '$routeParams', 'eventService', 'newsService'];
+    DashboardController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'eventService', 'newsService'];
 
-    function DashboardController($scope, $rootScope, $routeParams, eventService, newsService) {
+    function DashboardController($scope, $rootScope, $routeParams, $location, eventService, newsService) {
 
         //initially set those objects to null to avoid undefined error
         var vm = this;
@@ -90,19 +90,35 @@
         $scope.$watchCollection('[vm.salesCount, vm.draftCount, vm.pastCount]', function (oldVal, newVal) {
             if(!angular.equals(oldVal, newVal)) {
                 if (vm.tabActive === 'onsale' && vm.salesCount === 0) {
-                    if (vm.draftCount === 0 && vm.pastCount != 0 && vm.tabs.indexOf('past') !== -1) {
+                    if (vm.draftCount != 0 && vm.tabs.indexOf('draft') !== -1) {
+                        vm.tabActive = 'draft';
+                        $location.path('dashboard/' + vm.tabActive);
+                    }
+                    else if (vm.pastCount != 0 && vm.tabs.indexOf('past') !== -1) {
                         vm.tabActive = 'past';
+                        $location.path('dashboard/' + vm.tabActive);
+                    }
+                }
+                else if (vm.tabActive === 'draft' && vm.draftCount === 0) {
+                    if (vm.salesCount != 0 && vm.tabs.indexOf('onsale') !== -1) {
+                        vm.tabActive = 'onsale';
+                        $location.path('dashboard/' + vm.tabActive);
+                    }
+                    else if (vm.pastCount != 0 && vm.tabs.indexOf('past') !== -1) {
+                        vm.tabActive = 'past';
+                        $location.path('dashboard/' + vm.tabActive);
+                    }
+                }
+                else if (vm.tabActive === 'past' && vm.pastCount === 0) {
+                    if (vm.salesCount != 0 && vm.tabs.indexOf('onsale') !== -1) {
+                        vm.tabActive = 'onsale';
+                        $location.path('dashboard/' + vm.tabActive);
                     }
                     else if (vm.draftCount != 0 && vm.tabs.indexOf('draft') !== -1) {
                         vm.tabActive = 'draft';
+                        $location.path('dashboard/' + vm.tabActive);
                     }
                 }
-                if (vm.tabActive === 'draft' && vm.draftCount === 0) {
-                    if (vm.pastCount != 0 && vm.tabs.indexOf('past') !== -1) {
-                        vm.tabActive = 'past';
-                    }
-                }
-                vm.filter.status = vm.tabActive;
             }
         });
 

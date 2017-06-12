@@ -29,7 +29,6 @@
         // Filter
 
         function assingEventsFilter() {
-            console.log('assign');
             $cookies.putObject('boDashboardFilter', {filter: vm.filter, resetSearch: vm.reset_search});
             $rootScope.eventsFilter = angular.copy(vm.filter);
             if ($location.path().indexOf("dashboard") == -1) {
