@@ -558,7 +558,7 @@
 				callMethod = 'getXlsByPriceType';
 			} else if (currentTab == 'priceclass') {
 				callMethod = 'getXlsByPriceClass';
-			} else if (currentTab == 'sectors') {
+			} else if (currentTab == 'sections') {
 				if (filter.sectionId) {
 					callMethod = 'getXlsByPriceClass';
 				} else {
@@ -583,7 +583,7 @@
 				callMethod = 'getCsvByPriceType';
 			} else if (currentTab == 'priceclass') {
 				callMethod = 'getCsvByPriceClass';
-			} else if (currentTab == 'sectors') {
+			} else if (currentTab == 'sections') {
 				if (filter.sectionId) {
 					callMethod = 'getCsvByPriceClass';
 				} else {
