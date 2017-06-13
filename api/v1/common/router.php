@@ -1292,7 +1292,7 @@ $app->get('/test', function() use ($app)  {
 	$filter['groupBy'] = "day";
 
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->eventSalesCsvReportBySectors( $filter );
+    $reportResponse = $piletileviApi->eventSalesXlsReportByLocation( $filter );
 	
 	$dataHandler->responseAsXls(200, $reportResponse);
 });

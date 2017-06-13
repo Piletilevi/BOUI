@@ -89,7 +89,7 @@
 				filter = vm.pricetypeFilter;
 			} else if (currentTab == "priceclass") {
 				filter = vm.priceclassFilter;
-			} else if (currentTab == "sectors") {
+			} else if (currentTab == "sections") {
 				if ($scope.selectedSectionId) {
 					filter = vm.priceclassFilter;
 				} else {
@@ -109,7 +109,7 @@
 				filter = vm.pricetypeFilter;
 			} else if (currentTab == "priceclass") {
 				filter = vm.priceclassFilter;
-			} else if (currentTab == "sectors") {
+			} else if (currentTab == "sections") {
 				if ($scope.selectedSectionId) {
 					filter = vm.priceclassFilter;
 				} else {
