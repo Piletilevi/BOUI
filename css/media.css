@@ -263,6 +263,7 @@
 		width: 100%;
 		padding: 0;
 		margin: 0;
+		min-width: 848px;
 	}
 
 	.bo-center-column {
@@ -363,6 +364,11 @@
 		float: left;
 	}
 
+	.bo-double-charts-row canvas {
+		max-width: 100%;
+		height: auto!important;
+	}
+
 	table td,
 	table th {
 		border: 1px solid #000 !important;
@@ -418,6 +424,13 @@
 
 	.bo-line-chart-container {
 		height: auto !important;
+		width: 100% !important;
+	}
+
+	.bo-line-chart-container canvas {
+		width: 100% !important;
+		height: auto !important;
+		max-height: 600px;
 	}
 }
 
