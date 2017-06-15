@@ -473,6 +473,15 @@
 /* Bootstrap xs
 ================================ */
 @media (max-width: 767px) {
+
+	.bo-tabs-controls .form-inline > .form-group {
+		margin-left: 0;
+	}
+
+	.bo-make-reservation-button {
+		width: 100%;
+	}
+
 	.bo-event-share-block {
 		text-align: center;
 		margin-top: -20px;

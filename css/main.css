@@ -1667,11 +1667,19 @@ a:hover {
 }
 
 .bo-tabs-controls {
-	margin-bottom: 33px;
+	margin-bottom: 26px;
+}
+
+.bo-tabs-controls-item {
+    width: 100%;
 }
 
 .bo-tabs-controls-short {
 	margin-bottom: 8px;
+}
+
+.bo-tabs-controls .form-inline > .form-group {
+    margin-bottom: 7px;
 }
 
 /* Left column
