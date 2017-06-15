@@ -430,7 +430,7 @@
 	.bo-line-chart-container canvas {
 		width: 100% !important;
 		height: auto !important;
-		max-height: 600px;
+		max-height: 400px;
 	}
 }
 
