@@ -77,30 +77,30 @@
 
                     <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
                         <div class="row">
-                            <div class="col-sm-5 bo-inline-print">
+                            <div class="col-sm-8 bo-inline-print">
                                 <div class="form-inline">
                                     <div class="form-group">
                                         <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                        <div class="input-group">
-                                            <div class="data_range">
-                                                <button class="btn btn-default bo-datarangepicker-button" type="button" data-control="daterangepicker">
-                                            <input type="text" daterangepicker class="form-control"
+                                        <div class="input-group data_range col-xs-12">
+                                            <button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button" data-control="daterangepicker">
+                                                <input type="text" daterangepicker class="form-control"
                                                    ng-model="vm.filterPeriod"
                                                    daterangepicker-neutral-timezone
                                                    ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </button>
-											<span ng-if="vm.hasSalesPoint()"><select class="btn btn-sm btn-default" ng-model="vm.overviewFilter.centerId">
-												<option value="">{{'api_all_center_ids'|translate}}</option>
-												<option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
-											</select></span>
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span ng-if="vm.hasSalesPoint()"><select class="btn btn-default bo-tabs-controls-item" ng-model="vm.overviewFilter.centerId">
+                                            <option value="">{{'api_all_center_ids'|translate}}</option>
+                                            <option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
+                                        </select></span>
                                     </div>
                                 </div>
                             </div>
-                            </div>
-                            <div class="bo-chartcontrols col-sm-7 text-right">
+                            <div class="bo-chartcontrols col-sm-4 text-right">
                                 <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button type="button" class="btn btn-sm btn-default"
@@ -262,12 +262,12 @@
 
                     <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
                         <div class="row">
-                            <div class="col-sm-5 bo-inline-print">
+                            <div class="col-sm-8 bo-inline-print">
                                 <div class="form-inline">
                                     <div class="form-group">
                                         <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                        <div class="input-group data_range">
-											<button class="btn btn-default bo-datarangepicker-button" type="button"
+                                        <div class="input-group data_range col-xs-12">
+											<button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button"
                                                     data-control="daterangepicker">
                                             <input type="text" daterangepicker class="form-control"
                                                    ng-model="vm.filterPeriod"
@@ -276,15 +276,17 @@
                                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </button>
-											<span ng-if="vm.hasSalesPoint()"><select class="btn btn-sm btn-default" ng-model="vm.pricetypeFilter.centerId">
-												<option value="">{{'api_all_center_ids'|translate}}</option>
-												<option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
-											</select></span>
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span ng-if="vm.hasSalesPoint()"><select class="btn btn-default bo-tabs-controls-item" ng-model="vm.pricetypeFilter.centerId">
+                                            <option value="">{{'api_all_center_ids'|translate}}</option>
+                                            <option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
+                                        </select></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="bo-chartcontrols col-sm-7 text-right">
+                            <div class="bo-chartcontrols col-sm-4 text-right">
                                 <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button type="button" class="btn btn-sm btn-default"
@@ -423,12 +425,12 @@
 
                     <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
                         <div class="row">
-                            <div class="col-sm-5 bo-inline-print">
+                            <div class="col-sm-8 bo-inline-print">
                                 <div class="form-inline">
                                     <div class="form-group">
                                         <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                        <div class="input-group data_range">
-											<button class="btn btn-default bo-datarangepicker-button" type="button"
+                                        <div class="input-group data_range col-xs-12">
+											<button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button"
                                                     data-control="daterangepicker">
                                             <input type="text" daterangepicker class="form-control"
                                                    ng-model="vm.filterPeriod"
@@ -437,15 +439,17 @@
                                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </button>
-											<span ng-if="vm.hasSalesPoint()"><select class="btn btn-sm btn-default" ng-model="vm.priceClassFilter.centerId">
-												<option value="">{{'api_all_center_ids'|translate}}</option>
-												<option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
-											</select></span>
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span ng-if="vm.hasSalesPoint()"><select class="btn btn-default bo-tabs-controls-item" ng-model="vm.priceClassFilter.centerId">
+                                            <option value="">{{'api_all_center_ids'|translate}}</option>
+                                            <option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
+                                        </select></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="bo-chartcontrols col-sm-7 text-right">
+                            <div class="bo-chartcontrols col-sm-4 text-right">
                                 <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button type="button" class="btn btn-sm btn-default"
@@ -584,19 +588,21 @@
                         <div class="form-inline">
                             <div class="form-group">
                                 <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                <div class="input-group data_range">
-									<button class="btn btn-default bo-datarangepicker-button" type="button" data-control="daterangepicker">
+                                <div class="input-group data_range col-xs-12">
+									<button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button" data-control="daterangepicker">
                                     <input type="text" daterangepicker class="form-control"
                                            ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
                                            ng-attr-data-min-date="{{vm.minFilterDate}}"
                                            ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
                                         <i class="fa fa-calendar" aria-hidden="true"></i>
                                     </button>
-									<span ng-if="vm.hasSalesPoint()"><select class="btn btn-sm btn-default" ng-model="vm.sectorsFilter.centerId">
-										<option value="">{{'api_all_center_ids'|translate}}</option>
-										<option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
-									</select></span>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <span ng-if="vm.hasSalesPoint()"><select class="btn btn-default bo-tabs-controls-item" ng-model="vm.sectorsFilter.centerId">
+                                    <option value="">{{'api_all_center_ids'|translate}}</option>
+                                    <option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
+                                </select></span>
                             </div>
                         </div>
                     </div>
@@ -660,28 +666,30 @@
                     </div>
                 </div>
 
-                <div class="bo-tabs-controls panel-body" ng-if="selectedSectionId">
-                    <div class="row bo-salesoverview-controls">
-                        <div class="col-md-8 bo-inline-print" ng-if="selectedSectionId">
+                <div class="panel-body" ng-if="selectedSectionId">
+                    <div class="bo-tabs-controls row bo-salesoverview-controls">
+                        <div class="col-md-12 bo-inline-print" ng-if="selectedSectionId">
                             <div class="form-inline">
                                 <div class="form-group">
                                     <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                    <div class="input-group data_range">
-                                        <button class="btn btn-default bo-datarangepicker-button" type="button" data-control="daterangepicker">
+                                    <div class="input-group data_range col-xs-12">
+                                        <button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button" data-control="daterangepicker">
                                             <input type="text" daterangepicker class="form-control"
                                                    ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
                                                    ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
                                             <i class="fa fa-calendar" aria-hidden="true"></i>
                                         </button>
-										<span ng-if="vm.hasSalesPoint()"><select class="btn btn-sm btn-default" ng-model="vm.sectorsFilter.centerId">
-											<option value="">{{'api_all_center_ids'|translate}}</option>
-											<option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
-										</select></span>										
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="bo-sectionselection form-control">
+                                    <span ng-if="vm.hasSalesPoint()"><select class="btn btn-default bo-tabs-controls-item" ng-model="vm.sectorsFilter.centerId">
+                                        <option value="">{{'api_all_center_ids'|translate}}</option>
+                                        <option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
+                                    </select></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="bo-sectionselection form-control bo-tabs-controls-item">
                                         <span class="bo-sectionselection-text">{{'api_selected_section'|translate}}: {{(vm.mySectorsData.sales | filter:{sectorId: selectedSectionId})[0].name}}</span>
                                         <a class="bo-sectionselection-button text-danger" href
                                            ng-click="vm.resetSelectedSectionId(selectedSectionId)">
@@ -689,12 +697,8 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 text-right">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <button class="btn btn-info" type="button">
+                                <div class="form-group pull-right bo-make-reservation-button">
+                                    <button class="btn btn-info bo-tabs-controls-item" type="button">
                                         {{'api_reservation_make'|translate}}&nbsp;&nbsp;
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                     </button>
@@ -743,19 +747,21 @@
                         <div class="form-inline">
                             <div class="form-group">
                                 <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                <div class="input-group data_range">
-                                    <button class="btn btn-default bo-datarangepicker-button" type="button" data-control="daterangepicker">
+                                <div class="input-group data_range col-xs-12">
+                                    <button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button" data-control="daterangepicker">
                                     <input type="text" daterangepicker class="form-control"
                                            ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
                                            ng-attr-data-min-date="{{vm.minFilterDate}}"
                                            ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
                                             <i class="fa fa-calendar" aria-hidden="true"></i>
                                     </button>
-									<span ng-if="vm.hasSalesPoint()"><select class="btn btn-sm btn-default" ng-model="vm.locationsFilter.centerId">
-										<option value="">{{'api_all_center_ids'|translate}}</option>
-										<option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
-									</select></span>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <span ng-if="vm.hasSalesPoint()"><select class="btn btn-default bo-tabs-controls-item" ng-model="vm.locationsFilter.centerId">
+                                    <option value="">{{'api_all_center_ids'|translate}}</option>
+                                    <option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
+                                </select></span>
                             </div>
                         </div>
                     </div>
