@@ -93,10 +93,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1"><select class="btn btn-default bo-tabs-controls-item" ng-model="vm.overviewFilter.centerId">
-                                            <option value="">{{'api_all_center_ids'|translate}}</option>
-                                            <option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
-                                        </select></span>
+                                        <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <span>{{vm.overviewFilter.centerName ? vm.overviewFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a ng-click="vm.overviewFilter.centerId = ''; vm.overviewFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
+                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.overviewFilter.centerId = sp.id; vm.overviewFilter.centerName = sp.name">{{sp.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                         <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length == 1">
                                             {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
                                         </span>
@@ -282,10 +290,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1"><select class="btn btn-default bo-tabs-controls-item" ng-model="vm.pricetypeFilter.centerId">
-                                            <option value="">{{'api_all_center_ids'|translate}}</option>
-                                            <option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
-                                        </select></span>
+                                        <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <span>{{vm.pricetypeFilter.centerName ? vm.pricetypeFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a ng-click="vm.pricetypeFilter.centerId = ''; vm.pricetypeFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
+                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.pricetypeFilter.centerId = sp.id; vm.pricetypeFilter.centerName = sp.name">{{sp.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                         <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length == 1">
                                             {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
                                         </span>
@@ -448,10 +464,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1"><select class="btn btn-default bo-tabs-controls-item" ng-model="vm.priceClassFilter.centerId">
-                                            <option value="">{{'api_all_center_ids'|translate}}</option>
-                                            <option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
-                                        </select></span>
+                                        <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <span>{{vm.priceClassFilter.centerName ? vm.priceClassFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a ng-click="vm.priceClassFilter.centerId = ''; vm.priceClassFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
+                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.priceClassFilter.centerId = sp.id; vm.priceClassFilter.centerName = sp.name">{{sp.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                         <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length == 1">
                                             {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
                                         </span>
@@ -608,10 +632,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1"><select class="btn btn-default bo-tabs-controls-item" ng-model="vm.sectorsFilter.centerId">
-                                    <option value="">{{'api_all_center_ids'|translate}}</option>
-                                    <option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
-                                </select></span>
+                                <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <span>{{vm.sectorsFilter.centerName ? vm.sectorsFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a ng-click="vm.sectorsFilter.centerId = ''; vm.sectorsFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
+                                            <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.sectorsFilter.centerId = sp.id; vm.sectorsFilter.centerName = sp.name">{{sp.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length == 1">
                                     {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
                                 </span>
@@ -695,10 +727,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1"><select class="btn btn-default bo-tabs-controls-item" ng-model="vm.sectorsFilter.centerId">
-                                        <option value="">{{'api_all_center_ids'|translate}}</option>
-                                        <option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
-                                    </select></span>
+                                    <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span>{{vm.sectorsFilter.centerName ? vm.sectorsFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a ng-click="vm.sectorsFilter.centerId = ''; vm.sectorsFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
+                                                <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.sectorsFilter.centerId = sp.id; vm.sectorsFilter.centerName = sp.name">{{sp.name}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                     <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length == 1">
                                         {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
                                     </span>
@@ -773,12 +813,20 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1"><select class="btn btn-default bo-tabs-controls-item" ng-model="vm.locationsFilter.centerId">
-                                    <option value="">{{'api_all_center_ids'|translate}}</option>
-                                    <option ng-repeat="sp in vm.event.salespoints" value="{{sp.id}}">{{sp.name}}</option>
-                                </select></span>
+                                <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <span>{{vm.locationsFilter.centerName ? vm.locationsFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a ng-click="vm.locationsFilter.centerId = ''; vm.locationsFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
+                                            <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.locationsFilter.centerId = sp.id; vm.locationsFilter.centerName = sp.name">{{sp.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length == 1">
-                                    {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
+                                     {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
                                 </span>
                             </div>
                         </div>
