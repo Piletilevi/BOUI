@@ -830,6 +830,7 @@ a:hover {
 .bo-eventshort-progress .progress {
     height: 17px;
     margin: 0;
+    max-width: none;
 }
 
 .bo-eventshort-progress .progress-bar {
@@ -894,13 +895,13 @@ a:hover {
 }
 
 .bo-sectionselector-item {
-    padding: 5px 12px 12px;
+    padding: 11px 17px 14px 20px;
+    color: #040e19;
 }
 
 .bo-sectionselector-itemtitle {
     color: #040e19;
-    font-size: 22px;
-    margin-bottom: 10px;
+    font-size: 17px;
 }
 
 .bo-sectionselector-itemprice {
@@ -915,11 +916,23 @@ a:hover {
     overflow: hidden;
 }
 
+.bo-sectionselector-item.a.list-group-item,
+button.bo-sectionselector-item.list-group-item {
+    color: #040e19;
+}
+
 .bo-sectionselector-item.active, .bo-sectionselector-item.active:focus, .bo-sectionselector-item.active:hover {
     z-index: 2;
-    color: #fff;
-    background-color: #e3e5e8;
-    border-color: #dcdcdc;
+    color: #040e19;
+    background-color: #ebedf0;
+    border-color: #cdd2d8;
+    -webkit-box-shadow: inset 0 0 0 1px #f7f9fb;
+    -moz-box-shadow: inset 0 0 0 1px #f7f9fb;
+    box-shadow: inset 0 0 0 1px #f7f9fb;
+}
+
+.bo-sectionselector-item .bo-eventshort-progresslabel {
+    font-size: 14px;
 }
 
 /* Sales overview
@@ -1872,8 +1885,27 @@ a:hover {
 	border-top: 0 none;
 }
 
+.bo-tabledrop-table tbody tr td,
+.bo-tabledrop-table tbody tr th{
+    vertical-align: middle;
+}
+
 .bo-tabledrop-master {
 	cursor: pointer;
+}
+
+.bo-tabledrop-master .fa-sort-desc {
+    display: none;
+    position: relative;
+    top: -6px;
+}
+
+.collapsed .bo-tabledrop-master .fa-sort-desc {
+    display: inline-block;
+}
+
+.collapsed .bo-tabledrop-master .fa-sort-asc {
+    display: none;
 }
 
 tbody:not(.collapsed) .bo-tabledrop-master,
@@ -1942,6 +1974,11 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
 	margin-left: 3px;
 }
 
-.bo-form-inline .form-group > input.form-control {
+.bo-form-inline .form-group {
+    width: 100%;
+}
+
+.bo-form-inline .form-group > input.form-control,
+.bo-form-inline .form-group > .dropdown > .btn {
 	width: 100%;
 }
