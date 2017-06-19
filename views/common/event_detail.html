@@ -35,9 +35,9 @@
 				 <div class="clearfix">
 					 <div class="bo-simplestats-pct">{{event.statistics.soldPercent || 0}}%</div><!--
 					 --><div class="bo-simplestats-bar progress">
-						 <div class="progress-bar progress-bar-success" style="flex-grow: {{event.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}"></div>
-						 <div class="progress-bar progress-bar-warning" style="flex-grow: {{event.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}"></div>
-						 <div class="progress-bar progress-bar-danger" style="flex-grow: {{event.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}"></div>
+						 <div class="progress-bar progress-bar-success" ng-attr-style="flex-grow: {{event.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}"></div>
+						 <div class="progress-bar progress-bar-warning" ng-attr-style="flex-grow: {{event.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}"></div>
+						 <div class="progress-bar progress-bar-danger" ng-attr-style="flex-grow: {{event.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}"></div>
 					 </div>
 				 </div>
 				</div>

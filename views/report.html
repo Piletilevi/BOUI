@@ -231,7 +231,7 @@
                                     <tr ng-repeat="overviewRow in overviewData.rows"
                                         class="{{overviewRow.isRefund ? 'text-danger' : ''}}">
                                         <th><span class="bo-table-dot-title"><span class="bo-dot fa fa-circle"
-                                                                                   style="color: {{overviewRow.color}}!important;"></span>{{overviewRow.typeName|translate}}:</span>
+                                                                                   ng-attr-style="color: {{overviewRow.color}}!important;"></span>{{overviewRow.typeName|translate}}:</span>
                                         </th>
                                         <td data-label="{{'api_tickets'|translate}}: ">{{overviewRow.count}}</td>
                                         <td class="bo-reporttable-percent">{{vm.myOverviewBarData.generatedCount ? (
@@ -420,7 +420,7 @@
                                     </tr>
                                     <tr ng-repeat="pricetypeItem in pricetypeData.priceTypes">
                                         <th><span class="bo-table-dot-title"><span class="bo-dot fa fa-circle"
-                                                                                   style="color: {{pricetypeItem.color}}!important;"></span>{{pricetypeItem.priceTypeName}} <span
+                                                                                   ng-attr-style="color: {{pricetypeItem.color}}!important;"></span>{{pricetypeItem.priceTypeName}} <span
                                                 ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice | number:2) + "-" + (pricetypeItem.maxPrice | number:2) : (pricetypeItem.minPrice | number:2)}})</span></span>
                                         </th>
                                         <td data-label="{{'api_tickets'|translate}}: ">{{pricetypeItem.count}}</td>
@@ -593,7 +593,7 @@
                                     </tr>
                                     <tr ng-repeat="priceclassItem in priceclassData.priceClasses">
                                         <th><span class="bo-table-dot-title"><span class="bo-dot fa fa-circle"
-                                                                                   style="color: {{priceclassItem.color}}!important;"></span>{{priceclassItem.priceClassName}} <span
+                                                                                   ng-attr-style="color: {{priceclassItem.color}}!important;"></span>{{priceclassItem.priceClassName}} <span
                                                 ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice | number:2) + "-" + (priceclassItem.maxPrice | number:2) : (priceclassItem.minPrice | number:2)}})</span></span>
                                         </th>
                                         <td data-label="{{'api_tickets'|translate}}: ">{{priceclassItem.count}}</td>
@@ -687,13 +687,13 @@
 										 -->
                                             <div class="bo-simplestats-bar progress">
                                                 <div class="progress-bar progress-bar-success"
-                                                     style="flex-grow: {{sectorData.statistics.soldPercent}}"
+                                                     ng-attr-style="flex-grow: {{sectorData.statistics.soldPercent}}"
                                                      title="{{'api_overview_sold_total'|translate}}"></div>
                                                 <div class="progress-bar progress-bar-warning"
-                                                     style="flex-grow: {{sectorData.statistics.bookedPercent}}"
+                                                     ng-attr-style="flex-grow: {{sectorData.statistics.bookedPercent}}"
                                                      title="{{'api_overview_reserved_total'|translate}}"></div>
                                                 <div class="progress-bar progress-bar-danger"
-                                                     style="flex-grow: {{sectorData.statistics.availablePercent}}"
+                                                     ng-attr-style="flex-grow: {{sectorData.statistics.availablePercent}}"
                                                      title="{{'api_avail_for_sale'|translate}}"></div>
                                             </div>
                                         </div>
