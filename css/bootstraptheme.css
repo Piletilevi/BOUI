@@ -723,14 +723,14 @@ textarea.form-control {
     min-width: 42px;
 }
 
-.btn-dropdown {
-    color: #5e7287;
-    text-decoration: none;
+.btn.dropdown-toggle {
     display: block;
     text-align: left;
+    padding-right: 25px;
+    width: 100%;
 }
 
-.btn-dropdown .caret {
+.btn.dropdown-toggle .caret {
     position: absolute;
     right: 12px;
     top: 50%;

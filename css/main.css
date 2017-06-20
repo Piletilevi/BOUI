@@ -1383,6 +1383,7 @@ a:hover {
 
 .bo-table-dropdown .btn .caret {
 	right: 9px;
+    margin-top: -2px;
 }
 
 /* Chart
