@@ -17,11 +17,6 @@
             </td>
         </tr>
     </tbody>
-    <tbody>
-        <tr class="bo-table-title-row">
-            <th colspan="4">Center name:</th>
-        </tr>
-    </tbody>
     <tbody ng-repeat="priceclassData in vm.myPriceClassPieData.sales">
         <tr class="bo-table-secondarytitle-row">
             <th><span class="bo-table-dot-title"><span class="bo-dot fa fa-circle"></span>{{priceclassData.groupName|translate}}</span></th>
@@ -36,14 +31,6 @@
             <td data-label="{{'api_tickets'|translate}}: ">{{priceclassItem.count}}</td>
             <td>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</td>
             <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">{{priceclassItem.sum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
-        </tr>
-    </tbody>
-    <tbody>
-        <tr class="bo-table-title-row">
-            <th>Sub in total:</th>
-            <td>850</td>
-            <td>80%</td>
-            <td>999</td>
         </tr>
     </tbody>
 </table>
