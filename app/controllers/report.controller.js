@@ -75,6 +75,9 @@
         vm.pricetypeLineGraph = graphService.pricetypeLineGraph;
         vm.priceclassPieGraph = graphService.priceclassPieGraph;
         vm.priceclassLineGraph = graphService.priceclassLineGraph;
+
+        vm.filters = [vm.overviewFilter, vm.pricetypeFilter, vm.priceclassFilter, vm.sectorsFilter, vm.locationsFilter];
+
         // vm.printPdf = pdfService.printPdf;
 
         //Initialize
@@ -514,11 +517,19 @@
 
         $scope.$watch('vm.filterPeriod', function (newPeriod, oldPeriod) {
             if (newPeriod !== oldPeriod) {
-                vm.overviewFilter.period = vm.filterPeriod;
-                vm.pricetypeFilter.period = vm.filterPeriod;
-                vm.priceclassFilter.period = vm.filterPeriod;
-                vm.sectorsFilter.period = vm.filterPeriod;
-                vm.locationsFilter.period = vm.filterPeriod;
+                angular.forEach(vm.filters, function (filter) {
+                    filter.period = vm.filterPeriod;
+                });
+                vm.tabSelectEvent(vm.currentTab);
+            }
+        });
+
+        $scope.$watch('vm.salesPoint', function (newSalesPoint, oldSalesPoint) {
+            if (oldSalesPoint !== newSalesPoint) {
+                angular.forEach(vm.filters, function (filter) {
+                    filter.centerId = newSalesPoint.id;
+                    filter.centerName = newSalesPoint.name;
+                });
                 vm.tabSelectEvent(vm.currentTab);
             }
         });

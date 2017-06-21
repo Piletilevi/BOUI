@@ -100,8 +100,8 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <a ng-click="vm.overviewFilter.centerId = ''; vm.overviewFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
-                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.overviewFilter.centerId = sp.id; vm.overviewFilter.centerName = sp.name">{{sp.name}}</a>
+                                                    <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
+                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -297,8 +297,8 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <a ng-click="vm.pricetypeFilter.centerId = ''; vm.pricetypeFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
-                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.pricetypeFilter.centerId = sp.id; vm.pricetypeFilter.centerName = sp.name">{{sp.name}}</a>
+                                                    <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
+                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -471,8 +471,8 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <a ng-click="vm.priceClassFilter.centerId = ''; vm.priceClassFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
-                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.priceClassFilter.centerId = sp.id; vm.priceClassFilter.centerName = sp.name">{{sp.name}}</a>
+                                                    <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
+                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -639,8 +639,8 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a ng-click="vm.sectorsFilter.centerId = ''; vm.sectorsFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
-                                            <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.sectorsFilter.centerId = sp.id; vm.sectorsFilter.centerName = sp.name">{{sp.name}}</a>
+                                            <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
+                                            <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -734,8 +734,8 @@
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a ng-click="vm.sectorsFilter.centerId = ''; vm.sectorsFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
-                                                <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.sectorsFilter.centerId = sp.id; vm.sectorsFilter.centerName = sp.name">{{sp.name}}</a>
+                                                <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
+                                                <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -820,8 +820,8 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a ng-click="vm.locationsFilter.centerId = ''; vm.locationsFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
-                                            <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.locationsFilter.centerId = sp.id; vm.locationsFilter.centerName = sp.name">{{sp.name}}</a>
+                                            <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
+                                            <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
                                         </li>
                                     </ul>
                                 </div>
