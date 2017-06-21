@@ -472,18 +472,18 @@
 
         $scope.$watch('vm.event.sellPeriod', function (newSellPeriod, oldSellPeriod) {
             if (newSellPeriod !== oldSellPeriod) {
-                vm.filterPeriod.startDate = moment(newSellPeriod.start);
-                vm.filterPeriod.endDate = moment(newSellPeriod.end);
-                vm.overviewFilter.period.startDate = moment(newSellPeriod.start);
-                vm.overviewFilter.period.endDate = moment(newSellPeriod.end);
-                vm.pricetypeFilter.period.startDate = moment(newSellPeriod.start);
-                vm.pricetypeFilter.period.endDate = moment(newSellPeriod.end);
-                vm.priceclassFilter.period.startDate = moment(newSellPeriod.start);
-                vm.priceclassFilter.period.endDate = moment(newSellPeriod.end);
-                vm.sectorsFilter.period.startDate = moment(newSellPeriod.start);
-                vm.sectorsFilter.period.endDate = moment(newSellPeriod.end);
-                vm.locationsFilter.period.startDate = moment(newSellPeriod.start);
-                vm.locationsFilter.period.endDate = moment(newSellPeriod.end);
+                vm.filterPeriod.startDate = newSellPeriod.start;
+                vm.filterPeriod.endDate = newSellPeriod.end;
+                vm.overviewFilter.period.startDate = newSellPeriod.start;
+                vm.overviewFilter.period.endDate = newSellPeriod.end;
+                vm.pricetypeFilter.period.startDate = newSellPeriod.start;
+                vm.pricetypeFilter.period.endDate = newSellPeriod.end;
+                vm.priceclassFilter.period.startDate = newSellPeriod.start;
+                vm.priceclassFilter.period.endDate = newSellPeriod.end;
+                vm.sectorsFilter.period.startDate = newSellPeriod.start;
+                vm.sectorsFilter.period.endDate = newSellPeriod.end;
+                vm.locationsFilter.period.startDate = newSellPeriod.start;
+                vm.locationsFilter.period.endDate = newSellPeriod.end;
                 vm.minFilterDate = vm.overviewFilter.period.startDate;
                 vm.maxFilterDate = vm.overviewFilter.period.endDate;
                 vm.tabSelectEvent(vm.currentTab);
