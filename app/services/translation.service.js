@@ -61,9 +61,9 @@
 
         function setLangValue(lang){
             if (lang !== $rootScope.language) {
+                moment.locale(getMomentLocaleCode(lang.code));
                 $translate.use(lang.code);
                 $rootScope.language = lang;
-                moment.locale(getMomentLocaleCode(lang.code));
                 dataService.post('setLanguage', {'lang': lang });
             }
         }
