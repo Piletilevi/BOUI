@@ -75,6 +75,9 @@
         vm.pricetypeLineGraph = graphService.pricetypeLineGraph;
         vm.priceclassPieGraph = graphService.priceclassPieGraph;
         vm.priceclassLineGraph = graphService.priceclassLineGraph;
+
+        vm.filters = [vm.overviewFilter, vm.pricetypeFilter, vm.priceclassFilter, vm.sectorsFilter, vm.locationsFilter];
+
         // vm.printPdf = pdfService.printPdf;
 
         //Initialize
@@ -472,18 +475,18 @@
 
         $scope.$watch('vm.event.sellPeriod', function (newSellPeriod, oldSellPeriod) {
             if (newSellPeriod !== oldSellPeriod) {
-                vm.filterPeriod.startDate = moment(newSellPeriod.start);
-                vm.filterPeriod.endDate = moment(newSellPeriod.end);
-                vm.overviewFilter.period.startDate = moment(newSellPeriod.start);
-                vm.overviewFilter.period.endDate = moment(newSellPeriod.end);
-                vm.pricetypeFilter.period.startDate = moment(newSellPeriod.start);
-                vm.pricetypeFilter.period.endDate = moment(newSellPeriod.end);
-                vm.priceclassFilter.period.startDate = moment(newSellPeriod.start);
-                vm.priceclassFilter.period.endDate = moment(newSellPeriod.end);
-                vm.sectorsFilter.period.startDate = moment(newSellPeriod.start);
-                vm.sectorsFilter.period.endDate = moment(newSellPeriod.end);
-                vm.locationsFilter.period.startDate = moment(newSellPeriod.start);
-                vm.locationsFilter.period.endDate = moment(newSellPeriod.end);
+                vm.filterPeriod.startDate = newSellPeriod.start;
+                vm.filterPeriod.endDate = newSellPeriod.end;
+                vm.overviewFilter.period.startDate = newSellPeriod.start;
+                vm.overviewFilter.period.endDate = newSellPeriod.end;
+                vm.pricetypeFilter.period.startDate = newSellPeriod.start;
+                vm.pricetypeFilter.period.endDate = newSellPeriod.end;
+                vm.priceclassFilter.period.startDate = newSellPeriod.start;
+                vm.priceclassFilter.period.endDate = newSellPeriod.end;
+                vm.sectorsFilter.period.startDate = newSellPeriod.start;
+                vm.sectorsFilter.period.endDate = newSellPeriod.end;
+                vm.locationsFilter.period.startDate = newSellPeriod.start;
+                vm.locationsFilter.period.endDate = newSellPeriod.end;
                 vm.minFilterDate = vm.overviewFilter.period.startDate;
                 vm.maxFilterDate = vm.overviewFilter.period.endDate;
                 vm.tabSelectEvent(vm.currentTab);
@@ -514,11 +517,19 @@
 
         $scope.$watch('vm.filterPeriod', function (newPeriod, oldPeriod) {
             if (newPeriod !== oldPeriod) {
-                vm.overviewFilter.period = vm.filterPeriod;
-                vm.pricetypeFilter.period = vm.filterPeriod;
-                vm.priceclassFilter.period = vm.filterPeriod;
-                vm.sectorsFilter.period = vm.filterPeriod;
-                vm.locationsFilter.period = vm.filterPeriod;
+                angular.forEach(vm.filters, function (filter) {
+                    filter.period = vm.filterPeriod;
+                });
+                vm.tabSelectEvent(vm.currentTab);
+            }
+        });
+
+        $scope.$watch('vm.salesPoint', function (newSalesPoint, oldSalesPoint) {
+            if (oldSalesPoint !== newSalesPoint) {
+                angular.forEach(vm.filters, function (filter) {
+                    filter.centerId = newSalesPoint.id;
+                    filter.centerName = newSalesPoint.name;
+                });
                 vm.tabSelectEvent(vm.currentTab);
             }
         });
