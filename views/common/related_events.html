@@ -24,7 +24,7 @@
 							<div class="bo-eventshort-progresslabel">
 								{{related.statistics.soldPercent}}%
 							</div>
-							<div class="bo-eventshort-pricelabel">
+							<div class="bo-eventshort-pricelabel" ng-if="hasFullAccess('api_reports_revenue')">
 								{{related.statistics.soldSumma | number:2 }} {{related.statistics.currency}}
 							</div>
 						</div>
@@ -50,7 +50,7 @@
 								<div class="bo-eventshort-progresslabel">
 									{{concertItem.statistics.soldPercent}}%
 								</div>
-								<div class="bo-eventshort-pricelabel">
+								<div class="bo-eventshort-pricelabel" ng-if="hasFullAccess('api_reports_revenue')">
 									{{concertItem.statistics.soldSumma | number:2 }} {{concertItem.statistics.currency}}
 								</div>
 							</div>
