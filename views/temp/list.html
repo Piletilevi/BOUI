@@ -49,6 +49,7 @@
 <table class="table table-small bo-tabledrop-table">
 	<thead>
 		<tr>
+			<td></td>
 			<td>Reservation #</td>
 			<td>Reserved for</td>
 			<td>Invoice #</td>
@@ -59,6 +60,15 @@
 	</thead>
 	<tbody>
 		<tr>
+			<td colspan="7">
+				<div class="alert alert-success" role="alert">
+					Your reservation was successful and email was dispatch! You can always comeback to reservations, to see status
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
 			<td>1990270003 Reserved: 07.03.2017 Due date: 07.04.2017</td>
 			<td>Name Lastname
 				email@domain.com
@@ -74,8 +84,12 @@
 			<td>2300</td>
 		</tr>
 	</tbody>
-	<tbody class="collapsed" data-toggle="collapse" data-target="#slave">
+	<tbody class="collapsed" data-toggle="collapse" data-target="#servant">
 		<tr class="bo-tabledrop-master">
+			<td>
+				<i class="fa fa-sort-desc" aria-hidden="true"></i>
+				<i class="fa fa-sort-asc" aria-hidden="true"></i>
+			</td>
 			<td>
 				1990270003 Reserved: 07.03.2017 Due date: 07.04.2017
 			</td>
@@ -102,7 +116,8 @@
 				2300
 			</td>
 		</tr>
-		<tr id="slave" class="bo-tabledrop row-align-middle collapse">
+		<tr id="servant" class="bo-tabledrop row-align-middle collapse">
+			<td></td>
 			<td>
 				
 				Reserved by:
@@ -121,7 +136,7 @@
 						notes: blblbbla
 					</div>
 					<div class="bo-tabledrop-notes-item">
-						<button class="btn btn-sm btn-warning" data-toggle="collapse" data-target="#slave">Cancel &nbsp;&nbsp;&nbsp;<i class="fa fa-times"></i></button>
+						<button class="btn btn-sm btn-warning" data-toggle="collapse" data-target="#servant">Cancel &nbsp;&nbsp;&nbsp;<i class="fa fa-times"></i></button>
 					</div>
 				</div>
 			</td>
@@ -129,6 +144,7 @@
 	</tbody>
 	<tbody>
 		<tr>
+			<td></td>
 			<td>1990270003 Reserved: 07.03.2017 Due date: 07.04.2017</td>
 			<td>Name Lastname
 				email@domain.com
