@@ -468,6 +468,31 @@ class PiletileviApi {
 		
 		return $reportData;
 	}
+
+	public function addToBasket($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/addToBasket", $data );
+		
+		return $response;
+	}
+
+	public function removeFromBasket($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/removeFromBasket", $data );
+		
+		return $response;
+	}
+
+	public function myBasket() {
+		
+		$response = $this->send( "/booking/myBasket" );
+		
+		return $response;
+	}
 	
 	public function boUrl(){
 		return $this->getBoUrl();

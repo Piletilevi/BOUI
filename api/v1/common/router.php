@@ -1281,6 +1281,73 @@ $app->post('/getXlsByLocation', function() use ($app)  {
 	$dataHandler->responseAsXls(200, $reportResponse);
 });
 
+$app->post('/addToBasket', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('concertId', 'sectionId', 'priceClassId', 'quantity'), $r);
+
+	$filter = array();
+	$filter['concertId'] = $r->concertId;
+	$filter['sectionId'] = $r->sectionId;
+	$filter['priceClassId'] = $r->priceClassId;
+	$filter['quantity'] = $r->quantity;
+	if (property_exists($r, 'ticketId')) {
+		$filter['ticketId'] = $r->ticketId;
+	}
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->addToBasket( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["succeeded"] = $reportResponse->succeeded;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/removeFromBasket', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$filter = array();
+	if (property_exists($r, 'ticketId')) {
+		$filter['ticketId'] = $r->ticketId;
+	}
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->removeFromBasket( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["succeeded"] = $reportResponse->succeeded;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/myBasket', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->myBasket();
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
 $app->get('/test', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
