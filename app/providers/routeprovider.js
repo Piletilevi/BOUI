@@ -79,6 +79,7 @@
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;
             authService.checkUserAuth(next);
+            $rootScope.filterNotNeeded = ($location.path() == '/changepassword');
         });
 
         $rootScope.$on('$routeChangeSuccess', function(){

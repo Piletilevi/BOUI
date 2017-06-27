@@ -49,7 +49,7 @@
     <img class="bo-print-logo" ng-src="{{pointMenuLogo}}"/>
 </div>
 <div class="container bo-main-block">
-    <div class="row" ng-controller="mainController as vm" ng-if="authenticated">
+    <div class="row" ng-controller="mainController as vm" ng-if="authenticated && !filterNotNeeded">
         <div class="col-xs-12 col-md-9 bo-center-column">
         <div class="bo-top-filter-block row">
             <div class="bo-top-filter-daterange col-xs-12 col-sm-4 col-md-4 col-lg-4">
