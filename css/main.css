@@ -702,7 +702,6 @@ a:hover {
 
 .bo-center-column .bo-widgetbox-white {
     max-width: none;
-    margin-left: -15px;
 }
 
 .bo-widgetbox-white .bo-widgetbox-body {
@@ -1712,6 +1711,7 @@ a:hover {
     border: 1px solid #cdd2d8;
     background: #f7f9fb;
     padding: 1px;
+    margin-bottom: 20px;
 }
 
 .bo-column-menu-itemlist {
@@ -1722,9 +1722,7 @@ a:hover {
 
 .bo-colum-menu-item {
     background: #edf0f4;
-    line-height: 43px;
-    padding-left: 15px;
-    padding-right: 10px;
+    line-height: 23px;
 }
 
 .bo-colum-menu-item + .bo-colum-menu-item {
@@ -1745,6 +1743,13 @@ a:hover {
     text-decoration: none;
     display: block;
     font-size: 14px;
+    padding: 8px 10px 12px 15px;
+}
+
+.bo-colum-menu-item a span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.4;
 }
 
 /* Color Inverse

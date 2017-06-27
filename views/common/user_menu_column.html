@@ -1,9 +1,9 @@
 <div class="bo-column-menu">
 	<ul class="bo-column-menu-itemlist">
 		<li class="bo-colum-menu-item bo-colum-menu-item-marked">
-			<a href ng-click="toChangePassword();" ng-if="hasFullAccess('api_header_password_change')">{{"api_menu_change_password"|translate}}</a>
+			<a href ng-click="toChangePassword();" ng-if="hasFullAccess('api_header_password_change')"><span>{{"api_menu_change_password"|translate}}</span></a>
 		</li>
-		<li class="bo-colum-menu-item"><a href ng-click="logout();">{{"pood_002"|translate}} &nbsp;<i class="fa fa-sign-out"></i></a></li>
-		<li class="bo-colum-menu-item"><a href ng-click="toOldBO();">{{"api_menu_to_old_bo"|translate}}</a></li>
+		<li class="bo-colum-menu-item"><a href ng-click="logout();"><span>{{"pood_002"|translate}} &nbsp;<i class="fa fa-sign-out"></i></span></a></li>
+		<li class="bo-colum-menu-item"><a href ng-click="toOldBO();"><span>{{"api_menu_to_old_bo"|translate}}</span></a></li>
 	</ul>
 </div>
