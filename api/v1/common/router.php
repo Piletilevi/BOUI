@@ -1352,16 +1352,14 @@ $app->get('/test', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
 	$filter = array();
-	$filter['eventId'] = 50019201;
-	$filter['startDate'] = "2016-02-29T22:00:00.000Z";
-	$filter['endDate'] = "2017-04-27T16:20:00.000Z";
-	$filter['display'] = "tickets";
-	$filter['groupBy'] = "day";
-
-    $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->eventSalesXlsReportByLocation( $filter );
+	$filter['concertId'] = 50019201;
+	$filter['sectionId'] = 10028074;
+	$filter['classes'] = array("1" => 1, "2" => 2);
 	
-	$dataHandler->responseAsXls(200, $reportResponse);
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->addToBasket( $filter );
+	
+	$dataHandler->response(200, $reportResponse);
 });
 
 $app->post('/rejectTicket', function() use ($app)  {
