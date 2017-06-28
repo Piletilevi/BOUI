@@ -1285,13 +1285,19 @@ $app->post('/addToBasket', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 
-	$dataHandler->verifyParams(array('concertId', 'sectionId', 'priceClassId', 'quantity'), $r);
+	$dataHandler->verifyParams(array('concertId', 'sectionId'), $r);
 
 	$filter = array();
 	$filter['concertId'] = $r->concertId;
 	$filter['sectionId'] = $r->sectionId;
-	$filter['priceClassId'] = $r->priceClassId;
-	$filter['quantity'] = $r->quantity;
+	
+	/*
+	classes structure:
+		array("priceClassId1" => quantity1,
+			  "priceClassId2" => quantity2,
+			  ...)
+	*/
+	$filter['classes'] = $r->classes;
 	if (property_exists($r, 'ticketId')) {
 		$filter['ticketId'] = $r->ticketId;
 	}
