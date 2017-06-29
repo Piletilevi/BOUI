@@ -488,8 +488,10 @@ class PiletileviApi {
 	}
 
 	public function myBasket() {
+
+		$data = array();
 		
-		$response = $this->send( "/booking/myBasket" );
+		$response = $this->send( "/booking/myBasket", $data );
 		
 		return $response;
 	}

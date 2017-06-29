@@ -1285,13 +1285,19 @@ $app->post('/addToBasket', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 
-	$dataHandler->verifyParams(array('concertId', 'sectionId', 'priceClassId', 'quantity'), $r);
+	$dataHandler->verifyParams(array('concertId', 'sectionId'), $r);
 
 	$filter = array();
 	$filter['concertId'] = $r->concertId;
 	$filter['sectionId'] = $r->sectionId;
-	$filter['priceClassId'] = $r->priceClassId;
-	$filter['quantity'] = $r->quantity;
+	
+	/*
+	classes structure:
+		array("priceClassId1" => quantity1,
+			  "priceClassId2" => quantity2,
+			  ...)
+	*/
+	$filter['classes'] = $r->classes;
 	if (property_exists($r, 'ticketId')) {
 		$filter['ticketId'] = $r->ticketId;
 	}
@@ -1352,16 +1358,14 @@ $app->get('/test', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
 	$filter = array();
-	$filter['eventId'] = 50019201;
-	$filter['startDate'] = "2016-02-29T22:00:00.000Z";
-	$filter['endDate'] = "2017-04-27T16:20:00.000Z";
-	$filter['display'] = "tickets";
-	$filter['groupBy'] = "day";
-
-    $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->eventSalesXlsReportByLocation( $filter );
+	$filter['concertId'] = 50019201;
+	$filter['sectionId'] = 10028074;
+	$filter['classes'] = array("1" => 1, "2" => 2);
 	
-	$dataHandler->responseAsXls(200, $reportResponse);
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->addToBasket( $filter );
+	
+	$dataHandler->response(200, $reportResponse);
 });
 
 $app->post('/rejectTicket', function() use ($app)  {
