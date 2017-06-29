@@ -894,7 +894,7 @@
                         var self = this;
                         var mapData = '';
                         var currentSection;
-                        var componentElement, sectionsElement, fullscreenElement, fullscreenCloseElement;
+                        var componentElement, sectionsElement;
                         var maps = {};
                         var displayed = false;
                         var failedMapLoads = {};
@@ -912,19 +912,11 @@
                             sectionsElement = document.createElement('div');
                             sectionsElement.className = 'piletilevi_venue_map_places_sections';
                             componentElement.appendChild(sectionsElement);
-                            fullscreenElement = document.createElement('div');
-                            fullscreenElement.className = 'piletilevi_venue_map_places_sections_fullscreen';
-                            componentElement.appendChild(fullscreenElement);
-                            fullscreenCloseElement = document.createElement('div');
-                            fullscreenCloseElement.className = 'fullscreen_close';
-                            fullscreenCloseElement.innerHTML = '<i class="fa fa-close"></i>';
-                            fullscreenCloseElement.onclick = function() {$('.piletilevi_venue_map_places_sections_fullscreen').hide()};
-                            fullscreenElement.appendChild(fullscreenCloseElement);
                         };
                         var loadSectionMap = function (sectionId) {
                             var url = $location.protocol() + '://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
                                 + venueMap.getConfId() + '_' + sectionId + '.svg';
-
+                            
                             piletilevi.venuemap.Utilities.sendXhr({
                                 'url': url,
                                 'onSuccess': function (response) {
@@ -944,9 +936,6 @@
 
                             var map = new piletilevi.venuemap.PlacesMapSection(venueMap, mapData, sectionId);
                             sectionsElement.appendChild(map.getComponentElement());
-                            var fullscreenComponentElement = angular.copy(map.getComponentElement());
-                            fullscreenComponentElement.style.display = 'block';
-                            fullscreenElement.appendChild(fullscreenComponentElement);
                             maps[sectionId] = map;
 
                             if (sectionId == currentSection) {
@@ -981,8 +970,8 @@
                                         legendElement.appendChild(legendItem.getComponentElement());
 
                                         for (var i = 0; i < priceClasses.length; i++) {
-                                            if (priceClasses[i].price) {
-                                                legendItem = new piletilevi.venuemap.PlaceMapLegendItem(priceFormatter(priceClasses[i].price), priceClasses[i].color);
+                                            if (priceClasses[i]) {
+                                                legendItem = new piletilevi.venuemap.PlaceMapLegendItem(priceFormatter(priceClasses[i].title), priceClasses[i].color);
                                                 legendItems.push(legendItem);
                                                 legendElement.appendChild(legendItem.getComponentElement());
                                             }
@@ -1476,7 +1465,8 @@
                         var priceClasses = piletilevi.venuemap.Config.priceClasses;
 
                         map.addHandler('seatSelected', function (seatId) {
-                            window.alert('seat id: ' + seatId);
+                            $scope.setSelectedSeatId(seatId);
+                            $scope.$apply();
                         });
 
                         // places details
@@ -1491,7 +1481,6 @@
                         map.setSelectedSection(piletilevi.venuemap.Config.sectionId);
 
                         $element.append('<div class="bo-mapcontrols" style="display: none">' +
-                            '<i class="fa fa-expand btn_expand"></i>' +
                             '<span class="bo-mapcontrols-item btn_fullscreen"><i class="fa fa-arrows-alt" aria-hidden="true"></i></span>' +
                             '<span class="bo-mapcontrols-item btn_zoomin"><i class="fa fa-plus" aria-hidden="true"></i></span>' +
                             '<span class="bo-mapcontrols-item btn_zoomout"><i class="fa fa-minus" aria-hidden="true"></i></span> ' +
@@ -1502,13 +1491,13 @@
                         btnZoomIn.on('click', function (event) {
                             map.zoomIn();
                         });
-                        var btnExpand = $element.find('.btn_expand');
+                        var btnZoomOut = $element.find('.btn_zoomout');
+                        btnZoomOut.on('click', function (event) {
+                            map.zoomOut();
+                        });
+                        var btnExpand = $element.find('.btn_fullscreen');
                         btnExpand.on('click', function (event) {
                             $('.piletilevi_venue_map_places_sections_fullscreen').show();
-                        });
-                        var btnZoomReset = $element.find('.btn_zoomreset');
-                        btnZoomReset.on('click', function (event) {
-                            map.setZoomLevel(0);
                         });
                         var btnZoomReset = $element.find('.btn_zoomreset');
                         btnZoomReset.on('click', function (event) {
@@ -1519,6 +1508,69 @@
 
                     map.build();
                     $element.append(map.getComponentElement());
+
+
+                    // Fullscreen
+
+                    if (piletilevi.venuemap.Config.type === 'seats') {
+                        var $fullscreenMap = $('<div class="piletilevi_venue_map_places_sections_fullscreen"></div>');
+                        $element.append($fullscreenMap);
+                        var fullscreenMap = new piletilevi.venuemap.VenueMap();
+                        fullscreenMap.setConfId(piletilevi.venuemap.Config.confId);
+                        fullscreenMap.setSectionsMapType(piletilevi.venuemap.Config.sectionMapType);
+                        fullscreenMap.setSectionsMapImageUrl('');
+                        fullscreenMap.setShopDomain(piletilevi.venuemap.SHOP_DOMAIN);
+                        fullscreenMap.setSections(piletilevi.venuemap.Config.sections);
+                        fullscreenMap.setEnabledSections(piletilevi.venuemap.Config.enabledSections);
+
+                        fullscreenMap.addHandler('sectionMouseover', function (sectionId) {
+                            $scope.setMouseoverSectionId(sectionId);
+                            $scope.$apply();
+                        });
+
+                        fullscreenMap.addHandler('sectionSelected', function (sectionId) {
+                            $scope.setSelectedSectionId(sectionId);
+                            $scope.$apply();
+                        });
+
+                        fullscreenMap.addHandler('seatSelected', function (seatId) {
+                            $scope.setSelectedSeatId(seatId);
+                            $scope.$apply();
+                        });
+
+                        // places details
+                        fullscreenMap.setSeatSelectionEnabled(true);
+                        fullscreenMap.addSectionDetails(sectionDetails);
+                        fullscreenMap.setSelectedSection(piletilevi.venuemap.Config.sectionId);
+
+                        $fullscreenMap.append('<div class="bo-mapcontrols" style="display: none">' +
+                            '<span class="bo-mapcontrols-item btn_zoomin"><i class="fa fa-plus" aria-hidden="true"></i></span>' +
+                            '<span class="bo-mapcontrols-item btn_zoomout"><i class="fa fa-minus" aria-hidden="true"></i></span> ' +
+                            '<span class="bo-mapcontrols-item btn_zoomreset">Reset Zoom</span>' +
+                            '</div>' +
+                            '<div class="fullscreen_close"><i class="fa fa-close"></i></div>');
+
+                        $fullscreenMap.find('.btn_zoomin').on('click', function () {
+                            fullscreenMap.zoomIn();
+                        });
+
+                        $fullscreenMap.find('.btn_zoomout').on('click', function () {
+                            fullscreenMap.zoomOut();
+                        });
+
+                        $fullscreenMap.find('.btn_zoomreset').on('click', function () {
+                            fullscreenMap.setZoomLevel(0);
+                        });
+
+                        $fullscreenMap.find('.fullscreen_close').on('click', function () {
+                            $('.piletilevi_venue_map_places_sections_fullscreen').hide();
+                        });
+
+                        fullscreenMap.build();
+                        $fullscreenMap.append(fullscreenMap.getComponentElement());
+                        $fullscreenMap.find('.places_map_legend').show();
+                    }
+
                 }, true);
             }
         };
