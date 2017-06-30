@@ -1382,8 +1382,8 @@ $app->get('/test', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
 	$filter = array();
-	$filter['concertId'] = 183083;
-	$filter['sectionId'] = 37311;
+	$filter['concertId'] = 198132;
+	$filter['sectionId'] = 5605;
 	
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->getSectorInfo( $filter );
