@@ -1382,12 +1382,11 @@ $app->get('/test', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
 	$filter = array();
-	$filter['concertId'] = 50019201;
-	$filter['sectionId'] = 10028074;
-	$filter['classes'] = array("1" => 1, "2" => 2);
+	$filter['concertId'] = 183083;
+	$filter['sectionId'] = 37311;
 	
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->addToBasket( $filter );
+    $reportResponse = $piletileviApi->getSectorInfo( $filter );
 	
 	$dataHandler->response(200, $reportResponse);
 });
