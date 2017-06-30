@@ -469,6 +469,15 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function getSectorInfo($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/getSectorInfo", $data );
+		
+		return $response;
+	}
+	
 	public function addToBasket($filter) {
 		
 		$data['filter']= $filter;

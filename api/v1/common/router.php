@@ -1281,6 +1281,30 @@ $app->post('/getXlsByLocation', function() use ($app)  {
 	$dataHandler->responseAsXls(200, $reportResponse);
 });
 
+$app->post('/getSectorInfo', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('concertId', 'sectionId'), $r);
+
+	$filter = array();
+	$filter['concertId'] = $r->concertId;
+	$filter['sectionId'] = $r->sectionId;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->getSectorInfo( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
 $app->post('/addToBasket', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
@@ -1298,8 +1322,8 @@ $app->post('/addToBasket', function() use ($app)  {
 			  ...)
 	*/
 	$filter['classes'] = $r->classes;
-	if (property_exists($r, 'ticketId')) {
-		$filter['ticketId'] = $r->ticketId;
+	if (property_exists($r, 'seatId')) {
+		$filter['seatId'] = $r->seatId;
 	}
 
     $piletileviApi = $app->container->get("piletileviApi");
