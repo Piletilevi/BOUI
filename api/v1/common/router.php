@@ -1387,7 +1387,7 @@ $app->get('/test', function() use ($app)  {
 	$filter['ticketId'] = 130712500;
 	
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->addToBasket( $filter );
+    $reportResponse = $piletileviApi->myBasket( );
 
 	$dataHandler->response(200, $reportResponse);
 });
