@@ -1387,8 +1387,9 @@ $app->get('/test', function() use ($app)  {
 	
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->getSectorInfo( $filter );
-	
-	$dataHandler->response(200, $reportResponse);
+
+	$response["data"] = $reportResponse->data;
+	$dataHandler->response(200, $response);
 });
 
 $app->post('/rejectTicket', function() use ($app)  {
