@@ -1384,7 +1384,7 @@ $app->get('/test', function() use ($app)  {
 	$filter = array();
 	$filter['concertId'] = 198132;
 	$filter['sectionId'] = 5605;
-	$filter['ticketId'] = 5605;
+	$filter['ticketId'] = 130712500;
 	
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->addToBasket( $filter );
