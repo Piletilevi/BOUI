@@ -1384,12 +1384,12 @@ $app->get('/test', function() use ($app)  {
 	$filter = array();
 	$filter['concertId'] = 198132;
 	$filter['sectionId'] = 5605;
+	$filter['ticketId'] = 5605;
 	
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->getSectorInfo( $filter );
+    $reportResponse = $piletileviApi->addToBasket( $filter );
 
-	$response["data"] = $reportResponse->data;
-	$dataHandler->response(200, $response);
+	$dataHandler->response(200, $reportResponse);
 });
 
 $app->post('/rejectTicket', function() use ($app)  {
