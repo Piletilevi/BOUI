@@ -506,8 +506,14 @@ class PiletileviApi {
 	}
 
 	public function getCountries() {
-
-		$cacheItem = $this->cacheManager->getItem("countries".$this->currentLang->code);
+		
+		$languageCode = "";
+		
+		if ($this->currentLang) {
+			$languageCode = $this->currentLang->code; 
+		}
+		
+		$cacheItem = $this->cacheManager->getItem("countries".$languageCode);
 		$countries = $cacheItem->get();
 
 		if(is_null($countries) || !is_object($countries)) {
