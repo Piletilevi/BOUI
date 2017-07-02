@@ -504,6 +504,15 @@ class PiletileviApi {
 		
 		return $response;
 	}
+
+	public function getCountries() {
+
+		$data = array();
+		
+		$response = $this->send( "/country/list", $data );
+		
+		return $response;
+	}
 	
 	public function boUrl(){
 		return $this->getBoUrl();
