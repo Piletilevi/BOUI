@@ -507,11 +507,17 @@ class PiletileviApi {
 
 	public function getCountries() {
 
-		$data = array();
-		
-		$response = $this->send( "/country/list", $data );
-		
-		return $response;
+		$cacheItem = $this->cacheManager->getItem("countries".$this->currentLang->code);
+		$countries = $cacheItem->get();
+
+		if(is_null($countries) || !is_object($countries)) {
+			$data = array();
+			$countries = $this->send( "/country/list", $data );
+			$cacheItem->set($countries)->expiresAfter(3600);
+			$this->cacheManager->save($cacheItem);
+		}
+
+		return $countries;
 	}
 	
 	public function boUrl(){
