@@ -496,9 +496,9 @@ class PiletileviApi {
 		return $response;
 	}
 
-	public function myBasket() {
+	public function myBasket($filter) {
 
-		$data = array();
+		$data['filter']= $filter;
 		
 		$response = $this->send( "/booking/myBasket", $data );
 		

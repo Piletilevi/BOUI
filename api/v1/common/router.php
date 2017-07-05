@@ -1364,9 +1364,20 @@ $app->post('/removeFromBasket', function() use ($app)  {
 $app->post('/myBasket', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
-    $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->myBasket();
+	$filter = array();
+	if (property_exists($r, 'discount')) {
+		$filter['discount'] = $r->discount;
+	}
+	if (property_exists($r, 'expireAt')) {
+		$filter['expireAt'] = $r->expireAt;
+	}
+	if (property_exists($r, 'reservationType')) {
+		$filter['reservationType'] = $r->reservationType;
+	}
 	
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->myBasket($filter);
+
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
@@ -1404,7 +1415,7 @@ $app->get('/test', function() use ($app)  {
 	$filter['ticketId'] = 130712500;
 	
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->myBasket();
+    $reportResponse = $piletileviApi->myBasket($filter);
 
 	$dataHandler->response(200, $reportResponse);
 });
