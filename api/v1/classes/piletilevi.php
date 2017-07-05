@@ -500,7 +500,7 @@ class PiletileviApi {
 
 		$data['filter']= $filter;
 		
-		$response = $this->send( "/booking/myBasket", $data, true );
+		$response = $this->send( "/booking/myBasket", $data );
 		
 		return $response;
 	}
