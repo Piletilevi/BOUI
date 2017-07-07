@@ -505,6 +505,15 @@ class PiletileviApi {
 		return $response;
 	}
 
+	public function confirmBasket($filter) {
+
+		$data['filter']= $filter;
+		
+		$response = $this->send( "/booking/confirmBasket", $data );
+		
+		return $response;
+	}
+
 	public function getCountries() {
 		
 		$languageCode = "";

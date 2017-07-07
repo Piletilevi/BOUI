@@ -1389,6 +1389,39 @@ $app->post('/myBasket', function() use ($app)  {
 	}
 });
 
+$app->post('/confirmBasket', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+
+	$dataHandler->verifyParams(array('concertId'), $r);
+
+	$filter = array();
+	$filter['concertId'] = $r->concertId;
+	
+	$fields = array("discount", "expireAt", "reservationType", "personType", 
+					"firstName", "lastName", "contactEmail", "contactPhone", 
+					"address", "city", "postalCode", "region", "countryId", 
+					"organisationName", "regNumber", "vatNumber", "notes", 
+					"subject", "body");
+	
+	foreach ($fields as $field) {
+		if (property_exists($r, $field)) {
+			$filter[$field] = $r->$field;
+		}
+	}
+	
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->confirmBasket($filter);
+
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["succeeded"] = $reportResponse->succeeded;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
 $app->post('/getCountries', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
