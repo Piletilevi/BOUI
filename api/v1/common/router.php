@@ -1395,7 +1395,6 @@ $app->post('/confirmBasket', function() use ($app)  {
 	$dataHandler->verifyParams(array('concertId'), $r);
 
 	$filter = array();
-	$filter['concertId'] = $r->concertId;
 	
 	$fields = array("discount", "expireAt", "reservationType", "personType", 
 					"firstName", "lastName", "contactEmail", "contactPhone", 
@@ -1414,6 +1413,25 @@ $app->post('/confirmBasket', function() use ($app)  {
 
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["succeeded"] = $reportResponse->succeeded;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/myBookings', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+
+	$filter = array();
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->myBookings( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
