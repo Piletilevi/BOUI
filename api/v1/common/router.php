@@ -1461,7 +1461,8 @@ $app->get('/test', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
 	$filter = array();
-	$filter['concertId'] = 198132;
+	$filter['bookingStartDate'] = "2016-03-01T00:00:00.000";
+	$filter['bookingEndDate'] = "2017-03-01T00:00:00.000";
 	$filter['sectionId'] = 5605;
 	$filter['ticketId'] = 130712500;
 	
