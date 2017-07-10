@@ -1424,8 +1424,19 @@ $app->post('/confirmBasket', function() use ($app)  {
 $app->post('/myBookings', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
 	$filter = array();
 
+	if (property_exists($r->filter, 'period')) {
+		if (property_exists($r->filter->period, 'startDate')) {
+			$filter['bookingStartDate'] = $r->filter->period->startDate;
+		}
+		if (property_exists($r->filter->period, 'endDate')) {
+			$filter['bookingEndDate'] = $r->filter->period->endDate;
+		}
+	}
+	
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->myBookings( $filter );
 	
