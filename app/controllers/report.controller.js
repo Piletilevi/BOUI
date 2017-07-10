@@ -322,7 +322,7 @@
         };
 
         vm.offerTickets = function () {
-            var classes = [],
+            var classes = {},
                 sectionId = null;
             angular.forEach(vm.sectorInfo.ttSector, function (ttSector) {
                 if (!sectionId) {
@@ -330,11 +330,11 @@
                 }
                 angular.forEach(ttSector.ttSectorData, function (ttSectorData) {
                     if (ttSectorData.selected > 0) {
-                        classes[ttSectorData.priceClass] = ttSectorData.selected;
+                        classes['priceClassId' + ttSectorData.priceClass] = ttSectorData.selected;
                     }
                 });
             });
-            if (classes.length > 0) {
+            if (vm.ticketsCount() > 0) {
                 eventService.addToBasket(
                     {
                         concertId: $routeParams.id,
