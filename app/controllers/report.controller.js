@@ -223,20 +223,24 @@
                     sectionId: $scope.selectedSectionId,
                     seatId: $scope.selectedSeatId
                 }, function () {
-                    eventService.getMyBasket(
-                        function () {
-                            eventService.getSectorInfo(
-                                {
-                                    concertId: $routeParams.id,
-                                    sectionId: $scope.selectedSectionId
-                                }, function () {
-                                    vm.goToStep2();
-                                });
-                        }
-                    );
+                    vm.getMyBasket();
                 }
             );
         };
+
+        vm.getMyBasket = function() {
+            eventService.getMyBasket(
+                function () {
+                    eventService.getSectorInfo(
+                        {
+                            concertId: $routeParams.id,
+                            sectionId: $scope.selectedSectionId
+                        }, function () {
+                            vm.goToStep2();
+                        });
+                }
+            );
+        }
 
         vm.confirmBasket = function () {
             eventService.confirmBasket(
