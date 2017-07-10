@@ -1330,6 +1330,7 @@ $app->post('/addToBasket', function() use ($app)  {
     $reportResponse = $piletileviApi->addToBasket( $filter );
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
 		$response["succeeded"] = $reportResponse->succeeded;
 	    $dataHandler->response(200, $response);
 	} else {
@@ -1352,6 +1353,7 @@ $app->post('/removeFromBasket', function() use ($app)  {
     $reportResponse = $piletileviApi->removeFromBasket( $filter );
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
 		$response["succeeded"] = $reportResponse->succeeded;
 	    $dataHandler->response(200, $response);
 	} else {
@@ -1366,14 +1368,10 @@ $app->post('/myBasket', function() use ($app)  {
     $r = json_decode($app->request->getBody());
 
 	$filter = array();
-	if (property_exists($r, 'discount')) {
-		$filter['discount'] = $r->discount;
-	}
-	if (property_exists($r, 'expireAt')) {
-		$filter['expireAt'] = $r->expireAt;
-	}
-	if (property_exists($r, 'reservationType')) {
-		$filter['reservationType'] = $r->reservationType;
+	if ($r) {
+		if (property_exists($r, 'discount')) {
+			$filter['discount'] = $r->discount;
+		}
 	}
 	
     $piletileviApi = $app->container->get("piletileviApi");
