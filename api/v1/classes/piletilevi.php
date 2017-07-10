@@ -514,6 +514,16 @@ class PiletileviApi {
 		return $response;
 	}
 
+	public function myBookings($filter) {
+
+		$filter['limit'] = 10;
+		$data['filter']= $filter;
+		
+		$response = $this->send( "/booking/myBookings", $data );
+		
+		return $response;
+	}
+
 	public function getCountries() {
 		
 		$languageCode = "";

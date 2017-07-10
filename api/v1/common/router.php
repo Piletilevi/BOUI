@@ -1395,7 +1395,6 @@ $app->post('/confirmBasket', function() use ($app)  {
 	$dataHandler->verifyParams(array('concertId'), $r);
 
 	$filter = array();
-	$filter['concertId'] = $r->concertId;
 	
 	$fields = array("discount", "expireAt", "reservationType", "personType", 
 					"firstName", "lastName", "contactEmail", "contactPhone", 
@@ -1413,7 +1412,41 @@ $app->post('/confirmBasket', function() use ($app)  {
     $reportResponse = $piletileviApi->confirmBasket($filter);
 
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
 		$response["succeeded"] = $reportResponse->succeeded;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/myBookings', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+
+	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
+
+	$filter = array();
+
+	if (property_exists($r->filter, 'period')) {
+		if (property_exists($r->filter->period, 'startDate')) {
+			$filter['bookingStartDate'] = $r->filter->period->startDate;
+		}
+		if (property_exists($r->filter->period, 'endDate')) {
+			$filter['bookingEndDate'] = $r->filter->period->endDate;
+		}
+	}
+	if (property_exists($r->filter, 'start')) {
+		$filter['start'] = $r->filter->start;
+	}
+	
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->myBookings( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
@@ -1443,12 +1476,13 @@ $app->get('/test', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
 	$filter = array();
-	$filter['concertId'] = 198132;
+	$filter['bookingStartDate'] = "2016-03-01T00:00:00.000";
+	$filter['bookingEndDate'] = "2017-03-01T00:00:00.000";
 	$filter['sectionId'] = 5605;
 	$filter['ticketId'] = 130712500;
 	
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->myBasket($filter);
+    $reportResponse = $piletileviApi->myBookings($filter);
 
 	$dataHandler->response(200, $reportResponse);
 });
