@@ -1412,6 +1412,7 @@ $app->post('/confirmBasket', function() use ($app)  {
     $reportResponse = $piletileviApi->confirmBasket($filter);
 
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
 		$response["succeeded"] = $reportResponse->succeeded;
 	    $dataHandler->response(200, $response);
 	} else {
@@ -1435,6 +1436,9 @@ $app->post('/myBookings', function() use ($app)  {
 		if (property_exists($r->filter->period, 'endDate')) {
 			$filter['bookingEndDate'] = $r->filter->period->endDate;
 		}
+	}
+	if (property_exists($r->filter, 'start')) {
+		$filter['start'] = $r->filter->start;
 	}
 	
     $piletileviApi = $app->container->get("piletileviApi");
