@@ -1363,6 +1363,7 @@ $app->post('/removeFromBasket', function() use ($app)  {
 
 $app->post('/myBasket', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
 
 	$filter = array();
 	if (property_exists($r, 'discount')) {
@@ -1391,6 +1392,7 @@ $app->post('/myBasket', function() use ($app)  {
 
 $app->post('/confirmBasket', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
 
 	$dataHandler->verifyParams(array('concertId'), $r);
 
@@ -1424,6 +1426,7 @@ $app->post('/confirmBasket', function() use ($app)  {
 
 $app->post('/myBookings', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
 
 	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
 
