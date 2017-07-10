@@ -763,7 +763,7 @@
                 concertId: item.concertId,
                 sectionId: item.sectionId
             }).then(function (results) {
-                if (results.hasOwnProperty('succeeded') && callback) {
+                if (results.status == 'success' && callback) {
                     dataService.page(results);
                     sectorInfo = results.data;
                     callback();
@@ -774,7 +774,7 @@
         function getMyBasket(callback) {
             dataService.post('myBasket').then(function (results) {
                 dataService.page(results);
-                if (results.hasOwnProperty('succeeded') && callback) {
+                if (results.status == 'success' && callback) {
                     myBasket = results.data;
                     callback();
                 }
