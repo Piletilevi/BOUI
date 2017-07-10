@@ -1366,14 +1366,10 @@ $app->post('/myBasket', function() use ($app)  {
     $r = json_decode($app->request->getBody());
 
 	$filter = array();
-	if (property_exists($r, 'discount')) {
-		$filter['discount'] = $r->discount;
-	}
-	if (property_exists($r, 'expireAt')) {
-		$filter['expireAt'] = $r->expireAt;
-	}
-	if (property_exists($r, 'reservationType')) {
-		$filter['reservationType'] = $r->reservationType;
+	if ($r) {
+		if (property_exists($r, 'discount')) {
+			$filter['discount'] = $r->discount;
+		}
 	}
 	
     $piletileviApi = $app->container->get("piletileviApi");
