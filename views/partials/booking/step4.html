@@ -75,7 +75,8 @@
             </tr>
             <tr ng-repeat="fee in vm.myBasket.summary.fees">
                 <td class="text-right">Fee:</td>
-                <td class="text-center">{{fee.name}} x {{fee.quantity}} ({{fee.sum}}{{vm.myBasket.summary.currency}})</td>
+                <td class="text-center">{{fee.name}} x {{fee.quantity}} ({{fee.sum}}{{vm.myBasket.summary.currency}})
+                </td>
             </tr>
             <tr>
                 <td class="text-right">To pay:</td>
@@ -103,119 +104,123 @@
 </div>
 
 <form name="reservationForm" ng-submit="vm.goToStep5()">
-<div class="row bo-reservation-form-block">
-    <div class="col-md-6">
-        <h4>Contact person:</h4>
-        <div class="form-group">
-            <input type="text" placeholder="First name*" required class="form-control"
-                   ng-model="vm.reservation.firstName"/>
+    <div class="row bo-reservation-form-block">
+        <div class="col-md-6">
+            <h4>Contact person:</h4>
+            <div class="form-group">
+                <input type="text" placeholder="First name*" required class="form-control"
+                       ng-model="vm.reservation.firstName"/>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Last name*" required class="form-control"
+                       ng-model="vm.reservation.lastName"/>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Email*" required class="form-control"
+                       ng-model="vm.reservation.contactEmail"/>
+            </div>
+            <div class="row bo-reservation-phone">
+                <div class="col-md-3 form-group">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="true">+372
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="">some data</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9 form-group">
+                    <input type="text" placeholder="Phone number" class="form-control"
+                           ng-model="vm.reservation.contactPhone"/>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <input type="text" placeholder="Last name*" required class="form-control"
-                   ng-model="vm.reservation.lastName"/>
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="Email*" required class="form-control" ng-model="vm.reservation.contactEmail"/>
-        </div>
-        <div class="row bo-reservation-phone">
-            <div class="col-md-3 form-group">
+        <div class="col-md-6">
+            <h4>Physical address (optional):</h4>
+            <div class="form-group">
+                <input type="text" placeholder="Address" class="form-control" ng-model="vm.reservation.address"/>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="City/Town" class="form-control" ng-model="vm.reservation.city"/>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Postal code" class="form-control" ng-model="vm.reservation.postalCode"/>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Country/Region" class="form-control" ng-model="vm.reservation.region"/>
+            </div>
+            <div class="form-group">
                 <div class="dropdown">
                     <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="true">+372
+                            aria-expanded="true">Select country
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="">some data</a>
+                            <a href="">some country</a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-9 form-group">
-                <input type="text" placeholder="Phone number" class="form-control"
-                       ng-model="vm.reservation.contactPhone"/>
-            </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <h4>Physical address (optional):</h4>
-        <div class="form-group">
-            <input type="text" placeholder="Address" class="form-control" ng-model="vm.reservation.address"/>
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="City/Town" class="form-control" ng-model="vm.reservation.city"/>
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="Postal code" class="form-control" ng-model="vm.reservation.postalCode"/>
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="Country/Region" class="form-control" ng-model="vm.reservation.region"/>
-        </div>
-        <div class="form-group">
-            <div class="dropdown">
-                <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="true">Select country
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="">some country</a>
-                    </li>
-                </ul>
+    <div class="bo-reservation-form-block">
+        <h4 class="bo-first-heading" ng-if="vm.reservation.personType == 'organization'">Organisations information:</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div ng-if="vm.reservation.personType == 'organization'">
+                    <div class="form-group">
+                        <input type="text" placeholder="Organisations title*" required class="form-control"
+                               ng-model="vm.reservation.organisationName"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Registration number" class="form-control"
+                               ng-model="vm.reservation.regNumber"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="VAT number" class="form-control"
+                               ng-model="vm.reservation.vatNumber"/>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="bo-reservation-form-block">
-    <h4 class="bo-first-heading">Organisations information:</h4>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <input type="text" placeholder="Organisations title*" required class="form-control"
-                       ng-model="vm.reservation.organisationName"/>
-            </div>
-            <div class="form-group">
-                <input type="text" placeholder="Registration number" class="form-control"
-                       ng-model="vm.reservation.regNumber"/>
-            </div>
-            <div class="form-group">
-                <input type="text" placeholder="VAT number" class="form-control" ng-model="vm.reservation.vatNumber"/>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
+            <div class="col-md-6">
                 <div class="form-group">
+                    <div class="form-group">
                     <textarea class="form-control" placeholder="internal notes"
                               ng-model="vm.reservation.notes"></textarea>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<h4 class="bo-first-heading">Email content:</h4>
-<div class="form-horizontal">
-    <div class="form-group">
-        <label class="col-sm-2 control-label bo-control-label">Subject:</label>
-        <div class="col-md-10">
-            <input type="text" class="form-control" ng-model="vm.reservation.subject"/>
+    <h4 class="bo-first-heading">Email content:</h4>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label bo-control-label">Subject:</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" ng-model="vm.reservation.subject"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label bo-control-label">Email text:</label>
+            <div class="col-md-10">
+                <textarea class="form-control" ng-model="vm.reservation.body"></textarea>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label bo-control-label">Email text:</label>
-        <div class="col-md-10">
-            <textarea class="form-control" ng-model="vm.reservation.body"></textarea>
-        </div>
-    </div>
-</div>
 
-<div class="bo-reservation-footer-butons">
-    <div class="row">
-        <div class="col-md-6 text-left">
-            <button class="btn btn-default" ng-click="vm.goToStep2()">Edit ticket</button>
-        </div>
-        <div class="col-md-6 text-right">
-            <button type="submit" class="btn btn-info">Reserve</button>
+    <div class="bo-reservation-footer-butons">
+        <div class="row">
+            <div class="col-md-6 text-left">
+                <button class="btn btn-default" ng-click="vm.goToStep2()">Edit ticket</button>
+            </div>
+            <div class="col-md-6 text-right">
+                <button type="submit" class="btn btn-info">Reserve</button>
+            </div>
         </div>
     </div>
-</div>
 </form>

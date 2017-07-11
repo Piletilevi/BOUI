@@ -109,14 +109,14 @@
                 <div class="form-inline bo-reservation-inline-buttons">
                     <div class="form-group">
                         <button class="btn btn-lg {{vm.reservation.reservationType == 'with_price' ? 'btn-primary' : 'btn-default'}}"
-                                type="button" ng-click="vm.reservation.reservationType = 'with_price'">
+                                type="button" ng-click="vm.changeReservationType('with_price')">
                             With price
                         </button>
                     </div>
                     &nbsp;
                     <div class="form-group">
                         <button class="btn btn-lg {{vm.reservation.reservationType == 'invitation' ? 'btn-primary' : 'btn-default'}}"
-                                type="button" ng-click="vm.reservation.reservationType = 'invitation'">
+                                type="button" ng-click="vm.changeReservationType('invitation')">
                             Invitation
                         </button>
                     </div>
