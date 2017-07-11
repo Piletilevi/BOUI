@@ -33,12 +33,15 @@
                     <td class="text-center">{{ttSectorData.freeTotal}}</td>
                     <td class="bo-shortcell text-center">
                         <div class="bo-plusminus">
-                            <div class="bo-plusminus-button bo-plusminus-minus" ng-click="vm.decreaseTicketsCount(ttSectorData)">
+                            <div class="bo-plusminus-button bo-plusminus-minus"
+                                 ng-click="vm.decreaseTicketsCount(ttSectorData)">
                                 <i class="fa fa-minus"></i>
                             </div>
-                            <input type="text" class="bo-plusminus-input" ng-init="ttSectorData.selected = 0" ng-model="ttSectorData.selected"
+                            <input type="text" class="bo-plusminus-input" ng-init="ttSectorData.selected = 0"
+                                   ng-model="ttSectorData.selected"
                             />
-                            <div class="bo-plusminus-button bo-plusminus-plus" ng-click="vm.increaseTicketsCount(ttSectorData)">
+                            <div class="bo-plusminus-button bo-plusminus-plus"
+                                 ng-click="vm.increaseTicketsCount(ttSectorData)">
                                 <i class="fa fa-plus"></i>
                             </div>
                         </div>
@@ -70,130 +73,143 @@
         </div>
     </div>
 </div>
-<h4>Selected seats:</h4>
-<table class="table table-small">
-    <tbody>
-    <tr class="row-align-middle" ng-repeat="seat in vm.myBasket.basket">
-        <td>ID {{seat.id}}</td>
-        <td class="text-center">{{seat.sectionName}}</td>
-        <td class="text-center">Row {{seat.rowName}}</td>
-        <td class="text-center">Seat {{seat.seatName}}</td>
-        <td class="text-center bo-shortcell">
-            <div class="dropdown bo-table-dropdown">
-                <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="true">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li ng-repeat="pricetype in seat.priceTypes">
-                        <a href="">{{pricetype.priceTypeName}}</a>
-                    </li>
-                </ul>
-            </div>
-        </td>
-        <td class="text-center">{{seat.price}}{{seat.currency}}</td>
-        <td class="text-center">
-            <a href="" class="text-danger" ng-click="vm.removeFromBasket(seat.id)"><i class="fa fa-times"></i></a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<div class="bo-inactivearea">
-    <h4>Reservation type:</h4>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-inline bo-reservation-inline-buttons">
-                <div class="form-group">
-                    <button class="btn btn-lg {{vm.reservation.reservationType == 'with_price' ? 'btn-primary' : 'btn-default'}}" type="button" ng-click="vm.reservation.reservationType = 'with_price'">
-                        With price
+<div ng-if="vm.myBasket.basket.length > 0">
+    <h4>Selected seats:</h4>
+    <table class="table table-small">
+        <tbody>
+        <tr class="row-align-middle" ng-repeat="seat in vm.myBasket.basket">
+            <td>ID {{seat.id}}</td>
+            <td class="text-center">{{seat.sectionName}}</td>
+            <td class="text-center">Row {{seat.rowName}}</td>
+            <td class="text-center">Seat {{seat.seatName}}</td>
+            <td class="text-center bo-shortcell">
+                <div class="dropdown bo-table-dropdown">
+                    <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="true">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
+                        <span class="caret"></span>
                     </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="pricetype in seat.priceTypes">
+                            <a href="">{{pricetype.priceTypeName}}</a>
+                        </li>
+                    </ul>
                 </div>
-                &nbsp;
-                <div class="form-group">
-                    <button class="btn btn-lg {{vm.reservation.reservationType == 'invitation' ? 'btn-primary' : 'btn-default'}}" type="button" ng-click="vm.reservation.reservationType = 'invitation'">
-                        Invitation
+            </td>
+            <td class="text-center">{{seat.price}}{{seat.currency}}</td>
+            <td class="text-center">
+                <a href="" class="text-danger" ng-click="vm.removeFromBasket(seat.id)"><i class="fa fa-times"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="bo-inactivearea">
+        <h4>Reservation type:</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-inline bo-reservation-inline-buttons">
+                    <div class="form-group">
+                        <button class="btn btn-lg {{vm.reservation.reservationType == 'with_price' ? 'btn-primary' : 'btn-default'}}"
+                                type="button" ng-click="vm.reservation.reservationType = 'with_price'">
+                            With price
+                        </button>
+                    </div>
+                    &nbsp;
+                    <div class="form-group">
+                        <button class="btn btn-lg {{vm.reservation.reservationType == 'invitation' ? 'btn-primary' : 'btn-default'}}"
+                                type="button" ng-click="vm.reservation.reservationType = 'invitation'">
+                            Invitation
+                        </button>
+                    </div>
+                </div>
+                <h4>Reservation expires_on:</h4>
+                <div class="dropdown inline_dropdown">
+                    <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "dd.MM.y"}}
+                        <span class="caret"></span>
                     </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="">some date</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown inline_dropdown">
+                    <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "HH"}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="">12</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown inline_dropdown">
+                    <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "mm"}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="">00</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <h4>Reservation expires_on:</h4>
-            <div class="dropdown inline_dropdown">
-                <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "dd.MM.y"}}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="">some date</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="dropdown inline_dropdown">
-                <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "HH"}}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="">12</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="dropdown inline_dropdown">
-                <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "mm"}}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="">00</a>
-                    </li>
-                </ul>
+            <div class="col-md-6">
+                <table class="table table-small">
+                    <tbody>
+                    <tr>
+                        <td class="text-right">Amount:</td>
+                        <td class="text-center">{{vm.myBasket.summary.ticketsCount}} ticket(s)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">Subtotal:</td>
+                        <td class="text-center">
+                            {{vm.myBasket.summary.sumWithoutTaxes}}{{vm.myBasket.summary.currency}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">Discount:</td>
+                        <td class="text-center bo-shortcell">
+                            <div class="bo-plusminus">
+                                <div class="bo-plusminus-button bo-plusminus-minus"
+                                     ng-click="vm.decreaseBasketDiscount()">
+                                    <i class="fa fa-minus"></i>
+                                </div>
+                                <input type="text" class="bo-plusminus-input"
+                                       ng-init="vm.reservation.discount = vm.myBasket.summary.discount"
+                                       ng-value="vm.reservation.discount"/>
+                                <div class="bo-plusminus-button bo-plusminus-plus"
+                                     ng-click="vm.increaseBasketDiscount()">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="fee in vm.myBasket.summary.fees">
+                        <td class="text-right">Fee:</td>
+                        <td class="text-center">{{fee.name}} x {{fee.quantity}}
+                            ({{fee.sum}}{{vm.myBasket.summary.currency}})
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">To pay:</td>
+                        <td class="text-center">{{vm.myBasket.summary.sumTotal}}{{vm.myBasket.summary.currency}}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td class="bo-no-leftright-padding">
+                            <button class="btn btn-info bo-wide-button" ng-click="vm.goToStep4()">Make reservation
+                            </button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
-        <div class="col-md-6">
-            <table class="table table-small">
-                <tbody>
-                <tr>
-                    <td class="text-right">Amount:</td>
-                    <td class="text-center">{{vm.myBasket.summary.ticketsCount}} ticket(s)</td>
-                </tr>
-                <tr>
-                    <td class="text-right">Subtotal:</td>
-                    <td class="text-center">{{vm.myBasket.summary.sumWithoutTaxes}}{{vm.myBasket.summary.currency}}</td>
-                </tr>
-                <tr>
-                    <td class="text-right">Discount:</td>
-                    <td class="text-center bo-shortcell">
-                        <div class="bo-plusminus">
-                            <div class="bo-plusminus-button bo-plusminus-minus" ng-click="vm.decreaseBasketDiscount()">
-                                <i class="fa fa-minus"></i>
-                            </div>
-                            <input type="text" class="bo-plusminus-input" ng-init="vm.reservation.discount = vm.myBasket.summary.discount" ng-value="vm.reservation.discount"/>
-                            <div class="bo-plusminus-button bo-plusminus-plus" ng-click="vm.increaseBasketDiscount()">
-                                <i class="fa fa-plus"></i>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr ng-repeat="fee in vm.myBasket.summary.fees">
-                    <td class="text-right">Fee:</td>
-                    <td class="text-center">{{fee.name}} x {{fee.quantity}} ({{fee.sum}}{{vm.myBasket.summary.currency}})</td>
-                </tr>
-                <tr>
-                    <td class="text-right">To pay:</td>
-                    <td class="text-center">{{vm.myBasket.summary.sumTotal}}{{vm.myBasket.summary.currency}}</td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td></td>
-                    <td class="bo-no-leftright-padding">
-                        <button class="btn btn-info bo-wide-button" ng-click="vm.goToStep4()">Make reservation</button>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
+        <!--<div class="bo-over"></div>-->
     </div>
-    <!--<div class="bo-over"></div>-->
 </div>
