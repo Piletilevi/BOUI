@@ -330,7 +330,7 @@
                 }
                 angular.forEach(ttSector.ttSectorData, function (ttSectorData) {
                     if (ttSectorData.selected > 0) {
-                        classes['priceClassId' + ttSectorData.priceClass] = ttSectorData.selected;
+                        classes[ttSectorData.priceClass] = ttSectorData.selected;
                     }
                 });
             });
