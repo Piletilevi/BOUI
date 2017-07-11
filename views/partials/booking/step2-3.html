@@ -118,7 +118,7 @@
             <h4>Reservation expires_on:</h4>
             <div class="dropdown inline_dropdown">
                 <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="true">20.12.2017
+                        aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "dd.MM.y"}}
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -129,7 +129,7 @@
             </div>
             <div class="dropdown inline_dropdown">
                 <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="true">12
+                        aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "HH"}}
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -140,7 +140,7 @@
             </div>
             <div class="dropdown inline_dropdown">
                 <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="true">00
+                        aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "mm"}}
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
