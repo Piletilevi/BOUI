@@ -1321,7 +1321,9 @@ $app->post('/addToBasket', function() use ($app)  {
 			  "priceClassId2" => quantity2,
 			  ...)
 	*/
-	$filter['classes'] = $r->classes;
+	if (property_exists($r, 'classes')) {
+		$filter['classes'] = $r->classes;
+	}
 	if (property_exists($r, 'seatId')) {
 		$filter['seatId'] = $r->seatId;
 	}
