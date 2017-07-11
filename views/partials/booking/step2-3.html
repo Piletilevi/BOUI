@@ -80,8 +80,8 @@
         <tr class="row-align-middle" ng-repeat="seat in vm.myBasket.basket">
             <td>ID {{seat.id}}</td>
             <td class="text-center">{{seat.sectionName}}</td>
-            <td class="text-center">Row {{seat.rowName}}</td>
-            <td class="text-center">Seat {{seat.seatName}}</td>
+            <td class="text-center"><span ng-if="seat.rowName > 0">Row {{seat.rowName}}</span></td>
+            <td class="text-center"><span ng-if="seat.rowName > seatName">Seat {{seat.seatName}}</span></td>
             <td class="text-center bo-shortcell">
                 <div class="dropdown bo-table-dropdown">
                     <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 <h4>Reservation expires_on:</h4>
-                <div class="dropdown inline_dropdown">
+                <div class="dropdown inline_dropdown" ng-init="vm.reservation.expiresAt = vm.myBasket.summary.expiresAt">
                     <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "dd.MM.y"}}
                         <span class="caret"></span>
