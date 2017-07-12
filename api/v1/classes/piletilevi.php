@@ -544,6 +544,48 @@ class PiletileviApi {
 
 		return $countries;
 	}
+
+	public function getBookingTypes() {
+		
+		$languageCode = "";
+		
+		if ($this->currentLang) {
+			$languageCode = $this->currentLang->code; 
+		}
+		
+		$cacheItem = $this->cacheManager->getItem("bookingTypes".$languageCode);
+		$bookingTypes = $cacheItem->get();
+
+		if(is_null($countries) || !is_object($bookingTypes)) {
+			$data = array();
+			$bookingTypes = $this->send( "/booking/getBookingTypes", $data );
+			$cacheItem->set($bookingTypes)->expiresAfter(3600);
+			$this->cacheManager->save($cacheItem);
+		}
+
+		return $bookingTypes;
+	}
+
+	public function getBookingStatuses() {
+		
+		$languageCode = "";
+		
+		if ($this->currentLang) {
+			$languageCode = $this->currentLang->code; 
+		}
+		
+		$cacheItem = $this->cacheManager->getItem("bookingStatuses".$languageCode);
+		$bookingStatuses = $cacheItem->get();
+
+		if(is_null($countries) || !is_object($bookingStatuses)) {
+			$data = array();
+			$bookingStatuses = $this->send( "/booking/getBookingStatuses", $data );
+			$cacheItem->set($bookingStatuses)->expiresAfter(3600);
+			$this->cacheManager->save($cacheItem);
+		}
+
+		return $bookingStatuses;
+	}
 	
 	public function boUrl(){
 		return $this->getBoUrl();

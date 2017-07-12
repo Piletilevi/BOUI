@@ -1431,6 +1431,18 @@ $app->post('/myBookings', function() use ($app)  {
 	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
 
 	$filter = array();
+	if (property_exists($r->filter, 'bookingNr')) {
+		$filter['bookingNr'] = $r->filter->bookingNr;
+	}
+	if (property_exists($r->filter, 'clientName')) {
+		$filter['clientName'] = $r->filter->clientName;
+	}
+	if (property_exists($r->filter, 'statusId')) {
+		$filter['statusId'] = $r->filter->statusId;
+	}
+	if (property_exists($r->filter, 'typeId')) {
+		$filter['typeId'] = $r->filter->typeId;
+	}
 
 	if (property_exists($r->filter, 'period')) {
 		if (property_exists($r->filter->period, 'startDate')) {
@@ -1463,6 +1475,40 @@ $app->post('/getCountries', function() use ($app)  {
 
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->getCountries();
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/getBookingTypes', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->getBookingTypes();
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->post('/getBookingStatuses', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->getBookingStatuses();
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
