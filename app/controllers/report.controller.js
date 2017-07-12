@@ -228,6 +228,19 @@
             );
         };
 
+        vm.changeReservationType = function(reservationType) {
+            if(vm.reservation.reservationType != reservationType) {
+                vm.reservation.reservationType = reservationType;
+                if (reservationType == 'invitation') {
+                    vm.myBasket.summary.reservationSumTotal = angular.copy(vm.myBasket.summary.sumTotal);
+                    vm.myBasket.summary.sumTotal = 0;
+                }
+                else if(reservationType == 'with_price' && vm.myBasket.summary.reservationSumTotal) {
+                    vm.myBasket.summary.sumTotal = angular.copy(vm.myBasket.summary.reservationSumTotal);
+                }
+            }
+        };
+
         vm.getMyBasket = function() {
             eventService.getMyBasket(
                 function () {
@@ -240,7 +253,7 @@
                         });
                 }
             );
-        }
+        };
 
         vm.confirmBasket = function () {
             eventService.confirmBasket(

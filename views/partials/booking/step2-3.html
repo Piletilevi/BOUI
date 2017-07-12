@@ -109,22 +109,22 @@
                 <div class="form-inline bo-reservation-inline-buttons">
                     <div class="form-group">
                         <button class="btn btn-lg {{vm.reservation.reservationType == 'with_price' ? 'btn-primary' : 'btn-default'}}"
-                                type="button" ng-click="vm.reservation.reservationType = 'with_price'">
+                                type="button" ng-click="vm.changeReservationType('with_price')">
                             With price
                         </button>
                     </div>
                     &nbsp;
                     <div class="form-group">
                         <button class="btn btn-lg {{vm.reservation.reservationType == 'invitation' ? 'btn-primary' : 'btn-default'}}"
-                                type="button" ng-click="vm.reservation.reservationType = 'invitation'">
+                                type="button" ng-click="vm.changeReservationType('invitation')">
                             Invitation
                         </button>
                     </div>
                 </div>
                 <h4>Reservation expires_on:</h4>
-                <div class="dropdown inline_dropdown" ng-init="vm.reservation.expiresAt = vm.myBasket.summary.expiresAt">
+                <div class="dropdown inline_dropdown" ng-init="vm.reservation.expireAt = vm.myBasket.summary.expireAt">
                     <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "dd.MM.y"}}
+                            aria-expanded="true">{{vm.myBasket.summary.expireAt | date : "dd.MM.y"}}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
@@ -135,7 +135,7 @@
                 </div>
                 <div class="dropdown inline_dropdown">
                     <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "HH"}}
+                            aria-expanded="true">{{vm.myBasket.summary.expireAt | date : "HH"}}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
@@ -146,7 +146,7 @@
                 </div>
                 <div class="dropdown inline_dropdown">
                     <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="true">{{vm.myBasket.summary.expiresAt | date : "mm"}}
+                            aria-expanded="true">{{vm.myBasket.summary.expireAt | date : "mm"}}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
