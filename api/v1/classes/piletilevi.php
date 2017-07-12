@@ -495,6 +495,15 @@ class PiletileviApi {
 		
 		return $response;
 	}
+	
+	public function changeTicketType($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/changeTicketType", $data );
+		
+		return $response;
+	}
 
 	public function myBasket($filter) {
 
