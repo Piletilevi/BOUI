@@ -1418,8 +1418,14 @@ $app->post('/confirmBasket', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 
-	$dataHandler->verifyParams(array('concertId', 'subject', 'body'), $r);
-
+	$dataHandler->verifyParams(array('subject', 'body'), $r);
+	
+	if (property_exists($r, 'personType') && $r->personType == "organization") {
+		$dataHandler->verifyParams(array('organisationName', 'regNumber'), $r);
+	} else {
+		$dataHandler->verifyParams(array('firstName', 'lastName', 'contactEmail'), $r);
+	}
+	
 	$filter = array();
 	
 	$fields = array("discount", "expireAt", "reservationType", "personType", 
