@@ -1418,7 +1418,7 @@ $app->post('/confirmBasket', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 
-	$dataHandler->verifyParams(array('concertId'), $r);
+	$dataHandler->verifyParams(array('concertId', 'subject', 'body'), $r);
 
 	$filter = array();
 	
