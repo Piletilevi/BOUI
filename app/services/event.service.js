@@ -116,6 +116,7 @@
             addToBasket: addToBasket,
             confirmBasket: confirmBasket,
             removeFromBasket: removeFromBasket,
+            changeTicketType: changeTicketType,
             getMyBasket: getMyBasket
         };
         return service;
@@ -735,29 +736,19 @@
             });
         }
 
-        function confirmBasket(reservation, callback) {
-            dataService.post('confirmBasket', {
-                concertId: reservation.concertId,
-                discount: reservation.discount,
-                expireAt: reservation.expireAt,
-                reservationType: reservation.reservationType,
-                personType: reservation.personType,
-                firstName: reservation.firstName,
-                lastName: reservation.lastName,
-                contactEmail: reservation.contactEmail,
-                contactPhone: reservation.contactPhone,
-                address: reservation.address,
-                city: reservation.city,
-                postalCode: reservation.postalCode,
-                region: reservation.region,
-                countryId: reservation.countryId,
-                organisationName: reservation.organisationName,
-                regNumber: reservation.regNumber,
-                vatNumber: reservation.vatNumber,
-                notes: reservation.notes,
-                subject: reservation.subject,
-                body: reservation.body
+        function changeTicketType(ticketId, typeId, callback) {
+            dataService.post('changeTicketType', {
+                ticketId: ticketId,
+                typeId: typeId
             }).then(function (results) {
+                if (results.hasOwnProperty('succeeded') && callback) {
+                    callback();
+                }
+            });
+        }
+
+        function confirmBasket(reservation, callback) {
+            dataService.post('confirmBasket', reservation).then(function (results) {
                 if (results.hasOwnProperty('succeeded') && callback) {
                     callback();
                 }

@@ -93,8 +93,8 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li ng-repeat="pricetype in seat.priceTypes">
-                            <a href="">{{pricetype.priceTypeName}}</a>
+                        <li ng-repeat="pricetype in seat.priceTypes | filter:{active: false}">
+                            <a href="" ng-click="vm.changeTicketType(seat.id, pricetype.priceTypeId)">{{pricetype.priceTypeName}}</a>
                         </li>
                     </ul>
                 </div>

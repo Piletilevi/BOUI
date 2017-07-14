@@ -303,6 +303,14 @@
             );
         };
 
+        vm.changeTicketType = function (ticketId, typeId) {
+            eventService.changeTicketType(ticketId, typeId,
+                function () {
+                    eventService.getMyBasket();
+                }
+            );
+        };
+
         vm.goToSectionsStep = function () {
             vm.bookingStep = null;
             $scope.selectedSectionId = false;
