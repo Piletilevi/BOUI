@@ -21,7 +21,7 @@
             getRememberedUser: getRememberedUser
         };
         return service;
-        
+
         function initialize(){
             $rootScope.hasFullAccess = function(name) {
                 var hasFullAccess = false;
@@ -87,7 +87,7 @@
             });
         }
 
-		function verifySession(searchkey){
+        function verifySession(searchkey){
 
             dataService.post('verifySessionKey',{ "sessionkey" : searchkey }).then(function(results){
                 dataService.page(results);
@@ -114,21 +114,6 @@
                         $rootScope.user.point = userPoint.id;
                     }
                     pointService.setPoint($rootScope.user.point);
-                    $rootScope.user.roles = [
-                        {"name": "api_reports", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_overview", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_pricetype", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_priceclass", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_sections", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_locations", "fullAccess": true, "readAccess": false},
-                        // {"name": "api_reports_revenue", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_dashboard_tab_on_sale", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_export_to_file", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_sub_prmtr_db", "fullAccess": true, "readAccess": false},
-                        {"name": "api_salespoint", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_dashboard_tab_not_active", "fullAccess": true, "readAccess": false},
-                        {"name": "api_reports_dashboard_tab_past", "fullAccess": true, "readAccess": false}
-                    ];
                     if (typeof($location.search().key) !== 'undefined') {
                         $location.search('key', null);
                     }
@@ -154,7 +139,7 @@
             });
         }
 
-		function changePassword(change) {
+        function changePassword(change) {
             dataService.post('changePassword', {passwordSet: change})
                 .then(function (results) {
                     dataService.page(results);

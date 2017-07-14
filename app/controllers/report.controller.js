@@ -715,6 +715,15 @@
             }
         });
 
+        $scope.$watch('vm.reservation.discount', function (newDiscount, oldDiscount) {
+            newDiscount = parseInt(newDiscount, 10);
+            if (typeof oldDiscount !== 'undefined' && oldDiscount !== newDiscount) {
+                eventService.getMyBasket(
+                    null, vm.reservation
+                );
+            }
+        });
+
     }
 
 })();

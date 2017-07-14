@@ -789,9 +789,11 @@
         function getMyBasket(callback) {
             dataService.post('myBasket').then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success' && callback) {
+                if (results.status == 'success') {
                     myBasket = results.data;
-                    callback();
+                    if(callback) {
+                        callback();
+                    }
                 }
             });
         }
