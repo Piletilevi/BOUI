@@ -760,10 +760,12 @@
                 concertId: item.concertId,
                 sectionId: item.sectionId
             }).then(function (results) {
-                if (results.status == 'success' && callback) {
+                if (results.status == 'success') {
                     dataService.page(results);
                     sectorInfo = results.data;
-                    callback();
+                    if(callback) {
+                        callback();
+                    }
                 }
             });
         }

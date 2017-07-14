@@ -299,6 +299,11 @@
             eventService.removeFromBasket(
                 ticketId, function () {
                     eventService.getMyBasket();
+                    eventService.getSectorInfo(
+                        {
+                            concertId: $routeParams.id,
+                            sectionId: $scope.selectedSectionId
+                        });
                 }
             );
         };
@@ -372,15 +377,12 @@
                         sectionId: sectionId,
                         classes: classes
                     }, function () {
-                        eventService.getMyBasket(
-                            function () {
-                                eventService.getSectorInfo(
-                                    {
-                                        concertId: $routeParams.id,
-                                        sectionId: $scope.selectedSectionId
-                                    });
-                            }
-                        );
+                        eventService.getMyBasket();
+                        eventService.getSectorInfo(
+                            {
+                                concertId: $routeParams.id,
+                                sectionId: $scope.selectedSectionId
+                            });
                     }
                 );
             }
