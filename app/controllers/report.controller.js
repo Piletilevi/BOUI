@@ -85,7 +85,7 @@
 
         vm.reservation = {
             reservationType: 'with_price',
-            personType: 'private',
+            personType: 'person',
             concertId: $routeParams.id
         };
 
