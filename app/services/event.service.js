@@ -30,6 +30,7 @@
         var loadingRelatedItems = false;
         var myBasket = null;
         var sectorInfo = null;
+        var countries = null;
 
         var service = {
             myOpenEvents: function () {
@@ -77,6 +78,9 @@
             sectorInfo: function () {
                 return sectorInfo
             },
+            countries: function () {
+                return countries
+            },
             sectorTickets: function () {
                 return sectorTickets
             },
@@ -105,6 +109,7 @@
             getPriceTypeGraphData: getPriceTypeGraphData,
             getSectorsData: getSectorsData,
             getSectorInfo: getSectorInfo,
+            getCountries: getCountries,
             getSectorTickets: getSectorTickets,
             exportAsExcel: exportAsExcel,
             exportAsCsv: exportAsCsv,
@@ -131,6 +136,7 @@
             mySectorsData = null;
             myLocationsData = null;
             sectorInfo = null;
+            countries = null;
             sectorTickets = null;
             relatedEvents = null;
             myBasket = null;
@@ -767,6 +773,15 @@
                     dataService.page(results);
                     sectorInfo = results.data;
                     callback();
+                }
+            });
+        }
+
+        function getCountries() {
+            dataService.post('getCountries').then(function (results) {
+                dataService.page(results);
+                if (results.status == 'success') {
+                    countries = results.data;
                 }
             });
         }

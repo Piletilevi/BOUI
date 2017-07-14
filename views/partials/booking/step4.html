@@ -7,7 +7,7 @@
             <div class="form-inline">
                 <div class="form-group">
                     <button class="btn btn-warning" type="button" ng-click="vm.goToSectionsStep()">
-                        Exit reservation mode&nbsp;&nbsp;
+                        {{'api_reservation_exit'|translate}}&nbsp;&nbsp;
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -15,14 +15,16 @@
         </div>
     </div>
 </div>
-<h4>Selected seats:</h4>
+<h4>{{'api_basket_selected_tickets'|translate}}</h4>
 <table class="table table-small">
     <tbody>
     <tr class="row-align-middle" ng-repeat="seat in vm.myBasket.basket">
-        <td>ID {{seat.id}}</td>
+        <td>{{'api_basket_ticket_id'|translate}} {{seat.id}}</td>
         <td class="text-center">{{seat.sectionName}}</td>
-        <td class="text-center"><span ng-if="seat.rowName > 0">Row {{seat.rowName}}</span></td>
-        <td class="text-center"><span ng-if="seat.rowName > seatName">Seat {{seat.seatName}}</span></td>
+        <td class="text-center"><span ng-if="seat.rowName > 0">{{'api_basket_row'|translate}} {{seat.rowName}}</span>
+        </td>
+        <td class="text-center"><span ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span>
+        </td>
         <td class="text-center bo-shortcell">
             <div class="dropdown bo-table-dropdown">
                 <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
@@ -47,58 +49,62 @@
 <div class="row">
     <div class="col-md-6">
         <div class="bo-reservation-selected-type">
-            <h4 class="bo-first-heading">Reservation type:
-                <span ng-if="vm.reservation.reservationType == 'with_price'">With price</span>
-                <span ng-if="vm.reservation.reservationType == 'invitation'">Invitation</span>
+            <h4 class="bo-first-heading">{{'api_reservation_type'|translate}}
+                <span ng-if="vm.reservation.reservationType == 'with_price'">{{'api_reservation_with_price'|translate}}</span>
+                <span ng-if="vm.reservation.reservationType == 'invitation'">{{'api_reservation_invitation'|translate}}</span>
             </h4>
         </div>
         <div class="bo-reservation-selected-type">
-            <h4>Reservation expires on: <span>{{vm.myBasket.summary.expiresAt | date : "dd.MM.y HH:mm"}}</span></h4>
+            <h4>{{'api_reservation_expiration'|translate}} <span>{{vm.reservation.expireAt}} {{vm.myBasket.summary.expireAt | date : "HH:mm"}}</span>
+            </h4>
         </div>
     </div>
     <div class="col-md-6">
         <table class="table table-small">
             <tbody>
             <tr>
-                <td class="text-right">Amount:</td>
-                <td class="text-center">{{vm.myBasket.summary.ticketsCount}} ticket(s)</td>
+                <td class="text-right">{{'api_basket_check_out_amount'|translate}}</td>
+                <td class="text-center">{{vm.myBasket.summary.ticketsCount}} {{'api_tickets'|translate}}</td>
             </tr>
             <tr>
-                <td class="text-right">Subtotal:</td>
-                <td class="text-center">{{vm.myBasket.summary.sumWithoutTaxes}}{{vm.myBasket.summary.currency}}</td>
+                <td class="text-right">{{'api_basket_check_out_subtotal'|translate}}</td>
+                <td class="text-center">{{vm.myBasket.summary.sumWithoutTaxes |
+                    number:2}}{{vm.myBasket.summary.currency}}
+                </td>
             </tr>
             <tr>
-                <td class="text-right">Discount:</td>
+                <td class="text-right">{{'api_basket_check_out_discount'|translate}}</td>
                 <td class="text-center">
                     {{vm.reservation.discount}}%
                 </td>
             </tr>
             <tr ng-repeat="fee in vm.myBasket.summary.fees">
-                <td class="text-right">Fee:</td>
-                <td class="text-center">{{fee.name}} x {{fee.quantity}} ({{fee.sum}}{{vm.myBasket.summary.currency}})
+                <td class="text-right">{{fee.name}} x {{fee.quantity}}</td>
+                <td class="text-center">
+                    {{fee.sum}}{{vm.myBasket.summary.currency}}
                 </td>
             </tr>
             <tr>
-                <td class="text-right">To pay:</td>
-                <td class="text-center">{{vm.myBasket.summary.sumTotal}}{{vm.myBasket.summary.currency}}</td>
+                <td class="text-right">{{'api_basket_check_out_total'|translate}}</td>
+                <td class="text-center">{{vm.myBasket.summary.sumTotal | number:2}}{{vm.myBasket.summary.currency}}</td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-<h4 class="bo-first-heading">Make reservation for:</h4>
+<h4 class="bo-first-heading">{{'api_reservation_meta_entity'|translate}}</h4>
 <div class="form-inline bo-reservation-inline-buttons">
     <div class="form-group">
         <button class="btn btn-lg {{vm.reservation.personType == 'private' ? 'btn-primary' : 'btn-default'}}"
                 type="button" ng-click="vm.reservation.personType = 'private'">
-            Private
+            {{'api_meta_entity_private'|translate}}
         </button>
     </div>
     &nbsp;
     <div class="form-group">
         <button class="btn btn-lg {{vm.reservation.personType == 'organization' ? 'btn-primary' : 'btn-default'}}"
                 type="button" ng-click="vm.reservation.personType = 'organization'">
-            Organization
+            {{'api_meta_entity_organization'|translate}}
         </button>
     </div>
 </div>
@@ -106,83 +112,86 @@
 <form name="reservationForm" ng-submit="vm.goToStep5()">
     <div class="row bo-reservation-form-block">
         <div class="col-md-6">
-            <h4>Contact person:</h4>
+            <h4>{{'api_reservation_meta_contact'|translate}}</h4>
             <div class="form-group">
-                <input type="text" placeholder="First name*" required class="form-control"
+                <input type="text" placeholder="{{'api_meta_contact_firstname'|translate}}*" required
+                       class="form-control"
                        ng-model="vm.reservation.firstName"/>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="Last name*" required class="form-control"
+                <input type="text" placeholder="{{'api_meta_contact_lastname'|translate}}*" required
+                       class="form-control"
                        ng-model="vm.reservation.lastName"/>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="Email*" required class="form-control"
+                <input type="email" placeholder="{{'api_meta_contact_email'|translate}}*" required class="form-control"
                        ng-model="vm.reservation.contactEmail"/>
             </div>
             <div class="row bo-reservation-phone">
                 <div class="col-md-3 form-group">
                     <div class="dropdown">
-                        <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="true">+372
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="">some data</a>
-                            </li>
-                        </ul>
+                        <select class="form-control" ng-model="vm.reservation.contactPhoneCode">
+                            <option value="" disabled selected></option>
+                            <option value="+{{country.areaCode}}"
+                                    ng-repeat="country in vm.countries.countries"
+                                    ng-if="country.areaCode">
+                                +{{country.areaCode}}
+                            </option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-9 form-group">
-                    <input type="text" placeholder="Phone number" class="form-control"
+                    <input type="text" placeholder="{{'api_meta_contact_phone'|translate}}" class="form-control"
                            ng-model="vm.reservation.contactPhone"/>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <h4>Physical address (optional):</h4>
+            <h4>{{'api_reservation_meta_address'|translate}}</h4>
             <div class="form-group">
-                <input type="text" placeholder="Address" class="form-control" ng-model="vm.reservation.address"/>
+                <input type="text" placeholder="{{'api_meta_contact_address'|translate}}" class="form-control"
+                       ng-model="vm.reservation.address"/>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="City/Town" class="form-control" ng-model="vm.reservation.city"/>
+                <input type="text" placeholder="{{'api_meta_contact_city'|translate}}" class="form-control"
+                       ng-model="vm.reservation.city"/>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="Postal code" class="form-control" ng-model="vm.reservation.postalCode"/>
+                <input type="text" placeholder="{{'api_meta_contact_postal_code'|translate}}" class="form-control"
+                       ng-model="vm.reservation.postalCode"/>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="Country/Region" class="form-control" ng-model="vm.reservation.region"/>
+                <input type="text" placeholder="{{'api_meta_contact_postal_region'|translate}}" class="form-control"
+                       ng-model="vm.reservation.region"/>
             </div>
             <div class="form-group">
                 <div class="dropdown">
-                    <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="true">Select country
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="">some country</a>
-                        </li>
-                    </ul>
+                    <select class="form-control" ng-model="vm.reservation.countryId">
+                        <option value="" disabled selected>{{'api_meta_contact_country'|translate}}</option>
+                        <option value="{{country.id}}" ng-repeat="country in vm.countries.countries">{{country.name}}
+                        </option>
+                    </select>
                 </div>
             </div>
         </div>
     </div>
     <div class="bo-reservation-form-block">
-        <h4 class="bo-first-heading" ng-if="vm.reservation.personType == 'organization'">Organisations information:</h4>
+        <h4 class="bo-first-heading" ng-if="vm.reservation.personType == 'organization'">
+            {{'api_reservation_meta_organization'|translate}}</h4>
         <div class="row">
             <div class="col-md-6">
                 <div ng-if="vm.reservation.personType == 'organization'">
                     <div class="form-group">
-                        <input type="text" placeholder="Organisations title*" required class="form-control"
+                        <input type="text" placeholder="{{'api_meta_organization'|translate}}*" required
+                               class="form-control"
                                ng-model="vm.reservation.organisationName"/>
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="Registration number" class="form-control"
+                        <input type="text" placeholder="{{'api_meta_organization_reg'|translate}}" class="form-control"
                                ng-model="vm.reservation.regNumber"/>
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="VAT number" class="form-control"
+                        <input type="text" placeholder="{{'api_meta_organization_vat'|translate}}" class="form-control"
                                ng-model="vm.reservation.vatNumber"/>
                     </div>
                 </div>
@@ -190,23 +199,23 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="form-group">
-                    <textarea class="form-control" placeholder="internal notes"
+                    <textarea class="form-control" placeholder="{{'api_reservation_meta_notes'|translate}}"
                               ng-model="vm.reservation.notes"></textarea>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <h4 class="bo-first-heading">Email content:</h4>
+    <h4 class="bo-first-heading">{{'api_reservation_meta_email'|translate}}</h4>
     <div class="form-horizontal">
         <div class="form-group">
-            <label class="col-sm-2 control-label bo-control-label">Subject:</label>
+            <label class="col-sm-2 control-label bo-control-label">{{'api_reservation_meta_subject'|translate}}</label>
             <div class="col-md-10">
                 <input type="text" class="form-control" ng-model="vm.reservation.subject"/>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label bo-control-label">Email text:</label>
+            <label class="col-sm-2 control-label bo-control-label">{{'api_reservation_meta_body'|translate}}</label>
             <div class="col-md-10">
                 <textarea class="form-control" ng-model="vm.reservation.body"></textarea>
             </div>
@@ -216,10 +225,10 @@
     <div class="bo-reservation-footer-butons">
         <div class="row">
             <div class="col-md-6 text-left">
-                <button class="btn btn-default" ng-click="vm.goToStep2()">Edit ticket</button>
+                <button class="btn btn-default" ng-click="vm.goToStep2()">{{'api_reservation_edit'|translate}}</button>
             </div>
             <div class="col-md-6 text-right">
-                <button type="submit" class="btn btn-info">Reserve</button>
+                <button type="submit" class="btn btn-info">{{'api_reservation_meta_confirm'|translate}}</button>
             </div>
         </div>
     </div>

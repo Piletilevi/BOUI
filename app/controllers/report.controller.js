@@ -88,6 +88,9 @@
             personType: 'private',
             concertId: $routeParams.id
         };
+
+        vm.reservationStartDate = moment().subtract(1, 'days');
+
         // vm.printPdf = pdfService.printPdf;
 
         //Initialize
@@ -228,20 +231,20 @@
             );
         };
 
-        vm.changeReservationType = function(reservationType) {
-            if(vm.reservation.reservationType != reservationType) {
+        vm.changeReservationType = function (reservationType) {
+            if (vm.reservation.reservationType != reservationType) {
                 vm.reservation.reservationType = reservationType;
                 if (reservationType == 'invitation') {
                     vm.myBasket.summary.reservationSumTotal = angular.copy(vm.myBasket.summary.sumTotal);
                     vm.myBasket.summary.sumTotal = 0;
                 }
-                else if(reservationType == 'with_price' && vm.myBasket.summary.reservationSumTotal) {
+                else if (reservationType == 'with_price' && vm.myBasket.summary.reservationSumTotal) {
                     vm.myBasket.summary.sumTotal = angular.copy(vm.myBasket.summary.reservationSumTotal);
                 }
             }
         };
 
-        vm.getMyBasket = function() {
+        vm.getMyBasket = function () {
             eventService.getMyBasket(
                 function () {
                     eventService.getSectorInfo(
@@ -256,6 +259,14 @@
         };
 
         vm.confirmBasket = function () {
+            vm.myBasket.summary.expireAt = moment(vm.myBasket.summary.expireAt);
+            vm.reservation.expireAt = moment(vm.reservation.expireAt, 'DD-MM-YYYY HH:mm');
+            vm.reservation.expireAt = vm.reservation.expireAt.hour(vm.myBasket.summary.expireAt.get('hours'));
+            vm.reservation.expireAt = vm.reservation.expireAt.minute(vm.myBasket.summary.expireAt.get('minutes'));
+            vm.reservation.expireAt = vm.reservation.expireAt.second(vm.myBasket.summary.expireAt.get('seconds'));
+            vm.reservation.expireAt = vm.reservation.expireAt.format('YYYY-MM-DDTHH:mm:ss');
+
+            vm.reservation.contactPhone = vm.reservation.contactPhoneCode + ' ' + vm.reservation.contactPhone;
             eventService.confirmBasket(
                 vm.reservation, function () {
                     console.log('Basket confirmed');
@@ -286,11 +297,8 @@
 
         vm.removeFromBasket = function (ticketId) {
             eventService.removeFromBasket(
-                ticketId,
-                function () {
-                    vm.myBasket.basket = vm.myBasket.basket.filter(function (ticket) {
-                        return ticket.id != ticketId;
-                    });
+                ticketId, function () {
+                    eventService.getMyBasket();
                 }
             );
         };
@@ -305,6 +313,7 @@
         };
 
         vm.goToStep4 = function () {
+            eventService.getCountries();
             vm.bookingStep = 'step4';
         };
 
@@ -328,7 +337,7 @@
             var ticketsCount = 0;
             angular.forEach(vm.sectorInfo.ttSector, function (ttSector) {
                 angular.forEach(ttSector.ttSectorData, function (ttSectorData) {
-                    ticketsCount += ttSectorData.selected;
+                    ticketsCount += parseInt(ttSectorData.selected, 10);
                 });
             });
             return ticketsCount;
@@ -337,17 +346,18 @@
         vm.offerTickets = function () {
             var classes = {},
                 sectionId = null;
-            angular.forEach(vm.sectorInfo.ttSector, function (ttSector) {
-                if (!sectionId) {
-                    sectionId = ttSector.sectorId;
-                }
-                angular.forEach(ttSector.ttSectorData, function (ttSectorData) {
-                    if (ttSectorData.selected > 0) {
-                        classes[ttSectorData.priceClass] = ttSectorData.selected;
-                    }
-                });
-            });
             if (vm.ticketsCount() > 0) {
+                angular.forEach(vm.sectorInfo.ttSector, function (ttSector) {
+                    if (!sectionId) {
+                        sectionId = ttSector.sectorId;
+                    }
+                    angular.forEach(ttSector.ttSectorData, function (ttSectorData) {
+                        if (ttSectorData.selected > 0) {
+                            classes[ttSectorData.priceClass] = ttSectorData.selected;
+                        }
+                        ttSectorData.selected = 0;
+                    });
+                });
                 eventService.addToBasket(
                     {
                         concertId: $routeParams.id,
@@ -378,6 +388,15 @@
         vm.increaseBasketDiscount = function () {
             if (vm.reservation.discount < 100) {
                 vm.reservation.discount++;
+            }
+        };
+
+        vm.validateQuantity = function (ttSectorData) {
+            if (ttSectorData.selected < 0) {
+                ttSectorData.selected = 0;
+            }
+            else if (ttSectorData.selected > ttSectorData.freeTotal) {
+                ttSectorData.selected = ttSectorData.freeTotal;
             }
         };
 
@@ -462,6 +481,7 @@
                 vm.myLocationsData = eventService.myLocationsData();
                 vm.relatedEvents = eventService.relatedEvents();
                 vm.sectorTickets = eventService.sectorTickets();
+                vm.countries = eventService.countries();
             }
         );
 

@@ -36,7 +36,8 @@
     "angular-smart-table": "^2.1.8",
     "ngSticky": "^1.8.13",
     "angular-location-update": "^0.0.2",
-    "angular-file-saver": "^1.1.3"
+    "angular-file-saver": "^1.1.3",
+    "angularjs-datepicker": "^2.1.23"
   },
   "resolutions": {
     "angular": "1.6.1",
