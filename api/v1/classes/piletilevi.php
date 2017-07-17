@@ -500,7 +500,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$response = $this->send( "/booking/changeTicketType", $data );
+		$response = $this->send( "/booking/changeTicketPriceType", $data );
 		
 		return $response;
 	}
