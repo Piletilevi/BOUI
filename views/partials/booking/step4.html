@@ -130,14 +130,15 @@
             <div class="row bo-reservation-phone">
                 <div class="col-md-3 form-group">
                     <div class="dropdown">
-                        <select class="form-control" ng-model="vm.reservation.contactPhoneCode">
-                            <option value="" disabled selected></option>
-                            <option value="+{{country.areaCode}}"
-                                    ng-repeat="country in vm.countries.countries"
-                                    ng-if="country.areaCode">
-                                +{{country.areaCode}}
-                            </option>
-                        </select>
+                        <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="true">{{vm.reservation.contactPhoneCode}}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="country in vm.countries.countries">
+                                <a ng-click="vm.reservation.contactPhoneCode = '+' + country.areaCode">{{country.name}} (+{{country.areaCode}})</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-md-9 form-group">

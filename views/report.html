@@ -743,9 +743,9 @@
 
             <!-- Tab: bookings -->
             <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'bookings'}"
-                 id="bookings" role="tabpanel">
+                 id="bookings" role="tabpanel" block-ui block-ui-pattern="/myBookings/">
                 <div class="panel-body">
-                    Bookings
+                    <div ng-include="'views/partials/booking/bookings.html'"></div>
                 </div>
             </div>
         </div>

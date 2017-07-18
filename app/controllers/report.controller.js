@@ -72,6 +72,13 @@
             centerId: ''
         };
         vm.sectorsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
+        vm.bookingFilter = {
+            period: {startDate: null, endDate: null},
+            typeId: null,
+            statusId: null,
+            clientName: null,
+            bookingNr: null
+        };
         vm.locationsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
         vm.reset_search = false;
         vm.overviewBarGraph = graphService.overviewBarGraph;
@@ -81,7 +88,7 @@
         vm.priceclassPieGraph = graphService.priceclassPieGraph;
         vm.priceclassLineGraph = graphService.priceclassLineGraph;
 
-        vm.filters = [vm.overviewFilter, vm.pricetypeFilter, vm.priceclassFilter, vm.sectorsFilter, vm.locationsFilter];
+        vm.filters = [vm.overviewFilter, vm.pricetypeFilter, vm.priceclassFilter, vm.sectorsFilter, vm.locationsFilter, vm.bookingFilter];
 
         vm.reservation = {
             reservationType: 'with_price',
@@ -186,6 +193,10 @@
             else if (tab == 'locations') {
                 eventService.getLocationsData(vm.event, vm.locationsFilter);
             }
+            else if (tab == 'bookings') {
+                eventService.getBookingStatuses();
+                eventService.getBookingTypes();
+            }
             if (tab != 'sections') {
                 $scope.selectedSectionId = false;
             }
@@ -197,8 +208,6 @@
             }
             $location.update_path(newPath);
         };
-
-        vm.currentTab = false;
 
         vm.getCurrentTabCode = function () {
             if (vm.currentTab == 'overview') {
@@ -269,7 +278,9 @@
             vm.reservation.contactPhone = vm.reservation.contactPhoneCode + ' ' + vm.reservation.contactPhone;
             eventService.confirmBasket(
                 vm.reservation, function () {
-                    console.log('Basket confirmed');
+                    // Redirect to Bookings
+                    $rootScope.bookingSuccessAlert = true;
+                    $location.path('/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/bookings');
                 }
             );
         };
@@ -287,10 +298,7 @@
         };
 
         vm.hasSalesPoint = function () {
-            if (vm.event != null && vm.event.salespoints != null && vm.event.salespoints.length > 1) {
-                return true;
-            }
-            return false;
+            return vm.event != null && vm.event.salespoints != null && vm.event.salespoints.length > 1;
         };
 
         /* Booking form */
@@ -427,7 +435,7 @@
             var accessRights = [
                 {
                     accessRight: 'api_reports_reservations',
-                    tab: 'booking'
+                    tab: 'bookings'
                 },
                 {
                     accessRight: 'api_reports_locations',
@@ -486,6 +494,9 @@
                 vm.myPriceClassPieData = eventService.myPriceClassData();
                 vm.myPriceClassLineData = eventService.myPriceClassGraphData();
                 vm.myBasket = eventService.myBasket();
+                vm.myBookings = eventService.myBookings();
+                vm.bookingStatuses = eventService.bookingStatuses();
+                vm.bookingTypes = eventService.bookingTypes();
                 vm.sectorInfo = eventService.sectorInfo();
                 vm.mySectorsData = eventService.mySectorsData();
                 vm.myLocationsData = eventService.myLocationsData();
@@ -678,6 +689,8 @@
                 vm.sectorsFilter.period.endDate = newSellPeriod.end;
                 vm.locationsFilter.period.startDate = newSellPeriod.start;
                 vm.locationsFilter.period.endDate = newSellPeriod.end;
+                vm.bookingFilter.period.startDate = newSellPeriod.start;
+                vm.bookingFilter.period.endDate = newSellPeriod.end;
                 vm.minFilterDate = vm.overviewFilter.period.startDate;
                 vm.maxFilterDate = vm.overviewFilter.period.endDate;
                 vm.tabSelectEvent(vm.currentTab);
@@ -714,6 +727,12 @@
                 vm.tabSelectEvent(vm.currentTab);
             }
         });
+
+        $scope.$watch('vm.bookingFilter', function (newFilter, oldFilter) {
+            if (oldFilter && !angular.equals(newFilter, oldFilter)) {
+                eventService.getBookingsData(vm.bookingFilter);
+            }
+        }, true);
 
         $scope.$watch('vm.salesPoint', function (newSalesPoint, oldSalesPoint) {
             if (oldSalesPoint !== newSalesPoint) {

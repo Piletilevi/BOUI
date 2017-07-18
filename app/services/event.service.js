@@ -29,6 +29,8 @@
         var relatedEvents = null;
         var loadingRelatedItems = false;
         var myBasket = null;
+        var bookingStatuses = null;
+        var bookingTypes = null;
         var sectorInfo = null;
         var countries = null;
 
@@ -90,6 +92,12 @@
             myBasket: function () {
                 return myBasket
             },
+            bookingStatuses: function () {
+                return bookingStatuses
+            },
+            bookingTypes: function () {
+                return bookingTypes
+            },
             reset: reset,
             getMyEvents: getMyEvents,
             getMyEventsCount: getMyEventsCount,
@@ -117,7 +125,9 @@
             confirmBasket: confirmBasket,
             removeFromBasket: removeFromBasket,
             changeTicketType: changeTicketType,
-            getMyBasket: getMyBasket
+            getMyBasket: getMyBasket,
+            getBookingStatuses: getBookingStatuses,
+            getBookingTypes: getBookingTypes,
         };
         return service;
 
@@ -141,6 +151,8 @@
             sectorTickets = null;
             relatedEvents = null;
             myBasket = null;
+            bookingStatuses = null;
+            bookingTypes = null;
         }
 
         function getMyEvents(filter) {
@@ -779,14 +791,32 @@
             });
         }
 
-        function getMyBasket(callback) {
-            dataService.post('myBasket').then(function (results) {
+        function getMyBasket(callback, basket) {
+            dataService.post('myBasket', basket).then(function (results) {
                 dataService.page(results);
                 if (results.status == 'success') {
                     myBasket = results.data;
                     if(callback) {
                         callback();
                     }
+                }
+            });
+        }
+
+        function getBookingStatuses() {
+            dataService.post('getBookingStatuses').then(function (results) {
+                dataService.page(results);
+                if (results.status == 'success') {
+                    bookingStatuses = results.data;
+                }
+            });
+        }
+
+        function getBookingTypes() {
+            dataService.post('getBookingTypes').then(function (results) {
+                dataService.page(results);
+                if (results.status == 'success') {
+                    bookingTypes = results.data;
                 }
             });
         }
