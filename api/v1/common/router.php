@@ -1551,6 +1551,29 @@ $app->post('/getBookingStatuses', function() use ($app)  {
 	}
 });
 
+$app->post('/cancelBooking', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('bookingId'), $r);
+
+	$filter = array();
+	$filter['bookingId'] = $r->bookingId;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->cancelBooking( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$response["status"] = "success";
+		$response["succeeded"] = $reportResponse->succeeded;
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["message"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
 $app->get('/test', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
 
