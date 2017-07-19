@@ -29,6 +29,7 @@
         var relatedEvents = null;
         var loadingRelatedItems = false;
         var myBasket = null;
+        var myBookings = null;
         var bookingStatuses = null;
         var bookingTypes = null;
         var sectorInfo = null;
@@ -92,6 +93,9 @@
             myBasket: function () {
                 return myBasket
             },
+            myBookings: function () {
+                return myBookings
+            },
             bookingStatuses: function () {
                 return bookingStatuses
             },
@@ -126,6 +130,7 @@
             removeFromBasket: removeFromBasket,
             changeTicketType: changeTicketType,
             getMyBasket: getMyBasket,
+            getBookingsData: getBookingsData,
             getBookingStatuses: getBookingStatuses,
             getBookingTypes: getBookingTypes,
         };
@@ -151,6 +156,7 @@
             sectorTickets = null;
             relatedEvents = null;
             myBasket = null;
+            myBookings = null;
             bookingStatuses = null;
             bookingTypes = null;
         }
@@ -799,6 +805,15 @@
                     if(callback) {
                         callback();
                     }
+                }
+            });
+        }
+
+        function getBookingsData(filter) {
+            dataService.post('myBookings', {filter: filter}).then(function (results) {
+                dataService.page(results);
+                if (results.status == 'success') {
+                    myBookings = results.data;
                 }
             });
         }
