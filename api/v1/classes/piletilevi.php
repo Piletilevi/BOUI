@@ -496,6 +496,15 @@ class PiletileviApi {
 		return $response;
 	}
 	
+	public function removeFromBooking($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/removeFromBooking", $data );
+		
+		return $response;
+	}
+
 	public function changeBasketTicketType($filter) {
 		
 		$data['filter']= $filter;
