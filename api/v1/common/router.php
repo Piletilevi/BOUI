@@ -1342,7 +1342,7 @@ $app->post('/addToBasket', function() use ($app)  {
 	}
 });
 
-$app->post('/changeTicketType', function() use ($app)  {
+$app->post('/changeBasketTicketType', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 
@@ -1353,7 +1353,7 @@ $app->post('/changeTicketType', function() use ($app)  {
 	$filter['typeId'] = $r->typeId;
 	
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->changeTicketType( $filter );
+    $reportResponse = $piletileviApi->changeBasketTicketType( $filter );
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
