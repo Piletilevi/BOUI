@@ -24,7 +24,9 @@
         return service;
 
         function page (data) {
-            bo.pop(data.status, "", data.message, 10000, 'trustedHtml');
+            if (data != undefined) {
+				bo.pop(data.status, "", data.message, 10000, 'trustedHtml');
+			}
         }
 
         function get (q) {
