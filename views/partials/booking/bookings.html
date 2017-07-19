@@ -30,13 +30,13 @@
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true">
-                    <span>{{vm.bookingFilter.typeId ? ((vm.bookingTypes | filter:{id: vm.bookingFilter.typeId})[0].name) : 'All types'}}</span>
+                    <span>{{vm.bookingFilter.typeId ? ((vm.bookingTypes.types | filter:{id: vm.bookingFilter.typeId})[0].name) : 'All types'}}</span>
                     &nbsp;
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li>
-                        <a ng-repeat="type in vm.bookingTypes" ng-click="vm.bookingFilter.typeId = type.id">{{type.name}}</a>
+                        <a ng-repeat="type in vm.bookingTypes.types" ng-click="vm.bookingFilter.typeId = type.id">{{type.name}}</a>
                     </li>
                 </ul>
             </div>
@@ -45,13 +45,13 @@
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true">
-                    <span>{{vm.bookingFilter.statusId ? ((vm.bookingStatuses | filter:{id: vm.bookingFilter.statusId})[0].name) : 'All statuses'}}</span>
+                    <span>{{vm.bookingFilter.statusId ? ((vm.bookingStatuses.statuses | filter:{id: vm.bookingFilter.statusId})[0].name) : 'All statuses'}}</span>
                     &nbsp;
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li>
-                        <a ng-repeat="status in vm.bookingStatuses" ng-click="vm.bookingFilter.statusId = status.id">{{status.name}}</a>
+                        <a ng-repeat="status in vm.bookingStatuses.statuses" ng-click="vm.bookingFilter.statusId = status.id">{{status.name}}</a>
                     </li>
                 </ul>
             </div>
