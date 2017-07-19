@@ -604,6 +604,15 @@ class PiletileviApi {
 		
 		return $response;
 	}
+
+	public function myBooking($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/myBooking", $data );
+		
+		return $response;
+	}
 	
 	public function boUrl(){
 		return $this->getBoUrl();
