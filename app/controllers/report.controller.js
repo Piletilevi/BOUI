@@ -494,7 +494,7 @@
                 vm.myPriceClassPieData = eventService.myPriceClassData();
                 vm.myPriceClassLineData = eventService.myPriceClassGraphData();
                 vm.myBasket = eventService.myBasket();
-                vm.myBookings = eventService.myBookings();
+                //vm.myBookings = eventService.myBookings();
                 vm.bookingStatuses = eventService.bookingStatuses();
                 vm.bookingTypes = eventService.bookingTypes();
                 vm.sectorInfo = eventService.sectorInfo();

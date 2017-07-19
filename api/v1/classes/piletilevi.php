@@ -595,6 +595,15 @@ class PiletileviApi {
 
 		return $bookingStatuses;
 	}
+
+	public function cancelBooking($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/cancelBooking", $data );
+		
+		return $response;
+	}
 	
 	public function boUrl(){
 		return $this->getBoUrl();
