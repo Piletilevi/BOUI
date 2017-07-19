@@ -565,7 +565,7 @@ class PiletileviApi {
 		$cacheItem = $this->cacheManager->getItem("bookingTypes".$languageCode);
 		$bookingTypes = $cacheItem->get();
 
-		if(is_null($countries) || !is_object($bookingTypes)) {
+		if(is_null($bookingTypes) || !is_object($bookingTypes)) {
 			$data = array();
 			$bookingTypes = $this->send( "/booking/getBookingTypes", $data );
 			$cacheItem->set($bookingTypes)->expiresAfter(3600);
