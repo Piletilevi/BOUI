@@ -94,7 +94,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li ng-repeat="pricetype in seat.priceTypes | filter:{active: false}">
-                            <a href="" ng-click="vm.changeTicketType(seat.id, pricetype.priceTypeId)">{{pricetype.priceTypeName}}</a>
+                            <a href="" ng-click="vm.changeBasketTicketType(seat.id, pricetype.priceTypeId)">{{pricetype.priceTypeName}}</a>
                         </li>
                     </ul>
                 </div>

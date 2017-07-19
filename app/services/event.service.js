@@ -128,7 +128,7 @@
             addToBasket: addToBasket,
             confirmBasket: confirmBasket,
             removeFromBasket: removeFromBasket,
-            changeTicketType: changeTicketType,
+            changeBasketTicketType: changeBasketTicketType,
             getMyBasket: getMyBasket,
             getBookingsData: getBookingsData,
             getBookingStatuses: getBookingStatuses,
@@ -754,8 +754,8 @@
             });
         }
 
-        function changeTicketType(ticketId, typeId, callback) {
-            dataService.post('changeTicketType', {
+        function changeBasketTicketType(ticketId, typeId, callback) {
+            dataService.post('changeBasketTicketType', {
                 ticketId: ticketId,
                 typeId: typeId
             }).then(function (results) {

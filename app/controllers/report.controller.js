@@ -316,8 +316,8 @@
             );
         };
 
-        vm.changeTicketType = function (ticketId, typeId) {
-            eventService.changeTicketType(ticketId, typeId,
+        vm.changeBasketTicketType = function (ticketId, typeId) {
+            eventService.changeBasketTicketType(ticketId, typeId,
                 function () {
                     eventService.getMyBasket();
                 }
