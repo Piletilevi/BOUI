@@ -745,7 +745,12 @@
         });
 
         $scope.$watch('vm.reservation.discount', function (newDiscount, oldDiscount) {
-            newDiscount = parseInt(newDiscount, 10);
+            vm.reservation.discount = parseInt(newDiscount, 10);
+            if(vm.reservation.discount > 100) {
+                vm.reservation.discount = 100;
+            } else if(vm.reservation.discount < 0) {
+                vm.reservation.discount = 0;
+            }
             if (typeof oldDiscount !== 'undefined' && oldDiscount !== newDiscount) {
                 eventService.getMyBasket(
                     null, vm.reservation
