@@ -38,12 +38,4 @@
             <td data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">{{priceclassItem.sum | number:2}} {{vm.myPriceClassPieData.currency}}</td>
         </tr>
     </tbody>
-    <tbody>
-        <tr class="bo-table-title-row">
-            <th>Sub in total:</th>
-            <td>850</td>
-            <td>80%</td>
-            <td ng-if="hasFullAccess('api_reports_revenue')">999</td>
-        </tr>
-    </tbody>
 </table>

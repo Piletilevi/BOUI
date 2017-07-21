@@ -17,13 +17,13 @@
         <div class="form-group">
             <div class="inner-addon right-addon">
                 <i class="fa fa-search" ng-click="vm.bookingFilter.clientName = vm.bookingClientName"></i>
-                <input type="text" class="form-control" ng-model="vm.bookingClientName" placeholder="Client">
+                <input type="text" class="form-control" ng-model="vm.bookingClientName" placeholder="{{'api_filter_by_client'|translate}}">
             </div>
         </div>
         <div class="form-group">
             <div class="inner-addon right-addon">
                 <i class="fa fa-search" ng-click="vm.bookingFilter.bookingNr = vm.bookingNr"></i>
-                <input type="text" class="form-control" ng-model="vm.bookingNr" placeholder="Reservation #">
+                <input type="text" class="form-control" ng-model="vm.bookingNr" placeholder="{{'api_filter_by_reservation'|translate}}">
             </div>
         </div>
         <div class="form-group">
@@ -62,20 +62,19 @@
     <thead>
     <tr>
         <th></th>
-        <th>Reservation #</th>
-        <th>Reserved for</th>
-        <th>Invoice #</th>
-        <th>Tickets</th>
-        <th>Seats</th>
-        <th>Amount</th>
+        <th>{{'api_reservation_list_number'|translate}}</th>
+        <th>{{'api_reservation_list_for'|translate}}</th>
+        <th>{{'api_reservation_list_invoice'|translate}}</th>
+        <th>{{'api_reservation_list_tickets'|translate}}</th>
+        <th>{{'api_reservation_list_seats'|translate}}</th>
+        <th>{{'api_reservation_list_amount'|translate}}</th>
     </tr>
     </thead>
     <tr ng-if="bookingSuccessAlert">
         <td colspan="7">
             <div class="alert alert-success" role="alert">
                 <span class="close" data-dismiss="alert" aria-label="close">&times;</span>
-                Your reservation was successful and email was dispatch! You can always comeback to reservations, to see
-                status.
+                {{'api_reservation_list_success'|translate}}
             </div>
         </td>
     </tr>
@@ -87,8 +86,8 @@
         </td>
         <td>
             <div>{{booking.number}}</div>
-            <div>Reserved: {{booking.created | date:'dd.MM.yyyy'}}</div>
-            <div>Due date: {{booking.expireAt | date:'dd.MM.yyyy'}}</div>
+            <div>{{'api_reservation_list_reserved_on'|translate}}: {{booking.created | date:'dd.MM.yyyy'}}</div>
+            <div>{{'api_reservation_list_expires_on'|translate}}: {{booking.expireAt | date:'dd.MM.yyyy'}}</div>
         </td>
         <td>
             <div>{{booking.personName}}</div>
@@ -97,8 +96,8 @@
         </td>
         <td>
             <div>{{booking.id}}</div>
-            <div>Payment: {{booking.paymentTypeName}}</div>
-            <div>Paid: ???</div>
+            <div>{{'api_reservation_list_payment_type'|translate}}: {{booking.paymentTypeName}}</div>
+            <div>{{'api_reservation_list_payment_status'|translate}}: ???</div>
         </td>
         <td>
             {{booking.ticketsCount}}
@@ -109,18 +108,18 @@
     <tr ng-if="key == vm.bookingsRowExpanded" class="active">
         <td></td>
         <td>
-            Reserved by:
+            {{'api_reservation_list_reserved_by'|translate}}:
             <div>{{booking.personName}}</div>
             <div ng-if="booking.organisationName">{{booking.organisationName}}</div>
         </td>
         <td>
-            <div>Status: ???</div>
-            <div>Type: ???</div>
+            <div>{{'api_reservation_list_reservation_status'|translate}}: ???</div>
+            <div>{{'api_reservation_list_reservation_type'|translate}}: ???</div>
         </td>
         <td colspan="4">
-            Notes: ???
-            <button class="btn btn-bookings pull-right">Edit <i class="fa fa-edit"></i></button>
-            <button class="btn btn-bookings pull-right">Cancel <i class="fa fa-times"></i></button>
+            {{'api_reservation_list_notes'|translate}}: ???
+            <button class="btn btn-bookings pull-right">{{'api_reservation_edit'|translate}} <i class="fa fa-edit"></i></button>
+            <button class="btn btn-bookings pull-right">{{'api_reservation_cancel'|translate}} <i class="fa fa-times"></i></button>
         </td>
     </tr>
     </tbody>
