@@ -30,7 +30,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12">
+</div>
+<div class="row">
+    <div class="col-md-6">
         <table class="table table-small">
             <thead>
             <tr>
@@ -42,7 +44,8 @@
             <tbody ng-repeat="(ttSectorKey, ttSector) in vm.sectorInfo.ttSector">
             <tr ng-repeat="(ttSectorDataKey, ttSectorData) in ttSector.ttSectorData">
                 <td>
-                    <span class="fa fa-circle" style="color: {{ttSectorData.colorCode}}" ng-if="ttSectorData.colorCode"></span>
+                    <span class="fa fa-circle" style="color: {{ttSectorData.colorCode}}"
+                          ng-if="ttSectorData.colorCode"></span>
                     {{ttSectorData.priceName}}
                 </td>
                 <td class="text-center">{{ttSectorData.freeTotal}}</td>
@@ -76,13 +79,18 @@
             </tfoot>
         </table>
     </div>
+    <div class="col-lg-6">
+        <div class="bo-map">
+            <ng-venue-map data-config="{{vm.event.seatsMapConfig}}"></ng-venue-map>
+        </div>
+    </div>
 </div>
 
 </div>
 <div ng-if="vm.myBasket.basket.length > 0">
     <h4>{{'api_basket_selected_tickets'|translate}}</h4>
     <div class="form-group clearfix">
-        <button class="btn btn-warning pull-right" type="button"  ng-click="vm.removeFromBasket()">
+        <button class="btn btn-warning pull-right" type="button" ng-click="vm.removeFromBasket()">
             Delete all
             <i class="fa fa-times" aria-hidden="true"></i>
         </button>
