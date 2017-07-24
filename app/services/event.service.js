@@ -362,6 +362,7 @@
                     event.statusName = results.data.statusName;
                     event.labelCode = results.data.labelCode;
                     event.salespoints = results.data.salespoints;
+                    event.active = results.data.active;
                 }
             });
         }
