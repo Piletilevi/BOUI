@@ -42,7 +42,7 @@
                     </a>
                 </div>
             </div>
-            <div class="form-group pull-right bo-make-reservation-button">
+            <div class="form-group pull-right bo-make-reservation-button" ng-show="hasFullAccess('api_make_reservation')">
                 <button class="btn btn-info bo-tabs-controls-item" type="button" ng-click="vm.getMyBasket()">
                     {{'api_reservation_make'|translate}}&nbsp;&nbsp;
                     <i class="fa fa-plus" aria-hidden="true"></i>

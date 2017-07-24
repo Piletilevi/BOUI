@@ -229,15 +229,17 @@
         vm.setSelectedSeatId = function (selectedSeatId) {
             $('.place_tooltip').remove();
             $scope.selectedSeatId = selectedSeatId;
-            eventService.addToBasket(
-                {
-                    concertId: $routeParams.id,
-                    sectionId: $scope.selectedSectionId,
-                    seatId: $scope.selectedSeatId
-                }, function () {
-                    vm.getMyBasket();
-                }
-            );
+            if($rootScope.hasFullAccess('api_make_reservation')) {
+                eventService.addToBasket(
+                    {
+                        concertId: $routeParams.id,
+                        sectionId: $scope.selectedSectionId,
+                        seatId: $scope.selectedSeatId
+                    }, function () {
+                        vm.getMyBasket();
+                    }
+                );
+            }
         };
 
         vm.changeReservationType = function (reservationType) {
