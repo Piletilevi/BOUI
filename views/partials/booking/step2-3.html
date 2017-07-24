@@ -199,6 +199,12 @@
                             </div>
                         </td>
                     </tr>
+                    <tr ng-if="vm.myBasket.summary.discount">
+                        <td class="text-right">{{'api_basket_check_out_discount_sum'|translate}}</td>
+                        <td class="text-center">
+                            {{vm.myBasket.summary.discount}}{{vm.myBasket.summary.currency}}
+                        </td>
+                    </tr>
                     <tr ng-repeat="fee in vm.myBasket.summary.fees">
                         <td class="text-right">{{fee.name}}</td>
                         <td class="text-center">
