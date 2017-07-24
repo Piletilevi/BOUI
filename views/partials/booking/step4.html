@@ -26,22 +26,9 @@
         <td class="text-center"><span ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span>
         </td>
         <td class="text-center bo-shortcell">
-            <div class="dropdown bo-table-dropdown">
-                <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="true">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li ng-repeat="pricetype in seat.priceTypes | filter:{active: false}">
-                        <a href="" ng-click="vm.changeBasketTicketType(seat.id, pricetype.priceTypeId)">{{pricetype.priceTypeName}}</a>
-                    </li>
-                </ul>
-            </div>
+            {{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
         </td>
         <td class="text-center">{{seat.price}}{{seat.currency}}</td>
-        <td class="text-center">
-            <a href="" class="text-danger" ng-click="vm.removeFromBasket(seat.id)"><i class="fa fa-times"></i></a>
-        </td>
     </tr>
     </tbody>
 </table>
