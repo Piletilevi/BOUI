@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div class="col-md-12">
         <table class="table table-small">
             <thead>
             <tr>
@@ -41,7 +41,10 @@
             </thead>
             <tbody ng-repeat="(ttSectorKey, ttSector) in vm.sectorInfo.ttSector">
             <tr ng-repeat="(ttSectorDataKey, ttSectorData) in ttSector.ttSectorData">
-                <td>{{ttSectorData.priceName}}</td>
+                <td>
+                    <span class="fa fa-circle" style="color: {{ttSectorData.colorCode}}" ng-if="ttSectorData.colorCode"></span>
+                    {{ttSectorData.priceName}}
+                </td>
                 <td class="text-center">{{ttSectorData.freeTotal}}</td>
                 <td class="bo-shortcell text-center">
                     <div class="bo-plusminus">
