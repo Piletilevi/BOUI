@@ -17,11 +17,6 @@
             </td>
         </tr>
     </tbody>
-    <tbody>
-        <tr class="bo-table-title-row">
-            <th colspan="{{hasFullAccess('api_reports_revenue') ? 4 : 3}}">Center name:</th>
-        </tr>
-    </tbody>
     <tbody ng-repeat="priceclassData in vm.myPriceClassPieData.sales">
         <tr class="bo-table-secondarytitle-row">
             <th><span class="bo-table-dot-title"><span class="bo-dot fa fa-circle"></span>{{priceclassData.groupName|translate}}</span></th>
