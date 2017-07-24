@@ -200,9 +200,9 @@
                         </td>
                     </tr>
                     <tr ng-repeat="fee in vm.myBasket.summary.fees">
-                        <td class="text-right">{{fee.name}} x {{fee.quantity}}</td>
+                        <td class="text-right">{{fee.name}}</td>
                         <td class="text-center">
-                            {{fee.sum}}{{vm.myBasket.summary.currency}}
+                            {{fee.price}}{{fee.currency}} x {{fee.quantity}} ({{fee.sum}}{{fee.currency}})
                         </td>
                     </tr>
                     <tr>
