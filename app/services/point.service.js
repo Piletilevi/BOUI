@@ -14,9 +14,12 @@
     function PointService($rootScope, $location, dataService, eventService) {
         var service = {
             getPointName: getPointName,
+            getPointCountryId: getPointCountryId,
             setPoint: setPoint,
             getPointMenuBackgroundColor: getPointMenuBackgroundColor,
             getPointMenuActiveColor: getPointMenuActiveColor,
+            getPointReservationEmailSubject: getPointReservationEmailSubject,
+            getPointReservationEmailBody: getPointReservationEmailBody,
             getPointMenuLogo: getPointMenuLogo,
             getPointMenuGamma: getPointMenuGamma,
             initialize: initialize
@@ -30,14 +33,21 @@
 
         function getPointName() {
             if ($rootScope.user.salesPoints != null) {
-				return $rootScope.user.salesPoints.find(findPoint).name
+				return $rootScope.user.salesPoints.find(findPoint).name;
 			}
 			return "";
         }
 
+        function getPointCountryId() {
+            if ($rootScope.user.salesPoints != null) {
+                return $rootScope.user.salesPoints.find(findPoint).country;
+            }
+            return "";
+        }
+
         function getPointLinks() {
             if ($rootScope.user.salesPoints != null) {
-				return $rootScope.user.salesPoints.find(findPoint).links
+				return $rootScope.user.salesPoints.find(findPoint).links;
 			}
 			return "";
         }
@@ -105,6 +115,34 @@
                 }
             }
             return "";
+        }
+
+        function getPointReservationEmailSubject() {
+            var settings = getPointSettings();
+            if (settings != null) {
+                var setting = settings.find(function (setting) {
+                    if (setting != null) {
+                        return setting.name === "api_reservation_email_subject";
+                    }
+                });
+                if (setting != null) {
+                    return setting.value;
+                }
+            }
+        }
+
+        function getPointReservationEmailBody() {
+            var settings = getPointSettings();
+            if (settings != null) {
+                var setting = settings.find(function (setting) {
+                    if (setting != null) {
+                        return setting.name === "api_reservation_email_body";
+                    }
+                });
+                if (setting != null) {
+                    return setting.value;
+                }
+            }
         }
 
         function getPointTopMenuLogo(setting) {

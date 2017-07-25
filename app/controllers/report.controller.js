@@ -5,9 +5,9 @@
     angular.module('boApp')
         .controller('reportController', ReportController);
 
-    ReportController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$filter', 'eventService', 'graphService'];
+    ReportController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$filter', 'eventService', 'pointService', 'graphService'];
 
-    function ReportController($scope, $rootScope, $routeParams, $location, $filter, eventService, graphService) {
+    function ReportController($scope, $rootScope, $routeParams, $location, $filter, eventService, pointService, graphService) {
 
         if (!$routeParams && !$routeParams.id) {
             $location.path('dashboard');
@@ -337,6 +337,12 @@
 
         vm.goToStep4 = function () {
             eventService.getCountries();
+            if(!vm.reservation.subject) {
+                vm.reservation.subject = pointService.getPointReservationEmailSubject();
+            }
+            if(!vm.reservation.body) {
+                vm.reservation.body = pointService.getPointReservationEmailBody();
+            }
             vm.bookingStep = 'step4';
         };
 
