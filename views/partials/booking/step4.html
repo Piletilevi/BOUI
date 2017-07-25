@@ -1,3 +1,4 @@
+{{vm.reservation}}
 <div class="row">
     <div class="col-md-6">
 
@@ -154,10 +155,7 @@
             </div>
             <div class="form-group">
                 <div class="dropdown">
-                    <select class="form-control" ng-model="vm.reservation.countryId">
-                        <option value="" disabled selected>{{'api_meta_contact_country'|translate}}</option>
-                        <option value="{{country.id}}" ng-repeat="country in vm.countries.countries">{{country.name}}
-                        </option>
+                    <select class="form-control" ng-model="vm.reservation.countryId" ng-options="c.id as c.name for c in vm.countries.countries">
                     </select>
                 </div>
             </div>

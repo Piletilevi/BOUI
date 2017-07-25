@@ -343,6 +343,9 @@
             if(!vm.reservation.body) {
                 vm.reservation.body = pointService.getPointReservationEmailBody();
             }
+            if(!vm.reservation.countryId) {
+                vm.reservation.countryId = pointService.getPointCountryId();
+            }
             vm.bookingStep = 'step4';
         };
 
@@ -513,6 +516,17 @@
                 vm.countries = eventService.countries();
             }
         );
+
+        $scope.$watch('vm.countries', function (newValue, oldValue) {
+            if (!angular.equals(newValue, oldValue)) {
+                if(!vm.reservation.contactPhoneCode && vm.reservation.countryId) {
+                    var country = $filter('filter')(vm.countries.countries, function (country) {return country.id == vm.reservation.countryId;});
+                    if(country.length > 0) {
+                        vm.reservation.contactPhoneCode = '+' + country[0].areaCode;
+                    }
+                }
+            }
+        }, true);
 
         $scope.$watch('selectedSectionId', function (newValue, oldValue) {
             if (newValue && !angular.equals(newValue, oldValue)) {
