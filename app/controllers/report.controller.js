@@ -260,11 +260,11 @@
         };
 
         vm.getMyReservation = function (bookingId) {
-            var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/' + $scope.selectedSectionId + '/reservation/';
-            $location.update_path(newPath);
             if (!$scope.selectedSectionId) {
                 return;
             }
+            var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/' + $scope.selectedSectionId + '/reservation/';
+            $location.update_path(newPath);
             if (vm.reservationMode == 'basket') {
                 eventService.getMyBasket(
                     function () {
@@ -556,7 +556,7 @@
                 angular.forEach(accessRights, function (accessRight) {
                     if ($rootScope.hasFullAccess(accessRight.accessRight) && accessRight.tab == $routeParams.reportType) {
                         vm.currentTab = accessRight.tab;
-                        if ($routeParams.sectorId) {
+                        if (parseInt($routeParams.sectorId, 10)) {
                             $scope.$watch('vm.event.sellPeriod', function (newSellPeriod, oldSellPeriod) {
                                 if (newSellPeriod !== oldSellPeriod) {
                                     vm.priceclassFilter.period.startDate = moment(newSellPeriod.start);
