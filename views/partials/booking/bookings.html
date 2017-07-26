@@ -93,9 +93,9 @@
             <div ng-if="booking.organisationName">{{booking.organisationName}}</div>
         </td>
         <td>
-            <div>{{booking.id}}</div>
+            <div>{{booking.invoiceNumber}}</div>
             <div>{{'api_reservation_list_payment_type'|translate}}: {{booking.paymentTypeName}}</div>
-            <div>{{'api_reservation_list_payment_status'|translate}}: ???</div>
+            <div ng-show="booking.paid">{{'api_reservation_list_payment_status'|translate}}</div>
         </td>
         <td>
             {{booking.ticketsCount}}
