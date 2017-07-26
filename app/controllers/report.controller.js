@@ -260,7 +260,7 @@
         };
 
         vm.getMyReservation = function (bookingId) {
-            if (!$scope.selectedSectionId) {
+            if (!$scope.selectedSectionId && !bookingId) {
                 return;
             }
             var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/' + $scope.selectedSectionId + '/reservation/';
