@@ -7,9 +7,7 @@
                 <button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button"
                         data-control="daterangepicker">
                     <input type="text" daterangepicker class="form-control"
-                           ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
-                           ng-attr-data-min-date="{{vm.minFilterDate}}"
-                           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+                           ng-model="vm.bookingFilter.period" daterangepicker-neutral-timezone disabled/>
                     <i class="fa fa-calendar" aria-hidden="true"></i>
                 </button>
             </div>
@@ -30,7 +28,7 @@
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true">
-                    <span>{{vm.bookingFilter.typeId ? ((vm.bookingTypes.types | filter:{id: vm.bookingFilter.typeId})[0].name) : 'All types'}}</span>
+                    <span>{{vm.bookingFilter.typeId ? ((vm.bookingTypes.types | filter:{id: vm.bookingFilter.typeId}:true)[0].name) : 'All types'}}</span>
                     &nbsp;
                     <span class="caret"></span>
                 </button>
@@ -45,7 +43,7 @@
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true">
-                    <span>{{vm.bookingFilter.statusId ? ((vm.bookingStatuses.statuses | filter:{id: vm.bookingFilter.statusId})[0].name) : 'All statuses'}}</span>
+                    <span>{{vm.bookingFilter.statusId ? ((vm.bookingStatuses.statuses | filter:{id: vm.bookingFilter.statusId}:true)[0].name) : 'All statuses'}}</span>
                     &nbsp;
                     <span class="caret"></span>
                 </button>
@@ -103,23 +101,23 @@
             {{booking.ticketsCount}}
         </td>
         <td>{{booking.ticketsInfo}}</td>
-        <td>???</td>
+        <td>{{booking.summa}}</td>
     </tr>
     <tr ng-if="key == vm.bookingsRowExpanded" class="active">
         <td></td>
         <td>
             {{'api_reservation_list_reserved_by'|translate}}:
-            <div>{{booking.personName}}</div>
+            <div>{{booking.personFirstName}} {{booking.personLastName}}</div>
             <div ng-if="booking.organisationName">{{booking.organisationName}}</div>
         </td>
         <td>
-            <div>{{'api_reservation_list_reservation_status'|translate}}: ???</div>
-            <div>{{'api_reservation_list_reservation_type'|translate}}: ???</div>
+            <div>{{'api_reservation_list_reservation_status'|translate}}: {{(vm.bookingStatuses.statuses | filter:{id: booking.statusId}:true)[0].name}}</div>
+            <div>{{'api_reservation_list_reservation_type'|translate}}: {{(vm.bookingTypes.types | filter:{id: booking.typeId}:true)[0].name}}</div>
         </td>
         <td colspan="4">
-            {{'api_reservation_list_notes'|translate}}: ???
-            <button class="btn btn-bookings pull-right">{{'api_reservation_edit'|translate}} <i class="fa fa-edit"></i></button>
-            <button class="btn btn-bookings pull-right">{{'api_reservation_cancel'|translate}} <i class="fa fa-times"></i></button>
+            {{'api_reservation_list_notes'|translate}}: {{booking.notes}}
+            <button class="btn btn-bookings pull-right" ng-click="vm.getMyBooking(booking.id)">{{'api_reservation_edit'|translate}} <i class="fa fa-edit"></i></button>
+            <button class="btn btn-bookings pull-right" ng-click="vm.removeFromBooking(booking.id)" ng-confirm-click="{{'api_clickConfirm'|translate}}" ng-confirm-description="api_clickConfirmDescription">{{'api_reservation_cancel'|translate}} <i class="fa fa-times"></i></button>
         </td>
     </tr>
     </tbody>

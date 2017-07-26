@@ -127,12 +127,16 @@
             exportAsCsv: exportAsCsv,
             addToBasket: addToBasket,
             confirmBasket: confirmBasket,
+            confirmBooking: confirmBooking,
             removeFromBasket: removeFromBasket,
+            removeFromBooking: removeFromBooking,
             changeBasketTicketType: changeBasketTicketType,
+            changeBookingTicketType: changeBookingTicketType,
             getMyBasket: getMyBasket,
+            getMyBooking: getMyBooking,
             getBookingsData: getBookingsData,
             getBookingStatuses: getBookingStatuses,
-            getBookingTypes: getBookingTypes,
+            getBookingTypes: getBookingTypes
         };
         return service;
 
@@ -755,6 +759,16 @@
             });
         }
 
+        function removeFromBooking(bookingId, callback) {
+            dataService.post('removeFromBooking', {
+                ticketId: bookingId
+            }).then(function (results) {
+                if (results.hasOwnProperty('succeeded') && callback) {
+                    callback();
+                }
+            });
+        }
+
         function changeBasketTicketType(ticketId, typeId, callback) {
             dataService.post('changeBasketTicketType', {
                 ticketId: ticketId,
@@ -766,8 +780,27 @@
             });
         }
 
+        function changeBookingTicketType(ticketId, typeId, callback) {
+            dataService.post('changeBookingTicketType', {
+                ticketId: ticketId,
+                typeId: typeId
+            }).then(function (results) {
+                if (results.hasOwnProperty('succeeded') && callback) {
+                    callback();
+                }
+            });
+        }
+
         function confirmBasket(reservation, callback) {
             dataService.post('confirmBasket', reservation).then(function (results) {
+                if (results.hasOwnProperty('succeeded') && callback) {
+                    callback();
+                }
+            });
+        }
+
+        function confirmBooking(booking, callback) {
+            dataService.post('confirmBooking', booking).then(function (results) {
                 if (results.hasOwnProperty('succeeded') && callback) {
                     callback();
                 }
@@ -800,6 +833,18 @@
 
         function getMyBasket(callback, basket) {
             dataService.post('myBasket', basket).then(function (results) {
+                dataService.page(results);
+                if (results.status == 'success') {
+                    myBasket = results.data;
+                    if(callback) {
+                        callback();
+                    }
+                }
+            });
+        }
+
+        function getMyBooking(callback, booking) {
+            dataService.post('myBooking', booking).then(function (results) {
                 dataService.page(results);
                 if (results.status == 'success') {
                     myBasket = results.data;

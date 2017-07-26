@@ -29,10 +29,15 @@
                                     {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
                                 </span>
             </div>
-            <div class="form-group pull-right bo-make-reservation-button" ng-show="hasFullAccess('api_make_reservation')">
-                <button class="btn btn-info bo-tabs-controls-item" type="button" ng-click="vm.getMyBasket()">
+            <div class="form-group pull-right bo-make-reservation-button" ng-show="hasFullAccess('api_make_reservation') && vm.event.active">
+                <button class="btn btn-info bo-tabs-controls-item" type="button" ng-click="vm.getMyBasket()" ng-if="!vm.reservationMode">
                     {{'api_reservation_make'|translate}}&nbsp;&nbsp;
                     <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+
+                <button class="btn btn-warning" type="button" ng-click="vm.goToSectionsStep()" ng-if="vm.reservationMode">
+                    {{'api_reservation_exit'|translate}}&nbsp;&nbsp;
+                    <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
         </div>

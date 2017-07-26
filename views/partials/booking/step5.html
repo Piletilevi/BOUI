@@ -118,7 +118,7 @@
 			</tr>
 			<tr>
 				<td>{{'api_meta_contact_country'|translate}}:</td>
-				<td ng-bind="(vm.countries.countries | filter:{id: vm.reservation.countryId})[0].name"></td>
+				<td>{{(vm.countries.countries | filter:{id: vm.reservation.countryId }:true)[0].name}}</td>
 			</tr>
 		</table>
 	</div>
@@ -154,8 +154,7 @@
 		</tr>
 		<tr>
 			<td>{{'api_reservation_meta_body'|translate}}:</td>
-			<td>{{vm.reservation.body}}
-			</td>
+			<td ng-bind-html="vm.prepareEmailBody(vm.reservation.body)"></td>
 		</tr>
 	</table>
 </div>
@@ -165,6 +164,6 @@
 	</div>
 	<div class="col-md-6"></div>
 	<div class="col-md-3 text-right">
-		<button class="btn btn-info bo-wide-button" ng-click="vm.confirmBasket()">{{'api_reservation_reserve'|translate}}</button>
+		<button class="btn btn-info bo-wide-button" ng-click="vm.confirmReservation()">{{'api_reservation_reserve'|translate}}</button>
 	</div>
 </div>

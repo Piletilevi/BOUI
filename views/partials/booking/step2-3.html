@@ -9,7 +9,7 @@
                         <div class="bo-sectionselection form-control bo-tabs-controls-item">
                             <span class="bo-sectionselection-text">{{'api_selected_section'|translate}}: {{(vm.mySectorsData.sales | filter:{sectorId: selectedSectionId})[0].name}}</span>
                             <a class="bo-sectionselection-button text-danger" href
-                               ng-click="vm.goToSectionsStep()">
+                               ng-click="vm.goToSectionsStep(vm.reservationMode)">
                                 <span class="bo-sectionselection-icon fa fa-times"></span>
                             </a>
                         </div>
@@ -190,7 +190,7 @@
                                     <i class="fa fa-minus"></i>
                                 </div>
                                 <input type="text" class="bo-plusminus-input"
-                                       ng-init="vm.reservation.discount = vm.myBasket.summary.discount"
+                                       ng-init="vm.reservation.discount = vm.reservation.discount ? vm.reservation.discount : vm.myBasket.summary.discount"
                                        ng-model="vm.reservation.discount"/>
                                 <div class="bo-plusminus-button bo-plusminus-plus"
                                      ng-click="vm.increaseBasketDiscount()">
