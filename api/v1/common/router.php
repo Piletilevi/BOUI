@@ -1542,13 +1542,16 @@ $app->post('/confirmBooking', function() use ($app)  {
 	}
 });
 
-$app->post('/myBookings', function() use ($app)  {
+$app->post('/bookingList', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
 
+	$dataHandler->verifyParams(array('concertId'), $r->filter);
 	$dataHandler->verifyParams(array('startDate'), $r->filter->period);
 
 	$filter = array();
+	$filter['concertId'] = $r->filter->concertId;
+
 	if (property_exists($r->filter, 'bookingNr')) {
 		$filter['bookingNr'] = $r->filter->bookingNr;
 	}

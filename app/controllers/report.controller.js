@@ -72,7 +72,7 @@
             centerId: ''
         };
         vm.sectorsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
-        vm.bookingFilter = {period: {startDate: moment().subtract(1, 'years'), endDate: moment().add(1, 'days')}};
+        vm.bookingFilter = {concertId: $routeParams.id, period: {startDate: moment().subtract(1, 'years'), endDate: moment().add(1, 'days')}};
         vm.locationsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
         vm.reset_search = false;
         vm.overviewBarGraph = graphService.overviewBarGraph;

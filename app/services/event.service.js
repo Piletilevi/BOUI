@@ -856,7 +856,7 @@
         }
 
         function getBookingsData(filter) {
-            dataService.post('myBookings', {filter: filter}).then(function (results) {
+            dataService.post('bookingList', {filter: filter}).then(function (results) {
                 dataService.page(results);
                 if (results.status == 'success') {
                     myBookings = results.data;

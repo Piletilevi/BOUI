@@ -550,12 +550,12 @@ class PiletileviApi {
 		return $response;
 	}
 
-	public function myBookings($filter) {
+	public function bookingList($filter) {
 
 		$filter['limit'] = 10;
 		$data['filter']= $filter;
 		
-		$response = $this->send( "/booking/myBookings", $data );
+		$response = $this->send( "/booking/bookingList", $data );
 		
 		return $response;
 	}
