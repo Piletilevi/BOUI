@@ -1574,6 +1574,8 @@ $app->post('/myBookings', function() use ($app)  {
 		$filter['start'] = $r->filter->start;
 	}
 	
+	$filter = $dataHandler->clearData($filter);
+	
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->myBookings( $filter );
 	
