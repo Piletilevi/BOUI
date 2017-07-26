@@ -1580,7 +1580,7 @@ $app->post('/bookingList', function() use ($app)  {
 	$filter = $dataHandler->clearData($filter);
 	
     $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->myBookings( $filter );
+    $reportResponse = $piletileviApi->bookingList( $filter );
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
