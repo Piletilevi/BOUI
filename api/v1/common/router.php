@@ -1493,6 +1493,7 @@ $app->post('/confirmBasket', function() use ($app)  {
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["succeeded"] = $reportResponse->succeeded;
+		$response["bookingId"] = $reportResponse->bookingId;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
