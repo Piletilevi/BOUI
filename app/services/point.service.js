@@ -118,29 +118,29 @@
         }
 
         function getPointReservationEmailSubject() {
-            var settings = getPointSettings();
-            if (settings != null) {
-                var setting = settings.find(function (setting) {
-                    if (setting != null) {
-                        return setting.name === "api_reservation_email_subject";
+            var texts = getPointTexts();
+            if (texts != null) {
+                var text = texts.find(function (text) {
+                    if (text != null) {
+                        return text.name === "api_reservation_email_subject";
                     }
                 });
-                if (setting != null) {
-                    return setting.value;
+                if (text != null) {
+                    return text.value;
                 }
             }
         }
 
         function getPointReservationEmailBody() {
-            var settings = getPointSettings();
-            if (settings != null) {
-                var setting = settings.find(function (setting) {
-                    if (setting != null) {
-                        return setting.name === "api_reservation_email_body";
+            var texts = getPointTexts();
+            if (texts != null) {
+                var text = texts.find(function (text) {
+                    if (text != null) {
+                        return text.name === "api_reservation_email_body";
                     }
                 });
-                if (setting != null) {
-                    return setting.value;
+                if (text != null) {
+                    return text.value;
                 }
             }
         }
@@ -181,6 +181,14 @@
             return [];
         }
 
+        function getPointTexts() {
+            if ($rootScope.authenticated) {
+                var texts = $rootScope.user.salesPoints.find(findPoint).texts;
+                return texts;
+            }
+            return [];
+        }
+		
         function initialize() {
             $rootScope.getPointName = getPointName;
             $rootScope.setPoint = setPoint;
