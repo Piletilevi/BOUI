@@ -129,12 +129,13 @@
             confirmBasket: confirmBasket,
             confirmBooking: confirmBooking,
             removeFromBasket: removeFromBasket,
-            removeFromBooking: removeFromBooking,
+            cancelBooking: cancelBooking,
             changeBasketTicketType: changeBasketTicketType,
             changeBookingTicketType: changeBookingTicketType,
             getMyBasket: getMyBasket,
             getMyBooking: getMyBooking,
             getBookingsData: getBookingsData,
+            getMoreBookingsData: getMoreBookingsData,
             getBookingStatuses: getBookingStatuses,
             getBookingTypes: getBookingTypes
         };
@@ -759,9 +760,9 @@
             });
         }
 
-        function removeFromBooking(bookingId, callback) {
-            dataService.post('removeFromBooking', {
-                ticketId: bookingId
+        function cancelBooking(bookingId, callback) {
+            dataService.post('cancelBooking', {
+                bookingId: bookingId
             }).then(function (results) {
                 if (results.hasOwnProperty('succeeded') && callback) {
                     callback();
@@ -856,12 +857,30 @@
         }
 
         function getBookingsData(filter) {
+            filter.loadingItems = true;
+            filter.start = null;
             dataService.post('bookingList', {filter: filter}).then(function (results) {
                 dataService.page(results);
                 if (results.status == 'success') {
                     myBookings = results.data;
+                    filter.loadingItems = false;
                 }
             });
+        }
+
+        function getMoreBookingsData(filter) {
+            if (!filter.loadingItems && myBookings && myBookings.bookings.length % 10 == 0 && filter.start != myBookings.bookings.length + 1) {
+                filter.loadingItems = true;
+                filter.start = myBookings.bookings.length + 1;
+                dataService.post('bookingList', {filter: filter}).then(function (results) {
+                    if (results.status == 'success') {
+                        results.data.bookings.forEach(function (bookingItem) {
+                            myBookings.bookings.push(bookingItem);
+                        });
+                    }
+                    filter.loadingItems = false;
+                });
+            }
         }
 
         function getBookingStatuses() {

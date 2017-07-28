@@ -1,5 +1,8 @@
 <h2>Reservations:</h2>
 <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
+    <a ng-click="vm.resetBookingFilter()" class="bo-cancel text-danger">
+        {{'api_restore_filters'|translate}} <i class="fa fa-times"></i>
+    </a>
     <div class="form-inline">
         <div class="form-group">
             <span class="visible-print">{{'api_print_period'|translate}}</span>
@@ -15,13 +18,15 @@
         <div class="form-group">
             <div class="inner-addon right-addon">
                 <i class="fa fa-search" ng-click="vm.bookingFilter.clientName = vm.bookingClientName"></i>
-                <input type="text" class="form-control" ng-model="vm.bookingClientName" placeholder="{{'api_filter_by_client'|translate}}">
+                <input type="text" class="form-control" ng-model="vm.bookingClientName"
+                       placeholder="{{'api_filter_by_client'|translate}}">
             </div>
         </div>
         <div class="form-group">
             <div class="inner-addon right-addon">
                 <i class="fa fa-search" ng-click="vm.bookingFilter.bookingNr = vm.bookingNr"></i>
-                <input type="text" class="form-control" ng-model="vm.bookingNr" placeholder="{{'api_filter_by_reservation'|translate}}">
+                <input type="text" class="form-control" ng-model="vm.bookingNr"
+                       placeholder="{{'api_filter_by_reservation'|translate}}">
             </div>
         </div>
         <div class="form-group">
@@ -49,77 +54,90 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li>
-                        <a ng-repeat="status in vm.bookingStatuses.statuses" ng-click="vm.bookingFilter.statusId = status.id">{{status.name}}</a>
+                        <a ng-repeat="status in vm.bookingStatuses.statuses"
+                           ng-click="vm.bookingFilter.statusId = status.id">{{status.name}}</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-<table class="table">
-    <thead>
-    <tr>
-        <th></th>
-        <th>{{'api_reservation_list_number'|translate}}</th>
-        <th>{{'api_reservation_list_for'|translate}}</th>
-        <th>{{'api_reservation_list_invoice'|translate}}</th>
-        <th>{{'api_reservation_list_tickets'|translate}}</th>
-        <th>{{'api_reservation_list_seats'|translate}}</th>
-        <th>{{'api_reservation_list_amount'|translate}}</th>
-    </tr>
-    </thead>
-    <tr ng-if="bookingSuccessAlert">
-        <td colspan="7">
-            <div class="alert alert-success" role="alert">
-                <span class="close" data-dismiss="alert" aria-label="close">&times;</span>
-                {{'api_reservation_list_success'|translate}}
-            </div>
-        </td>
-    </tr>
-    <tbody ng-repeat="(key, booking) in vm.myBookings.bookings">
-    <tr ng-class="{'active': key == vm.bookingsRowExpanded}">
-        <td ng-click="vm.bookingsRowExpanded = (vm.bookingsRowExpanded == key ? vm.bookingsRowExpanded = null : vm.bookingsRowExpanded = key)">
-            <i class="fa fa-sort-desc" ng-if="key != vm.bookingsRowExpanded"></i>
-            <i class="fa fa-sort-asc" ng-if="key == vm.bookingsRowExpanded"></i>
-        </td>
-        <td>
-            <div>{{booking.number}}</div>
-            <div>{{'api_reservation_list_reserved_on'|translate}}: {{booking.created | date:'dd.MM.yyyy'}}</div>
-            <div>{{'api_reservation_list_expires_on'|translate}}: {{booking.expireAt | date:'dd.MM.yyyy'}}</div>
-        </td>
-        <td>
-            <div>{{booking.personName}}</div>
-            <div>{{booking.email}}</div>
-            <div ng-if="booking.organisationName">{{booking.organisationName}}</div>
-        </td>
-        <td>
-            <div>{{booking.invoiceNumber}}</div>
-            <div>{{'api_reservation_list_payment_type'|translate}}: {{booking.paymentTypeName}}</div>
-            <div ng-show="booking.paid">{{'api_reservation_list_payment_status'|translate}}</div>
-        </td>
-        <td>
-            {{booking.ticketsCount}}
-        </td>
-        <td>{{booking.ticketsInfo}}</td>
-        <td>{{booking.summa}}</td>
-    </tr>
-    <tr ng-if="key == vm.bookingsRowExpanded" class="active">
-        <td></td>
-        <td>
-            {{'api_reservation_list_reserved_by'|translate}}:
-            <div>{{booking.personFirstName}} {{booking.personLastName}}</div>
-            <div ng-if="booking.organisationName">{{booking.organisationName}}</div>
-        </td>
-        <td>
-            <div>{{'api_reservation_list_reservation_status'|translate}}: {{(vm.bookingStatuses.statuses | filter:{id: booking.statusId}:true)[0].name}}</div>
-            <div>{{'api_reservation_list_reservation_type'|translate}}: {{(vm.bookingTypes.types | filter:{id: booking.typeId}:true)[0].name}}</div>
-        </td>
-        <td colspan="4">
-            {{'api_reservation_list_notes'|translate}}: {{booking.notes}}
-            <button class="btn btn-bookings pull-right" ng-click="vm.getMyBooking(booking.id)">{{'api_reservation_edit'|translate}} <i class="fa fa-edit"></i></button>
-            <button class="btn btn-bookings pull-right" ng-click="vm.removeFromBooking(booking.id)" ng-confirm-click="{{'api_clickConfirm'|translate}}" ng-confirm-description="api_clickConfirmDescription">{{'api_reservation_cancel'|translate}} <i class="fa fa-times"></i></button>
-        </td>
-    </tr>
-    </tbody>
+<div>
+    <table class="table" infinite-scroll="vm.getMoreBookingsData()"
+           infinite-scroll-disabled="vm.bookingFilter.loadingItems" infinite-scroll-distance="0">
+        <thead>
+        <tr>
+            <th></th>
+            <th>{{'api_reservation_list_number'|translate}}</th>
+            <th>{{'api_reservation_list_for'|translate}}</th>
+            <th>{{'api_reservation_list_invoice'|translate}}</th>
+            <th>{{'api_reservation_list_tickets'|translate}}</th>
+            <th>{{'api_reservation_list_seats'|translate}}</th>
+            <th>{{'api_reservation_list_amount'|translate}}</th>
+        </tr>
+        </thead>
+        <tr ng-if="bookingSuccessAlert">
+            <td colspan="7">
+                <div class="alert alert-success" role="alert">
+                    <span class="close" data-dismiss="alert" aria-label="close">&times;</span>
+                    {{'api_reservation_list_success'|translate}}
+                </div>
+            </td>
+        </tr>
+        <tbody ng-repeat="(key, booking) in vm.myBookings.bookings">
+        <tr ng-class="{'active': key == vm.bookingsRowExpanded}">
+            <td ng-click="vm.bookingsRowExpanded = (vm.bookingsRowExpanded == key ? vm.bookingsRowExpanded = null : vm.bookingsRowExpanded = key)">
+                <i class="fa fa-sort-desc" ng-if="key != vm.bookingsRowExpanded"></i>
+                <i class="fa fa-sort-asc" ng-if="key == vm.bookingsRowExpanded"></i>
+            </td>
+            <td>
+                <div>{{booking.number}}</div>
+                <div>{{'api_reservation_list_reserved_on'|translate}}: {{booking.created | date:'dd.MM.yyyy'}}</div>
+                <div>{{'api_reservation_list_expires_on'|translate}}: {{booking.expireAt | date:'dd.MM.yyyy'}}</div>
+            </td>
+            <td>
+                <div>{{booking.personName}}</div>
+                <div>{{booking.email}}</div>
+                <div ng-if="booking.organisationName">{{booking.organisationName}}</div>
+            </td>
+            <td>
+                <div>{{booking.invoiceNumber}}</div>
+                <div>{{'api_reservation_list_payment_type'|translate}}: {{booking.paymentTypeName}}</div>
+                <div ng-show="booking.paid">{{'api_reservation_list_payment_status'|translate}}</div>
+            </td>
+            <td>
+                {{booking.ticketsCount}}
+            </td>
+            <td>{{booking.ticketsInfo}}</td>
+            <td>{{booking.summa}}</td>
+        </tr>
+        <tr ng-if="key == vm.bookingsRowExpanded" class="active">
+            <td></td>
+            <td>
+                {{'api_reservation_list_reserved_by'|translate}}:
+                <div>{{booking.personFirstName}} {{booking.personLastName}}</div>
+                <div ng-if="booking.organisationName">{{booking.organisationName}}</div>
+            </td>
+            <td>
+                <div>{{'api_reservation_list_reservation_status'|translate}}: {{(vm.bookingStatuses.statuses |
+                    filter:{id: booking.statusId}:true)[0].name}}
+                </div>
+                <div>{{'api_reservation_list_reservation_type'|translate}}: {{(vm.bookingTypes.types | filter:{id:
+                    booking.typeId}:true)[0].name}}
+                </div>
+            </td>
+            <td colspan="4">
+                {{'api_reservation_list_notes'|translate}}: {{booking.notes}}
+                <button class="btn btn-bookings pull-right" ng-click="vm.getMyBooking(booking.id)" ng-if="booking.statusId == 1">
+                    {{'api_reservation_edit'|translate}} <i class="fa fa-edit"></i></button>
+                <button class="btn btn-bookings pull-right" ng-click="vm.cancelBooking(booking.id)" ng-if="booking.statusId == 1"
+                        ng-confirm-click="{{'api_clickConfirm'|translate}}"
+                        ng-confirm-description="api_clickConfirmDescription">{{'api_reservation_cancel'|translate}} <i
+                        class="fa fa-times"></i></button>
+            </td>
+        </tr>
+        </tbody>
 
-</table>
+    </table>
+    <div class="events-loader" block-ui block-ui-pattern="/bookingList/"></div>
+</div>

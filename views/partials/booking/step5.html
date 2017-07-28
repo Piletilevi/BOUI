@@ -60,10 +60,16 @@
 					{{vm.reservation.discount}}%
 				</td>
 			</tr>
-			<tr ng-repeat="fee in vm.myBasket.summary.fees">
-				<td class="text-right">{{fee.name}} x {{fee.quantity}}</td>
+			<tr ng-if="vm.myBasket.summary.discount">
+				<td class="text-right">{{'api_basket_check_out_discount_sum'|translate}}</td>
 				<td class="text-center">
-					{{fee.sum}}{{vm.myBasket.summary.currency}}
+					{{vm.myBasket.summary.discount}}{{vm.myBasket.summary.currency}}
+				</td>
+			</tr>
+			<tr ng-repeat="fee in vm.myBasket.summary.fees">
+				<td class="text-right">{{fee.name}}</td>
+				<td class="text-center">
+					{{fee.price}}{{fee.currency}} x {{fee.quantity}} ({{fee.sum}}{{fee.currency}})
 				</td>
 			</tr>
 			<tr>
