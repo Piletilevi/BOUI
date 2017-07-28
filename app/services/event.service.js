@@ -129,7 +129,7 @@
             confirmBasket: confirmBasket,
             confirmBooking: confirmBooking,
             removeFromBasket: removeFromBasket,
-            removeFromBooking: removeFromBooking,
+            cancelBooking: cancelBooking,
             changeBasketTicketType: changeBasketTicketType,
             changeBookingTicketType: changeBookingTicketType,
             getMyBasket: getMyBasket,
@@ -760,9 +760,9 @@
             });
         }
 
-        function removeFromBooking(bookingId, callback) {
-            dataService.post('removeFromBooking', {
-                ticketId: bookingId
+        function cancelBooking(bookingId, callback) {
+            dataService.post('cancelBooking', {
+                bookingId: bookingId
             }).then(function (results) {
                 if (results.hasOwnProperty('succeeded') && callback) {
                     callback();

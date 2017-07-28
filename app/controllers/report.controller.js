@@ -367,8 +367,8 @@
 
         /* Reservations */
 
-        vm.removeFromBooking = function (bookingId) {
-            eventService.removeFromBooking(
+        vm.cancelBooking = function (bookingId) {
+            eventService.cancelBooking(
                 bookingId, function () {
                     eventService.getBookingsData(vm.bookingFilter);
                 }
