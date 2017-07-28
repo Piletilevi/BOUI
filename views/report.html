@@ -616,9 +616,9 @@
             <!-- Tab: sections -->
             <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'sections'}"
                  id="sections" role="tabpanel">
-                <div class="panel-body" block-ui block-ui-pattern="/Basket|Booking/">
+                <div class="panel-body" block-ui block-ui-pattern="/Basket|Booking|Sector">
                     <div ng-if="!selectedSectionId && !vm.bookingStep" ng-include="'views/partials/booking/sections.html'"></div>
-                    <div ng-if="selectedSectionId && !vm.bookingStep" ng-include="'views/partials/booking/places.html'"></div>
+                    <div ng-if="selectedSectionId && !vm.bookingStep && !vm.reservationMode" ng-include="'views/partials/booking/places.html'"></div>
                     <div ng-if="vm.bookingStep" ng-include="'views/partials/booking/' + vm.bookingStep + '.html'"></div>
                 </div>
             </div>

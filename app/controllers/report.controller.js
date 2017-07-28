@@ -221,9 +221,6 @@
             if (vm.reservationMode) {
                 newPath += 'reservation/';
                 eventService.getSectorsData(vm.event, vm.sectorsFilter);
-            }
-            $location.update_path(newPath);
-            if ($routeParams.reservation || vm.reservationMode) {
                 vm.getMyReservation();
             } else {
                 vm.event.seatsMapConfig.sectionId = selectedSectionId;
@@ -231,6 +228,7 @@
                 eventService.getPriceClassData(vm.event, vm.priceclassFilter);
                 eventService.getSectorTickets(vm.event, vm.priceclassFilter);
             }
+            $location.update_path(newPath);
         };
 
         vm.setSelectedSeatId = function (selectedSeatId) {
