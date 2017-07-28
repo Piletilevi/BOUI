@@ -354,7 +354,8 @@
             emailBody = emailBody.replace(/#api_add_lastname/g, vm.reservation.lastName);
             emailBody = emailBody.replace(/#api_add_reservation_expiration/g, vm.reservation.expireAt);
             emailBody = emailBody.replace(/#api_add_invoice_number/g, '<a href="#">Invoice Number<a\/>');
-            emailBody = emailBody.replace(/#api_add_made_by_firstname/g, $rootScope.user.name);
+            emailBody = emailBody.replace(/#api_add_made_by_firstname/g, $rootScope.user.firstName);
+            emailBody = emailBody.replace(/#api_add_made_by_lastname/g, $rootScope.user.lastName);
             emailBody = emailBody.replace(/#api_add_made_by_organization/g, $rootScope.user.organization);
             return $sce.trustAsHtml(emailBody);
         };
