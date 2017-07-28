@@ -426,6 +426,9 @@
 
         vm.goToStep4 = function () {
             eventService.getCountries();
+            if (!vm.reservation.from) {
+                vm.reservation.from = $rootScope.user.email;
+            }
             if (!vm.reservation.subject) {
                 vm.reservation.subject = pointService.getPointReservationEmailSubject();
             }

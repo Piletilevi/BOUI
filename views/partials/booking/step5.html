@@ -155,6 +155,10 @@
 <div class="bo-reservation-email-data">
 	<table class="bo-reservation-table">
 		<tr>
+			<td>{{'api_reservation_meta_from'|translate}}:</td>
+			<td>{{vm.reservation.from}}</td>
+		</tr>
+		<tr>
 			<td>{{'api_reservation_meta_subject'|translate}}:</td>
 			<td>{{vm.prepareEmailContent(vm.reservation.subject)}}</td>
 		</tr>
