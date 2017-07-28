@@ -1468,7 +1468,7 @@ $app->post('/confirmBasket', function() use ($app)  {
 	$dataHandler->verifyParams(array('subject', 'body'), $r);
 	
 	if (property_exists($r, 'personType') && $r->personType == "organization") {
-		$dataHandler->verifyParams(array('organisationName', 'regNumber'), $r);
+		$dataHandler->verifyParams(array('organisationName'), $r);
 	} else {
 		$dataHandler->verifyParams(array('firstName', 'lastName', 'contactEmail'), $r);
 	}
