@@ -72,7 +72,8 @@
             centerId: ''
         };
         vm.sectorsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
-        vm.bookingFilter = {concertId: $routeParams.id, period: {startDate: moment().subtract(1, 'years'), endDate: moment().add(1, 'days')}};
+        vm.defaultBookingFilter = {concertId: $routeParams.id, period: {startDate: moment().subtract(1, 'years'), endDate: moment().add(1, 'days')}};
+        vm.bookingFilter = angular.copy(vm.defaultBookingFilter);
         vm.locationsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
         vm.reset_search = false;
         vm.overviewBarGraph = graphService.overviewBarGraph;
@@ -301,6 +302,12 @@
         vm.getMyBooking = function (bookingId) {
             vm.reservationMode = 'booking';
             vm.getMyReservation(bookingId);
+        };
+
+        vm.resetBookingFilter = function() {
+            vm.bookingClientName = null;
+            vm.bookingNr = null;
+            vm.bookingFilter = angular.copy(vm.defaultBookingFilter);
         };
 
         vm.confirmReservation = function () {
@@ -839,11 +846,17 @@
             }
         });
 
-        //$scope.$watch('vm.bookingFilter', function (newFilter, oldFilter) {
-        //    if (oldFilter && !angular.equals(newFilter, oldFilter) && newFilter.period.startDate) {
-        //        eventService.getBookingsData(vm.bookingFilter);
-        //    }
-        //}, true);
+        $scope.$watch('vm.bookingFilter', function (newFilter, oldFilter) {
+            if (oldFilter &&
+                (!angular.equals(newFilter.period, oldFilter.period) ||
+                !angular.equals(newFilter.clientName, oldFilter.clientName) ||
+                !angular.equals(newFilter.bookingNr, oldFilter.bookingNr) ||
+                !angular.equals(newFilter.statusId, oldFilter.statusId) ||
+                !angular.equals(newFilter.typeId, oldFilter.typeId)
+                )) {
+                eventService.getBookingsData(vm.bookingFilter);
+            }
+        }, true);
 
         $scope.$watch('vm.salesPoint', function (newSalesPoint, oldSalesPoint) {
             if (oldSalesPoint !== newSalesPoint) {

@@ -1,5 +1,8 @@
 <h2>Reservations:</h2>
 <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
+    <a ng-click="vm.resetBookingFilter()" class="bo-cancel text-danger">
+        {{'api_restore_filters'|translate}} <i class="fa fa-times"></i>
+    </a>
     <div class="form-inline">
         <div class="form-group">
             <span class="visible-print">{{'api_print_period'|translate}}</span>
