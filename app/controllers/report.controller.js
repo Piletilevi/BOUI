@@ -188,6 +188,9 @@
                 eventService.getLocationsData(vm.event, vm.locationsFilter);
             }
             else if (tab == 'bookings') {
+                if($rootScope.bookingSuccessAlert) {
+                    vm.bookingsRowExpanded = 0;
+                }
                 eventService.getBookingsData(vm.bookingFilter);
                 eventService.getBookingStatuses();
                 eventService.getBookingTypes();
@@ -303,25 +306,26 @@
         };
 
         vm.confirmReservation = function () {
-            vm.myBasket.summary.expireAt = moment(vm.myBasket.summary.expireAt);
-            vm.reservation.expireAt = moment(vm.reservation.expireAt, 'DD-MM-YYYY HH:mm');
-            vm.reservation.expireAt = vm.reservation.expireAt.hour(vm.myBasket.summary.expireAt.get('hours'));
-            vm.reservation.expireAt = vm.reservation.expireAt.minute(vm.myBasket.summary.expireAt.get('minutes'));
-            vm.reservation.expireAt = vm.reservation.expireAt.second(vm.myBasket.summary.expireAt.get('seconds'));
-            vm.reservation.expireAt = vm.reservation.expireAt.format('YYYY-MM-DDTHH:mm:ss');
+            vm.reservationToConfirm = angular.copy(vm.reservation);
+            var basketExpireAt = moment(vm.myBasket.summary.expireAt);
+            vm.reservationToConfirm.expireAt = moment(vm.reservationToConfirm.expireAt, 'DD-MM-YYYY HH:mm');
+            vm.reservationToConfirm.expireAt = vm.reservationToConfirm.expireAt.hour(basketExpireAt.get('hours'));
+            vm.reservationToConfirm.expireAt = vm.reservationToConfirm.expireAt.minute(basketExpireAt.get('minutes'));
+            vm.reservationToConfirm.expireAt = vm.reservationToConfirm.expireAt.second(basketExpireAt.get('seconds'));
+            vm.reservationToConfirm.expireAt = vm.reservationToConfirm.expireAt.format('YYYY-MM-DDTHH:mm:ss');
 
-            vm.reservation.contactPhone = vm.reservation.contactPhoneCode + ' ' + vm.reservation.contactPhone;
+            vm.reservationToConfirm.contactPhone = vm.reservation.contactPhoneCode + ' ' + vm.reservation.contactPhone;
             var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/bookings';
             if (vm.reservationMode == 'basket') {
                 eventService.confirmBasket(
-                    vm.reservation, function () {
+                    vm.reservationToConfirm, function () {
                         $rootScope.bookingSuccessAlert = true;
                         $location.path(newPath);
                     }
                 );
             } else if (vm.reservationMode == 'booking') {
                 eventService.confirmBooking(
-                    vm.reservation, function () {
+                    vm.reservationToConfirm, function () {
                         $location.path(newPath);
                     }
                 );
