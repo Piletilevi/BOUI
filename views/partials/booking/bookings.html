@@ -125,9 +125,9 @@
             </td>
             <td colspan="4">
                 {{'api_reservation_list_notes'|translate}}: {{booking.notes}}
-                <button class="btn btn-bookings pull-right" ng-click="vm.getMyBooking(booking.id)">
+                <button class="btn btn-bookings pull-right" ng-click="vm.getMyBooking(booking.id)" ng-if="booking.statusId == 1">
                     {{'api_reservation_edit'|translate}} <i class="fa fa-edit"></i></button>
-                <button class="btn btn-bookings pull-right" ng-click="vm.removeFromBooking(booking.id)"
+                <button class="btn btn-bookings pull-right" ng-click="vm.removeFromBooking(booking.id)" ng-if="booking.statusId == 1"
                         ng-confirm-click="{{'api_clickConfirm'|translate}}"
                         ng-confirm-description="api_clickConfirmDescription">{{'api_reservation_cancel'|translate}} <i
                         class="fa fa-times"></i></button>
