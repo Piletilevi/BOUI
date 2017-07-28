@@ -63,7 +63,8 @@
     </div>
 </div>
 <div>
-    <table class="table">
+    <table class="table" infinite-scroll="vm.getMoreBookingsData()"
+           infinite-scroll-disabled="vm.bookingFilter.loadingItems" infinite-scroll-distance="0">
         <thead>
         <tr>
             <th></th>
@@ -83,8 +84,7 @@
                 </div>
             </td>
         </tr>
-        <tbody ng-repeat="(key, booking) in vm.myBookings.bookings" infinite-scroll="vm.getMoreBookingsData()"
-               infinite-scroll-disabled="vm.bookingFilter.loadingItems" infinite-scroll-distance="0">
+        <tbody ng-repeat="(key, booking) in vm.myBookings.bookings">
         <tr ng-class="{'active': key == vm.bookingsRowExpanded}">
             <td ng-click="vm.bookingsRowExpanded = (vm.bookingsRowExpanded == key ? vm.bookingsRowExpanded = null : vm.bookingsRowExpanded = key)">
                 <i class="fa fa-sort-desc" ng-if="key != vm.bookingsRowExpanded"></i>
