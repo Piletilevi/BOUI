@@ -135,6 +135,7 @@
             getMyBasket: getMyBasket,
             getMyBooking: getMyBooking,
             getBookingsData: getBookingsData,
+            getMoreBookingsData: getMoreBookingsData,
             getBookingStatuses: getBookingStatuses,
             getBookingTypes: getBookingTypes
         };
@@ -856,12 +857,30 @@
         }
 
         function getBookingsData(filter) {
+            filter.loadingItems = true;
+            filter.start = null;
             dataService.post('bookingList', {filter: filter}).then(function (results) {
                 dataService.page(results);
                 if (results.status == 'success') {
                     myBookings = results.data;
+                    filter.loadingItems = false;
                 }
             });
+        }
+
+        function getMoreBookingsData(filter) {
+            if (!filter.loadingItems && myBookings.bookings.length % 10 == 0 && filter.start != myBookings.bookings.length + 1) {
+                filter.loadingItems = true;
+                filter.start = myBookings.bookings.length + 1;
+                dataService.post('bookingList', {filter: filter}).then(function (results) {
+                    if (results.status == 'success') {
+                        results.data.bookings.forEach(function (bookingItem) {
+                            myBookings.bookings.push(bookingItem);
+                        });
+                    }
+                    filter.loadingItems = false;
+                });
+            }
         }
 
         function getBookingStatuses() {

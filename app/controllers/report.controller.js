@@ -511,6 +511,10 @@
             }
         };
 
+        vm.getMoreBookingsData = function () {
+            eventService.getMoreBookingsData(vm.bookingFilter);
+        };
+
         $scope.setSelectedSectionId = vm.setSelectedSectionId;
         $scope.setSelectedSeatId = vm.setSelectedSeatId;
         $scope.setMouseoverSectionId = vm.setMouseoverSectionId;
@@ -832,11 +836,11 @@
             }
         });
 
-        $scope.$watch('vm.bookingFilter', function (newFilter, oldFilter) {
-            if (oldFilter && !angular.equals(newFilter, oldFilter) && newFilter.period.startDate) {
-                eventService.getBookingsData(vm.bookingFilter);
-            }
-        }, true);
+        //$scope.$watch('vm.bookingFilter', function (newFilter, oldFilter) {
+        //    if (oldFilter && !angular.equals(newFilter, oldFilter) && newFilter.period.startDate) {
+        //        eventService.getBookingsData(vm.bookingFilter);
+        //    }
+        //}, true);
 
         $scope.$watch('vm.salesPoint', function (newSalesPoint, oldSalesPoint) {
             if (oldSalesPoint !== newSalesPoint) {
