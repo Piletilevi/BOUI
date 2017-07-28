@@ -353,16 +353,17 @@
             return vm.event != null && vm.event.salespoints != null && vm.event.salespoints.length > 1;
         };
 
-        vm.prepareEmailBody = function (emailBody) {
-            emailBody = emailBody.replace(/#api_add_event/g, vm.event.name);
-            emailBody = emailBody.replace(/#api_add_firstname/g, vm.reservation.firstName);
-            emailBody = emailBody.replace(/#api_add_lastname/g, vm.reservation.lastName);
-            emailBody = emailBody.replace(/#api_add_reservation_expiration/g, vm.reservation.expireAt);
-            emailBody = emailBody.replace(/#api_add_invoice_number/g, '<a href="#">Invoice Number<a\/>');
-            emailBody = emailBody.replace(/#api_add_made_by_firstname/g, $rootScope.user.firstName);
-            emailBody = emailBody.replace(/#api_add_made_by_lastname/g, $rootScope.user.lastName);
-            emailBody = emailBody.replace(/#api_add_made_by_organization/g, $rootScope.user.organization);
-            return $sce.trustAsHtml(emailBody);
+        vm.prepareEmailContent = function (emailContent) {
+            emailContent = emailContent.replace(/#api_add_event/g, vm.event.name);
+            emailContent = emailContent.replace(/#api_add_firstname/g, vm.reservation.firstName);
+            emailContent = emailContent.replace(/#api_add_lastname/g, vm.reservation.lastName);
+            emailContent = emailContent.replace(/#api_add_reservation_expiration/g, vm.reservation.expireAt);
+            emailContent = emailContent.replace(/#api_add_invoice_number/g, '<a href="#">Invoice Number<a\/>');
+            emailContent = emailContent.replace(/#api_add_made_by_firstname/g, $rootScope.user.firstName);
+            emailContent = emailContent.replace(/#api_add_made_by_lastname/g, $rootScope.user.lastName);
+            emailContent = emailContent.replace(/#api_add_made_by_organization/g, $rootScope.user.organization);
+            emailContent = emailContent.replace(/\n/g, "<br />");
+            return $sce.trustAsHtml(emailContent);
         };
 
         /* Reservations */

@@ -156,11 +156,11 @@
 	<table class="bo-reservation-table">
 		<tr>
 			<td>{{'api_reservation_meta_subject'|translate}}:</td>
-			<td>{{vm.reservation.subject}}</td>
+			<td>{{vm.prepareEmailContent(vm.reservation.subject)}}</td>
 		</tr>
 		<tr>
-			<td>{{'api_reservation_meta_body'|translate}}:</td>
-			<td ng-bind-html="vm.prepareEmailBody(vm.reservation.body)"></td>
+			<td valign="top">{{'api_reservation_meta_body'|translate}}:</td>
+			<td ng-bind-html="vm.prepareEmailContent(vm.reservation.body)"></td>
 		</tr>
 	</table>
 </div>
