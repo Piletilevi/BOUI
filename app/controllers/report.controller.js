@@ -426,6 +426,12 @@
             }
         };
 
+        vm.validateReservationForm = function() {
+            vm.reservationFormFubmitted = true;
+            vm.reservationFormRequredErr = !vm.reservation.firstName || !vm.reservation.lastName || !vm.reservation.from;
+            vm.reservationFormEmailErr = !/\S+@\S+\.\S+/.test(vm.reservation.contactEmail);
+        };
+
         vm.goToSectionsStep = function (reservationMode) {
             vm.bookingStep = null;
             vm.reservationMode = reservationMode;

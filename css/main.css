@@ -2101,3 +2101,10 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
     background-color: #357ebd !important;
     color: #fff;
 }
+
+/* Booking form
+================================ */
+
+.submitted input.ng-invalid {
+    border: 1px solid #c60000;
+}
