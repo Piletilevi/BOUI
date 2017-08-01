@@ -881,6 +881,7 @@
             if (oldFilter &&
                 (!angular.equals(newFilter.period, oldFilter.period) || !angular.equals(newFilter.clientName, oldFilter.clientName) || !angular.equals(newFilter.bookingNr, oldFilter.bookingNr) || !angular.equals(newFilter.statusId, oldFilter.statusId) || !angular.equals(newFilter.typeId, oldFilter.typeId)
                 )) {
+                $rootScope.bookingSuccessAlert = false;
                 eventService.getBookingsData(vm.bookingFilter);
             }
         }, true);
