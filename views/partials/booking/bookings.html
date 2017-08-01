@@ -70,7 +70,7 @@
     </div>
 </div>
 <div>
-    <div class="alert alert-danger ng-binding" ng-if="vm.myBookings.bookings.length == 0">
+    <div class="alert alert-danger ng-binding" ng-if="!vm.myBookings.bookings && !vm.bookingFilter.loadingItems">
         {{'api_reservation_list_no_search results'|translate}}
     </div>
     <table class="table" infinite-scroll="vm.getMoreBookingsData()" ng-if="vm.myBookings.bookings.length"
