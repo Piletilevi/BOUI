@@ -509,6 +509,9 @@
                         classes: classes
                     }, function () {
                         if (vm.reservationMode == 'basket') {
+                            if(!vm.myBasket.basket) {
+                                vm.reservation.discount = 0;
+                            }
                             eventService.getMyBasket(
                                 null, vm.reservation
                             );
