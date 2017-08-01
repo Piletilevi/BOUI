@@ -101,7 +101,7 @@
                 <div ng-if="booking.organisationName">{{booking.organisationName}}</div>
             </td>
             <td>
-                <div>{{booking.invoiceNumber}}</div>
+                <div><a href="#" target="_blank">{{booking.invoiceNumber}}</a></div>
                 <div>{{'api_reservation_list_payment_type'|translate}}: {{booking.paymentTypeName}}</div>
                 <div ng-show="booking.paid">{{'api_reservation_list_payment_status'|translate}}</div>
             </td>
@@ -109,7 +109,7 @@
                 {{booking.ticketsCount}}
             </td>
             <td>{{booking.ticketsInfo}}</td>
-            <td>{{booking.summa}}</td>
+            <td>{{booking.summa | number:2}}{{booking.currency}}</td>
         </tr>
         <tr ng-if="key == vm.bookingsRowExpanded" class="active">
             <td></td>
@@ -127,7 +127,7 @@
                 </div>
             </td>
             <td colspan="4">
-                {{'api_reservation_list_notes'|translate}}: {{booking.notes}}
+                {{'api_reservation_list_notes'|translate}}: <div ng-bind-html="booking.notes | nl2br"></div>
                 <button class="btn btn-bookings pull-right" ng-click="vm.getMyBooking(booking.id)" ng-if="booking.statusId == 1">
                     {{'api_reservation_edit'|translate}} <i class="fa fa-edit"></i></button>
                 <button class="btn btn-bookings pull-right" ng-click="vm.cancelBooking(booking.id)" ng-if="booking.statusId == 1"

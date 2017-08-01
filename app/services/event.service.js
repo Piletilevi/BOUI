@@ -30,6 +30,7 @@
         var loadingRelatedItems = false;
         var myBasket = null;
         var myBookings = null;
+        var confirmedBasketId = null;
         var bookingStatuses = null;
         var bookingTypes = null;
         var sectorInfo = null;
@@ -95,6 +96,9 @@
             },
             myBookings: function () {
                 return myBookings
+            },
+            confirmedBasketId: function () {
+                return confirmedBasketId
             },
             bookingStatuses: function () {
                 return bookingStatuses
@@ -162,6 +166,7 @@
             relatedEvents = null;
             myBasket = null;
             myBookings = null;
+            confirmedBasketId = null;
             bookingStatuses = null;
             bookingTypes = null;
         }
@@ -794,8 +799,11 @@
 
         function confirmBasket(reservation, callback) {
             dataService.post('confirmBasket', reservation).then(function (results) {
-                if (results.hasOwnProperty('succeeded') && callback) {
-                    callback();
+                if (results.hasOwnProperty('succeeded')) {
+                    confirmedBasketId = results.bookingId;
+                    if (callback) {
+                        callback();
+                    }
                 }
             });
         }
@@ -856,7 +864,7 @@
             });
         }
 
-        function getBookingsData(filter) {
+        function getBookingsData(filter, callback) {
             filter.loadingItems = true;
             filter.start = null;
             dataService.post('bookingList', {filter: filter}).then(function (results) {
@@ -864,6 +872,9 @@
                 if (results.status == 'success') {
                     myBookings = results.data;
                     filter.loadingItems = false;
+                    if(callback) {
+                        callback();
+                    }
                 }
             });
         }
