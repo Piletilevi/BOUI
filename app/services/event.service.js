@@ -880,7 +880,10 @@
         }
 
         function getMoreBookingsData(filter) {
-            if (!filter.loadingItems && myBookings && myBookings.bookings.length % 10 == 0 && filter.start != myBookings.bookings.length + 1) {
+            if(!myBookings || !myBookings.bookings) {
+                return;
+            }
+            if (!filter.loadingItems && myBookings.bookings.length % 10 == 0 && filter.start != myBookings.bookings.length + 1) {
                 filter.loadingItems = true;
                 filter.start = myBookings.bookings.length + 1;
                 dataService.post('bookingList', {filter: filter}).then(function (results) {

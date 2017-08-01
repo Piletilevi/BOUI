@@ -17,16 +17,23 @@
         </div>
         <div class="form-group">
             <div class="inner-addon right-addon">
-                <i class="fa fa-search" ng-click="vm.bookingFilter.clientName = vm.bookingClientName"></i>
+                <i class="fa fa-search" ng-if="vm.bookingFilter.clientName == null || vm.bookingFilter.clientName != vm.bookingClientName"
+                   ng-click="vm.bookingFilter.clientName = vm.bookingClientName"></i>
+                <i class="fa fa-times" ng-if="vm.bookingFilter.clientName && vm.bookingFilter.clientName == vm.bookingClientName"
+                   ng-click="vm.bookingFilter.clientName = vm.bookingClientName = null"></i>
                 <input type="text" class="form-control" ng-model="vm.bookingClientName"
-                       placeholder="{{'api_filter_by_client'|translate}}">
+                       placeholder="{{'api_filter_by_client'|translate}}" key-bind="{ enter: 'vm.bookingFilter.clientName = vm.bookingClientName' }">
             </div>
         </div>
         <div class="form-group">
             <div class="inner-addon right-addon">
-                <i class="fa fa-search" ng-click="vm.bookingFilter.bookingNr = vm.bookingNr"></i>
+                <i class="fa fa-search" ng-if="vm.bookingFilter.bookingNr == null || vm.bookingFilter.bookingNr != vm.bookingNr"
+                   ng-click="vm.bookingFilter.bookingNr = vm.bookingNr"></i>
+                <i class="fa fa-times" ng-if="vm.bookingFilter.bookingNr && vm.bookingFilter.bookingNr == vm.bookingNr"
+                   ng-click="vm.bookingFilter.bookingNr = vm.bookingNr = null"></i>
+
                 <input type="text" class="form-control" ng-model="vm.bookingNr"
-                       placeholder="{{'api_filter_by_reservation'|translate}}">
+                       placeholder="{{'api_filter_by_reservation'|translate}}" key-bind="{ enter: 'vm.bookingFilter.bookingNr = vm.bookingNr' }">
             </div>
         </div>
         <div class="form-group">
@@ -63,7 +70,10 @@
     </div>
 </div>
 <div>
-    <table class="table" infinite-scroll="vm.getMoreBookingsData()"
+    <div class="alert alert-danger ng-binding" ng-if="vm.myBookings.bookings.length == 0">
+        {{'api_reservation_list_no_search results'|translate}}
+    </div>
+    <table class="table" infinite-scroll="vm.getMoreBookingsData()" ng-if="vm.myBookings.bookings.length"
            infinite-scroll-disabled="vm.bookingFilter.loadingItems" infinite-scroll-distance="0">
         <thead>
         <tr>
