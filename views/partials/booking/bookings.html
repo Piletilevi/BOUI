@@ -108,7 +108,7 @@
             <td>
                 <div>{{booking.personName}}</div>
                 <div>{{booking.email}}</div>
-                <div ng-if="booking.organisationName">{{booking.organisationName}}</div>
+                <div ng-if="booking.organizationName">{{booking.organizationName}}</div>
             </td>
             <td>
                 <div><a href="{{booking.invoiceUrl}}" target="_blank">{{booking.invoiceNumber}}</a></div>
@@ -126,7 +126,7 @@
             <td>
                 {{'api_reservation_list_reserved_by'|translate}}:
                 <div>{{booking.personFirstName}} {{booking.personLastName}}</div>
-                <div ng-if="booking.organisationName">{{booking.organisationName}}</div>
+                <div ng-if="booking.organizationName">{{booking.organizationName}}</div>
             </td>
             <td>
                 <div>{{'api_reservation_list_reservation_status'|translate}}: {{(vm.bookingStatuses.statuses |

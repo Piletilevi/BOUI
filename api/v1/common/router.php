@@ -1468,7 +1468,7 @@ $app->post('/confirmBasket', function() use ($app)  {
 	$dataHandler->verifyParams(array('from', 'subject', 'body'), $r);
 	
 	if (property_exists($r, 'personType') && $r->personType == "organization") {
-		$dataHandler->verifyParams(array('organisationName'), $r);
+		$dataHandler->verifyParams(array('organizationName'), $r);
 	} else {
 		$dataHandler->verifyParams(array('firstName', 'lastName', 'contactEmail'), $r);
 	}
@@ -1478,7 +1478,7 @@ $app->post('/confirmBasket', function() use ($app)  {
 	$fields = array("discount", "expireAt", "reservationType", "personType", 
 					"firstName", "lastName", "contactEmail", "contactPhone", 
 					"address", "city", "postalCode", "region", "countryId", 
-					"organisationName", "regNumber", "vatNumber", "notes", 
+					"organizationName", "regNumber", "vatNumber", "notes", 
 					"from", "subject", "body");
 	
 	foreach ($fields as $field) {
@@ -1509,7 +1509,7 @@ $app->post('/confirmBooking', function() use ($app)  {
 	$dataHandler->verifyParams(array('bookingId'), $r);
 	
 	if (property_exists($r, 'personType') && $r->personType == "organization") {
-		$dataHandler->verifyParams(array('organisationName'), $r);
+		$dataHandler->verifyParams(array('organizationName'), $r);
 	} else {
 		$dataHandler->verifyParams(array('firstName', 'lastName', 'contactEmail'), $r);
 	}
@@ -1520,7 +1520,7 @@ $app->post('/confirmBooking', function() use ($app)  {
 	$fields = array("discount", "expireAt", "reservationType", "personType", 
 					"firstName", "lastName", "contactEmail", "contactPhone", 
 					"address", "city", "postalCode", "region", "countryId", 
-					"organisationName", "regNumber", "vatNumber", "notes", 
+					"organizationName", "regNumber", "vatNumber", "notes", 
 					"from", "subject", "body");
 	
 	foreach ($fields as $field) {
