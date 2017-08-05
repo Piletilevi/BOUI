@@ -18,8 +18,7 @@
             setPoint: setPoint,
             getPointMenuBackgroundColor: getPointMenuBackgroundColor,
             getPointMenuActiveColor: getPointMenuActiveColor,
-            getPointReservationEmailSubject: getPointReservationEmailSubject,
-            getPointReservationEmailBody: getPointReservationEmailBody,
+            getPointId: getPointId,
             getPointMenuLogo: getPointMenuLogo,
             getPointMenuGamma: getPointMenuGamma,
             initialize: initialize
@@ -41,6 +40,13 @@
         function getPointCountryId() {
             if ($rootScope.user.salesPoints != null) {
                 return $rootScope.user.salesPoints.find(findPoint).country;
+            }
+            return "";
+        }
+
+		function getPointId() {
+            if ($rootScope.user.salesPoints != null) {
+                return $rootScope.user.salesPoints.find(findPoint).id;
             }
             return "";
         }
@@ -117,34 +123,6 @@
             return "";
         }
 
-        function getPointReservationEmailSubject() {
-            var texts = getPointTexts();
-            if (texts != null) {
-                var text = texts.find(function (text) {
-                    if (text != null) {
-                        return text.name === "api_reservation_email_subject";
-                    }
-                });
-                if (text != null) {
-                    return text.value;
-                }
-            }
-        }
-
-        function getPointReservationEmailBody() {
-            var texts = getPointTexts();
-            if (texts != null) {
-                var text = texts.find(function (text) {
-                    if (text != null) {
-                        return text.name === "api_reservation_email_body";
-                    }
-                });
-                if (text != null) {
-                    return text.value;
-                }
-            }
-        }
-
         function getPointTopMenuLogo(setting) {
             if (setting != null) {
                 return setting.name === "api_headerlogo";
@@ -181,14 +159,6 @@
             return [];
         }
 
-        function getPointTexts() {
-            if ($rootScope.authenticated) {
-                var texts = $rootScope.user.salesPoints.find(findPoint).texts;
-                return texts;
-            }
-            return [];
-        }
-		
         function initialize() {
             $rootScope.getPointName = getPointName;
             $rootScope.setPoint = setPoint;

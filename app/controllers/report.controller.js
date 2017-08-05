@@ -5,9 +5,9 @@
     angular.module('boApp')
         .controller('reportController', ReportController);
 
-    ReportController.$inject = ['$scope', '$sce', '$rootScope', '$routeParams', '$location', '$filter', 'eventService', 'pointService', 'graphService'];
+    ReportController.$inject = ['$scope', '$sce', '$rootScope', '$routeParams', '$location', '$filter', '$translate', 'eventService', 'pointService', 'graphService'];
 
-    function ReportController($scope, $sce, $rootScope, $routeParams, $location, $filter, eventService, pointService, graphService) {
+    function ReportController($scope, $sce, $rootScope, $routeParams, $location, $filter, $translate, eventService, pointService, graphService) {
 
         if (!$routeParams && !$routeParams.id) {
             $location.path('dashboard');
@@ -450,10 +450,10 @@
                 vm.reservation.from = $rootScope.user.email;
             }
             if (!vm.reservation.subject) {
-                vm.reservation.subject = pointService.getPointReservationEmailSubject();
+                vm.reservation.subject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
             }
             if (!vm.reservation.body) {
-                vm.reservation.body = pointService.getPointReservationEmailBody();
+                vm.reservation.body = $translate.instant("api_reservation_email_body" + pointService.getPointId());
             }
             if (typeof vm.reservation.countryId == 'undefined') {
                 vm.reservation.countryId = pointService.getPointCountryId();
