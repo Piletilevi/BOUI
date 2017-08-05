@@ -106,7 +106,7 @@
                 <div>{{'api_reservation_list_expires_on'|translate}}: {{booking.expireAt | date:'dd.MM.yyyy'}}</div>
             </td>
             <td>
-                <div>{{booking.personName}}</div>
+                <div>{{booking.personFirstName}} {{booking.personLastName}}</div>
                 <div>{{booking.email}}</div>
                 <div ng-if="booking.organizationName">{{booking.organizationName}}</div>
             </td>
@@ -118,15 +118,15 @@
             <td>
                 {{booking.ticketsCount}}
             </td>
-            <td>{{booking.ticketsInfo}}</td>
+            <td>{{booking.ticketsInfo | nl2br}}</td>
             <td>{{booking.summa | number:2}}{{booking.currency}}</td>
         </tr>
         <tr ng-if="key == vm.bookingsRowExpanded" class="active">
             <td></td>
             <td>
                 {{'api_reservation_list_reserved_by'|translate}}:
-                <div>{{booking.personFirstName}} {{booking.personLastName}}</div>
-                <div ng-if="booking.organizationName">{{booking.organizationName}}</div>
+                <div>{{booking.creator.firstName}} {{booking.creator.lastName}}</div>
+                <div ng-if="booking.organizationName">{{booking.creator.organization}}</div>
             </td>
             <td>
                 <div>{{'api_reservation_list_reservation_status'|translate}}: {{(vm.bookingStatuses.statuses |
@@ -138,8 +138,8 @@
             </td>
             <td colspan="4">
                 {{'api_reservation_list_notes'|translate}}: <div ng-bind-html="booking.notes | nl2br"></div>
-                <button class="btn btn-bookings pull-right" ng-click="vm.getMyBooking(booking.id)" ng-if="booking.statusId == 1">
-                    {{'api_reservation_edit'|translate}} <i class="fa fa-edit"></i></button>
+                <!--button class="btn btn-bookings pull-right" ng-click="vm.getMyBooking(booking.id)" ng-if="booking.statusId == 1">
+                    {{'api_reservation_edit'|translate}} <i class="fa fa-edit"></i></button-->
                 <button class="btn btn-bookings pull-right" ng-click="vm.cancelBooking(booking.id)" ng-if="booking.statusId == 1"
                         ng-confirm-click="{{'api_clickConfirm'|translate}}"
                         ng-confirm-description="api_clickConfirmDescription">{{'api_reservation_cancel'|translate}} <i
