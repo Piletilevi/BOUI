@@ -5,9 +5,13 @@
     angular.module('boApp')
         .controller('reportController', ReportController);
 
-    ReportController.$inject = ['$scope', '$sce', '$rootScope', '$routeParams', '$location', '$filter', 'eventService', 'pointService', 'graphService'];
+    ReportController.$inject = ['$scope', '$sce', '$rootScope', '$routeParams', '$location', 
+								'$filter', '$translate', 'eventService', 'pointService', 
+								'graphService'];
 
-    function ReportController($scope, $sce, $rootScope, $routeParams, $location, $filter, eventService, pointService, graphService) {
+    function ReportController($scope, $sce, $rootScope, $routeParams, $location, 
+							  $filter, $translate, eventService, pointService, 
+							  graphService) {
 
         if (!$routeParams && !$routeParams.id) {
             $location.path('dashboard');
