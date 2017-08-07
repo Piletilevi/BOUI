@@ -450,10 +450,10 @@
                 vm.reservation.from = $rootScope.user.email;
             }
             if (!vm.reservation.subject) {
-                vm.reservation.subject = "api_reservation_email_subject" + pointService.getPointId();
+                vm.reservation.subject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
             }
             if (!vm.reservation.body) {
-                vm.reservation.body = "api_reservation_email_body" + pointService.getPointId();
+                vm.reservation.body = $translate.instant("api_reservation_email_body" + pointService.getPointId());
             }
             if (typeof vm.reservation.countryId == 'undefined') {
                 vm.reservation.countryId = pointService.getPointCountryId();
