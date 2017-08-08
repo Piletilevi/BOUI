@@ -417,7 +417,9 @@
             if (vm.reservationMode == 'basket') {
                 eventService.changeBasketTicketType(ticketId, typeId,
                     function () {
-                        eventService.getMyBasket();
+                        eventService.getMyBasket(
+                            null, vm.reservation
+                        );
                     }
                 );
             }
