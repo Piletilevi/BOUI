@@ -499,7 +499,7 @@
                     ticketsCount += parseInt(ttSectorData.selected, 10);
                 });
             });
-            return ticketsCount;
+            return !isNaN(ticketsCount) ? ticketsCount : 0;
         };
 
         vm.offerTickets = function () {
@@ -559,7 +559,8 @@
         };
 
         vm.validateQuantity = function (ttSectorData) {
-            if (ttSectorData.selected < 0) {
+            ttSectorData.selected = parseInt(ttSectorData.selected, 10);
+            if (ttSectorData.selected <= 0 || isNaN(ttSectorData.selected)) {
                 ttSectorData.selected = 0;
             }
             else if (ttSectorData.selected > ttSectorData.freeTotal) {
