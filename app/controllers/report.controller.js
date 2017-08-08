@@ -453,11 +453,14 @@
             if (!vm.reservation.from) {
                 vm.reservation.from = $rootScope.user.email;
             }
+            vm.defaultReservationSubject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
+            vm.defaultReservationBody = $translate.instant("api_reservation_email_body" + pointService.getPointId());
+
             if (!vm.reservation.subject) {
-                vm.reservation.subject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
+                vm.reservation.subject = vm.defaultReservationSubject;
             }
             if (!vm.reservation.body) {
-                vm.reservation.body = $translate.instant("api_reservation_email_body" + pointService.getPointId());
+                vm.reservation.body = vm.defaultReservationBody;
             }
             if (typeof vm.reservation.countryId == 'undefined') {
                 vm.reservation.countryId = pointService.getPointCountryId();
@@ -691,6 +694,16 @@
                 if (vm.currentTab == 'overview') {
                     graphService.renderOverviewBarGraph(vm.myOverviewBarData, vm.myOverviewBarData, vm.overviewBarGraph);
                     graphService.renderOverviewLineGraph(vm.myOverviewLineData, vm.overviewFilter, vm.overviewLineGraph);
+                }
+                if(vm.currentTab == 'sections') {
+                    if (vm.reservation.subject == vm.defaultReservationSubject) {
+                        vm.defaultReservationSubject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
+                        vm.reservation.subject = vm.defaultReservationSubject;
+                    }
+                    if (vm.reservation.body == vm.defaultReservationBody) {
+                        vm.defaultReservationBody = $translate.instant("api_reservation_email_body" + pointService.getPointId());
+                        vm.reservation.body = vm.defaultReservationBody;
+                    }
                 }
             }
         });
