@@ -197,10 +197,10 @@
             }
             else if (tab == 'bookings') {
                 eventService.getBookingsData(vm.bookingFilter, function () {
-                    if ($rootScope.confirmedBasketId) {
+                    if ($rootScope.bookingId) {
                         setTimeout(function () {
                             angular.forEach(vm.myBookings.bookings, function(value, key){
-                                if(value.id == $rootScope.confirmedBasketId) {
+                                if(value.id == $rootScope.bookingId) {
                                     vm.bookingsRowExpanded = key;
                                 }
                             });
@@ -340,7 +340,7 @@
                     vm.reservationToConfirm, function () {
                         vm.myBasket = {};
                         $rootScope.bookingSuccessAlert = true;
-                        $rootScope.confirmedBasketId = eventService.confirmedBasketId();
+                        $rootScope.bookingId = eventService.bookingId();
                         $location.path(newPath);
                     }
                 );
