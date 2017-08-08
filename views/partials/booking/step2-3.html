@@ -191,7 +191,7 @@
                                 </div>
                                 <input type="text" class="bo-plusminus-input"
                                        ng-init="vm.reservation.discount = vm.reservation.discount ? vm.reservation.discount : vm.myBasket.summary.discount"
-                                       ng-model="vm.reservation.discount"/>
+                                       ng-model="vm.reservation.discount" ng-blur="vm.addDiscount()"/>
                                 <div class="bo-plusminus-button bo-plusminus-plus"
                                      ng-click="vm.increaseBasketDiscount()">
                                     <i class="fa fa-plus"></i>

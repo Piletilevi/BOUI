@@ -486,6 +486,18 @@
             }
         };
 
+        vm.addDiscount = function() {
+            if (vm.reservationMode == 'basket') {
+                eventService.getMyBasket(
+                    null, vm.reservation
+                );
+            } else if (vm.reservationMode == 'booking') {
+                eventService.getMyBooking(
+                    null, vm.reservation
+                );
+            }
+        };
+
         vm.increaseTicketsCount = function (ttSectorData) {
             if (ttSectorData.selected < ttSectorData.freeTotal) {
                 ttSectorData.selected++;
@@ -549,12 +561,14 @@
         vm.decreaseBasketDiscount = function () {
             if (vm.reservation.discount > 0) {
                 vm.reservation.discount--;
+                vm.addDiscount();
             }
         };
 
         vm.increaseBasketDiscount = function () {
             if (vm.reservation.discount < 100) {
                 vm.reservation.discount++;
+                vm.addDiscount();
             }
         };
 
@@ -930,17 +944,6 @@
                 vm.reservation.discount = 100;
             } else if (vm.reservation.discount < 0) {
                 vm.reservation.discount = 0;
-            }
-            if (typeof oldDiscount !== 'undefined' && oldDiscount !== newDiscount) {
-                if (vm.reservationMode == 'basket') {
-                    eventService.getMyBasket(
-                        null, vm.reservation
-                    );
-                } else if (vm.reservationMode == 'booking') {
-                    eventService.getMyBooking(
-                        null, vm.reservation
-                    );
-                }
             }
         });
 
