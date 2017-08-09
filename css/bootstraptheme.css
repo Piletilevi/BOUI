@@ -336,6 +336,11 @@
     border-color: #3584d9;
 }
 
+.panel-default > .panel-heading .badge {
+    background-color: #3584d9;
+    color: #fff;
+}
+
 .btn-info:hover,
 .btn-info.active.focus,
 .btn-info.active:focus,
@@ -450,6 +455,15 @@
     -webkit-border-radius: 3px;
     border-radius: 3px;
     margin-bottom: 12px;
+}
+
+.panel-default > .panel-heading,
+.panel-heading {
+    background: #f0f3f7;
+    padding-top: 14px;
+    padding-left: 19px;
+    padding-right: 19px;
+    border-bottom: 1px solid #cdd2d8;
 }
 
 .panel-body {

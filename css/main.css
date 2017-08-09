@@ -226,6 +226,18 @@ a:hover {
     padding: 0;
 }
 
+.bo-sidebar .panel-default > .panel-heading,
+.bo-sidebar .panel-heading {
+	font-size: 16px;
+	line-height: 21px;
+	padding-left: 14px;
+	padding-top: 10px;
+}
+
+.bo-sidebar .panel-heading .badge {
+	vertical-align: baseline;
+}
+
 /* Main
 ================================ */
 
@@ -311,9 +323,19 @@ a:hover {
     position: relative;
 }
 
-.bo-event-title {
+.bo-event-title,
+h3.bo-event-title {
     margin-top: -2px;
     margin-bottom: 17px;
+	font-size: 17px;
+}
+
+.panel-heading .bo-event-title {
+    margin-bottom: 2px;
+}
+
+.panel-heading .bo-event-badge {
+    top: -13px;
 }
 
 .bo-event-toggle {
@@ -382,7 +404,7 @@ a:hover {
 }
 
 .bo-event-date .fa {
-    color: #2a7ed8;
+    color: #b3bcce;
     margin-right: 6px;
 }
 
@@ -391,7 +413,7 @@ a:hover {
 }
 
 .bo-event-time .fa {
-    color: #2a7ed8;
+    color: #b3bcce;
     margin-right: 3px;
 }
 
@@ -402,7 +424,7 @@ a:hover {
 }
 
 .bo-event-place .fa {
-    color: #2a7ed8;
+    color: #b3bcce;
     margin-right: 7px;
     margin-left: -20px;
 }
@@ -450,6 +472,64 @@ a:hover {
 
 .bo-event-error {
     padding: 17px 10px 0 10px;
+}
+
+.bo-show-design,
+.bo-concert-design {
+	position: relative;
+}
+
+.bo-event-stretch-link {
+	position: absolute;
+	cursor: pointer;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.bo-show-design.panel-body {
+    padding-top: 10px;
+}
+
+.bo-show-design.panel-body:hover,
+.bo-concert-design.panel-body:hover {
+	background: #f5f7f9;
+}
+
+.bo-show-design .bo-event-datetime_block{
+    margin-top: 22px;
+}
+
+.bo-show-design .bo-simplestats {
+    margin-top: 4px;
+}
+
+.bo-concert-design .bo-event-title {
+    color: #2d7bcf;
+}
+
+.bo-concert-design.panel-body {
+	padding-top: 17px;
+	padding-bottom: 17px;
+}
+
+
+.bo-concert-design .bo-event-datetime_block {
+	margin-top: 9px;
+}
+
+.bo-concert-design .bo-event-title,
+.bo-concert-design h3.bo-event-title {
+	margin-bottom: 0;
+}
+
+.bo-concert-design .bo-simplestats {
+	margin-top: 9px;
+}
+
+.bo-event-full .bo-event-title {
+	font-size: 21px;
 }
 
 /* Event Badges
@@ -512,23 +592,6 @@ a:hover {
 
 .bo-sub-events {
 	border-top: 1px solid #dadcdf;
-	padding-left: 12px;
-	padding-right: 12px;
-	margin-right: -19px;
-	margin-left: -19px;
-	margin-top: 19px;
-}
-
-.bo-sub-events > .bo-event:first-child {
-	margin-top: 13px;
-}
-
-.bo-sub-events .bo-event {
-	margin-bottom: 13px;
-}
-
-.bo-sub-events .bo-event:last-child {
-	margin-bottom: 0px;
 }
 
 .bo-sub-events-hidden .bo-event-toggle,
@@ -536,11 +599,17 @@ a:hover {
     display: none;
 }
 
-.bo-sub-events .panel-body {
-	padding-top: 15px;
-	padding-left: 14px;
-	padding-right: 14px;
+
+.bo-sub-events .panel {
+	border: 0 none;
+	margin-bottom: 0;
+	border-radius: 0;
 }
+
+.bo-sub-events .panel + .panel{
+    border-top: 1px solid #dadcdf;
+}
+
 
 /* Pills
 ================================ */
@@ -757,7 +826,7 @@ a:hover {
 /* Event-short
 ================================ */
 .bo-eventshort {
-	padding: 16px 15px 19px;
+	padding: 9px 15px 17px;
 	line-height: 22px;
 	background: #edf0f4;
 	border-bottom: 1px solid #dadcdf;
@@ -790,8 +859,10 @@ a:hover {
 }
 
 .bo-eventshort-title {
-    margin-bottom: 10px;
-    font-size: 17px;
+    margin-bottom: 8px;
+    font-size: 16px;
+	color: #2d7bcf;
+	line-height: 18px;
 }
 
 .bo-eventshort-datetime {
@@ -824,7 +895,7 @@ a:hover {
 
 .bo-eventshort-progress {
     font-weight: bold;
-    margin-top: 8px;
+    margin-top: 9px;
 }
 
 .bo-eventshort-progress .progress {
@@ -853,29 +924,29 @@ a:hover {
     position: relative;
 }
 
-.bo-eventshort-subevents:before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: -1px;
-    margin-left: -8px;
-    border-top: 7px solid #cdd2d8;
-    border-left: 9px solid transparent;
-    border-right: 9px solid transparent;
-    z-index: 1;
-}
+/*.bo-eventshort-subevents:before {*/
+    /*content: "";*/
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*top: -1px;*/
+    /*margin-left: -8px;*/
+    /*border-top: 7px solid #cdd2d8;*/
+    /*border-left: 9px solid transparent;*/
+    /*border-right: 9px solid transparent;*/
+    /*z-index: 1;*/
+/*}*/
 
-.bo-eventshort-subevents .bo-eventshort:first-child:before {
-	content: "";
-	position: absolute;
-	left: 50%;
-	top: -2px;
-	margin-left: -8px;
-	border-top: 7px solid #edf0f4;
-	border-left: 9px solid transparent;
-	border-right: 9px solid transparent;
-	z-index: 1;
-}
+/*.bo-eventshort-subevents .bo-eventshort:first-child:before {*/
+	/*content: "";*/
+	/*position: absolute;*/
+	/*left: 50%;*/
+	/*top: -2px;*/
+	/*margin-left: -8px;*/
+	/*border-top: 7px solid #edf0f4;*/
+	/*border-left: 9px solid transparent;*/
+	/*border-right: 9px solid transparent;*/
+	/*z-index: 1;*/
+/*}*/
 
 .bo-eventshort-subevents .bo-eventshort {
     background: #fff;
