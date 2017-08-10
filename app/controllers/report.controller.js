@@ -487,14 +487,28 @@
         };
 
         vm.addDiscount = function() {
-            if (vm.reservationMode == 'basket') {
-                eventService.getMyBasket(
-                    null, vm.reservation
-                );
-            } else if (vm.reservationMode == 'booking') {
-                eventService.getMyBooking(
-                    null, vm.reservation
-                );
+            if(typeof vm.reservation.discount === 'undefined') {
+                vm.reservation.discount = 0;
+            }
+            else {
+                if (!vm.reservation.discount) {
+                    vm.reservation.discount = 0;
+                }
+                if (vm.reservationMode == 'basket') {
+                    eventService.getMyBasket(
+                        null, vm.reservation
+                    );
+                } else if (vm.reservationMode == 'booking') {
+                    eventService.getMyBooking(
+                        null, vm.reservation
+                    );
+                }
+            }
+        };
+
+        vm.focusDiscount = function() {
+            if(vm.reservation.discount == 0) {
+                delete vm.reservation.discount;
             }
         };
 
@@ -579,6 +593,18 @@
             }
             else if (ttSectorData.selected > ttSectorData.freeTotal) {
                 ttSectorData.selected = ttSectorData.freeTotal;
+            }
+        };
+
+        vm.focusPriceClassQuantity = function(ttSectorData) {
+            if(ttSectorData.selected == 0) {
+                delete ttSectorData.selected;
+            }
+        };
+
+        vm.blurPriceClassQuantity = function(ttSectorData) {
+            if(!ttSectorData.selected) {
+                ttSectorData.selected = 0;
             }
         };
 

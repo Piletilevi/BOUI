@@ -21,9 +21,13 @@
     <tr class="row-align-middle" ng-repeat="seat in vm.myBasket.basket">
         <td>{{'api_basket_ticket_id'|translate}} {{seat.id}}</td>
         <td class="text-center">{{seat.sectionName}}</td>
-        <td class="text-center"><span ng-if="seat.rowName > 0">{{'api_basket_row'|translate}} {{seat.rowName}}</span>
+        <td class="text-center">
+            <span ng-if="seat.rowName > 0">{{'api_basket_row'|translate}} {{seat.rowName}}</span>
+            <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
         </td>
-        <td class="text-center"><span ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span>
+        <td class="text-center">
+            <span ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span>
+            <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
         </td>
         <td class="text-center bo-shortcell">
             {{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
