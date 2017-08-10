@@ -56,7 +56,10 @@
                             <i class="fa fa-minus"></i>
                         </div>
                         <input type="text" class="bo-plusminus-input" ng-init="ttSectorData.selected = 0"
-                               ng-model="ttSectorData.selected" ng-keyup="vm.validateQuantity(ttSectorData)"
+                               ng-model="ttSectorData.selected"
+                               ng-focus="vm.focusPriceClassQuantity(ttSectorData)"
+                               ng-blur="vm.blurPriceClassQuantity(ttSectorData)"
+                               ng-keyup="vm.validateQuantity(ttSectorData)"
                         />
                         <div class="bo-plusminus-button bo-plusminus-plus"
                              ng-click="vm.increaseTicketsCount(ttSectorData)">
@@ -100,10 +103,14 @@
         <tr class="row-align-middle" ng-repeat="seat in vm.myBasket.basket">
             <td>{{'api_basket_ticket_id'|translate}} {{seat.id}}</td>
             <td class="text-center">{{seat.sectionName}}</td>
-            <td class="text-center"><span
-                    ng-if="seat.rowName > 0">{{'api_basket_row'|translate}} {{seat.rowName}}</span></td>
-            <td class="text-center"><span
-                    ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span></td>
+            <td class="text-center">
+                <span ng-if="seat.rowName > 0">{{'api_basket_row'|translate}} {{seat.rowName}}</span>
+                <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
+            </td>
+            <td class="text-center">
+                <span ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span>
+                <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
+            </td>
             <td class="text-center bo-shortcell">
                 <div class="dropdown bo-table-dropdown">
                     <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
@@ -190,8 +197,10 @@
                                     <i class="fa fa-minus"></i>
                                 </div>
                                 <input type="text" class="bo-plusminus-input"
+                                       ng-focus="vm.focusDiscount()"
+                                       ng-keydown="$event.keyCode === 13 && vm.addDiscount()"
                                        ng-init="vm.reservation.discount = vm.reservation.discount ? vm.reservation.discount : vm.myBasket.summary.discount"
-                                       ng-model="vm.reservation.discount"/>
+                                       ng-model="vm.reservation.discount" ng-blur="vm.addDiscount()"/>
                                 <div class="bo-plusminus-button bo-plusminus-plus"
                                      ng-click="vm.increaseBasketDiscount()">
                                     <i class="fa fa-plus"></i>

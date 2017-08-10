@@ -197,10 +197,10 @@
             }
             else if (tab == 'bookings') {
                 eventService.getBookingsData(vm.bookingFilter, function () {
-                    if ($rootScope.confirmedBasketId) {
+                    if ($rootScope.bookingId) {
                         setTimeout(function () {
                             angular.forEach(vm.myBookings.bookings, function(value, key){
-                                if(value.id == $rootScope.confirmedBasketId) {
+                                if(value.id == $rootScope.bookingId) {
                                     vm.bookingsRowExpanded = key;
                                 }
                             });
@@ -340,7 +340,7 @@
                     vm.reservationToConfirm, function () {
                         vm.myBasket = {};
                         $rootScope.bookingSuccessAlert = true;
-                        $rootScope.confirmedBasketId = eventService.confirmedBasketId();
+                        $rootScope.bookingId = eventService.bookingId();
                         $location.path(newPath);
                     }
                 );
@@ -417,7 +417,9 @@
             if (vm.reservationMode == 'basket') {
                 eventService.changeBasketTicketType(ticketId, typeId,
                     function () {
-                        eventService.getMyBasket();
+                        eventService.getMyBasket(
+                            null, vm.reservation
+                        );
                     }
                 );
             }
@@ -453,11 +455,14 @@
             if (!vm.reservation.from) {
                 vm.reservation.from = $rootScope.user.email;
             }
+            vm.defaultReservationSubject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
+            vm.defaultReservationBody = $translate.instant("api_reservation_email_body" + pointService.getPointId());
+
             if (!vm.reservation.subject) {
-                vm.reservation.subject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
+                vm.reservation.subject = vm.defaultReservationSubject;
             }
             if (!vm.reservation.body) {
-                vm.reservation.body = $translate.instant("api_reservation_email_body" + pointService.getPointId());
+                vm.reservation.body = vm.defaultReservationBody;
             }
             if (typeof vm.reservation.countryId == 'undefined') {
                 vm.reservation.countryId = pointService.getPointCountryId();
@@ -481,6 +486,32 @@
             }
         };
 
+        vm.addDiscount = function() {
+            if(typeof vm.reservation.discount === 'undefined') {
+                vm.reservation.discount = 0;
+            }
+            else {
+                if (!vm.reservation.discount) {
+                    vm.reservation.discount = 0;
+                }
+                if (vm.reservationMode == 'basket') {
+                    eventService.getMyBasket(
+                        null, vm.reservation
+                    );
+                } else if (vm.reservationMode == 'booking') {
+                    eventService.getMyBooking(
+                        null, vm.reservation
+                    );
+                }
+            }
+        };
+
+        vm.focusDiscount = function() {
+            if(vm.reservation.discount == 0) {
+                delete vm.reservation.discount;
+            }
+        };
+
         vm.increaseTicketsCount = function (ttSectorData) {
             if (ttSectorData.selected < ttSectorData.freeTotal) {
                 ttSectorData.selected++;
@@ -494,7 +525,7 @@
                     ticketsCount += parseInt(ttSectorData.selected, 10);
                 });
             });
-            return ticketsCount;
+            return !isNaN(ticketsCount) ? ticketsCount : 0;
         };
 
         vm.offerTickets = function () {
@@ -544,21 +575,36 @@
         vm.decreaseBasketDiscount = function () {
             if (vm.reservation.discount > 0) {
                 vm.reservation.discount--;
+                vm.addDiscount();
             }
         };
 
         vm.increaseBasketDiscount = function () {
             if (vm.reservation.discount < 100) {
                 vm.reservation.discount++;
+                vm.addDiscount();
             }
         };
 
         vm.validateQuantity = function (ttSectorData) {
-            if (ttSectorData.selected < 0) {
+            ttSectorData.selected = parseInt(ttSectorData.selected, 10);
+            if (ttSectorData.selected <= 0 || isNaN(ttSectorData.selected)) {
                 ttSectorData.selected = 0;
             }
             else if (ttSectorData.selected > ttSectorData.freeTotal) {
                 ttSectorData.selected = ttSectorData.freeTotal;
+            }
+        };
+
+        vm.focusPriceClassQuantity = function(ttSectorData) {
+            if(ttSectorData.selected == 0) {
+                delete ttSectorData.selected;
+            }
+        };
+
+        vm.blurPriceClassQuantity = function(ttSectorData) {
+            if(!ttSectorData.selected) {
+                ttSectorData.selected = 0;
             }
         };
 
@@ -691,6 +737,16 @@
                 if (vm.currentTab == 'overview') {
                     graphService.renderOverviewBarGraph(vm.myOverviewBarData, vm.myOverviewBarData, vm.overviewBarGraph);
                     graphService.renderOverviewLineGraph(vm.myOverviewLineData, vm.overviewFilter, vm.overviewLineGraph);
+                }
+                if(vm.currentTab == 'sections') {
+                    if (vm.reservation.subject == vm.defaultReservationSubject) {
+                        vm.defaultReservationSubject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
+                        vm.reservation.subject = vm.defaultReservationSubject;
+                    }
+                    if (vm.reservation.body == vm.defaultReservationBody) {
+                        vm.defaultReservationBody = $translate.instant("api_reservation_email_body" + pointService.getPointId());
+                        vm.reservation.body = vm.defaultReservationBody;
+                    }
                 }
             }
         });
@@ -914,17 +970,6 @@
                 vm.reservation.discount = 100;
             } else if (vm.reservation.discount < 0) {
                 vm.reservation.discount = 0;
-            }
-            if (typeof oldDiscount !== 'undefined' && oldDiscount !== newDiscount) {
-                if (vm.reservationMode == 'basket') {
-                    eventService.getMyBasket(
-                        null, vm.reservation
-                    );
-                } else if (vm.reservationMode == 'booking') {
-                    eventService.getMyBooking(
-                        null, vm.reservation
-                    );
-                }
             }
         });
 
