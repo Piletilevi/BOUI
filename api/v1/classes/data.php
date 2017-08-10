@@ -66,7 +66,7 @@ class DataHandler {
 			$messages = array();
 			foreach($errors as $error) {
 				$msg = $error->message;
-				if (!isset($msg)) {
+				if (!$msg) {
 					$msg = $error->code;
 				} else {
 					$msg .= " (".$error->code.")";
