@@ -1752,7 +1752,6 @@ $app->post('/bookingPayment', function() use ($app)  {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse->data;
 	    $dataHandler->response(200, $response);
-	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
         $response["errors"] = $dataHandler->getMessages($reportResponse->errors);
