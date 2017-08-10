@@ -1750,7 +1750,7 @@ $app->post('/bookingPayment', function() use ($app)  {
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
-		$response["data"] = $reportResponse->data;
+		$response["data"] = $reportResponse;
 	    $dataHandler->response(200, $response);
 	} else {
 	    $response["status"] = "error";
