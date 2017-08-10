@@ -1691,24 +1691,6 @@ $app->post('/myBooking', function() use ($app)  {
 	}
 });
 
-$app->get('/test', function() use ($app)  {
-	$dataHandler = $app->container->get("dataHandler");
-
-	$filter = array();
-	/*
-	$filter['bookingStartDate'] = "2016-03-01T00:00:00.000";
-	$filter['bookingEndDate'] = "2017-03-01T00:00:00.000";
-	$filter['sectionId'] = 5605;
-	$filter['ticketId'] = 130712500;
-	*/
-	$filter['bookingId'] = 1178338;
-
-    $piletileviApi = $app->container->get("piletileviApi");
-    $reportResponse = $piletileviApi->myBooking($filter);
-
-	$dataHandler->response(200, $reportResponse);
-});
-
 $app->post('/rejectTicket', function() use ($app)  {
 	$dataHandler = $app->container->get("dataHandler");
     $r = json_decode($app->request->getBody());
@@ -1753,5 +1735,47 @@ $app->get('/cache/stats', function() use ($app)  {
 	$dataHandler->response(200, $response);
 });
 
+$app->post('/bookingPayment', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+    $r = json_decode($app->request->getBody());
+
+	$dataHandler->verifyParams(array('bookingId', 'hash'), $r);
+
+	$filter = array();
+	$filter['bookingId'] = $r->bookingId;
+	$filter['hash'] = $r->hash;
+	
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->bookingPayment( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors') {
+		$response["status"] = "success";
+		$response["data"] = $reportResponse->data;
+	    $dataHandler->response(200, $response);
+	    $dataHandler->response(200, $response);
+	} else {
+	    $response["status"] = "error";
+        $response["errors"] = $dataHandler->getMessages($reportResponse->errors);
+		$dataHandler->response(200, $response);
+	}
+});
+
+$app->get('/test', function() use ($app)  {
+	$dataHandler = $app->container->get("dataHandler");
+
+	$filter = array();
+	/*
+	$filter['bookingStartDate'] = "2016-03-01T00:00:00.000";
+	$filter['bookingEndDate'] = "2017-03-01T00:00:00.000";
+	$filter['sectionId'] = 5605;
+	$filter['ticketId'] = 130712500;
+	*/
+	$filter['bookingId'] = 1178338;
+
+    $piletileviApi = $app->container->get("piletileviApi");
+    $reportResponse = $piletileviApi->myBooking($filter);
+
+	$dataHandler->response(200, $reportResponse);
+});
 
 ?>

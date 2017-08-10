@@ -641,6 +641,15 @@ class PiletileviApi {
 		return $response;
 	}
 	
+	public function bookingPayment($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/payment/bookingPayment", $data );
+		
+		return $response;
+	}
+
 	public function boUrl(){
 		return $this->getBoUrl();
 	}
