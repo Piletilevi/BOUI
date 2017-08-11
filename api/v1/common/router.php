@@ -1748,9 +1748,6 @@ $app->post('/bookingPayment', function() use ($app)  {
     $piletileviApi = $app->container->get("piletileviApi");
     $reportResponse = $piletileviApi->bookingPayment( $filter );
 	
-	    $dataHandler->response(200, $reportResponse);
-	
-	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$response["status"] = "success";
 		$response["data"] = $reportResponse;
