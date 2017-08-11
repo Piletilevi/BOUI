@@ -65,9 +65,14 @@ class DataHandler {
 		if ($errors && is_array($errors)) {
 			$messages = array();
 			foreach($errors as $error) {
-				$messages[] = $error->message;
+				$msg = $error->message;
+				if (!$msg) {
+					$msg = $error->code;
+				} else {
+					$msg .= " (".$error->code.")";
+				}
+				$messages[] = $msg;
 			}
-
 			return join(", ", $messages);
 		}
 		return "";

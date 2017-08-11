@@ -197,8 +197,8 @@
                     myOpenEvents = results.status == 'success' ? results.data : [];
                 } else if (filter.status == 'draft') {
                     myDraftEvents = results.status == 'success' ? results.data : [];
-                } else {
-                    myPastEvents = [];
+                } else if (filter.status == 'past') {
+                    myPastEvents = results.status == 'success' ? results.data : [];
                 }
                 filter.loadingItems = false;
             });
@@ -226,7 +226,6 @@
                     myPastCount = results.count.past;
                     if (results.count.hasMorePast) {
                         myPastCount = myPastCount + "+";
-                        myPastCount = 0;
                     }
                 }
             });
