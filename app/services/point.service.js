@@ -14,9 +14,11 @@
     function PointService($rootScope, $location, dataService, eventService) {
         var service = {
             getPointName: getPointName,
+            getPointCountryId: getPointCountryId,
             setPoint: setPoint,
             getPointMenuBackgroundColor: getPointMenuBackgroundColor,
             getPointMenuActiveColor: getPointMenuActiveColor,
+            getPointId: getPointId,
             getPointMenuLogo: getPointMenuLogo,
             getPointMenuGamma: getPointMenuGamma,
             initialize: initialize
@@ -30,14 +32,28 @@
 
         function getPointName() {
             if ($rootScope.user.salesPoints != null) {
-				return $rootScope.user.salesPoints.find(findPoint).name
+				return $rootScope.user.salesPoints.find(findPoint).name;
 			}
 			return "";
         }
 
+        function getPointCountryId() {
+            if ($rootScope.user.salesPoints != null) {
+                return $rootScope.user.salesPoints.find(findPoint).country;
+            }
+            return "";
+        }
+
+		function getPointId() {
+            if ($rootScope.user.salesPoints != null) {
+                return $rootScope.user.salesPoints.find(findPoint).id;
+            }
+            return "";
+        }
+
         function getPointLinks() {
             if ($rootScope.user.salesPoints != null) {
-				return $rootScope.user.salesPoints.find(findPoint).links
+				return $rootScope.user.salesPoints.find(findPoint).links;
 			}
 			return "";
         }

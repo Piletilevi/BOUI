@@ -48,6 +48,12 @@
                 controller: 'reportController',
                 controllerAs: 'vm'
             })
+            .when('/report/:pointId/:type/:id/:reportType/:sectorId/:reservation', {
+                title: 'Report',
+                templateUrl: 'views/report.html',
+                controller: 'reportController',
+                controllerAs: 'vm'
+            })
             .when('/dashboard/', {
                 title: 'Dashboard',
                 templateUrl: 'views/dashboard.html',

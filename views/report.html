@@ -100,8 +100,8 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <a ng-click="vm.overviewFilter.centerId = ''; vm.overviewFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
-                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.overviewFilter.centerId = sp.id; vm.overviewFilter.centerName = sp.name">{{sp.name}}</a>
+                                                    <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
+                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -297,8 +297,8 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <a ng-click="vm.pricetypeFilter.centerId = ''; vm.pricetypeFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
-                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.pricetypeFilter.centerId = sp.id; vm.pricetypeFilter.centerName = sp.name">{{sp.name}}</a>
+                                                    <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
+                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -466,13 +466,13 @@
                                     <div class="form-group">
                                         <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
                                             <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                <span>{{vm.priceClassFilter.centerName ? vm.priceClassFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
+                                                <span>{{vm.priceclassFilter.centerName ? vm.priceclassFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <a ng-click="vm.priceClassFilter.centerId = ''; vm.priceClassFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
-                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.priceClassFilter.centerId = sp.id; vm.priceClassFilter.centerName = sp.name">{{sp.name}}</a>
+                                                    <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
+                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -616,158 +616,10 @@
             <!-- Tab: sections -->
             <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'sections'}"
                  id="sections" role="tabpanel">
-                <div class="panel-body" ng-if="!selectedSectionId">
-                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix bo-inline-print">
-                        <div class="form-inline">
-                            <div class="form-group">
-                                <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                <div class="input-group data_range col-xs-12">
-									<button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button" data-control="daterangepicker">
-                                    <input type="text" daterangepicker class="form-control"
-                                           ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
-                                           ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-                                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
-                                    <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <span>{{vm.sectorsFilter.centerName ? vm.sectorsFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a ng-click="vm.sectorsFilter.centerId = ''; vm.sectorsFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
-                                            <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.sectorsFilter.centerId = sp.id; vm.sectorsFilter.centerName = sp.name">{{sp.name}}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length == 1">
-                                    {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div ng-if="vm.mySectorsData.sales.length === 0">
-                        <div class="bo-no-data-msg">
-                            {{'api_no_data_available'|translate}}
-                        </div>
-                    </div>
-
-                    <div class="row" ng-if="vm.mySectorsData.sales.length > 0">
-                        <div class="col-lg-6">
-                            <div class="bo-sectionselector list-group" ng-if="vm.mySectorsData.sales.length">
-                                <button type="button" class="bo-sectionselector-item list-group-item"
-                                        ng-class="{ 'active': sectorData.sectorId == mouseoverSectionId}"
-                                        ng-click="vm.setSelectedSectionId(sectorData.sectorId)"
-                                        ng-mouseover="vm.setMouseoverSectionId(sectorData.sectorId)"
-                                        ng-repeat="sectorData in vm.mySectorsData.sales">
-                                    <div class="bo-sectionse1lector-itemtitle">
-                                        {{sectorData.name}}
-                                    </div>
-                                    <div class="clearfix">
-                                        <div class="bo-sectionselector-itemprice"
-                                             ng-if="hasFullAccess('api_reports_revenue')">
-                                            {{sectorData.statistics.soldSumma |
-                                            number:2}}
-                                            {{sectorData.statistics.currency}}
-                                        </div>
-                                        <div class="bo-simplestats-labels">
-                                            <span class="bo-simplestats-triangle glyphicon glyphicon-triangle-bottom text-danger"></span>&nbsp;<span
-                                                class="bo-simplestats-label text-success">{{sectorData.statistics.soldTickets || 0}}</span>&nbsp;/&nbsp;<span
-                                                class="bo-simplestats-label text-warning">{{sectorData.statistics.bookedTickets || 0}}</span>&nbsp;/&nbsp;<span
-                                                class="bo-simplestats-label text-danger">{{sectorData.statistics.availableTickets || 0}}</span>
-                                        </div>
-                                        <div class="clearfix">
-                                            <div class="bo-simplestats-pct">{{sectorData.statistics.soldPercent || 0}}%
-                                            </div><!--
-										 -->
-                                            <div class="bo-simplestats-bar progress">
-                                                <div class="progress-bar progress-bar-success"
-                                                     ng-attr-style="flex-grow: {{sectorData.statistics.soldPercent}}"
-                                                     title="{{'api_overview_sold_total'|translate}}"></div>
-                                                <div class="progress-bar progress-bar-warning"
-                                                     ng-attr-style="flex-grow: {{sectorData.statistics.bookedPercent}}"
-                                                     title="{{'api_overview_reserved_total'|translate}}"></div>
-                                                <div class="progress-bar progress-bar-danger"
-                                                     ng-attr-style="flex-grow: {{sectorData.statistics.availablePercent}}"
-                                                     title="{{'api_avail_for_sale'|translate}}"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="bo-map" ng-if="vm.event.sectionsMapConfig.sections.length" sticky offset="10">
-                                <ng-venue-map data-config="{{vm.event.sectionsMapConfig}}"></ng-venue-map>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel-body" ng-if="selectedSectionId">
-                    <div class="bo-tabs-controls row bo-salesoverview-controls">
-                        <div class="col-md-12 bo-inline-print" ng-if="selectedSectionId">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                    <div class="input-group data_range col-xs-12">
-                                        <button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button" data-control="daterangepicker">
-                                            <input type="text" daterangepicker class="form-control"
-                                                   ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
-                                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-                                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <span>{{vm.sectorsFilter.centerName ? vm.sectorsFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a ng-click="vm.sectorsFilter.centerId = ''; vm.sectorsFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
-                                                <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.sectorsFilter.centerId = sp.id; vm.sectorsFilter.centerName = sp.name">{{sp.name}}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length == 1">
-                                        {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
-                                    </span>
-                                </div>
-                                <div class="form-group">
-                                    <div class="bo-sectionselection form-control bo-tabs-controls-item">
-                                        <span class="bo-sectionselection-text">{{'api_selected_section'|translate}}: {{(vm.mySectorsData.sales | filter:{sectorId: selectedSectionId})[0].name}}</span>
-                                        <a class="bo-sectionselection-button text-danger" href
-                                           ng-click="vm.resetSelectedSectionId(selectedSectionId)">
-                                            <span class="bo-sectionselection-icon fa fa-times"></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div ng-if="selectedSectionId">
-                        <div class="row bo-double-charts-row">
-                            <div class="col-lg-6">
-                                <div ng-include="'views/common/event_priceclass_table.html'"></div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="bo-map">
-                                    <ng-venue-map data-config="{{vm.event.seatsMapConfig}}"></ng-venue-map>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="panel-body" block-ui block-ui-pattern="/Basket|Booking|Sector/">
+                    <div ng-if="!selectedSectionId && !vm.bookingStep" ng-include="'views/partials/booking/sections.html'"></div>
+                    <div ng-if="selectedSectionId && !vm.bookingStep && !vm.reservationMode" ng-include="'views/partials/booking/places.html'"></div>
+                    <div ng-if="vm.bookingStep" ng-include="'views/partials/booking/' + vm.bookingStep + '.html'"></div>
                 </div>
             </div>
             <!-- Tab: locations -->
@@ -796,8 +648,8 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a ng-click="vm.locationsFilter.centerId = ''; vm.locationsFilter.centerName = ''">{{'api_all_center_ids'|translate}}</a>
-                                            <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.locationsFilter.centerId = sp.id; vm.locationsFilter.centerName = sp.name">{{sp.name}}</a>
+                                            <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
+                                            <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -891,9 +743,9 @@
 
             <!-- Tab: bookings -->
             <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'bookings'}"
-                 id="bookings" role="tabpanel">
+                 id="bookings" role="tabpanel" block-ui block-ui-pattern="/myBookings/">
                 <div class="panel-body">
-                    Bookings
+                    <div ng-include="'views/partials/booking/bookings.html'"></div>
                 </div>
             </div>
         </div>

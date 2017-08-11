@@ -21,7 +21,7 @@
             getRememberedUser: getRememberedUser
         };
         return service;
-        
+
         function initialize(){
             $rootScope.hasFullAccess = function(name) {
                 var hasFullAccess = false;
@@ -87,7 +87,7 @@
             });
         }
 
-		function verifySession(searchkey){
+        function verifySession(searchkey){
 
             dataService.post('verifySessionKey',{ "sessionkey" : searchkey }).then(function(results){
                 dataService.page(results);
@@ -139,7 +139,7 @@
             });
         }
 
-		function changePassword(change) {
+        function changePassword(change) {
             dataService.post('changePassword', {passwordSet: change})
                 .then(function (results) {
                     dataService.page(results);
