@@ -487,6 +487,10 @@
         };
 
         vm.addDiscount = function () {
+            if(vm.prevDiscount == vm.reservation.discount) {
+                return;
+            }
+            vm.prevDiscount = vm.reservation.discount;
             if (typeof vm.reservation.discount === 'undefined') {
                 vm.reservation.discount = 0;
             }
