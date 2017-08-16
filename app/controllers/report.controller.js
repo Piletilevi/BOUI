@@ -5,13 +5,13 @@
     angular.module('boApp')
         .controller('reportController', ReportController);
 
-    ReportController.$inject = ['$scope', '$sce', '$rootScope', '$routeParams', '$location', 
-								'$filter', '$translate', 'eventService', 'pointService', 
-								'graphService'];
+    ReportController.$inject = ['$scope', '$sce', '$rootScope', '$routeParams', '$location',
+        '$filter', '$translate', 'eventService', 'pointService',
+        'graphService'];
 
-    function ReportController($scope, $sce, $rootScope, $routeParams, $location, 
-							  $filter, $translate, eventService, pointService, 
-							  graphService) {
+    function ReportController($scope, $sce, $rootScope, $routeParams, $location,
+                              $filter, $translate, eventService, pointService,
+                              graphService) {
 
         if (!$routeParams && !$routeParams.id) {
             $location.path('dashboard');
@@ -199,8 +199,8 @@
                 eventService.getBookingsData(vm.bookingFilter, function () {
                     if ($rootScope.bookingId) {
                         setTimeout(function () {
-                            angular.forEach(vm.myBookings.bookings, function(value, key){
-                                if(value.id == $rootScope.bookingId) {
+                            angular.forEach(vm.myBookings.bookings, function (value, key) {
+                                if (value.id == $rootScope.bookingId) {
                                     vm.bookingsRowExpanded = key;
                                 }
                             });
@@ -432,7 +432,7 @@
             }
         };
 
-        vm.validateReservationForm = function() {
+        vm.validateReservationForm = function () {
             vm.reservationFormFubmitted = true;
             vm.reservationFormRequredErr = !vm.reservation.firstName || !vm.reservation.lastName || !vm.reservation.from;
             vm.reservationFormEmailErr = !/\S+@\S+\.\S+/.test(vm.reservation.contactEmail);
@@ -486,8 +486,12 @@
             }
         };
 
-        vm.addDiscount = function() {
-            if(typeof vm.reservation.discount === 'undefined') {
+        vm.addDiscount = function () {
+            if(vm.prevDiscount == vm.reservation.discount) {
+                return;
+            }
+            vm.prevDiscount = vm.reservation.discount;
+            if (typeof vm.reservation.discount === 'undefined') {
                 vm.reservation.discount = 0;
             }
             else {
@@ -506,8 +510,8 @@
             }
         };
 
-        vm.focusDiscount = function() {
-            if(vm.reservation.discount == 0) {
+        vm.focusDiscount = function () {
+            if (vm.reservation.discount == 0) {
                 delete vm.reservation.discount;
             }
         };
@@ -550,7 +554,7 @@
                         classes: classes
                     }, function () {
                         if (vm.reservationMode == 'basket') {
-                            if(!vm.myBasket.basket) {
+                            if (!vm.myBasket.basket) {
                                 vm.reservation.discount = 0;
                             }
                             eventService.getMyBasket(
@@ -596,15 +600,36 @@
             }
         };
 
-        vm.focusPriceClassQuantity = function(ttSectorData) {
-            if(ttSectorData.selected == 0) {
+        vm.focusPriceClassQuantity = function (ttSectorData) {
+            if (ttSectorData.selected == 0) {
                 delete ttSectorData.selected;
             }
         };
 
-        vm.blurPriceClassQuantity = function(ttSectorData) {
-            if(!ttSectorData.selected) {
+        vm.blurPriceClassQuantity = function (ttSectorData) {
+            if (!ttSectorData.selected) {
                 ttSectorData.selected = 0;
+            }
+        };
+
+        vm.selectContactPhoneCode = function (selectedContactPhoneCode) {
+            if (selectedContactPhoneCode) {
+                vm.reservation.contactPhoneCode = '+' + selectedContactPhoneCode.originalObject.areaCode;
+                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-phone-code-inp', vm.reservation.contactPhoneCode);
+            }
+        };
+
+
+        vm.blurContactPhoneCode = function (selectedContactPhoneCode) {
+            var contactPoneCode = $('#contact-phone-code-inp_value').val(),
+                selectedCountry = null;
+            angular.forEach(vm.countries.countries, function (country) {
+                if (parseInt(contactPoneCode, 10) == country.areaCode) {
+                    selectedCountry = country;
+                }
+            });
+            if (!selectedCountry) {
+                $scope.$broadcast('angucomplete-alt:clearInput', 'contact-phone-code-inp');
             }
         };
 
@@ -702,12 +727,17 @@
 
         $scope.$watch('vm.countries', function (newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
+                angular.forEach(newValue.countries, function (country) {
+                    country.phoneCodeOption = country.name + ' (+' + country.areaCode + ')';
+                });
                 if (typeof vm.reservation.contactPhoneCode == 'undefined' && vm.reservation.countryId) {
                     var country = $filter('filter')(vm.countries.countries, function (country) {
                         return country.id == vm.reservation.countryId;
                     });
                     if (country.length > 0) {
-                        vm.reservation.contactPhoneCode = '+' + country[0].areaCode;
+                        var contactPhoneCode = '+' + country[0].areaCode;
+                        vm.defaultContactPhoneCode = contactPhoneCode;
+                        vm.reservation.contactPhoneCode = contactPhoneCode;
                     }
                 }
             }
@@ -738,7 +768,7 @@
                     graphService.renderOverviewBarGraph(vm.myOverviewBarData, vm.myOverviewBarData, vm.overviewBarGraph);
                     graphService.renderOverviewLineGraph(vm.myOverviewLineData, vm.overviewFilter, vm.overviewLineGraph);
                 }
-                if(vm.currentTab == 'sections') {
+                if (vm.currentTab == 'sections') {
                     if (vm.reservation.subject == vm.defaultReservationSubject) {
                         vm.defaultReservationSubject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
                         vm.reservation.subject = vm.defaultReservationSubject;

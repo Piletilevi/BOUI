@@ -133,18 +133,17 @@
             </div>
             <div class="row bo-reservation-phone">
                 <div class="col-md-3 form-group">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="true">{{vm.reservation.contactPhoneCode}}
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="country in vm.countries.countries">
-                                <a ng-click="vm.reservation.contactPhoneCode = '+' + country.areaCode">{{country.name}}
-                                    (+{{country.areaCode}})</a>
-                            </li>
-                        </ul>
-                    </div>
+
+                    <angucomplete-alt id="contact-phone-code-inp"
+                                      selected-object="vm.selectContactPhoneCode"
+                                      initial-value="vm.reservation.contactPhoneCode"
+                                      local-data="vm.countries.countries"
+                                      search-fields="phoneCodeOption"
+                                      title-field="phoneCodeOption"
+                                      focus-out="vm.blurContactPhoneCode()"
+                                      minlength="0"
+                                      input-class="form-control">
+                    </angucomplete-alt>
                 </div>
                 <div class="col-md-9 form-group">
                     <input type="text" placeholder="{{'api_meta_contact_phone'|translate}}" class="form-control"
