@@ -124,7 +124,7 @@
         <tr ng-if="key == vm.bookingsRowExpanded" class="active">
             <td></td>
             <td>
-                {{'api_reservation_list_reserved_by'|translate}}:
+                {{'api_reservation_list_reserved_by'|translate}}:{{booking.creator}}
                 <div>{{booking.creator.firstName}} {{booking.creator.lastName}}</div>
                 <div ng-if="booking.organizationName">{{booking.creator.organization}}</div>
             </td>
