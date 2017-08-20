@@ -55,7 +55,7 @@
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true">
-                    <span>{{vm.bookingFilter.statusId ? ((vm.bookingStatuses.statuses | filter:{id: vm.bookingFilter.statusId}:true)[0].name) : 'All statuses'}}</span>
+                    <span>{{vm.bookingFilter.statusId ? ((vm.bookingStatuses.statuses | filter:{id: vm.bookingFilter.statusId}:true)[0].name) : 'Active'}}</span>
                     &nbsp;
                     <span class="caret"></span>
                 </button>

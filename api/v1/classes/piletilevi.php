@@ -39,10 +39,9 @@ class PiletileviApi {
 	}
 
 	public function getSessionKey($username, $remoteip){
-		$data['filter']= array ('username'=>$username,
-			'remoteip' => $remoteip,
-			'langId' => $this->currentLang->code);
+		$data['filter']= array ('username'=>$username, 'remoteip' => $remoteip);
 		$data['userid']= $username;
+		
 		return $this->send("/user/getSessionKey",$data);
 	}
 	
