@@ -6,9 +6,9 @@
         .module('boApp')
         .directive('ngVenueMap', VenueMap);
 
-    VenueMap.$inject = ['$parse', '$location'];
+    VenueMap.$inject = ['$parse', '$location', '$translate'];
 
-    function VenueMap($parse, $location) {
+    function VenueMap($parse, $location, $translate) {
         return {
             restrict: 'E',
             scope: true,
@@ -916,7 +916,7 @@
                         var loadSectionMap = function (sectionId) {
                             var url = $location.protocol() + '://' + venueMap.getShopDomain() + '/public/upload/seatingplan_section_svg/'
                                 + venueMap.getConfId() + '_' + sectionId + '.svg';
-                            
+
                             piletilevi.venuemap.Utilities.sendXhr({
                                 'url': url,
                                 'onSuccess': function (response) {
@@ -963,8 +963,7 @@
                                         while (legendElement.firstChild) {
                                             legendElement.removeChild(legendElement.firstChild);
                                         }
-                                        //var label = window.translationsManager.get('places.map_legend_booked');
-                                        var label = 'booked';
+                                        var label = $translate.instant('api_seat_not_available');
                                         legendItem = new piletilevi.venuemap.PlaceMapLegendItem(label, '#f3f3f5', 'booked');
                                         legendItems.push(legendItem);
                                         legendElement.appendChild(legendItem.getComponentElement());
