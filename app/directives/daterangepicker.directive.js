@@ -175,12 +175,12 @@
 
 					$('body').on("click", datepickerContainer + " .calendar-links > #weekLink", function($event) {
 						$event.preventDefault();
-						updateCaledarDates(moment().startOf('week'), moment());
+						updateCaledarDates(moment().startOf('week').add(1, 'days'), moment());
 					});
 
 					$('body').on("click", datepickerContainer + " .calendar-links > #lastWeekLink", function($event) {
 						$event.preventDefault();
-						updateCaledarDates(moment().subtract(7, 'days').startOf('week'), moment().subtract(7, 'days').endOf('week'));
+						updateCaledarDates(moment().subtract(7, 'days').startOf('week').add(1, 'days'), moment().subtract(7, 'days').endOf('week').add(1, 'days'));
 					});
 
 					$('body').on("click", datepickerContainer + " .calendar-links > #lastMonthLink", function($event) {

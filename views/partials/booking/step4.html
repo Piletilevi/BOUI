@@ -32,7 +32,7 @@
         <td class="text-center bo-shortcell">
             {{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
         </td>
-        <td class="text-center">{{seat.price}}{{seat.currency}}</td>
+        <td class="text-center">{{seat.price | number:2}}{{seat.currency}}</td>
     </tr>
     </tbody>
 </table>

@@ -1172,7 +1172,9 @@
                         var priceClass = null;
 
                         var init = function () {
-                            placeElement.addEventListener('click', click);
+                            if(piletilevi.venuemap.Config.seatClick) {
+                                placeElement.addEventListener('click', click);
+                            }
                             placeElement.addEventListener('mousemove', mouseMove);
                             placeElement.addEventListener('mouseout', mouseOut);
                             self.refreshStatus();

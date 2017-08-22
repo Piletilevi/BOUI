@@ -37,6 +37,7 @@
                 enabledSections: [],
                 seatsInfo: [],
                 priceClasses: [],
+                seatClick: false,
                 sectionId: 37311,
                 mapWidth: 388,
                 mapHeight: 250
@@ -248,9 +249,9 @@
         };
 
         vm.setSelectedSeatId = function (selectedSeatId) {
-            $('.place_tooltip').remove();
-            $scope.selectedSeatId = selectedSeatId;
-            if ($rootScope.hasFullAccess('api_make_reservation') && vm.event.active) {
+            if ($rootScope.hasFullAccess('api_make_reservation') && vm.event.active && vm.reservationMode) {
+                $scope.selectedSeatId = selectedSeatId;
+                $('.place_tooltip').remove();
                 eventService.addToBasket(
                     {
                         concertId: $routeParams.id,
@@ -311,11 +312,13 @@
 
         vm.getMyBasket = function () {
             vm.reservationMode = 'basket';
+            vm.event.seatsMapConfig.seatClick = true;
             vm.getMyReservation();
         };
 
         vm.getMyBooking = function (bookingId) {
             vm.reservationMode = 'booking';
+            vm.event.seatsMapConfig.seatClick = true;
             vm.getMyReservation(bookingId);
         };
 
@@ -396,6 +399,9 @@
         /* Booking form */
 
         vm.removeFromBasket = function (ticketId) {
+            if(!ticketId || vm.myBasket.basket.length == 1) {
+                vm.prevDiscount = 0;
+            }
             eventService.removeFromBasket(
                 ticketId, function () {
                     if (vm.reservationMode == 'basket') {
@@ -415,6 +421,9 @@
         };
 
         vm.changeBasketTicketType = function (ticketId, typeId) {
+            angular.forEach($filter('filter')(vm.myBasket.basket, {'id': ticketId})[0].priceTypes, function (priceType) {
+                priceType.active = (priceType.priceTypeId == typeId);
+            });
             if (vm.reservationMode == 'basket') {
                 eventService.changeBasketTicketType(ticketId, typeId,
                     function () {
@@ -442,6 +451,7 @@
         vm.goToSectionsStep = function (reservationMode) {
             vm.bookingStep = null;
             vm.reservationMode = reservationMode;
+            vm.event.seatsMapConfig.seatClick = reservationMode;
             var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/';
             $location.update_path(newPath);
             $scope.selectedSectionId = false;
