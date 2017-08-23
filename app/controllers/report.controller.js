@@ -580,7 +580,6 @@
                             concertId: $routeParams.id,
                             sectionId: $scope.selectedSectionId
                         });
-                        venuemap.SectionsMapRegion.refreshStatus();
                     }
                 );
             }
