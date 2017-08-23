@@ -18,7 +18,7 @@
                     var piletilevi = piletilevi || {};
 
                     piletilevi.venuemap = {
-                        SHOP_DOMAIN: 'bo2.piletilevi.ee',
+                        SHOP_DOMAIN: $location.host(),
                         DEFAULT_SEAT_HOVER_COLOR: '#27272e',
                         DEFAULT_SEAT_ACTIVE_COLOR: '#27272e',
                         DEFAULT_SEAT_INACTIVE_COLOR: '#d0d0d0'
