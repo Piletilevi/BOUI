@@ -576,11 +576,11 @@
                                 null, vm.reservation
                             );
                         }
-                        eventService.getSectorInfo(
-                            {
-                                concertId: $routeParams.id,
-                                sectionId: $scope.selectedSectionId
-                            });
+                        eventService.getSectorInfo( {
+                            concertId: $routeParams.id,
+                            sectionId: $scope.selectedSectionId
+                        });
+                        venuemap.SectionsMapRegion.refreshStatus();
                     }
                 );
             }
