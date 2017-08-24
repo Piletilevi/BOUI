@@ -13,10 +13,13 @@
             restrict: 'E',
             scope: true,
             link: function ($scope, $element, $attributes) {
-                $attributes.$observe('config', function () {
-
+                $scope.controller = $scope.ngVenueMapControl;
+                $scope.controller.updateSeats = function () {
+                    VenueMapFunction.VenueMap.build();
+                }
+                $attributes.$observe('config', VenueMapFunction(), true);
+                function VenueMapFunction() {
                     var piletilevi = piletilevi || {};
-
                     piletilevi.venuemap = {
                         SHOP_DOMAIN: $location.host(),
                         DEFAULT_SEAT_HOVER_COLOR: '#27272e',
@@ -1572,7 +1575,7 @@
                         $fullscreenMap.find('.places_map_legend').show();
                     }
 
-                }, true);
+                };
             }
         };
     }
