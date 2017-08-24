@@ -1362,14 +1362,7 @@
                         }
                     };
                 };
-
-                $scope.controller = $scope.ngVenueMapControl;
-                $scope.controller.updateSeats = function () {
-                    var map = piletilevi.venuemap.VenueMap();
-                    map.build();
-                    $element.replace(map.getComponentElement());
-                }
-                $attributes.$observe('config', function () {
+                function createVenueMap() {
                     ScalableComponent.call(piletilevi.venuemap.PlacesMapSection.prototype);
                     $element.empty();
                     // Init
@@ -1436,7 +1429,14 @@
                     }
                     map.build();
                     $element.append(map.getComponentElement());
+                }
 
+                $scope.controller = $scope.ngVenueMapControl;
+                $scope.controller.updateSeats = function () {
+                    createVenueMap();
+                }
+                $attributes.$observe('config', function () {
+                    createVenueMap();
                     // Fullscreen
                     if (piletilevi.venuemap.Config.type === 'seats') {
                         var $fullscreenMap = $('<div class="piletilevi_venue_map_places_sections_fullscreen"></div>');
