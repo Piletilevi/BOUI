@@ -742,7 +742,6 @@
         }
 
         function addToBasket(item, callback) {
-            reportController.ngVenueMapControl.updateSeats(item.seatId);
             dataService.post('addToBasket', {
                 concertId: item.concertId,
                 sectionId: item.sectionId,

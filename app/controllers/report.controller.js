@@ -563,7 +563,8 @@
                     {
                         concertId: $routeParams.id,
                         sectionId: sectionId,
-                        classes: classes
+                        classes: classes,
+                        seatId: $scope.selectedSeatId
                     }, function () {
                         if (vm.reservationMode == 'basket') {
                             if (!vm.myBasket.basket) {
@@ -584,6 +585,7 @@
                         });
                     }
                 );
+                ngVenueMap.updateSeats($scope.selectedSeatId);
             }
 
         };
