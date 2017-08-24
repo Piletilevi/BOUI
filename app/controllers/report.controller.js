@@ -225,10 +225,12 @@
         };
 
         vm.getCurrentTabCode = function () {
-            if (vm.currentTab == 'overview') {
-                return 'api_' + vm.currentTab;
-            } else {
-                return 'api_by_' + vm.currentTab;
+            switch (vm.currentTab) {
+                case 'overview':
+                case 'bookings':
+                    return 'api_' + vm.currentTab;
+                default:
+                    return 'api_by_' + vm.currentTab;
             }
         };
 
