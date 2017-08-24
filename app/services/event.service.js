@@ -828,8 +828,6 @@
                     }
                 }
             });
-            var piletilevi = piletilevi || {};
-            piletilevi.venuemap.PlacesMapSection.update();
         }
 
         function getCountries() {

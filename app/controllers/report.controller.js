@@ -564,6 +564,7 @@
                         sectionId: sectionId,
                         classes: classes
                     }, function () {
+                        vm.venuemap.VenueMap.update();
                         if (vm.reservationMode == 'basket') {
                             if (!vm.myBasket.basket) {
                                 vm.reservation.discount = 0;
