@@ -1484,8 +1484,9 @@
                 }
 
                 $scope.controller = $scope.ngVenueMapControl;
-                $scope.controller.updateSeats = function () {
-                    createVenueMap();
+                $scope.controller.updateSeats = function (seatId) {
+                    $scope.setSelectedSeatId(seatId);
+                    $scope.$apply();
                 }
                 $attributes.$observe('config', function () {
                     createVenueMap();

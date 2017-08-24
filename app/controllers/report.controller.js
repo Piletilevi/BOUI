@@ -577,6 +577,7 @@
                                 null, vm.reservation
                             );
                         }
+
                         eventService.getSectorInfo( {
                             concertId: $routeParams.id,
                             sectionId: $scope.selectedSectionId
