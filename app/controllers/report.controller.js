@@ -563,8 +563,7 @@
                     {
                         concertId: $routeParams.id,
                         sectionId: sectionId,
-                        classes: classes,
-                        seatId: $scope.selectedSeatId
+                        classes: classes
                     }, function () {
                         if (vm.reservationMode == 'basket') {
                             if (!vm.myBasket.basket) {
