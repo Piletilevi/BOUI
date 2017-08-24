@@ -1482,10 +1482,10 @@
                         $fullscreenMap.find('.places_map_legend').show();
                     }
                 }
-                $scope.watch( function () {
+                $scope.$watch( function () {
                     this.offer = eventService.addToBasket();
                 });
-                $scope.watch('offer', function () {
+                $scope.$watch('offer', function () {
                     createVenueMap();
                 });
                 $scope.controller = $scope.ngVenueMapControl;
