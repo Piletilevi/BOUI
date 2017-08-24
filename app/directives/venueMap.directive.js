@@ -13,11 +13,6 @@
             restrict: 'E',
             scope: true,
             link: function ($scope, $element, $attributes) {
-                $scope.controller = $scope.ngVenueMapControl;
-                $scope.controller.updateSeats = function () {
-                    VenueMapFunction.VenueMap.build();
-                }
-                $attributes.$observe('config', VenueMapFunction(), true);
                 function VenueMapFunction() {
                     var piletilevi = piletilevi || {};
                     piletilevi.venuemap = {
@@ -1576,6 +1571,11 @@
                     }
 
                 };
+                $scope.controller = $scope.ngVenueMapControl;
+                $scope.controller.updateSeats = function () {
+                    VenueMapFunction.VenueMap.build();
+                }
+                $attributes.$observe('config', VenueMapFunction(), true);
             }
         };
     }
