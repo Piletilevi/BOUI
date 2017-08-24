@@ -585,7 +585,7 @@
                         });
                     }
                 );
-                ngVenueMap.updateSeats($scope.selectedSeatId);
+                $scope.updateSeats($scope.selectedSeatId);
             }
 
         };
