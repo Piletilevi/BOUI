@@ -1367,7 +1367,7 @@
                 $scope.controller.updateSeats = function () {
                     $element.empty();
                     // Init
-                    var map = piletilevi.venuemap.VenueMap();
+                    var map = new piletilevi.venuemap.VenueMap();
                     map.build();
                     $element.append(map.getComponentElement());
                 }
