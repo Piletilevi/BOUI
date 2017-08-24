@@ -585,7 +585,6 @@
                         });
                     }
                 );
-                $scope.updateSeats($scope.selectedSeatId);
             }
 
         };
