@@ -34,37 +34,16 @@
                 <a class="dropdown-toggle btn btn-default" data-target="#reportdatatab"
                    data-toggle="dropdown"
                    role="button" aria-haspopup="true" aria-expanded="false">
-                    <span>{{vm.getCurrentTabCode()|translate}}</span>
+                    <span>{{vm.getCurrentTabName()}}</span>
                     <span class="caret"></span>
                 </a>
             </div>
             <ul class="nav nav-tabs bo-dropdown-tabs ng-sliding-tabs" role="tablist" id="reportdatatab">
-                <li ng-show="hasFullAccess('api_reports_overview')" ng-class="{'active': vm.currentTab == 'overview'}">
-                    <a href="#overview" data-toggle="tab" role="tab" aria-controls="overview"
-                       ng-click="vm.tabSelectEvent('overview')">{{'api_overview'|translate}}</a></li
-                ><li ng-show="hasFullAccess('api_reports_pricetype')"
-                    ng-class="{'active': vm.currentTab == 'pricetype'}"><a href="#pricetype" data-toggle="tab"
-                                                                           role="tab" aria-controls="pricetype"
-                                                                           ng-click="vm.tabSelectEvent('pricetype')">{{'api_by_pricetype'|translate}}</a>
-                </li
-                ><li ng-show="hasFullAccess('api_reports_priceclass')"
-                    ng-class="{'active': vm.currentTab == 'priceclass'}"><a href="#priceclass" data-toggle="tab"
-                                                                            role="tab" aria-controls="priceclass"
-                                                                            ng-click="vm.tabSelectEvent('priceclass')">{{'api_by_priceclass'|translate}}</a>
-                </li
-                ><li ng-show="hasFullAccess('api_reports_sections')" ng-class="{'active': vm.currentTab == 'sections'}"
-                    ng-hide="vm.event.isShow"><a href="#sections" data-toggle="tab" role="tab" aria-controls="sections"
-                                                 ng-click="vm.tabSelectEvent('sections')">{{'api_by_sectors'|translate}}</a>
-                </li
-                ><li ng-show="hasFullAccess('api_reports_locations')"
-                    ng-class="{'active': vm.currentTab == 'locations'}"><a href="#locations" data-toggle="tab"
-                                                                           role="tab" aria-controls="locations"
-                                                                           ng-click="vm.tabSelectEvent('locations')">{{'api_by_locations'|translate}}</a>
-                </li
-                ><li ng-show="hasFullAccess('api_reports_reservations')"
-                    ng-class="{'active': vm.currentTab == 'bookings'}"><a href="#bookings" data-toggle="tab" role="tab"
-                                                                          aria-controls="bookings"
-                                                                          ng-click="vm.tabSelectEvent('bookings')">{{'api_bookings'|translate}}</a>
+                <li ng-repeat="tab in vm.activeTabs" ng-class="{'active': vm.currentTab == tab.name}" ng-hide="tab.hiddenInShows && vm.event.isShow">
+                    <a data-toggle="tab"
+                       role="tab"
+                       aria-controls="{{tab.name}}"
+                       ng-click="vm.tabSelectEvent(tab.name)">{{tab.translationCode|translate}}</a>
                 </li>
             </ul>
         </div>
@@ -112,7 +91,7 @@
                                 </div>
                             </div>
                             <div class="bo-chartcontrols col-sm-4 text-right">
-                                <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
+                                <span class="visible-print">{{vm.getCurrentTabName()}}. {{'api_print_display'|translate}}</span>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button type="button" class="btn btn-sm btn-default"
                                             ng-class="{ 'active': vm.overviewFilter.display=='tickets'}"
@@ -309,7 +288,7 @@
                                 </div>
                             </div>
                             <div class="bo-chartcontrols col-sm-4 text-right">
-                                <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
+                                <span class="visible-print">{{vm.getCurrentTabName()}}. {{'api_print_display'|translate}}</span>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button type="button" class="btn btn-sm btn-default"
                                             ng-class="{ 'active': vm.pricetypeFilter.display=='tickets'}"
@@ -359,7 +338,7 @@
                                 <div class="bo-chart">
                                     <div class="bo-chart-buttons">
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
+                                            <span class="visible-print">{{vm.getCurrentTabName()}}. {{'api_print_display'|translate}}</span>
                                             <button type="button" class="btn btn-sm btn-default"
                                                     ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='tickets'}"
                                                     ng-click="vm.setPricetypePieDisplay('tickets')">
@@ -483,7 +462,7 @@
                                 </div>
                             </div>
                             <div class="bo-chartcontrols col-sm-4 text-right">
-                                <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
+                                <span class="visible-print">{{vm.getCurrentTabName()}}. {{'api_print_display'|translate}}</span>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button type="button" class="btn btn-sm btn-default"
                                             ng-class="{ 'active': vm.priceclassFilter.display=='tickets'}"
