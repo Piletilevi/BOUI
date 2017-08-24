@@ -1482,12 +1482,6 @@
                         $fullscreenMap.find('.places_map_legend').show();
                     }
                 }
-                $scope.$watch( function () {
-                    this.offer = eventService.addToBasket();
-                });
-                $scope.$watch('offer', function () {
-                    createVenueMap();
-                });
                 $scope.controller = $scope.ngVenueMapControl;
                 $scope.controller.updateSeats = function (seatId) {
                     $scope.setSelectedSeatId(seatId);
