@@ -1,111 +1,73 @@
-var SlidingTabs = function(elem) {
+var SlidingTabs = function(componentElement) {
+	var self = this;
 	var parentElement;
-	var element;
-	var dropdownWrapper;
-	var dropdown;
-	var dropdownElements;
-	var childrensWidth;
+	var dropdownElement;
+	var dropdownListElement;
 	var textMore;
+	var resizeTimeout;
 
 	var init = function() {
-		parentElement = $(elem).parent();
-		element = $(elem);
-		dropdownWrapper = document.createElement('div');
-		dropdownWrapper.className = 'dropdown sliding-tabs-dropdown hidden-xs';
+		parentElement = $(componentElement).parent();
+		dropdownElement = document.createElement('div');
+		dropdownElement.className = 'dropdown sliding-tabs-dropdown hidden-xs';
 
-		dropdown = document.createElement('a');
-		dropdown.className = 'dropdown-toggle';
-		$(dropdownWrapper).append(dropdown);
-		$(dropdown).attr('data-toggle', 'dropdown');
-		$(dropdown).attr('aria-haspopup', 'true');
-		$(dropdown).attr('aria-expanded', 'false');
-		$(dropdown).attr('role', 'button');
-		$(dropdown).html(textMore + '&nbsp;&nbsp;<span class="caret"></span>');
+		var linkElement = document.createElement('a');
+		linkElement.className = 'dropdown-toggle';
+		$(dropdownElement).append(linkElement);
+		$(linkElement).attr('data-toggle', 'dropdown');
+		$(linkElement).attr('aria-haspopup', 'true');
+		$(linkElement).attr('aria-expanded', 'false');
+		$(linkElement).attr('role', 'button');
+		$(linkElement).html(textMore + '&nbsp;&nbsp;<span class="caret"></span>');
 
-		dropdownElements = document.createElement('ul');
-		dropdownElements.className = 'dropdown-menu';
-		$(dropdownWrapper).append(dropdownElements);
+		dropdownListElement = document.createElement('ul');
+		dropdownListElement.className = 'dropdown-menu';
+		$(dropdownElement).append(dropdownListElement);
 
-		parentElement.append(dropdownWrapper);
-		$(dropdown).dropdown();
-
-		onResize();
-	}
-
-	var onResize = function() {
-		countSizes();
-		recountElementChildrensWidth();
-		if ($(window).width() < 720) {
-			removeAllFromDropdown();
-		} else if (childrensWidth > parentElement.width()) {
-			addToDropdown();
-		} else {
-			removeFromDropdown();
-		}
-	}
-
+		parentElement.append(dropdownElement);
+		$(linkElement).dropdown();
+		self.adjustToContainer();
+		$(window).on('resize', onResize);
+	};
 	this.setTextMore = function(text) {
 		textMore = text;
-	}
-
-	var countSizes = function() {
-		for (var i = $(elem).children().length; i--;) {
-			var child = $($(elem).children()[i]);
-			child.attr('originalWidth', child.width());
+	};
+	this.adjustToContainer = function() {
+		// enable potential overflow
+		$(dropdownListElement).children().each(function(i, item) {
+			componentElement.appendChild(item);
+		});
+		var occupiedWidth = 0;
+		$(componentElement).children().each(function(i, item) {
+			occupiedWidth += item.offsetWidth;
+		});
+		var containerWidth = parentElement.width();
+		if ($(window).width() < 720 || occupiedWidth <= containerWidth) {
+			// all tabs can be displayed at once
+			$(dropdownElement).hide();
+			return;
 		}
-	}
-
-	var addToDropdown = function() {
-		$(dropdownWrapper).show();
-		for (var i = $(elem).children().length; i--;) {
-			var child = $($(elem).children()[i]);
-
-			if (childrensWidth > parentElement.width()) {
-				$(dropdownElements).prepend(child);
-				recountElementChildrensWidth();
-			} else {
-				break;
+		// put overflowing tabs into dropdown
+		$(dropdownElement).show();
+		var desiredWidth = containerWidth - dropdownElement.offsetWidth;
+		occupiedWidth = 0;
+		$(componentElement).children().each(function(i, item) {
+			var child = $(item);
+			occupiedWidth += child.width();
+			if (occupiedWidth > desiredWidth) {
+				child.appendTo($(dropdownListElement));
 			}
-		}
-	}
-
-	var removeFromDropdown = function() {
-		for (var i = 0; i < $(dropdownElements).children().length; i++) {
-			var child = $($(dropdownElements).children()[i]);
-			if (childrensWidth < (parentElement.width() - child.attr('originalWidth'))) {
-				element.append(child);
-				recountElementChildrensWidth();
-			} else {
-				break;
-			}
-		}
-
-		if (!$(dropdownElements).children().length) {
-			$(dropdownWrapper).hide();
-		}
-	}
-
-	var removeAllFromDropdown = function() {
-		for (var i = 0; i < $(dropdownElements).children().length; i++) {
-			var child = $($(dropdownElements).children()[i]);
-			element.append(child);
-			recountElementChildrensWidth();
-		}
-	}
-
-	var recountElementChildrensWidth = function() {
-		childrensWidth = $(dropdownWrapper).width();
-		for (var i = $(elem).children().length; i--;) {
-			var child = $($(elem).children()[i]);
-			childrensWidth = child.attr('originalWidth') - 0 + childrensWidth;
-		}
-	}
-
-	$(window).on('resize', function() {
-		onResize();
-	});
-
+		});
+	};
 	this.initialize = function() {
 		init();
-	}
+	};
+	this.destroyed = function() {
+		window.clearTimeout(resizeTimeout);
+		$(window).off('resize', onResize);
+	};
+	var onResize = function() {
+		window.clearTimeout(resizeTimeout);
+		window.setTimeout(self.adjustToContainer, 500);
+	};
 }

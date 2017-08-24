@@ -1600,6 +1600,7 @@ a:hover {
 	white-space: nowrap;
 	display: inline-block;
 	width: 100%;
+	overflow: hidden;
 }
 
 .ng-sliding-tabs > li {
@@ -1615,6 +1616,7 @@ a:hover {
 	position: absolute;
 	right: 0;
 	top: 13px;
+	padding-left: 20px;
 }
 .sliding-tabs-dropdown .dropdown-toggle {
 	color: #27394c;
