@@ -1429,14 +1429,6 @@
                     }
                     map.build();
                     $element.append(map.getComponentElement());
-                }
-
-                $scope.controller = $scope.ngVenueMapControl;
-                $scope.controller.updateSeats = function () {
-                    createVenueMap();
-                }
-                $attributes.$observe('config', function () {
-                    createVenueMap();
                     // Fullscreen
                     if (piletilevi.venuemap.Config.type === 'seats') {
                         var $fullscreenMap = $('<div class="piletilevi_venue_map_places_sections_fullscreen"></div>');
@@ -1489,6 +1481,14 @@
                         $fullscreenMap.append(fullscreenMap.getComponentElement());
                         $fullscreenMap.find('.places_map_legend').show();
                     }
+                }
+
+                $scope.controller = $scope.ngVenueMapControl;
+                $scope.controller.updateSeats = function () {
+                    createVenueMap();
+                }
+                $attributes.$observe('config', function () {
+                    createVenueMap();
                 }, true);
             }
         };
