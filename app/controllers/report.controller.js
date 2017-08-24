@@ -43,6 +43,7 @@
                 mapHeight: 250
             }
         };
+        $scope.ngVenueMapControl = {};
 
         eventService.reset();
         graphService.reset();
@@ -713,7 +714,6 @@
                 });
             }
         });
-
         $scope.$watch(
             function () {
                 vm.myOverviewBarData = eventService.myOverviewData();
