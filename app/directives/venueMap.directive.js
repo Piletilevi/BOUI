@@ -1365,11 +1365,9 @@
 
                 $scope.controller = $scope.ngVenueMapControl;
                 $scope.controller.updateSeats = function () {
-                    $element.empty();
-                    // Init
-                    var map = new piletilevi.venuemap.VenueMap();
+                    var map = piletilevi.venuemap.VenueMap();
                     map.build();
-                    $element.append(map.getComponentElement());
+                    $element.replace(map.getComponentElement());
                 }
                 $attributes.$observe('config', function () {
                     ScalableComponent.call(piletilevi.venuemap.PlacesMapSection.prototype);
