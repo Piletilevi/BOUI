@@ -1488,6 +1488,7 @@
                     $scope.$apply();
                 }
                 $attributes.$observe('config', function () {
+                    console.log("OBSERVE");
                     createVenueMap();
                 }, true);
             }
