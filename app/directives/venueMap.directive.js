@@ -130,11 +130,11 @@
                                 sectionsMap.position();
                             }
                         };
-                        this.build = function () {
+                        self.build = function () {
                             self.update();
                             self.display();
                         };
-                        this.update = function () {
+                        self.update = function () {
                             if (activeSection) {
                                 placesMap.update();
                                 placesMap.setDisplayed(true);
@@ -146,78 +146,78 @@
                             }
                             self.display();
                         };
-                        this.display = function () {
+                        self.display = function () {
                             componentElement.style.display = '';
                         };
-                        this.hide = function () {
+                        self.hide = function () {
                             componentElement.style.display = 'none';
                         };
-                        this.setConfId = function (newConfId) {
+                        self.setConfId = function (newConfId) {
                             confId = newConfId;
                         };
-                        this.getConfId = function () {
+                        self.getConfId = function () {
                             return confId;
                         };
-                        this.setSectionsMapType = function (newMapType) {
+                        self.setSectionsMapType = function (newMapType) {
                             sectionsMapType = newMapType;
                         };
-                        this.getSectionsMapType = function () {
+                        self.getSectionsMapType = function () {
                             return sectionsMapType;
                         };
-                        this.setSectionsMapImageUrl = function (newMapImageUrl) {
+                        self.setSectionsMapImageUrl = function (newMapImageUrl) {
                             sectionsMapImageUrl = newMapImageUrl;
                         };
-                        this.getSectionsMapImageUrl = function () {
+                        self.getSectionsMapImageUrl = function () {
                             return sectionsMapImageUrl;
                         };
-                        this.setSections = function (newSections) {
+                        self.setSections = function (newSections) {
                             sections = newSections;
                         };
-                        this.getSections = function () {
+                        self.getSections = function () {
                             return sections;
                         };
-                        this.setEnabledSections = function (newEnabledSections) {
+                        self.setEnabledSections = function (newEnabledSections) {
                             enabledSections = newEnabledSections;
                         };
-                        this.getEnabledSections = function () {
+                        self.getEnabledSections = function () {
                             return enabledSections;
                         };
-                        this.setSeatSelectionEnabled = function (newSeatSelectionEnabled) {
+                        self.setSeatSelectionEnabled = function (newSeatSelectionEnabled) {
                             seatSelectionEnabled = newSeatSelectionEnabled;
                         };
-                        this.isSeatSelectionEnabled = function () {
+                        self.isSeatSelectionEnabled = function () {
                             return seatSelectionEnabled;
                         };
-                        this.addSectionDetails = function (details) {
+                        self.addSectionDetails = function (details) {
                             sectionsDetails[details.id] = details;
                         };
-                        this.getSectionDetails = function (id) {
+                        self.getSectionDetails = function (id) {
                             return sectionsDetails[id] || null;
                         };
-                        this.setSelectedSeats = function (newSelectedSeats) {
+                        self.setSelectedSeats = function (newSelectedSeats) {
                             selectedSeats = newSelectedSeats;
                             for (var i = selectedSeats.length; i--;) {
                                 selectedSeatsIndex[selectedSeats[i]] = true;
                             }
                         };
-                        this.setSeatColors = function (newColors) {
+                        self.setSeatColors = function (newColors) {
                             seatColors.hover = newColors.hover || piletilevi.venuemap.DEFAULT_SEAT_HOVER_COLOR;
                             seatColors.active = newColors.active || piletilevi.venuemap.DEFAULT_SEAT_ACTIVE_COLOR;
                             seatColors.inactive = newColors.inactive || piletilevi.venuemap.DEFAULT_SEAT_INACTIVE_COLOR;
                         };
-                        this.getSeatColor = function (state) {
+                        self.getSeatColor = function (state) {
                             return seatColors[state];
                         };
-                        this.isSeatSelected = function (seatId) {
+                        self.isSeatSelected = function (seatId) {
                             return selectedSeatsIndex[seatId] || false;
                         };
-                        this.addHandler = function (eventName, callBack) {
+                        self.addHandler = function (eventName, callBack) {
                             if (typeof eventHandlers[eventName] == 'undefined') {
                                 eventHandlers[eventName] = [];
                             }
                             eventHandlers[eventName].push(callBack);
                         };
-                        this.trigger = function (event, param) {
+                        self.trigger = function (event, param) {
                             for (var type in eventHandlers) {
                                 if (type != event) {
                                     continue;
@@ -229,34 +229,34 @@
                                 break;
                             }
                         };
-                        this.setSelectedSection = function (sectionId) {
+                        self.setSelectedSection = function (sectionId) {
                             activeSection = sectionId;
                         };
-                        this.setShopDomain = function (newShopDomain) {
+                        self.setShopDomain = function (newShopDomain) {
                             shopDomain = newShopDomain;
                         };
-                        this.getShopDomain = function () {
+                        self.getShopDomain = function () {
                             return shopDomain;
                         };
-                        this.getSelectedSection = function () {
+                        self.getSelectedSection = function () {
                             return activeSection;
                         };
-                        this.getComponentElement = function () {
+                        self.getComponentElement = function () {
                             return componentElement;
                         };
-                        this.zoomIn = function () {
+                        self.zoomIn = function () {
                             ++zoomLevel;
                             adjustToZoom();
                         };
-                        this.zoomOut = function () {
+                        self.zoomOut = function () {
                             --zoomLevel >= 0 || (zoomLevel = 0);
                             adjustToZoom();
                         };
-                        this.setZoomLevel = function (newZoom) {
+                        self.setZoomLevel = function (newZoom) {
                             zoomLevel = newZoom;
                             adjustToZoom();
                         };
-                        this.getZoomLevel = function () {
+                        self.getZoomLevel = function () {
                             return zoomLevel;
                         };
                         init();
@@ -273,7 +273,7 @@
                             componentElement = document.createElement('div');
                             componentElement.className = 'piletilevi_venue_map_sections';
                         };
-                        this.update = function () {
+                        self.update = function () {
                             var mapType = venueMap.getSectionsMapType();
                             if (mapType) {
                                 if (mapType == 'image') {
@@ -289,13 +289,13 @@
                                 self.updateMapElement();
                             }
                         };
-                        this.display = function () {
+                        self.display = function () {
                             componentElement.style.display = '';
                         };
-                        this.hide = function () {
+                        self.hide = function () {
                             componentElement.style.display = 'none';
                         };
-                        this.createImageElement = function (imageSource) {
+                        self.createImageElement = function (imageSource) {
                             var element = document.createElement('img');
                             element.setAttribute('src', imageSource);
                             self.imageElement = element;
@@ -337,10 +337,10 @@
                                 console.log(e);
                             }
                         };
-                        this.createMapElement = function () {
+                        self.createMapElement = function () {
                             requestMapData();
                         };
-                        this.checkMapElement = function () {
+                        self.checkMapElement = function () {
                             if (self.mapElement) {
                                 var vectorDocument = self.mapElement;
                                 if (vectorDocument) {
@@ -349,7 +349,7 @@
                                 }
                             }
                         };
-                        this.updateMapElement = function () {
+                        self.updateMapElement = function () {
                             if (self.mapElement && self.vectorDocument) {
                                 var vectorDocument = self.vectorDocument;
                                 var sectionsToRemove = [];
@@ -384,7 +384,7 @@
                                 self.mapElement.style.visibility = 'visible';
                             }
                         };
-                        this.getComponentElement = function () {
+                        self.getComponentElement = function () {
                             return componentElement;
                         };
                         init();
@@ -392,7 +392,7 @@
 
                     piletilevi.venuemap.SectionsMapRegion = function (venueMap, sectionsMap, id, sectionVector, enabled) {
                         var self = this;
-                        this.id = false;
+                        self.id = false;
 
                         var init = function () {
                             self.id = id;
@@ -401,40 +401,40 @@
                             sectionVector.addEventListener('mouseout', self.mouseOut);
                             self.refreshStatus();
                         };
-                        this.refreshStatus = function () {
+                        self.refreshStatus = function () {
                             if (!enabled) {
-                                this.markDisabled();
+                                self.markDisabled();
                             } else {
-                                this.markInactive();
+                                self.markInactive();
                             }
                         };
-                        this.mouseOver = function (event) {
+                        self.mouseOver = function (event) {
                             self.markActive();
                             venueMap.trigger('sectionMouseover', id);
                         };
-                        this.mouseOut = function (event) {
+                        self.mouseOut = function (event) {
                             self.markInactive();
                         };
-                        this.markDisabled = function () {
+                        self.markDisabled = function () {
                             if (sectionVector) {
                                 sectionVector.setAttribute("style", "display: none;");
                             }
                         };
-                        this.markActive = function () {
+                        self.markActive = function () {
                             if (sectionVector) {
                                 sectionVector.setAttribute("fill", "#75bb01");
                                 sectionVector.setAttribute("opacity", "0.8");
                                 sectionVector.setAttribute("style", "display: block;");
                             }
                         };
-                        this.markInactive = function () {
+                        self.markInactive = function () {
                             if (sectionVector) {
                                 sectionVector.setAttribute("fill", "#cccccc");
                                 sectionVector.setAttribute("opacity", "0");
                                 sectionVector.setAttribute("style", "display: block;");
                             }
                         };
-                        this.click = function (event) {
+                        self.click = function (event) {
                             venueMap.trigger('sectionSelected', id);
                         };
                         init();
@@ -497,7 +497,7 @@
                                     break;
                             }
                         };
-                        this.getEventsSet = function () {
+                        self.getEventsSet = function () {
                             eventsSet = false;
                             if (window.PointerEvent) {
                                 //IE >=11, somebody else?
@@ -625,7 +625,7 @@
                         var pointerMove = function (event) {
                             cachePointerEvent(event);
                         };
-                        this.addEventListener = function (element, eventType, callback, useCapture) {
+                        self.addEventListener = function (element, eventType, callback, useCapture) {
                             if (!useCapture) {
                                 useCapture = false;
                             }
@@ -659,7 +659,7 @@
                                 }
                             }
                         };
-                        this.removeEventListener = function (element, eventType, callback) {
+                        self.removeEventListener = function (element, eventType, callback) {
                             if (typeof handlers[eventType] != 'undefined') {
                                 for (var i = 0; i < handlers[eventType].length; i++) {
                                     if (handlers[eventType][i]['callback'] == callback && handlers[eventType][i]['element'] == element) {
@@ -669,7 +669,7 @@
                                 }
                             }
                         };
-                        this.setTouchAction = function (element, action) {
+                        self.setTouchAction = function (element, action) {
                             if (eventsSet == 'mspointer') {
                                 // IE10
                                 element.style.msTouchAction = action;
@@ -711,7 +711,7 @@
                         var f1y;
 
                         var self = this;
-                        this.registerScalableElement = function (parameters) {
+                        self.registerScalableElement = function (parameters) {
                             if (typeof parameters == 'object') {
                                 if (parameters.scaledElement != undefined) {
                                     scaledElement = parameters.scaledElement;
@@ -766,7 +766,7 @@
                                 initScalableElement();
                             }
                         };
-                        this.unRegisterScalableElement = function () {
+                        self.unRegisterScalableElement = function () {
                             removeScalableElement();
                         };
                         var initScalableElement = function () {
@@ -944,7 +944,7 @@
 
                             $element.find('.bo-mapcontrols').show();
                         };
-                        this.update = function () {
+                        self.update = function () {
                             if (currentSection != venueMap.getSelectedSection() && maps[currentSection]) {
                                 maps[currentSection].setDisplayed(false);
                             }
@@ -984,12 +984,12 @@
                                 loadSectionMap(currentSection);
                             }
                         };
-                        this.adjustToZoom = function () {
+                        self.adjustToZoom = function () {
                             if (currentSection && maps[currentSection]) {
                                 maps[currentSection].adjustToZoom();
                             }
                         };
-                        this.setDisplayed = function (newDisplayed) {
+                        self.setDisplayed = function (newDisplayed) {
                             if (displayed == newDisplayed) {
                                 return;
                             }
@@ -999,7 +999,7 @@
                             }
                             componentElement.style.display = displayed ? '' : 'none';
                         };
-                        this.getComponentElement = function () {
+                        self.getComponentElement = function () {
                             return componentElement;
                         };
                         init();
@@ -1087,7 +1087,7 @@
                         //
                         //	return true;
                         //};
-                        this.update = function () {
+                        self.update = function () {
                             var sectionDetails = venueMap.getSectionDetails(sectionId);
                             if (sectionDetails) {
                                 var priceClasses = sectionDetails.priceClasses || [];
@@ -1122,11 +1122,11 @@
                                 }
                             }
                         };
-                        this.position = function () {
+                        self.position = function () {
                             componentElement.style.width = piletilevi.venuemap.Config.mapWidth + 'px';
                             componentElement.style.height = piletilevi.venuemap.Config.mapHeight + 'px';
                         };
-                        this.adjustToZoom = function () {
+                        self.adjustToZoom = function () {
                             //svgElement.style.position = 'absolute';
                             //svgElement.style.top = '50%';
                             //svgElement.style.left = '50%';
@@ -1147,7 +1147,7 @@
                             //svgElement.style.marginLeft = -componentElement.clientWidth / 2 + 'px';
                             //svgElement.style.marginTop = -componentElement.clientHeight / 2 + 'px';
                         };
-                        this.setDisplayed = function (newDisplayed) {
+                        self.setDisplayed = function (newDisplayed) {
                             if (displayed != newDisplayed) {
                                 displayed = newDisplayed;
                                 componentElement.style.display = displayed ? '' : 'none';
@@ -1156,7 +1156,7 @@
                                 }
                             }
                         };
-                        this.getComponentElement = function () {
+                        self.getComponentElement = function () {
                             return componentElement;
                         };
                         init();
@@ -1165,7 +1165,7 @@
 
                     piletilevi.venuemap.PlacesMapPlace = function (venueMap, placeElement, placesMapObject) {
                         var self = this;
-                        this.id = false;
+                        self.id = false;
                         var selected = false;
                         var seatInfo = null;
                         var selectable = null;
@@ -1217,16 +1217,16 @@
                                 }
                             }
                         };
-                        this.refreshStatus = function () {
+                        self.refreshStatus = function () {
                             var seatColor = venueMap.getSeatColor('inactive');
                             if (selected) {
                                 seatColor = venueMap.getSeatColor('active');
                             } else if (priceClass && (seatInfo.available || !selectable)) {
                                 seatColor = priceClass.color;
                             }
-                            this.setColor(seatColor);
+                            self.setColor(seatColor);
                         };
-                        this.setColor = function (seatColor) {
+                        self.setColor = function (seatColor) {
                             if (placeElement) {
                                 if (selectable) {
                                     placeElement.setAttribute("style", "cursor:pointer;stroke:#1F1A17;stroke-width:0.4;fill:" + seatColor);
@@ -1235,16 +1235,16 @@
                                 }
                             }
                         };
-                        this.setSelectable = function (newSelectable) {
+                        self.setSelectable = function (newSelectable) {
                             selectable = !!newSelectable;
                         };
-                        this.setSeatInfo = function (newSeatInfo) {
+                        self.setSeatInfo = function (newSeatInfo) {
                             seatInfo = newSeatInfo;
                         };
-                        this.setPriceClass = function (newPriceClass) {
+                        self.setPriceClass = function (newPriceClass) {
                             priceClass = newPriceClass;
                         };
-                        this.setSelected = function (newSelected) {
+                        self.setSelected = function (newSelected) {
                             selected = !!newSelected;
                         };
                         init();
@@ -1258,42 +1258,42 @@
                         var componentElement;
                         var self = this;
 
-                        this.init = function () {
-                            this.text = text;
-                            this.color = color;
+                        self.init = function () {
+                            self.text = text;
+                            self.color = color;
                             componentElement = document.createElement('span');
                             componentElement.className = 'places_map_legend_item';
                             if (extraClass) {
                                 componentElement.className += ' places_map_legend_item_' + extraClass;
                             }
-                            this.colorElement = document.createElement('span');
-                            this.colorElement.className = 'places_map_legend_color';
+                            self.colorElement = document.createElement('span');
+                            self.colorElement.className = 'places_map_legend_color';
                             componentElement.appendChild(this.colorElement);
-                            this.titleElement = document.createElement('span');
-                            this.titleElement.className = 'places_map_legend_title';
+                            self.titleElement = document.createElement('span');
+                            self.titleElement.className = 'places_map_legend_title';
                             componentElement.appendChild(this.titleElement);
-                            this.refreshContents();
+                            self.refreshContents();
                         };
-                        this.refreshContents = function () {
+                        self.refreshContents = function () {
                             var titleText = this.text;
-                            this.setTextContent(this.titleElement, titleText);
-                            this.colorElement.style.backgroundColor = this.color;
+                            self.setTextContent(this.titleElement, titleText);
+                            self.colorElement.style.backgroundColor = this.color;
                         };
-                        this.setTextContent = function (element, text) {
+                        self.setTextContent = function (element, text) {
                             while (element.firstChild) {
                                 element.removeChild(element.firstChild);
                             }
                             var textNode = document.createTextNode(text);
                             element.appendChild(textNode);
                         };
-                        this.getComponentElement = function () {
+                        self.getComponentElement = function () {
                             return componentElement;
                         };
-                        this.init();
+                        self.init();
                     }
                     piletilevi.venuemap.PlacesMapStageLabel = function (textElement) {
                         var self = this;
-                        this.setText = function (newText) {
+                        self.setText = function (newText) {
                             if (textElement.String) {
                                 textElement.String = newText;
                             } else {
@@ -1304,7 +1304,7 @@
                                 textElement.appendChild(node);
                             }
                         };
-                        this.getText = function () {
+                        self.getText = function () {
                             return textElement.textContent || textElement.String;
                         };
                     };
@@ -1312,12 +1312,12 @@
                     piletilevi.venuemap.PlaceTooltip = new function () {
                         var self = this;
                         var componentElement;
-                        this.row1Element = false;
-                        this.row2Element = false;
-                        this.row3Element = false;
-                        this.row4Element = false;
-                        this.statusRowElement = false;
-                        this.popupOffset = 0;
+                        self.row1Element = false;
+                        self.row2Element = false;
+                        self.row3Element = false;
+                        self.row4Element = false;
+                        self.statusRowElement = false;
+                        self.popupOffset = 0;
 
                         var createDomElements = function () {
                             componentElement = document.createElement('div');
@@ -1370,7 +1370,7 @@
                             self.row4Element.className = 'place_tooltip_status';
                             self.statusRowElement.appendChild(self.row4Element);
                         };
-                        this.clear = function () {
+                        self.clear = function () {
                             while (self.row1Element.firstChild) {
                                 self.row1Element.removeChild(self.row1Element.firstChild);
                             }
@@ -1384,7 +1384,7 @@
                                 self.row4Element.removeChild(self.row4Element.firstChild);
                             }
                         };
-                        this.display = function (x, y, row, place, price, status) {
+                        self.display = function (x, y, row, place, price, status) {
                             if (!componentElement) {
                                 createDomElements();
                             }
@@ -1433,7 +1433,7 @@
                             componentElement.style.top = topPosition + 'px';
                             componentElement.style.visibility = 'visible';
                         };
-                        this.hide = function () {
+                        self.hide = function () {
                             if (componentElement) {
                                 componentElement.style.display = 'none';
                             }
