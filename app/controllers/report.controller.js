@@ -706,6 +706,11 @@
                                     vm.setSelectedSectionId($routeParams.sectorId);
                                 }
                             });
+                            $scope.$watch('vm.event.eventPeriod', function (newEventPeroud, oldEventPeriod) {
+                                if (newEventPeroud !== oldEventPeriod) {
+                                    vm.reservationEndDate = vm.event.eventPeriod.end;
+                                }
+                            });
                         }
                     }
                 });
