@@ -479,6 +479,9 @@
             if (typeof vm.reservation.countryId == 'undefined') {
                 vm.reservation.countryId = pointService.getPointCountryId();
             }
+            if(!vm.reservation.contactPhoneCode) {
+                vm.reservation.contactPhoneCode = vm.defaultContactPhoneCode;
+            }
             vm.bookingStep = 'step4';
         };
 
@@ -633,15 +636,16 @@
 
 
         vm.blurContactPhoneCode = function (selectedContactPhoneCode) {
-            var contactPoneCode = $('#contact-phone-code-inp_value').val(),
+            var contactPhoneCode = $('#contact-phone-code-inp_value').val(),
                 selectedCountry = null;
             angular.forEach(vm.countries.countries, function (country) {
-                if (parseInt(contactPoneCode, 10) == country.areaCode) {
+                if (parseInt(contactPhoneCode, 10) == country.areaCode) {
                     selectedCountry = country;
                 }
             });
             if (!selectedCountry) {
-                $scope.$broadcast('angucomplete-alt:clearInput', 'contact-phone-code-inp');
+                vm.reservation.contactPhoneCode = vm.defaultContactPhoneCode;
+                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-phone-code-inp', vm.reservation.contactPhoneCode);
             }
         };
 
