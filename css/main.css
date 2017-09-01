@@ -765,6 +765,25 @@ h3.bo-event-title {
     margin-bottom: 12px;
 }
 
+.bo-widgetbox-white {
+
+}
+
+.bo-center-column .bo-widgetbox-white {
+    max-width: none;
+}
+
+.bo-widgetbox-white .bo-widgetbox-body {
+    background: #fff;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 6px;
+}
+
+.bo-widgetbox-white h4.header {
+    margin-bottom: 20px;
+}
+
 /* Error
 ================================ */
 
@@ -901,6 +920,7 @@ h3.bo-event-title {
 .bo-eventshort-progress .progress {
     height: 17px;
     margin: 0;
+    max-width: none;
 }
 
 .bo-eventshort-progress .progress-bar {
@@ -965,13 +985,13 @@ h3.bo-event-title {
 }
 
 .bo-sectionselector-item {
-    padding: 5px 12px 12px;
+    padding: 11px 17px 14px 20px;
+    color: #040e19;
 }
 
 .bo-sectionselector-itemtitle {
     color: #040e19;
-    font-size: 22px;
-    margin-bottom: 10px;
+    font-size: 17px;
 }
 
 .bo-sectionselector-itemprice {
@@ -986,11 +1006,23 @@ h3.bo-event-title {
     overflow: hidden;
 }
 
+.bo-sectionselector-item.a.list-group-item,
+button.bo-sectionselector-item.list-group-item {
+    color: #040e19;
+}
+
 .bo-sectionselector-item.active, .bo-sectionselector-item.active:focus, .bo-sectionselector-item.active:hover {
     z-index: 2;
-    color: #fff;
-    background-color: #e3e5e8;
-    border-color: #dcdcdc;
+    color: #040e19;
+    background-color: #ebedf0;
+    border-color: #cdd2d8;
+    -webkit-box-shadow: inset 0 0 0 1px #f7f9fb;
+    -moz-box-shadow: inset 0 0 0 1px #f7f9fb;
+    box-shadow: inset 0 0 0 1px #f7f9fb;
+}
+
+.bo-sectionselector-item .bo-eventshort-progresslabel {
+    font-size: 14px;
 }
 
 /* Sales overview
@@ -1213,13 +1245,24 @@ h3.bo-event-title {
     background: #fff;
     top: 0;
     left: 0;
-    z-index: 200;
+    z-index: 2;
     padding: 20px 0;
     display: none;
 }
 
+.bo-map .piletilevi_venue_map_places_sections_fullscreen .bo-mapcontrols {
+    float: left;
+}
+
+.bo-map .piletilevi_venue_map_places_sections_fullscreen .piletilevi_venue_map,
+.bo-map .piletilevi_venue_map_places_sections_fullscreen .piletilevi_venue_map_places,
+.bo-map .piletilevi_venue_map_places_sections_fullscreen .piletilevi_venue_map_places_sections {
+    height: 100%;
+    width: 100%;
+}
+
 .bo-map .piletilevi_venue_map_places_sections_fullscreen .places_map_section {
-    height: 100% !important;
+    height: 85% !important;
     width: 100% !important;
 }
 
@@ -1435,7 +1478,6 @@ h3.bo-event-title {
 .bo-locationstable .text-danger {
     color: #ff3f71 !important;
 }
-
 
 .bo-table-dropdown {
 
@@ -1756,16 +1798,52 @@ h3.bo-event-title {
 
 /* Left column
 ================================ */
-.bo-left-colum-usermenu {
+.bo-column-menu {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #cdd2d8;
+    background: #f7f9fb;
+    padding: 1px;
+    margin-bottom: 20px;
 }
 
-.bo-left-colum-usermenu .dropdown-toggle {
-    display: none;
+.bo-column-menu-itemlist {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-.bo-left-colum-usermenu .dropdown-menu {
+.bo-colum-menu-item {
+    background: #edf0f4;
+    line-height: 23px;
+}
+
+.bo-colum-menu-item + .bo-colum-menu-item {
+    border-top: 1px solid #cfd1d4;
+}
+
+.bo-colum-menu-item.bo-colum-menu-item-marked + .bo-colum-menu-item,
+.bo-colum-menu-item + .bo-colum-menu-item.bo-colum-menu-item-marked {
+    border-top: 1px solid #f7f9fb;
+}
+
+.bo-colum-menu-item-marked {
+    background: #dcdfe6;
+}
+
+.bo-colum-menu-item a {
+    color: #263443;
+    text-decoration: none;
     display: block;
-    width: 100%;
+    font-size: 14px;
+    padding: 8px 10px 12px 15px;
+}
+
+.bo-colum-menu-item a span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.4;
 }
 
 /* Color Inverse
@@ -1944,8 +2022,27 @@ h3.bo-event-title {
 	border-top: 0 none;
 }
 
+.bo-tabledrop-table tbody tr td,
+.bo-tabledrop-table tbody tr th {
+    vertical-align: middle;
+}
+
 .bo-tabledrop-master {
 	cursor: pointer;
+}
+
+.bo-tabledrop-master .fa-sort-desc {
+    display: none;
+    position: relative;
+    top: -6px;
+}
+
+.collapsed .bo-tabledrop-master .fa-sort-desc {
+    display: inline-block;
+}
+
+.collapsed .bo-tabledrop-master .fa-sort-asc {
+    display: none;
 }
 
 tbody:not(.collapsed) .bo-tabledrop-master,
@@ -1964,6 +2061,7 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
 .collapsed .bo-tabledrop {
 	display: none;
 }
+
 .bo-tabledrop.collapsing {
 	position: static;
 }
@@ -2000,7 +2098,6 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
 	left: 39px;
 }
 
-
 /* form inline
 ================================ */
 
@@ -2014,6 +2111,154 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
 	margin-left: 3px;
 }
 
-.bo-form-inline .form-group > input.form-control {
+.bo-form-inline .form-group {
 	width: 100%;
+}
+
+.bo-form-inline .form-group > input.form-control,
+.bo-form-inline .form-group > .dropdown > .btn {
+    width: 100%;
+}
+
+*[ng-click] {
+    cursor: pointer;
+}
+
+/* enable absolute positioning */
+.inner-addon {
+    position: relative;
+}
+
+/* style icon */
+.inner-addon .fa {
+    position: absolute;
+    padding: 10px;
+}
+
+/* align icon */
+.left-addon .fa {
+    left: 0px;
+}
+
+.right-addon .fa {
+    right: 0px;
+}
+
+/* add padding  */
+.left-addon input {
+    padding-left: 30px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}
+
+.btn.btn-bookings {
+    text-decoration: none;
+    padding: 2px 10px;
+    margin: 7px 0 0 10px;
+    background: #ff4172;
+    color: #fff;
+}
+
+.btn.btn-bookings:hover {
+    color: #fff;
+}
+/* Datepicker */
+
+._720kb-datepicker-calendar {
+    border: 1px solid #e3e6ec;
+    -moz-box-shadow: 0 5px 6px rgba(49, 61, 74, 0.1);
+    -webkit-box-shadow: 0 5px 6px rgba(49, 61, 74, 0.1);
+    box-shadow: 0 5px 6px rgba(49, 61, 74, 0.1);
+    border-radius: 0;
+    min-width: 240px;
+}
+
+._720kb-datepicker-calendar-header:nth-child(odd) {
+    background: #e3e6ec;
+    height: 34px;
+    border: 8px solid #fff;
+    line-height: 24px;
+    border-bottom: 0;
+}
+
+._720kb-datepicker-calendar-month {
+    color: #040e19;
+}
+
+._720kb-datepicker-calendar-month span {
+    color: #040e19;
+    font-weight: normal;
+}
+
+._720kb-datepicker-calendar-days-header {
+    border: 8px solid #fff;
+    border-top: 0;
+    border-bottom: 0;
+    background: #fff;
+    padding: 0;
+}
+
+._720kb-datepicker-calendar-days-header div {
+    border: 1px solid #f2f2f2;
+    border-bottom: 2px solid #d8d8d8;
+    padding: 4px 0;
+}
+
+
+._720kb-datepicker-calendar-body {
+    border: 8px solid #fff;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    padding: 0;
+}
+
+._720kb-datepicker-calendar-day {
+    background: #fff !important;
+    padding: 3px 0;
+    width: 14.15%;
+    margin: 0;
+    border: 1px solid #f2f2f2;
+}
+
+._720kb-datepicker-calendar-day._720kb-datepicker-active, ._720kb-datepicker-calendar-day:not(._720kb-datepicker-disabled):hover {
+    background-color: #357ebd !important;
+    color: #fff;
+}
+
+/* Booking form
+================================ */
+
+.submitted input.ng-invalid {
+    border: 1px solid #c60000;
+}
+/* Sliding and dropdowned tabs
+================================ */
+.ng-sliding-tabs {
+	white-space: nowrap;
+	display: inline-block;
+	width: 100%;
+	overflow: hidden;
+}
+
+.ng-sliding-tabs > li {
+	float: none;
+	display: inline-block;
+}
+
+.bo-dropdown-tabs-wrapper {
+	position: relative;
+}
+
+.sliding-tabs-dropdown {
+	position: absolute;
+	right: 0;
+	top: 13px;
+	padding-left: 20px;
+}
+.sliding-tabs-dropdown .dropdown-toggle {
+	color: #27394c;
+	text-decoration: none;
 }

@@ -47,14 +47,32 @@ class DataHandler {
 			$this->app->stop();
 		}
 	}
+
+	/**
+	 * Clearing all null values from data array
+	 */
+	public function clearData($data) {
+		$clearedData = array();
+		foreach ($data as $key=>$value) {
+			if (isset($value) || strlen(trim($value)) > 0) {
+				$clearedData[$key] = $value;
+			}
+		}
+		return $clearedData;
+	}
 	
 	public function getMessages($errors) {
 		if ($errors && is_array($errors)) {
 			$messages = array();
 			foreach($errors as $error) {
-				$messages[] = $error->message;
+				$msg = $error->message;
+				if (!$msg) {
+					$msg = $error->code;
+				} else {
+					$msg .= " (".$error->code.")";
+				}
+				$messages[] = $msg;
 			}
-
 			return join(", ", $messages);
 		}
 		return "";

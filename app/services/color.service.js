@@ -45,6 +45,7 @@
 				case 'api_organizer_reserved_client': 		color = '#ff6c00'; break;
 				case 'api_organizer_reserved_lodge': 		color = '#ffc62c'; break;
 				case 'api_organizer_reserved_promoter': 	color = '#fcd8c2'; break;
+				case 'api_organizer_seat_owner':			color = '#fcd8c2'; break;
 				//ORGANIZER GROUP
 				case 'api_organizer_complimentary_without_fees': 	color = '#ca5fc6'; break;
 				case 'api_organizer_refund_without_fees': 			color = '#ff3f68'; break;

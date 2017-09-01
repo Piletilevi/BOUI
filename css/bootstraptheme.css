@@ -840,3 +840,29 @@ textarea.form-control {
 .form-inline .has-feedback .form-control-feedback {
     line-height: 34px;
 }
+
+.alert {
+    font-size: 15px;
+    padding-top: 10px;
+    padding-bottom: 11px;
+}
+
+.table .alert {
+    margin-bottom: 0;
+}
+
+.alert .close {
+    opacity: 0.8;
+    color: inherit;
+    font-size: 23px;
+}
+
+.alert .close:hover {
+    opacity: 1;
+}
+
+.alert-success {
+    background-color: #beedc9;
+    color: #25933f;
+    border-color: #a4e3b3;
+}

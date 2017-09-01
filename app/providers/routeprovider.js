@@ -48,6 +48,12 @@
                 controller: 'reportController',
                 controllerAs: 'vm'
             })
+            .when('/report/:pointId/:type/:id/:reportType/:sectorId/:reservation', {
+                title: 'Report',
+                templateUrl: 'views/report.html',
+                controller: 'reportController',
+                controllerAs: 'vm'
+            })
             .when('/dashboard/', {
                 title: 'Dashboard',
                 templateUrl: 'views/dashboard.html',
@@ -79,6 +85,7 @@
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;
             authService.checkUserAuth(next);
+            $rootScope.filterNotNeeded = ($location.path() == '/changepassword');
         });
 
         $rootScope.$on('$routeChangeSuccess', function(){

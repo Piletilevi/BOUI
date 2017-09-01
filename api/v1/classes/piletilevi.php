@@ -39,10 +39,9 @@ class PiletileviApi {
 	}
 
 	public function getSessionKey($username, $remoteip){
-		$data['filter']= array ('username'=>$username,
-			'remoteip' => $remoteip,
-			'langId' => $this->currentLang->code);
+		$data['filter']= array ('username'=>$username, 'remoteip' => $remoteip);
 		$data['userid']= $username;
+		
 		return $this->send("/user/getSessionKey",$data);
 	}
 	
@@ -468,7 +467,188 @@ class PiletileviApi {
 		
 		return $reportData;
 	}
+
+	public function getSectorInfo($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/getSectorInfo", $data );
+		
+		return $response;
+	}
 	
+	public function addToBasket($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/addToBasket", $data );
+		
+		return $response;
+	}
+
+	public function removeFromBasket($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/removeFromBasket", $data );
+		
+		return $response;
+	}
+	
+	public function removeFromBooking($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/removeFromBooking", $data );
+		
+		return $response;
+	}
+
+	public function changeBasketTicketType($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/changeBasketTicketType", $data );
+		
+		return $response;
+	}
+
+	public function changeBookingTicketType($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/changeBookingTicketType", $data );
+		
+		return $response;
+	}
+
+	public function myBasket($filter) {
+
+		$data['filter']= $filter;
+		
+		$response = $this->send( "/booking/myBasket", $data );
+		
+		return $response;
+	}
+
+	public function confirmBasket($filter) {
+
+		$data['filter']= $filter;
+		
+		$response = $this->send( "/booking/confirmBasket", $data );
+		
+		return $response;
+	}
+
+	public function confirmBooking($filter) {
+
+		$data['filter']= $filter;
+		
+		$response = $this->send( "/booking/confirmBooking", $data );
+		
+		return $response;
+	}
+
+	public function bookingList($filter) {
+
+		$filter['limit'] = 10;
+		$data['filter']= $filter;
+		
+		$response = $this->send( "/booking/bookingList", $data );
+		
+		return $response;
+	}
+
+	public function getCountries() {
+		
+		$languageCode = "";
+		
+		if ($this->currentLang) {
+			$languageCode = $this->currentLang->code; 
+		}
+		
+		$cacheItem = $this->cacheManager->getItem("countries".$languageCode);
+		$countries = $cacheItem->get();
+
+		if(is_null($countries) || !is_object($countries)) {
+			$data = array();
+			$countries = $this->send( "/country/list", $data );
+			$cacheItem->set($countries)->expiresAfter(3600);
+			$this->cacheManager->save($cacheItem);
+		}
+
+		return $countries;
+	}
+
+	public function getBookingTypes() {
+		
+		$languageCode = "";
+		
+		if ($this->currentLang) {
+			$languageCode = $this->currentLang->code; 
+		}
+		
+		$cacheItem = $this->cacheManager->getItem("bookingTypes".$languageCode);
+		$bookingTypes = $cacheItem->get();
+
+		if(is_null($bookingTypes) || !is_object($bookingTypes)) {
+			$data = array();
+			$bookingTypes = $this->send( "/booking/getBookingTypes", $data );
+			$cacheItem->set($bookingTypes)->expiresAfter(3600);
+			$this->cacheManager->save($cacheItem);
+		}
+
+		return $bookingTypes;
+	}
+
+	public function getBookingStatuses() {
+		
+		$languageCode = "";
+		
+		if ($this->currentLang) {
+			$languageCode = $this->currentLang->code; 
+		}
+		
+		$cacheItem = $this->cacheManager->getItem("bookingStatuses".$languageCode);
+		$bookingStatuses = $cacheItem->get();
+
+		if(is_null($bookingStatuses) || !is_object($bookingStatuses)) {
+			$data = array();
+			$bookingStatuses = $this->send( "/booking/getBookingStatuses", $data );
+			$cacheItem->set($bookingStatuses)->expiresAfter(3600);
+			$this->cacheManager->save($cacheItem);
+		}
+
+		return $bookingStatuses;
+	}
+
+	public function cancelBooking($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/cancelBooking", $data );
+		
+		return $response;
+	}
+
+	public function myBooking($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/booking/myBooking", $data );
+		
+		return $response;
+	}
+	
+	public function bookingPayment($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/payment/bookingPayment", $data );
+		
+		return $response;
+	}
+
 	public function boUrl(){
 		return $this->getBoUrl();
 	}

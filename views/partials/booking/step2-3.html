@@ -1,0 +1,244 @@
+<!-- reservation step 2-3 -->
+
+<div class="row">
+    <div class="col-md-6 bo-inline-print">
+        <div class="bo-tabs-controls bo-reservation-controls" ng-if="selectedSectionId">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <div class="bo-sectionselection form-control bo-tabs-controls-item">
+                            <span class="bo-sectionselection-text">{{'api_selected_section'|translate}}: {{(vm.mySectorsData.sales | filter:{sectorId: selectedSectionId})[0].name}}</span>
+                            <a class="bo-sectionselection-button text-danger" href
+                               ng-click="vm.goToSectionsStep(vm.reservationMode)">
+                                <span class="bo-sectionselection-icon fa fa-times"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 text-right">
+        <div class="bo-tabs-controls bo-reservation-controls">
+            <div class="form-inline">
+                <div class="form-group">
+                    <button class="btn btn-warning" type="button" ng-click="vm.goToSectionsStep()">
+                        {{'api_reservation_exit'|translate}}&nbsp;&nbsp;
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-small">
+            <thead>
+            <tr>
+                <td>{{'api_priceclass'|translate}}</td>
+                <td class="text-center">{{'api_tickets'|translate}}</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody ng-repeat="(ttSectorKey, ttSector) in vm.sectorInfo.ttSector">
+            <tr ng-repeat="(ttSectorDataKey, ttSectorData) in ttSector.ttSectorData">
+                <td>
+                    <span class="fa fa-circle" style="color: {{ttSectorData.colorCode}}"
+                          ng-if="ttSectorData.colorCode"></span>
+                    {{ttSectorData.priceName}}
+                </td>
+                <td class="text-center">{{ttSectorData.freeTotal}}</td>
+                <td class="bo-shortcell text-center">
+                    <div class="bo-plusminus">
+                        <div class="bo-plusminus-button bo-plusminus-minus"
+                             ng-click="vm.decreaseTicketsCount(ttSectorData)">
+                            <i class="fa fa-minus"></i>
+                        </div>
+                        <input type="text" class="bo-plusminus-input" ng-init="ttSectorData.selected = 0"
+                               ng-model="ttSectorData.selected"
+                               ng-focus="vm.focusPriceClassQuantity(ttSectorData)"
+                               ng-blur="vm.blurPriceClassQuantity(ttSectorData)"
+                               ng-keyup="vm.validateQuantity(ttSectorData)"
+                        />
+                        <div class="bo-plusminus-button bo-plusminus-plus"
+                             ng-click="vm.increaseTicketsCount(ttSectorData)">
+                            <i class="fa fa-plus"></i>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td class="align-middle bo-no-leftright-padding">
+                    <button class="btn btn-info btn-sm" ng-click="vm.offerTickets()">
+                        {{'api_basket_offer_tickets'|translate}}
+                    </button>
+                </td>
+                <td class="text-center align-middle">{{'api_basket_offer_total'|translate}}</td>
+                <td class="text-center align-middle">{{vm.ticketsCount()}}</td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-lg-6">
+        <div class="bo-map">
+            <ng-venue-map data-config="{{vm.event.seatsMapConfig}}"></ng-venue-map>
+        </div>
+    </div>
+</div>
+
+</div>
+<div ng-if="vm.myBasket.basket.length > 0">
+    <h4>{{'api_basket_selected_tickets'|translate}}</h4>
+    <div class="form-group clearfix">
+        <button class="btn btn-warning pull-right" type="button" ng-click="vm.removeFromBasket()">
+            Delete all
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+    </div>
+    <table class="table table-small">
+        <tbody>
+        <tr class="row-align-middle" ng-repeat="seat in vm.myBasket.basket">
+            <td>{{'api_basket_ticket_id'|translate}} {{seat.id}}</td>
+            <td class="text-center">{{seat.sectionName}}</td>
+            <td class="text-center">
+                <span ng-if="seat.rowName > 0">{{'api_basket_row'|translate}} {{seat.rowName}}</span>
+                <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
+            </td>
+            <td class="text-center">
+                <span ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span>
+                <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
+            </td>
+            <td class="text-center bo-shortcell">
+                <div class="dropdown bo-table-dropdown" ng-if="seat.priceTypes.length > 1">
+                    <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="true">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="pricetype in seat.priceTypes | filter:{active: false}">
+                            <a href="" ng-click="vm.changeBasketTicketType(seat.id, pricetype.priceTypeId)">{{pricetype.priceTypeName}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <span ng-if="seat.priceTypes.length <= 1">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}</span>
+            </td>
+            <td class="text-center">{{seat.price | number:2}}{{seat.currency}}</td>
+            <td class="text-center">
+                <a href="" class="text-danger" ng-click="vm.removeFromBasket(seat.id)"><i class="fa fa-times"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="bo-inactivearea">
+        <h4>{{'api_reservation_type'|translate}}</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-inline bo-reservation-inline-buttons">
+                    <div class="form-group">
+                        <button class="btn btn-lg {{vm.reservation.reservationType == 'with_price' ? 'btn-primary' : 'btn-default'}}"
+                                type="button" ng-click="vm.changeReservationType('with_price')">
+                            {{'api_reservation_with_price'|translate}}
+                        </button>
+                    </div>
+                    &nbsp;
+                    <div class="form-group">
+                        <button class="btn btn-lg {{vm.reservation.reservationType == 'invitation' ? 'btn-primary' : 'btn-default'}}"
+                                type="button" ng-click="vm.changeReservationType('invitation')">
+                            {{'api_reservation_invitation'|translate}}
+                        </button>
+                    </div>
+                </div>
+                <h4>{{'api_reservation_expiration'|translate}}</h4>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <datepicker date-format="dd.MM.yyyy"
+                                    ng-init="vm.reservation.expireAt = vm.reservation.expireAt ? vm.reservation.expireAt : (vm.myBasket.summary.expireAt | date : 'dd.MM.y')">
+                            <input class="form-control" ng-model="vm.reservation.expireAt" type="text"/>
+                        </datepicker>
+                    </div>
+                    <div class="dropdown inline_dropdown">
+                        <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="true" disabled>{{vm.myBasket.summary.expireAt | date : "HH"}}
+                            <span class="caret"></span>
+                        </button>
+                    </div>
+                    <div class="dropdown inline_dropdown">
+                        <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="true" disabled>{{vm.myBasket.summary.expireAt | date : "mm"}}
+                            <span class="caret"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-small">
+                    <tbody>
+                    <tr>
+                        <td class="text-right">{{'api_basket_check_out_amount'|translate}}</td>
+                        <td class="text-center">{{vm.myBasket.summary.ticketsCount}} {{'api_tickets'|translate}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">{{'api_basket_check_out_subtotal'|translate}}</td>
+                        <td class="text-center">
+                            {{vm.myBasket.summary.sumWithoutTaxes | number:2}}{{vm.myBasket.summary.currency}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">{{'api_basket_check_out_discount'|translate}}</td>
+                        <td class="text-center bo-shortcell">
+                            <div class="bo-plusminus">
+                                <div class="bo-plusminus-button bo-plusminus-minus"
+                                     ng-click="vm.decreaseBasketDiscount()">
+                                    <i class="fa fa-minus"></i>
+                                </div>
+                                <input type="text" class="bo-plusminus-input"
+                                       ng-focus="vm.focusDiscount()"
+                                       ng-keydown="$event.keyCode === 13 && vm.addDiscount()"
+                                       ng-init="vm.reservation.discount = vm.reservation.discount ? vm.reservation.discount : vm.myBasket.summary.discount"
+                                       ng-model="vm.reservation.discount" ng-blur="vm.addDiscount()"/>
+                                <div class="bo-plusminus-button bo-plusminus-plus"
+                                     ng-click="vm.increaseBasketDiscount()">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-if="vm.myBasket.summary.discount">
+                        <td class="text-right">{{'api_basket_check_out_discount_sum'|translate}}</td>
+                        <td class="text-center">
+                            {{vm.myBasket.summary.discount}}{{vm.myBasket.summary.currency}}
+                        </td>
+                    </tr>
+                    <tr ng-repeat="fee in vm.myBasket.summary.fees">
+                        <td class="text-right">{{fee.name}}</td>
+                        <td class="text-center">
+                            {{fee.price}}{{fee.currency}} x {{fee.quantity}} ({{fee.sum}}{{fee.currency}})
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">{{'api_basket_check_out_total'|translate}}</td>
+                        <td class="text-center">{{vm.myBasket.summary.sumTotal |
+                            number:2}}{{vm.myBasket.summary.currency}}
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td class="bo-no-leftright-padding">
+                            <button class="btn btn-info bo-wide-button" ng-click="vm.goToStep4()">
+                                {{'api_basket_reservation_proceed'|translate}}
+                            </button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!--<div class="bo-over"></div>-->
+    </div>
+</div>
