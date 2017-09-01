@@ -468,6 +468,10 @@
 		margin-right: 0;
 		margin-left: auto;
 	}
+
+	.bo-center-column .bo-widgetbox-white {
+		margin-left: -15px;
+	}
 }
 
 /* Bootstrap xs

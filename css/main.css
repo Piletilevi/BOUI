@@ -696,6 +696,25 @@ a:hover {
     margin-bottom: 12px;
 }
 
+.bo-widgetbox-white {
+
+}
+
+.bo-center-column .bo-widgetbox-white {
+    max-width: none;
+}
+
+.bo-widgetbox-white .bo-widgetbox-body {
+    background: #fff;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 6px;
+}
+
+.bo-widgetbox-white h4.header {
+    margin-bottom: 20px;
+}
+
 /* Error
 ================================ */
 
@@ -1708,16 +1727,52 @@ button.bo-sectionselector-item.list-group-item {
 
 /* Left column
 ================================ */
-.bo-left-colum-usermenu {
+.bo-column-menu {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #cdd2d8;
+    background: #f7f9fb;
+    padding: 1px;
+    margin-bottom: 20px;
 }
 
-.bo-left-colum-usermenu .dropdown-toggle {
-    display: none;
+.bo-column-menu-itemlist {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-.bo-left-colum-usermenu .dropdown-menu {
+.bo-colum-menu-item {
+    background: #edf0f4;
+    line-height: 23px;
+}
+
+.bo-colum-menu-item + .bo-colum-menu-item {
+    border-top: 1px solid #cfd1d4;
+}
+
+.bo-colum-menu-item.bo-colum-menu-item-marked + .bo-colum-menu-item,
+.bo-colum-menu-item + .bo-colum-menu-item.bo-colum-menu-item-marked {
+    border-top: 1px solid #f7f9fb;
+}
+
+.bo-colum-menu-item-marked {
+    background: #dcdfe6;
+}
+
+.bo-colum-menu-item a {
+    color: #263443;
+    text-decoration: none;
     display: block;
-    width: 100%;
+    font-size: 14px;
+    padding: 8px 10px 12px 15px;
+}
+
+.bo-colum-menu-item a span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.4;
 }
 
 /* Color Inverse
