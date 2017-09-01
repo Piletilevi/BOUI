@@ -241,66 +241,6 @@
         ]
     },
     {
-        "name": "lcobucci/jwt",
-        "version": "3.2.1",
-        "version_normalized": "3.2.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/lcobucci/jwt.git",
-            "reference": "ddce703826f9c5229781933b1a39069e38e6a0f3"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/lcobucci/jwt/zipball/ddce703826f9c5229781933b1a39069e38e6a0f3",
-            "reference": "ddce703826f9c5229781933b1a39069e38e6a0f3",
-            "shasum": ""
-        },
-        "require": {
-            "ext-openssl": "*",
-            "php": ">=5.5"
-        },
-        "require-dev": {
-            "mdanter/ecc": "~0.3.1",
-            "mikey179/vfsstream": "~1.5",
-            "phpmd/phpmd": "~2.2",
-            "phpunit/php-invoker": "~1.1",
-            "phpunit/phpunit": "~4.5",
-            "squizlabs/php_codesniffer": "~2.3"
-        },
-        "suggest": {
-            "mdanter/ecc": "Required to use Elliptic Curves based algorithms."
-        },
-        "time": "2016-10-31 20:09:32",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Lcobucci\\JWT\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Luís Otávio Cobucci Oblonczyk",
-                "email": "lcobucci@gmail.com",
-                "role": "Developer"
-            }
-        ],
-        "description": "A simple library to work with JSON Web Token and JSON Web Signature",
-        "keywords": [
-            "JWS",
-            "jwt"
-        ]
-    },
-    {
         "name": "phpfastcache/phpssdb",
         "version": "1.0.1",
         "version_normalized": "1.0.1.0",
@@ -354,17 +294,17 @@
     },
     {
         "name": "phpfastcache/phpfastcache",
-        "version": "5.0.16",
-        "version_normalized": "5.0.16.0",
+        "version": "5.0.17",
+        "version_normalized": "5.0.17.0",
         "source": {
             "type": "git",
             "url": "https://github.com/PHPSocialNetwork/phpfastcache.git",
-            "reference": "a24094a3af45773b7f43e98e37c37349d25f4ad0"
+            "reference": "dc0375d84b434c1e03db59ae3b70f480b8305e12"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/a24094a3af45773b7f43e98e37c37349d25f4ad0",
-            "reference": "a24094a3af45773b7f43e98e37c37349d25f4ad0",
+            "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/dc0375d84b434c1e03db59ae3b70f480b8305e12",
+            "reference": "dc0375d84b434c1e03db59ae3b70f480b8305e12",
             "shasum": ""
         },
         "require": {
@@ -384,7 +324,7 @@
             "ext-redis": "*",
             "ext-sqlite": "*"
         },
-        "time": "2017-04-13 20:34:32",
+        "time": "2017-07-30 22:30:44",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -438,6 +378,66 @@
             "zend disk cache",
             "zend memory cache",
             "zend server"
+        ]
+    },
+    {
+        "name": "lcobucci/jwt",
+        "version": "3.2.2",
+        "version_normalized": "3.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lcobucci/jwt.git",
+            "reference": "0b5930be73582369e10c4d4bb7a12bac927a203c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lcobucci/jwt/zipball/0b5930be73582369e10c4d4bb7a12bac927a203c",
+            "reference": "0b5930be73582369e10c4d4bb7a12bac927a203c",
+            "shasum": ""
+        },
+        "require": {
+            "ext-openssl": "*",
+            "php": ">=5.5"
+        },
+        "require-dev": {
+            "mdanter/ecc": "~0.3.1",
+            "mikey179/vfsstream": "~1.5",
+            "phpmd/phpmd": "~2.2",
+            "phpunit/php-invoker": "~1.1",
+            "phpunit/phpunit": "~4.5",
+            "squizlabs/php_codesniffer": "~2.3"
+        },
+        "suggest": {
+            "mdanter/ecc": "Required to use Elliptic Curves based algorithms."
+        },
+        "time": "2017-09-01 08:23:26",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Lcobucci\\JWT\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Luís Otávio Cobucci Oblonczyk",
+                "email": "lcobucci@gmail.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "A simple library to work with JSON Web Token and JSON Web Signature",
+        "keywords": [
+            "JWS",
+            "jwt"
         ]
     }
 ]
