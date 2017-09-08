@@ -633,8 +633,6 @@
                 $scope.$broadcast('angucomplete-alt:changeInput', 'contact-phone-code-inp', vm.reservation.contactPhoneCode);
             }
         };
-
-
         vm.blurContactPhoneCode = function (selectedContactPhoneCode) {
             var contactPhoneCode = $('#contact-phone-code-inp_value').val(),
                 selectedCountry = null;
@@ -646,6 +644,27 @@
             if (!selectedCountry) {
                 vm.reservation.contactPhoneCode = vm.defaultContactPhoneCode;
                 $scope.$broadcast('angucomplete-alt:changeInput', 'contact-phone-code-inp', vm.reservation.contactPhoneCode);
+            }
+        };
+
+        vm.selectContactCountry = function (selectedContactCountry) {
+            if (selectedContactCountry) {
+                var selectedContactCountryName = selectedContactCountry.originalObject.name;
+                vm.reservation.countryId = selectedContactCountry.originalObject.id;
+                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-country-inp', selectedContactCountryName);
+            }
+        };
+        vm.blurContactCountry = function (selectedContactCountry) {
+            var contactCountry = $('#contact-country-inp_value').val(), selectedCountry = null;
+            angular.forEach(vm.countries.countries, function (country) {
+                if (contactCountry == country.name) {
+                    selectedCountry = country;
+                }
+            });
+            if (!selectedCountry) {
+                vm.reservation.countryId = vm.defaultContactCountry.id;
+                var selectedContactCountryName = vm.defaultContactCountry.name;
+                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-country-inp', selectedContactCountryName);
             }
         };
 
@@ -749,6 +768,7 @@
             if (!angular.equals(newValue, oldValue)) {
                 angular.forEach(newValue.countries, function (country) {
                     country.phoneCodeOption = country.name + ' (+' + country.areaCode + ')';
+                    country.countryOption = country.name;
                 });
                 if (typeof vm.reservation.contactPhoneCode == 'undefined' && vm.reservation.countryId) {
                     var country = $filter('filter')(vm.countries.countries, function (country) {
@@ -756,8 +776,14 @@
                     });
                     if (country.length > 0) {
                         var contactPhoneCode = '+' + country[0].areaCode;
+                        var contactCountry = {
+                            id: country[0].id,
+                            name: country[0].name
+                        };
                         vm.defaultContactPhoneCode = contactPhoneCode;
+                        vm.defaultContactCountry = contactCountry;
                         vm.reservation.contactPhoneCode = contactPhoneCode;
+                        vm.reservation.countryId = contactCountry.id;
                     }
                 }
             }
