@@ -637,7 +637,7 @@
             var contactPhoneCode = $('#contact-phone-code-inp_value').val(),
                 selectedCountry = null;
             angular.forEach(vm.countries.countries, function (country) {
-                if (parseInt(contactPhoneCode, 10) == country.areaCode) {
+                if (parseInt(contactPhoneCode, 10) == country.areaCode || contactPhoneCode == country.name ) {
                     selectedCountry = country;
                 }
             });
@@ -651,7 +651,9 @@
             if (selectedContactCountry) {
                 vm.reservation.countryId = selectedContactCountry.originalObject.id;
                 vm.reservation.contactCountry = selectedContactCountry.originalObject.name;
+                vm.reservation.contactPhoneCode = '+' + selectedContactCountry.originalObject.areaCode;
                 $scope.$broadcast('angucomplete-alt:changeInput', 'contact-country-inp', vm.reservation.contactCountry);
+                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-phone-code-inp', vm.reservation.contactPhoneCode);
             }
         };
         vm.blurContactCountry = function (selectedContactCountry) {
