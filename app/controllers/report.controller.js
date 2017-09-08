@@ -649,8 +649,8 @@
 
         vm.selectContactCountry = function (selectedContactCountry) {
             if (selectedContactCountry) {
-                var selectedContactCountryName = selectedContactCountry.originalObject.name;
                 vm.reservation.countryId = selectedContactCountry.originalObject.id;
+                vm.reservation.contactCountry = selectedContactCountry.originalObject.name;
                 $scope.$broadcast('angucomplete-alt:changeInput', 'contact-country-inp', selectedContactCountryName);
             }
         };
@@ -663,8 +663,8 @@
             });
             if (!selectedCountry) {
                 vm.reservation.countryId = vm.defaultContactCountry.id;
-                var selectedContactCountryName = vm.defaultContactCountry.name;
-                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-country-inp', selectedContactCountryName);
+                vm.reservation.contactCountry = vm.defaultContactCountry.name;
+                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-country-inp', vm.reservation.contactCountry);
             }
         };
 
