@@ -783,7 +783,6 @@
                         vm.defaultContactPhoneCode = contactPhoneCode;
                         vm.defaultContactCountry = contactCountry;
                         vm.reservation.contactPhoneCode = contactPhoneCode;
-                        vm.reservation.countryId = contactCountry.id;
                     }
                 }
             }
