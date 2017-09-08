@@ -651,7 +651,7 @@
             if (selectedContactCountry) {
                 vm.reservation.countryId = selectedContactCountry.originalObject.id;
                 vm.reservation.contactCountry = selectedContactCountry.originalObject.name;
-                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-country-inp', selectedContactCountryName);
+                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-country-inp', vm.reservation.contactCountry);
             }
         };
         vm.blurContactCountry = function (selectedContactCountry) {
