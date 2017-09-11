@@ -1229,9 +1229,9 @@
                         self.setColor = function (seatColor) {
                             if (placeElement) {
                                 if (selectable) {
-                                    placeElement.setAttribute("style", "cursor:pointer;stroke:#1F1A17;stroke-width:0.4;fill:" + seatColor);
+                                    placeElement.setAttribute("style", "cursor:pointer;fill:" + seatColor);
                                 } else {
-                                    placeElement.setAttribute("style", "stroke:#1F1A17;stroke-width:0.4;fill:" + seatColor);
+                                    placeElement.setAttribute("style", "fill:" + seatColor);
                                 }
                             }
                         };
@@ -1442,7 +1442,6 @@
 
                     $element.empty();
                     // Init
-
                     var map = new piletilevi.venuemap.VenueMap();
                     map.setConfId(piletilevi.venuemap.Config.confId);
                     map.setSectionsMapType(piletilevi.venuemap.Config.sectionMapType);
@@ -1469,7 +1468,6 @@
                             $scope.setSelectedSeatId(seatId);
                             $scope.$apply();
                         });
-
                         // places details
                         map.setSeatSelectionEnabled(true);
                         var sectionDetails = {
@@ -1504,7 +1502,10 @@
                         btnZoomReset.on('click', function (event) {
                             map.setZoomLevel(0);
                         });
-
+                        var btnOfferTickets = document.getElementById( "btnOfferTickets" );
+                        btnOfferTickets.on("click", function(event) {
+                           map.update();
+                        });
                     }
 
                     map.build();
