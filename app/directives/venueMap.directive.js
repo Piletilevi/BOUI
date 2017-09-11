@@ -1026,23 +1026,9 @@
                                     componentElement.style.textAlign = 'center';
                                     svgElement = document.adoptNode(svgDocument.documentElement);
                                     svgElement.style.verticalAlign = 'top';
-                                    //svgElement.style.position = 'absolute';
-                                    //svgElement.style.top = '50%';
-                                    //svgElement.style.left = '50%';
-                                    //svgElement.style.top = '0';
-                                    //svgElement.style.left = '0';
 
                                     componentElement.style.display = 'none';
                                     componentElement.appendChild(svgElement);
-
-                                    //self.registerScalableElement({
-                                    //	'scaledElement': self.vectorDocument,
-                                    //	'gestureElement': sectionsElement,
-                                    //	'minWidth': sectionsElement.offsetWidth,
-                                    //	'minHeight': sectionsElement.offsetHeight,
-                                    //	'afterStartCallback': scaleStartCallback,
-                                    //	'afterChangeCallback': scaleChangeCallback
-                                    //});
 
                                     var arrowTextElement;
                                     if (arrowTextElement = svgElement.getElementById('stagename')) {
@@ -1052,41 +1038,7 @@
                             } catch (e) {
                             }
                         };
-                        //var scaleStartCallback = function() {
-                        //	startX = mapContainerElement.offsetLeft;
-                        //	startY = mapContainerElement.offsetTop;
-                        //
-                        //	return true;
-                        //};
-                        //var scaleChangeCallback = function(info) {
-                        //	var x = startX + (info.startWidth - info.currentWidth) / 2;
-                        //	var y = startY + (info.startHeight - info.currentHeight) / 2;
-                        //
-                        //	var maxX = 0 + boundariesPadding * mapViewportElement.offsetWidth;
-                        //	var minX = mapViewportElement.offsetWidth * (1 - boundariesPadding) - mapContainerElement.offsetWidth;
-                        //	var maxY = 0 + boundariesPadding * mapViewportElement.offsetHeight;
-                        //	var minY = mapViewportElement.offsetHeight * (1 - boundariesPadding) - mapContainerElement.offsetHeight;
-                        //
-                        //	if (x > maxX) {
-                        //		x = maxX;
-                        //	} else if (x < minX) {
-                        //		x = minX;
-                        //	}
-                        //
-                        //	if (y > maxY) {
-                        //		y = maxY;
-                        //	} else if (y < minY) {
-                        //		y = minY;
-                        //	}
-                        //
-                        //	mapContainerElement.style.left = x + 'px';
-                        //	mapContainerElement.style.top = y + 'px';
-                        //
-                        //	mapContainerElement.style.width = info.currentWidth + 'px';
-                        //	mapContainerElement.style.height = info.currentHeight + 'px';
-                        //
-                        //	return true;
-                        //};
+
                         self.update = function () {
                             var sectionDetails = venueMap.getSectionDetails(sectionId);
                             if (sectionDetails) {
@@ -1268,16 +1220,16 @@
                             }
                             self.colorElement = document.createElement('span');
                             self.colorElement.className = 'places_map_legend_color';
-                            componentElement.appendChild(this.colorElement);
+                            componentElement.appendChild(self.colorElement);
                             self.titleElement = document.createElement('span');
                             self.titleElement.className = 'places_map_legend_title';
-                            componentElement.appendChild(this.titleElement);
+                            componentElement.appendChild(self.titleElement);
                             self.refreshContents();
                         };
                         self.refreshContents = function () {
-                            var titleText = this.text;
-                            self.setTextContent(this.titleElement, titleText);
-                            self.colorElement.style.backgroundColor = this.color;
+                            var titleText = self.text;
+                            self.setTextContent(self.titleElement, titleText);
+                            self.colorElement.style.backgroundColor = self.color;
                         };
                         self.setTextContent = function (element, text) {
                             while (element.firstChild) {
@@ -1465,6 +1417,7 @@
                         var priceClasses = piletilevi.venuemap.Config.priceClasses;
 
                         map.addHandler('seatSelected', function (seatId) {
+                            console.log("Message");
                             $scope.setSelectedSeatId(seatId);
                             $scope.$apply();
                         });
@@ -1501,10 +1454,6 @@
                         var btnZoomReset = $element.find('.btn_zoomreset');
                         btnZoomReset.on('click', function (event) {
                             map.setZoomLevel(0);
-                        });
-                        var btnOfferTickets = document.getElementById( "btnOfferTickets" );
-                        btnOfferTickets.on("click", function(event) {
-                           map.update();
                         });
                     }
 
