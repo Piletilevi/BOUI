@@ -1265,7 +1265,6 @@
 
                     piletilevi.venuemap.PlaceTooltip = new function () {
                         var self = this;
-                        var componentElement;
                         self.row1Element = false;
                         self.row2Element = false;
                         self.row3Element = false;
@@ -1274,7 +1273,7 @@
                         self.popupOffset = 0;
 
                         var createDomElements = function () {
-                            componentElement = document.createElement('div');
+                            var componentElement = document.createElement('div');
                             componentElement.className = 'place_tooltip';
                             componentElement.style.display = 'none';
                             componentElement = componentElement;
@@ -1291,7 +1290,6 @@
                             tBodyElement.appendChild(rowElement);
                             var subElement = document.createElement('td');
                             subElement.className = 'place_tooltip_label';
-                            //subElement.appendChild(document.createTextNode(window.translationsManager.get('placepopup.row')));
                             subElement.appendChild(document.createTextNode('row'));
                             rowElement.appendChild(subElement);
                             self.row1Element = document.createElement('td');
@@ -1301,7 +1299,6 @@
                             tBodyElement.appendChild(rowElement);
                             var subElement = document.createElement('td');
                             subElement.className = 'place_tooltip_label';
-                            //subElement.appendChild(document.createTextNode(window.translationsManager.get('placepopup.place')));
                             subElement.appendChild(document.createTextNode('place'));
                             rowElement.appendChild(subElement);
                             self.row2Element = document.createElement('td');
@@ -1311,7 +1308,6 @@
                             tBodyElement.appendChild(rowElement);
                             var subElement = document.createElement('td');
                             subElement.className = 'place_tooltip_label';
-                            //subElement.appendChild(document.createTextNode(window.translationsManager.get('placepopup.price')));
                             subElement.appendChild(document.createTextNode('price'));
                             rowElement.appendChild(subElement);
                             self.row3Element = document.createElement('td');
