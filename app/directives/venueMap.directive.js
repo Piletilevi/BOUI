@@ -1336,7 +1336,8 @@
                             }
                         };
                         self.display = function (x, y, row, place, price, status) {
-                            if (!componentElement || componentElement.className != "place_tooltip") {
+                            componentElement = document.getElementsByClassName("place_tooltip")[0];
+                            if (!componentElement) {
                                 createDomElements();
                             }
                             self.clear();
