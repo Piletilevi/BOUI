@@ -147,7 +147,7 @@
                             self.display();
                         };
                         self.display = function () {
-                            componentElement.style.display = '';
+                            componentElement.style.display = 'block';
                         };
                         self.hide = function () {
                             componentElement.style.display = 'none';
@@ -290,7 +290,7 @@
                             }
                         };
                         self.display = function () {
-                            componentElement.style.display = '';
+                            componentElement.style.display = 'block';
                         };
                         self.hide = function () {
                             componentElement.style.display = 'none';
@@ -1135,15 +1135,19 @@
                             var x = Math.max(0, event.pageX);
                             var y = Math.max(0, event.pageY - 2);
 
-                            var status = '';
+                            var status = "";
                             if (seatInfo.available) {
-                                status = 'available';
+                                status = "Available";
                             }
                             else {
-                                status = 'booked';
+                                if (selected) {
+                                    status = "In basket";
+                                }
+                                else {
+                                    status = "Booked";
+                                }
                             }
                             piletilevi.venuemap.PlaceTooltip.display(x, y, seatInfo.row, seatInfo.place, seatInfo.price, status);
-                            console.log( "Seatinfo:" + seatInfo.available );
                             if (selectable) {
                                 self.setColor(venueMap.getSeatColor('hover'))
                             }
@@ -1348,13 +1352,7 @@
                             if (price) {
                                 self.row3Element.appendChild(document.createTextNode(price));
                             }
-                            var statusDisplay = '';
-                            if (status) {
-                                self.row4Element.appendChild(document.createTextNode(status));
-                            } else {
-                                statusDisplay = 'none';
-                            }
-                            self.statusRowElement.style.display = statusDisplay;
+                            self.row4Element.appendChild(document.createTextNode(status));
 
                             if (window.innerHeight) {
                                 var viewPortWidth = window.innerWidth;
