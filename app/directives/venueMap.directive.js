@@ -1141,7 +1141,7 @@
                             }
                             else {
                                 if (selected) {
-                                    status = $translate.instant("api_seat_booked");
+                                    status = $translate.instant("api_seat_selected");
                                 }
                                 else {
                                     status = $translate.instant("api_seat_booked");
