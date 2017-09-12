@@ -1336,7 +1336,7 @@
                             }
                         };
                         self.display = function (x, y, row, place, price, status) {
-                            if (componentElement.className == null) {
+                            if (componentElement == null || componentElement.className == null) {
                                 createDomElements();
                             }
                             self.clear();
