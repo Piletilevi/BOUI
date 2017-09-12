@@ -1137,7 +1137,12 @@
 
                             var status = "";
                             if (seatInfo.available) {
-                                status = $translate.instant("api_seat_available");
+                                if (selected) {
+                                    status = $translate.instant("api_seat_selected");
+                                }
+                                else {
+                                    status = $translate.instant("api_seat_available");
+                                }
                             }
                             else {
                                 if (selected) {
@@ -1410,8 +1415,11 @@
                         var priceClasses = piletilevi.venuemap.Config.priceClasses;
 
                         map.addHandler('seatSelected', function (seatId) {
-                            console.log("Message");
                             $scope.setSelectedSeatId(seatId);
+                            $scope.$apply();
+                        });
+                        map.addHandler('seatUnSelected', function (seatId) {
+                            $scope.removeSelectedSeatId(seatId);
                             $scope.$apply();
                         });
                         // places details
@@ -1479,6 +1487,10 @@
 
                         fullscreenMap.addHandler('seatSelected', function (seatId) {
                             $scope.setSelectedSeatId(seatId);
+                            $scope.$apply();
+                        });
+                        fullscreenMap.addHandler('seatUnSelected', function (seatId) {
+                            $scope.removeSelectedSeatId(seatId);
                             $scope.$apply();
                         });
 

@@ -252,8 +252,21 @@
         vm.setSelectedSeatId = function (selectedSeatId) {
             if ($rootScope.hasFullAccess('api_make_reservation') && vm.event.active && vm.reservationMode) {
                 $scope.selectedSeatId = selectedSeatId;
-                $('.place_tooltip').remove();
                 eventService.addToBasket(
+                    {
+                        concertId: $routeParams.id,
+                        sectionId: $scope.selectedSectionId,
+                        seatId: $scope.selectedSeatId
+                    }, function () {
+                        vm.getMyReservation();
+                    }
+                );
+            }
+        };
+        vm.removeSelectedSeatId = function (selectedSeatId) {
+            if ($rootScope.hasFullAccess('api_make_reservation') && vm.event.active && vm.reservationMode) {
+                $scope.selectedSeatId = selectedSeatId;
+                eventService.removeFromBasket(
                     {
                         concertId: $routeParams.id,
                         sectionId: $scope.selectedSectionId,
@@ -676,8 +689,8 @@
 
         $scope.setSelectedSectionId = vm.setSelectedSectionId;
         $scope.setSelectedSeatId = vm.setSelectedSeatId;
+        $scope.removeSelectedSeatId = vm.removeSelectedSeatId();
         $scope.setMouseoverSectionId = vm.setMouseoverSectionId;
-
 
         /* watchers */
 
