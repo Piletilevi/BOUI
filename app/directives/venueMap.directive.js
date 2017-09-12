@@ -1265,6 +1265,7 @@
 
                     piletilevi.venuemap.PlaceTooltip = new function () {
                         var self = this;
+                        var componentElement;
                         self.row1Element = false;
                         self.row2Element = false;
                         self.row3Element = false;
@@ -1273,7 +1274,7 @@
                         self.popupOffset = 0;
 
                         var createDomElements = function () {
-                            var componentElement = document.createElement('div');
+                            componentElement = document.createElement('div');
                             componentElement.className = 'place_tooltip';
                             componentElement.style.display = 'none';
                             componentElement = componentElement;
@@ -1335,7 +1336,7 @@
                             }
                         };
                         self.display = function (x, y, row, place, price, status) {
-                            if (!componentElement) {
+                            if (!!componentElement) {
                                 createDomElements();
                             }
                             self.clear();
