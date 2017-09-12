@@ -1336,9 +1336,7 @@
                             }
                         };
                         self.display = function (x, y, row, place, price, status) {
-                            if (componentElement == null || componentElement.className == null) {
-                                createDomElements();
-                            }
+                            createDomElements();
                             self.clear();
                             if (row) {
                                 self.row1Element.appendChild(document.createTextNode(row));
@@ -1376,7 +1374,6 @@
                             componentElement.style.left = leftPosition + 'px';
                             componentElement.style.top = topPosition + 'px';
                             componentElement.style.visibility = 'visible';
-                            console.log("componentElement:" + componentElement.style.visibility + ";" + componentElement.style.display);
                         };
                         self.hide = function () {
                             if (componentElement) {
