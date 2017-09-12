@@ -1143,7 +1143,7 @@
                                 status = 'booked';
                             }
                             piletilevi.venuemap.PlaceTooltip.display(x, y, seatInfo.row, seatInfo.place, seatInfo.price, status);
-                            console.log( "Seatinfo:" + seatInfo );
+                            console.log( "Seatinfo:" + seatInfo.available );
                             if (selectable) {
                                 self.setColor(venueMap.getSeatColor('hover'))
                             }
