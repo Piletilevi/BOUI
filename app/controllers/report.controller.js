@@ -689,7 +689,7 @@
 
         $scope.setSelectedSectionId = vm.setSelectedSectionId;
         $scope.setSelectedSeatId = vm.setSelectedSeatId;
-        $scope.removeSelectedSeatId = vm.removeSelectedSeatId();
+        $scope.removeSelectedSeatId = vm.removeSelectedSeatId;
         $scope.setMouseoverSectionId = vm.setMouseoverSectionId;
 
         /* watchers */
