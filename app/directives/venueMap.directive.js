@@ -1450,11 +1450,17 @@
                         });
                         var btnExpand = $element.find('.btn_fullscreen');
                         btnExpand.on('click', function (event) {
-                            $('.piletilevi_venue_map_places_sections_fullscreen').show();
+                            $('.piletilevi_venue_map').append('<div class="fullscreen_close"><i class="fa fa-close"></i></div>');
+                            $('.piletilevi_venue_map').className = "piletilevi_venue_map_places_sections_fullscreen";
+                            //$('.piletilevi_venue_map_places_sections_fullscreen').show();
                         });
                         var btnZoomReset = $element.find('.btn_zoomreset');
                         btnZoomReset.on('click', function (event) {
                             map.setZoomLevel(0);
+                        });
+                        $element.find('.fullscreen_close').on('click', function () {
+                            $('.piletilevi_venue_map_places_sections_fullscreen').className = "piletilevi_venue_map";
+                            $element.removeChild($element.find('.fullscreen_close'));
                         });
                     }
 
@@ -1463,7 +1469,7 @@
 
 
                     // Fullscreen
-
+                    /*
                     if (piletilevi.venuemap.Config.type === 'seats') {
                         var $fullscreenMap = $('<div class="piletilevi_venue_map_places_sections_fullscreen"></div>');
                         $element.append($fullscreenMap);
@@ -1526,6 +1532,7 @@
                         $fullscreenMap.append(fullscreenMap.getComponentElement());
                         $fullscreenMap.find('.places_map_legend').show();
                     }
+                    */
 
                 }, true);
             }
