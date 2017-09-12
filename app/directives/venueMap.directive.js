@@ -1137,14 +1137,14 @@
 
                             var status = "";
                             if (seatInfo.available) {
-                                status = "Available";
+                                status = $translate.instant("api_seat_available");
                             }
                             else {
                                 if (selected) {
-                                    status = "In basket";
+                                    status = $translate.instant("api_seat_booked");
                                 }
                                 else {
-                                    status = "Booked";
+                                    status = $translate.instant("api_seat_booked");
                                 }
                             }
                             piletilevi.venuemap.PlaceTooltip.display(x, y, seatInfo.row, seatInfo.place, seatInfo.price, status);
@@ -1340,6 +1340,7 @@
                         };
                         self.display = function (x, y, row, place, price, status) {
                             if (!componentElement) {
+                                console.log("!component");
                                 createDomElements();
                             }
                             self.clear();
@@ -1353,14 +1354,16 @@
                                 self.row3Element.appendChild(document.createTextNode(price));
                             }
                             self.row4Element.appendChild(document.createTextNode(status));
-
+                            console.log("Nodes");
                             if (window.innerHeight) {
                                 var viewPortWidth = window.innerWidth;
                                 var viewPortHeight = window.innerHeight;
+                                console.log("viewPortWidth1:" + viewPortWidth);
                             }
                             else {
                                 var viewPortWidth = document.documentElement.offsetWidth;
                                 var viewPortHeight = document.documentElement.offsetHeight;
+                                console.log("viewPortWidth2:" + viewPortWidth);
                             }
                             componentElement.style.left = 0 + 'px';
                             componentElement.style.top = 0 + 'px';
@@ -1380,6 +1383,7 @@
                             componentElement.style.left = leftPosition + 'px';
                             componentElement.style.top = topPosition + 'px';
                             componentElement.style.visibility = 'visible';
+                            console.log("componentElement:" + componentElement.style);
                         };
                         self.hide = function () {
                             if (componentElement) {
