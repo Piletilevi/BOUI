@@ -1137,15 +1137,13 @@
 
                             var status = '';
                             if (seatInfo.available) {
-                                //status = window.translationsManager.get('placepopup.available');
                                 status = 'available';
                             }
                             else {
-                                //status = window.translationsManager.get('placepopup.booked');
                                 status = 'booked';
                             }
                             piletilevi.venuemap.PlaceTooltip.display(x, y, seatInfo.row, seatInfo.place, seatInfo.price, status);
-
+                            console.log( "Seatinfo:" + seatInfo );
                             if (selectable) {
                                 self.setColor(venueMap.getSeatColor('hover'))
                             }
