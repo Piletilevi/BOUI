@@ -1389,7 +1389,6 @@
                             }
                         };
                     };
-                    var fullScreenShow = false;
                     $element.empty();
                     // Init
                     var map = new piletilevi.venuemap.VenueMap();
@@ -1421,9 +1420,6 @@
                         fullscreenMap.SHOP_DOMAIN = map.SHOP_DOMAIN;
                         fullscreenMap.sections = map.sections;
                         fullscreenMap.enabledSections = map.enabledSections;
-                        fullscreenMap.setSeatSelectionEnabled(true);
-                        fullscreenMap.addSectionDetails(sectionDetails);
-                        fullscreenMap.sectionId = map.sectionId;
 
                         map.addHandler('seatSelected', function (seatId) {
                             $scope.setSelectedSeatId(seatId);
@@ -1460,6 +1456,9 @@
                         };
                         map.addSectionDetails(sectionDetails);
                         map.setSelectedSection(piletilevi.venuemap.Config.sectionId);
+                        fullscreenMap.setSeatSelectionEnabled(true);
+                        fullscreenMap.addSectionDetails(sectionDetails);
+                        fullscreenMap.sectionId = map.sectionId;
 
                         $element.append('<div class="bo-mapcontrols" style="display: none">' +
                             '<span class="bo-mapcontrols-item btn_fullscreen"><i class="fa fa-arrows-alt" aria-hidden="true"></i></span>' +
