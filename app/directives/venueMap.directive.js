@@ -1449,12 +1449,12 @@
                         var $fullscreenMap = $('<div class="piletilevi_venue_map_places_sections_fullscreen"></div>');
                         var fullscreenMap = new piletilevi.venuemap.VenueMap();
                         $element.append($fullscreenMap);
-                        fullscreenMap.setConfId(map.confId);
-                        fullscreenMap.setSectionsMapType(map.sectionMapType);
+                        fullscreenMap.setConfId(piletilevi.venuemap.Config.confId);
+                        fullscreenMap.setSectionsMapType(piletilevi.venuemap.Config.sectionMapType);
                         fullscreenMap.setSectionsMapImageUrl('');
-                        fullscreenMap.setShopDomain(map.SHOP_DOMAIN);
-                        fullscreenMap.setSections(map.sections);
-                        fullscreenMap.setEnabledSections(map.enabledSections);
+                        fullscreenMap.setShopDomain(piletilevi.venuemap.SHOP_DOMAIN);
+                        fullscreenMap.setSections(piletilevi.venuemap.Config.sections);
+                        fullscreenMap.setEnabledSections(piletilevi.venuemap.Config.enabledSections);
 
                         fullscreenMap.addHandler('sectionMouseover', function (sectionId) {
                             $scope.setMouseoverSectionId(sectionId);
