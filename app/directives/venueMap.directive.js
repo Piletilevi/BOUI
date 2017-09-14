@@ -1342,11 +1342,14 @@
                         };
                         self.display = function (x, y, row, place, price, status) {
                             if (!componentElement) {
+                                console.log("B1");
                                 createDomElements();
                             }
                             else {
+                                console.log("B2");
                                 componentElement = document.getElementsByClassName("place_tooltip")[0];
-                                if (!componentElement) {
+                                if (componentElement == null) {
+                                    console.log("B2.1");
                                     createDomElements();
                                 }
                             }
@@ -1523,7 +1526,6 @@
                             fullscreenMap.setZoomLevel(0);
                         });
                         $fullscreenMap.find('.fullscreen_close').on('click', function () {
-                            map.update();
                             $('.piletilevi_venue_map_places_sections_fullscreen').hide();
                         });
 
