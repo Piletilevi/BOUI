@@ -1341,9 +1341,14 @@
                             }
                         };
                         self.display = function (x, y, row, place, price, status) {
-                            componentElement = document.getElementsByClassName("place_tooltip")[0];
                             if (!componentElement) {
                                 createDomElements();
+                            }
+                            else {
+                                componentElement = document.getElementsByClassName("place_tooltip")[0];
+                                if (!componentElement) {
+                                    createDomElements();
+                                }
                             }
                             self.clear();
                             if (row) {
