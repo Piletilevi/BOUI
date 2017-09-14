@@ -137,7 +137,7 @@
                         self.updateSeats = function () {
                             if (activeSection) {
                                 var newSeats = [];
-                                angular.forEach(vm.myBasket.basket, function(seat) {
+                                angular.forEach($scope.myBasket.basket, function(seat) {
                                     newSeats.push(seat.seatId);
                                 });
                                 self.setSelectedSeats(newSeats);
@@ -1534,7 +1534,10 @@
                         $fullscreenMap.find('.fullscreen_close').on('click', function () {
                             $('.piletilevi_venue_map_places_sections_fullscreen').hide();
                         });
-                        $scope.$watch('vm.myBasket', function(newValue, oldValue) {
+                        $scope.$watch( function () {
+                            $scope.myBasket = eventService.myBasket();
+                        });
+                        $scope.$watch('$scope.myBasket', function(newValue, oldValue) {
                             if (!angular.equals(newValue, oldValue)) {
                                 map.updateSeats();
                                 fullscreenMap.updateSeats();
