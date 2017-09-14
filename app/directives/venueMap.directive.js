@@ -1503,7 +1503,7 @@
                         });
                         var btnOfferTickets = document.getElementById("btnOfferTickets");
                         if (btnOfferTickets != null) {
-                            btnOfferTickets.on('click', function () {
+                            btnOfferTickets.on('ng-click', function () {
                                 map.update();
                                 fullscreenMap.update();
                             });
