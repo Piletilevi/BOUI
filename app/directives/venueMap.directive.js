@@ -1503,7 +1503,7 @@
                         });
                         var btnOfferTickets = document.getElementById("btnOfferTickets");
                         if (btnOfferTickets != null) {
-                            btnOfferTickets.on("click", function (event) {
+                            btnOfferTickets.on('click', function () {
                                 map.update();
                                 fullscreenMap.update();
                             });
