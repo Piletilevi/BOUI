@@ -779,16 +779,6 @@
             }
         );
 
-        $scope.$watch('vm.myBasket', function(newValue, oldValue) {
-            if (!angular.equals(newValue, oldValue)) {
-                angular.forEach(vm.myBasket.basket, function(seat) {
-                    var mapSeat = document.getElementById("place_" + seat.seatId);
-                    console.log("place_" + seat.seatId);
-                    mapSeat.style.fill = "#27272e";
-                });
-            }
-        });
-
         $scope.$watch('vm.countries', function (newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
                 angular.forEach(newValue.countries, function (country) {

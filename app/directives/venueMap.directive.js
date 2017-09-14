@@ -134,6 +134,16 @@
                             self.update();
                             self.display();
                         };
+                        self.updateSeats = function () {
+                            if (activeSection) {
+                                var newSeats = [];
+                                angular.forEach(vm.myBasket.basket, function(seat) {
+                                    newSeats.push(seat.seatId);
+                                });
+                                self.setSelectedSeats(newSeats);
+                                self.update();
+                            }
+                        };
                         self.update = function () {
                             if (activeSection) {
                                 placesMap.update();
@@ -1524,7 +1534,12 @@
                         $fullscreenMap.find('.fullscreen_close').on('click', function () {
                             $('.piletilevi_venue_map_places_sections_fullscreen').hide();
                         });
-
+                        $scope.$watch('vm.myBasket', function(newValue, oldValue) {
+                            if (!angular.equals(newValue, oldValue)) {
+                                map.updateSeats();
+                                fullscreenMap.updateSeats();
+                            }
+                        });
                     }
 
                 }, true);
