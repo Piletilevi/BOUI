@@ -1501,11 +1501,13 @@
                             map.update();
                             $('.piletilevi_venue_map_places_sections_fullscreen').hide();
                         });
-
-                        document.getElementById("btnOfferTickets").on("click", function (event) {
-                            map.update();
-                            fullscreenMap.update();
-                        });
+                        var btnOfferTickets = document.getElementById("btnOfferTickets");
+                        if (btnOfferTickets != null) {
+                            btnOfferTickets.on("click", function (event) {
+                                map.update();
+                                fullscreenMap.update();
+                            });
+                        }
                         fullscreenMap.build();
                         $fullscreenMap.append(fullscreenMap.getComponentElement());
                         $fullscreenMap.find('.places_map_legend').show();
