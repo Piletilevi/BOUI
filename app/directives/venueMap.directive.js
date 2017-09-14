@@ -1525,14 +1525,6 @@
                             $('.piletilevi_venue_map_places_sections_fullscreen').hide();
                         });
 
-                        var btnOfferTickets = document.getElementById("btnOfferTickets");
-                        if (btnOfferTickets != null) {
-                            btnOfferTickets.onclick = function () {
-                                angular.forEach(seat in vm.myBasket.basket, function () {
-                                    map.setSelectedSeats(seat.id);
-                                });
-                            }
-                        }
                     }
 
                 }, true);
