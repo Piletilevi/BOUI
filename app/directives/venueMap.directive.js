@@ -1474,6 +1474,12 @@
                         });
 
                         fullscreenMap.setSeatSelectionEnabled(true);
+                        var sectionDetails = {
+                            id: map.sectionId,
+                            seatsInfo: seatsInfo,
+                            priceClasses: priceClasses,
+                            selectableSeats: true
+                        };
                         fullscreenMap.addSectionDetails(sectionDetails);
                         fullscreenMap.sectionId = map.sectionId;
 
