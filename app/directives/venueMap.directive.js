@@ -1503,10 +1503,10 @@
                         });
                         var btnOfferTickets = document.getElementById("btnOfferTickets");
                         if (btnOfferTickets != null) {
-                            btnOfferTickets.on('ng-click', function () {
+                            btnOfferTickets.onclick = function () {
                                 map.update();
                                 fullscreenMap.update();
-                            });
+                            }
                         }
                         fullscreenMap.build();
                         $fullscreenMap.append(fullscreenMap.getComponentElement());
