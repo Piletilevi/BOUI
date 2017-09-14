@@ -1449,12 +1449,12 @@
                         var $fullscreenMap = $('<div class="piletilevi_venue_map_places_sections_fullscreen"></div>');
                         var fullscreenMap = new piletilevi.venuemap.VenueMap();
                         $element.append($fullscreenMap);
-                        fullscreenMap.confId = map.confId;
-                        fullscreenMap.sectionMapType = map.sectionMapType;
-                        fullscreenMap.sectionsMapImageUrl = map.sectionsMapImageUrl;
-                        fullscreenMap.SHOP_DOMAIN = map.SHOP_DOMAIN;
-                        fullscreenMap.sections = map.sections;
-                        fullscreenMap.enabledSections = map.enabledSections;
+                        fullscreenMap.setConfId(map.confId);
+                        fullscreenMap.setSectionsMapType(map.sectionMapType);
+                        fullscreenMap.setSectionsMapImageUrl('');
+                        fullscreenMap.setShopDomain(map.SHOP_DOMAIN);
+                        fullscreenMap.setSections(map.sections);
+                        fullscreenMap.setEnabledSections(map.enabledSections);
 
                         fullscreenMap.addHandler('sectionMouseover', function (sectionId) {
                             $scope.setMouseoverSectionId(sectionId);
@@ -1475,13 +1475,13 @@
 
                         fullscreenMap.setSeatSelectionEnabled(true);
                         var sectionDetails = {
-                            id: map.sectionId,
+                            id: piletilevi.venuemap.Config.sectionId,
                             seatsInfo: seatsInfo,
                             priceClasses: priceClasses,
                             selectableSeats: true
                         };
                         fullscreenMap.addSectionDetails(sectionDetails);
-                        fullscreenMap.sectionId = map.sectionId;
+                        fullscreenMap.setSelectedSection(piletilevi.venuemap.Config.sectionId);
 
                         $fullscreenMap.append('<div class="bo-mapcontrols" style="display: none">' +
                             '<span class="bo-mapcontrols-item btn_zoomin"><i class="fa fa-plus" aria-hidden="true"></i></span>' +
