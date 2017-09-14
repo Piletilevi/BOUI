@@ -782,10 +782,9 @@
         $scope.$watch('vm.myBasket', function(newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
                 angular.forEach(vm.myBasket.basket, function(seat) {
-                    console.log("Hre:" + seat);
-                    console.log("Hre2:" + vm.myBasket.basket);
+                    console.log("Hre:" + seat.id);
                     var mapSeat = document.getElementById("place_" + seat.id);
-                    console.log("HERE:" + mapSeat);
+                    console.log("HERE:" + " place_" + seat.id);
                     mapSeat.style.fill = "#27272e";
                 });
             }
