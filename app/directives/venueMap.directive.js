@@ -1129,6 +1129,7 @@
                             }
                             placeElement.addEventListener('mousemove', mouseMove);
                             placeElement.addEventListener('mouseout', mouseOut);
+                            placeElement.setSelected(selectable && venueMap.isSeatSelected(seatInfo.id));
                             self.refreshStatus();
                         };
                         var mouseMove = function (event) {
@@ -1184,6 +1185,7 @@
                                 seatColor = priceClass.color;
                             }
                             self.setColor(seatColor);
+                            placeElement.setSelected(selectable && venueMap.isSeatSelected(seatInfo.id));
                         };
                         self.setColor = function (seatColor) {
                             if (placeElement) {
@@ -1509,7 +1511,6 @@
                             map.zoomOut();
                         });
                         $element.find('.btn_fullscreen').on('click', function (event) {
-                            fullscreenMap.update();
                             $('.piletilevi_venue_map_places_sections_fullscreen').show();
                         });
                         $element.find('.btn_zoomreset').on('click', function (event) {
@@ -1532,8 +1533,7 @@
                         var btnOfferTickets = document.getElementById("btnOfferTickets");
                         if (btnOfferTickets != null) {
                             btnOfferTickets.onclick = function () {
-                                map.update();
-                                fullscreenMap.update();
+
                             }
                         }
                     }
