@@ -1129,7 +1129,6 @@
                             }
                             placeElement.addEventListener('mousemove', mouseMove);
                             placeElement.addEventListener('mouseout', mouseOut);
-                            placeElement.setSelected(selectable && venueMap.isSeatSelected(seatInfo.id));
                             self.refreshStatus();
                         };
                         var mouseMove = function (event) {
