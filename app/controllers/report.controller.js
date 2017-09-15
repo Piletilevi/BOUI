@@ -782,12 +782,17 @@
         $scope.$watch('vm.myBasket', function(newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
                 var seatArray = [];
+                var emptySeatArray = [];
+                angular.forEach(oldValue.basket, function(seat) {
+                    emptySeatArray.push(seat.seatId);
+                });
                 angular.forEach(vm.myBasket.basket, function(seat) {
-                    console.log("Seat:" + seat.seatId);
                     seatArray.push(seat.seatId);
                 });
+                $scope.ngVenueMapControl.map.unSetSelectedSeats(emptySeatArray);
                 $scope.ngVenueMapControl.map.setSelectedSeats(seatArray);
                 $scope.ngVenueMapControl.map.update();
+                $scope.ngVenueMapControl.fullscreenMap.unSetSelectedSeats(emptySeatArray);
                 $scope.ngVenueMapControl.fullscreenMap.setSelectedSeats(seatArray);
                 $scope.ngVenueMapControl.fullscreenMap.update();
             }
