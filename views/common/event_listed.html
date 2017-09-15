@@ -5,12 +5,12 @@
 			<span class="glyphicon glyphicon-triangle-top"></span>
 			<span class="glyphicon glyphicon-triangle-bottom"></span>
 			<span class="badge">{{event.concertsCount}}</span>
-		</a>{{event.name}}</h3>
+		</a>{{event.name}} - listed!</h3>
 </div>
 <div class="panel-body {{event.isShow?'bo-show-design':'bo-concert-design'}}">
 	<h3 class="bo-event-title" ng-if="!event.isShow">
 		<div class="bo-event-badge bo-event-badge-{{event.status}} label-{{event.labelCode}}">{{event.statusName | translate}}</div>
-		{{event.name}}</h3>
+		{{event.name}} - listed</h3>
 	<div class="row">
 		<div class="col-sm-4 bo-event-datetime_block" ng-if="!event.concertsCount">
 			<div ng-if="!event.isSamePeriod">

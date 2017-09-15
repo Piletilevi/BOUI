@@ -978,6 +978,175 @@ h3.bo-event-title {
     border-bottom-right-radius: 3px;
 }
 
+
+/* Event summary
+================================ */
+.bo-eventsummary {
+	font-size: 14px;
+	padding: 0.65em 1em 0.77em;
+	line-height: 22px;
+	border-bottom: 1px solid #dadcdf;
+	display: block;
+	position: relative;
+	overflow: hidden;
+}
+
+.bo-eventsummary:last-child {
+	border-bottom: 0;
+}
+
+.bo-eventsummary-linked:hover {
+	background: #edf0f4;
+	-moz-box-shadow: 0 0 0 1px #f7f9fb inset;
+	-webkit-box-shadow: 0 0 0 1px #f7f9fb inset;
+	box-shadow: 0 0 0 1px #f7f9fb inset;
+}
+
+.bo-eventsummary-link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.bo-eventsummary .progress {
+    max-width: none;
+}
+
+.bo-eventsummary i {
+    color: #b3bcce;
+}
+
+.bo-eventsummary-title {
+    margin-bottom: 8px;
+    font-size: 16px;
+	color: #2d7bcf;
+	line-height: 18px;
+}
+
+.bo-eventsummary-datetime {
+    margin-left: 2px;
+}
+
+.bo-eventsummary-date {
+    margin-right: 15px;
+}
+
+.bo-eventsummary-date .fa {
+    margin-right: 7px;
+}
+
+.bo-eventsummary-time {
+    display: inline-block;
+}
+
+.bo-eventsummary-time .fa {
+    margin-right: 5px;
+}
+
+.bo-eventsummary-venue {
+    margin-left: 4px;
+}
+
+.bo-eventsummary-venue .fa {
+    margin-right: 7px;
+}
+
+.bo-eventsummary-stats {
+    font-weight: bold;
+    margin-top: 0.64em;
+}
+
+.bo-eventsummary-stats .progress {
+    height: 1.21em;
+    margin: 0;
+    max-width: none;
+}
+
+.bo-eventsummary-stats .progress-bar {
+    font-size: 0.93em;
+    line-height: 1.14em;
+}
+
+.bo-eventsummary-statslabels {
+	display: none;
+    margin-bottom: 2px;
+    color: #b7b7b9;
+    margin-left: -2px;
+}
+
+.bo-eventsummary-statlabel {
+    display: inline-block;
+    font-weight: bold;
+    margin: 0 7px;
+}
+
+.bo-eventsummary-statslabelsicon {
+    display: inline-block;
+    font-size: 11px;
+    margin-left: 3px;
+}
+
+.bo-eventsummary-totals {
+	font-weight: bold;
+}
+
+.bo-eventsummary-soldpct {
+    line-height: 1.07em;
+	padding-top: 0.5em;
+}
+
+.bo-eventsummary-revenue {
+	line-height: 1.07em;
+    padding-top: 0.5em;
+}
+
+.bo-eventsummary-links {
+    margin-top: 6px;
+    margin-bottom: 2px;
+    color: #b7b7b9;
+    margin-right: -15px;
+}
+
+.bo-eventsummary-links * {
+    display: inline-block;
+}
+
+.bo-eventsummary-links > a {
+    margin-right: 23px;
+}
+
+.bo-eventsummary-links-delim {
+    margin-right: 23px;
+}
+
+.bo-eventsummary-badge {
+    position: relative;
+	margin-top: -1px;
+	margin-right: -1px;
+    right: -1em;
+    top: -0.64em;
+    float: right;
+    font-size: 0.93em;
+    line-height: 1.93em;
+    min-width: 5.79em;
+    padding: 0 0.5em;
+    text-align: center;
+    -webkit-border-radius: 0 0 0 3px;
+    -moz-border-radius: 0 0 0 3px;
+    border-radius: 0 0 0 3px;
+    color: #fff;
+}
+
+/* Showpanel
+================================ */
+.bo-showpanel {
+	overflow: hidden;
+}
+.bo-showpanel-concert {
+	border-top: 1px solid #ddd;
+}
 /* Section-selector
 ================================ */
 .bo-sectionselector {
@@ -1901,7 +2070,7 @@ button.bo-sectionselector-item.list-group-item {
 ================================ */
 
 .block-ui {
-    min-height: 150px;
+    min-height: 130px;
 }
 
 .block-ui.events-loader {

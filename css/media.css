@@ -262,7 +262,7 @@
 	.container {
 		width: 100%;
 		padding: 0;
-		margin: 0;		
+		margin: 0;
 	}
 
 	.bo-center-column {
@@ -876,5 +876,39 @@
 
 	.container {
 		max-width: 1440px;
+	}
+}
+
+/* Bootstrap >= MD
+================================ */
+@media (min-width: 992px)  {
+	.bo-center-column .bo-eventsummary {
+		font-size: 15px;
+	}
+	.bo-center-column .bo-eventsummary-statslabels {
+		display: block;
+	}
+	.bo-center-column .progress-bar {
+		font-size: 0;
+	}
+	.bo-center-column .bo-eventsummary-main {
+		display: table;
+		width: 100%;
+	}
+	.bo-center-column .bo-eventsummary-spacetime,
+	.bo-center-column .bo-eventsummary-stats,
+	.bo-center-column .bo-eventsummary-totals {
+		display: table-cell;
+		width: 33.33%;
+		vertical-align: top;
+	}
+	.bo-center-column .bo-eventsummary-stats {
+		padding-left: 1em;
+	}
+	.bo-center-column .bo-eventsummary-totals {
+		padding-left: 1em;
+		vertical-align: bottom;
+		font-size: 1.4em;
+		font-weight: normal;
 	}
 }
