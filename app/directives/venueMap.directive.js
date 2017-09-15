@@ -1499,16 +1499,16 @@
                         $fullscreenMap.append(fullscreenMap.getComponentElement());
                         $fullscreenMap.find('.places_map_legend').show();
 
-                        $element.find('.btn_zoomin').on('click', function (event) {
+                        $element.find('.btn_zoomin').on('click', function () {
                             map.zoomIn();
                         });
-                        $element.find('.btn_zoomout').on('click', function (event) {
+                        $element.find('.btn_zoomout').on('click', function () {
                             map.zoomOut();
                         });
-                        $element.find('.btn_fullscreen').on('click', function (event) {
+                        $element.find('.btn_fullscreen').on('click', function () {
                             $('.piletilevi_venue_map_places_sections_fullscreen').show();
                         });
-                        $element.find('.btn_zoomreset').on('click', function (event) {
+                        $element.find('.btn_zoomreset').on('click', function () {
                             map.setZoomLevel(0);
                         });
 
@@ -1524,7 +1524,10 @@
                         $fullscreenMap.find('.fullscreen_close').on('click', function () {
                             $('.piletilevi_venue_map_places_sections_fullscreen').hide();
                         });
-                        $scope.$watch('$scope.newSeats', function(newValue, oldValue) {
+                        $scope.$watch( function() {
+                            map.newSeats = $scope.newSeats;
+                        });
+                        $scope.$watch('map.newSeats', function(newValue, oldValue) {
                             if (!angular.equals(newValue, oldValue)) {
                                 console.log("Watch1");
                                 map.setSelectedSeats(newValue);
