@@ -248,6 +248,8 @@
                 eventService.getSectorTickets(vm.event, vm.priceclassFilter);
             }
             $location.update_path(newPath);
+            $scope.ngVenueMapControl.map.update;
+            $scope.ngVenueMapControl.fullscreenMap.update;
         };
 
         vm.setSelectedSeatId = function (selectedSeatId) {
