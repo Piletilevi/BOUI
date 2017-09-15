@@ -18,6 +18,7 @@
         }
         //initially set those objects to null to avoid undefined error
         var vm = this;
+        var seatArray = [];
 
         vm.event = {
             id: $routeParams.id,
@@ -778,7 +779,7 @@
                 vm.countries = eventService.countries();
             }
         );
-        var seatArray;
+
         $scope.$watch('vm.myBasket', function(newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
                 $scope.ngVenueMapControl.map.unSetSelectedSeats(seatArray);
