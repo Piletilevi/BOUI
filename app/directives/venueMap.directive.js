@@ -97,6 +97,7 @@
                         var sections = [];
                         var enabledSections = [];
                         var selectedSeats = [];
+                        var unSelectedSeats = [];
                         var selectedSeatsIndex = {};
                         var eventHandlers = {};
                         var sectionsDetails = {};
@@ -198,6 +199,12 @@
                             selectedSeats = newSelectedSeats;
                             for (var i = selectedSeats.length; i--;) {
                                 selectedSeatsIndex[selectedSeats[i]] = true;
+                            }
+                        };
+                        self.unSetSelectedSeats = function (newUnSelectedSeats) {
+                            unSelectedSeats = newUnSelectedSeats;
+                            for (var i = unSelectedSeats.length; i--;) {
+                                selectedSeatsIndex[unSelectedSeats[i]] = false;
                             }
                         };
                         self.setSeatColors = function (newColors) {
