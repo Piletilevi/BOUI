@@ -1536,7 +1536,7 @@
                         $fullscreenMap.find('.fullscreen_close').on('click', function () {
                             $('.piletilevi_venue_map_places_sections_fullscreen').hide();
                         });
-                        $scope.$watch('$scope.myBasket', function(newValue, oldValue) {
+                        $scope.$watch('$scope.myBasket()', function(newValue, oldValue) {
                             if (!angular.equals(newValue, oldValue)) {
                                 console.log("Watch1");
                                 map.updateSeats();
