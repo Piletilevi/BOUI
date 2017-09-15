@@ -134,18 +134,6 @@
                             self.update();
                             self.display();
                         };
-                        self.updateSeats = function () {
-                            if (activeSection) {
-                                var newSeats = [];
-                                angular.forEach($scope.myBasket.basket, function(seat) {
-                                    console.log("Seat:" + seat.seatId);
-                                    newSeats.push(seat.seatId);
-                                });
-                                console.log("New seats:" + newSeats);
-                                self.setSelectedSeats(newSeats);
-                                self.update();
-                            }
-                        };
                         self.update = function () {
                             if (activeSection) {
                                 placesMap.update();
@@ -1536,11 +1524,11 @@
                         $fullscreenMap.find('.fullscreen_close').on('click', function () {
                             $('.piletilevi_venue_map_places_sections_fullscreen').hide();
                         });
-                        $scope.$watch('$scope.myBasket()', function(newValue, oldValue) {
+                        $scope.$watch('$scope.newSeats', function(newValue, oldValue) {
                             if (!angular.equals(newValue, oldValue)) {
                                 console.log("Watch1");
-                                map.updateSeats();
-                                fullscreenMap.updateSeats();
+                                map.setSelectedSeats(newValue);
+                                fullscreenMap.setSelectedSeats(newValue);
                             }
                         });
                     }

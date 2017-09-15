@@ -779,6 +779,17 @@
             }
         );
 
+        $scope.$watch('vm.myBasket', function(newValue, oldValue) {
+            if (!angular.equals(newValue, oldValue)) {
+                var seatArray = [];
+                angular.forEach(vm.myBasket.basket, function(seat) {
+                    console.log("Seat:" + seat.seatId);
+                    seatArray.push(seat.seatId);
+                });
+                $scope.newSeats = seatArray;
+            }
+        });
+
         $scope.$watch('vm.countries', function (newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
                 angular.forEach(newValue.countries, function (country) {
