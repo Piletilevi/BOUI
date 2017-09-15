@@ -1524,6 +1524,8 @@
                         $fullscreenMap.find('.fullscreen_close').on('click', function () {
                             $('.piletilevi_venue_map_places_sections_fullscreen').hide();
                         });
+                        $scope.ngVenueMapControl.map = map;
+                        $scope.ngVenueMapControl.fullscreenMap = fullscreenMap;
                     }
 
                 }, true);
