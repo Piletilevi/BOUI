@@ -1524,16 +1524,6 @@
                         $fullscreenMap.find('.fullscreen_close').on('click', function () {
                             $('.piletilevi_venue_map_places_sections_fullscreen').hide();
                         });
-                        $scope.$watch( function() {
-                            map.newSeats = $scope.newSeats;
-                        });
-                        $scope.$watch('map.newSeats', function(newValue, oldValue) {
-                            if (!angular.equals(newValue, oldValue)) {
-                                console.log("Watch1");
-                                map.setSelectedSeats(newValue);
-                                fullscreenMap.setSelectedSeats(newValue);
-                            }
-                        });
                     }
 
                 }, true);
