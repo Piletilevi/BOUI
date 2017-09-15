@@ -786,7 +786,7 @@
                     console.log("Seat:" + seat.seatId);
                     seatArray.push(seat.seatId);
                 });
-                ngVenueMapControl.setSelectedSeats(seatArray);
+                $scope.ngVenueMapControl.setSelectedSeats(seatArray);
             }
         });
 
