@@ -224,10 +224,10 @@
 	#bookings,
 	.bo-detailed-report-link,
 	.bo-header-submenu,
-	.bo-event-report-link,
+	.bo-eventsummary-links,
 	.bo-dropdown-tabs-wrapper,
-	.bo-event-share-block,
-	.bo-event-badge,
+	.bo-eventshareblock,
+	.bo-eventsummary-badge,
 	.data_range .input-group-btn,
 	.bo-top-filter-block,
 	.bo-sidebar {
@@ -270,16 +270,6 @@
 		padding-top: 0;
 		padding-bottom: 0;
 		margin: 0;
-	}
-
-	.bo-event-date i.fa,
-	.bo-event-time i.fa,
-	.bo-event-place i.fa {
-		color: #2a7ed8 !important;
-	}
-
-	.bo-event {
-
 	}
 
 	.bo-salesoverview-controls {
@@ -408,11 +398,6 @@
 		position: relative;
 	}
 
-	.bo-event-title {
-		font-size: 25px;
-		margin-bottom: 6px;
-	}
-
 	.tab-content .panel-body {
 		padding-top: 0;
 	}
@@ -490,7 +475,7 @@
 		width: 100%;
 	}
 
-	.bo-event-share-block {
+	.bo-eventshareblock {
 		text-align: center;
 		margin-top: -20px;
 	}
@@ -531,10 +516,6 @@
 		width: 100%;
 		display: inline-block;
 		text-align: center;
-	}
-
-	.bo-event-price {
-		margin-top: 8px;
 	}
 
 	.bo-pills-block {
@@ -627,10 +608,6 @@
 
 	.bo-widgetbox-buttons-area .btn {
 		float: left !important;
-	}
-
-	.bo-simplestats {
-		padding-left: 0;
 	}
 
 	.progress {
@@ -808,14 +785,6 @@
 		display: none;
 	}
 
-	.bo-sub-events-hidden .bo-event-toggle {
-		display: inline;
-	}
-
-	.bo-sub-events-hidden .bo-sub-events.collapse.in {
-		display: block;
-	}
-
 	.navbar.navbar-inverse {
 		border-bottom: 0 none;
 	}
@@ -835,14 +804,6 @@
 
 	.bo-sidebar {
 		clear: both;
-	}
-
-	.bo-sub-events-hidden .bo-event-toggle {
-		display: inline;
-	}
-
-	.bo-sub-events-hidden .bo-sub-events.collapse.in {
-		display: block;
 	}
 }
 
@@ -870,10 +831,6 @@
 		margin-right: 6px;
 	}
 
-	.bo-simplestats-pct {
-		width: 61px;
-	}
-
 	.container {
 		max-width: 1440px;
 	}
@@ -881,9 +838,14 @@
 
 /* Bootstrap >= MD
 ================================ */
-@media (min-width: 992px)  {
+@media print, (min-width: 992px)  {
 	.bo-center-column .bo-eventsummary {
 		font-size: 15px;
+		padding: 1.1em 1.2em;
+	}
+	.bo-center-column .bo-eventsummary-badge {
+		top: -1.1em;
+		right: -1.2em;
 	}
 	.bo-center-column .bo-eventsummary-statslabels {
 		display: block;

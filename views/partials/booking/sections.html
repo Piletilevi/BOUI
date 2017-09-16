@@ -63,7 +63,7 @@
 
 
                     <div class="clearfix">
-                        <div class="bo-eventshort-progress clearfix">
+                        <div class="bo-sectionselector-progress clearfix">
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success" ng-attr-style="flex-grow: {{sectorData.statistics.soldPercent}}"  title="{{'api_overview_sold_total'|translate}}">&nbsp;{{sectorData.statistics.soldTickets}}&nbsp;</div>
                                 <div class="progress-bar progress-bar-warning" ng-attr-style="flex-grow: {{sectorData.statistics.bookedPercent}}"
@@ -72,10 +72,10 @@
                                      title="{{'api_avail_for_sale'|translate}}">&nbsp;{{sectorData.statistics.availableTickets}}&nbsp;</div>
                             </div>
                             <div>
-                                <div class="bo-eventshort-progresslabel">
+                                <div class="bo-sectionselector-progresslabel">
                                     {{sectorData.statistics.soldPercent || 0}}%
                                 </div>
-                                <div class="bo-eventshort-pricelabel" ng-if="hasFullAccess('api_reports_revenue')">
+                                <div class="bo-sectionselector-pricelabel" ng-if="hasFullAccess('api_reports_revenue')">
                                     {{sectorData.statistics.soldSumma |
                                     number:2}}
                                     {{sectorData.statistics.currency}}

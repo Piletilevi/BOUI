@@ -1,16 +1,16 @@
 <div class="bo-showpanel panel panel-default">
-	<div class="panel-heading">
+	<div class="panel-heading clearfix">
+		<div ng-if="show.statusName" class="bo-showpanel-status bo-showpanel-status-{{show.status}} label-{{show.labelCode}}">{{show.statusName | translate}}</div>
 		<h3 class="bo-showpanel-title">
-			<a ng-if="show.concertsCount" class="bo-event-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events{{show.id}}" aria-expanded="false">
+			<a ng-if="show.concertsCount" class="bo-showpanel-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events{{show.id}}" aria-expanded="false">
 				<span class="glyphicon glyphicon-triangle-top"></span>
 				<span class="glyphicon glyphicon-triangle-bottom"></span>
 				<span class="badge">{{show.concertsCount}}</span>
-			</a>{{show.name}} - listed!</h3>
+			</a>{{show.name}}</h3>
 	</div>
-	show js {{show|json}}
-	<div class="bo-showpanel-overview" ng-include-template="event_summary.html" ng-include-variables="{ event: show, user: user, linked: true, noTitle: true, withRevenue: withRevenue }"></div>
-	<div ng-if="show.concerts" id="bo-sub-events{{show.id}}" class="bo-showpanel-concerts bo-sub-events collapse">
-		<div class="bo-showpanel-concert" ng-if="event.concerts" ng-repeat="concert in show.concerts">
+	<div class="bo-showpanel-overview" ng-repeat="event in [show]" ng-include-template="event_summary.html" ng-include-variables="{event: show, user: user, linked: true, noTitle: true, withRevenue: withRevenue}"></div>
+	<div ng-if="show.concerts" id="bo-sub-events{{show.id}}" class="bo-showpanel-concerts collapse">
+		<div class="bo-showpanel-concert" ng-repeat="concert in show.concerts">
 			<div ng-include-template="event_summary.html" ng-include-variables="{ event: concert, user: user, linked: true, withRevenue: withRevenue }"></div>
 		</div>
 	</div>
