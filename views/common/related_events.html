@@ -4,59 +4,8 @@
 			<span class="badge" ng-if="related.concertsCount">{{related.concertsCount}}</span> {{related.name}}
 		</div>
 		<ul class="list-group">
-			<li class="list-group-item">
-				<div class="bo-eventshort-subevents">
-					<div class="bo-eventshort">
-						<div class="bo-eventshort-datetime" ng-if="related.eventPeriod.start != related.eventPeriod.end">
-							<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{related.eventPeriod.start | date:'dd.MM.yyyy'}} - {{related.eventPeriod.end | date:'dd.MM.yyyy'}}</span>
-						</div>
-						<div class="bo-eventshort-datetime" ng-if="related.eventPeriod.start == related.eventPeriod.end">
-							<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{related.eventPeriod.start | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventshort-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{related.eventPeriod.start | date:'HH:mm'}}</span>
-						</div>
-						<div class="bo-eventshort-progress clearfix">
-							<div class="progress">
-								<div class="progress-bar progress-bar-success" ng-if="related.statistics.soldTickets" ng-attr-style="flex-grow: {{related.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}">&nbsp;{{related.statistics.soldTickets}}&nbsp;</div>
-								<div class="progress-bar progress-bar-warning" ng-if="related.statistics.bookedTickets" ng-attr-style="flex-grow: {{related.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}">&nbsp;{{related.statistics.bookedTickets}}&nbsp;</div>
-								<div class="progress-bar progress-bar-danger" ng-if="related.statistics.availableTickets" ng-attr-style="flex-grow: {{related.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}">&nbsp;{{related.statistics.availableTickets}}&nbsp;</div>
-							</div>
-							<div>
-								<div class="bo-eventshort-progresslabel">
-									{{related.statistics.soldPercent}}%
-								</div>
-							<div class="bo-eventshort-pricelabel" ng-if="hasFullAccess('api_reports_revenue')">
-									{{related.statistics.soldSumma | number:2 }} {{related.statistics.currency}}
-								</div>
-							</div>
-						</div>
-						<a class="bo-eventshort-overlay" href="#/report/{{user.point}}/show/{{related.id}}"></a>
-					</div>
-					<div class="bo-eventshort" ng-repeat="concertItem in related.concerts">
-						<h3 class="bo-eventshort-title">{{concertItem.name}}</h3>
-						<div class="bo-eventshort-datetime">
-							<span class="bo-eventshort-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{concertItem.eventPeriod.start | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventshort-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{concertItem.eventPeriod.start | date:'HH:mm'}}</span>
-						</div>
-						<div class="bo-eventshort-venue">
-							<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; {{concertItem.location}}
-						</div>
-						<div class="bo-eventshort-progress clearfix">
-							<div class="progress">
-								<div class="progress-bar progress-bar-success" ng-if="concertItem.statistics.soldTickets" ng-attr-style="flex-grow: {{concertItem.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}">&nbsp;{{concertItem.statistics.soldTickets}}&nbsp;</div>
-								<div class="progress-bar progress-bar-warning" ng-if="concertItem.statistics.bookedTickets" ng-attr-style="flex-grow: {{concertItem.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}">&nbsp;{{concertItem.statistics.bookedTickets}}&nbsp;</div>
-								<div class="progress-bar progress-bar-danger" ng-if="concertItem.statistics.availableTickets" ng-attr-style="flex-grow: {{concertItem.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}">&nbsp;{{concertItem.statistics.availableTickets}}&nbsp;</div>
-							</div>
-							<div>
-								<div class="bo-eventshort-progresslabel">
-									{{concertItem.statistics.soldPercent}}%
-								</div>
-								<div class="bo-eventshort-pricelabel" ng-if="hasFullAccess('api_reports_revenue')">
-									{{concertItem.statistics.soldSumma | number:2 }} {{concertItem.statistics.currency}}
-								</div>
-							</div>
-						</div>
-						<a class="bo-eventshort-overlay" href="#/report/{{user.point}}/event/{{concertItem.id}}"></a>
-					</div>
-				</div>
-			</li>
+			<li class="list-group-item" ng-include-template="event_summary.html" ng-include-variables="{ event: related, user: user, linked: true, noTitle: true, withRevenue: hasFullAccess('api_reports_revenue') }"></li>
+			<li class="list-group-item" ng-repeat="concertItem in related.concerts" ng-include-template="event_summary.html" ng-include-variables="{ event: concertItem, user: user, linked: true, withRevenue: hasFullAccess('api_reports_revenue') }"></li>
 			<li class="list-group-item" ng-if="vm.hasMoreRelatedEvents(related)">
 				<a class="bo-onsale-viewall" href ng-click="vm.getMoreRelatedEvents(vm.event)">{{'api_view_all_events_on_sale'|translate}}</a>
 			</li>

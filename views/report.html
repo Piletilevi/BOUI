@@ -2,7 +2,7 @@
     <bo-container backoffice-options="{'time-out': 3000}"></bo-container>
 
     <div ng-show="vm.event.name">
-        <div class="bo-event-share-block">
+        <div class="bo-eventshareblock">
             <span ng-if="hasFullAccess('api_reports_export_print')"><i class="fa fa-print"></i><a
                     onclick="window.print();">{{'api_print'|translate}}</a> |</span>
             <span ng-if="hasFullAccess('api_reports_export_email')"><i class="fa fa-envelope"></i><a data-toggle="modal"
@@ -25,9 +25,8 @@
                ng-if="['overview', 'pricetype', 'priceclass', 'sectors'].indexOf(vm.currentTab) > -1"
                class="visually-hidden"></table>
 
-        <div class="panel panel-default bo-event" block-ui block-ui-pattern="/concertSales/">
-            <div class="bo-sub-events-hidden" ng-include-template="event_detail.html"
-                 ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, hasFullAccess: hasFullAccess('api_reports_revenue')}"></div>
+        <div class="panel panel-default" block-ui block-ui-pattern="/concertSales/">
+            <div ng-include-template="event_summary.html" ng-include-variables="{ event: vm.event, user: user, withRevenue: hasFullAccess('api_reports_revenue'), showReportLink: false }"></div>
         </div>
         <div class="bo-dropdown-tabs-wrapper">
             <div class="visible-xs">
@@ -48,7 +47,7 @@
             </ul>
         </div>
 
-        <div class="tab-content bo-event-report-tab-panes" block-ui block-ui-pattern="/eventSalesReport/">
+        <div class="tab-content bo-reporttabpanes" block-ui block-ui-pattern="/eventSalesReport/">
             <!-- Tab: overview -->
             <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'overview'}"
                  id="overview" role="tabpanel">
@@ -865,7 +864,7 @@
     </div>
 </div>
 <div ng-show="vm.event.name" ng-include-template="related_events.html"
-     ng-include-variables="{ related: vm.relatedEvents, vm: vm, user: user }"></div>
+     ng-include-variables="{ related: vm.relatedEvents, vm: vm, user: user, hasFullAccess: hasFullAccess }"></div>
 
 <script language="JavaScript">
     <!--

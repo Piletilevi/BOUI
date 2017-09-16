@@ -30,6 +30,11 @@
                 vm.myOpenEvents = eventService.myOpenEvents();
                 vm.myDraftEvents = eventService.myDraftEvents();
                 vm.myPastEvents = eventService.myPastEvents();
+                vm.events = {
+                    onsale:eventService.myOpenEvents(),
+                    past:eventService.myPastEvents(),
+                    draft:eventService.myDraftEvents()
+                };
             }
         );
 

@@ -1,0 +1,59 @@
+<div class="bo-eventsummary" ng-class="{'bo-eventsummary-linked': linked}" data-event="{{event|json}}">
+	<!-- title -->
+	<h3 ng-if="!noTitle" class="bo-eventsummary-title clearfix">
+		<!-- badge -->
+		<div ng-if="event.statusName" class="bo-eventsummary-badge bo-eventsummary-badge-{{event.status}} label-{{event.labelCode}}">{{event.statusName | translate}}</div>
+		{{event.name}}
+	</h3>
+	<div class="bo-eventsummary-main">
+		<div class="bo-eventsummary-spacetime">
+			<!-- time -->
+			<div class="bo-eventsummary-datetime" ng-if="!event.isSamePeriod">
+				<span class="bo-eventsummary-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{event.eventPeriod.start | date:'dd.MM.yyyy'}} - {{event.eventPeriod.end | date:'dd.MM.yyyy'}}</span>
+			</div>
+			<div class="bo-eventsummary-datetime" ng-if="event.isSamePeriod">
+				<span class="bo-eventsummary-date"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{event.eventPeriod.start | date:'dd.MM.yyyy'}}</span>&nbsp;<span class="bo-eventsummary-time"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{event.eventPeriod.start | date:'HH:mm'}}</span>
+			</div>
+
+			<!-- venue -->
+			<div class="bo-eventsummary-venue" ng-if="!event.isShow && event.location">
+				<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{event.location}}
+			</div>
+			<div class="bo-eventsummary-venue" ng-if="event.isShow && event.locations">
+				<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{event.locations.length === 1 ? event.locations[0].location : ('api_different_venues' | translate)}}
+			</div>
+		</div>
+		<!-- stats -->
+		<div class="bo-eventsummary-stats clearfix">
+			<div class="bo-eventsummary-statslabels">
+				 <span class="bo-eventsummary-statslabelsicon glyphicon glyphicon-triangle-bottom text-danger"></span>&nbsp;<span class="bo-eventsummary-statlabel text-success">{{event.statistics.soldTickets || 0}}</span>&nbsp;/&nbsp;<span class="bo-eventsummary-statlabel text-warning">{{event.statistics.bookedTickets || 0}}</span>&nbsp;/&nbsp;<span class="bo-eventsummary-statlabel text-danger">{{event.statistics.availableTickets || 0}}</span>
+			</div>
+			<div class="bo-eventsummary-statsbar progress">
+				<div class="progress-bar progress-bar-success" ng-if="event.statistics.soldTickets" ng-attr-style="flex-grow: {{event.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}">&nbsp;{{event.statistics.soldTickets}}&nbsp;</div>
+				<div class="progress-bar progress-bar-warning" ng-if="event.statistics.bookedTickets" ng-attr-style="flex-grow: {{event.statistics.bookedPercent}}" title="{{'api_overview_reserved_total'|translate}}">&nbsp;{{event.statistics.bookedTickets}}&nbsp;</div>
+				<div class="progress-bar progress-bar-danger" ng-if="event.statistics.availableTickets" ng-attr-style="flex-grow: {{event.statistics.availablePercent}}" title="{{'api_avail_for_sale'|translate}}">&nbsp;{{event.statistics.availableTickets}}&nbsp;</div>
+			</div>
+		</div>
+		<div class="bo-eventsummary-totals clearfix">
+			<div class="bo-eventsummary-revenue pull-right" ng-if="withRevenue">
+				{{event.statistics.soldSumma | number:2 }} {{event.statistics.currency}}
+			</div>
+			<div class="bo-eventsummary-soldpct">
+				{{event.statistics.soldPercent || 0}}%
+			</div>
+		</div>
+	</div>
+	<!-- links -->
+	<a ng-if="linked" class="bo-eventsummary-linkoverlay" href="#/report/{{user.point}}/{{event.isShow ? 'show' : 'event'}}/{{event.id}}"></a>
+	<div ng-if="!linked" class="bo-eventsummary-links">
+		<!--<div class="bo-eventsummary-link" ng-if="showEditLink">-->
+			<!--<a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}">{{'api_edit'|translate}}</a>-->
+		<!--</div>-->
+		<div class="bo-eventsummary-link" ng-if="showReportLink">
+			<a href="#/report/{{user.point}}/{{event.isShow ? 'show' : 'event'}}/{{event.id}}/">{{'api_view_report'|translate}}</a>
+		</div>
+		<div class="bo-eventsummary-link" ng-if="event.websiteUrl">
+			<a href="{{event.websiteUrl}}" target="_blank">{{'api_view_website'|translate}}</a>
+		</div>
+	</div>
+</div>
