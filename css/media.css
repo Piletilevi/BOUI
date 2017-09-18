@@ -838,7 +838,7 @@
 
 /* Bootstrap >= MD
 ================================ */
-@media print, (min-width: 992px)  {
+@media print, (min-width: 768px)  {
 	.bo-center-column .bo-eventsummary {
 		font-size: 15px;
 		padding: 1.1em 1.2em;
