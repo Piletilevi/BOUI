@@ -483,12 +483,22 @@
             }
             vm.defaultReservationSubject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
             vm.defaultReservationBody = $translate.instant("api_reservation_email_body" + pointService.getPointId());
+            vm.defaultInvitationSubject = $translate.instant("api_invitation_email_subject" + pointService.getPointId());
+            vm.defaultInvitationBody = $translate.instant("api_invitation_email_body" + pointService.getPointId());
 
             if (!vm.reservation.subject) {
-                vm.reservation.subject = vm.defaultReservationSubject;
+                if (vm.reservation.reservationType == 'invitation') {			
+					vm.reservation.subject = vm.defaultInvitationSubject;
+				} else {
+					vm.reservation.subject = vm.defaultReservationSubject;
+				}
             }
             if (!vm.reservation.body) {
-                vm.reservation.body = vm.defaultReservationBody;
+                if (vm.reservation.reservationType == 'invitation') {			
+					vm.reservation.body = vm.defaultInvitationBody;
+				} else {
+					vm.reservation.body = vm.defaultReservationBody;
+				}
             }
             if (typeof vm.reservation.countryId == 'undefined') {
                 vm.reservation.countryId = pointService.getPointCountryId();
@@ -849,9 +859,17 @@
                         vm.defaultReservationSubject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
                         vm.reservation.subject = vm.defaultReservationSubject;
                     }
+                    if (vm.reservation.subject == vm.defaultInvitationSubject) {
+                        vm.defaultInvitationSubject = $translate.instant("api_invitation_email_subject" + pointService.getPointId());
+                        vm.reservation.subject = vm.defaultInvitationSubject;
+                    }
                     if (vm.reservation.body == vm.defaultReservationBody) {
                         vm.defaultReservationBody = $translate.instant("api_reservation_email_body" + pointService.getPointId());
                         vm.reservation.body = vm.defaultReservationBody;
+                    }
+                    if (vm.reservation.body == vm.defaultInvitationBody) {
+                        vm.defaultInvitationBody = $translate.instant("api_invitation_email_body" + pointService.getPointId());
+                        vm.reservation.body = vm.defaultInvitationBody;
                     }
                 }
             }
