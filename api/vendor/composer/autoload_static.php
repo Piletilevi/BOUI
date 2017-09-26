@@ -6,6 +6,11 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit2e3a373787dc82374402aec81b80f734
 {
+    public static $files = array (
+        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        'f084d01b0a599f67676cffef638aa95b' => __DIR__ . '/..' . '/smarty/smarty/libs/bootstrap.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'p' => 
         array (
@@ -14,16 +19,28 @@ class ComposerStaticInit2e3a373787dc82374402aec81b80f734
         ),
         'S' => 
         array (
+            'Slim\\Views\\' => 11,
             'Slim\\Logger\\' => 12,
+            'Slim\\' => 5,
         ),
         'P' => 
         array (
+            'Psr\\Http\\Message\\' => 17,
+            'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
             'Predis\\' => 7,
         ),
         'L' => 
         array (
             'Lcobucci\\JWT\\' => 13,
+        ),
+        'I' => 
+        array (
+            'Interop\\Container\\' => 18,
+        ),
+        'F' => 
+        array (
+            'FastRoute\\' => 10,
         ),
     );
 
@@ -36,9 +53,25 @@ class ComposerStaticInit2e3a373787dc82374402aec81b80f734
         array (
             0 => __DIR__ . '/..' . '/phpfastcache/phpfastcache/src/phpFastCache',
         ),
+        'Slim\\Views\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mathmarques/smarty-view/src',
+        ),
         'Slim\\Logger\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/logger',
+        ),
+        'Slim\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/slim/slim/Slim',
+        ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
         ),
         'Psr\\Cache\\' => 
         array (
@@ -52,14 +85,22 @@ class ComposerStaticInit2e3a373787dc82374402aec81b80f734
         array (
             0 => __DIR__ . '/..' . '/lcobucci/jwt/src',
         ),
+        'Interop\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
+        ),
+        'FastRoute\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nikic/fast-route/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
-        'S' => 
+        'P' => 
         array (
-            'Slim' => 
+            'Pimple' => 
             array (
-                0 => __DIR__ . '/..' . '/slim/slim',
+                0 => __DIR__ . '/..' . '/pimple/pimple/src',
             ),
         ),
         'H' => 

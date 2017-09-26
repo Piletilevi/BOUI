@@ -3,16 +3,17 @@
 require_once __DIR__.'/../config.php';
 require_once __DIR__.'/../vendor/autoload.php';
 
-use Slim\Slim;
-use Slim\Logger\DateTimeFileWriter;
+use \Slim\Logger\DateTimeFileWriter;
 use phpFastCache\CacheManager;
 
-$app = new Slim(
+$app = new \Slim\App(
 	array(
 		"settings"   => $config,
 		"log.writer" => new DateTimeFileWriter( $config['log'] )
 	)
 );
+
+$container = $app->getContainer();
 
 $directories = array(
 	'classes/',
@@ -26,22 +27,45 @@ foreach ($directories as $directory) {
     }
 }
 
-$app->container->set('cacheManager', function() use ($app) { 
-	$settings = $app->config("settings");
+$container['cacheManager'] = function($c) { 
+	$settings = $c->get("settings");
 	return CacheManager::getInstance('files', $settings['cache']); 
-});
+};
 
-$app->container->set('piletileviApi', function() use ($app) { 
+$container['piletileviApi'] = function($c) { 
 	return PiletileviApi::getInstance(); 
-});
+};
 
-$app->container->set('piletileviSessionHandler', function() use ($app) { 
+$container['piletileviSessionHandler'] = function($c) { 
 	return PiletileviSessionHandler::getInstance(); 
-});
+};
 
-$app->container->set('dataHandler', function() use ($app) { 
+$container['dataHandler'] = function($c) { 
 	return DataHandler::getInstance(); 
-});
+};
+
+$container['view'] = function($c) { 
+	$view = new \Slim\Views\Smarty(__DIR__.'/../templates', [
+        'cacheDir' => __DIR__.'/../cache/html',
+		'compileDir' => __DIR__.'/../compile',
+        'pluginsDir' => [__DIR__.'/../plugins']
+    ]);
+    
+    // Add Slim specific plugins
+    $smartyPlugins = new \Slim\Views\SmartyPlugins($c['router'], $c['request']->getUri());
+    $view->registerPlugin('function', 'path_for', [$smartyPlugins, 'pathFor']);
+    $view->registerPlugin('function', 'base_url', [$smartyPlugins, 'baseUrl']);
+
+    return $view;
+};
+
+$container['notFoundHandler'] = function ($c) {
+    return function ($request, $response) use ($c) {
+        return $c['view']->render($response->withStatus(404), '404.tpl', [
+            "myMagic" => "Let's roll"
+        ]);
+    };
+};
 
 $app->run();
 

@@ -1,12 +1,13 @@
 <?php
+
 use Httpful\Request;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
-use Slim\Slim;
 
 class PiletileviApi {
 	
     private $app;
+    private $container;
 	private $cacheManager;
 	private $currentUser;
 	private $currentLang;
@@ -15,18 +16,22 @@ class PiletileviApi {
 	private static $piletileviApi; 
 
 	public function __construct() {
-		$this->app = Slim::getInstance();
-		$this->cacheManager = $this->app->container->get("cacheManager");
+		global $app;
 
-		$sessionHandler = $this->app->container->get("piletileviSessionHandler");
+		$this->app = $app;
+		$this->container = $app->getContainer();
+		
+		$this->cacheManager = $this->container->get("cacheManager");
+
+		$sessionHandler = $this->container->get("piletileviSessionHandler");
 		$session = $sessionHandler->getSession();
 
 		$this->currentUser = $session['user'];
 		$this->currentLang = $session['lang'];
 
-		$this->settings = $this->app->config("settings");
+		$this->settings = $this->container->get("settings");
 		
-		$this->dataHandler = $this->app->container->get("dataHandler");
+		$this->dataHandler = $this->container->get("dataHandler");
 	}
 
 	public static function getInstance($refresh = false) {
@@ -644,11 +649,20 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$response = $this->send( "/payment/bookingPayment", $data );
+		$response = $this->send( "/payment/getBooking", $data );
 		
 		return $response;
 	}
 
+	public function paymentByBookingId($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/payment/paymentByBookingId", $data );
+		
+		return $response;
+	}
+	
 	public function boUrl(){
 		return $this->getBoUrl();
 	}
@@ -736,7 +750,7 @@ class PiletileviApi {
 								->getToken();
 		
 		$request = \Httpful\Request::post($uri)->body($token)->timeout($papiConfig["timeout"]);
-
+		
 		if ($plain) {
 			$request->withoutAutoParsing();
 		}
@@ -766,9 +780,7 @@ class PiletileviApi {
 	}
 
 	private function getUserFromRequestToken(){
-		$dataHandler = $this->app->container->get("dataHandler");
-		
-		return $dataHandler->getUserFromToken();
+		return $this->dataHandler->getUserFromToken($this->container->get("request"));
 	}
 
 	private function getPapiConfig() {

@@ -8,8 +8,14 @@ $baseDir = dirname($vendorDir);
 return array(
     'phpssdb\\' => array($vendorDir . '/phpfastcache/phpssdb/src/phpssdb'),
     'phpFastCache\\' => array($vendorDir . '/phpfastcache/phpfastcache/src/phpFastCache'),
+    'Slim\\Views\\' => array($vendorDir . '/mathmarques/smarty-view/src'),
     'Slim\\Logger\\' => array($vendorDir . '/slim/logger'),
+    'Slim\\' => array($vendorDir . '/slim/slim/Slim'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
     'Predis\\' => array($vendorDir . '/predis/predis/src'),
     'Lcobucci\\JWT\\' => array($vendorDir . '/lcobucci/jwt/src'),
+    'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container'),
+    'FastRoute\\' => array($vendorDir . '/nikic/fast-route/src'),
 );

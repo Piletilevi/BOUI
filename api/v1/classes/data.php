@@ -1,16 +1,18 @@
 <?php
 
-use Slim\Slim; 
-
 class DataHandler {
 
     private $app;
 	private static $dataHandler; 
 	private $settings;
+    private $container;
 
 	public function __construct() {
-		$this->app = Slim::getInstance();
-		$this->settings = $this->app->config("settings");
+		global $app;
+		
+		$this->app = $app;
+		$this->container = $app->getContainer();
+		$this->settings = $this->container->get("settings");
 	}
 
 	public static function getInstance($refresh = false) {
@@ -39,13 +41,13 @@ class DataHandler {
 		if ($error) {
 			// Required field(s) are missing or empty
 			// echo error json and stop the app
-			$response = array();
-			$response["status"] = "error";
-			$response["message"] = 'Required field(s) ' . substr($error_fields, 0, -2) . ' is missing or empty';
-			$this->response(200, $response);
-
-			$this->app->stop();
+			$r = array();
+			$r["status"] = "error";
+			$r["message"] = 'Required field(s) ' . substr($error_fields, 0, -2) . ' is missing or empty';
+			return $r;
 		}
+		
+		return null;
 	}
 
 	/**
@@ -80,26 +82,27 @@ class DataHandler {
 	/**
 	 * Verifying required token
 	 */
-	public function verifyToken() {
-		$token = $this->app->request->params("token");
+	public function verifyToken($request) {
+		$token = $request->getParam("token");
 
 		if (!$this->isValidToken($token)) {
 			// Required field(s) are missing or empty
 			// echo error json and stop the app
-			$response = array();
-			$response["status"] = "error";
-			$response["message"] = 'Invalid access token';
-			$this->response(401, $response);
-
-			$this->app->stop();
+			$r = array();
+			$r["status"] = "error";
+			$r["message"] = 'Invalid access token';
+			
+			return $r;
 		}
+		
+		return null;
 	}
 
 	/**
 	 * Getting user from token
 	 */
-	public function getUserFromToken() {
-		$token = $this->app->request->params("token");
+	public function getUserFromToken($request) {
+		$token = $request->getParam("token");
 		
 		$tokens = $this->getTokens();
 
@@ -112,40 +115,22 @@ class DataHandler {
 		return "";
 	}
 
-	public function response($status_code, $response) {
-		// Http response code
-		$this->app->status($status_code);
-
-		// setting response content type to json
-		$this->app->contentType('application/json');
-		echo json_encode($response);
+	public function response($response, $data, $status=200) {
+		return $response->withJson($data, $status);
 	}
 
-	public function responseAsText($status_code, $response) {
-		// Http response code
-		$this->app->status($status_code);
-
-		// setting response content type to json
-		$this->app->contentType('application/json');
-		echo $response;
+	public function responseAsText($response, $data) {
+		return $response->withJson($data);
 	}
 
-	public function responseAsCsv($status_code, $response) {
-		// Http response code
-		$this->app->status($status_code);
-
-		// setting response content type to json
-		$this->app->contentType('text/csv');
-		echo $response;
+	public function responseAsCsv($response, $data) {
+		return $response->withHeader('Content-Type', 'text/csv')
+						->write($data);
 	}
 
-	public function responseAsXls($status_code, $response) {
-		// Http response code
-		$this->app->status($status_code);
-
-		// setting response content type to json
-		$this->app->contentType('application/vnd.ms-excel');
-		echo $response;
+	public function responseAsXls($response, $data) {
+		return $response->withHeader('Content-Type', 'application/vnd.ms-excel')
+						->write($data);
 	}
 	
 	private function getTokens() {
