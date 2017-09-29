@@ -1517,10 +1517,10 @@ $app->post('/addToBasket', function ($request, $response, $args)  {
 			  "priceClassId2" => quantity2,
 			  ...)
 	*/
-	if (property_exists($r, 'classes')) {
+	if (property_exists($json, 'classes')) {
 		$filter['classes'] = $json->classes;
 	}
-	if (property_exists($r, 'seatId')) {
+	if (property_exists($json, 'seatId')) {
 		$filter['seatId'] = $json->seatId;
 	}
 

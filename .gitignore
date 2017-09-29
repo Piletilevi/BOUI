@@ -38,3 +38,4 @@ node_modules
 /api/logs/*
 /api/cache/*
 api/v1/cache/
+/api/compile
