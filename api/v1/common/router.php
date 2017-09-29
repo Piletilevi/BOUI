@@ -310,7 +310,7 @@ $app->post('/relatedEvents', function ($request, $response, $args) {
 	$filter = array();
 	$filter['id'] = $json->id;
 	$filter['type'] = $json->type;
-	if (property_exists($r, 'start')) {
+	if (property_exists($json, 'start')) {
 		$filter['start'] = $json->start;
 	}
 
@@ -1594,7 +1594,7 @@ $app->post('/removeFromBasket', function ($request, $response, $args)  {
     $json = json_decode($request->getBody());
 
 	$filter = array();
-	if (property_exists($r, 'ticketId')) {
+	if (property_exists($json, 'ticketId')) {
 		$filter['ticketId'] = $json->ticketId;
 	}
 
@@ -1642,7 +1642,7 @@ $app->post('/myBasket', function ($request, $response, $args)  {
 
 	$filter = array();
 	if ($json) {
-		if (property_exists($r, 'discount')) {
+		if (property_exists($json, 'discount')) {
 			$filter['discount'] = $json->discount;
 		}
 	}
@@ -1669,7 +1669,7 @@ $app->post('/confirmBasket', function ($request, $response, $args)  {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
 	
-	if (property_exists($r, 'personType') && $json->personType == "organization") {
+	if (property_exists($json, 'personType') && $json->personType == "organization") {
 		$validationErrors = $dataHandler->verifyParams(array('organizationName'), $json);
 	} else {
 		$validationErrors = $dataHandler->verifyParams(array('firstName', 'lastName', 'contactEmail'), $json);
@@ -1715,7 +1715,7 @@ $app->post('/confirmBooking', function ($request, $response, $args)  {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
 	
-	if (property_exists($r, 'personType') && $json->personType == "organization") {
+	if (property_exists($json, 'personType') && $json->personType == "organization") {
 		$validationErrors = $dataHandler->verifyParams(array('organizationName'), $json);
 	} else {
 		$validationErrors = $dataHandler->verifyParams(array('firstName', 'lastName', 'contactEmail'), $json);
