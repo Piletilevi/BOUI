@@ -2006,6 +2006,56 @@ $app->get('/paymentByBookingId', function ($request, $response, $args)  {
 	}
 });
 
+$app->post('/reloadConcert', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+	$validationErrors = $dataHandler->verifyParams(array('id'), $json);
+	if ($validationErrors != null) {
+		return $dataHandler->response($response, $validationErrors, 401);
+	}
+
+	$filter = array();
+	$filter['id'] = $json->id;
+
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->reloadConcert( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$r["status"] = "success";
+		$r["data"] = $reportResponse->data;
+	} else {
+	    $r["status"] = "error";
+        $r["message"] = $dataHandler->getMessages($reportResponse->errors);
+	}
+	return $dataHandler->response($response, $r);
+});
+
+$app->post('/reloadShow', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+	$validationErrors = $dataHandler->verifyParams(array('id'), $json);
+	if ($validationErrors != null) {
+		return $dataHandler->response($response, $validationErrors, 401);
+	}
+
+	$filter = array();
+	$filter['id'] = $json->id;
+
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->reloadShow( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$r["status"] = "success";
+		$r["data"] = $reportResponse->data;
+	} else {
+	    $r["status"] = "error";
+        $r["message"] = $dataHandler->getMessages($reportResponse->errors);
+	}
+	return $dataHandler->response($response, $r);
+});
+
 $app->get('/test', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
 

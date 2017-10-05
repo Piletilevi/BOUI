@@ -564,6 +564,24 @@ class PiletileviApi {
 		return $response;
 	}
 
+	public function reloadConcert($filter) {
+
+		$data['filter']= $filter;
+		
+		$response = $this->send( "/event/reloadConcert", $data );
+		
+		return $response;
+	}
+
+	public function reloadShow($filter) {
+
+		$data['filter']= $filter;
+		
+		$response = $this->send( "/event/reloadShow", $data );
+		
+		return $response;
+	}
+	
 	public function getCountries() {
 		
 		$languageCode = "";
