@@ -7,18 +7,23 @@
                     onclick="window.print();">{{'api_print'|translate}}</a> |</span>
             <span ng-if="hasFullAccess('api_reports_export_email')"><i class="fa fa-envelope"></i><a data-toggle="modal"
                                                                                                      data-target="#emal_popup">{{'api_email'|translate}}</a> |</span>
-		<span class="dropdown inline_dropdown" ng-if="hasFullAccess('api_reports_export_to_file')">
-			<i class="fa fa-share"></i><a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                          aria-expanded="true">{{'api_export'|translate}}</a>
-			<ul class="table-export dropdown-menu">
-                <li>
-                    <a href="" ng-click="vm.exportAsExcel(vm.currentTab)"><i class="fa fa-file-excel-o"></i>Excel</a>
-                </li>
-                <li>
-                    <a href="" ng-click="vm.exportAsCsv(vm.currentTab)"><i class="fa fa-file-text-o"></i>CSV</a>
-                </li>
-            </ul>
-        </span>
+			<span class="dropdown inline_dropdown" ng-if="hasFullAccess('api_reports_export_to_file')">
+				<i class="fa fa-share"></i><a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+											  aria-expanded="true">{{'api_export'|translate}}</a>
+				<ul class="table-export dropdown-menu">
+					<li>
+						<a href="" ng-click="vm.exportAsExcel(vm.currentTab)"><i class="fa fa-file-excel-o"></i>Excel</a>
+					</li>
+					<li>
+						<a href="" ng-click="vm.exportAsCsv(vm.currentTab)"><i class="fa fa-file-text-o"></i>CSV</a>
+					</li>
+				</ul>
+			</span>
+
+            <span ng-if="hasFullAccess('api_event_reload')">
+				| <a href="" ng-click="vm.reloadEvent()"><i class="fa fa-hand-o-left"></i>{{'api_reload_event'|translate}}</a>
+			</span>
+		
         </div>
 
         <table id="{{vm.currentTab}}"
@@ -27,7 +32,7 @@
 
         <div class="panel panel-default bo-event" block-ui block-ui-pattern="/concertSales/">
             <div class="bo-sub-events-hidden" ng-include-template="event_detail.html"
-                 ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, hasFullAccess: hasFullAccess('api_reports_revenue')}"></div>
+                 ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, hasFullAccess: hasFullAccess('api_reports_revenue') }"></div>
         </div>
         <div class="bo-dropdown-tabs-wrapper">
             <div class="visible-xs">

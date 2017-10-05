@@ -5,7 +5,8 @@
 		<span class="glyphicon glyphicon-triangle-top"></span>
 		<span class="glyphicon glyphicon-triangle-bottom"></span>
 		<span class="badge">{{event.concertsCount}}</span>
-	</a>{{event.name}}</h3>
+		</a>{{event.name}}
+	</h3>
 	<div class="row">
 		<div class="col-sm-4 bo-event-datetime_block" ng-if="!event.concertsCount">
 			<div ng-if="!event.isSamePeriod">
@@ -50,7 +51,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="bo-event-report-link"><!--a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showEditLink">{{'api_edit'|translate}}</a><span ng-if="showEditLink">|</span--><a href="#/report/{{user.point}}/{{event.concertsCount ? 'show' : 'event'}}/{{event.id}}/" ng-if="showReportLink">{{'api_view_report'|translate}}</a>
+	<div class="bo-event-report-link"><!--a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}" ng-if="showEditLink">{{'api_edit'|translate}}</a><span ng-if="showEditLink">|</span-->
+		<a href="#/report/{{user.point}}/{{event.concertsCount ? 'show' : 'event'}}/{{event.id}}/" ng-if="showReportLink">{{'api_view_report'|translate}}</a>
 		<span ng-if="event.websiteUrl"><span ng-if="showReportLink" class="bo-event-report-link-separator">|</span><a href="{{event.websiteUrl}}" target="_blank">{{'api_view_website'|translate}}</a></span>
 	</div>
 	<div ng-if="event.concerts" id="bo-sub-events{{event.id}}" class="bo-sub-events collapse">

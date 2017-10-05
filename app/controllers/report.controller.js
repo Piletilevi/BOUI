@@ -110,6 +110,10 @@
         eventService.getEventSales(vm.event);
         eventService.getRelatedEvents(vm.event);
 
+        vm.reloadEvent = function () {
+            eventService.reloadEvent(vm.event);
+        }
+		
         vm.exportAsCsv = function (currentTab) {
             var filter;
             if (currentTab == "overview") {

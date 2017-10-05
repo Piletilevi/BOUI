@@ -141,7 +141,8 @@
             getBookingsData: getBookingsData,
             getMoreBookingsData: getMoreBookingsData,
             getBookingStatuses: getBookingStatuses,
-            getBookingTypes: getBookingTypes
+            getBookingTypes: getBookingTypes,
+			reloadEvent: reloadEvent
         };
         return service;
 
@@ -687,6 +688,13 @@
                 });
             }
         }
+		
+		function reloadEvent(event) {
+            dataService.post(event.isShow ? 'reloadShow' : 'reloadConcert', {id: event.id}).then(function (results) {
+                if (results.status == 'success') {
+                }
+            });
+		}
 
         function exportAsCsv(event, currentTab, filter) {
             var callMethod;
