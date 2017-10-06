@@ -43,7 +43,7 @@
         },
         elements: {
           point: {
-            radius: 0,
+            radius: 3,
             hoverRadius: 3,
             hitRadius: 5
           }
@@ -182,11 +182,11 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
-        var stats = new GraphStats();
+        var stats = new GraphStats(newValue.sales);
         newValue.types.forEach(function (type) {
           var dataItem = [];
           newValue.sales.forEach(function (sale) {
-            var dataItemValue = 0;
+			  var dataItemValue = 0;
             sale.sellTypes.forEach(function (saleType) {
               if (type.type == saleType.type) {
                 if (filter.display == 'tickets') {
@@ -201,7 +201,6 @@
             }
             totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
-            stats.updateStats(stats, dataItemValue);
           });
           if (!dataItem.every(function (v) {
               return v === 0;
@@ -377,7 +376,6 @@
             }
           });
         });
-
         // Sort by priceTypeId
         series = ids.map(function (e, i) {
             return i;
@@ -417,7 +415,7 @@
           }
         });
 
-        var stats = new GraphStats();
+        var stats = new GraphStats(newValue.sales);
         series.forEach(function (seriesItem) {
           var dataItem = [];
 
@@ -437,7 +435,6 @@
             }
             totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
-            stats.updateStats(stats, dataItemValue);
           });
           data.push(dataItem);
         });
@@ -567,7 +564,7 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
-        var stats = new GraphStats();
+        var stats = new GraphStats(newValue.sales);
 
         series.forEach(function (seriesItem) {
           var dataItem = [];
@@ -588,7 +585,6 @@
             }
             totals[dataItem.length] += dataItemValue;
             dataItem.push(dataItemValue);
-            stats.updateStats(stats, dataItemValue);
           });
           data.push(dataItem);
         });
@@ -612,49 +608,38 @@
       }
     }
 
-    function GraphStats() {
-      var coefficient = 5;
-      var positiveSum = 0;
-      var negativeSum = 0;
-      var positiveTotal = 0;
-      var negativeTotal = 0;
-      var positiveMax = 0;
-      var negativeMin = 0;
-      this.updateStats = function (stats, value) {
-        if (value > 0) {
-          positiveSum += value;
-          positiveTotal++;
-        } else if (value < 0) {
-          negativeSum += value;
-          negativeTotal++;
-        }
-        if (value > positiveMax) {
-          positiveMax = value;
-        }
-        if (value < negativeMin) {
-          negativeMin = value;
-        }
-      };
+    function GraphStats(salesData) {
+      var positiveMax;
+      var negativeMin;
       this.getStatsMax = function () {
-        var max = 0;
-        if (positiveTotal > 0) {
-          max = positiveSum / positiveTotal * coefficient;
-          if (max > positiveMax) {
-            max = positiveMax;
-          }
-        }
-        return max;
+		  if (!positiveMax){
+			  calculateStats();
+		  }
+        return positiveMax;
       };
       this.getStatsMin = function () {
-        var min = 0;
-        if (negativeTotal > 0) {
-          min = negativeSum / negativeTotal * coefficient;
-          if (min < negativeMin) {
-            min = negativeMin;
-          }
-        }
-        return min;
+		  if (!negativeMin){
+			  calculateStats();
+		  }
+        return negativeMin;
       };
+		var calculateStats = function(){
+			positiveMax = 0;
+			negativeMin = 0;
+			salesData.forEach(function (sale) {
+				var columnPositiveSum = 0;
+				var columnNegativeSum = 0;
+				sale.sellTypes.forEach(function (saleType) {
+					if (saleType.rowCount > 0){
+						columnPositiveSum += saleType.rowCount ;
+					}else {
+						columnNegativeSum += saleType.rowCount;
+					}
+				});
+				positiveMax = Math.max(columnPositiveSum, positiveMax);
+				negativeMin = Math.min(columnNegativeSum, negativeMin);
+			});
+		}
     }
   }
 })();
