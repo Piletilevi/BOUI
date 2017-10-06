@@ -2,7 +2,7 @@
     <bo-container backoffice-options="{'time-out': 3000}"></bo-container>
 
     <div ng-show="vm.event.name">
-        <div class="bo-event-share-block">
+        <div class="bo-eventshareblock">
             <span ng-if="hasFullAccess('api_reports_export_print')"><i class="fa fa-print"></i><a
                     onclick="window.print();">{{'api_print'|translate}}</a> |</span>
             <span ng-if="hasFullAccess('api_reports_export_email')"><i class="fa fa-envelope"></i><a data-toggle="modal"
@@ -19,11 +19,9 @@
 					</li>
 				</ul>
 			</span>
-
             <span ng-if="hasFullAccess('api_event_reload')">
 				| <a href="" ng-click="vm.reloadEvent()"><i class="fa fa-hand-o-left"></i>{{'api_reload_event'|translate}}</a>
 			</span>
-		
         </div>
 
         <table id="{{vm.currentTab}}"
