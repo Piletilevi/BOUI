@@ -28,9 +28,8 @@
                ng-if="['overview', 'pricetype', 'priceclass', 'sectors'].indexOf(vm.currentTab) > -1"
                class="visually-hidden"></table>
 
-        <div class="panel panel-default bo-event" block-ui block-ui-pattern="/concertSales/">
-            <div class="bo-sub-events-hidden" ng-include-template="event_summary.html"
-                 ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, hasFullAccess: hasFullAccess('api_reports_revenue') }"></div>
+        <div class="panel panel-default" block-ui block-ui-pattern="/concertSales/">
+            <div ng-include-template="event_summary.html" ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, hasFullAccess: hasFullAccess('api_reports_revenue') }"></div>
         </div>
         <div class="bo-dropdown-tabs-wrapper">
             <div class="visible-xs">
@@ -74,7 +73,7 @@
 
         <div class="tab-content bo-event-report-tab-panes" block-ui block-ui-pattern="/eventSalesReport/">
             <!-- Tab: overview -->
-            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'overview'}"
+            <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'overview'}"
                  id="overview" role="tabpanel">
                 <div class="panel-body">
 
@@ -270,7 +269,7 @@
             </div>
 
             <!-- Tab: price types -->
-            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'pricetype'}"
+            <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'pricetype'}"
                  id="pricetype" role="tabpanel">
                 <div class="panel-body">
 
@@ -444,7 +443,7 @@
             </div>
 
             <!-- Tab: price classes -->
-            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'priceclass'}"
+            <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'priceclass'}"
                  id="priceclass" role="tabpanel">
                 <div class="panel-body">
 
@@ -617,7 +616,7 @@
             </div>
 
             <!-- Tab: sections -->
-            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'sections'}"
+            <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'sections'}"
                  id="sections" role="tabpanel">
                 <div class="panel-body" block-ui block-ui-pattern="/Basket|Booking|Sector/">
                     <div ng-if="!selectedSectionId && !vm.bookingStep" ng-include="'views/partials/booking/sections.html'"></div>
@@ -626,7 +625,7 @@
                 </div>
             </div>
             <!-- Tab: locations -->
-            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'locations'}"
+            <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'locations'}"
                  id="locations" role="tabpanel">
                 <div class="panel-body">
                     <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
@@ -745,7 +744,7 @@
             </div>
 
             <!-- Tab: bookings -->
-            <div class="tab-pane bo-salesoverview panel" ng-class="{'active': vm.currentTab == 'bookings'}"
+            <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'bookings'}"
                  id="bookings" role="tabpanel" block-ui block-ui-pattern="/myBookings/">
                 <div class="panel-body">
                     <div ng-include="'views/partials/booking/bookings.html'"></div>
