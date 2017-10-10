@@ -866,3 +866,11 @@ textarea.form-control {
     color: #25933f;
     border-color: #a4e3b3;
 }
+
+
+.alert-danger {
+    background-color: #f9d5dd;
+    border-color: #f6bbc8;
+    color: #df1843;
+    margin-bottom: 8px;
+}
