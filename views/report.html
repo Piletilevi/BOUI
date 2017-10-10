@@ -29,7 +29,7 @@
                class="visually-hidden"></table>
 
         <div class="panel panel-default" block-ui block-ui-pattern="/concertSales/">
-            <div ng-include-template="event_summary.html" ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, hasFullAccess: hasFullAccess('api_reports_revenue') }"></div>
+            <div ng-include-template="event_summary.html" ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, withRevenue: hasFullAccess('api_reports_revenue') }"></div>
         </div>
         <div class="bo-dropdown-tabs-wrapper">
             <div class="visible-xs">
