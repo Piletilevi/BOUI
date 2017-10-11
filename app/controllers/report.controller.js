@@ -44,7 +44,41 @@
                 mapHeight: 250
             }
         };
-        $scope.ngVenueMapControl = {};
+        vm.tabsConfig = [
+            {
+                accessRight: 'api_reports_overview',
+                name: 'overview',
+                translationCode: 'api_overview',
+            },
+            {
+                accessRight: 'api_reports_pricetype',
+                name: 'pricetype',
+                translationCode: 'api_by_pricetype',
+            },
+            {
+                accessRight: 'api_reports_priceclass',
+                name: 'priceclass',
+                translationCode: 'api_by_priceclass',
+            },
+            {
+                accessRight: 'api_reports_sections',
+                name: 'sections',
+                translationCode: 'api_by_sectors',
+                hiddenInShows: true,
+            },
+            {
+                accessRight: 'api_reports_locations',
+                name: 'locations',
+                translationCode: 'api_by_locations',
+            },
+            {
+                accessRight: 'api_reports_reservations',
+                name: 'bookings',
+                translationCode: 'api_bookings',
+            },
+        ];
+        vm.activeTabs = [];
+		$scope.ngVenueMapControl = {};
 
         eventService.reset();
         graphService.reset();
@@ -230,12 +264,13 @@
             $location.update_path(newPath);
         };
 
-        vm.getCurrentTabCode = function () {
-            if (vm.currentTab == 'overview') {
-                return 'api_' + vm.currentTab;
-            } else {
-                return 'api_by_' + vm.currentTab;
+        vm.getCurrentTabName = function () {
+            for (var i = 0; i < vm.tabsConfig.length; ++i) {
+                if (vm.tabsConfig[i].name == vm.currentTab) {
+                    return $translate.instant(vm.tabsConfig[i].translationCode);
+                }
             }
+            return '';
         };
 
         vm.setSelectedSectionId = function (selectedSectionId) {
@@ -716,37 +751,10 @@
                 }
             }
 
-            var accessRights = [
-                {
-                    accessRight: 'api_reports_reservations',
-                    tab: 'bookings'
-                },
-                {
-                    accessRight: 'api_reports_locations',
-                    tab: 'locations'
-                },
-                {
-                    accessRight: 'api_reports_sections',
-                    tab: 'sections'
-                },
-                {
-                    accessRight: 'api_reports_priceclass',
-                    tab: 'priceclass'
-                },
-                {
-                    accessRight: 'api_reports_pricetype',
-                    tab: 'pricetype'
-                },
-                {
-                    accessRight: 'api_reports_overview',
-                    tab: 'overview'
-                }
-            ];
-
             if ($routeParams.reportType && !vm.currentTab) {
-                angular.forEach(accessRights, function (accessRight) {
-                    if ($rootScope.hasFullAccess(accessRight.accessRight) && accessRight.tab == $routeParams.reportType) {
-                        vm.currentTab = accessRight.tab;
+                angular.forEach(vm.tabsConfig, function (tabConfig) {
+                    if ($rootScope.hasFullAccess(tabConfig.accessRight) && tabConfig.name == $routeParams.reportType) {
+                        vm.currentTab = tabConfig.name;
                         if (parseInt($routeParams.sectorId, 10)) {
                             $scope.$watch('vm.event.sellPeriod', function (newSellPeriod, oldSellPeriod) {
                                 if (newSellPeriod !== oldSellPeriod) {
@@ -755,24 +763,24 @@
                                     vm.setSelectedSectionId($routeParams.sectorId);
                                 }
                             });
-                            $scope.$watch('vm.event.eventPeriod', function (newEventPeroud, oldEventPeriod) {
-                                if (newEventPeroud !== oldEventPeriod) {
-                                    vm.reservationEndDate = vm.event.eventPeriod.end;
-                                }
-                            });
                         }
                     }
                 });
             }
-
-            if (!vm.currentTab) {
-                angular.forEach(accessRights, function (accessRight) {
-                    if ($rootScope.hasFullAccess(accessRight.accessRight)) {
-                        vm.currentTab = accessRight.tab;
-                    }
-                });
-            }
+            vm.activeTabs = [];
+            angular.forEach(vm.tabsConfig, function (tabConfig) {
+                if (!$rootScope.hasFullAccess(tabConfig.accessRight)
+                    || tabConfig.hiddenInShows && vm.event.isShow) {
+                    return;
+                }
+                vm.activeTabs.push(tabConfig);
+                if (!vm.currentTab) {
+                    vm.currentTab = tabConfig.name;
+                }
+            });
         });
+
+		
         $scope.$watch(
             function () {
                 vm.myOverviewBarData = eventService.myOverviewData();
