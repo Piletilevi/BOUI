@@ -788,6 +788,19 @@
 	.navbar.navbar-inverse {
 		border-bottom: 0 none;
 	}
+
+	.bo-reservation-inline-buttons > .form-group {
+		width: 49%;
+		float: left;
+	}
+
+	.bo-reservation-inline-buttons > .form-group:first-child {
+		margin-right: 2%;
+	}
+
+	.bo-reservation-inline-buttons > .form-group > .btn {
+		width: 100%;
+	}
 }
 
 /* Bootstrap sm
@@ -872,5 +885,38 @@
 		vertical-align: bottom;
 		font-size: 1.4em;
 		font-weight: normal;
+	}
+
+	.bo-reservation-phone .form-group:first-child {
+		padding-right: 6px;
+	}
+
+	.bo-reservation-phone .form-group:last-child {
+		padding-left: 0;
+	}
+}
+
+/* xxs
+================================ */
+@media (max-width: 486px) {
+	.bo-main-block {
+		padding-left: 7px;
+		padding-right: 7px;
+		overflow: hidden;
+		width: 100%;
+	}
+
+	.bo-reservation-datetime .form-control {
+		padding-left: 6px;
+		padding-right: 6px;
+	}
+
+	.bo-reservation-footer-butons > .row > div {
+		width: 100%;
+		margin-bottom: 10px;
+	}
+
+	.bo-reservation-footer-butons > .row > div  .btn {
+		width: 100%;
 	}
 }

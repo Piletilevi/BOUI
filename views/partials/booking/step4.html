@@ -16,27 +16,28 @@
     </div>
 </div>
 <h4>{{'api_basket_selected_tickets'|translate}}</h4>
-<table class="table table-small">
-    <tbody>
-    <tr class="row-align-middle" ng-repeat="seat in vm.myBasket.basket">
-        <td>{{'api_basket_ticket_id'|translate}} {{seat.id}}</td>
-        <td class="text-center">{{seat.sectionName}}</td>
-        <td class="text-center">
-            <span ng-if="seat.rowName > 0">{{'api_basket_row'|translate}} {{seat.rowName}}</span>
-            <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
-        </td>
-        <td class="text-center">
-            <span ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span>
-            <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
-        </td>
-        <td class="text-center bo-shortcell">
-            {{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
-        </td>
-        <td class="text-center">{{seat.price | number:2}}{{seat.currency}}</td>
-    </tr>
-    </tbody>
-</table>
-
+<div class="bo-table-wrapper">
+    <table class="table table-small">
+        <tbody>
+        <tr class="row-align-middle" ng-repeat="seat in vm.myBasket.basket">
+            <td>{{'api_basket_ticket_id'|translate}} {{seat.id}}</td>
+            <td class="text-center">{{seat.sectionName}}</td>
+            <td class="text-center">
+                <span ng-if="seat.rowName > 0">{{'api_basket_row'|translate}} {{seat.rowName}}</span>
+                <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
+            </td>
+            <td class="text-center">
+                <span ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span>
+                <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
+            </td>
+            <td class="text-center bo-shortcell">
+                {{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
+            </td>
+            <td class="text-center">{{seat.price | number:2}}{{seat.currency}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <div class="row">
     <div class="col-md-6">
         <div class="bo-reservation-selected-type">
@@ -97,7 +98,7 @@
             {{'api_meta_entity_private'|translate}}
         </button>
     </div>
-    &nbsp;
+    <span class="hidden-xs">&nbsp;</span>
     <div class="form-group">
         <button class="btn btn-lg {{vm.reservation.personType == 'organization' ? 'btn-primary' : 'btn-default'}}"
                 type="button" ng-click="vm.reservation.personType = 'organization'">
@@ -233,10 +234,10 @@
 
     <div class="bo-reservation-footer-butons">
         <div class="row">
-            <div class="col-md-6 text-left">
+            <div class="col-xs-6 text-left">
                 <button class="btn btn-default" ng-click="vm.goToStep2()">{{'api_reservation_edit'|translate}}</button>
             </div>
-            <div class="col-md-6 text-right">
+            <div class="col-xs-6 text-right">
                 <button type="submit" ng-click="vm.validateReservationForm()" class="btn btn-info">
                     {{'api_reservation_meta_confirm'|translate}}
                 </button>
