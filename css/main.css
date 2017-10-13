@@ -1822,6 +1822,7 @@ button.bo-sectionselector-item.list-group-item {
 
 .bo-reservation-inline-buttons {
 	margin-bottom: 14px;
+	overflow: hidden;
 }
 
 .bo-reservation-selected-type {
@@ -1832,16 +1833,18 @@ button.bo-sectionselector-item.list-group-item {
 	margin-bottom: 21px;
 }
 
-.bo-reservation-phone .form-group:first-child {
-	padding-right: 6px;
-}
-
-.bo-reservation-phone .form-group:last-child {
-	padding-left: 0;
-}
-
 .bo-reservation-footer-butons {
 	padding-top: 4px;
+}
+
+.bo-reservation-datetime {
+	display: flex;
+	justify-content: flex-start;
+	margin-bottom: 14px;
+}
+
+.bo-reservation-datetime > div + div {
+	margin-left: 5px;
 }
 
 /* tabledrop
@@ -2092,4 +2095,14 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
 .sliding-tabs-dropdown .dropdown-toggle {
 	color: #27394c;
 	text-decoration: none;
+}
+
+/* adaptive table
+================================ */
+.bo-adaptive-table-label {
+	display: none;
+}
+
+.bo-adaptive-table-custom1-label {
+	display: none;
 }
