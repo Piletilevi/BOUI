@@ -752,14 +752,14 @@ class PiletileviApi {
 		$issuedAt  = time();
 		$notBefore = $issuedAt + 10;     //Adding 10 seconds
 		$expire    = $notBefore + 60;    // Adding 60 seconds
-		$envName   = $envConfig["name"];  // Retrieve the env name from config file
+		$issuer   = $envConfig["issuer"];  // Retrieve the env name from config file
 
 		$uri = $this->getBasePath().$url;
 		
 		$signer = new Sha256();
 		
 		$token = (new Builder())->setId($tokenId)
-								->setIssuer($envName)
+								->setIssuer($issuer)
 								->setIssuedAt($issuedAt)
 								->setNotBefore($notBefore)
 								->setExpiration($expire)
