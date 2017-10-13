@@ -1328,15 +1328,6 @@ button.bo-sectionselector-item.list-group-item {
 	margin-top: -2px;
 }
 
-.bo-table-wrapper {
-	overflow-x: auto;
-	margin-bottom: 24px;
-}
-
-.bo-table-wrapper .table {
-	margin-bottom: 0;
-}
-
 /* Chart
 ================================ */
 .bo-chart {
@@ -2104,4 +2095,14 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
 .sliding-tabs-dropdown .dropdown-toggle {
 	color: #27394c;
 	text-decoration: none;
+}
+
+/* adaptive table
+================================ */
+.bo-adaptive-table-label {
+	display: none;
+}
+
+.bo-adaptive-table-custom1-label {
+	display: none;
 }
