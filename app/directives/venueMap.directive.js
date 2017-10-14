@@ -20,6 +20,8 @@ function VenueMapDirective($parse, $location, $translate) {
 			if (!fsMap) {
 				fsMap = $('<div class="piletilevi_venue_map_places_sections_fullscreen"></div>');
 				$element.append(fsMap);
+				map.setLegendType('title');
+				map.update();
 				fsMap.append(map.getComponentElement());
 				fsMap.append('<div class="fullscreen_close"><i class="fa fa-close"></i></div>');
 				fsMap.show();
@@ -27,6 +29,8 @@ function VenueMapDirective($parse, $location, $translate) {
 					map.extend(); // read "toggle extended mode"
 				});
 			} else {
+				map.setLegendType('none');
+				map.update();
 				$element.append(map.getComponentElement());
 				fsMap.remove()
 				fsMap = null;
@@ -51,6 +55,20 @@ function VenueMapDirective($parse, $location, $translate) {
 				map.setConnectionSecure(hostConf.secure);
 				map.setWithControls(true);
 				map.setSectionsMapImageUrl('');
+				map.setLegendType('none');
+				map.setMassSelectable(true);
+
+				map.addTranslation('booked', $translate.instant('api_seat_not_available'));
+				// TODO: add other translations
+				map.addTranslation('available', '');
+				map.addTranslation('section', '');
+				map.addTranslation('row', '');
+				map.addTranslation('place', '');
+				map.addTranslation('price', '');
+				map.addTranslation('stage-field', '');
+				map.addTranslation('stage-screen', '');
+				map.addTranslation('stage-stage', '');
+
 				map.setExtensionHandler(toggleFsMap);
 				map.addHandler('visibilityChange', function(visible) {
 					$element.css({display: visible ? 'block' : 'none'});
@@ -63,9 +81,14 @@ function VenueMapDirective($parse, $location, $translate) {
 					$scope.setSelectedSectionId(sectionId);
 					$scope.$apply();
 				});
-				map.addHandler('seatSelected', function(seatId) {
-					$scope.setSelectedSeatId(seatId);
-					$scope.$apply();
+				map.addHandler('seatsSelected', function(seatIds) {
+					for (var i = 0; i < seatIds.length; ++i) {
+						$scope.setSelectedSeatId(seatIds[i]);
+						$scope.$apply();
+					}
+				});
+				map.addHandler('seatsDeselected', function(seatIds) {
+					// TODO: remove related ticket from basket
 				});
 			}
 			map.setConfId(mapConfig.confId);
@@ -78,7 +101,7 @@ function VenueMapDirective($parse, $location, $translate) {
 				var seatsInfo = mapConfig.seatsInfo;
 				var priceClasses = mapConfig.priceClasses;
 				// places details
-				map.setSeatSelectionEnabled(true);
+				map.setSeatSelectionEnabled(mapConfig.seatClick);
 				var sectionDetails = {
 					id: mapConfig.sectionId,
 					seatsInfo: seatsInfo,
