@@ -752,7 +752,7 @@ class PiletileviApi {
 		$issuedAt  = time();
 		$notBefore = $issuedAt - 1;        // Removing 1 sec
 		$expire    = $notBefore + 60;      // Adding 60 seconds
-		$issuer   = $envConfig["issuer"];  // Retrieve the env name from config file
+		$issuer    = $envConfig["issuer"];  // Retrieve the env name from config file
 
 		$uri = $this->getBasePath().$url;
 		
