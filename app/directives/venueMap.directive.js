@@ -9,8 +9,8 @@ VenueMapDirective.$inject = ['$parse', '$location', '$translate'];
 function VenueMapDirective($parse, $location, $translate) {
 	var hostConf = {
 		secure: window.location.protocol == 'https:',
-		//host: window.location.host
-		host: 'piletilevi_shop-master.local'
+		host: window.location.host
+		//host: 'piletilevi_shop-master.local'
 	};
 	var link = function($scope, $element, $attributes) {
 		var map = null;
