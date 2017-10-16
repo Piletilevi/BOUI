@@ -367,8 +367,8 @@
 
         newValue.sales.forEach(function (sale) {
           sale.sellTypes.forEach(function (sellType) {
-            if ($.grep(series, function (e) {
-                return e == sellType.priceTypeName;
+            if ($.grep(ids, function (e) {
+                return e == parseInt(sellType.priceTypeId, 10);
               }).length === 0) {
               series.push(sellType.priceTypeName);
               colors.push(sellType.color);
@@ -416,13 +416,13 @@
         });
 
         var stats = new GraphStats(newValue.sales);
-        series.forEach(function (seriesItem) {
+        ids.forEach(function (idItem) {
           var dataItem = [];
 
           newValue.sales.forEach(function (sale) {
             var dataItemValue = 0;
             sale.sellTypes.forEach(function (sellType) {
-              if (sellType.priceTypeName == seriesItem) {
+              if (sellType.priceTypeId == idItem) {
                 if (filter.display == 'tickets') {
                   dataItemValue = sellType.rowCount;
                 } else {

@@ -788,6 +788,244 @@
 	.navbar.navbar-inverse {
 		border-bottom: 0 none;
 	}
+
+	.bo-reservation-inline-buttons > .form-group {
+		width: 49%;
+		float: left;
+	}
+
+	.bo-reservation-inline-buttons > .form-group:first-child {
+		margin-right: 2%;
+	}
+
+	.bo-reservation-inline-buttons > .form-group > .btn {
+		width: 100%;
+	}
+
+	/**
+		adaptive table common solution
+	**/
+
+	.bo-adaptive-table {
+		display: block;
+	}
+
+	.bo-adaptive-table thead {
+		display: none;
+	}
+
+	.bo-adaptive-table tbody {
+		display: table;
+		width: 100%;
+		border-collapse: collapse;
+		border-spacing: 0;
+		margin-bottom: 14px;
+	}
+
+	.bo-adaptive-table tbody + tbody {
+		border-top: 0 none;
+	}
+
+	.bo-adaptive-table tbody tr {
+		display: table-row-group;
+	}
+
+	.bo-adaptive-table tbody td {
+		display: table-row;
+	}
+
+	.bo-adaptive-table-label {
+		display: table-cell;
+		padding: 10px 12px;
+		border: 1px solid #ddd;
+	}
+
+	.bo-adaptive-table-content {
+		display: table-cell;
+		padding: 10px 12px;
+		border: 1px solid #ddd;
+	}
+
+	.text-center .bo-adaptive-table-label {
+		text-align: left;
+	}
+
+	.text-center-xs {
+		text-align: center;
+	}
+
+	.bo-adaptive-table tfoot {
+		display: table;
+		width: 100%;
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	.bo-adaptive-table tfoot > tr > td {
+		border: 0 none;
+	}
+
+	.bo-adaptive-table tbody tr:nth-child(even) .bo-adaptive-table-label,
+	.bo-adaptive-table tbody tr:nth-child(even) .bo-adaptive-table-content {
+		background-color: #f8f9fb;
+	}
+
+	/**
+		adaptive table custom solution 1
+	**/
+
+	.bo-adaptive-table-custom1 {
+		display: block;
+	}
+
+	.bo-adaptive-table-custom1 > tbody,
+	.bo-adaptive-table-custom1 > tbody > tr,
+	.bo-adaptive-table-custom1 > tbody > tr > td,
+	.bo-adaptive-table-custom1 > tbody > tr > th {
+		display: block;
+		border: 0 none;
+	}
+
+	.bo-adaptive-table-custom1 > tbody > tr {
+		overflow: hidden;
+		border: 1px solid #ddd;
+	}
+
+	.bo-adaptive-table-custom1 thead {
+		display: none;
+	}
+
+	.bo-adaptive-table-custom1 > tbody > tr > td.bo-adaptive-table-custom1-row1 {
+
+	}
+
+	.bo-adaptive-table-custom1 > tbody > tr + tr {
+		border-top: 0 none;
+	}
+
+
+	.bo-adaptive-table-custom1 > tbody > tr > td.bo-adaptive-table-custom1-row2-left {
+		border-top: 1px solid #ddd;
+		overflow: hidden;
+		max-width: 50%;
+	}
+
+	.bo-adaptive-table-custom1 > tbody > tr > td.bo-adaptive-table-custom1-row2-right {
+		border-top: 1px solid #ddd;
+		overflow: hidden;
+	}
+
+	.bo-adaptive-table-custom1-row1 {
+		background-color: #f8f9fb;
+		text-align: center;
+	}
+
+	.bo-adaptive-table-custom1-row1 .bo-adaptive-table-custom1-label {
+		display: inline-block;
+	}
+
+	.bo-adaptive-table-custom1-row1 .bo-adaptive-table-custom1-content {
+		display: inline-block;
+	}
+
+	.bo-adaptive-table-custom1-row2-left {
+		float: left;
+	}
+
+	.bo-adaptive-table-custom1-row2-left .bo-adaptive-table-custom1-label {
+		display: inline-block;
+	}
+
+	.bo-adaptive-table-custom1-row2-right .bo-adaptive-table-custom1-content {
+		text-align: right;
+	}
+
+	.bo-adaptive-table-custom1 tfoot {
+		display: table;
+		width: 100%;
+	}
+
+	.bo-adaptive-table-custom1 tfoot > tr > td {
+		border: 0 none;
+	}
+
+	/**
+		adaptive table custom solution 2
+	**/
+
+	.bo-adaptive-table-custom2 {
+		display: block;
+	}
+
+	.bo-adaptive-table-custom2 > tbody,
+	.bo-adaptive-table-custom2 > tbody > tr,
+	.bo-adaptive-table-custom2 > tbody > tr > td,
+	.bo-adaptive-table-custom2 > tbody > tr > th {
+		display: block;
+		border: 0 none;
+	}
+
+	.bo-adaptive-table-custom2 > tbody > tr {
+		border: 1px solid #ddd;
+		position: relative;
+	}
+
+	.bo-adaptive-table-custom2 > tbody > tr + tr {
+		margin-top: 8px;
+	}
+
+	.bo-adaptive-table-custom2 > tbody > tr > td.bo-adaptive-table-custom2-row1 {
+		text-align: center;
+		border-bottom: 1px solid #ddd;
+		background-color: #f8f9fb;
+	}
+
+	.bo-adaptive-table-custom2 > tbody > tr > td.bo-adaptive-table-custom2-row2-left {
+		float: left;
+		width: 30%;
+		padding-left: 5px;
+		padding-right: 5px;
+		padding-bottom: 5px;
+	}
+
+	.bo-adaptive-table-custom2 > tbody > tr > td.bo-adaptive-table-custom2-row2-center {
+		float: left;
+		width: 40%;
+		padding-left: 5px;
+		padding-right: 5px;
+		padding-bottom: 5px;
+	}
+
+	.bo-adaptive-table-custom2 > tbody > tr > td.bo-adaptive-table-custom2-row2-right {
+		float: right;
+		width: 30%;
+		padding-left: 5px;
+		padding-right: 5px;
+		padding-bottom: 5px;
+	}
+
+	.bo-adaptive-table-custom2-row3 {
+		clear: both;
+	}
+
+	.bo-adaptive-table-custom2 > tbody > tr > td.bo-adaptive-table-custom2-row4-left {
+		padding-right: 42px;
+		border-top: 1px solid #ddd;
+		text-align: left;
+	}
+
+	.bo-adaptive-table-custom2 > tbody > tr > td.bo-adaptive-table-custom2-row4-right {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		border-left: 1px solid #ddd;
+		padding: 0;
+	}
+
+	.bo-adaptive-table-custom2 > tbody > tr > td.bo-adaptive-table-custom2-row4-right a {
+		padding: 10px 15px;
+		display: inline-block;
+	}
 }
 
 /* Bootstrap sm
@@ -872,5 +1110,38 @@
 		vertical-align: bottom;
 		font-size: 1.4em;
 		font-weight: normal;
+	}
+
+	.bo-reservation-phone .form-group:first-child {
+		padding-right: 6px;
+	}
+
+	.bo-reservation-phone .form-group:last-child {
+		padding-left: 0;
+	}
+}
+
+/* xxs
+================================ */
+@media (max-width: 486px) {
+	.bo-main-block {
+		padding-left: 7px;
+		padding-right: 7px;
+		overflow: hidden;
+		width: 100%;
+	}
+
+	.bo-reservation-datetime .form-control {
+		padding-left: 6px;
+		padding-right: 6px;
+	}
+
+	.bo-reservation-footer-butons > .row > div {
+		width: 100%;
+		margin-bottom: 10px;
+	}
+
+	.bo-reservation-footer-butons > .row > div  .btn {
+		width: 100%;
 	}
 }
