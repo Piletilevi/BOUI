@@ -9,7 +9,7 @@ VenueMapDirective.$inject = ['$parse', '$location', '$translate'];
 function VenueMapDirective($parse, $location, $translate) {
 	var hostConf = {
 		secure: window.location.protocol == 'https:',
-		host: window.location.host
+		host: 'bo2.piletilevi.ee'
 		//host: 'piletilevi_shop-master.local'
 	};
 	var link = function($scope, $element, $attributes) {
