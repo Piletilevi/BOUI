@@ -3,7 +3,7 @@
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 
-$config['env']['name'] = "Development";
+$config['env']['issuer'] = "PiletileviGrey";
 
 $config['db']['host']   = "localhost";
 $config['db']['user']   = "user";
