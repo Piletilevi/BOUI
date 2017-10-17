@@ -24,6 +24,7 @@
             id: $routeParams.id,
             isShow: $routeParams.type == 'show',
             sectionsMapConfig: {
+                concertId: $routeParams.id,
                 type: 'sections',
                 confId: null,
                 sectionMapType: 'vector',
@@ -31,6 +32,7 @@
                 enabledSections: null
             },
             seatsMapConfig: {
+                concertId: $routeParams.id,
                 type: 'seats',
                 confId: null,
                 sectionMapType: 'vector',
