@@ -1970,7 +1970,7 @@ $app->post('/bookingPayment', function ($request, $response, $args)  {
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		$r["status"] = "success";
-		$r["data"] = $reportResponse;
+		$r["data"] = $reportResponse->data;
 	} else {
 	    $r["status"] = "error";
         $r["errors"] = $dataHandler->getMessages($reportResponse->errors);
