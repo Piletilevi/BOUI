@@ -149,7 +149,7 @@
         vm.reloadEvent = function () {
             eventService.reloadEvent(vm.event);
         }
-		
+
         vm.exportAsCsv = function (currentTab) {
             var filter;
             if (currentTab == "overview") {
@@ -528,14 +528,14 @@
             vm.defaultInvitationBody = $translate.instant("api_invitation_email_body" + pointService.getPointId());
 
             if (!vm.reservation.subject) {
-                if (vm.reservation.reservationType == 'invitation') {			
+                if (vm.reservation.reservationType == 'invitation') {
 					vm.reservation.subject = vm.defaultInvitationSubject;
 				} else {
 					vm.reservation.subject = vm.defaultReservationSubject;
 				}
             }
             if (!vm.reservation.body) {
-                if (vm.reservation.reservationType == 'invitation') {			
+                if (vm.reservation.reservationType == 'invitation') {
 					vm.reservation.body = vm.defaultInvitationBody;
 				} else {
 					vm.reservation.body = vm.defaultReservationBody;
@@ -782,7 +782,7 @@
             });
         });
 
-		
+
         $scope.$watch(
             function () {
                 vm.myOverviewBarData = eventService.myOverviewData();
@@ -807,15 +807,12 @@
         $scope.$watch('vm.myBasket', function(newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
                 $scope.ngVenueMapControl.map.unSetSelectedSeats(seatArray);
-                $scope.ngVenueMapControl.fullscreenMap.unSetSelectedSeats(seatArray);
                 seatArray = [];
                 angular.forEach(vm.myBasket.basket, function(seat) {
                     seatArray.push(seat.seatId);
                 });
                 $scope.ngVenueMapControl.map.setSelectedSeats(seatArray);
                 $scope.ngVenueMapControl.map.update();
-                $scope.ngVenueMapControl.fullscreenMap.setSelectedSeats(seatArray);
-                $scope.ngVenueMapControl.fullscreenMap.update();
             }
         });
 
