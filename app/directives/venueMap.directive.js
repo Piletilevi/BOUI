@@ -38,14 +38,19 @@ function VenueMapDirective($parse, $location, $translate) {
 			map.resize();
 		};
 
+        var disposeMap = function() {
+            if (!map)
+                return;
+            map.dispose();
+            map = null;
+			fsMap = null;
+			$element.empty();
+        };
+
 		$attributes.$observe('config', function() {
 			var mapConfig = $parse($attributes.config)($scope);
 			if (!mapConfig.confId || !mapConfig.concertId) {
-				if (map) {
-					$element.empty();
-					map = null;
-					fsMap = null;
-				}
+                disposeMap();
 				return false;
 			}
 			if (!map) {
@@ -128,6 +133,10 @@ function VenueMapDirective($parse, $location, $translate) {
 			}
             $scope.ngVenueMapControl.map = map;
 		}, true);
+
+        $scope.$on('$destroy', function() {
+            disposeMap();
+        });
 	};
 	return {
 		restrict: 'E',
