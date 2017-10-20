@@ -112,7 +112,7 @@
     {{'api_error_email_format results'|translate}}
 </div>
 
-<form name="reservationForm" ng-submit="vm.goToStep5()" ng-class="{'submitted': vm.reservationFormFubmitted}">
+<form name="reservationForm" ng-submit="vm.goToStep5()" ng-class="{'submitted': vm.reservationFormFubmitted}" bs-form-errors>
     <div class="row bo-reservation-form-block">
         <div class="col-md-6">
             <h4>{{'api_reservation_meta_contact'|translate}}</h4>

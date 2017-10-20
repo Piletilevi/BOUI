@@ -1854,13 +1854,6 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
 	color: #fff;
 }
 
-/* Booking form
-================================ */
-
-.submitted input.ng-invalid {
-	border: 1px solid #c60000;
-}
-
 /* Sliding and dropdowned tabs
 ================================ */
 .ng-sliding-tabs {
