@@ -965,92 +965,7 @@ button.bo-sectionselector-item.list-group-item {
 /* Map
 ================================ */
 .bo-map {
-	text-align: center;
 	margin-bottom: 20px;
-}
-
-/* Mapcontrols
-================================ */
-.bo-mapcontrols {
-	text-align: right;
-}
-
-.bo-mapcontrols .fa-expand {
-	color: #4a5867;
-	font-size: 22px;
-	margin: 0 7px;
-	cursor: pointer;
-}
-
-.bo-mapcontrols-item {
-	position: relative;
-	display: inline-block;
-	background: #5e7287;
-	color: #fff;
-	min-width: 26px;
-	margin: 0 0 0 4px;
-	cursor: pointer;
-	height: 25px;
-	text-align: center;
-	text-decoration: none;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	line-height: 23px;
-}
-
-.bo-mapcontrols-item i {
-	vertical-align: middle;
-	line-height: 1;
-	font-size: 16px;
-	position: relative;
-	z-index: 1;
-}
-
-.bo-mapcontrols-item.btn_fullscreen i {
-	font-size: 18px;
-}
-
-.bo-mapcontrols-item.btn_zoomreset {
-	padding: 0 5px;
-}
-
-.bo-mapcontrols-item:hover {
-	color: #fff;
-}
-
-.bo-mapcontrols-resize {
-	background: #fff;
-	color: #5e7287;
-	margin-right: 12px;
-}
-
-.bo-mapcontrols-resize:hover {
-	color: #5e7287;
-}
-
-.bo-mapcontrols-resize:before {
-	background: #fff;
-	content: '';
-	display: block;
-	position: absolute;
-	height: 6px;
-	left: -3px;
-	right: -3px;
-	top: 50%;
-	margin-top: -3px;
-}
-
-.bo-mapcontrols-resize:after {
-	background: #fff;
-	content: '';
-	display: block;
-	position: absolute;
-	width: 6px;
-	top: -3px;
-	bottom: -3px;
-	left: 50%;
-	margin-left: -3px;
 }
 
 .bo-map .piletilevi_venue_map_places_sections_fullscreen {
@@ -1061,12 +976,8 @@ button.bo-sectionselector-item.list-group-item {
 	top: 0;
 	left: 0;
 	z-index: 2;
-	padding: 20px 0;
+	padding: 20px;
 	display: none;
-}
-
-.bo-map .piletilevi_venue_map_places_sections_fullscreen .bo-mapcontrols {
-	float: left;
 }
 
 .bo-map .piletilevi_venue_map_places_sections_fullscreen .piletilevi_venue_map,
@@ -1088,6 +999,15 @@ button.bo-sectionselector-item.list-group-item {
 	font-size: 33px;
 	cursor: pointer;
 	z-index: 250;
+}
+
+.piletilevi_venue_map_places_sections_fullscreen .piletilevi_venue_map_places_main {
+	position: absolute !important;
+	top: 42px !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	height: auto !important;
 }
 
 /* Seats table
@@ -1328,118 +1248,6 @@ button.bo-sectionselector-item.list-group-item {
 
 .bo-line-chart-container {
 	height: 400px;
-}
-
-/* Venueplan
-================================ */
-
-.places_map_legend {
-	padding-bottom: 1.5em;
-	min-height: 1.38em;
-}
-
-.places_map_legend_item {
-	width: 22%;
-	box-sizing: border-box;
-	color: #fff;
-	display: inline-block;
-	vertical-align: top;
-	text-align: center;
-	padding: 0.25em 1em;
-	position: relative;
-	overflow: hidden;
-	margin-left: 3%;
-	margin-top: 1em;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-}
-
-.places_map_legend_title {
-	display: block;
-	font-weight: bold;
-	white-space: nowrap;
-	position: relative;
-}
-
-.places_map_legend_color {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-}
-
-.places_map_legend_item_booked .places_map_legend_title {
-	color: #858597;
-}
-
-.place_tooltip {
-	display: none;
-	z-index: 100;
-	padding-bottom: 10px;
-	position: absolute;
-}
-
-.place_tooltip_content {
-	position: relative;
-	font-size: 0.92em;
-	padding: 0.6em;
-	background: #fff;
-	-webkit-box-shadow: 0.25em 0.25em 0.5em rgba(0, 0, 0, 0.2);
-	-moz-box-shadow: 0.25em 0.25em 0.5em rgba(0, 0, 0, 0.2);
-	box-shadow: 0.25em 0.25em 0.5em rgba(0, 0, 0, 0.2);
-}
-
-.place_tooltip_content td {
-	padding: 3px 4px;
-}
-
-.place_tooltip table,
-.place_tooltip table tr {
-	display: block;
-}
-
-.place_tooltip:before {
-	/* shadow effect for triangle */
-	content: "";
-	height: 5px;
-	left: 50%;
-	margin-left: -5px;
-	position: absolute;
-	bottom: 0;
-	width: 10px;
-	-moz-box-shadow: 0 6px 5px rgba(0, 0, 0, 0.13);
-	-webkit-box-shadow: 0 6px 5px rgba(0, 0, 0, 0.13);
-	box-shadow: 0 6px 5px rgba(0, 0, 0, 0.13);
-}
-
-.place_tooltip:after {
-	/* bottom triangle */
-	content: "";
-	position: absolute;
-	bottom: 0;
-	left: 50%;
-	margin-left: -10px;
-	border-top: 10px solid #fff;
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-}
-
-.place_tooltip_label {
-	display: inline;
-}
-
-.place_tooltip_value {
-	display: inline;
-	font-weight: bold;
-}
-
-.place_tooltip_status {
-	display: block;
-	font-weight: bold;
-	padding-top: 0.4em;
 }
 
 /* Modal
@@ -1808,6 +1616,7 @@ button.bo-sectionselector-item.list-group-item {
 
 .bo-reservation-inline-buttons {
 	margin-bottom: 14px;
+	overflow: hidden;
 }
 
 .bo-reservation-selected-type {
@@ -1818,16 +1627,18 @@ button.bo-sectionselector-item.list-group-item {
 	margin-bottom: 21px;
 }
 
-.bo-reservation-phone .form-group:first-child {
-	padding-right: 6px;
-}
-
-.bo-reservation-phone .form-group:last-child {
-	padding-left: 0;
-}
-
 .bo-reservation-footer-butons {
 	padding-top: 4px;
+}
+
+.bo-reservation-datetime {
+	display: flex;
+	justify-content: flex-start;
+	margin-bottom: 14px;
+}
+
+.bo-reservation-datetime > div + div {
+	margin-left: 5px;
 }
 
 /* tabledrop
@@ -2078,4 +1889,14 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
 .sliding-tabs-dropdown .dropdown-toggle {
 	color: #27394c;
 	text-decoration: none;
+}
+
+/* adaptive table
+================================ */
+.bo-adaptive-table-label {
+	display: none;
+}
+
+.bo-adaptive-table-custom1-label {
+	display: none;
 }
