@@ -19,7 +19,6 @@
         vm.changePassword = authService.changePassword;
 
         function validPassword(password){
-            return true;
             if (typeof( password) !== 'undefined')
                 return password.match( /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/);
             else return true;
