@@ -681,6 +681,24 @@ class PiletileviApi {
 		return $response;
 	}
 	
+	public function addGIftCardToBooking($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/payment/addGIftCardToBooking", $data );
+		
+		return $response;
+	}
+
+	public function removeGiftCardFromBooking($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/payment/removeGiftCardFromBooking", $data );
+		
+		return $response;
+	}
+	
 	public function boUrl(){
 		return $this->getBoUrl();
 	}

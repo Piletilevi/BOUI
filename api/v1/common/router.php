@@ -2006,6 +2006,60 @@ $app->get('/paymentByBookingId', function ($request, $response, $args)  {
 	}
 });
 
+$app->post('/addGIftCardToBooking', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+	$validationErrors = $dataHandler->verifyParams(array('bookingId', 'hash', 'giftCode'), $json);
+	if ($validationErrors != null) {
+		return $dataHandler->response($response, $validationErrors, 401);
+	}
+
+	$filter = array();
+	$filter['bookingId'] = $json->bookingId;
+	$filter['hash'] = $json->hash;
+	$filter['giftCode'] = $json->giftCode;
+	
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->addGIftCardToBooking( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$r["status"] = "success";
+		$r["data"] = $reportResponse->data;
+	} else {
+	    $r["status"] = "error";
+        $r["errors"] = $dataHandler->getMessages($reportResponse->errors);
+	}
+	return $dataHandler->response($response, $r);
+});
+
+$app->post('/removeGiftCardFromBooking', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+	$validationErrors = $dataHandler->verifyParams(array('bookingId', 'hash', 'giftCode'), $json);
+	if ($validationErrors != null) {
+		return $dataHandler->response($response, $validationErrors, 401);
+	}
+
+	$filter = array();
+	$filter['bookingId'] = $json->bookingId;
+	$filter['hash'] = $json->hash;
+	$filter['giftCode'] = $json->giftCode;
+	
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->removeGiftCardFromBooking( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$r["status"] = "success";
+		$r["data"] = $reportResponse->data;
+	} else {
+	    $r["status"] = "error";
+        $r["errors"] = $dataHandler->getMessages($reportResponse->errors);
+	}
+	return $dataHandler->response($response, $r);
+});
+
 $app->post('/reloadConcert', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
     $json = json_decode($request->getBody());
