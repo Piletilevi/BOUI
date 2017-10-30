@@ -67,11 +67,11 @@
 						'<div class="third_block">' +
 						'<div class="ranges">' +
 						'<div class="calendar-links">' +
-						'<a href="#" id="todayLink">' + $translate.instant('api_calendar_today') + '</a>|' +
-						'<a href="#" id="weekLink">' + $translate.instant('api_calendar_week') + '</a>|' +
+						'<a href="#" id="todayLink">' + $translate.instant('api_calendar_today') + '</a>' +
+						'<a href="#" id="weekLink">' + $translate.instant('api_calendar_week') + '</a>' +
 						'<a href="#" id="monthLink">' + $translate.instant('api_calendar_month') + '</a></div>' +
 						'<div class="calendar-links">' +
-						'<a href="#" id="lastWeekLink">' + $translate.instant('api_calendar_last_week') + '</a>|' +
+						'<a href="#" id="lastWeekLink">' + $translate.instant('api_calendar_last_week') + '</a>' +
 						'<a href="#" id="lastMonthLink">' + $translate.instant('api_calendar_last_month') + '</a></div>' +
 						'<div class="daterangepicker_input_wrapper">' +
 						'<div class="daterangepicker_input">' +
