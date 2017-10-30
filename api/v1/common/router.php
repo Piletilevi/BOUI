@@ -2114,16 +2114,12 @@ $app->get('/test', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
 
 	$filter = array();
-	/*
-	$filter['bookingStartDate'] = "2016-03-01T00:00:00.000";
-	$filter['bookingEndDate'] = "2017-03-01T00:00:00.000";
-	$filter['sectionId'] = 5605;
-	$filter['ticketId'] = 130712500;
-	*/
-	$filter['bookingId'] = 1178338;
+	$filter['bookingId'] = 1178385;
+	$filter['hash'] = "6c2e5668795cba3ad4541cecfa789a54849e7c5d0983b5073d971186dffd60b2";
+	$filter['giftCode'] = "20203112852697";
 
     $piletileviApi = $this->piletileviApi;
-    $reportResponse = $piletileviApi->myBooking($filter);
+    $reportResponse = $piletileviApi->addGIftCardToBooking($filter);
 
 	return $dataHandler->response($response, $reportResponse);
 });
