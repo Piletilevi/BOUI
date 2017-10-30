@@ -2119,7 +2119,7 @@ $app->get('/test', function ($request, $response, $args)  {
 	$filter['giftCode'] = "20203112852697";
 
     $piletileviApi = $this->piletileviApi;
-    $reportResponse = $piletileviApi->addGIftCardToBooking($filter);
+    $reportResponse = $piletileviApi->removeGiftCardFromBooking($filter);
 
 	return $dataHandler->response($response, $reportResponse);
 });
