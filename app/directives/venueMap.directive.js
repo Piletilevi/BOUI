@@ -107,8 +107,8 @@ function VenueMapDirective($parse, $location, $translate) {
 			map.setEnabledSections(mapConfig.enabledSections);
 
 			if (mapConfig.type === 'seats') {
-				var seatsInfo = mapConfig.seatsInfo;
-				var priceClasses = mapConfig.priceClasses;
+				var seatsInfo = mapConfig.seatsInfo || [];
+				var priceClasses = mapConfig.priceClasses || [];
 				// places details
 				map.setSeatSelectionEnabled(mapConfig.seatClick);
 				var sectionDetails = {
