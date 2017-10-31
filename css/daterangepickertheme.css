@@ -15,6 +15,10 @@
 	vertical-align: middle;
 }
 
+.daterangepicker .single .calendar {
+	display: block;
+}
+
 .daterangepicker .table-condensed > thead > tr > td,
 .daterangepicker .table-condensed > thead > tr > th {
 	padding: 2px;
@@ -119,6 +123,10 @@
 	display: inline-block;
 	text-align: right;
 	vertical-align: middle;
+}
+
+.daterangepicker .single .daterangepicker_input {
+	display: block;
 }
 
 .daterangepicker .daterangepicker_input:first-child {
