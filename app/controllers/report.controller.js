@@ -18,7 +18,6 @@
         }
         //initially set those objects to null to avoid undefined error
         var vm = this;
-        var seatArray = [];
 
         vm.event = {
             id: $routeParams.id,
@@ -44,7 +43,8 @@
                 sectionId: 37311,
                 mapWidth: 388,
                 mapHeight: 250
-            }
+            },
+            selectedSeats: []
         };
         vm.tabsConfig = [
             {
@@ -80,7 +80,6 @@
             },
         ];
         vm.activeTabs = [];
-		$scope.ngVenueMapControl = {};
 
         eventService.reset();
         graphService.reset();
@@ -806,13 +805,11 @@
 
         $scope.$watch('vm.myBasket', function(newValue, oldValue) {
             if (!angular.equals(newValue, oldValue)) {
-                $scope.ngVenueMapControl.map.unSetSelectedSeats(seatArray);
-                seatArray = [];
+                var seatArray = [];
                 angular.forEach(vm.myBasket.basket, function(seat) {
                     seatArray.push(seat.seatId);
                 });
-                $scope.ngVenueMapControl.map.setSelectedSeats(seatArray);
-                $scope.ngVenueMapControl.map.update();
+                vm.event.selectedSeats = seatArray;
             }
         });
 

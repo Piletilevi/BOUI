@@ -39,7 +39,7 @@
     "angular-file-saver": "^1.1.3",
     "angularjs-datepicker": "^2.1.23",
     "angucomplete-alt": "^3.0.0",
-    "piletilevi-venuemap": "https://github.com/Piletilevi/venue_widget.git#1.1.21"
+    "piletilevi-venuemap": "https://github.com/Piletilevi/venue_widget.git#1.1.23"
   },
   "resolutions": {
     "angular": "1.6.1",

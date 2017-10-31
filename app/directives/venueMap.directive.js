@@ -14,6 +14,7 @@ function VenueMapDirective($parse, $location, $translate) {
 	};
 	var link = function($scope, $element, $attributes) {
 		var map = null;
+		var previouslySelectedSeats = [];
 		var fsMap = null;
 
 		var toggleFsMap = function() {
@@ -46,7 +47,6 @@ function VenueMapDirective($parse, $location, $translate) {
 			fsMap = null;
 			$element.empty();
         };
-
 		$attributes.$observe('config', function() {
 			var mapConfig = $parse($attributes.config)($scope);
 			if (!mapConfig.confId || !mapConfig.concertId) {
@@ -131,7 +131,17 @@ function VenueMapDirective($parse, $location, $translate) {
 				&& regions[mapConfig.mouseoverPrevSectionId]) {
 				regions[mapConfig.mouseoverPrevSectionId].markInactive();
 			}
-            $scope.ngVenueMapControl.map = map;
+		}, true);
+
+		$attributes.$observe('selectedseats', function() {
+			if (!map) {
+				return;
+			}
+			var selectedSeats = $parse($attributes.selectedseats)($scope);
+			map.unSetSelectedSeats(previouslySelectedSeats);
+			previouslySelectedSeats = selectedSeats;
+			map.setSelectedSeats(selectedSeats);
+   			map.update();
 		}, true);
 
         $scope.$on('$destroy', function() {
