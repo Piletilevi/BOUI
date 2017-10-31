@@ -130,6 +130,7 @@
             exportAsExcel: exportAsExcel,
             exportAsCsv: exportAsCsv,
             addToBasket: addToBasket,
+            addToBasketBulk: addToBasketBulk,
             confirmBasket: confirmBasket,
             confirmBooking: confirmBooking,
             removeFromBasket: removeFromBasket,
@@ -688,7 +689,7 @@
                 });
             }
         }
-		
+
 		function reloadEvent(event) {
             dataService.post(event.isShow ? 'reloadShow' : 'reloadConcert', {id: event.id}).then(function (results) {
                 if (results.status == 'success') {
@@ -747,6 +748,20 @@
             //urlParts.push(currentLang);
             urlParts.push((event.isShow ? 'show' : 'concert') + '=' + event.id);
             return urlParts.join('');
+        }
+
+        function addToBasketBulk(items, callback) {
+            var pending = items.slice();
+            var processItems = function() {
+                if (pending.length > 0) {
+                    var item = pending[0];
+                    pending.splice(0, 1);
+                    addToBasket(item, processItems);
+                } else {
+                    callback();
+                }
+            };
+            processItems();
         }
 
         function addToBasket(item, callback) {

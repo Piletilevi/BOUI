@@ -88,10 +88,8 @@ function VenueMapDirective($parse, $location, $translate) {
 					$scope.$apply();
 				});
 				map.addHandler('seatsSelected', function(seatIds) {
-					for (var i = 0; i < seatIds.length; ++i) {
-						$scope.setSelectedSeatId(seatIds[i]);
-						$scope.$apply();
-					}
+					$scope.addSeatsToBasket(seatIds);
+					$scope.$apply();
 				});
 				map.addHandler('seatsDeselected', function(seatIds) {
                     for (var i = 0; i < seatIds.length; ++i) {

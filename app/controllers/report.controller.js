@@ -290,28 +290,29 @@
             $location.update_path(newPath);
         };
 
-        vm.setSelectedSeatId = function (selectedSeatId) {
-            if ($rootScope.hasFullAccess('api_make_reservation') && vm.event.active && vm.reservationMode) {
-                $scope.selectedSeatId = selectedSeatId;
-                eventService.addToBasket(
-                    {
-                        concertId: $routeParams.id,
-                        sectionId: $scope.selectedSectionId,
-                        seatId: $scope.selectedSeatId
-                    }, function () {
-                        vm.getMyReservation();
-                    }
-                );
+        vm.addSeatsToBasket = function (selectedSeatsIds) {
+            if (!$rootScope.hasFullAccess('api_make_reservation') || !vm.event.active || !vm.reservationMode) {
+                return;
             }
+            var basketItems = [];
+            for (var i= 0; i < selectedSeatsIds.length; ++i) {
+                basketItems.push(                {
+                    concertId: $routeParams.id,
+                    sectionId: $scope.selectedSectionId,
+                    seatId: selectedSeatsIds[i]
+                });
+            }
+            eventService.addToBasketBulk(basketItems, function () {
+                vm.getMyReservation();
+            });
         };
         vm.removeSelectedSeatId = function (selectedSeatId) {
             if ($rootScope.hasFullAccess('api_make_reservation') && vm.event.active && vm.reservationMode) {
-                $scope.selectedSeatId = selectedSeatId;
                 eventService.removeFromBasket(
                     {
                         concertId: $routeParams.id,
                         sectionId: $scope.selectedSectionId,
-                        seatId: $scope.selectedSeatId
+                        seatId: selectedSeatId
                     }, function () {
                         vm.getMyReservation();
                     }
@@ -739,7 +740,7 @@
         };
 
         $scope.setSelectedSectionId = vm.setSelectedSectionId;
-        $scope.setSelectedSeatId = vm.setSelectedSeatId;
+        $scope.addSeatsToBasket = vm.addSeatsToBasket;
         $scope.removeSelectedSeatId = vm.removeSelectedSeatId;
         $scope.setMouseoverSectionId = vm.setMouseoverSectionId;
 
