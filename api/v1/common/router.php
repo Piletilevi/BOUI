@@ -2110,6 +2110,31 @@ $app->post('/reloadShow', function ($request, $response, $args)  {
 	return $dataHandler->response($response, $r);
 });
 
+$app->get('/ticketDownload', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+
+	$validationErrors = $dataHandler->verifyParams(array('fnr', 'hash'), $request->getParams());
+	if ($validationErrors != null) {
+		return $dataHandler->response($response, $validationErrors, 401);
+	}
+
+	$fnr = $request->getParam("fnr");
+	$hash = $request->getParam("hash");
+	$language = $request->getParam("language");
+
+	$filter = array();
+	$filter['fnr'] = $fnr;
+	$filter['hash'] = $hash;
+	if ($language) {
+		$filter['language'] = $language;
+	}
+
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->downloadTicket( $filter );
+	
+	return $dataHandler->responseAsPdf($response, $reportResponse);
+});
+
 $app->get('/test', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
 

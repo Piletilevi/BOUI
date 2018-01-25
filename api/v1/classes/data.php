@@ -31,6 +31,11 @@ class DataHandler {
 	public function verifyParams($required_fields, $request_params) {
 		$error = false;
 		$error_fields = "";
+		
+		if (is_array($request_params)) {
+			$request_params = $this->convertToObject($request_params);
+		}
+		
 		foreach ($required_fields as $field) {
 			if (!isset($request_params->$field) || strlen(trim($request_params->$field)) <= 0) {
 				$error = true;
@@ -50,6 +55,17 @@ class DataHandler {
 		return null;
 	}
 
+	public function convertToObject($array) {
+        $object = new stdClass();
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $value = $this->convertToObject($value);
+            }
+            $object->$key = $value;
+        }
+        return $object;
+    }
+	
 	/**
 	 * Clearing all null values from data array
 	 */
@@ -130,6 +146,11 @@ class DataHandler {
 
 	public function responseAsXls($response, $data) {
 		return $response->withHeader('Content-Type', 'application/vnd.ms-excel')
+						->write($data);
+	}
+
+	public function responseAsPdf($response, $data) {
+		return $response->withHeader('Content-Type', 'application/pdf')
 						->write($data);
 	}
 	

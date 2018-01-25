@@ -473,6 +473,16 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function downloadTicket($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/ticket/download", $data, true );
+		
+		return $reportData;
+	}
+
+
 	public function getSectorInfo($filter) {
 		
 		$data['filter']= $filter;
