@@ -34,7 +34,10 @@ mod.directive('infiniteScroll', [
             if ($rootScope.$$phase) {
               return scope.$eval(attrs.infiniteScroll);
             } else {
-              return scope.$apply(attrs.infiniteScroll);
+                return function() {
+                    scope.$apply(attrs.infiniteScroll);
+                    $scope.$broadcast("scrollLoaded");
+                }
             }
           }
         }
@@ -51,13 +54,16 @@ mod.directive('infiniteScroll', [
             if ($rootScope.$$phase) {
               return scope.$eval(attrs.infiniteScroll);
             } else {
-              return scope.$apply(attrs.infiniteScroll);
+              return function() {
+                scope.$apply(attrs.infiniteScroll);
+                $scope.$broadcast("scrollLoaded");
+              }
             }
           } else if (shouldScroll) {
             return checkWhenEnabled = true;
           }
         };
-        $window.on('load', function(){prefill();handler();});
+        $window.on('load', prefill);
         $window.on('scroll', handler);
         scope.$on('$destroy', function() {
           return $window.off('scroll', handler);
