@@ -269,6 +269,17 @@ a:hover {
 	color: #fff;
 }
 
+.dropdown-menu .fa-fw {
+	margin-right: 4px;
+}
+
+.dropdown-divider {
+	height: 0;
+	margin: .5rem 0;
+	overflow: hidden;
+	border-top: 1px solid #e9ecef;
+}
+
 /* Language dropdown
 ================================ */
 
