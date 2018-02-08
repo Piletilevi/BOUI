@@ -32,8 +32,7 @@ mod.directive('infiniteScroll', [
                     console.log("windHeight:" + windowBottom);
                     var elementBottom = document.getElementById("scrollBlock").clientHeight;
                     console.log("elemHeight:" + elementBottom);
-                    var remaining = windowBottom - elementBottom;
-                    var shouldScroll = remaining <= windowBottom * scrollDistance;
+                    var shouldScroll = elementBottom <= windowBottom;
                     if (shouldScroll && scrollEnabled) {
                         if ($rootScope.$$phase) {
                             return scope.$eval(attrs.infiniteScroll);
