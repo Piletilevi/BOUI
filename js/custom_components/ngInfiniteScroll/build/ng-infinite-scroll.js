@@ -30,12 +30,8 @@ mod.directive('infiniteScroll', [
                     var shouldScroll = checkForScroll();
                     if (shouldScroll && scrollEnabled) {
                         if ($rootScope.$$phase) {
-                            console.log("Option1");
-                            return scope.$eval(attrs.infiniteScroll);
-                        } else {
-                            console.log("Option2");
                             return function() {
-                                scope.$apply(attrs.infiniteScroll);
+                                scope.$eval(attrs.infiniteScroll);
                                 if (checkForScroll()) {
                                     console.log("reCheckInitiate");
                                     $timeout((function() {
@@ -49,6 +45,8 @@ mod.directive('infiniteScroll', [
                                     }), 1000);
                                 }
                             }
+                        } else {
+                            return scope.$apply(attrs.infiniteScroll);
                         }
                     } else if (shouldScroll) {
                         return checkWhenEnabled = true;
