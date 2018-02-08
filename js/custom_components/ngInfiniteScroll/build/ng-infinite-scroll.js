@@ -52,7 +52,6 @@ mod.directive('infiniteScroll', [
                     var elementBottom = elem.offset().top + elem.height();
                     var remaining = windowBottom - elementBottom;
                     var shouldScroll = remaining >= 0;
-                    console.log("Scroll:" + shouldScroll + ", A:" + windowBottom + " - B:" + elementBottom + " = " + remaining);
                     return shouldScroll;
                 };
                 $window.on('load', handler);
@@ -60,15 +59,6 @@ mod.directive('infiniteScroll', [
                 scope.$on('$destroy', function() {
                     return $window.off('scroll', handler);
                 });
-                return $timeout((function() {
-                    if (attrs.infiniteScrollImmediateCheck) {
-                        if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
-                            return handler();
-                        }
-                    } else {
-                        return handler();
-                    }
-                }), 0);
             }
         };
     }
