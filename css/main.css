@@ -765,8 +765,9 @@ a:hover {
 
 /* Showpanel
 ================================ */
-.panel-heading {
+.bo-showpanel .panel-heading {
 	background: #f0f3f7;
+	padding: 0px;
 	border-bottom: 1px solid #cdd2d8;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
