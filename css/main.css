@@ -622,6 +622,7 @@ a:hover {
 
 .bo-eventsummary-linked:hover {
 	background: #edf0f4;
+	cursor: pointer;
 	-moz-box-shadow: 0 0 0 1px #f7f9fb inset;
 	-webkit-box-shadow: 0 0 0 1px #f7f9fb inset;
 	box-shadow: 0 0 0 1px #f7f9fb inset;

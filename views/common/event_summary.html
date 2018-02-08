@@ -1,4 +1,4 @@
-<div class="bo-eventsummary" ng-class="{'bo-eventsummary-linked': linked}" data-event="{{event|json}}">
+<div class="bo-eventsummary" ng-class="{'bo-eventsummary-linked': linked}" data-event="{{event|json}}" onclick="document.location='#/report/7/event/198044'">
 	<!-- title -->
 	<h3 ng-if="!noTitle" class="bo-eventsummary-title clearfix">
 		<!-- badge -->
@@ -44,7 +44,6 @@
 		</div>
 	</div>
 	<!-- links -->
-	<a ng-if="linked" class="bo-eventsummary-linkoverlay" href="#/report/{{user.point}}/{{event.isShow ? 'show' : 'event'}}/{{event.id}}"></a>
 	<div ng-if="!linked" class="bo-eventsummary-links">
 		<!--<div class="bo-eventsummary-link" ng-if="showEditLink">-->
 			<!--<a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}">{{'api_edit'|translate}}</a>-->
