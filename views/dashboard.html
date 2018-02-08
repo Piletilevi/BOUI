@@ -48,7 +48,7 @@
     <div class="bo-events-wrapper">
         {{events = vm.events[vm.tabActive]; ""}}
         <div>
-            <div class="bo-events" infinite-scroll="vm.getMoreEvents(vm.filter)"
+            <div class="bo-events" id="scrollBlock" infinite-scroll="vm.getMoreEvents(vm.filter)"
                  infinite-scroll-disabled="vm.filter.loadingItems" infinite-scroll-distance="1"
                  infinite-scroll-immediate-check="1">
                 <div ng-repeat="eventItem in events">
