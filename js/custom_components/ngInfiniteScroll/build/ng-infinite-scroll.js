@@ -7,7 +7,7 @@ mod.directive('infiniteScroll', [
   '$rootScope', '$window', '$timeout', function($rootScope, $window, $timeout) {
     return {
       link: function(scope, elem, attrs) {
-        var checkWhenEnabled, handler, scrollDistance, scrollEnabled, prefill;
+        var checkWhenEnabled, handler, scrollDistance, scrollEnabled;
         $window = angular.element($window);
         scrollDistance = 0;
         if (attrs.infiniteScrollDistance != null) {
@@ -26,27 +26,6 @@ mod.directive('infiniteScroll', [
             }
           });
         }
-
-        prefill = function() {
-          var distance = this.getPrefillDistance();
-          this.isPrefilling = distance >= 0;
-          if (this.isPrefilling && scrollEnabled) {
-            if ($rootScope.$$phase) {
-              console.log("Debug1:" + distance);
-              return scope.$eval(attrs.infiniteScroll);
-
-            } else {
-                console.log("Debug2:" + distance);
-              return scope.$apply(attrs.infiniteScroll);
-            }
-          }
-        }
-        this.getPrefillDistance = function() {
-            var windowBottom = $window.height() + $window.scrollTop();
-            var elementBottom = elem.offset().top + elem.height();
-            return elementBottom - windowBottom;
-        };
-
         handler = function() {
           var windowBottom = $window.height() + $window.scrollTop();
           var elementBottom = elem.offset().top + elem.height();
@@ -54,19 +33,15 @@ mod.directive('infiniteScroll', [
           var shouldScroll = remaining <= $window.height() * scrollDistance;
           if (shouldScroll && scrollEnabled) {
             if ($rootScope.$$phase) {
-                console.log("Debug3:" + remaining);
               return scope.$eval(attrs.infiniteScroll);
             } else {
-              return function() {
-                  console.log("Debug4:" + remaining);
-                scope.$apply(attrs.infiniteScroll);
-              }
+              return scope.$apply(attrs.infiniteScroll);
             }
           } else if (shouldScroll) {
             return checkWhenEnabled = true;
           }
         };
-        $window.on('load', prefill);
+        $window.on('load', handler);
         $window.on('scroll', handler);
         scope.$on('$destroy', function() {
           return $window.off('scroll', handler);
