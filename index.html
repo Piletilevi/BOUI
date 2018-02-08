@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="boApp">
+<html lang="en" ng-app="boApp" style="height: 100%;">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,7 +45,7 @@
 
     </script>
 </head>
-<body style="visibility: hidden" ng-class='{forceShow: isTranslated, boLightGamma: pointMenuGamma}' autoscroll="true">
+<body style="height: 100%; visibility: hidden" ng-class='{forceShow: isTranslated, boLightGamma: pointMenuGamma}' autoscroll="true">
 
 <div ng-include="'views/common/template.html'" ng-if="authenticated"></div>
 <div class="visible-print">
