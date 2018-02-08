@@ -26,13 +26,12 @@ mod.directive('infiniteScroll', [
                         }
                     });
                 }
-
                 handler = function() {
-                    var windowBottom = $window.height();
-                    console.log("windHeight:" + windowBottom);
-                    var elementBottom = document.getElementById("scrollBlock").clientHeight;
-                    console.log("elemHeight:" + elementBottom);
-                    var shouldScroll = elementBottom <= windowBottom;
+                    var elementBottom, remaining, shouldScroll, windowBottom;
+                    windowBottom = $window.height() + $window.scrollTop();
+                    elementBottom = elem.offset().top + elem.height();
+                    remaining = elementBottom - windowBottom;
+                    shouldScroll = remaining <= $window.height() * scrollDistance;
                     if (shouldScroll && scrollEnabled) {
                         if ($rootScope.$$phase) {
                             return scope.$eval(attrs.infiniteScroll);
@@ -56,7 +55,7 @@ mod.directive('infiniteScroll', [
                     } else {
                         return handler();
                     }
-                }), 10);
+                }), 0);
             }
         };
     }
