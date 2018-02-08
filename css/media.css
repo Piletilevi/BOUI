@@ -587,7 +587,10 @@
 	.bo-user br {
 		display: none;
 	}
-
+	
+	.navbar-right {
+		display: none;
+	}
 	.navbar-collapse .navbar-right > li > a,
 	.navbar-collapse .navbar-nav > li > a {
 		padding: 13px 19px 13px 50px;

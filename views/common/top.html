@@ -34,13 +34,10 @@
 					<a href="#/dashboard/"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-md hidden-sm" ng-cloak> {{'meny_05'|translate }}</span></a>
 				</li>
 			</ul>
-
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown" ng-if="authenticated && user.salesPoints[1]" ng-include="'views/common/sales_points.html'"></li>
 				<li class="" ng-if="authenticated && !user.salesPoints[1]">
-					<a class="not-clickable" href><span class="hidden-sm">
-                                {{getPointName()}}
-                            </span></a>
+					<a class="not-clickable" href><span class="hidden-sm">{{getPointName()}}</span></a>
 				</li>
 				<li ng-if="authenticated" class="header_message_link">
 					<a href="#"><i class="fa fa-envelope" ng-if="hasFullAccess('api_header_messages')" aria-hidden="true"></i>
