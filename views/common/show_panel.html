@@ -1,12 +1,13 @@
 <div class="bo-showpanel panel panel-default">
 	<div class="panel-heading clearfix">
-		<div ng-if="show.statusName" class="bo-showpanel-status bo-showpanel-status-{{show.status}} label-{{show.labelCode}}">{{show.statusName | translate}}</div>
 		<h3 class="bo-showpanel-title">
 			<a ng-if="show.concertsCount" class="bo-showpanel-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events{{show.id}}" aria-expanded="false">
-				<span class="glyphicon glyphicon-triangle-top"></span>
-				<span class="glyphicon glyphicon-triangle-bottom"></span>
+				<span class="fa fa-plus-square"></span>
+				<span class="fa fa-minus-square"></span>
 				<span class="badge">{{show.concertsCount}}</span>
-			</a>{{show.name}}</h3>
+				{{show.name}}
+			</a>
+		</h3>
 	</div>
 	<div class="bo-showpanel-overview" ng-repeat="event in [show]" ng-include-template="event_summary.html" ng-include-variables="{event: show, user: user, linked: true, noTitle: true, withRevenue: withRevenue}"></div>
 	<div ng-if="show.concerts" id="bo-sub-events{{show.id}}" class="bo-showpanel-concerts collapse">

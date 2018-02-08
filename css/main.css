@@ -765,6 +765,22 @@ a:hover {
 
 /* Showpanel
 ================================ */
+.panel-heading {
+	background: #f0f3f7;
+	border-bottom: 1px solid #cdd2d8;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	-moz-box-shadow: 0 0 0 1px #f7f9fb inset;
+	-webkit-box-shadow: 0 0 0 1px #f7f9fb inset;
+	box-shadow: 0 0 0 1px #f7f9fb inset;
+}
+
+.panel-heading:hover {
+	background: #d1d6df;
+	border-color: #c1c4c8;
+	box-shadow: none;
+}
+
 .bo-showpanel {
 	overflow: hidden;
 }
@@ -797,8 +813,11 @@ a:hover {
 }
 
 .bo-showpanel-toggle {
+	color: #2d7bcf;
 	cursor: pointer;
 	text-decoration: none;
+	padding: 12px 18px;
+	display: block;
 }
 
 .bo-showpanel-toggle .badge {
@@ -820,18 +839,38 @@ a:hover {
 	text-decoration: none;
 }
 
-.bo-showpanel-toggle .glyphicon-triangle-top {
-	display: none;
+.bo-showpanel-toggle:hover .fa {
+	color: #495057;
 }
 
-.bo-showpanel-toggle.collapsed .glyphicon-triangle-top {
-	display: inline-block;
-	font-size: 10px;
+.bo-showpanel-toggle:hover .fa {
+	color: #495057;
+}
+
+.bo-showpanel-toggle .fa {
 	color: #7f8899;
+	vertical-align: middle;
 }
 
-.bo-showpanel-toggle.collapsed .glyphicon-triangle-bottom {
+.bo-showpanel-toggle .fa-plus-square {
 	display: none;
+}
+
+.bo-showpanel-toggle.collapsed > .fa-minus-square {
+	display: none;
+}
+
+.bo-showpanel-toggle.collapsed > .fa-plus-square {
+	display: inline-block;
+}
+
+.bo-showpanel-toggle .badge {
+	color: #fff;
+	background-color: #3584d9;
+	margin: 2px;
+	margin-right: 8px;
+	padding: 3px 8px;
+	padding-right: 9px;
 }
 
 /* Section-selector
