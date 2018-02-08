@@ -32,17 +32,19 @@ mod.directive('infiniteScroll', [
           this.isPrefilling = distance >= 0;
           if (this.isPrefilling && scrollEnabled) {
             if ($rootScope.$$phase) {
+              console.log("Debug1:" + distance);
               return scope.$eval(attrs.infiniteScroll);
+
             } else {
-                return function() {
-                    scope.$apply(attrs.infiniteScroll);
-                    $scope.$broadcast("scrollLoaded");
-                }
+                console.log("Debug2:" + distance);
+              return scope.$apply(attrs.infiniteScroll);
             }
           }
         }
         this.getPrefillDistance = function() {
-          return ($window.height() - elem.height());
+            var windowBottom = $window.height() + $window.scrollTop();
+            var elementBottom = elem.offset().top + elem.height();
+            return elementBottom - windowBottom;
         };
 
         handler = function() {
@@ -52,11 +54,12 @@ mod.directive('infiniteScroll', [
           var shouldScroll = remaining <= $window.height() * scrollDistance;
           if (shouldScroll && scrollEnabled) {
             if ($rootScope.$$phase) {
+                console.log("Debug3:" + remaining);
               return scope.$eval(attrs.infiniteScroll);
             } else {
               return function() {
+                  console.log("Debug4:" + remaining);
                 scope.$apply(attrs.infiniteScroll);
-                $scope.$broadcast("scrollLoaded");
               }
             }
           } else if (shouldScroll) {
@@ -76,7 +79,7 @@ mod.directive('infiniteScroll', [
           } else {
             return handler();
           }
-        }), 0);
+        }), 10);
       }
     };
   }
