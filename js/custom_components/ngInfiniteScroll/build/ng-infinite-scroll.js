@@ -50,9 +50,9 @@ mod.directive('infiniteScroll', [
                 checkForScroll = function() {
                     var windowBottom = $window.height() + $window.scrollTop();
                     var elementBottom = elem.offset().top + elem.height();
-                    var remaining = elementBottom - windowBottom;
-                    var shouldScroll = remaining <= $window.height() * scrollDistance;
-                    console.log("Scroll:" + shouldScroll + ",A:" + elementBottom + " - B:" + windowBottom);
+                    var remaining = windowBottom - elementBottom;
+                    var shouldScroll = remaining >= 0;
+                    console.log("Scroll:" + shouldScroll + ", A:" + windowBottom + " - B:" + elementBottom + " = " + remaining);
                     return shouldScroll;
                 };
                 $window.on('load', handler);
