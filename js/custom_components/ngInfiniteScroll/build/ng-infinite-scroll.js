@@ -27,17 +27,17 @@ mod.directive('infiniteScroll', [
                     });
                 }
                 handler = function() {
-                    $timeout((function() {
-                        if (attrs.infiniteScrollImmediateCheck) {
-                            if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
-                                return handler();
-                            }
-                        } else {
-                            return handler();
-                        }
-                    }), 1000);
                     var shouldScroll = checkForScroll();
                     if (shouldScroll && scrollEnabled) {
+                        $timeout((function() {
+                            if (attrs.infiniteScrollImmediateCheck) {
+                                if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
+                                    return handler();
+                                }
+                            } else {
+                                return handler();
+                            }
+                        }), 1000);
                         if ($rootScope.$$phase) {
                             return scope.$eval(attrs.infiniteScroll);
                         } else {
