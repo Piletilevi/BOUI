@@ -59,6 +59,15 @@ mod.directive('infiniteScroll', [
                 scope.$on('$destroy', function() {
                     return $window.off('scroll', handler);
                 });
+                return $timeout((function() {
+                    if (attrs.infiniteScrollImmediateCheck) {
+                        if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
+                            return handler();
+                        }
+                    } else {
+                        return handler();
+                    }
+                }), 0);
             }
         };
     }
