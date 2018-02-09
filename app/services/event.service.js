@@ -6,9 +6,9 @@
         .module('boApp')
         .factory('eventService', EventService);
 
-    EventService.$inject = ['$rootScope', '$translate', 'dataService', '$filter', 'FileSaver', 'Blob', '$location'];
+    EventService.$inject = ['$rootScope', '$translate', 'dataService', '$filter', 'FileSaver', 'Blob', '$window'];
 
-    function EventService($rootScope, $translate, dataService, $filter, FileSaver, Blob, $location) {
+    function EventService($rootScope, $translate, dataService, $filter, FileSaver, Blob, $window) {
 
         var myOpenEvents = null;
         var myDraftEvents = null;
@@ -174,6 +174,7 @@
             bookingTypes = null;
         }
         function goToEvent(point,isShow,eventId) {
+            console.log("GoToEvent");
             var eventType = function() {
                 if (isShow) {
                     return "show";
@@ -182,7 +183,7 @@
                     return "event";
                 }
             };
-            $location.url("#/report/" + point + "/" + eventType + "/" + eventId);
+            $window.location.href = "#/report/" + point + "/" + eventType + "/" + eventId;
         }
 
         function getMyEvents(filter) {
