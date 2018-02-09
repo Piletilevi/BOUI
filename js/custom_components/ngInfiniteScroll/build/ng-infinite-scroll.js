@@ -56,19 +56,26 @@ mod.directive('infiniteScroll', [
                     var shouldScroll = remaining >= 0;
                     return shouldScroll;
                 };
-                $window.on('load', handler);
+                $window.on('load', function() {
+                    console.log("LoadOfWindow");
+                    handler();
+                });
                 $window.on('scroll', handler);
+                scope.$on(attr.infiniteScrollListenForEvent, handler);
                 scope.$on('$destroy', function() {
                     return $window.off('scroll', handler);
                 });
                 return $timeout((function() {
                     console.log("MainTimeoutForScroll");
-                    if (attrs.infiniteScrollImmediateCheck) {
-                        if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
+                    var shouldScroll = checkForScroll();
+                    if (shouldScroll && scrollEnabled) {
+                        if (attrs.infiniteScrollImmediateCheck) {
+                            if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
+                                return handler();
+                            }
+                        } else {
                             return handler();
                         }
-                    } else {
-                        return handler();
                     }
                 }), 0);
             }
