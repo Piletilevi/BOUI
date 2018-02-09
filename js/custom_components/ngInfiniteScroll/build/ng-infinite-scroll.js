@@ -28,8 +28,9 @@ mod.directive('infiniteScroll', [
                 }
                 handler = function() {
                     var shouldScroll = checkForScroll();
+                    console.log("Scroll:" + shouldScroll + "," + scrollEnabled);
+                    reCheck("handler");
                     if (shouldScroll && scrollEnabled) {
-                        reCheck();
                         if ($rootScope.$$phase) {
                             return scope.$eval(attrs.infiniteScroll);
                         } else {
@@ -39,9 +40,22 @@ mod.directive('infiniteScroll', [
                         return checkWhenEnabled = true;
                     }
                 };
-                reCheck = function() {
-                    return $timeout((function() {
-                        console.log("TimeoutForScroll");
+                reCheck = function(type) {
+                    var shouldScroll = checkForScroll();
+                    console.log("TimeoutForScroll" + type);
+                    if (shouldScroll && scrollEnabled) {
+                        $timeout((function () {
+                            console.log("TimeoutForScroll");
+                            if (attrs.infiniteScrollImmediateCheck) {
+                                if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
+                                    return handler();
+                                }
+                            } else {
+                                return handler();
+                            }
+                        }), 1000);
+                    }
+                    else if (type=="first") {
                         if (attrs.infiniteScrollImmediateCheck) {
                             if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
                                 return handler();
@@ -49,7 +63,7 @@ mod.directive('infiniteScroll', [
                         } else {
                             return handler();
                         }
-                    }), 1000);
+                    }
                 };
                 checkForScroll = function() {
                     var windowBottom = $window.height() + $window.scrollTop();
@@ -72,7 +86,7 @@ mod.directive('infiniteScroll', [
                         return handler();
                     });
                 }
-                return reCheck();
+                return reCheck("first");
             }
         };
     }
