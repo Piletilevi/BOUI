@@ -187,6 +187,7 @@
         }
 
         function getMyEvents(filter) {
+            console.log("getMyEvents - eventService");
             if (filter.status == "onsale" && myOpenEvents != null) {
                 return;
             }
@@ -247,7 +248,7 @@
         }
 
         function getMoreEvents(filter) {
-
+            console.log("getMoreEvents - eventService");
             if (filter.loadingItems)
                 return;
 

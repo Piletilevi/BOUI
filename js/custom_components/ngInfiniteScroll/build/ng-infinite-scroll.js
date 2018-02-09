@@ -7,7 +7,7 @@ mod.directive('infiniteScroll', [
     '$rootScope', '$window', '$timeout', function($rootScope, $window, $timeout) {
         return {
             link: function(scope, elem, attrs) {
-                var checkWhenEnabled, handler, scrollDistance, scrollEnabled;
+                var checkWhenEnabled, handler, scrollDistance, scrollEnabled, reCheck, checkForScroll;
                 $window = angular.element($window);
                 scrollDistance = 0;
                 if (attrs.infiniteScrollDistance != null) {
@@ -27,19 +27,9 @@ mod.directive('infiniteScroll', [
                     });
                 }
                 handler = function() {
-                    console.log("ScrollHandler");
                     var shouldScroll = checkForScroll();
                     if (shouldScroll && scrollEnabled) {
-                        $timeout((function() {
-                            console.log("SecondaryTimeoutForScroll");
-                            if (attrs.infiniteScrollImmediateCheck) {
-                                if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
-                                    return handler();
-                                }
-                            } else {
-                                return handler();
-                            }
-                        }), 1000);
+                        reCheck;
                         if ($rootScope.$$phase) {
                             return scope.$eval(attrs.infiniteScroll);
                         } else {
@@ -48,6 +38,18 @@ mod.directive('infiniteScroll', [
                     } else if (shouldScroll) {
                         return checkWhenEnabled = true;
                     }
+                };
+                reCheck = function() {
+                    return $timeout((function() {
+                        console.log("SecondaryTimeoutForScroll");
+                        if (attrs.infiniteScrollImmediateCheck) {
+                            if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
+                                return handler();
+                            }
+                        } else {
+                            return handler();
+                        }
+                    }), 1000);
                 };
                 checkForScroll = function() {
                     var windowBottom = $window.height() + $window.scrollTop();
@@ -70,16 +72,7 @@ mod.directive('infiniteScroll', [
                         return handler();
                     });
                 }
-                return $timeout((function() {
-                    console.log("MainTimeoutForScroll");
-                    if (attrs.infiniteScrollImmediateCheck) {
-                        if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
-                            return handler();
-                        }
-                    } else {
-                        return handler();
-                    }
-                }), 0);
+                return reCheck();
             }
         };
     }
