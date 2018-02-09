@@ -201,14 +201,10 @@
             filter.draftStart = null;
             filter.pastStart = null;
             filter.loadingItems = true;
-            filter.checkForEventScroll = false;
-            console.log("getMyEvents - eventService1, " + filter.checkForEventScroll);
             getMyEventsCount(filter);
 
             dataService.post('myEvents', {filter: filter}).then(function (results) {
                 dataService.page(results);
-
-
                 if (filter.status == 'onsale') {
                     myOpenEvents = results.status == 'success' ? results.data : [];
                 } else if (filter.status == 'draft') {
@@ -218,8 +214,6 @@
                 }
                 filter.loadingItems = false;
             });
-            filter.checkForEventScroll = true;
-            console.log("getMyEvents - eventService2, " + filter.checkForEventScroll);
         }
 
         function getMyEventsCount(filter) {
@@ -250,14 +244,12 @@
         }
 
         function getMoreEvents(filter) {
-            console.log("getMoreEvents - eventService");
             if (filter.loadingItems)
                 return;
 
             if (filter.status == 'onsale' && myOpenEvents != null) {
                 if (myOpenEvents.length % 5 == 0 && filter.openStart != myOpenEvents.length + 1) {
                     filter.loadingItems = true;
-                    filter.checkForEventScroll = false;
                     filter.openStart = myOpenEvents.length + 1;
                     dataService.post('myEvents', {filter: filter}).then(function (results) {
                         if (results.status == 'success') {
@@ -266,13 +258,11 @@
                             });
                         }
                         filter.loadingItems = false;
-                        filter.checkForEventScroll = true;
                     });
                 }
             } else if (filter.status == 'draft' && myDraftEvents != null) {
                 if (myDraftEvents.length % 5 == 0 && filter.draftStart != myDraftEvents.length + 1) {
                     filter.loadingItems = true;
-                    filter.checkForEventScroll = false;
                     filter.draftStart = myDraftEvents.length + 1;
                     dataService.post('myEvents', {filter: filter}).then(function (results) {
                         if (results.status == 'success') {
@@ -281,13 +271,11 @@
                             });
                         }
                         filter.loadingItems = false;
-                        filter.checkForEventScroll = true;
                     });
                 }
             } else if (filter.status == 'past' && myPastEvents != null) {
                 if (myPastEvents.length % 5 == 0 && filter.pastStart != myPastEvents.length + 1) {
                     filter.loadingItems = true;
-                    filter.checkForEventScroll = false;
                     filter.pastStart = myPastEvents.length + 1;
                     dataService.post('myEvents', {filter: filter}).then(function (results) {
                         if (results.status == 'success') {
@@ -296,7 +284,6 @@
                             });
                         }
                         filter.loadingItems = false;
-                        filter.checkForEventScroll = true;
                     });
                 }
             }
