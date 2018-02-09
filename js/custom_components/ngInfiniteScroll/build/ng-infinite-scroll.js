@@ -29,7 +29,7 @@ mod.directive('infiniteScroll', [
                 }
                 handler = function() {
                     var shouldScroll = checkForScroll();
-                    if (shouldScroll && scrollEnabled)
+                    if (shouldScroll && scrollEnabled) {
                         console.log("ScrollGO!");
                         if ($rootScope.$$phase) {
                             return scope.$eval(attrs.infiniteScroll);
