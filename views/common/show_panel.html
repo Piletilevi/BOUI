@@ -9,10 +9,10 @@
 			</a>
 		</h3>
 	</div>
-	<div class="bo-showpanel-overview" ng-repeat="event in [show]" ng-include-template="event_summary.html" ng-include-variables="{event: show, user: user, linked: true, noTitle: true, withRevenue: withRevenue}"></div>
+	<div class="bo-showpanel-overview" ng-repeat="event in [show]" ng-include-template="event_summary.html" ng-include-variables="{event: show, vm: vm, user: user, linked: true, noTitle: true, withRevenue: withRevenue}"></div>
 	<div ng-if="show.concerts" id="bo-sub-events{{show.id}}" class="bo-showpanel-concerts collapse">
 		<div class="bo-showpanel-concert" ng-repeat="concert in show.concerts">
-			<div ng-include-template="event_summary.html" ng-include-variables="{ event: concert, user: user, linked: true, withRevenue: withRevenue }"></div>
+			<div ng-include-template="event_summary.html" ng-include-variables="{ event: concert, vm: vm, user: user, linked: true, withRevenue: withRevenue }"></div>
 		</div>
 	</div>
 </div>
