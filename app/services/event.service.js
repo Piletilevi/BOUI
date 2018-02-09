@@ -6,9 +6,9 @@
         .module('boApp')
         .factory('eventService', EventService);
 
-    EventService.$inject = ['$rootScope', '$translate', 'dataService', '$filter', 'FileSaver', 'Blob'];
+    EventService.$inject = ['$rootScope', '$translate', 'dataService', '$filter', 'FileSaver', 'Blob', '$location'];
 
-    function EventService($rootScope, $translate, dataService, $filter, FileSaver, Blob) {
+    function EventService($rootScope, $translate, dataService, $filter, FileSaver, Blob, $location) {
 
         var myOpenEvents = null;
         var myDraftEvents = null;
