@@ -21,6 +21,9 @@
         vm.getMoreEvents = function () {
             eventService.getMoreEvents(vm.filter);
         };
+        vm.goToEvent = function () {
+            eventService.goToEvent(user.point,event.isShow,event.id);
+        }
 
         $scope.$watch(
             function () {
