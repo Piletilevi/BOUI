@@ -1,5 +1,5 @@
 <div class="bo-eventsummary" ng-class="{'bo-eventsummary-linked': linked}" data-event="{{event|json}}"
-	 ng-href="#/report/{{user.point}}/{{event.isShow ? 'show' : 'event'}}/{{event.id}}/">
+	 ng-click="goToEvent(user.point,event.isShow ? 'show' : 'event',event.id)">
 	<!-- title -->
 	<h3 ng-if="!noTitle" class="bo-eventsummary-title clearfix">
 		<!-- badge -->

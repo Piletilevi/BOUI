@@ -143,7 +143,8 @@
             getMoreBookingsData: getMoreBookingsData,
             getBookingStatuses: getBookingStatuses,
             getBookingTypes: getBookingTypes,
-			reloadEvent: reloadEvent
+			reloadEvent: reloadEvent,
+            goToEvent: goToEvent
         };
         return service;
 
@@ -171,6 +172,9 @@
             bookingId = null;
             bookingStatuses = null;
             bookingTypes = null;
+        }
+        function goToEvent(point,eventType,eventId) {
+            $location.url("#/report/" + point + "/" + eventType + "/" + eventId);
         }
 
         function getMyEvents(filter) {
