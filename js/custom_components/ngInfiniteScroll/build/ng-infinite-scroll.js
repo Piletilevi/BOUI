@@ -19,20 +19,9 @@ mod.directive('infiniteScroll', [
                 checkWhenEnabled = false;
                 if (attrs.infiniteScrollDisabled != null) {
                     scope.$watch(attrs.infiniteScrollDisabled, function(value) {
-                        console.log("ListenEvent: " + attrs.infiniteScrollDisabled);
-                        scrollEnabled = !value;
-                        if (scrollEnabled && checkWhenEnabled) {
-                            checkWhenEnabled = false;
-                            return handler();
-                        }
-                    });
-                }
-                if (attrs.infiniteScrollListenForEvent != null) {
-                    scope.$watch(attrs.infiniteScrollListenForEvent, function(value) {
-                        console.log("ListenEvent: " + attrs.infiniteScrollListenForEvent);
-                        var tryScroll = !value;
-                        if (tryScroll) {
-                            console.log("EventGo!");
+                        var noScroll = !value;
+                        console.log("ListenEvent: " + attrs.infiniteScrollDisabled + " - " + noScroll);
+                        if (!noScroll) {
                             return handler();
                         }
                     });
