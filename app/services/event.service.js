@@ -175,7 +175,6 @@
         }
 
         function goToEvent(pointId,event) {
-            console.log("GoToEvent");
             var eventType = function() {
                 if (event.isShow) {
                     return "show";
@@ -184,7 +183,7 @@
                     return "event";
                 }
             };
-            $window.location.href = "#/report/" + pointId + "/" + eventType + "/" + event.id;
+            $window.location.href = "#/report/" + pointId + "/" + eventType() + "/" + event.id;
         }
 
         function getMyEvents(filter) {
