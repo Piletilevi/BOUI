@@ -218,7 +218,7 @@
                 }
                 filter.loadingItems = false;
             });
-            getMoreEvents(filter);
+            $rootScope.$broadcast('checkInfiniteScroll');
         }
 
         function getMyEventsCount(filter) {
@@ -293,6 +293,7 @@
                     });
                 }
             }
+            $rootScope.$broadcast('checkInfiniteScroll');
         }
 
         function hasMoreRelatedEvents(event) {

@@ -28,7 +28,6 @@ mod.directive('infiniteScroll', [
                 }
                 handler = function() {
                     var shouldScroll = checkForScroll();
-                    console.log("Scroll:" + shouldScroll + "," + scrollEnabled);
                     if (shouldScroll && scrollEnabled) {
                         if ($rootScope.$$phase) {
                             return scope.$eval(attrs.infiniteScroll);
@@ -39,20 +38,6 @@ mod.directive('infiniteScroll', [
                         return checkWhenEnabled = true;
                     }
                 };
-                reCheck = function() {
-                    var shouldScroll = checkForScroll();
-                    if (shouldScroll && scrollEnabled) {
-                        $timeout((function () {
-                            if (attrs.infiniteScrollImmediateCheck) {
-                                if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
-                                    return handler();
-                                }
-                            } else {
-                                return handler();
-                            }
-                        }), 1000);
-                    }
-                };
                 checkForScroll = function() {
                     var windowBottom = $window.height() + $window.scrollTop();
                     var elementBottom = elem.offset().top + elem.height();
@@ -60,15 +45,23 @@ mod.directive('infiniteScroll', [
                     var shouldScroll = remaining >= 0;
                     return shouldScroll;
                 };
-                $window.on('load', function() {
-                    console.log("LoadOfWindow");
-                    return handler();
-                });
+                $window.on('load', handler);
                 $window.on('scroll', handler);
                 scope.$on('$destroy', function() {
                     return $window.off('scroll', handler);
                 });
-                return reCheck();
+                if (attrs.infiniteScrollListenForEvent != null) {
+                    scope.$on(attrs.infiniteScrollListenForEvent, handler);
+                }
+                return $timeout((function () {
+                    if (attrs.infiniteScrollImmediateCheck) {
+                        if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
+                            return handler();
+                        }
+                    } else {
+                        return handler();
+                    }
+                }), 0);
             }
         };
     }
