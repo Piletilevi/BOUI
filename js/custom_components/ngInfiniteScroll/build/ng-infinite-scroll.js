@@ -22,13 +22,15 @@ mod.directive('infiniteScroll', [
                         var noScroll = !value;
                         console.log("ListenEvent: " + attrs.infiniteScrollDisabled + " - " + noScroll);
                         if (!noScroll) {
+                            console.log("Scroll: " + scrollEnabled);
                             return handler();
                         }
                     });
                 }
                 handler = function() {
                     var shouldScroll = checkForScroll();
-                    if (shouldScroll && scrollEnabled) {
+                    if (shouldScroll && scrollEnabled)
+                        console.log("ScrollGO!");
                         if ($rootScope.$$phase) {
                             return scope.$eval(attrs.infiniteScroll);
                         } else {
