@@ -80,12 +80,6 @@ mod.directive('infiniteScroll', [
                 scope.$on('$destroy', function() {
                     return $window.off('scroll', handler);
                 });
-                if (attrs.infiniteScrollListenForEvent != null) {
-                    scope.$watch(attrs.infiniteScrollListenForEvent, function() {
-                        console.log("EventListen:" + attrs.infiniteScrollListenForEvent);
-                        return handler();
-                    });
-                }
                 return reCheck("first");
             }
         };

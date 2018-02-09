@@ -218,6 +218,7 @@
                 }
                 filter.loadingItems = false;
             });
+            getMoreEvents(filter);
         }
 
         function getMyEventsCount(filter) {
