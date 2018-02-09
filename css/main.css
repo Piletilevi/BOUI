@@ -148,6 +148,12 @@ a:hover {
 	border-bottom: 4px solid #fff;
 }
 
+.dropdown-toggle .fa-chevron-down {
+	font-size: 12px;
+	margin: 0;
+	margin-left: 4px;
+}
+
 /* LOGO
 ================================ */
 
@@ -285,10 +291,6 @@ a:hover {
 
 /* Language dropdown
 ================================ */
-
-.bo-language-dropdown .caret {
-	margin-left: 3px;
-}
 
 .bo-language-dropdown .dropdown-menu > li > a {
 	text-transform: capitalize;

@@ -438,7 +438,7 @@
 		display: inline-block;
 		vertical-align: middle;
 		line-height: 1;
-		text-align: right;
+		text-align: center;
 	}
 
 	li.header_message_link > a {

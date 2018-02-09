@@ -1,4 +1,7 @@
-<a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe"></i><span class="caret"></span></a>
+<a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+	<i class="fa fa-globe"></i>
+	<i class="fa fa-chevron-down"></i>
+</a>
 <ul class="dropdown-menu">
 	<li ng-repeat="lang in languages" ng-click="setLangValue(lang)"><a href>{{lang.code|lowercase}}</a></li>
 </ul>

@@ -1,7 +1,7 @@
 <a href="" class="dropdown-toggle bo-office-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 	<i class="fa fa-map-marker"></i>
 	<span>{{getPointName()}}</span>
-	<span class="caret"></span>
+	<i class="fa fa-chevron-down"></i>
 </a>
 <ul class="dropdown-menu">
 	<li ng-repeat="point in user.salesPoints" ng-click="setPoint(point.id)" ng-confirm-click="{{'api_clickConfirm'|translate}}" ng-confirm-description="api_clickConfirmDescription" ng-point-name="{{point.name}}">
