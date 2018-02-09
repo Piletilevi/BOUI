@@ -49,7 +49,7 @@
         {{events = vm.events[vm.tabActive]; ""}}
         <div>
             <div class="bo-events" id="scrollBlock" infinite-scroll="vm.getMoreEvents()" infinite-scroll-disabled="vm.filter.loadingItems"
-                infinite-scroll-listen-for-event="$root.eventsFilter">
+                infinite-scroll-listen-for-event="vm.eventService.getMyEvents">
                 <div ng-repeat="eventItem in events">
                     <div ng-if="!eventItem.isShow" class="panel panel-default">
                         <div ng-include-template="event_summary.html"

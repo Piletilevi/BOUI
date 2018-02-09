@@ -64,9 +64,12 @@ mod.directive('infiniteScroll', [
                 scope.$on('$destroy', function() {
                     return $window.off('scroll', handler);
                 });
-                scope.$watch('$rootScope.eventsFilter', function (newValue, oldValue) {
-                    return handler();
-                });
+                if (attrs.infiniteScrollListenForEvent != null) {
+                    scope.$watch(attrs.infiniteScrollListenForEvent, function(value) {
+                        console.log("EventListen");
+                        return handler();
+                    });
+                }
                 return $timeout((function() {
                     console.log("MainTimeoutForScroll");
                     if (attrs.infiniteScrollImmediateCheck) {
