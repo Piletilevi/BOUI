@@ -202,6 +202,7 @@
             filter.draftStart = null;
             filter.pastStart = null;
             filter.loadingItems = true;
+            filter.checkForEventScroll = false;
 
             getMyEventsCount(filter);
 
@@ -218,7 +219,7 @@
                 }
                 filter.loadingItems = false;
             });
-            $rootScope.$broadcast('checkInfiniteScroll');
+            filter.checkForEventScroll = true;
         }
 
         function getMyEventsCount(filter) {
@@ -256,6 +257,7 @@
             if (filter.status == 'onsale' && myOpenEvents != null) {
                 if (myOpenEvents.length % 5 == 0 && filter.openStart != myOpenEvents.length + 1) {
                     filter.loadingItems = true;
+                    filter.checkForEventScroll = false;
                     filter.openStart = myOpenEvents.length + 1;
                     dataService.post('myEvents', {filter: filter}).then(function (results) {
                         if (results.status == 'success') {
@@ -264,11 +266,13 @@
                             });
                         }
                         filter.loadingItems = false;
+                        filter.checkForEventScroll = true;
                     });
                 }
             } else if (filter.status == 'draft' && myDraftEvents != null) {
                 if (myDraftEvents.length % 5 == 0 && filter.draftStart != myDraftEvents.length + 1) {
                     filter.loadingItems = true;
+                    filter.checkForEventScroll = false;
                     filter.draftStart = myDraftEvents.length + 1;
                     dataService.post('myEvents', {filter: filter}).then(function (results) {
                         if (results.status == 'success') {
@@ -277,11 +281,13 @@
                             });
                         }
                         filter.loadingItems = false;
+                        filter.checkForEventScroll = true;
                     });
                 }
             } else if (filter.status == 'past' && myPastEvents != null) {
                 if (myPastEvents.length % 5 == 0 && filter.pastStart != myPastEvents.length + 1) {
                     filter.loadingItems = true;
+                    filter.checkForEventScroll = false;
                     filter.pastStart = myPastEvents.length + 1;
                     dataService.post('myEvents', {filter: filter}).then(function (results) {
                         if (results.status == 'success') {
@@ -290,10 +296,10 @@
                             });
                         }
                         filter.loadingItems = false;
+                        filter.checkForEventScroll = true;
                     });
                 }
             }
-            $rootScope.$broadcast('checkInfiniteScroll');
         }
 
         function hasMoreRelatedEvents(event) {
