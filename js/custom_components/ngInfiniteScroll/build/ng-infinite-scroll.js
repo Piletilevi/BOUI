@@ -27,6 +27,16 @@ mod.directive('infiniteScroll', [
                         }
                     });
                 }
+                if (attrs.infiniteScrollListenForEvent != null) {
+                    scope.$watch(attrs.infiniteScrollListenForEvent, function(value) {
+                        console.log("ListenEvent: " + attrs.infiniteScrollListenForEvent);
+                        var tryScroll = !value;
+                        if (tryScroll) {
+                            console.log("EventGo!");
+                            return handler();
+                        }
+                    });
+                }
                 handler = function() {
                     var shouldScroll = checkForScroll();
                     if (shouldScroll && scrollEnabled) {
@@ -51,16 +61,6 @@ mod.directive('infiniteScroll', [
                 scope.$on('$destroy', function() {
                     return $window.off('scroll', handler);
                 });
-                if (attrs.infiniteScrollListenForEvent != null) {
-                    $rootScope.$watch(attrs.infiniteScrollListenForEvent, function(value) {
-                        console.log("ListenEvent: " + attrs.infiniteScrollListenForEvent);
-                        var tryScroll = !value;
-                        if (tryScroll) {
-                            console.log("EventGo!");
-                            return handler();
-                        }
-                    }, true);
-                }
                 return $timeout((function () {
                     if (attrs.infiniteScrollImmediateCheck) {
                         if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
