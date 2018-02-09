@@ -19,6 +19,7 @@ mod.directive('infiniteScroll', [
                 checkWhenEnabled = false;
                 if (attrs.infiniteScrollDisabled != null) {
                     scope.$watch(attrs.infiniteScrollDisabled, function(value) {
+                        console.log("ListenEvent: " + attrs.infiniteScrollDisabled);
                         scrollEnabled = !value;
                         if (scrollEnabled && checkWhenEnabled) {
                             checkWhenEnabled = false;
