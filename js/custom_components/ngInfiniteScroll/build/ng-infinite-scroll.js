@@ -51,7 +51,10 @@ mod.directive('infiniteScroll', [
                     return $window.off('scroll', handler);
                 });
                 if (attrs.infiniteScrollListenForEvent != null) {
-                    scope.$on(attrs.infiniteScrollListenForEvent, handler);
+                    $rootScope.$on(attrs.infiniteScrollListenForEvent, function() {
+                        console.log("ListenEvent: " + attrs.infiniteScrollListenForEvent);
+                        return handler();
+                    });
                 }
                 return $timeout((function () {
                     if (attrs.infiniteScrollImmediateCheck) {
