@@ -175,6 +175,7 @@
         }
 
         function goToEvent(pointId,event) {
+            console.log("EventServiceGo");
             var eventType = function() {
                 if (event.isShow) {
                     return "show";

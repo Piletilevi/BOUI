@@ -22,6 +22,7 @@
             eventService.getMoreEvents(vm.filter);
         };
         vm.goToEvent = function (pointId,event) {
+            console.log("DashboardGo");
             eventService.goToEvent(pointId,event);
         }
 
