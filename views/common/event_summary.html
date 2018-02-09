@@ -27,7 +27,10 @@
 		<!-- stats -->
 		<div class="bo-eventsummary-stats clearfix">
 			<div class="bo-eventsummary-statslabels">
-				 <span class="bo-eventsummary-statslabelsicon glyphicon glyphicon-triangle-bottom text-danger"></span>&nbsp;<span class="bo-eventsummary-statlabel text-success">{{event.statistics.soldTickets || 0}}</span>&nbsp;/&nbsp;<span class="bo-eventsummary-statlabel text-warning">{{event.statistics.bookedTickets || 0}}</span>&nbsp;/&nbsp;<span class="bo-eventsummary-statlabel text-danger">{{event.statistics.availableTickets || 0}}</span>
+				<span class="bo-eventsummary-statlabel text-success">{{event.statistics.soldTickets || 0}}</span>&nbsp;/&nbsp;
+				<span class="bo-eventsummary-statlabel text-warning">{{event.statistics.bookedTickets || 0}}</span>&nbsp;/&nbsp;
+				<span class="bo-eventsummary-statlabel text-danger">{{event.statistics.availableTickets || 0}}</span>
+				<span class="bo-eventsummary-statslabelsicon" data-toggle="tooltip" data-placement="right" title="Sale status"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
 			</div>
 			<div class="bo-eventsummary-statsbar progress">
 				<div class="progress-bar progress-bar-success" ng-if="event.statistics.soldTickets" ng-attr-style="flex-grow: {{event.statistics.soldPercent}}" title="{{'api_overview_sold_total'|translate}}">&nbsp;{{event.statistics.soldTickets}}&nbsp;</div>

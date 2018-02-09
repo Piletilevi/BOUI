@@ -150,8 +150,7 @@ a:hover {
 
 .dropdown-toggle .fa-chevron-down {
 	font-size: 12px!important;
-	margin: 0;
-	margin-left: 4px;
+	margin: 0 0 0 4px!important;
 }
 
 /* LOGO
@@ -695,6 +694,17 @@ a:hover {
 .bo-eventsummary-stats .progress-bar {
 	font-size: 0.93em;
 	line-height: 1.14em;
+	-webkit-box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .15);
+	box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .15);
+}
+.bo-eventsummary-stats .progress-bar-success {
+	background-color: #58e393;
+}
+.bo-eventsummary-stats .progress-bar-warning {
+	background-color: #4ab1e2;
+}
+.bo-eventsummary-stats .progress-bar-danger {
+	background-color: #5e7287;
 }
 
 .bo-eventsummary-statslabels {
@@ -709,11 +719,27 @@ a:hover {
 	font-weight: bold;
 	margin: 0 7px;
 }
+.bo-eventsummary-statlabel text-success {
+	color: #41c271;
+}
+.bo-eventsummary-statlabel text-warning {
+	color: #4ab1e2;
+}
+.bo-eventsummary-statlabel text-danger {
+	color: #5e7287;
+}
 
 .bo-eventsummary-statslabelsicon {
-	display: inline-block;
-	font-size: 11px;
-	margin-left: 3px;
+	float: right;
+}
+.bo-eventsummary-statslabelsicon .fa-arrow-circle-down {
+	color: #ff4172;
+}
+.bo-eventsummary-statslabelsicon .fa-arrow-circle-up {
+	color: #41c271;
+}
+.bo-eventsummary-statslabelsicon .fa-minus-circle {
+	color: #7f8899;
 }
 
 .bo-eventsummary-totals {
