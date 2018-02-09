@@ -719,13 +719,13 @@ a:hover {
 	font-weight: bold;
 	margin: 0 7px;
 }
-.bo-eventsummary-statlabels .text-success {
+.bo-eventsummary-statslabels .text-success {
 	color: #41c271;
 }
-.bo-eventsummary-statlabels .text-warning {
+.bo-eventsummary-statslabels .text-warning {
 	color: #4ab1e2;
 }
-.bo-eventsummary-statlabels .text-danger {
+.bo-eventsummary-statslabels .text-danger {
 	color: #5e7287;
 }
 
