@@ -29,7 +29,7 @@ mod.directive('infiniteScroll', [
                 handler = function() {
                     var shouldScroll = checkForScroll();
                     if (shouldScroll && scrollEnabled) {
-                        reCheck;
+                        reCheck();
                         if ($rootScope.$$phase) {
                             return scope.$eval(attrs.infiniteScroll);
                         } else {
@@ -41,7 +41,7 @@ mod.directive('infiniteScroll', [
                 };
                 reCheck = function() {
                     return $timeout((function() {
-                        console.log("SecondaryTimeoutForScroll");
+                        console.log("TimeoutForScroll");
                         if (attrs.infiniteScrollImmediateCheck) {
                             if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
                                 return handler();
@@ -67,8 +67,8 @@ mod.directive('infiniteScroll', [
                     return $window.off('scroll', handler);
                 });
                 if (attrs.infiniteScrollListenForEvent != null) {
-                    scope.$watch(attrs.infiniteScrollListenForEvent, function(value) {
-                        console.log("EventListen");
+                    scope.$watch(attrs.infiniteScrollListenForEvent, function() {
+                        console.log("EventListen:" + attrs.infiniteScrollListenForEvent);
                         return handler();
                     });
                 }
