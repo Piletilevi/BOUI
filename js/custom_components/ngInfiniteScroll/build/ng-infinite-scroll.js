@@ -22,7 +22,7 @@ mod.directive('infiniteScroll', [
                         scrollEnabled = !value;
                         if (scrollEnabled && checkWhenEnabled) {
                             checkWhenEnabled = false;
-                            return handler();
+                            return handler;
                         }
                     });
                 }
@@ -34,10 +34,10 @@ mod.directive('infiniteScroll', [
                             console.log("SecondaryTimeoutForScroll");
                             if (attrs.infiniteScrollImmediateCheck) {
                                 if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
-                                    return handler();
+                                    return handler;
                                 }
                             } else {
-                                return handler();
+                                return handler;
                             }
                         }), 1000);
                         if ($rootScope.$$phase) {
@@ -56,9 +56,9 @@ mod.directive('infiniteScroll', [
                     var shouldScroll = remaining >= 0;
                     return shouldScroll;
                 };
-                $window.onload(function() {
+                $window.on('load', function() {
                     console.log("LoadOfWindow");
-                    handler();
+                    handler;
                 });
                 $window.on('scroll', handler);
                 if (scope.$eval(attrs.infiniteScrollListenForEvent)) {
@@ -71,10 +71,10 @@ mod.directive('infiniteScroll', [
                     console.log("MainTimeoutForScroll");
                     if (attrs.infiniteScrollImmediateCheck) {
                         if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
-                            return handler();
+                            return handler;
                         }
                     } else {
-                        return handler();
+                        return handler;
                     }
                 }), 0);
             }
