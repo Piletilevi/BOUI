@@ -187,7 +187,6 @@
         }
 
         function getMyEvents(filter) {
-            console.log("getMyEvents - eventService");
             if (filter.status == "onsale" && myOpenEvents != null) {
                 return;
             }
@@ -203,7 +202,7 @@
             filter.pastStart = null;
             filter.loadingItems = true;
             filter.checkForEventScroll = false;
-
+            console.log("getMyEvents - eventService1, " + filter.checkForEventScroll);
             getMyEventsCount(filter);
 
             dataService.post('myEvents', {filter: filter}).then(function (results) {
@@ -220,6 +219,7 @@
                 filter.loadingItems = false;
             });
             filter.checkForEventScroll = true;
+            console.log("getMyEvents - eventService2, " + filter.checkForEventScroll);
         }
 
         function getMyEventsCount(filter) {
