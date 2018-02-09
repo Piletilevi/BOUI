@@ -173,17 +173,18 @@
             bookingStatuses = null;
             bookingTypes = null;
         }
-        function goToEvent(point,isShow,eventId) {
+
+        function goToEvent(pointId,event) {
             console.log("GoToEvent");
             var eventType = function() {
-                if (isShow) {
+                if (event.isShow) {
                     return "show";
                 }
                 else {
                     return "event";
                 }
             };
-            $window.location.href = "#/report/" + point + "/" + eventType + "/" + eventId;
+            $window.location.href = "#/report/" + pointId + "/" + eventType + "/" + event.id;
         }
 
         function getMyEvents(filter) {
