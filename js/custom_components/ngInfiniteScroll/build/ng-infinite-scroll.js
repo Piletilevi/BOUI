@@ -61,7 +61,7 @@ mod.directive('infiniteScroll', [
                     handler();
                 });
                 $window.on('scroll', handler);
-                scope.$on(attr.infiniteScrollListenForEvent, handler);
+                scope.$on(attrs.infiniteScrollListenForEvent, handler);
                 scope.$on('$destroy', function() {
                     return $window.off('scroll', handler);
                 });
