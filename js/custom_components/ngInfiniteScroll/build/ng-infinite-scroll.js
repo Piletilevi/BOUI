@@ -29,7 +29,6 @@ mod.directive('infiniteScroll', [
                 handler = function() {
                     var shouldScroll = checkForScroll();
                     console.log("Scroll:" + shouldScroll + "," + scrollEnabled);
-                    reCheck("handler");
                     if (shouldScroll && scrollEnabled) {
                         if ($rootScope.$$phase) {
                             return scope.$eval(attrs.infiniteScroll);
@@ -40,12 +39,10 @@ mod.directive('infiniteScroll', [
                         return checkWhenEnabled = true;
                     }
                 };
-                reCheck = function(type) {
+                reCheck = function() {
                     var shouldScroll = checkForScroll();
-                    console.log("TimeoutForScroll" + type);
                     if (shouldScroll && scrollEnabled) {
                         $timeout((function () {
-                            console.log("TimeoutForScroll");
                             if (attrs.infiniteScrollImmediateCheck) {
                                 if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
                                     return handler();
@@ -54,15 +51,6 @@ mod.directive('infiniteScroll', [
                                 return handler();
                             }
                         }), 1000);
-                    }
-                    else if (type=="first") {
-                        if (attrs.infiniteScrollImmediateCheck) {
-                            if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
-                                return handler();
-                            }
-                        } else {
-                            return handler();
-                        }
                     }
                 };
                 checkForScroll = function() {
@@ -80,7 +68,7 @@ mod.directive('infiniteScroll', [
                 scope.$on('$destroy', function() {
                     return $window.off('scroll', handler);
                 });
-                return reCheck("first");
+                return reCheck();
             }
         };
     }
