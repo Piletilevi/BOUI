@@ -149,7 +149,7 @@ a:hover {
 }
 
 .dropdown-toggle .fa-chevron-down {
-	font-size: 12px;
+	font-size: 12px!important;
 	margin: 0;
 	margin-left: 4px;
 }

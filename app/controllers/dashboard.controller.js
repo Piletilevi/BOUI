@@ -19,7 +19,6 @@
         vm.tabActive = $routeParams.type ? $routeParams.type : 'onsale';
 
         vm.getMoreEvents = function () {
-            console.log("getMoreEventsController");
             eventService.getMoreEvents(vm.filter);
         };
         vm.goToEvent = function (pointId,event) {
