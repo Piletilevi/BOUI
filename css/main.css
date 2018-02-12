@@ -689,6 +689,9 @@ a:hover {
 	height: 1.21em;
 	margin: 0;
 	max-width: none;
+	background: #cdcdcd;
+	-webkit-box-shadow: inset 0 3px 0 rgba(0, 0, 0, .15);
+	box-shadow: inset 0 3px 0 rgba(0, 0, 0, .15);
 }
 
 .bo-eventsummary-stats .progress-bar {
@@ -838,8 +841,24 @@ a:hover {
 	color: #fff;
 }
 
+.bo-showpanel-concerts {
+	border-top: 2px solid #cdd2d8;
+	background-color: #f0f3f7;
+}
+
 .bo-showpanel-concert {
-	border-top: 1px solid #ddd;
+	border-top: 2px solid #cdd2d8;
+	-moz-box-shadow: 0px 0px 0px 1px #fff inset;
+	-webkit-box-shadow: 0px 0px 0px 1px #fff inset;
+	box-shadow: 0px 0px 0px 1px #fff inset;
+}
+
+.bo-showpanel-concert .bo-eventsummary-linked:hover {
+	background: #e9ecef;
+	cursor: pointer;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
 }
 
 .bo-showpanel-toggle {
@@ -850,36 +869,17 @@ a:hover {
 	display: block;
 }
 
-.bo-showpanel-toggle .badge {
-	background-color: #3584d9;
-	margin-top: -2px;
-	margin-left: 3px;
-	margin-right: 7px;
-}
-
-.bo-showpanel-toggle .glyphicon-triangle-top,
-.bo-showpanel-toggle .glyphicon-triangle-bottom {
-	font-size: 10px;
-	color: #7f8899;
-	padding-bottom: 5px;
-	vertical-align: middle;
-}
-
 .bo-showpanel-toggle:hover {
 	text-decoration: none;
-}
-
-.bo-showpanel-toggle:hover .fa {
-	color: #495057;
-}
-
-.bo-showpanel-toggle:hover .fa {
-	color: #495057;
 }
 
 .bo-showpanel-toggle .fa {
 	color: #7f8899;
 	vertical-align: middle;
+}
+
+.bo-showpanel-toggle:hover .fa {
+	color: #495057;
 }
 
 .bo-showpanel-toggle .fa-plus-square {
@@ -901,6 +901,9 @@ a:hover {
 	margin-right: 8px;
 	padding: 3px 8px;
 	padding-right: 9px;
+	line-height: 15px;
+	-webkit-box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .15);
+	box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .15);
 }
 
 /* Section-selector
@@ -1571,15 +1574,22 @@ button.bo-sectionselector-item.list-group-item {
 
 .boLightGamma .navbar {
 	background: #fff;
-	color: #000;
+	color: #5e7287;
 }
 
 .boLightGamma .navbar-nav > li > a {
-	color: #000;
+	color: #5e7287;
 }
 
 .boLightGamma .bo-user-name {
-	color: #000;
+	color: #5e7287;
+}
+
+.boLightGamma .navbar-inverse .navbar-nav > .open > a .bo-user-name,
+.boLightGamma .navbar-inverse .navbar-nav > .open > a:focus .bo-user-name,
+.boLightGamma .navbar-inverse .navbar-nav > .open > a:hover .bo-user-name {
+	color: #fff;
+	opacity: 1;
 }
 
 .boLightGamma .navbar-nav > li.active > a,
@@ -1587,11 +1597,13 @@ button.bo-sectionselector-item.list-group-item {
 .boLightGamma .navbar-nav > li.active > a:focus {
 	color: #fff;
 	background-color: #5e7287;
+	opacity: 1;
 }
 
 .boLightGamma .navbar-nav > li > a:hover,
 .boLightGamma .navbar-nav > li > a:focus {
-	color: #000;
+	color: #5e7287;
+	opacity: 1;
 }
 
 .boLightGamma .bo-pills-block {
@@ -1615,6 +1627,18 @@ button.bo-sectionselector-item.list-group-item {
 .boLightGamma .nav-pills > li.active > a:hover {
 	color: #fff;
 	opacity: 1;
+}
+
+.boLightGamma .navbar-inverse .navbar-nav > .open > a,
+.boLightGamma .navbar-inverse .navbar-nav > .open > a:focus,
+.boLightGamma .navbar-inverse .navbar-nav > .open > a:hover {
+	background: #5e7287;
+	color: #fff;
+	opacity: 1;
+}
+
+.boLightGamma .navbar.navbar-inverse {
+	border-bottom: 4px solid #5e7287;
 }
 
 /* Block ui
