@@ -83,11 +83,11 @@ $app->post('/setLanguage', function ($request, $response, $args) {
 
     if (!empty($json) ){
         $_SESSION['lang'] = $json->lang;
-		$response['status'] = "success";
-		$response['message'] = 'Language set successfully.';
+		$r['status'] = "success";
+		$r['message'] = 'Language set successfully.';
     } else {
-        $response['status'] = "failure";
-        $response['message'] = 'Language set unsuccessfully.';
+        $r['status'] = "failure";
+        $r['message'] = 'Language set unsuccessfully.';
     }
 
 	return $dataHandler->response($response, $r);
@@ -164,7 +164,7 @@ $app->post('/login', function ($request, $response, $args) {
 
     $piletileviApi = $this->piletileviApi;
     $userData = $piletileviApi->login($username, $password, $clientip);
-	
+
     if ($userData && $userData->valid == "true" && $userData->user) {
         $r['status'] = "success";
         $r['message'] = 'Logged in successfully.';
