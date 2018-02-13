@@ -47,6 +47,10 @@ a:hover {
 	display: inline-block;
 }
 
+.tooltip {
+	z-index: 999;
+}
+
 .extra_width_button {
 	min-width: 131px;
 }
