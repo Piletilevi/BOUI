@@ -16,11 +16,13 @@
             getPointName: getPointName,
             getPointCountryId: getPointCountryId,
             setPoint: setPoint,
+            setHideEvents: setHideEvents,
             getPointMenuBackgroundColor: getPointMenuBackgroundColor,
             getPointMenuActiveColor: getPointMenuActiveColor,
             getPointId: getPointId,
             getPointMenuLogo: getPointMenuLogo,
             getPointMenuGamma: getPointMenuGamma,
+            getPointAccentColor: getPointAccentColor,
             initialize: initialize
         };
         return service;
@@ -68,13 +70,28 @@
             $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
             $rootScope.eventLinks = getPointLinks();
             $rootScope.pointMenuGamma = getPointMenuGamma();
+            $rootScope.pointAccentColor = getPointAccentColor($rootScope.pointMenuGamma,$rootScope.pointMenuBackgroundColor);
+            if ($rootScope.hideEventsForPointInit == null) {
+                $rootScope.hideEventsForPointInit = setHideEvents();
+                $rootScope.hideEvents = $rootScope.hideEventsForPointInit;
+            }
 
             if (prevPoint !== pointId) {
+                $rootScope.hideEventsForPointInit = setHideEvents();
+                $rootScope.hideEvents = $rootScope.hideEventsForPointInit;
                 eventService.reset();
                 if ($location.path().indexOf("dashboard") == -1) {
                     $location.path('dashboard');
                 }
             }
+        }
+
+        function getPointAccentColor(pointGamma,pointColor) {
+            var accentColor = pointColor;
+            if (pointGamma) {
+                accentColor = "#5e7287";
+            }
+            return accentColor;
         }
 
         function getPointMenuGamma() {
@@ -159,9 +176,83 @@
             return [];
         }
 
+        function getParameter(parameters, name) {
+            var parameter = null;
+            angular.forEach(parameters, function(param) {
+                if (param.name === name) {
+                    parameter = param;
+                }
+            });
+            return parameter;
+        }
+
+        function setHideEvents() {
+            var hideEvents = false;
+            if ($rootScope.user.salesPoints.find(findPoint).country !== $rootScope.user.salesPoints.find(findPoint).id) {
+                return hideEvents;
+            }
+            var settings = getPointSettings();
+            if (settings != null) {
+                var setting = settings.find(getHideEvents);
+                if (setting != null) {
+                    if (setting.value == "true") {
+                        hideEvents = true;
+                    }
+                }
+                if (hideEvents) {
+                    if($rootScope.user && $rootScope.user.roles) {
+                        hideEvents = false;
+                        angular.forEach($rootScope.user.roles, function(role) {
+                            if (role.name === "api_hideEvents" && role.fullAccess === true) {
+                                hideEvents = true;
+                            }
+                        });
+                    }
+                }
+            }
+            return hideEvents;
+        }
+        function getHideEvents(setting) {
+            if (setting != null) {
+                return setting.name === "api_hideEventsOnStart";
+            }
+            return;
+        }
+
         function initialize() {
             $rootScope.getPointName = getPointName;
             $rootScope.setPoint = setPoint;
+            $rootScope.getLogicalPointParam = function(name) {
+                var hasCentreParam = false;
+                if($rootScope.user && $rootScope.user.salesPoints) {
+                    var parameters = $rootScope.user.salesPoints.find(findPoint).parameters;
+                    if (parameters != null) {
+                        var parameter = getParameter(parameters, name);
+                        if (parameter != null) {
+                            if (parameter.value == "true") {
+                                hasCentreParam = true;
+                            }
+                        }
+                    }
+                }
+                return hasCentreParam;
+            };
+            $rootScope.getValuePointParam = function(name) {
+                var hasCentreParam = "";
+                if($rootScope.user && $rootScope.user.salesPoints) {
+                    var parameters = $rootScope.user.salesPoints.find(findPoint).parameters;
+                    if (parameters != null) {
+                        var parameter = getParameter(parameters, name);
+                        if (parameter != null) {
+                            if (parameter.value != null) {
+                                hasCentreParam = parameter.value;
+                            }
+                        }
+                    }
+                }
+                return hasCentreParam;
+            };
+
         }
     }
 })();

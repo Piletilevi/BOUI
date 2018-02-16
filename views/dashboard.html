@@ -24,7 +24,7 @@
 
     <div class="bo-tabs-holder">
         <ul class="nav nav-tabs" role="tablist" id="myeventstab">
-            <li ng-class="{'active': vm.tabActive == 'onsale'}"
+            <li ng-class="{'active': vm.tabActive == 'onsale' }"
                 ng-show="hasFullAccess('api_reports_dashboard_tab_on_sale')">
                 <a href="#/dashboard/onsale">{{'api_on_sale'|translate}}
                     <span class="badge">{{vm.salesCount}}</span></a></li>
@@ -66,7 +66,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="events-loader" block-ui block-ui-pattern="/myEvents/"></div>

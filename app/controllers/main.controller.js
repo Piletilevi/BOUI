@@ -76,10 +76,14 @@
         vm.search = function () {
             if (vm.reset_search) {
                 vm.filter.name = '';
+                $rootScope.hideEvents = $rootScope.hideEventsForPointInit;
                 vm.reset_search = false;
             }
             else {
                 vm.reset_search = true;
+                if ($rootScope.hideEventsForPointInit) {
+                    $rootScope.hideEvents = false;
+                }
             }
             assingEventsFilter();
         };

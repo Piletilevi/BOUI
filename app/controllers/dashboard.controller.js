@@ -23,7 +23,10 @@
         };
         vm.goToEvent = function (pointId,event) {
             eventService.goToEvent(pointId,event);
-        }
+        };
+        vm.getEventSales = function (event) {
+            eventService.getEventSales(event);
+        };
 
         $scope.$watch(
             function () {
@@ -63,6 +66,9 @@
                 if (angular.isUndefined(vm.filter)) {
                     vm.filter = angular.copy($rootScope.eventsFilter);
                     vm.filter.status = vm.tabActive;
+                    if (vm.filter.name == '') {
+                        $rootScope.hideEvents = $rootScope.hideEventsForPointInit;
+                    }
                     eventService.getMyEvents(vm.filter);
                 }
             }
