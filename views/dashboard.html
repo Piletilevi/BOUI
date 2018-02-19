@@ -26,16 +26,28 @@
         <ul class="nav nav-tabs" role="tablist" id="myeventstab">
             <li ng-class="{'active': vm.tabActive == 'onsale' }"
                 ng-show="hasFullAccess('api_reports_dashboard_tab_on_sale')">
-                <a href="#/dashboard/onsale">{{'api_on_sale'|translate}}
-                    <span class="badge">{{vm.salesCount}}</span></a></li>
+                <a href="#/dashboard/onsale">
+                    <i class="fa fa-ticket"></i>
+                    {{'api_on_sale'|translate}}
+                    <span class="badge">{{vm.salesCount}}</span>
+                </a>
+            </li>
             <li ng-class="{'active': vm.tabActive == 'draft'}"
                 ng-show="hasFullAccess('api_reports_dashboard_tab_not_active')">
-                <a href="#/dashboard/draft">{{'api_draft'|translate}}
-                    <span class="badge">{{vm.draftCount}}</span></a></li>
+                <a href="#/dashboard/draft">
+                    <i class="fa fa-pencil"></i>
+                    {{'api_draft'|translate}}
+                    <span class="badge">{{vm.draftCount}}</span>
+                </a>
+            </li>
             <li ng-class="{'active': vm.tabActive == 'past'}"
                 ng-show="hasFullAccess('api_reports_dashboard_tab_past')">
-                <a href="#/dashboard/past">{{'api_past'|translate}}
-                    <span class="badge">{{vm.pastCount}}</span></a></li>
+                <a href="#/dashboard/past">
+                    <i class="fa fa-history"></i>
+                    {{'api_past'|translate}}
+                    <span class="badge">{{vm.pastCount}}</span>
+                </a>
+            </li>
         </ul>
         <div id="onSaleToggler" class="bo-top-filter-toggler" ng-if="vm.tabActive === 'onsale'">
             <div class="input-group input-group-lg">
