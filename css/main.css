@@ -47,6 +47,11 @@ a:hover {
 	display: inline-block;
 }
 
+.nav-tabs .badge {
+	margin: 0;
+	padding: 3px 4px;
+}
+
 .tooltip {
 	z-index: 999;
 }
