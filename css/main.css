@@ -47,6 +47,15 @@ a:hover {
 	display: inline-block;
 }
 
+.nav-tabs .badge {
+	margin: 0;
+	padding: 3px 4px;
+}
+
+.tooltip {
+	z-index: 999;
+}
+
 .extra_width_button {
 	min-width: 131px;
 }
@@ -895,6 +904,41 @@ a:hover {
 }
 
 .bo-showpanel-toggle .badge {
+	color: #fff;
+	background-color: #3584d9;
+	margin: 2px;
+	margin-right: 8px;
+	padding: 3px 8px;
+	padding-right: 9px;
+	line-height: 15px;
+	-webkit-box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .15);
+	box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .15);
+}
+
+/* Relatedpanel
+================================ */
+.bo-relatedpanel-show {
+	border-bottom: 2px solid #cdd2d8!important;
+}
+
+.bo-relatedpanel-concert {
+	background-color: #f0f3f7;
+	border: 0!important;
+	border-top: 2px solid #cdd2d8!important;
+	-moz-box-shadow: 0px 0px 0px 1px #fff inset;
+	-webkit-box-shadow: 0px 0px 0px 1px #fff inset;
+	box-shadow: 0px 0px 0px 1px #fff inset;
+}
+
+.bo-relatedpanel-concert .bo-eventsummary-linked:hover {
+	background: #e9ecef;
+	cursor: pointer;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.bo-relatedpanel .panel-heading .badge {
 	color: #fff;
 	background-color: #3584d9;
 	margin: 2px;

@@ -19,7 +19,8 @@
         'ngLocationUpdate',
 		'ngFileSaver',
         '720kb.datepicker',
-        'angucomplete-alt'
+        'angucomplete-alt',
+        'ui.bootstrap'
     ]);
     angular.module('boApp').config(function(blockUIConfig) {
         blockUIConfig.autoInjectBodyBlock = false;

@@ -145,6 +145,10 @@
         eventService.getEventSales(vm.event);
         eventService.getRelatedEvents(vm.event);
 
+        vm.goToEvent = function (pointId,event) {
+            eventService.goToEvent(pointId,event);
+        }
+
         vm.reloadEvent = function () {
             eventService.reloadEvent(vm.event);
         }

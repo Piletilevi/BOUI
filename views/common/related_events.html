@@ -1,11 +1,13 @@
 <div class="col-md-3 bo-sidebar" ng-if="related && related.id" block-ui block-ui-pattern="/relatedEvents/">
-	<div class="panel panel-default bo-onsale">
+	<div class="panel panel-default bo-onsale bo-relatedpanel">
 		<div class="panel-heading">
 			<span class="badge" ng-if="related.concertsCount">{{related.concertsCount}}</span> {{related.name}}
 		</div>
 		<ul class="list-group">
-			<li class="list-group-item" ng-include-template="event_summary.html" ng-include-variables="{ event: related, user: user, linked: true, noTitle: true, withRevenue: hasFullAccess('api_reports_revenue') }"></li>
-			<li class="list-group-item" ng-repeat="concertItem in related.concerts" ng-include-template="event_summary.html" ng-include-variables="{ event: concertItem, user: user, linked: true, withRevenue: hasFullAccess('api_reports_revenue') }"></li>
+			<li class="list-group-item bo-relatedpanel-show" ng-include-template="event_summary.html"
+				ng-include-variables="{ event: related, vm: vm, user: user, linked: true, noTitle: true, withRevenue: hasFullAccess('api_reports_revenue') }"></li>
+			<li class="list-group-item bo-relatedpanel-concert" ng-repeat="concertItem in related.concerts" ng-include-template="event_summary.html"
+				ng-include-variables="{ event: concertItem, vm: vm, user: user, linked: true, withRevenue: hasFullAccess('api_reports_revenue') }"></li>
 			<li class="list-group-item" ng-if="vm.hasMoreRelatedEvents(related)">
 				<a class="bo-onsale-viewall" href ng-click="vm.getMoreRelatedEvents(vm.event)">{{'api_view_all_events_on_sale'|translate}}</a>
 			</li>

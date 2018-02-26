@@ -202,6 +202,10 @@
             filter.pastStart = null;
             filter.loadingItems = true;
             getMyEventsCount(filter);
+            if ($rootScope.hideEvents) {
+                $rootScope.hideEvents = false;
+                return;
+            }
 
             dataService.post('myEvents', {filter: filter}).then(function (results) {
                 dataService.page(results);
@@ -244,8 +248,15 @@
         }
 
         function getMoreEvents(filter) {
-            if (filter.loadingItems)
+            if (filter == null) {
                 return;
+            }
+            if (filter.loadingItems) {
+                return;
+            }
+            if ($rootScope.hideEvents) {
+                return;
+            }
 
             if (filter.status == 'onsale' && myOpenEvents != null) {
                 if (myOpenEvents.length % 5 == 0 && filter.openStart != myOpenEvents.length + 1) {
@@ -254,7 +265,9 @@
                     dataService.post('myEvents', {filter: filter}).then(function (results) {
                         if (results.status == 'success') {
                             results.data.forEach(function (eventItem) {
-                                myOpenEvents.push(eventItem);
+                                if (myOpenEvents !== null ) {
+                                    myOpenEvents.push(eventItem);
+                                }
                             });
                         }
                         filter.loadingItems = false;
@@ -267,7 +280,9 @@
                     dataService.post('myEvents', {filter: filter}).then(function (results) {
                         if (results.status == 'success') {
                             results.data.forEach(function (eventItem) {
-                                myDraftEvents.push(eventItem);
+                                if (myDraftEvents !== null ) {
+                                    myDraftEvents.push(eventItem);
+                                }
                             });
                         }
                         filter.loadingItems = false;
@@ -280,7 +295,9 @@
                     dataService.post('myEvents', {filter: filter}).then(function (results) {
                         if (results.status == 'success') {
                             results.data.forEach(function (eventItem) {
-                                myPastEvents.push(eventItem);
+                                if (myPastEvents !== null ) {
+                                    myPastEvents.push(eventItem);
+                                }
                             });
                         }
                         filter.loadingItems = false;
@@ -327,8 +344,10 @@
                 type: event.isShow ? 'show' : 'concert'
             }).then(function (results) {
                 relatedEvents = null;
-                if (results.status == 'success') {
-                    relatedEvents = results.data;
+                if (results!==undefined) {
+                    if (results.status == 'success') {
+                        relatedEvents = results.data;
+                    }
                 }
             });
         }
