@@ -344,8 +344,10 @@
                 type: event.isShow ? 'show' : 'concert'
             }).then(function (results) {
                 relatedEvents = null;
-                if (results.status == 'success') {
-                    relatedEvents = results.data;
+                if (results!==undefined) {
+                    if (results.status == 'success') {
+                        relatedEvents = results.data;
+                    }
                 }
             });
         }

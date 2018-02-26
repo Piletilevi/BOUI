@@ -10,50 +10,71 @@
 
   function GraphService(colorService, $translate) {
     var defaultLineGraph = {
-      labels: null,
-      series: [],
-      data: null,
-      colors: [],
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [{
-            stacked: true,
-            ticks: {
-              maxTicksLimit: 3
-            }
-          }],
-          xAxes: [{
-            ticks: {
-              maxTicksLimit: 9,
-              maxRotation: 0,
-              minRotation: 0
+        labels: null,
+        series: [],
+        data: null,
+        colors: [],
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    stacked: false,
+                    ticks: {
+                        maxTicksLimit: 3
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        maxTicksLimit: 9,
+                        maxRotation: 0,
+                        minRotation: 0
+                    },
+                    gridLines: {
+                        display: false
+                    }
+                }]
             },
-            gridLines: {
-              display: false
+            legend: {
+                display: true,
+                labels: {
+                    usePointStyle: true,
+                    generateLabels: function(chart) {
+                        var data = chart.data;
+                        if (data.datasets.length) {
+                            return data.datasets.map(function(legend, i) {
+                                return {
+                                    text: legend.label,
+                                    fillStyle: legend.pointBackgroundColor,
+                                    lineWidth: 0,
+                                    strokeStyle: legend.pointBackgroundColor,
+                                    pointStyle: 'rectRounded'
+                                };
+                            });
+                        }
+                        return [];
+                    }
+                }
+            },
+            elements: {
+                point: {
+                    radius: 5,
+                    hoverRadius: 6,
+                    hitRadius: 2,
+                    pointStyle: 'rectRounded',
+                    borderWidth: 0,
+                    hoverBorderWidth: 0
+                },
+                line: {
+                    fill: false
+                }
+            },
+            tooltips: {
+                backgroundColor: '#000',
+                bodyFontColor: '#fff',
+                titleFontColor: '#fff'
             }
-          }]
-        },
-        legend: {
-          display: true,
-          labels: {
-            boxWidth: 13
-          }
-        },
-        elements: {
-          point: {
-            radius: 3,
-            hoverRadius: 3,
-            hitRadius: 5
-          }
-        },
-        tooltips: {
-          backgroundColor: '#fff',
-          bodyFontColor: '#000',
-          titleFontColor: '#000'
         }
-      }
     };
 
     var defaultBarGraph = {
@@ -95,18 +116,18 @@
     };
 
     var defaultPieGraph = {
-      labels: null,
-      data: null,
-      options: {
-        legend: {
-          display: false
-        },
-        tooltips: {
-          backgroundColor: '#fff',
-          bodyFontColor: '#000',
-          titleFontColor: '#000'
+        labels: null,
+        data: null,
+        options: {
+            legend: {
+                display: false
+            },
+            tooltips: {
+                backgroundColor: '#000',
+                bodyFontColor: '#fff',
+                titleFontColor: '#fff'
+            }
         }
-      }
     };
 
     var service;
@@ -145,7 +166,6 @@
     });
 
     service.priceclassLineGraph = angular.copy(service.pricetypeLineGraph);
-
     return service;
 
     function reset() {
@@ -182,7 +202,11 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
-        var stats = new GraphStats(newValue.sales);
+          var filterType = {
+              filterArray: newValue.types,
+              compareField: 'saleType'
+          };
+        var stats = new GraphStats(newValue.sales, filterType, filter);
         newValue.types.forEach(function (type) {
           var dataItem = [];
           newValue.sales.forEach(function (sale) {
@@ -414,8 +438,11 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
-
-        var stats = new GraphStats(newValue.sales);
+      var filterType = {
+          filterArray: ids,
+          compareField: 'priceType'
+      };
+        var stats = new GraphStats(newValue.sales, filterType, filter);
         ids.forEach(function (idItem) {
           var dataItem = [];
 
@@ -564,7 +591,11 @@
             labels.push(moment(firstDayOfMonth).format('DD.MM.YYYY') + " - " + moment(firstDayNextMonth).subtract(1, 'days').format('DD.MM.YYYY'));
           }
         });
-        var stats = new GraphStats(newValue.sales);
+          var filterType = {
+              filterArray: series,
+              compareField: 'priceClass'
+          };
+        var stats = new GraphStats(newValue.sales, filterType, filter);
 
         series.forEach(function (seriesItem) {
           var dataItem = [];
@@ -608,37 +639,59 @@
       }
     }
 
-    function GraphStats(salesData) {
+    function GraphStats(salesData, filterData, filter) {
       var positiveMax;
       var negativeMin;
       this.getStatsMax = function () {
 		  if (!positiveMax){
-			  calculateStats();
+			  calculateStats(filter);
 		  }
         return positiveMax;
       };
       this.getStatsMin = function () {
 		  if (!negativeMin){
-			  calculateStats();
+			  calculateStats(filter);
 		  }
         return negativeMin;
       };
 		var calculateStats = function(){
 			positiveMax = 0;
 			negativeMin = 0;
-			salesData.forEach(function (sale) {
-				var columnPositiveSum = 0;
-				var columnNegativeSum = 0;
-				sale.sellTypes.forEach(function (saleType) {
-					if (saleType.rowCount > 0){
-						columnPositiveSum += saleType.rowCount ;
-					}else {
-						columnNegativeSum += saleType.rowCount;
-					}
-				});
-				positiveMax = Math.max(columnPositiveSum, positiveMax);
-				negativeMin = Math.min(columnNegativeSum, negativeMin);
-			});
+            filterData.filterArray.forEach(function (arrayElement) {
+                salesData.forEach(function (sale) {
+                    sale.sellTypes.forEach(function (saleType) {
+                        var compareField;
+                        var arrayValue = arrayElement;
+                        if (filterData.compareField == 'saleType') {
+                            compareField = saleType.type;
+                            arrayValue = arrayElement.type;
+                        } else if (filterData.compareField == 'priceType') {
+                            compareField = saleType.priceTypeId;
+                        } else if (filterData.compareField == 'priceClass') {
+                            compareField = saleType.priceClassName;
+                        }
+                        if (compareField == arrayValue) {
+                            var columnPositiveSum = 0;
+                            var columnNegativeSum = 0;
+                            if (filter.display == 'tickets') {
+                                if (saleType.rowCount > 0) {
+                                    columnPositiveSum = saleType.rowCount;
+                                } else {
+                                    columnNegativeSum = saleType.rowCount;
+                                }
+                            } else {
+                                if (saleType.rowSum > 0) {
+                                    columnPositiveSum = saleType.rowSum;
+                                } else {
+                                    columnNegativeSum = saleType.rowSum;
+                                }
+                            }
+                            positiveMax = Math.max(columnPositiveSum, positiveMax);
+                            negativeMin = Math.min(columnNegativeSum, negativeMin);
+                        }
+                    });
+                });
+            });
 		}
     }
   }
