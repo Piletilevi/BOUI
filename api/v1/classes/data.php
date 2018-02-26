@@ -153,6 +153,12 @@ class DataHandler {
 		return $response->withHeader('Content-Type', 'application/pdf')
 						->write($data);
 	}
+
+	public function responseAsPdfAttachment($response, $filename, $data) {
+		return $response->withHeader('Content-Type', 'application/pdf')
+					    ->withHeader('Content-Disposition', 'attachment; filename="'.$filename.'"')
+						->write($data);
+	}
 	
 	private function getTokens() {
 		return $this->settings["tokens"];

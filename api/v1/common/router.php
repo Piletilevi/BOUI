@@ -2112,18 +2112,94 @@ $app->post('/reloadShow', function ($request, $response, $args)  {
 
 $app->get('/ticketDownload', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
-
-	$validationErrors = $dataHandler->verifyParams(array('fnr', 'hash'), $request->getParams());
+	
+	$parameters = $request->getParams();
+	$ticket = $request->getParam("ticket");
+	$busin = $request->getParam("busin");
+	
+	if ($ticket) {
+		$validationErrors = $dataHandler->verifyParams(array('ticket', 'chtmp', 'hash'), $parameters);
+	} else if ($busin) {
+		$validationErrors = $dataHandler->verifyParams(array('busin', 'hash'), $parameters);
+	} else {
+		$validationErrors = $dataHandler->verifyParams(array('fnr', 'hash'), $parameters);
+	}
 	if ($validationErrors != null) {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
-
+	
 	$fnr = $request->getParam("fnr");
+	$chtmp = $request->getParam("chtmp");
+	$hash = $request->getParam("hash");
+	$language = $request->getParam("language");
+
+	$filename = 'tickets-';
+
+	$filter = array();
+	if ($fnr) {
+		$filter['fnr'] = $fnr;
+		$filename .= $fnr;
+	}
+	if ($ticket) {
+		$filter['ticket'] = $ticket;
+		$filename .= $ticket;
+	}
+	if ($busin) {
+		$filter['busin'] = $busin;
+		$filename .= $ticket;
+	}
+	if ($chtmp) {
+		$filter['chtmp'] = $chtmp;
+	}
+	$filter['hash'] = $hash;
+	if ($language) {
+		$filter['language'] = $language;
+	}
+
+	$filename .= '.pdf';
+	
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->downloadTicket( $filter );
+	
+	return $dataHandler->responseAsPdfAttachment($response, $filename, $reportResponse);
+});
+
+$app->get('/ticketOpen', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+	
+	$parameters = $request->getParams();
+	$ticket = $request->getParam("ticket");
+	$busin = $request->getParam("busin");
+	
+	if ($ticket) {
+		$validationErrors = $dataHandler->verifyParams(array('ticket', 'chtmp', 'hash'), $parameters);
+	} else if ($busin) {
+		$validationErrors = $dataHandler->verifyParams(array('busin', 'hash'), $parameters);
+	} else {
+		$validationErrors = $dataHandler->verifyParams(array('fnr', 'hash'), $parameters);
+	}
+	if ($validationErrors != null) {
+		return $dataHandler->response($response, $validationErrors, 401);
+	}
+	
+	$fnr = $request->getParam("fnr");
+	$chtmp = $request->getParam("chtmp");
 	$hash = $request->getParam("hash");
 	$language = $request->getParam("language");
 
 	$filter = array();
-	$filter['fnr'] = $fnr;
+	if ($fnr) {
+		$filter['fnr'] = $fnr;
+	}
+	if ($ticket) {
+		$filter['ticket'] = $ticket;
+	}
+	if ($busin) {
+		$filter['busin'] = $busin;
+	}
+	if ($chtmp) {
+		$filter['chtmp'] = $chtmp;
+	}
 	$filter['hash'] = $hash;
 	if ($language) {
 		$filter['language'] = $language;
