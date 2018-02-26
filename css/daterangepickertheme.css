@@ -12,7 +12,11 @@
 .daterangepicker.ltr .calendar {
 	float: none;
 	display: inline-block;
-	vertical-align: bottom;
+	vertical-align: middle;
+}
+
+.daterangepicker .single .calendar {
+	display: block;
 }
 
 .daterangepicker .table-condensed > thead > tr > td,
@@ -101,7 +105,7 @@
 
 .daterangepicker .calendar-links {
 	font-size: 14px;
-	margin-bottom: 11px;
+	margin-bottom: 5px;
 	color: #b7b7b9;
 }
 
@@ -119,6 +123,10 @@
 	display: inline-block;
 	text-align: right;
 	vertical-align: middle;
+}
+
+.daterangepicker .single .daterangepicker_input {
+	display: block;
 }
 
 .daterangepicker .daterangepicker_input:first-child {
@@ -144,6 +152,8 @@
 	width: 6%;
 	text-align: center;
 	vertical-align: middle;
+	margin-bottom: 5px;
+	color: #cdd2d8;
 }
 
 .daterangepicker .compare_checkbox_block {
@@ -170,7 +180,6 @@
 .daterangepicker.ltr .ranges {
 	font-size: 14px;
 	width: 230px;
-	padding-top: 8px;
 	float: none;
 	margin-left: 0;
 	margin-right: 0;
@@ -179,7 +188,7 @@
 
 .daterangepicker .third_block {
 	display: inline-block;
-	vertical-align: bottom;
+	vertical-align: middle;
 	width: auto;
 	padding-right: 12px;
 	padding-left: 5px;
@@ -233,6 +242,7 @@
 }
 
 .daterangepicker_input_wrapper {
+	margin-top: 15px;
 	width: 100%;
 }
 
