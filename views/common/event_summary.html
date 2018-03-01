@@ -51,11 +51,11 @@
 			</div>
 		</div>
 		<div class="bo-eventsummary-totals clearfix">
-			<div class="bo-eventsummary-revenue pull-right" ng-if="withRevenue">
-				{{event.statistics.soldSumma | number:2 }} {{event.statistics.currency}}
-			</div>
 			<div class="bo-eventsummary-soldpct">
 				{{event.statistics.soldPercent || 0}}%
+			</div>
+			<div class="bo-eventsummary-revenue" ng-if="withRevenue">
+				{{event.statistics.soldSumma | number:2 }} {{event.statistics.currency}}
 			</div>
 		</div>
 	</div>

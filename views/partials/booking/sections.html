@@ -8,7 +8,9 @@
                                ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
                                ng-attr-data-min-date="{{vm.minFilterDate}}"
                                ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        <span class="icon-holder">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
                     </button>
                 </div>
             </div>
@@ -16,7 +18,7 @@
                 <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
                     <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <span>{{vm.sectorsFilter.centerName ? vm.sectorsFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
-                        <span class="caret"></span>
+                        <i class="fa fa-chevron-down"></i>
                     </button>
                     <ul class="dropdown-menu">
                         <li>
@@ -49,7 +51,7 @@
         </div>
     </div>
 
-    <div class="row" ng-if="vm.mySectorsData.sales.length > 0">
+    <div ng-if="vm.mySectorsData.sales.length > 0" class="bo-tabs-content row">
         <div class="col-md-6 col-lg-5">
             <div class="bo-sectionselector list-group" ng-if="vm.mySectorsData.sales.length">
                 <button type="button" class="bo-sectionselector-item list-group-item"

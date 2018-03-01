@@ -51,32 +51,38 @@
                 accessRight: 'api_reports_overview',
                 name: 'overview',
                 translationCode: 'api_overview',
+                icon: 'fa-area-chart',
             },
             {
                 accessRight: 'api_reports_pricetype',
                 name: 'pricetype',
                 translationCode: 'api_by_pricetype',
+                icon: 'fa-tags',
             },
             {
                 accessRight: 'api_reports_priceclass',
                 name: 'priceclass',
                 translationCode: 'api_by_priceclass',
+                icon: 'fa-cube',
             },
             {
                 accessRight: 'api_reports_sections',
                 name: 'sections',
                 translationCode: 'api_by_sectors',
+                icon: 'fa-th',
                 hiddenInShows: true,
             },
             {
                 accessRight: 'api_reports_locations',
                 name: 'locations',
                 translationCode: 'api_by_locations',
+                icon: 'fa-map',
             },
             {
                 accessRight: 'api_reports_reservations',
                 name: 'bookings',
                 translationCode: 'api_bookings',
+                icon: 'fa-book',
             },
         ];
         vm.activeTabs = [];
@@ -1081,9 +1087,13 @@
         });
 
         $scope.$watch('vm.bookingFilter', function (newFilter, oldFilter) {
-            if (oldFilter &&
-                (!angular.equals(newFilter.period, oldFilter.period) || !angular.equals(newFilter.clientName, oldFilter.clientName) || !angular.equals(newFilter.bookingNr, oldFilter.bookingNr) || !angular.equals(newFilter.statusId, oldFilter.statusId) || !angular.equals(newFilter.typeId, oldFilter.typeId)
-                )) {
+            if (oldFilter && (
+                    !angular.equals(newFilter.period, oldFilter.period) ||
+                    !angular.equals(newFilter.clientName, oldFilter.clientName) ||
+                    !angular.equals(newFilter.bookingNr, oldFilter.bookingNr) ||
+                    !angular.equals(newFilter.statusId, oldFilter.statusId) ||
+                    !angular.equals(newFilter.typeId, oldFilter.typeId
+                ))) {
                 $rootScope.bookingSuccessAlert = false;
                 eventService.getBookingsData(vm.bookingFilter);
             }

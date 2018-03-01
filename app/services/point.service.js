@@ -126,7 +126,7 @@
                     return setting.value;
                 }
             }
-            return "";
+            return "#5e7287";
         }
 
         function getPointMenuActiveColor() {

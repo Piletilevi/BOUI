@@ -58,12 +58,12 @@
 						modalContentElement.appendChild(modalFooterElement);
 
 						var modalFooterSendElement = document.createElement('button');
-						modalFooterSendElement.className = 'btn btn-success bo-confirm-modal-submit';
+						modalFooterSendElement.className = 'btn btn-default bo-confirm-modal-submit';
 						modalFooterSendElement.innerHTML = $translate.instant('api_send');
 						modalFooterElement.appendChild(modalFooterSendElement);
 
 						var modalFooterCloseElement = document.createElement('button');
-						modalFooterCloseElement.className = 'btn btn-success bo-confirm-modal-close';
+						modalFooterCloseElement.className = 'btn btn-default bo-confirm-modal-close';
 						modalFooterCloseElement.innerHTML = $translate.instant('api_cancel');
 						modalFooterElement.appendChild(modalFooterCloseElement);
 

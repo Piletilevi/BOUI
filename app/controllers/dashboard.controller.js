@@ -27,6 +27,9 @@
         vm.getEventSales = function (event) {
             eventService.getEventSales(event);
         };
+        vm.switchGrouping = function (value) {
+            vm.filter.groupByShow = value;
+        };
 
         $scope.$watch(
             function () {

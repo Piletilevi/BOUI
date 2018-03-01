@@ -37,15 +37,18 @@
                    data-toggle="dropdown"
                    role="button" aria-haspopup="true" aria-expanded="false">
                     <span>{{vm.getCurrentTabName()}}</span>
-                    <span class="caret"></span>
+                    <i class="fa fa-chevron-down"></i>
                 </a>
             </div>
             <ul class="nav nav-tabs bo-dropdown-tabs" role="tablist" id="reportdatatab">
                 <li ng-repeat="tab in vm.activeTabs" ng-class="{'active': vm.currentTab == tab.name}" ng-hide="tab.hiddenInShows && vm.event.isShow">
-                    <a data-toggle="tab"
+                    <a data-toggle="tab" ng-style="vm.currentTab == tab.name ? {'background-color':pointAccentColor}:{'background-color':'#fff'}"
                        role="tab"
                        aria-controls="{{tab.name}}"
-                       ng-click="vm.tabSelectEvent(tab.name)">{{tab.translationCode|translate}}</a>
+                       ng-click="vm.tabSelectEvent(tab.name)">
+                        <i class="fa" aria-hidden="true" ng-class="tab.icon"></i>
+                        <span class="tab-name">{{tab.translationCode|translate}}</span>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -69,7 +72,9 @@
                                                    daterangepicker-neutral-timezone
                                                    ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                <span class="icon-holder">
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                </span>
                                             </button>
                                         </div>
                                     </div>
@@ -77,7 +82,7 @@
                                         <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
                                             <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 <span>{{vm.overviewFilter.centerName ? vm.overviewFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
-                                                <span class="caret"></span>
+                                                <i class="fa fa-chevron-down"></i>
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
@@ -130,7 +135,7 @@
                         </div>
                     </div>
 
-                    <div ng-if="vm.overviewLineGraph.data.length > 0">
+                    <div ng-if="vm.overviewLineGraph.data.length > 0" class="bo-tabs-content">
                         <div class="bo-chart bo-line-chart-container">
                             <canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data"
                                     chart-labels="vm.overviewLineGraph.labels"
@@ -266,7 +271,9 @@
                                                    daterangepicker-neutral-timezone
                                                    ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+                                            <span class="icon-holder">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </span>
                                             </button>
                                         </div>
                                     </div>
@@ -274,7 +281,7 @@
                                         <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
                                             <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 <span>{{vm.pricetypeFilter.centerName ? vm.pricetypeFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
-                                                <span class="caret"></span>
+                                                <i class="fa fa-chevron-down"></i>
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
@@ -325,7 +332,7 @@
                             {{'api_no_data_available'|translate}}
                         </div>
                     </div>
-                    <div ng-if="vm.pricetypeLineGraph.data.length > 0">
+                    <div ng-if="vm.pricetypeLineGraph.data.length > 0" class="bo-tabs-content">
                         <div class="bo-chart bo-line-chart-container">
                             <canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data"
                                     chart-labels="vm.pricetypeLineGraph.labels"
@@ -440,7 +447,9 @@
                                                    daterangepicker-neutral-timezone
                                                    ng-attr-data-min-date="{{vm.minFilterDate}}"
                                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+                                            <span class="icon-holder">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </span>
                                             </button>
                                         </div>
                                     </div>
@@ -448,7 +457,7 @@
                                         <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
                                             <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 <span>{{vm.priceclassFilter.centerName ? vm.priceclassFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
-                                                <span class="caret"></span>
+                                                <i class="fa fa-chevron-down"></i>
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
@@ -499,7 +508,7 @@
                             {{'api_no_data_available'|translate}}
                         </div>
                     </div>
-                    <div ng-if="vm.priceclassLineGraph.data.length > 0">
+                    <div ng-if="vm.priceclassLineGraph.data.length > 0" class="bo-tabs-content">
                         <div class="bo-chart bo-line-chart-container">
                             <canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data"
                                     chart-labels="vm.priceclassLineGraph.labels"
@@ -617,7 +626,9 @@
                                            ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
                                            ng-attr-data-min-date="{{vm.minFilterDate}}"
                                            ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    <span class="icon-holder">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    </span>
                                     </button>
                                 </div>
                             </div>
@@ -625,7 +636,7 @@
                                 <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
                                     <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <span>{{vm.locationsFilter.centerName ? vm.locationsFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
-                                        <span class="caret"></span>
+                                        <i class="fa fa-chevron-down"></i>
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
@@ -640,8 +651,8 @@
                             </div>
                         </div>
                     </div>
-                    <table ng-if="vm.myLocationsData.sales.length > 0"
-                           class="bo-locationstable table table-condensed table-small bo-table-report">
+                    <div ng-if="vm.myLocationsData.sales.length > 0" class="bo-tabs-content">
+                        <table class="bo-locationstable table table-condensed table-small bo-table-report">
                         <thead>
                         <tr>
                             <td></td>
@@ -714,6 +725,7 @@
                         </tr>
                         </tbody>
                     </table>
+                    </div>
                     <div ng-if="vm.myLocationsData.sales.length == 0">
                         <div class="bo-no-data-msg">
                             {{'api_no_data_available'|translate}}
