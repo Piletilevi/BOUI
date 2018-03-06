@@ -19,12 +19,12 @@
                     yAxes: [{
                         stacked: false,
                         ticks: {
-                            maxTicksLimit: 6
+                            maxTicksLimit: 5
                         }
                     }],
                     xAxes: [{
                         ticks: {
-                            maxTicksLimit: 10,
+                            maxTicksLimit: 7,
                             maxRotation: 0,
                             minRotation: 0
                         },
@@ -43,9 +43,9 @@
                                 return data.datasets.map(function(legend, i) {
                                     return {
                                         text: legend.label,
-                                        fillStyle: legend.pointBackgroundColor,
+                                        fillStyle: legend.pointHoverBackgroundColor,
                                         lineWidth: 0,
-                                        strokeStyle: legend.pointBackgroundColor,
+                                        strokeStyle: legend.pointHoverBackgroundColor,
                                         pointStyle: 'rectRounded'
                                     };
                                 });
@@ -56,21 +56,25 @@
                 },
                 elements: {
                     point: {
-                        radius: 5,
-                        hoverRadius: 6,
-                        hitRadius: 2,
+                        radius: 4,
+                        hoverRadius: 5,
+                        hitRadius: 1,
                         pointStyle: 'rectRounded',
-                        borderWidth: 0,
-                        hoverBorderWidth: 0
+                        borderWidth: 3
                     },
                     line: {
-                        fill: false
+                        fill: false,
+                        borderWidth: 3
                     }
                 },
                 tooltips: {
                     backgroundColor: '#000',
                     bodyFontColor: '#fff',
-                    titleFontColor: '#fff'
+                    titleFontColor: '#fff',
+                    filter: function(tooltipItems, data) {
+                        var data = data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
+                        return data !== 0;
+                    }
                 }
             }
         };
@@ -95,31 +99,39 @@
                         gridLines: {
                             display: false
                         },
-                        barPercentage: 1,
-                        categoryPercentage: 0.4
+                        barPercentage: 0.6,
+                        categoryPercentage: 1
                     }],
                     yAxes: [{
                         stacked: true,
-                        display: false,
+                        beginAtZero: false,
+                        display: true,
                         gridLines: {
-                            display: false
+                            display: true
                         }
                     }]
                 },
                 tooltips: {
+                    intersect: false,
                     callbacks: {
                         label: function (tooltipItems, data) {
                             return data.datasets[tooltipItems.datasetIndex].barLabel[tooltipItems.index] + ': ' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
                         }
+                    },
+                    filter: function(tooltipItems, data) {
+                        var data = data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
+                        return data !== undefined;
                     }
                 }
             }
         };
 
         var defaultPieGraph = {
+            colors: [],
             labels: null,
             data: null,
             options: {
+                cutoutPercentage: 50,
                 legend: {
                     display: false
                 },
@@ -146,6 +158,7 @@
         service.pricetypePieGraph = angular.copy(defaultPieGraph);
         service.priceclassPieGraph = angular.copy(defaultPieGraph);
         service.pricetypeLineGraph = angular.copy(defaultLineGraph);
+        service.priceclassLineGraph = angular.copy(defaultLineGraph);
         return service;
 
         function reset() {
@@ -154,6 +167,7 @@
             service.pricetypePieGraph = angular.copy(defaultPieGraph);
             service.priceclassPieGraph = angular.copy(defaultPieGraph);
             service.pricetypeLineGraph = angular.copy(defaultLineGraph);
+            service.priceclassLineGraph = angular.copy(defaultLineGraph);
         }
 
         function formatLabel(str){
@@ -248,7 +262,13 @@
                         data.push(dataItem);
                         series.push($translate.instant(type.typeName));
                         step++;
-                        colors.push(colorService.getColorByType(type.typeName));
+                        var baseColor = colorService.getColorByType(type.typeName);
+                        colors.push({
+                            borderColor: baseColor,
+                            backgroundColor: '#ffffff',
+                            pointHoverBackgroundColor: baseColor,
+                            pointHoverBorderColor: baseColor
+                        });
                     }
                 });
 
@@ -270,7 +290,15 @@
                 }
             }
         }
-
+        function isInArray(value, array) {
+            var exists = false;
+            for (var i = 0; i < array.length; i++) {
+                if (array[i] == value) {
+                    exists = true;
+                }
+            }
+            return exists;
+        }
         function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
             if (newValue && newValue.sales) {
                 overviewData.generatedCount = 0;
@@ -282,6 +310,9 @@
                 var colors = [];
                 var barSeries = [];
                 var datasetOverride = [];
+
+                var cats = [];
+                var catStep = 0;
 
                 newValue.sales.forEach(function (myOverviewData) {
                     if (myOverviewData.groupId == 'generated') {
@@ -296,6 +327,9 @@
                         }
                         var step = 0;
                         var rowSeries = [];
+                        if (typeof(cats[catStep]) == "undefined") {
+                            cats[catStep] = [];
+                        }
                         myOverviewData.rows.forEach(function (overviewRow) {
                             overviewRow.color = colorService.getColorByType(overviewRow.typeName);
                             rowSeries.push($translate.instant(overviewRow.typeName));
@@ -303,6 +337,7 @@
                                 data[step] = [];
                             }
                             data[step].push(overviewRow.count);
+                            cats[catStep].push(overviewRow.count);
                             if (typeof(colors[step]) == "undefined") {
                                 colors[step] = [];
                             }
@@ -314,10 +349,27 @@
                             step++;
                         });
                         series.push(rowSeries);
+                        catStep++;
                     }
                 });
-
                 for (var i = 0; i < data.length; i++) {
+                    for (var j = 0; j < cats.length; j++) {
+                        var dataStep = j;
+                        var seriesData = barSeries[i][j];
+                        var colorData = colors[i][j];
+                        var dataData = data[i][j];
+                        if (!isInArray(data[i][j], cats[j])) {
+                            barSeries[i][j] = undefined;
+                            colors[i][j] = undefined;
+                            data[i][j] = undefined;
+                            dataStep++;
+                        }
+                        if (dataData != undefined) {
+                            barSeries[i][dataStep] = seriesData;
+                            colors[i][dataStep] = colorData;
+                            data[i][dataStep] = dataData;
+                        }
+                    }
                     datasetOverride.push({
                         barLabel: barSeries[i],
                         backgroundColor: colors[i],
@@ -326,7 +378,6 @@
                         hoverBorderColor: colors[i]
                     });
                 }
-
                 if (labels && labels.length) {
                     overviewBarGraph.labels = labels;
                     overviewBarGraph.series = series;
@@ -359,7 +410,11 @@
 
                 newValue.sales.forEach(function (myPricetypeData) {
                     myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
-                        labels.push(pricetypeRow.priceTypeName + ' (' + Math.round(pricetypeRow.count / pricetypeData.generatedCount * 100) + '%)');
+                        var percentage = Math.round(pricetypeRow.count / pricetypeData.generatedCount * 100);
+                        if (percentage == 0) {
+                            percentage = '<1';
+                        }
+                        labels.push(pricetypeRow.priceTypeName + ' (' + percentage + '%)');
                     });
                 });
 
@@ -375,6 +430,13 @@
                         }
                     });
                 });
+                for (var i = 0;i < colors.length;i++) {
+                    var baseColor = colors[i];
+                    colors[i] = {
+                        backgroundColor: baseColor,
+                        pointBackgroundColor: baseColor
+                    };
+                }
 
                 if (labels && labels.length) {
                     pricetypePieGraph.labels = labels;
@@ -396,7 +458,6 @@
                 var ids = [];
                 var colors = [];
                 var totals = [];
-
                 newValue.sales.forEach(function (sale) {
                     sale.sellTypes.forEach(function (sellType) {
                         if ($.grep(ids, function (e) {
@@ -467,6 +528,15 @@
                     });
                     data.push(dataItem);
                 });
+                for (var i = 0;i < colors.length;i++) {
+                    var baseColor = colors[i];
+                    colors[i] = {
+                        borderColor: baseColor,
+                        backgroundColor: '#ffffff',
+                        pointHoverBackgroundColor: baseColor,
+                        pointHoverBorderColor: baseColor
+                    };
+                }
 
                 if (labels && labels.length) {
                     pricetypeGraph.options.scales.yAxes[0].ticks.max = stats.getStatsMax();
@@ -517,6 +587,13 @@
                         }
                     });
                 });
+                for (var i = 0;i < colors.length;i++) {
+                    var baseColor = colors[i];
+                    colors[i] = {
+                        backgroundColor: baseColor,
+                        pointBackgroundColor: baseColor
+                    };
+                }
 
                 if (labels && labels.length) {
                     priceclassPieGraph.labels = labels;
@@ -614,6 +691,15 @@
                     });
                     data.push(dataItem);
                 });
+                for (var i = 0;i < colors.length;i++) {
+                    var baseColor = colors[i];
+                    colors[i] = {
+                        borderColor: baseColor,
+                        backgroundColor: '#ffffff',
+                        pointHoverBackgroundColor: baseColor,
+                        pointHoverBorderColor: baseColor
+                    };
+                }
 
                 if (labels && labels.length) {
                     priceclassGraph.options.scales.yAxes[0].ticks.max = stats.getStatsMax();

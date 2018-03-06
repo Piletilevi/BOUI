@@ -38,23 +38,22 @@
 			var color;
 			switch(typeName) {
 				//SOLD GROUP
-				case 'api_sold_by_internet': 	color = '#58e393'; break;
-				case 'api_sold_by_salespoint': 	color = '#52ad9c'; break;
-				case 'api_sold_refund': 		color = '#fe5f55'; break;
+				case 'api_sold_by_internet':   color = '#58e393'; break;
+				case 'api_sold_by_salespoint': color = '#52ad9c'; break;
+				case 'api_sold_refund': 	   color = '#fe5f55'; break;
 				//RESERVED GROUP
-				case 'api_organizer_reserved_client': 		color = '#4ab1e2'; break;
-				case 'api_organizer_reserved_lodge': 		color = '#17bebb'; break;
-				case 'api_organizer_reserved_promoter': 	color = '#0471a6'; break;
-				case 'api_organizer_seat_owner':			color = '#33658a'; break;
+				case 'api_organizer_reserved_client': 	color = '#4ab1e2'; break;
+				case 'api_organizer_reserved_lodge': 	color = '#17bebb'; break;
+				case 'api_organizer_reserved_promoter': color = '#0471a6'; break;
+				case 'api_organizer_seat_owner':		color = '#33658a'; break;
 				//ORGANIZER GROUP
-				case 'api_organizer_complimentary_without_fees': 	color = '#fed766'; break;
-				case 'api_organizer_refund_without_fees': 			color = '#fe9000'; break;
-				case 'api_organizer_complimentary_with_fees': 		color = '#f5bb00'; break;
-				case 'api_organizer_refund_with_fees': 				color = '#ff6201'; break;
+				case 'api_organizer_complimentary_without_fees': color = '#fed766'; break;
+				case 'api_organizer_refund_without_fees': 		 color = '#fe9000'; break;
+				case 'api_organizer_complimentary_with_fees': 	 color = '#f5bb00'; break;
+				case 'api_organizer_refund_with_fees': 			 color = '#ff6201'; break;
 				//VENUE_OCCUPANCY GROUP
-				case 'api_avail_for_sale': 		color = '#5e7287'; break;
+				case 'api_avail_for_sale': color = '#5e7287'; break;
 			}
-
 			return color;
 		}
     }

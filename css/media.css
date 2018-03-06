@@ -640,8 +640,9 @@
 		margin-bottom: 10px;
 	}
 
-	.bo-dropdown-tabs-wrapper .dropdown-toggle {
-
+	.bo-dropdown-tabs-wrapper .dropdown-toggle:focus, .bo-dropdown-tabs-wrapper .dropdown-toggle:active {
+		border-bottom-right-radius: 0!important;
+		border-bottom-left-radius: 0!important;
 	}
 
 	.bo-dropdown-tabs {
@@ -672,6 +673,7 @@
 
 	.bo-dropdown-tabs.open {
 		display: block;
+		width: 100%;
 	}
 
 	.bo-dropdown-tabs > li {
@@ -718,6 +720,7 @@
 	.bo-table-report {
 		max-width: 100%;
 		table-layout: fixed;
+		overflow: auto;
 	}
 
 	.bo-table-report {
