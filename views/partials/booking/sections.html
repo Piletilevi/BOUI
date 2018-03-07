@@ -59,34 +59,30 @@
                         ng-click="vm.setSelectedSectionId(sectorData.sectorId)"
                         ng-mouseover="vm.setMouseoverSectionId(sectorData.sectorId)"
                         ng-repeat="sectorData in vm.mySectorsData.sales">
-                    <div class="bo-sectionselector-itemtitle">
-                        {{sectorData.name}}
-                    </div>
-
-
+                    <div class="bo-sectionselection-divider"></div>
+                    <div class="bo-sectionselector-itemtitle">{{sectorData.name}}</div>
                     <div class="clearfix">
                         <div class="bo-sectionselector-progress clearfix">
                             <div class="progress">
-                                <div class="progress-bar progress-bar-success" ng-attr-style="flex-grow: {{sectorData.statistics.soldPercent}}"  title="{{'api_overview_sold_total'|translate}}">&nbsp;{{sectorData.statistics.soldTickets}}&nbsp;</div>
-                                <div class="progress-bar progress-bar-warning" ng-attr-style="flex-grow: {{sectorData.statistics.bookedPercent}}"
-                                     title="{{'api_overview_reserved_total'|translate}}">&nbsp;{{sectorData.statistics.bookedTickets}}&nbsp;</div>
+                                <div class="progress-bar progress-bar-success" ng-attr-style="flex-grow:{{sectorData.statistics.soldPercent}}"
+                                     tooltip-placement="bottom" uib-tooltip="{{'api_overview_sold_total'|translate}}&nbsp;({{sectorData.statistics.soldTickets}})"
+                                     tooltip-append-to-body="true">{{sectorData.statistics.soldTickets}}</div>
+                                <div class="progress-bar progress-bar-warning" ng-attr-style="flex-grow:{{sectorData.statistics.bookedPercent}}"
+                                     tooltip-placement="bottom" uib-tooltip="{{'api_overview_reserved_total'|translate}}&nbsp;({{sectorData.statistics.bookedTickets}})"
+                                     tooltip-append-to-body="true">{{sectorData.statistics.bookedTickets}}</div>
                                 <div class="progress-bar progress-bar-danger" ng-attr-style="flex-grow: {{sectorData.statistics.availablePercent}}"
-                                     title="{{'api_avail_for_sale'|translate}}">&nbsp;{{sectorData.statistics.availableTickets}}&nbsp;</div>
+                                     tooltip-placement="bottom" uib-tooltip="{{'api_avail_for_sale'|translate}}&nbsp;({{sectorData.statistics.availableTickets}})"
+                                     tooltip-append-to-body="true">{{sectorData.statistics.availableTickets}}</div>
                             </div>
                             <div>
-                                <div class="bo-sectionselector-progresslabel">
-                                    {{sectorData.statistics.soldPercent || 0}}%
-                                </div>
+                                <div class="bo-sectionselector-progresslabel">{{sectorData.statistics.soldPercent || 0}}%</div>
                                 <div class="bo-sectionselector-pricelabel" ng-if="hasFullAccess('api_reports_revenue')">
-                                    {{sectorData.statistics.soldSumma |
-                                    number:2}}
+                                    {{sectorData.statistics.soldSumma | number:2}}
                                     {{sectorData.statistics.currency}}
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </button>
             </div>
         </div>

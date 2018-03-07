@@ -31,66 +31,66 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row bo-tabs-content">
     <div class="col-md-6">
-        <table class="table table-small bo-adaptive-table-custom1">
-            <thead>
-            <tr>
-                <td>{{'api_priceclass'|translate}}</td>
-                <td class="text-center">{{'api_tickets'|translate}}</td>
-                <td></td>
-            </tr>
-            </thead>
-            <tbody ng-repeat="(ttSectorKey, ttSector) in vm.sectorInfo.ttSector">
-            <tr ng-repeat="(ttSectorDataKey, ttSectorData) in ttSector.ttSectorData">
-                <td class="bo-adaptive-table-custom1-row1">
-                	<span class="bo-adaptive-table-custom1-label">{{'api_priceclass'|translate}}: </span>
-                	<span class="bo-adaptive-table-custom1-content text-center-xs">
-						<span class="fa fa-circle" style="color: {{ttSectorData.colorCode}}"
-							  ng-if="ttSectorData.colorCode"></span>
-						{{ttSectorData.priceName}}
-                    </span>
-                </td>
-                <td class="text-center bo-adaptive-table-custom1-row2-left">
-                    <span class="bo-adaptive-table-custom1-label">{{'api_tickets'|translate}}: </span>
-                    <span class="bo-adaptive-table-custom1-content">
-                        {{ttSectorData.freeTotal}}
-                    </span>
-                </td>
-                <td class="bo-shortcell text-center bo-adaptive-table-custom1-row2-right">
-                	<span class="bo-adaptive-table-custom1-content">
-						<div class="bo-plusminus">
-							<div class="bo-plusminus-button bo-plusminus-minus"
-								 ng-click="vm.decreaseTicketsCount(ttSectorData)">
-								<i class="fa fa-minus"></i>
-							</div>
-							<input type="text" class="bo-plusminus-input" ng-init="ttSectorData.selected = 0"
-								   ng-model="ttSectorData.selected"
-								   ng-focus="vm.focusPriceClassQuantity(ttSectorData)"
-								   ng-blur="vm.blurPriceClassQuantity(ttSectorData)"
-								   ng-keyup="vm.validateQuantity(ttSectorData)"
-							/>
-							<div class="bo-plusminus-button bo-plusminus-plus"
-								 ng-click="vm.increaseTicketsCount(ttSectorData)">
-								<i class="fa fa-plus"></i>
-							</div>
-						</div>
-					</span>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td class="align-middle bo-no-leftright-padding">
-                    <button id="btnOfferTickets" class="btn btn-info btn-sm" ng-click="vm.offerTickets()">
-                        {{'api_basket_offer_tickets'|translate}}
-                    </button>
-                </td>
-                <td class="text-center align-middle">{{'api_basket_offer_total'|translate}}</td>
-                <td class="text-center align-middle">{{vm.ticketsCount()}}</td>
-            </tr>
-            </tfoot>
-        </table>
+        <div class="table table-small bo-adaptive-table-custom1 bo-table-report">
+            <div class="bo-tableheader">
+                <div class="bo-tablerow">
+                    <div>{{'api_priceclass'|translate}}</div>
+                    <div class="text-center">{{'api_tickets'|translate}}</div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="bo-tablebody" ng-repeat="(ttSectorKey, ttSector) in vm.sectorInfo.ttSector">
+                <div class="bo-tablerow" ng-repeat="(ttSectorDataKey, ttSectorData) in ttSector.ttSectorData">
+                    <div class="bo-adaptive-table-custom1-row1">
+                        <span class="bo-adaptive-table-custom1-label">{{'api_priceclass'|translate}}: </span>
+                        <span class="bo-adaptive-table-custom1-content text-center-xs">
+                            <span class="fa fa-square" style="color: {{ttSectorData.colorCode}}"
+                                  ng-if="ttSectorData.colorCode"></span>
+                            {{ttSectorData.priceName}}
+                        </span>
+                    </div>
+                    <div class="text-center bo-adaptive-table-custom1-row2-left">
+                        <span class="bo-adaptive-table-custom1-label">{{'api_tickets'|translate}}: </span>
+                        <span class="bo-adaptive-table-custom1-content">
+                            {{ttSectorData.freeTotal}}
+                        </span>
+                    </div>
+                    <div class="bo-shortcell text-center bo-adaptive-table-custom1-row2-right">
+                        <span class="bo-adaptive-table-custom1-content">
+                            <div class="bo-plusminus">
+                                <div class="bo-plusminus-button bo-plusminus-minus"
+                                     ng-click="vm.decreaseTicketsCount(ttSectorData)">
+                                    <i class="fa fa-minus"></i>
+                                </div>
+                                <input type="text" class="bo-plusminus-input" ng-init="ttSectorData.selected = 0"
+                                       ng-model="ttSectorData.selected"
+                                       ng-focus="vm.focusPriceClassQuantity(ttSectorData)"
+                                       ng-blur="vm.blurPriceClassQuantity(ttSectorData)"
+                                       ng-keyup="vm.validateQuantity(ttSectorData)"
+                                />
+                                <div class="bo-plusminus-button bo-plusminus-plus"
+                                     ng-click="vm.increaseTicketsCount(ttSectorData)">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="bo-tablefooter">
+                <div class="bo-tablerow">
+                    <div class="align-middle bo-no-leftright-padding">
+                        <button id="btnOfferTickets" class="btn btn-info btn-sm" ng-click="vm.offerTickets()">
+                            {{'api_basket_offer_tickets'|translate}}
+                        </button>
+                    </div>
+                    <div class="text-center align-middle">{{'api_basket_offer_total'|translate}}</div>
+                    <div class="text-center align-middle">{{vm.ticketsCount()}}</div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-lg-6">
         <div class="bo-map">
@@ -100,7 +100,7 @@
 </div>
 
 </div>
-<div ng-if="vm.myBasket.basket.length > 0">
+<div ng-if="vm.myBasket.basket.length > 0" class="bo-tabs-content row">
     <div class="form-group clearfix">
         <button class="btn btn-warning pull-right" type="button" ng-click="vm.removeFromBasket()">
             {{'api_seat_remove_all'|translate}}
@@ -108,54 +108,51 @@
         </button>
         <h4>{{'api_basket_selected_tickets'|translate}}</h4>
     </div>
-    <table class="table table-small bo-adaptive-table-custom2">
-        <tbody>
-        <tr class="row-align-middle" ng-repeat="seat in vm.myBasket.basket">
-            <td class="bo-adaptive-table-custom2-row1">{{'api_basket_ticket_id'|translate}} {{seat.id}}</td>
-            <td class="text-center bo-adaptive-table-custom2-row2-left">{{seat.sectionName}}</td>
-            <td class="text-center bo-adaptive-table-custom2-row2-center">
-                <span ng-if="seat.rowName > 0">{{'api_basket_row'|translate}} {{seat.rowName}}</span>
-                <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
-            </td>
-            <td class="text-center bo-adaptive-table-custom2-row2-right">
-                <span ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span>
-                <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
-            </td>
-            <td class="text-center bo-shortcell bo-adaptive-table-custom2-row3">
-                <div class="dropdown bo-table-dropdown" ng-if="seat.priceTypes.length > 1">
-                    <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="true">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
-                        <i class="fa fa-chevron-down"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="pricetype in seat.priceTypes | filter:{active: false}">
-                            <a href="" ng-click="vm.changeBasketTicketType(seat.id, pricetype.priceTypeId)">{{pricetype.priceTypeName}}</a>
-                        </li>
-                    </ul>
+    <div class="table table-small bo-adaptive-table-custom2 bo-table-report">
+        <div class="bo-tablebody">
+            <div class="row-align-middle bo-tablerow" ng-repeat="seat in vm.myBasket.basket">
+                <div class="bo-adaptive-table-custom2-row1">{{'api_basket_ticket_id'|translate}} {{seat.id}}</div>
+                <div class="text-center bo-adaptive-table-custom2-row2-left">{{seat.sectionName}}</div>
+                <div class="text-center bo-adaptive-table-custom2-row2-center">
+                    <span ng-if="seat.rowName > 0">{{'api_basket_row'|translate}} {{seat.rowName}}</span>
+                    <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
                 </div>
-                <span ng-if="seat.priceTypes.length <= 1">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}</span>
-            </td>
-            <td class="text-center bo-adaptive-table-custom2-row4-left">{{seat.price | number:2}}{{seat.currency}}</td>
-            <td class="text-center bo-adaptive-table-custom2-row4-right">
-                <a href="" class="text-danger" ng-click="vm.removeFromBasket(seat.id)"><i class="fa fa-times"></i></a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                <div class="text-center bo-adaptive-table-custom2-row2-right">
+                    <span ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span>
+                    <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
+                </div>
+                <div class="text-center bo-shortcell bo-adaptive-table-custom2-row3">
+                    <div class="dropdown bo-table-dropdown" ng-if="seat.priceTypes.length > 1">
+                        <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="true">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="pricetype in seat.priceTypes | filter:{active: false}">
+                                <a href="" ng-click="vm.changeBasketTicketType(seat.id, pricetype.priceTypeId)">{{pricetype.priceTypeName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bo-singletype" ng-if="seat.priceTypes.length <= 1">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}</div>
+                </div>
+                <div class="text-center bo-adaptive-table-custom2-row4-left">{{seat.price | number:2}}{{seat.currency}}</div>
+                <div class="bo-adaptive-table-custom2-row4-right">
+                    <a href="" class="text-danger" ng-click="vm.removeFromBasket(seat.id)"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="bo-inactivearea">
         <h4>{{'api_reservation_type'|translate}}</h4>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-inline bo-reservation-inline-buttons">
-                    <div class="form-group">
-                        <button class="btn btn-lg {{vm.reservation.reservationType == 'with_price' ? 'btn-primary' : 'btn-default'}}"
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button class="btn btn-sm btn-default" ng-class="{ 'active': vm.reservation.reservationType == 'with_price'}"
                                 type="button" ng-click="vm.changeReservationType('with_price')">
                             {{'api_reservation_with_price'|translate}}
                         </button>
-                    </div>
-                    <span class="hidden-xs">&nbsp;</span>
-                    <div class="form-group">
-                        <button class="btn btn-lg {{vm.reservation.reservationType == 'invitation' ? 'btn-primary' : 'btn-default'}}"
+                        <button class="btn btn-sm btn-default" ng-class="{ 'active': vm.reservation.reservationType == 'invitation'}"
                                 type="button" ng-click="vm.changeReservationType('invitation')">
                             {{'api_reservation_invitation'|translate}}
                         </button>
