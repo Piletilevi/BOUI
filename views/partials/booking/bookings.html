@@ -99,8 +99,8 @@
         <div class="bo-tablebody" ng-repeat="(key, booking) in vm.myBookings.bookings">
             <div class="bo-tablerow" ng-class="{'active': key == vm.bookingsRowExpanded}">
                 <div ng-click="vm.bookingsRowExpanded = (vm.bookingsRowExpanded == key ? vm.bookingsRowExpanded = null : vm.bookingsRowExpanded = key)">
-                    <i class="fa fa-sort-desc" ng-if="key != vm.bookingsRowExpanded"></i>
-                    <i class="fa fa-sort-asc" ng-if="key == vm.bookingsRowExpanded"></i>
+                    <i class="fa fa-plus-square" ng-if="key != vm.bookingsRowExpanded"></i>
+                    <i class="fa fa-minus-square" ng-if="key == vm.bookingsRowExpanded"></i>
                 </div>
                 <div>
                     <div>{{booking.number}}</div>
@@ -132,7 +132,7 @@
                 <div>{{'api_reservation_list_reservation_status'|translate}}</div>
                 <div>{{'api_reservation_list_reservation_type'|translate}}</div>
             </div>
-            <div ng-if="key == vm.bookingsRowExpanded" class="active bo-tablerow">
+            <div ng-if="key == vm.bookingsRowExpanded" class="active bo-tablerow bo-expandedrow">
                 <div></div>
                 <div>
                     <div>{{booking.creator.firstName}}&nbsp;{{booking.creator.lastName}}</div>
@@ -144,8 +144,8 @@
                     <button class="btn btn-warning pull-right" ng-click="vm.cancelBooking(booking.id)" ng-if="booking.statusId == 1"
                             ng-confirm-click="{{'api_clickConfirm'|translate}}"
                             ng-confirm-description="api_clickConfirmDescription">
-                        <i class="fa fa-times"></i>
-                        {{'api_reservation_cancel'|translate}}
+                        <span><i class="fa fa-times"></i></span>
+                        <span>{{'api_reservation_cancel'|translate}}</span>
                     </button>
                 </div>
                 <div></div>

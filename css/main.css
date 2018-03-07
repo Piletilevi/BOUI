@@ -1612,6 +1612,10 @@ button.bo-sectionselector-item.list-group-item {
 	color: #5e7287;
 	background-color: #edf0f4;
 }
+.bo-tablebody .btn-warning {
+	color: #a94442;
+	background-color: #f2dede;
+}
 .bo-tablebody .btn > span > .fa {
 	margin-right: 6px;
 }
@@ -1622,6 +1626,23 @@ button.bo-sectionselector-item.list-group-item {
 	opacity: 1;
 }
 
+.bo-bookingstable .bo-tablebody > .bo-tablerow > div {
+	border-bottom: 5px solid #edf0f4;
+}
+.bo-bookingstable .bo-tablebody > .bo-tablerow.active > div {
+	border-bottom: 0;
+}
+.bo-bookingstable .bo-tablebody > .bo-expandedrow.active > div {
+	border-bottom: 5px solid #edf0f4;
+}
+
+.bo-bookingstable .bo-tablebody > .bo-tablerow > div > .fa {
+	color: #5e7287;
+	opacity: 0.8;
+}
+.bo-bookingstable .bo-tablebody > .bo-tablerow > div:hover > .fa {
+	opacity: 1;
+}
 
 /* Chart
 ================================ */
