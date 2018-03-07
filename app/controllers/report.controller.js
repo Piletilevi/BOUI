@@ -123,7 +123,8 @@
         vm.defaultBookingFilter = {
             concertId: $routeParams.id,
             period: {startDate: moment().subtract(1, 'years'), endDate: moment().add(1, 'days')},
-			statusId: 1
+			statusId: 1,
+            typeId: 0
         };
         vm.bookingFilter = angular.copy(vm.defaultBookingFilter);
         vm.locationsFilter = {period: {startDate: null, endDate: null}, centerId: ''};

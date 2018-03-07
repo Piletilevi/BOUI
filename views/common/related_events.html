@@ -9,7 +9,7 @@
 			<li class="list-group-item bo-relatedpanel-concert" ng-repeat="concertItem in related.concerts" ng-include-template="event_summary.html"
 				ng-include-variables="{ event: concertItem, vm: vm, user: user, linked: true, withRevenue: hasFullAccess('api_reports_revenue') }"></li>
 			<li class="list-group-item" ng-if="vm.hasMoreRelatedEvents(related)">
-				<a class="bo-onsale-viewall" href ng-click="vm.getMoreRelatedEvents(vm.event)">{{'api_view_all_events_on_sale'|translate}}</a>
+				<a class="bo-onsale-viewall" href ng-click="vm.getMoreRelatedEvents(vm.event)"><i class="fa fa-ellipsis-h" aria-hidden="true"></i>{{'api_view_all_events_on_sale'|translate}}</a>
 			</li>
 		</ul>
 	</div>

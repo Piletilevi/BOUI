@@ -148,7 +148,6 @@ Chart.elements.Rectangle.prototype.draw = function() {
         } else {
             radius = radiusBase;
         }
-
         if (height <= 0) {
             // Negative values in a standard bar chart
             x_tl = x;
@@ -163,13 +162,13 @@ Chart.elements.Rectangle.prototype.draw = function() {
 
             // Draw
             ctx.moveTo(x_bl + radius, y_bl);
-            ctx.lineTo(x_br, y_br);
+            ctx.lineTo(x_br - radius, y_br);
             ctx.quadraticCurveTo(x_br, y_br, x_br, y_br - radiusBase);
-            ctx.lineTo(x_tr, y_tr + radius);
+            ctx.lineTo(x_tr, y_tr);
             ctx.quadraticCurveTo(x_tr, y_tr, x_tr - radiusBase, y_tr);
-            ctx.lineTo(x_tl + radius, y_tl);
+            ctx.lineTo(x_tl, y_tl);
             ctx.quadraticCurveTo(x_tl, y_tl, x_tl, y_tl + radiusBase);
-            ctx.lineTo(x_bl, y_bl);
+            ctx.lineTo(x_bl, y_bl - radius);
             ctx.quadraticCurveTo(x_bl, y_bl, x_bl + radiusBase, y_bl);
 
         } else if (width < 0) {

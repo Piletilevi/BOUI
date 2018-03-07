@@ -61,14 +61,11 @@
 	</div>
 	<!-- links -->
 	<div ng-if="!linked" class="bo-eventsummary-links">
-		<!--<div class="bo-eventsummary-link" ng-if="showEditLink">-->
-			<!--<a href="#/report/{{event.concertsCount ? 'show' : 'concert'}}/{{event.id}}">{{'api_edit'|translate}}</a>-->
-		<!--</div>-->
 		<div class="bo-eventsummary-link" ng-if="showReportLink">
 			<a href="#/report/{{user.point}}/{{event.isShow ? 'show' : 'event'}}/{{event.id}}/">{{'api_view_report'|translate}}</a>
 		</div>
 		<div class="bo-eventsummary-link" ng-if="event.websiteUrl">
-			<a href="{{event.websiteUrl}}" target="_blank">{{'api_view_website'|translate}}</a>
+			<a href="{{event.websiteUrl}}" target="_blank"><i class="fa fa-info-circle"></i>{{'api_view_website'|translate}}</a>
 		</div>
 	</div>
 </div>

@@ -214,6 +214,7 @@ a:hover {
 }
 .btn-default:active {
 	background-color: #edf0f4!important;
+	border-color: #ffffff!important;
 }
 
 .open .btn-default.dropdown-toggle:focus {
@@ -764,7 +765,11 @@ a:hover {
 	display: block;
 	font-size: 15px;
 	text-align: center;
-	padding: 9px 10px 20px;
+	padding: 12px;
+	text-decoration: none;
+}
+.bo-onsale-viewall .fa {
+	margin-right: 6px;
 }
 
 /* Event summary
@@ -913,17 +918,20 @@ a:hover {
 	color: #b7b7b9;
 }
 
-.bo-eventsummary-link {
-	display: inline-block;
-	vertical-align: top;
-	line-height: 1.05em;
-    padding: 0 1.6em;
-	border-left: 1px solid #b7b7b9;
+.bo-eventsummary-link > a {
+	display: block;
+	background-color: #edf0f4;
+	text-align: center;
+	border-radius: 6px;
+	text-decoration: none;
+	color: #5e7287;
+	opacity: 0.8;
 }
-
-.bo-eventsummary-link:first-child {
-	padding-left: 0;
-	border-left: 0;
+.bo-eventsummary-link > a:hover {
+	opacity: 1;
+}
+.bo-eventsummary-link > a > i {
+	color: #5e7287;
 }
 
 .bo-eventsummary-badge {
@@ -938,9 +946,9 @@ a:hover {
 	min-width: 5.79em;
 	padding: 0 0.5em;
 	text-align: center;
-	-webkit-border-radius: 0 0 0 3px;
-	-moz-border-radius: 0 0 0 3px;
-	border-radius: 0 0 0 3px;
+	-webkit-border-radius: 0 0 0 6px;
+	-moz-border-radius: 0 0 0 6px;
+	border-radius: 0 0 0 6px;
 	color: #fff;
 }
 

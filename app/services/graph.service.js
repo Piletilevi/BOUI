@@ -171,11 +171,10 @@
         }
 
         function formatLabel(str){
-            var maxwidth = 8;
+            var maxwidth = 10;
             var sections = [];
             var words = str.split(' ');
             var temp = '';
-
             words.forEach(function(item, index) {
                 if(temp.length > 0) {
                     var concat = temp + ' ' + item;
@@ -204,6 +203,15 @@
                 }
             });
             return sections;
+        }
+        function isInArray(value, array) {
+            var exists = false;
+            for (var i = 0; i < array.length; i++) {
+                if (array[i] == value) {
+                    exists = true;
+                }
+            }
+            return exists;
         }
 
         function renderOverviewLineGraph(newValue, filter, overviewGraph) {
@@ -290,15 +298,7 @@
                 }
             }
         }
-        function isInArray(value, array) {
-            var exists = false;
-            for (var i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    exists = true;
-                }
-            }
-            return exists;
-        }
+
         function renderOverviewBarGraph(newValue, overviewData, overviewBarGraph) {
             if (newValue && newValue.sales) {
                 overviewData.generatedCount = 0;
