@@ -1120,7 +1120,6 @@ a:hover {
 	background-color: #edf0f4;
 }
 
-
 .bo-sectionselector-item {
 	padding: 14px;
 	color: #040e19;
@@ -1134,6 +1133,15 @@ a:hover {
 }
 .bo-sectionselector-item:first-child {
 	border-top: none!important;
+}
+.bo-sectionselector-disabled {
+	background-color: #fff!important;
+	cursor: not-allowed;
+}
+.bo-sectionselector-disabled .fa-exclamation-circle {
+	color: #ff3f71;
+	float: right;
+	display: inline-block;
 }
 
 .bo-sectionselector-itemtitle {
@@ -1680,14 +1688,20 @@ button.bo-sectionselector-item.list-group-item {
 	border-bottom: 1px solid #edf0f4;
 	border-right: 1px solid #edf0f4;
 }
-.bo-adaptive-table-custom2 .bo-tablebody > .bo-tablerow > div:first-child {
+.bo-adaptive-table-custom2 .bo-tablebody > .bo-tablerow:first-child > div:first-child {
 	border-top-left-radius: 6px;
+}
+.bo-adaptive-table-custom2 .bo-tablebody > .bo-tablerow:last-child > div:first-child {
 	border-bottom-left-radius: 6px;
+}
+.bo-adaptive-table-custom2 .bo-tablebody > .bo-tablerow:first-child > div:last-child {
+	border-top-right-radius: 6px;
+}
+.bo-adaptive-table-custom2 .bo-tablebody > .bo-tablerow:last-child > div:last-child {
+	border-bottom-right-radius: 6px;
 }
 .bo-adaptive-table-custom2 .bo-tablebody > .bo-tablerow > div:last-child {
 	border-right: none;
-	border-top-right-radius: 6px;
-	border-bottom-right-radius: 6px;
 }
 .bo-adaptive-table-custom2 .bo-tablebody > .bo-tablerow:last-child > div {
 	border-bottom: none;

@@ -54,13 +54,41 @@
     <div ng-if="vm.mySectorsData.sales.length > 0" class="bo-tabs-content row">
         <div class="col-md-6 col-lg-5">
             <div class="bo-sectionselector list-group" ng-if="vm.mySectorsData.sales.length">
-                <button type="button" class="bo-sectionselector-item list-group-item"
-                        ng-class="{ 'active': sectorData.sectorId == mouseoverSectionId}"
+                <button type="button" class="bo-sectionselector-item list-group-item" ng-if="!vm.reservationMode || sectorData.statistics.availableTickets != 0"
+                        ng-class="{'active': sectorData.sectorId == mouseoverSectionId}"
                         ng-click="vm.setSelectedSectionId(sectorData.sectorId)"
                         ng-mouseover="vm.setMouseoverSectionId(sectorData.sectorId)"
                         ng-repeat="sectorData in vm.mySectorsData.sales">
-                    <div class="bo-sectionselection-divider"></div>
                     <div class="bo-sectionselector-itemtitle">{{sectorData.name}}</div>
+                    <div class="clearfix">
+                        <div class="bo-sectionselector-progress clearfix">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" ng-attr-style="flex-grow:{{sectorData.statistics.soldPercent}}"
+                                     tooltip-placement="bottom" uib-tooltip="{{'api_overview_sold_total'|translate}}&nbsp;({{sectorData.statistics.soldTickets}})"
+                                     tooltip-append-to-body="true">{{sectorData.statistics.soldTickets}}</div>
+                                <div class="progress-bar progress-bar-warning" ng-attr-style="flex-grow:{{sectorData.statistics.bookedPercent}}"
+                                     tooltip-placement="bottom" uib-tooltip="{{'api_overview_reserved_total'|translate}}&nbsp;({{sectorData.statistics.bookedTickets}})"
+                                     tooltip-append-to-body="true">{{sectorData.statistics.bookedTickets}}</div>
+                                <div class="progress-bar progress-bar-danger" ng-attr-style="flex-grow: {{sectorData.statistics.availablePercent}}"
+                                     tooltip-placement="bottom" uib-tooltip="{{'api_avail_for_sale'|translate}}&nbsp;({{sectorData.statistics.availableTickets}})"
+                                     tooltip-append-to-body="true">{{sectorData.statistics.availableTickets}}</div>
+                            </div>
+                            <div>
+                                <div class="bo-sectionselector-progresslabel">{{sectorData.statistics.soldPercent || 0}}%</div>
+                                <div class="bo-sectionselector-pricelabel" ng-if="hasFullAccess('api_reports_revenue')">
+                                    {{sectorData.statistics.soldSumma | number:2}}
+                                    {{sectorData.statistics.currency}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <button type="button" class="bo-sectionselector-item list-group-item bo-sectionselector-disabled"
+                        ng-if="vm.reservationMode && sectorData.statistics.availableTickets == 0" ng-repeat="sectorData in vm.mySectorsData.sales">
+                    <div class="bo-sectionselector-itemtitle">
+                        {{sectorData.name}}
+                        <i class="fa fa-exclamation-circle" tooltip-placement="bottom" uib-tooltip="{{'api_status_no_tickets'|translate}}" tooltip-append-to-body="true"></i>
+                    </div>
                     <div class="clearfix">
                         <div class="bo-sectionselector-progress clearfix">
                             <div class="progress">
