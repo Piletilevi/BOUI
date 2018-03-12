@@ -401,7 +401,6 @@
                 var labels = [];
                 var data = [];
                 var colors = [];
-
                 newValue.sales.forEach(function (myPricetypeData) {
                     pricetypeData.generatedCount += myPricetypeData.rowCount;
                     pricetypeData.generatedSum += myPricetypeData.rowSum;
@@ -527,6 +526,13 @@
                         dataItem.push(dataItemValue);
                     });
                     data.push(dataItem);
+                });
+                data = ids.map(function (e, i) {
+                    return i;
+                }).sort(function (a, b) {
+                    return ids[a] - ids[b];
+                }).map(function (e) {
+                    return data[e];
                 });
                 for (var i = 0;i < colors.length;i++) {
                     var baseColor = colors[i];

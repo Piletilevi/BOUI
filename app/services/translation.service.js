@@ -27,7 +27,15 @@
         }
 
         function getLanguages(){
-            $rootScope.languages = [{"code":"ENG","name":"English"},{"code":"EST","name":"Eesti keel"},{"code":"LAT","name":"Latvie\u0161u valoda"},{"code":"RUS","name":"\u0420\u0443\u0441\u0441\u043a\u0438\u0439 \u044f\u0437\u044b\u043a"},{"code":"LIT","name":"Lietuvi\u0173 kalba"},{"code":"FIN","name":"Suomi"},{"code":"BEL","name":"\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u043a\u0430\u044f \u043c\u043e\u0432\u0430"}];
+            $rootScope.languages = [
+                {"code":"ENG","name":"English"},
+                {"code":"EST","name":"Eesti keel"},
+                {"code":"LAT","name":"Latvie\u0161u valoda"},
+                {"code":"RUS","name":"\u0420\u0443\u0441\u0441\u043a\u0438\u0439 \u044f\u0437\u044b\u043a"},
+                {"code":"LIT","name":"Lietuvi\u0173 kalba"},
+                {"code":"FIN","name":"Suomi"},
+                {"code":"BEL","name":"\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u043a\u0430\u044f \u043c\u043e\u0432\u0430"}
+            ];
             if (!$rootScope.languages) {
                 dataService.get('languages').then(function (results) {
                     if (results.status === "success") {
@@ -78,7 +86,6 @@
                     moment.locale(getMomentLocaleCode(newLanguage.code));
                 }
             });
-
             $rootScope.isTranslated = false;
             $rootScope.$on('$translateChangeSuccess', function () {
                 $rootScope.isTranslated = true;

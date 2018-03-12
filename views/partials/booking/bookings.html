@@ -108,7 +108,10 @@
                     <div>{{'api_reservation_list_expires_on'|translate}}: {{booking.expireAt | date:'dd.MM.yyyy'}}</div>
                 </div>
                 <div>
-                    <div>{{booking.personFirstName}} {{booking.personLastName}}</div>
+                    <div>
+                        {{booking.personFirstName}}
+                        {{booking.personLastName}}
+                    </div>
                     <div>{{booking.email}}</div>
                     <div ng-if="booking.organizationName">{{booking.organizationName}}</div>
                 </div>
@@ -121,7 +124,10 @@
                     {{booking.ticketsCount}}
                 </div>
                 <div>{{booking.ticketsInfo | nl2br}}</div>
-                <div>{{booking.summa | number:2}}{{booking.currency}}</div>
+                <div>
+                    {{booking.summa | number:2}}
+                    {{booking.currency}}
+                </div>
             </div>
             <div ng-if="key == vm.bookingsRowExpanded" class="active bo-tablerow bo-table-secondarytitle-row">
                 <div></div>
@@ -135,7 +141,10 @@
             <div ng-if="key == vm.bookingsRowExpanded" class="active bo-tablerow bo-expandedrow">
                 <div></div>
                 <div>
-                    <div>{{booking.creator.firstName}}&nbsp;{{booking.creator.lastName}}</div>
+                    <div>
+                        {{booking.creator.firstName}}
+                        {{booking.creator.lastName}}
+                    </div>
                     <div ng-if="booking.creator.organization">{{booking.creator.organization}}</div>
                 </div>
                 <div></div>
