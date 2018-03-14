@@ -170,50 +170,6 @@
             service.priceclassLineGraph = angular.copy(defaultLineGraph);
         }
 
-        function formatLabel(str){
-            var maxwidth = 10;
-            var sections = [];
-            var words = str.split(' ');
-            var temp = '';
-            words.forEach(function(item, index) {
-                if(temp.length > 0) {
-                    var concat = temp + ' ' + item;
-                    if(concat.length > maxwidth){
-                        sections.push(temp);
-                        temp = '';
-                    } else {
-                        if(index == (words.length-1)) {
-                            sections.push(concat);
-                            return;
-                        } else {
-                            temp = concat;
-                            return;
-                        }
-                    }
-                }
-                if(index == (words.length-1)) {
-                    sections.push(item);
-                    return;
-                }
-                if(item.length < maxwidth) {
-                    temp = item;
-                }
-                else {
-                    sections.push(item);
-                }
-            });
-            return sections;
-        }
-        function isInArray(value, array) {
-            var exists = false;
-            for (var i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    exists = true;
-                }
-            }
-            return exists;
-        }
-
         function renderOverviewLineGraph(newValue, filter, overviewGraph) {
             if (newValue && newValue.sales) {
                 var series = [];
@@ -265,8 +221,8 @@
                         dataItem.push(dataItemValue);
                     });
                     if (!dataItem.every(function (v) {
-                        return v === 0;
-                    })) {
+                            return v === 0;
+                        })) {
                         data.push(dataItem);
                         series.push($translate.instant(type.typeName));
                         step++;
@@ -460,8 +416,8 @@
                 newValue.sales.forEach(function (sale) {
                     sale.sellTypes.forEach(function (sellType) {
                         if ($.grep(ids, function (e) {
-                            return e == parseInt(sellType.priceTypeId, 10);
-                        }).length === 0) {
+                                return e == parseInt(sellType.priceTypeId, 10);
+                            }).length === 0) {
                             series.push(sellType.priceTypeName);
                             colors.push(sellType.color);
                             ids.push(parseInt(sellType.priceTypeId, 10));
@@ -469,20 +425,8 @@
                     });
                 });
                 // Sort by priceTypeId
-                series = ids.map(function (e, i) {
-                    return i;
-                }).sort(function (a, b) {
-                    return ids[a] - ids[b];
-                }).map(function (e) {
-                    return series[e];
-                });
-                colors = ids.map(function (e, i) {
-                    return i;
-                }).sort(function (a, b) {
-                    return ids[a] - ids[b];
-                }).map(function (e) {
-                    return colors[e];
-                });
+                sortGraphData(series);
+                sortGraphData(colors);
 
                 newValue.sales.forEach(function (sale) {
                     if (filter.groupBy == 'day') {
@@ -527,13 +471,7 @@
                     });
                     data.push(dataItem);
                 });
-                data = ids.map(function (e, i) {
-                    return i;
-                }).sort(function (a, b) {
-                    return ids[a] - ids[b];
-                }).map(function (e) {
-                    return data[e];
-                });
+                sortGraphData(data);
                 for (var i = 0;i < colors.length;i++) {
                     var baseColor = colors[i];
                     colors[i] = {
@@ -626,8 +564,8 @@
                 newValue.sales.forEach(function (sale) {
                     sale.sellTypes.forEach(function (sellType) {
                         if ($.grep(series, function (e) {
-                            return e == sellType.priceClassName;
-                        }).length === 0) {
+                                return e == sellType.priceClassName;
+                            }).length === 0) {
                             series.push(sellType.priceClassName);
                             colors.push(sellType.color);
                             ids.push(parseInt(sellType.priceClassId, 10));
@@ -636,22 +574,8 @@
                 });
 
                 // Sort by priceClassId
-                series = ids.map(function (e, i) {
-                    return i;
-                }).sort(function (a, b) {
-                    return ids[a] - ids[b];
-                }).map(function (e) {
-                    return series[e];
-                });
-
-                // Sort by priceClassId
-                colors = ids.map(function (e, i) {
-                    return i;
-                }).sort(function (a, b) {
-                    return ids[a] - ids[b];
-                }).map(function (e) {
-                    return colors[e];
-                });
+                sortGraphData(series);
+                sortGraphData(colors);
 
                 newValue.sales.forEach(function (sale) {
                     if (filter.groupBy == 'day') {
@@ -697,6 +621,7 @@
                     });
                     data.push(dataItem);
                 });
+                sortGraphData(data);
                 for (var i = 0;i < colors.length;i++) {
                     var baseColor = colors[i];
                     colors[i] = {
@@ -779,6 +704,62 @@
                     });
                 });
             }
+        }
+
+        function sortGraphData(data) {
+            var ids = [];
+            data = ids.map(function (e, i) {
+                return i;
+            }).sort(function (a, b) {
+                return ids[a] - ids[b];
+            }).map(function (e) {
+                return data[e];
+            });
+        }
+
+        function formatLabel(str){
+            var maxwidth = 10;
+            var sections = [];
+            var words = str.split(' ');
+            var temp = '';
+            words.forEach(function(item, index) {
+                if(temp.length > 0) {
+                    var concat = temp + ' ' + item;
+                    if(concat.length > maxwidth){
+                        sections.push(temp);
+                        temp = '';
+                    } else {
+                        if(index == (words.length-1)) {
+                            sections.push(concat);
+                            return;
+                        } else {
+                            temp = concat;
+                            return;
+                        }
+                    }
+                }
+                if(index == (words.length-1)) {
+                    sections.push(item);
+                    return;
+                }
+                if(item.length < maxwidth) {
+                    temp = item;
+                }
+                else {
+                    sections.push(item);
+                }
+            });
+            return sections;
+        }
+
+        function isInArray(value, array) {
+            var exists = false;
+            for (var i = 0; i < array.length; i++) {
+                if (array[i] == value) {
+                    exists = true;
+                }
+            }
+            return exists;
         }
     }
 })();
