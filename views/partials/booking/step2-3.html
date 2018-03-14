@@ -111,13 +111,13 @@
     <div class="table table-small bo-adaptive-table-custom2 bo-table-report">
         <div class="bo-tablebody">
             <div class="row-align-middle bo-tablerow" ng-repeat="seat in vm.myBasket.basket">
-                <div class="bo-adaptive-table-custom2-row1">{{'api_basket_ticket_id'|translate}} {{seat.id}}</div>
-                <div class="text-center bo-adaptive-table-custom2-row2-left">{{seat.sectionName}}</div>
-                <div class="text-center bo-adaptive-table-custom2-row2-center">
+                <div class="text-center">{{'api_basket_ticket_id'|translate}} {{seat.id}}</div>
+                <div class="text-center">{{seat.sectionName}}</div>
+                <div class="text-center">
                     <span ng-if="seat.rowName > 0">{{'api_basket_row'|translate}} {{seat.rowName}}</span>
                     <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
                 </div>
-                <div class="text-center bo-adaptive-table-custom2-row2-right">
+                <div class="text-center">
                     <span ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span>
                     <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
                 </div>
@@ -133,11 +133,12 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="bo-singletype" ng-if="seat.priceTypes.length <= 1">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}</div>
+                    <div class="bo-singletype" ng-if="seat.priceTypes.length = 1">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}</div>
+                    <div class="bo-singletype" ng-if="seat.priceTypes.length < 1">&nbsp;</div>
                 </div>
-                <div class="text-center bo-adaptive-table-custom2-row4-left">{{seat.price | number:2}}{{seat.currency}}</div>
-                <div class="bo-adaptive-table-custom2-row4-right">
-                    <a href="" class="text-danger" ng-click="vm.removeFromBasket(seat.id)"><i class="fa fa-times"></i></a>
+                <div class="text-center">{{seat.price | number:2}}{{seat.currency}}</div>
+                <div class="text-center">
+                    <a href="" class="btn-warning" ng-click="vm.removeFromBasket(seat.id)"><i class="fa fa-times"></i></a>
                 </div>
             </div>
         </div>
