@@ -27,13 +27,11 @@
     });
 
     angular.module('boApp').run(runApp);
-    runApp.$inject = ['authService', 'translationService', 'pointService', 'menuService'];
+    runApp.$inject = ['authService', 'pointService', 'menuService', 'translationService'];
     function runApp( authService, translationService, pointService, menuService){
-
         authService.initialize();
-        translationService.initialize();
         pointService.initialize();
         menuService.initialize();
-
+        translationService.initialize();
     }
 })();
