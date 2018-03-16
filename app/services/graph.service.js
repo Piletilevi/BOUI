@@ -68,9 +68,18 @@
                     }
                 },
                 tooltips: {
+                    opacity: 1,
                     backgroundColor: '#000',
                     bodyFontColor: '#fff',
                     titleFontColor: '#fff',
+                    callbacks: {
+                        labelColor: function(tooltipItem, chart) {
+                            return {
+                                borderColor: '#000',
+                                backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].pointHoverBackgroundColor
+                            }
+                        }
+                    },
                     filter: function(tooltipItems, data) {
                         var data = data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
                         return data !== 0;
@@ -112,16 +121,27 @@
                     }]
                 },
                 tooltips: {
+                    opacity: 1,
+                    backgroundColor: '#000',
                     intersect: false,
                     callbacks: {
-                        label: function (tooltipItems, data) {
-                            return data.datasets[tooltipItems.datasetIndex].barLabel[tooltipItems.index] + ': ' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
+                        label: function (tooltipItem, data) {
+                            return data.datasets[tooltipItem.datasetIndex].barLabel[tooltipItem.index] + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        },
+                        labelColor: function(tooltipItem, chart) {
+                            return {
+                                borderColor: '#000',
+                                backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].backgroundColor[tooltipItem.index]
+                            }
                         }
                     },
                     filter: function(tooltipItems, data) {
                         var data = data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
                         return data !== undefined;
                     }
+                },
+                hover: {
+                    intersect: false,
                 }
             }
         };
@@ -136,6 +156,7 @@
                     display: false
                 },
                 tooltips: {
+                    opacity: 1,
                     backgroundColor: '#000',
                     bodyFontColor: '#fff',
                     titleFontColor: '#fff'
