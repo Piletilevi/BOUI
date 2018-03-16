@@ -895,7 +895,6 @@
                 dataService.page(results);
                 if (results.status == 'success') {
                     myBasket = results.data;
-                    console.log(myBasket);
                     if(callback) {
                         callback();
                     }

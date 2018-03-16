@@ -21,11 +21,9 @@
         function sessionLanguage() {
             dataService.get('sessionLang').then(function (results) {
                 if (results.lang) {
-                    console.log("1");
                     $rootScope.setLangValue(results.lang);
                 }
                 else {
-                    console.log("2");
                     $rootScope.setLangValue($rootScope.languages[0]);
                 }
             });
