@@ -72,6 +72,7 @@
             if (lang !== $rootScope.language) {
                 $translate.use(lang.code);
                 $rootScope.language = lang;
+                console.log(lang);
                 dataService.post('setLanguage', {'lang': lang });
             }
         }
