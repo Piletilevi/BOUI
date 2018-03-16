@@ -133,7 +133,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="bo-singletype" ng-if="seat.priceTypes.length = 1">{{seat.priceTypes[0].priceTypeName !== null ? (seat.priceTypes[0].priceTypeName): ' - '}}</div>
+                    <div class="bo-singletype" ng-if="seat.priceTypes.length = 1">{{seat.priceTypes[0].priceTypeName !== undefined ? (seat.priceTypes[0].priceTypeName): ' --- '}}</div>
                 </div>
                 <div class="text-center">{{seat.price | number:2}}{{seat.currency}}</div>
                 <div class="text-center">
