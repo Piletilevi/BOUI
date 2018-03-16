@@ -286,29 +286,19 @@
         };
 
         vm.setSelectedSectionId = function (selectedSectionId) {
-            var availableSection = false;
-            angular.forEach(vm.mySectorsData.sales, function(sector) {
-                if (sector.sectorId === selectedSectionId) {
-                    if (!vm.reservationMode || sector.statistics.availableTickets > 0) {
-                        availableSection = true;
-                    }
-                }
-            });
-            if (availableSection) {
-                $scope.selectedSectionId = selectedSectionId;
-                var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/' + selectedSectionId + '/';
-                if (vm.reservationMode) {
-                    newPath += 'reservation/';
-                    eventService.getSectorsData(vm.event, vm.sectorsFilter);
-                    vm.getMyReservation();
-                } else {
-                    vm.event.seatsMapConfig.sectionId = selectedSectionId;
-                    vm.priceclassFilter.sectionId = selectedSectionId;
-                    eventService.getPriceClassData(vm.event, vm.priceclassFilter);
-                    eventService.getSectorTickets(vm.event, vm.priceclassFilter);
-                }
-                $location.update_path(newPath);
+            $scope.selectedSectionId = selectedSectionId;
+            var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/' + selectedSectionId + '/';
+            if (vm.reservationMode) {
+                newPath += 'reservation/';
+                eventService.getSectorsData(vm.event, vm.sectorsFilter);
+                vm.getMyReservation();
+            } else {
+                vm.event.seatsMapConfig.sectionId = selectedSectionId;
+                vm.priceclassFilter.sectionId = selectedSectionId;
+                eventService.getPriceClassData(vm.event, vm.priceclassFilter);
+                eventService.getSectorTickets(vm.event, vm.priceclassFilter);
             }
+            $location.update_path(newPath);
         };
 
         vm.addSeatsToBasket = function (selectedSeatsIds) {
@@ -441,19 +431,9 @@
         };
 
         vm.setMouseoverSectionId = function (mouseoverSectionId) {
-            var availableSection = false;
-            angular.forEach(vm.mySectorsData.sales, function(sector) {
-                if (sector.sectorId === mouseoverSectionId) {
-                    if (!vm.reservationMode || sector.statistics.availableTickets > 0) {
-                        availableSection = true;
-                    }
-                }
-            });
-            if (availableSection) {
-                vm.event.sectionsMapConfig.mouseoverPrevSectionId = angular.copy($scope.mouseoverSectionId);
-                vm.event.sectionsMapConfig.mouseoverSectionId = mouseoverSectionId;
-                $scope.mouseoverSectionId = mouseoverSectionId;
-            }
+            vm.event.sectionsMapConfig.mouseoverPrevSectionId = angular.copy($scope.mouseoverSectionId);
+            vm.event.sectionsMapConfig.mouseoverSectionId = mouseoverSectionId;
+            $scope.mouseoverSectionId = mouseoverSectionId;
         };
 
         vm.hasSalesPoint = function () {
