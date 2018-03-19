@@ -115,7 +115,6 @@ function VenueMapDirective($parse, $location, $translate) {
 					priceClasses: priceClasses,
 					selectableSeats: true
 				};
-				console.log(seatsInfo);
 				map.addSectionDetails(sectionDetails);
 				map.setSelectedSection(mapConfig.sectionId);
 			}
