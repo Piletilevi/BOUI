@@ -22,6 +22,7 @@
             getPointId: getPointId,
             getPointMenuLogo: getPointMenuLogo,
             getPointMenuGamma: getPointMenuGamma,
+            getPointMenuGammaAccent: getPointMenuGammaAccent,
             getPointAccentColor: getPointAccentColor,
             initialize: initialize
         };
@@ -70,6 +71,7 @@
             $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
             $rootScope.eventLinks = getPointLinks();
             $rootScope.pointMenuGamma = getPointMenuGamma();
+            $rootScope.pointMenuGammaAccent = getPointMenuGammaAccent();
             $rootScope.pointAccentColor = getPointAccentColor($rootScope.pointMenuGamma,$rootScope.pointMenuBackgroundColor);
             if ($rootScope.hideEventsForPointInit == null) {
                 $rootScope.hideEventsForPointInit = setHideEvents();
@@ -89,11 +91,10 @@
         function getPointAccentColor(pointGamma,pointColor) {
             var accentColor = pointColor;
             if (pointGamma) {
-                accentColor = "#5e7287";
+                accentColor = $rootScope.pointMenuGammaAccent;
             }
             return accentColor;
         }
-
         function getPointMenuGamma() {
             var settings = getPointSettings();
             if (settings != null) {
@@ -106,7 +107,16 @@
             }
             return false;
         }
-
+        function getPointMenuGammaAccent() {
+            var settings = getPointSettings();
+            if (settings != null) {
+                var setting = settings.find(getPointTopMenuGammaAccent);
+                if (setting != null) {
+                    return setting.value;
+                }
+            }
+            return "#5e7287";
+        }
         function getPointMenuLogo() {
             var settings = getPointSettings();
             if (settings != null) {
@@ -117,7 +127,6 @@
             }
             return "img/logo.png";
         }
-
         function getPointMenuBackgroundColor() {
             var settings = getPointSettings();
             if (settings != null) {
@@ -128,7 +137,6 @@
             }
             return "#5e7287";
         }
-
         function getPointMenuActiveColor() {
             var settings = getPointSettings();
             if (settings != null) {
@@ -146,28 +154,30 @@
             }
             return;
         }
-
         function getPointTopMenuBackgroundColorSetting(setting) {
             if (setting != null) {
                 return setting.name === "api_topmenu_background";
             }
             return;
         }
-
         function getPointTopMenuColorSetting(setting) {
             if (setting != null) {
                 return setting.name === "api_topmenu_color";
             }
             return;
         }
-
         function getPointTopMenuGamma(setting) {
             if (setting != null) {
                 return setting.name === "api_headerGamma";
             }
             return;
         }
-
+        function getPointTopMenuGammaAccent(setting) {
+            if (setting != null) {
+                return setting.name === "api_headerGammaAccent";
+            }
+            return;
+        }
         function getPointSettings() {
             if ($rootScope.authenticated) {
                 var parameters = $rootScope.user.salesPoints.find(findPoint).parameters;

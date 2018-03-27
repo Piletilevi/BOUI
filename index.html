@@ -66,7 +66,7 @@
                                    ng-attr-data-default-end-date="{{vm.defaultEndDate}}"
                                    ng-attr-data-min-date="{{vm.minFilterDate}}"
                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled/>
-                            <span class="icon-holder" ng-style="{'background-color' : pointAccentColor}">
+                            <span class="icon-holder" ng-style="{'background-color': pointAccentColor}">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </button>
@@ -78,7 +78,7 @@
                     <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}"
                            ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
 						<span class="input-group-btn">
-							<button class="btn btn-default" type="button" ng-click="vm.search()" ng-style="{'background-color' : pointAccentColor}">
+							<button class="btn btn-default" type="button" ng-click="vm.search()" ng-style="{'background-color': pointAccentColor}">
                                 <i class="fa fa-{{vm.reset_search ? 'close' : 'search'}}" aria-hidden="true"></i>
                             </button>
 						</span>

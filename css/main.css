@@ -110,6 +110,21 @@ a:hover {
 	padding-right: 0;
 }
 
+.btn-default.active.focus,
+.btn-default.active:focus,
+.btn-default.active:hover,
+.btn-default:active.focus,
+.btn-default:active:focus,
+.btn-default:active:hover,
+.open>.dropdown-toggle.btn-default.focus,
+.open>.dropdown-toggle.btn-default:focus,
+.open>.dropdown-toggle.btn-default:hover,
+.btn-default.active,
+.btn-default:active {
+	border-color: #ffffff;
+	background-color: #e6e6e6;
+}
+
 .table .bo-shortcell {
 	padding-top: 8px;
 	padding-bottom: 8px;
@@ -143,7 +158,7 @@ a:hover {
 
 .dropdown-menu {
 	margin: 0;
-	border-radius: 0 0 8px 8px;
+	border-radius: 0 0 6px 6px;
 	border: none;
 }
 
@@ -179,7 +194,7 @@ a:hover {
 }
 .btn-default {
 	border: 0;
-	border-radius: 8px;
+	border-radius: 6px;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
@@ -189,7 +204,7 @@ a:hover {
 }
 .btn-warning {
 	border: 0;
-	border-radius: 8px;
+	border-radius: 6px;
 	padding: 12px 15px;
 	background-color: #d93835;
 }
@@ -201,7 +216,7 @@ a:hover {
 }
 .btn-info {
 	border: 0;
-	border-radius: 8px;
+	border-radius: 6px;
 	padding: 12px 15px;
 	background-color: #3584d9;
 }
@@ -213,7 +228,7 @@ a:hover {
 }
 .btn-primary {
 	border: 0;
-	border-radius: 8px;
+	border-radius: 6px;
 	padding: 12px 15px;
 }
 .table .btn {
@@ -226,7 +241,7 @@ a:hover {
 .btn-default:focus {
 	background-color: #fff;
 }
-.btn-default:active {
+.btn-default:active:not(.bo-top-filter-search.btn) {
 	background-color: #edf0f4!important;
 	border-color: #ffffff!important;
 }
@@ -251,7 +266,7 @@ a:hover {
 
 .alert {
 	border: 0;
-	border-radius: 8px;
+	border-radius: 6px;
 	padding: 12px 15px;
 }
 
@@ -264,7 +279,7 @@ a:hover {
 
 .nav-tabs {
 	border-bottom: 5px solid #fff;
-	border-radius: 8px;
+	border-radius: 6px;
 	border-bottom-right-radius: 3px;
 	overflow: hidden;
 	margin-bottom: 12px;
@@ -301,13 +316,13 @@ a:hover {
 }
 
 .nav-tabs > li:last-child {
-	border-top-right-radius: 8px;
+	border-top-right-radius: 6px;
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
 	border: 0;
 	color: #fff;
-	border-radius: 6px;
+	border-radius: 4px;
 	background: #fff;
 	opacity: 1;
 }
@@ -340,7 +355,7 @@ a:hover {
 }
 
 .navbar-brand.bo-logo img {
-	max-height: 25px;
+	max-height: 32px;
 	max-width: 100%;
 }
 
@@ -572,7 +587,7 @@ a:hover {
 	margin: 0 auto;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
-	border-radius: 8px;
+	border-radius: 6px;
 	color: #263443;
 	border: 0;
 	overflow: hidden;
@@ -611,7 +626,7 @@ a:hover {
 .bo-widgetbox .input-icon {
 	position: relative;
 	border: 5px solid #fff;
-	border-radius: 8px;
+	border-radius: 6px;
 	background: #fff;
 }
 
@@ -634,7 +649,7 @@ a:hover {
 	padding-left: 35px;
 	height: 35px;
 	border: 0;
-	border-radius: 6px;
+	border-radius: 4px;
 }
 
 .bo-widgetbox .input-icon .ace-icon {
@@ -725,9 +740,9 @@ a:hover {
 	color: #a94442;
 	background: #f2dede;
 	border: none;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	border-radius: 8px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
 	padding: 12px 15px;
 	margin-bottom: 6px;
 }
@@ -738,7 +753,7 @@ a:hover {
 	font-weight: bold;
 	padding: 32px 0;
 	background-color: #fff;
-	border-radius: 8px;
+	border-radius: 6px;
 }
 
 /* Small checkbox
@@ -796,7 +811,7 @@ a:hover {
 	display: block;
 	position: relative;
 	overflow: hidden;
-	border-radius: 8px;
+	border-radius: 6px;
 	background-color: #fff;
 }
 
@@ -936,7 +951,7 @@ a:hover {
 	display: block;
 	background-color: #edf0f4;
 	text-align: center;
-	border-radius: 6px;
+	border-radius: 4px;
 	text-decoration: none;
 	color: #5e7287;
 	opacity: 0.8;
@@ -970,7 +985,7 @@ a:hover {
 ================================ */
 .bo-showpanel .panel-heading {
 	background: #f0f3f7;
-	border-radius: 8px 8px 0 0;
+	border-radius: 6px 6px 0 0;
 	padding: 0px;
 	border-bottom: 1px solid #cdd2d8;
 	-moz-box-shadow: 0 0 0 1px #f7f9fb inset;
@@ -986,7 +1001,7 @@ a:hover {
 
 .bo-showpanel {
 	overflow: hidden;
-	border-radius: 8px;
+	border-radius: 6px;
 }
 
 .bo-showpanel-title {
@@ -1013,8 +1028,8 @@ a:hover {
 }
 
 .bo-showpanel-concerts .bo-showpanel-concert:last-child .bo-eventsummary {
-	border-bottom-left-radius: 8px;
-	border-bottom-right-radius: 8px;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
 }
 
 .bo-showpanel-concert .bo-eventsummary-linked:hover {
@@ -1086,7 +1101,7 @@ a:hover {
 ================================ */
 
 .bo-relatedpanel {
-	border-radius: 8px;
+	border-radius: 6px;
 	overflow: hidden;
 }
 
@@ -1124,7 +1139,7 @@ a:hover {
 /* Section-selector
 ================================ */
 .bo-sectionselector {
-	border-radius: 8px;
+	border-radius: 6px;
 	overflow: hidden;
 	border: 5px solid #edf0f4;
 	background-color: #edf0f4;
@@ -1138,7 +1153,7 @@ a:hover {
 	box-shadow: none!important;
 	border: none;
 	border-top: 2px solid #edf0f4!important;
-	border-radius: 6px!important;
+	border-radius: 4px!important;
 	outline: 0!important;
 }
 .bo-sectionselector-item:first-child {
@@ -1230,9 +1245,9 @@ button.bo-sectionselector-item.list-group-item {
 .bo-sectionselection {
 	position: relative;
 	border: 5px solid #fff;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
 	height: 45px;
 	padding: 0;
 }
@@ -1252,7 +1267,7 @@ button.bo-sectionselector-item.list-group-item {
 	padding: 7px 10px;
 	display: inline-block;
 	height: 35px;
-	border-radius: 6px;
+	border-radius: 4px;
 }
 
 /* Dot
@@ -1569,9 +1584,9 @@ button.bo-sectionselector-item.list-group-item {
 	display: table;
 	background-color: #edf0f4;
 	border: 5px solid #edf0f4;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
 	overflow: hidden;
 }
 
@@ -1720,7 +1735,7 @@ button.bo-sectionselector-item.list-group-item {
 }
 
 .bo-adaptive-table-custom2 .btn-warning {
-	border-radius: 6px;
+	border-radius: 4px;
 	padding: 8px 10px 8px 11px;
 	width: 36px;
 	display: inline-block;
@@ -1737,7 +1752,7 @@ button.bo-sectionselector-item.list-group-item {
 .bo-tablebody .btn.dropdown-toggle {
 	color: #5e7287;
 	background-color: #edf0f4;
-	border-radius: 6px;
+	border-radius: 4px;
 	border: none;
 	padding: 6px 15px;
 	height: 36px;
@@ -1746,7 +1761,7 @@ button.bo-sectionselector-item.list-group-item {
 .bo-tablebody .bo-singletype {
 	color: #5e7287;
 	background-color: #edf0f4;
-	border-radius: 6px;
+	border-radius: 4px;
 	border: none;
 	padding: 6px 15px;
 	height: 35px;
@@ -1930,9 +1945,9 @@ button.bo-sectionselector-item.list-group-item {
 .bo-switch {
 	background-color: #fff;
 	border: 5px solid #fff;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
 	border-bottom-left-radius: 0;
 	overflow: hidden;
 	margin-left: -11px;
@@ -1945,7 +1960,7 @@ button.bo-sectionselector-item.list-group-item {
 .bo-switch-label {
 	margin: 0;
 	padding: 7px 10px;
-	border-radius: 6px;
+	border-radius: 4px;
 	color: #5e7287;
 	opacity: 0.8;
 }
@@ -1963,7 +1978,7 @@ button.bo-sectionselector-item.list-group-item {
 ================================ */
 
 .bo-top-filter-search .input-group, .bo-datarangepicker-button {
-	border-radius: 8px;
+	border-radius: 6px;
 	border: 5px solid #fff;
 	background-color: #fff;
 	overflow: hidden;
@@ -1971,7 +1986,7 @@ button.bo-sectionselector-item.list-group-item {
 
 .bo-top-filter-search .form-control {
 	border: 0px;
-	border-radius: 6px 0 0 6px;
+	border-radius: 4px 0 0 4px;
 	padding: 0 10px;
 	height: 35px;
 	color: #5e7287;
@@ -1979,7 +1994,7 @@ button.bo-sectionselector-item.list-group-item {
 
 .bo-top-filter-search .btn.btn-default {
 	border: 0px;
-	border-radius: 6px;
+	border-radius: 4px;
 	padding: 0 10px;
 	height: 35px;
 	-webkit-box-shadow: none;
@@ -2046,7 +2061,7 @@ button.bo-sectionselector-item.list-group-item {
 	float: none;
 	display: inline-block;
 	height: 35px;
-	border-radius: 6px;
+	border-radius: 4px;
 }
 
 .bo-datarangepicker-button .form-control {
@@ -2063,7 +2078,7 @@ button.bo-sectionselector-item.list-group-item {
 	width: 36px;
 	position: absolute;
 	right: 20px;
-	border-radius: 6px;
+	border-radius: 4px;
 	background-color: #5e7287;
 	color: #fff;
 	z-index: 2;
@@ -2089,14 +2104,14 @@ button.bo-sectionselector-item.list-group-item {
 
 .bo-chartcontrols > .btn-group {
 	border: 5px solid #fff;
-	border-radius: 8px;
+	border-radius: 6px;
 	background-color: #fff;
 }
 
 .bo-chartcontrols > .btn-group > .btn {
 	padding: 0 12px;
 	height: 35px;
-	border-radius: 6px!important;
+	border-radius: 4px!important;
 	background-color: #fff;
 	color: #5e7287;
 	opacity: 0.8;
@@ -2120,14 +2135,14 @@ button.bo-sectionselector-item.list-group-item {
 
 .bo-chart-buttons > .btn-group {
 	border: 5px solid #edf0f4;
-	border-radius: 8px;
+	border-radius: 6px;
 	background-color: #edf0f4;
 }
 
 .bo-chart-buttons > .btn-group > .btn {
 	padding: 0 12px;
 	height: 35px;
-	border-radius: 6px!important;
+	border-radius: 4px!important;
 	background-color: #edf0f4;
 	color: #5e7287;
 	opacity: 0.8;
@@ -2161,9 +2176,9 @@ button.bo-sectionselector-item.list-group-item {
 
 .bo-tabs-content {
 	background-color: #fff;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
 	padding: 18px;
 }
 
@@ -2324,7 +2339,7 @@ button.bo-sectionselector-item.list-group-item {
 
 .block-ui.events-loader {
 	background: #fff;
-	border-radius: 8px;
+	border-radius: 6px;
 	overflow: hidden;
 }
 
@@ -2341,7 +2356,7 @@ button.bo-sectionselector-item.list-group-item {
 }
 
 .block-ui-container {
-	border-radius: 8px;
+	border-radius: 6px;
 }
 
 /* eventerror
@@ -2350,7 +2365,7 @@ button.bo-sectionselector-item.list-group-item {
 .bo-eventerror {
 	padding: 16px;
 	background-color: #fff;
-	border-radius: 8px;
+	border-radius: 6px;
 }
 
 .bo-eventerror .alert {
@@ -2437,13 +2452,13 @@ button.bo-sectionselector-item.list-group-item {
 }
 .bo-reservation-inline-buttons > .btn-group {
 	border: 5px solid #edf0f4;
-	border-radius: 8px;
+	border-radius: 6px;
 	background-color: #edf0f4;
 }
 .bo-reservation-inline-buttons > .btn-group > .btn {
 	padding: 0 12px;
 	height: 35px;
-	border-radius: 6px!important;
+	border-radius: 4px!important;
 	background-color: #edf0f4;
 	color: #5e7287;
 	opacity: 0.8;
@@ -2486,11 +2501,11 @@ button.bo-sectionselector-item.list-group-item {
 .bo-reservation-time {
 	border: 5px solid #edf0f4;
 	background-color: #edf0f4;
-	border-radius: 8px;
+	border-radius: 6px;
 	color: #5e7287;
 }
 .bo-reservation-time > div {
-	border-radius: 6px;
+	border-radius: 4px;
 	padding: 7px;
 	height: 35px;
 }
@@ -2498,7 +2513,7 @@ button.bo-sectionselector-item.list-group-item {
 .bo-reservation-datetime .form-control {
 	border: none;
 	background-color: #fff;
-	border-radius: 6px;
+	border-radius: 4px;
 	color: #5e7287;
 	height: 35px;
 }
@@ -2516,7 +2531,7 @@ button.bo-sectionselector-item.list-group-item {
 .bo-reservation-datetime datepicker {
 	border: 5px solid #edf0f4;
 	background-color: #edf0f4;
-	border-radius: 8px;
+	border-radius: 6px;
 }
 
 /* tabledrop
@@ -2632,16 +2647,16 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
 .inner-addon {
 	position: relative;
 	border: 5px solid #fff;
-	border-radius: 8px;
+	border-radius: 6px;
 	background-color: #fff;
 }
 
 .inner-addon .form-control {
 	border: 0;
 	height: 35px;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 }
 
 /* style icon */
@@ -2688,7 +2703,7 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
 	-moz-box-shadow: 0 5px 6px rgba(49, 61, 74, 0.1);
 	-webkit-box-shadow: 0 5px 6px rgba(49, 61, 74, 0.1);
 	box-shadow: 0 5px 6px rgba(49, 61, 74, 0.1);
-	border-radius: 6px;
+	border-radius: 4px;
 	min-width: 240px;
 }
 
