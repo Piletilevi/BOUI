@@ -145,6 +145,9 @@
                     dataService.page(results);
                     if (results.status == "success") {
                         $location.path('dashboard');
+                        $rootScope.passwordChangeError = false;
+                    }else {
+                        $rootScope.passwordChangeError = results.message;
                     }
                 });
         }

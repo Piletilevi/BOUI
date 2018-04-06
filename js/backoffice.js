@@ -12,7 +12,7 @@
         'time-out': 5000,
         //'extendedTimeout':0,// Set timeOut and extendedTimeout to 0 to make it sticky
         'icon-classes': {
-            error: 'bo-error',
+            error: 'bo-error alert alert-danger',
             info: 'bo-info',
             success: 'bo-success',
             warning: 'bo-warning'
