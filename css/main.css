@@ -737,14 +737,6 @@ a:hover {
 ================================ */
 
 .bo-error {
-	color: #a94442;
-	background: #f2dede;
-	border: none;
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	border-radius: 6px;
-	padding: 12px 15px;
-	margin-bottom: 6px;
 }
 
 .bo-no-data-msg {
@@ -2757,13 +2749,6 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
 ._720kb-datepicker-calendar-day._720kb-datepicker-active, ._720kb-datepicker-calendar-day:not(._720kb-datepicker-disabled):hover {
 	background-color: #357ebd !important;
 	color: #fff;
-}
-
-/* Booking form
-================================ */
-
-.submitted input.ng-invalid {
-	border: 1px solid #c60000;
 }
 
 /* Sliding and dropdowned tabs

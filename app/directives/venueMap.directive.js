@@ -10,7 +10,7 @@ function VenueMapDirective($parse, $location, $translate) {
 	var hostConf = {
 		secure: window.location.protocol == 'https:',
 		host: $location.host()
-		//host: 'piletilevi_shop-master.local'
+		//host: 'shop.piletilevi.local'
 	};
 	var link = function($scope, $element, $attributes) {
 		var map = null;
@@ -64,6 +64,8 @@ function VenueMapDirective($parse, $location, $translate) {
 				map.setMassSelectable(true);
 
 				map.addTranslation('booked', $translate.instant('api_seat_booked'));
+				// TODO: set proper translation for 'not_sold'
+				map.addTranslation('not_sold', $translate.instant('api_seat_booked'));
 				map.addTranslation('available', $translate.instant('api_seat_available'));
                 map.addTranslation('selected', $translate.instant('api_seat_selected'));
                 // TODO: add other translations
