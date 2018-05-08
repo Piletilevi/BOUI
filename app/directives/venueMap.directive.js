@@ -86,8 +86,17 @@ function VenueMapDirective($parse, $location, $translate) {
 					$scope.$apply();
 				});
 				map.addHandler('sectionSelected', function(sectionId) {
-					$scope.setSelectedSectionId(sectionId);
-					$scope.$apply();
+					var sectorList = $scope.mySectorsData.sales;
+					var sectorData;
+					angular.forEach(sectorArray, function(sector) {
+                        if (sector.sectorId == sectionId) {
+                            sectorData = sector;
+                        }
+					});
+					if (!$scope.reservationMode || sectorData.statistics.availableTickets != 0) {
+                        $scope.setSelectedSectionId(sectionId);
+                        $scope.$apply();
+					}
 				});
 				map.addHandler('seatsSelected', function(seatIds) {
 					$scope.addSeatsToBasket(seatIds);
