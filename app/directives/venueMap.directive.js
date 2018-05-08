@@ -92,6 +92,7 @@ function VenueMapDirective($parse, $location, $translate, eventService) {
                             sectorData = sector;
                         }
                     });
+                    console.log($scope.reservationMode);
                     if (!$scope.reservationMode || sectorData.statistics.availableTickets != 0) {
                         $scope.setSelectedSectionId(sectionId);
                         $scope.$apply();
