@@ -860,6 +860,7 @@
         });
 
         $scope.$watch('vm.sectorTickets', function (newValue, oldValue) {
+            console.log(vm.event.seatsMapConfig.priceClasses);
             if (!angular.equals(newValue, oldValue)) {
                 angular.forEach(newValue.tickets, function (ticket) {
                     ticket.id = ticket.seatId;
