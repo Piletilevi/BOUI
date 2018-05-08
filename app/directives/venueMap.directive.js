@@ -4,9 +4,9 @@ angular
     .module('boApp')
     .directive('ngVenueMap', VenueMapDirective);
 
-VenueMapDirective.$inject = ['$parse', '$location', '$translate'];
+VenueMapDirective.$inject = ['$parse', '$location', '$translate', 'eventService'];
 
-function VenueMapDirective($parse, $location, $translate) {
+function VenueMapDirective($parse, $location, $translate, eventService) {
     var hostConf = {
         secure: window.location.protocol == 'https:',
         host: $location.host()
