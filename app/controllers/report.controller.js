@@ -284,6 +284,10 @@
             return '';
         };
 
+        vm.getReservationMode = function () {
+            $scope.reservationMode = vm.reservationMode;
+        };
+
         vm.setSelectedSectionId = function (selectedSectionId) {
             $scope.selectedSectionId = selectedSectionId;
             var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/' + selectedSectionId + '/';
@@ -749,7 +753,7 @@
             eventService.getMoreBookingsData(vm.bookingFilter);
         };
 
-        $scope.reservationMode = vm.reservationMode;
+        $scope.getReservationMode = vm.getReservationMode;
         $scope.setSelectedSectionId = vm.setSelectedSectionId;
         $scope.addSeatsToBasket = vm.addSeatsToBasket;
         $scope.removeSelectedSeatId = vm.removeSelectedSeatId;
