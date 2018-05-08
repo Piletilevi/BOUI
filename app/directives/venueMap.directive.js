@@ -81,18 +81,8 @@ function VenueMapDirective($parse, $location, $translate, eventService) {
                     $element.css({display: visible ? 'block' : 'none'});
                 });
                 map.addHandler('sectionMouseover', function(sectionId) {
-                    var sectorList = eventService.mySectorsData();
-                    var sectorData;
-                    angular.forEach(sectorList.sales, function(sector) {
-                        if (sector.sectorId == sectionId) {
-                            sectorData = sector;
-                        }
-                    });
-                    $scope.getReservationMode();
-                    if (!$scope.reservationMode || sectorData.statistics.availableTickets != 0) {
-                        $scope.setMouseoverSectionId(sectionId);
-                        $scope.$apply();
-                    }
+					$scope.setMouseoverSectionId(sectionId);
+					$scope.$apply();
                 });
                 map.addHandler('sectionSelected', function(sectionId) {
                     var sectorList = eventService.mySectorsData();

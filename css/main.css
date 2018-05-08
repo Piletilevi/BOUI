@@ -1154,6 +1154,7 @@ a:hover {
 .bo-sectionselector-disabled {
 	background-color: #fff!important;
 	cursor: not-allowed;
+	opacity: 0.6;
 }
 .bo-sectionselector-disabled .fa-exclamation-circle {
 	color: #ff3f71;
