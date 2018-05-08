@@ -143,7 +143,6 @@
             personType: 'person',
             concertId: $routeParams.id
         };
-
         vm.reservationStartDate = moment().subtract(1, 'days');
         vm.reservationMode = $routeParams.reservation ? 'basket' : false;
         // vm.printPdf = pdfService.printPdf;
@@ -750,6 +749,7 @@
             eventService.getMoreBookingsData(vm.bookingFilter);
         };
 
+        $scope.reservationMode = vm.reservationMode;
         $scope.setSelectedSectionId = vm.setSelectedSectionId;
         $scope.addSeatsToBasket = vm.addSeatsToBasket;
         $scope.removeSelectedSeatId = vm.removeSelectedSeatId;

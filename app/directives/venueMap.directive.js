@@ -4,13 +4,12 @@ angular
     .module('boApp')
     .directive('ngVenueMap', VenueMapDirective);
 
-VenueMapDirective.$inject = ['$parse', '$rootScope', '$location', '$translate', 'eventService'];
+VenueMapDirective.$inject = ['$parse', '$location', '$translate', 'eventService'];
 
-function VenueMapDirective($parse, $rootScope, $location, $translate, eventService) {
+function VenueMapDirective($parse, $location, $translate, eventService) {
     var hostConf = {
         secure: window.location.protocol == 'https:',
         host: $location.host()
-        //host: 'shop.piletilevi.local'
     };
     var link = function($scope, $element, $attributes) {
         var map = null;
@@ -93,10 +92,7 @@ function VenueMapDirective($parse, $rootScope, $location, $translate, eventServi
                             sectorData = sector;
                         }
                     });
-                    console.log($scope.reservationMode);
-                    console.log($rootScope.reservationMode);
-                    console.log(sectorData.statistics);
-                    if (!$rootScope.reservationMode || sectorData.statistics.availableTickets != 0) {
+                    if (!$scope.reservationMode || sectorData.statistics.availableTickets != 0) {
                         $scope.setSelectedSectionId(sectionId);
                         $scope.$apply();
                     }
