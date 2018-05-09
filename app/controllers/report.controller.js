@@ -294,6 +294,8 @@
             if (vm.reservationMode) {
                 newPath += 'reservation/';
                 eventService.getSectorsData(vm.event, vm.sectorsFilter);
+                eventService.getPriceClassData(vm.event, vm.priceclassFilter);
+                eventService.getSectorTickets(vm.event, vm.priceclassFilter);
                 vm.getMyReservation();
             } else {
                 vm.event.seatsMapConfig.sectionId = selectedSectionId;
@@ -860,9 +862,6 @@
         });
 
         $scope.$watch('vm.sectorTickets', function (newValue, oldValue) {
-            console.log(newValue);
-            console.log(oldValue);
-            console.log(vm.sectorTickets);
             if (!angular.equals(newValue, oldValue)) {
                 angular.forEach(newValue.tickets, function (ticket) {
                     ticket.id = ticket.seatId;
@@ -872,7 +871,6 @@
                 vm.event.seatsMapConfig.priceClasses = newValue.priceClasses;
                 vm.event.seatsMapConfig.seatsInfo = newValue.tickets;
             }
-            console.log(vm.event.seatsMapConfig);
         });
 
         //Rerender charts in overview tab when language has been changed. Other tabs' charts don't have translations.
