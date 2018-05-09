@@ -291,18 +291,15 @@
         vm.setSelectedSectionId = function (selectedSectionId) {
             $scope.selectedSectionId = selectedSectionId;
             var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/' + selectedSectionId + '/';
+            vm.event.seatsMapConfig.sectionId = selectedSectionId;
+            vm.priceclassFilter.sectionId = selectedSectionId;
+            eventService.getPriceClassData(vm.event, vm.priceclassFilter);
+            eventService.getSectorTickets(vm.event, vm.priceclassFilter);
             if (vm.reservationMode) {
                 newPath += 'reservation/';
                 eventService.getSectorsData(vm.event, vm.sectorsFilter);
-                eventService.getPriceClassData(vm.event, vm.priceclassFilter);
-                eventService.getSectorTickets(vm.event, vm.priceclassFilter);
                 vm.getMyReservation();
-            } else {
-                vm.event.seatsMapConfig.sectionId = selectedSectionId;
-                vm.priceclassFilter.sectionId = selectedSectionId;
-                eventService.getPriceClassData(vm.event, vm.priceclassFilter);
-                eventService.getSectorTickets(vm.event, vm.priceclassFilter);
-            }
+            } 
             $location.update_path(newPath);
         };
 
