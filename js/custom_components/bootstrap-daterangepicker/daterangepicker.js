@@ -647,6 +647,7 @@
             var dayOfWeek = firstDay.day();
 
             this.locale.monthNames = moment.monthsShort();
+            this.locale.daysOfWeek = moment.weekdaysMin();
             //initialize a 6 rows x 7 columns array for the calendar
             var calendar = [];
             calendar.firstDay = firstDay;
