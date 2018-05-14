@@ -227,22 +227,10 @@
                 myPastCount = 0;
 
                 dataService.page(results);
-
                 if (results && results.count) {
                     myOpenCount = results.count.open;
-                    if (results.count.hasMoreOpen) {
-                        myOpenCount = myOpenCount + "+";
-                    }
-
                     myDraftCount = results.count.draft;
-                    if (results.count.hasMoreDraft) {
-                        myDraftCount = myDraftCount + "+";
-                    }
-
                     myPastCount = results.count.past;
-                    if (results.count.hasMorePast) {
-                        myPastCount = myPastCount + "+";
-                    }
                 }
             });
         }
