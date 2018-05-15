@@ -9,7 +9,7 @@ VenueMapDirective.$inject = ['$parse', '$location', '$translate', 'eventService'
 function VenueMapDirective($parse, $location, $translate, eventService) {
     var hostConf = {
         secure: window.location.protocol == 'https:',
-        host: $location.host()
+        host: window.location.host
     };
     var link = function($scope, $element, $attributes) {
         var map = null;
