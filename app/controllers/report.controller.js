@@ -90,13 +90,23 @@
         eventService.reset();
         graphService.reset();
 
+        //Initialize
+        eventService.getEventSales(vm.event);
+        eventService.getRelatedEvents(vm.event);
+
         vm.getDatetime = new Date();
         vm.getEventSales = eventService.getEventSales;
         vm.getConcertSales = eventService.getConcertSales;
         vm.getShowSales = eventService.getShowSales;
         vm.getMoreRelatedEvents = eventService.getMoreRelatedEvents;
         vm.hasMoreRelatedEvents = eventService.hasMoreRelatedEvents;
-        vm.filter = {period: {startDate: moment().subtract(30, 'days'), endDate: moment().add(1, 'years')}, name: ''};
+        vm.filter = {
+            period: {
+                startDate: moment().subtract(30, 'days'),
+                endDate: moment().add(1, 'years')
+            },
+            name: ''
+        };
         vm.filterPeriod = {period: {startDate: null, endDate: null}};
         vm.overviewFilter = {
             period: {startDate: null, endDate: null},
@@ -122,7 +132,10 @@
         vm.sectorsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
         vm.defaultBookingFilter = {
             concertId: $routeParams.id,
-            period: {startDate: moment().subtract(1, 'years'), endDate: moment().add(1, 'days')},
+            period: {
+                startDate: moment().subtract(1, 'years'),
+                endDate: moment().add(1, 'days')
+            },
 			statusId: 1,
             typeId: 0
         };
@@ -146,10 +159,6 @@
         vm.reservationStartDate = moment().subtract(1, 'days');
         vm.reservationMode = $routeParams.reservation ? 'basket' : false;
         // vm.printPdf = pdfService.printPdf;
-
-        //Initialize
-        eventService.getEventSales(vm.event);
-        eventService.getRelatedEvents(vm.event);
 
         vm.goToEvent = function (pointId,event) {
             eventService.goToEvent(pointId,event);
@@ -796,7 +805,6 @@
             });
         });
 
-
         $scope.$watch(
             function () {
                 vm.myOverviewBarData = eventService.myOverviewData();
@@ -1055,6 +1063,8 @@
                 vm.locationsFilter.period.endDate = newSellPeriod.end;
                 vm.minFilterDate = vm.overviewFilter.period.startDate;
                 vm.maxFilterDate = vm.overviewFilter.period.endDate;
+                vm.bookingFilter.period.startDate = newSellPeriod.start;
+                vm.defaultBookingFilter.period.startDate = newSellPeriod.start;
                 vm.tabSelectEvent(vm.currentTab);
             }
         });
