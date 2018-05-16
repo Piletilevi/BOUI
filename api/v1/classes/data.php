@@ -95,6 +95,7 @@ class DataHandler {
 		}
 		return "";
 	}
+
 	/**
 	 * Verifying required token
 	 */
@@ -131,6 +132,25 @@ class DataHandler {
 		return "";
 	}
 
+	/**
+	 * Replacing whitespaces with _ and returns substring 12
+	 */
+	public function getShortName($name) {
+		
+		mb_internal_encoding("UTF-8");
+		
+		$replaceSymbols = array("'", "\"", "/", "\\");
+		$name = str_replace($replaceSymbols, "", $name);
+		
+		$name = preg_replace('/(\s\s+|\t|\n)/', ' ', $name);
+		if (mb_strlen($name) > 21) {
+			$name = trim(mb_substr($name, 0, 21));
+		}
+		$name = preg_replace('/\s+/', '_', $name);
+
+		return trim($name);
+	}
+	
 	public function response($response, $data, $status=200) {
 		return $response->withJson($data, $status);
 	}

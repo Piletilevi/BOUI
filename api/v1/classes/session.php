@@ -14,11 +14,31 @@ class PiletileviSessionHandler {
 		return self::$piletileviSession; 	
 	}
 
+	public function setUser($user){
+        $this->setSessionValue( 'user', $user );
+	}
+	
+	public function setUserPointId($pointId){
+        $this->checkSession();
+        $_SESSION['user']->point = $pointId;
+	}
+
+	public function setCurrentLanguage($lang){
+        $this->setSessionValue( 'lang', $lang );
+	}
+
+	public function setSessionId($sessionId){
+        $this->setSessionValue( 'sessionId', $sessionId );
+	}
+
 	public function getSession(){
-		if (!isset($_SESSION)) {
-			@session_start();
-		}
+        $this->checkSession();
 		$sess = array();
+		if(isset($_SESSION['sessionId'])) {
+			$sess["sessionId"] = $_SESSION['sessionId'];
+		} else {
+			$sess["sessionId"] = '';
+		}
 		if(isset($_SESSION['user'])) {
 			$sess["user"] = $_SESSION['user'];
 		} else {
@@ -29,7 +49,6 @@ class PiletileviSessionHandler {
 		} else {
 			$sess["lang"] = '';
 		}
-
 		return $sess;
 	}
 
@@ -45,6 +64,17 @@ class PiletileviSessionHandler {
 			$msg = "Not logged in...";
 		}
 		return $msg;
+	}
+	
+	public function setSessionValue($key, $value){
+        $this->checkSession();
+        $_SESSION[$key] = $value;
+	}
+	
+	private function checkSession() {
+		if (!isset($_SESSION)) {
+			@session_start();
+		}
 	}
 }
 

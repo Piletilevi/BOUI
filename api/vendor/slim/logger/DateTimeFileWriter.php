@@ -107,21 +107,21 @@ class DateTimeFileWriter
      * @param   int   $level
      * @return  void
      */
-    public function write($object, $level)
+    public function write($object, $level="INFO")
     {
         //Determine label
         $label = 'DEBUG';
         switch ($level) {
-            case \Slim\Log::FATAL:
+            case "FATAL":
                 $label = 'FATAL';
                 break;
-            case \Slim\Log::ERROR:
+            case "ERROR":
                 $label = 'ERROR';
                 break;
-            case \Slim\Log::WARN:
+            case "WARN":
                 $label = 'WARN';
                 break;
-            case \Slim\Log::INFO:
+            case "INFO":
                 $label = 'INFO';
                 break;
         }
