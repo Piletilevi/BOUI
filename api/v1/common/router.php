@@ -38,7 +38,7 @@ $app->get('/boUrl', function ($request, $response, $args) {
 	return $dataHandler->response($response, $r);
 });
 
-$app->post('/getSessionKey', function ($request, $response, $args) {
+$app->post('/getYellowSessionKey', function ($request, $response, $args) {
     $json = json_decode($request->getBody());
 
 	$dataHandler = $this->dataHandler;
@@ -54,7 +54,7 @@ $app->post('/getSessionKey', function ($request, $response, $args) {
     $ip = $json->clientip;
 
     $piletileviApi = $this->piletileviApi;
-    $sessionReq = $piletileviApi->getSessionKey($username, $ip);
+    $sessionReq = $piletileviApi->getYellowSessionKey($username, $ip);
 
     if ($sessionReq && !empty($sessionReq->data)) {
         $r['status'] = "success";
@@ -77,11 +77,19 @@ $app->post('/setLanguage', function ($request, $response, $args) {
 	if ($validationErrors != null) {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
-    
+
     if (!empty($json) ){
         $sessionHandler->setCurrentLanguage( $json->lang );
-		$r['status'] = "success";
-		$r['message'] = 'Language set successfully.';
+		$piletileviApi = $this->piletileviApi;
+		$data = $piletileviApi->setCurrentLanguage($json->lang->code);
+		
+		if ($data && $data->data->success == "true" ) {
+			$r['status'] = "success";
+			$r['message'] = 'Language switched successfully.';
+		} else {
+			$r['status'] = "error";
+			$r['message'] = 'Language switch failed';
+		}
     } else {
         $r['status'] = "failure";
         $r['message'] = 'Language set unsuccessfully.';
@@ -103,8 +111,16 @@ $app->post('/setPoint', function ($request, $response, $args) {
 
     if (!empty($json) ){
         $sessionHandler->setUserPointId($json->pointId);
-        $r['status'] = "success";
-        $r['message'] = 'Point set successfully.';
+		$piletileviApi = $this->piletileviApi;
+		$data = $piletileviApi->setCurrentPoint($json->pointId);
+		
+		if ($data && $data->data->success == "true" ) {
+			$r['status'] = "success";
+			$r['message'] = 'Point switched successfully.';
+		} else {
+			$r['status'] = "error";
+			$r['message'] = 'Point switch failed';
+		}
     } else {
         $r['status'] = "failure";
         $r['message'] = 'Point set unsuccessfully.';
@@ -117,17 +133,8 @@ $app->post('/verifySessionKey', function ($request, $response, $args) {
 	$dataHandler = $this->dataHandler;
     $sessionHandler = $this->piletileviSessionHandler;
 	
-    $json = json_decode($request->getBody());
-
-    $validationErrors = $dataHandler->verifyParams(array('sessionkey'), $json);
-	if ($validationErrors != null) {
-		return $dataHandler->response($response, $validationErrors, 401);
-	}
-
-    $sessionkey = $json->sessionkey;
-
     $piletileviApi = $this->piletileviApi;
-    $userData = $piletileviApi->verifySessionKey($sessionkey);
+    $userData = $piletileviApi->verifySessionKey();
 
     if ($userData && $userData->valid == "true") {
         $r['status'] = "success";
@@ -226,6 +233,7 @@ $app->post('/myEvents', function ($request, $response, $args) {
 
     //$app->log->debug( print_r($myEvents,true) );
 	
+	$r = array();
 	if ($myEvents && !property_exists($myEvents, 'errors')) {
 		if ($myEvents && property_exists($myEvents, 'data')) {
 	        $r['status'] = "success";

@@ -50,7 +50,7 @@ class PiletileviApi {
 		$data['filter']= array ('username'=>$username, 'remoteip' => $remoteip);
 		$data['userid']= $username;
 		
-		return $this->send("/user/getSessionKey",$data);
+		return $this->send("/user/getYellowSessionKey", $data);
 	}
 	
 	public function clearCache() {
@@ -70,6 +70,22 @@ class PiletileviApi {
 
 	}
 
+	public function setCurrentLanguage($currentLanguage) {
+
+		$data['filter']= array ('currentLanguage' => $currentLanguage);
+
+		return $this->send("/user/setCurrentLanguage",$data);
+
+	}
+	
+	public function setCurrentPoint($currentPointId) {
+
+		$data['filter']= array ('salePointId' => $currentPointId);
+
+		return $this->send("/user/setCurrentPoint",$data);
+
+	}
+
 	public function login($username, $password, $remoteip) {
 
   		$data = array("username" => $username,
@@ -79,9 +95,9 @@ class PiletileviApi {
 		return $this->send( "/authentication/login", $data );
 	}
 
-	public function verifySessionKey($sessionkey) {
+	public function verifySessionKey() {
 
-		$data= array ('sessionkey' => $sessionkey);
+		$data= array ();
 
 		return $this->send("/authentication/verifySessionKey", $data);
 	}
@@ -776,12 +792,6 @@ class PiletileviApi {
 			$data['sessionId']= $this->sessionId;
 		}
 
-		if (is_object($this->currentLang)) {
-			if (!isset($data['langId'])) {
-				$data['langId']= $this->currentLang->code;
-			}
-		}
-
 		$tokenId   = base64_encode(random_bytes(32));
 		$issuedAt  = time();
 		$notBefore = $issuedAt - 1;        // Removing 1 sec
@@ -809,9 +819,9 @@ class PiletileviApi {
 		}
 		$response = $request->send();
 		
-		//$this->logger->write( $token );
+		//$this->logger->write( $response->code );
 		
-		if ($response->hasErrors()) {
+		if ($response->hasErrors() || $response->code == 401) {
 			$this->app->halt($response->code);
 		}
 		if ($plain) { 
