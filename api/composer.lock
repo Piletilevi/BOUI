@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "62a7024447a0c35e99805b942013cba5",
+    "content-hash": "a629d1773e6edd8399ad3feac400556b",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -240,16 +240,16 @@
         },
         {
             "name": "phpfastcache/phpfastcache",
-            "version": "5.0.18",
+            "version": "5.0.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPSocialNetwork/phpfastcache.git",
-                "reference": "8a770ea02208bd3974695fb3c8e5f512fd7087cc"
+                "reference": "e546671f4374e2a421c074b5c24c732c6ec58aae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/8a770ea02208bd3974695fb3c8e5f512fd7087cc",
-                "reference": "8a770ea02208bd3974695fb3c8e5f512fd7087cc",
+                "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/e546671f4374e2a421c074b5c24c732c6ec58aae",
+                "reference": "e546671f4374e2a421c074b5c24c732c6ec58aae",
                 "shasum": ""
             },
             "require": {
@@ -322,7 +322,7 @@
                 "zend memory cache",
                 "zend server"
             ],
-            "time": "2017-08-05T23:58:39+00:00"
+            "time": "2018-03-01T22:13:40+00:00"
         },
         {
             "name": "phpfastcache/phpssdb",
@@ -376,16 +376,16 @@
         },
         {
             "name": "pimple/pimple",
-            "version": "v3.2.2",
+            "version": "v3.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silexphp/Pimple.git",
-                "reference": "4d45fb62d96418396ec58ba76e6f065bca16e10a"
+                "reference": "9e403941ef9d65d20cba7d54e29fe906db42cf32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/4d45fb62d96418396ec58ba76e6f065bca16e10a",
-                "reference": "4d45fb62d96418396ec58ba76e6f065bca16e10a",
+                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/9e403941ef9d65d20cba7d54e29fe906db42cf32",
+                "reference": "9e403941ef9d65d20cba7d54e29fe906db42cf32",
                 "shasum": ""
             },
             "require": {
@@ -422,7 +422,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2017-07-23T07:32:15+00:00"
+            "time": "2018-01-21T07:42:36+00:00"
         },
         {
             "name": "predis/predis",

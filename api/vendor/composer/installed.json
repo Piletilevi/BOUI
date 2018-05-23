@@ -425,58 +425,6 @@
         ]
     },
     {
-        "name": "pimple/pimple",
-        "version": "v3.2.2",
-        "version_normalized": "3.2.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/silexphp/Pimple.git",
-            "reference": "4d45fb62d96418396ec58ba76e6f065bca16e10a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/silexphp/Pimple/zipball/4d45fb62d96418396ec58ba76e6f065bca16e10a",
-            "reference": "4d45fb62d96418396ec58ba76e6f065bca16e10a",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0",
-            "psr/container": "^1.0"
-        },
-        "require-dev": {
-            "symfony/phpunit-bridge": "^3.2"
-        },
-        "time": "2017-07-23T07:32:15+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.2.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Pimple": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "Pimple, a simple Dependency Injection Container",
-        "homepage": "http://pimple.sensiolabs.org",
-        "keywords": [
-            "container",
-            "dependency injection"
-        ]
-    },
-    {
         "name": "slim/slim",
         "version": "3.0.0",
         "version_normalized": "3.0.0.0",
@@ -652,94 +600,6 @@
         ]
     },
     {
-        "name": "phpfastcache/phpfastcache",
-        "version": "5.0.18",
-        "version_normalized": "5.0.18.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/PHPSocialNetwork/phpfastcache.git",
-            "reference": "8a770ea02208bd3974695fb3c8e5f512fd7087cc"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/8a770ea02208bd3974695fb3c8e5f512fd7087cc",
-            "reference": "8a770ea02208bd3974695fb3c8e5f512fd7087cc",
-            "shasum": ""
-        },
-        "require": {
-            "ext-json": "*",
-            "php": ">=5.5.0",
-            "phpfastcache/phpssdb": "~1.0.0",
-            "predis/predis": "~1.1.0",
-            "psr/cache": "~1.0.0"
-        },
-        "suggest": {
-            "ext-apc": "*",
-            "ext-intl": "*",
-            "ext-mbstring": "*",
-            "ext-memcache": "*",
-            "ext-memcached": "*",
-            "ext-predis": "*",
-            "ext-redis": "*",
-            "ext-sqlite": "*"
-        },
-        "time": "2017-08-05T23:58:39+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "phpFastCache\\": "src/phpFastCache/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Khoa Bui",
-                "email": "khoaofgod@gmail.com",
-                "homepage": "http://www.phpfastcache.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Georges.L",
-                "email": "contact@geolim4.com",
-                "homepage": "https://github.com/Geolim4",
-                "role": "Developer"
-            }
-        ],
-        "description": "PHP Cache Class - Reduce your database call using cache system. PhpFastCache handles a lot of drivers such as Apc(u), CouchBase, Mongodb, Files, (P)redis, Leveldb, Memcache(d), Ssdb, Sqlite, Wincache, Xcache, Zend Data Cache.",
-        "homepage": "http://www.phpfastcache.com",
-        "keywords": [
-            "LevelDb",
-            "apc",
-            "apcu",
-            "cache",
-            "cache class",
-            "caching",
-            "cookie",
-            "couchbase",
-            "files cache",
-            "memcache",
-            "memcached",
-            "mongodb",
-            "mysql cache",
-            "pdo cache",
-            "php cache",
-            "predis",
-            "redis",
-            "ssdb",
-            "wincache",
-            "xcache",
-            "zend",
-            "zend data cache",
-            "zend disk cache",
-            "zend memory cache",
-            "zend server"
-        ]
-    },
-    {
         "name": "lcobucci/jwt",
         "version": "3.2.2",
         "version_normalized": "3.2.2.0",
@@ -797,6 +657,146 @@
         "keywords": [
             "JWS",
             "jwt"
+        ]
+    },
+    {
+        "name": "phpfastcache/phpfastcache",
+        "version": "5.0.21",
+        "version_normalized": "5.0.21.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PHPSocialNetwork/phpfastcache.git",
+            "reference": "e546671f4374e2a421c074b5c24c732c6ec58aae"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/e546671f4374e2a421c074b5c24c732c6ec58aae",
+            "reference": "e546671f4374e2a421c074b5c24c732c6ec58aae",
+            "shasum": ""
+        },
+        "require": {
+            "ext-json": "*",
+            "php": ">=5.5.0",
+            "phpfastcache/phpssdb": "~1.0.0",
+            "predis/predis": "~1.1.0",
+            "psr/cache": "~1.0.0"
+        },
+        "suggest": {
+            "ext-apc": "*",
+            "ext-intl": "*",
+            "ext-mbstring": "*",
+            "ext-memcache": "*",
+            "ext-memcached": "*",
+            "ext-predis": "*",
+            "ext-redis": "*",
+            "ext-sqlite": "*"
+        },
+        "time": "2018-03-01T22:13:40+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "phpFastCache\\": "src/phpFastCache/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Khoa Bui",
+                "email": "khoaofgod@gmail.com",
+                "homepage": "http://www.phpfastcache.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Georges.L",
+                "email": "contact@geolim4.com",
+                "homepage": "https://github.com/Geolim4",
+                "role": "Developer"
+            }
+        ],
+        "description": "PHP Cache Class - Reduce your database call using cache system. PhpFastCache handles a lot of drivers such as Apc(u), CouchBase, Mongodb, Files, (P)redis, Leveldb, Memcache(d), Ssdb, Sqlite, Wincache, Xcache, Zend Data Cache.",
+        "homepage": "http://www.phpfastcache.com",
+        "keywords": [
+            "LevelDb",
+            "apc",
+            "apcu",
+            "cache",
+            "cache class",
+            "caching",
+            "cookie",
+            "couchbase",
+            "files cache",
+            "memcache",
+            "memcached",
+            "mongodb",
+            "mysql cache",
+            "pdo cache",
+            "php cache",
+            "predis",
+            "redis",
+            "ssdb",
+            "wincache",
+            "xcache",
+            "zend",
+            "zend data cache",
+            "zend disk cache",
+            "zend memory cache",
+            "zend server"
+        ]
+    },
+    {
+        "name": "pimple/pimple",
+        "version": "v3.2.3",
+        "version_normalized": "3.2.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/silexphp/Pimple.git",
+            "reference": "9e403941ef9d65d20cba7d54e29fe906db42cf32"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/silexphp/Pimple/zipball/9e403941ef9d65d20cba7d54e29fe906db42cf32",
+            "reference": "9e403941ef9d65d20cba7d54e29fe906db42cf32",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0",
+            "psr/container": "^1.0"
+        },
+        "require-dev": {
+            "symfony/phpunit-bridge": "^3.2"
+        },
+        "time": "2018-01-21T07:42:36+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.2.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Pimple": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Pimple, a simple Dependency Injection Container",
+        "homepage": "http://pimple.sensiolabs.org",
+        "keywords": [
+            "container",
+            "dependency injection"
         ]
     }
 ]

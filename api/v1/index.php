@@ -8,8 +8,7 @@ use phpFastCache\CacheManager;
 
 $app = new \Slim\App(
 	array(
-		"settings"   => $config,
-		"log.writer" => new DateTimeFileWriter( $config['log'] )
+		"settings"   => $config
 	)
 );
 
@@ -42,6 +41,11 @@ $container['piletileviSessionHandler'] = function($c) {
 
 $container['dataHandler'] = function($c) { 
 	return DataHandler::getInstance(); 
+};
+
+$container['logger'] = function($c) {
+	$settings = $c->get("settings");
+    return new DateTimeFileWriter( $settings['log'] );
 };
 
 $container['view'] = function($c) { 

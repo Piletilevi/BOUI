@@ -12,6 +12,7 @@ class PiletileviApi {
 	private $currentUser;
 	private $currentLang;
 	private $settings;
+    private $logger;
 	
 	private static $piletileviApi; 
 
@@ -22,12 +23,14 @@ class PiletileviApi {
 		$this->container = $app->getContainer();
 		
 		$this->cacheManager = $this->container->get("cacheManager");
+		$this->logger = $this->container->get("logger");
 
 		$sessionHandler = $this->container->get("piletileviSessionHandler");
 		$session = $sessionHandler->getSession();
 
 		$this->currentUser = $session['user'];
 		$this->currentLang = $session['lang'];
+		$this->sessionId = $session['sessionId'];
 
 		$this->settings = $this->container->get("settings");
 		
@@ -43,9 +46,11 @@ class PiletileviApi {
 		return self::$piletileviApi; 	
 	}
 
-	public function getSessionKey( $remoteip){
+	public function getYellowSessionKey($username, $remoteip){
 		$data['filter']= array ( 'remoteip' => $remoteip);
-		return $this->send("/user/getSessionKey",$data);
+		
+		
+		return $this->send("/user/getYellowSessionKey", $data);
 	}
 	
 	public function clearCache() {
@@ -65,6 +70,22 @@ class PiletileviApi {
 
 	}
 
+	public function setCurrentLanguage($currentLanguage) {
+
+		$data['filter']= array ('currentLanguage' => $currentLanguage);
+
+		return $this->send("/user/setCurrentLanguage",$data);
+
+	}
+	
+	public function setCurrentPoint($currentPointId) {
+
+		$data['filter']= array ('salePointId' => $currentPointId);
+
+		return $this->send("/user/setCurrentPoint",$data);
+
+	}
+
 	public function login($username, $password, $remoteip) {
 
   		$data = array("username" => $username,
@@ -74,9 +95,9 @@ class PiletileviApi {
 		return $this->send( "/authentication/login", $data );
 	}
 
-	public function verifySessionKey($sessionkey) {
+	public function verifySessionKey() {
 
-		$data= array ('sessionkey' => $sessionkey);
+		$data= array ();
 
 		return $this->send("/authentication/verifySessionKey", $data);
 	}
@@ -480,6 +501,14 @@ class PiletileviApi {
 		return $reportData;
 	}
 
+	public function downloadTicketData($filter) {
+		
+		$data['filter']= $filter;
+
+		$ticketData = $this->send( "/ticket/downloadData", $data );
+		
+		return $ticketData;
+	}
 
 	public function getSectorInfo($filter) {
 		
@@ -759,28 +788,18 @@ class PiletileviApi {
 		$papiConfig = $this->getPapiConfig();
 		$envConfig = $this->getEnvConfig();
 
-		if (is_object($this->currentUser) && property_exists($this->currentUser, 'userId') && property_exists($this->currentUser, 'point')) {
-			if (!isset($data['userid'])) {
-				$data['userid']= $this->currentUser->userId;
-			}
-			if (!isset($data['salepointid'])) {
-				$data['salepointid']= $this->currentUser->point;
-			}
+		if (!isset($data['sessionId']) && $this->sessionId) {
+			$data['sessionId']= $this->sessionId;
 		}
 		
-		if (is_object($this->currentLang)) {
-			if (!isset($data['langId'])) {
-				$data['langId']= $this->currentLang->code;
-			}
-		}
-
-		$tokenId   = base64_encode(mcrypt_create_iv(32));
+		$tokenId   = base64_encode(random_bytes(32));
 		$issuedAt  = time();
 		$notBefore = $issuedAt - 1;        // Removing 1 sec
 		$expire    = $notBefore + 60;      // Adding 60 seconds
 		$issuer    = $envConfig["issuer"];  // Retrieve the env name from config file
 
 		$uri = $this->getBasePath().$url;
+		
 		
 		$signer = new Sha256();
 		
@@ -800,10 +819,9 @@ class PiletileviApi {
 		}
 		$response = $request->send();
 		
-		//$this->app->log->debug( print_r($response->headers,true) );
-		//$this->app->log->debug( print_r($response->body) );
+		//$this->logger->write( $response->code );
 		
-		if ($response->hasErrors()) {
+		if ($response->hasErrors() || $response->code == 401) {
 			$this->app->halt($response->code);
 		}
 		if ($plain) { 

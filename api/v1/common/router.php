@@ -38,7 +38,7 @@ $app->get('/boUrl', function ($request, $response, $args) {
 	return $dataHandler->response($response, $r);
 });
 
-$app->post('/getSessionKey', function ($request, $response, $args) {
+$app->post('/getYellowSessionKey', function ($request, $response, $args) {
     $json = json_decode($request->getBody());
 
 	$dataHandler = $this->dataHandler;
@@ -48,10 +48,13 @@ $app->post('/getSessionKey', function ($request, $response, $args) {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
 
+    $sessionHandler = $this->piletileviSessionHandler;
+    $session = $sessionHandler->getSession();
+    $username = $json->username;
     $ip = $json->clientip;
 
     $piletileviApi = $this->piletileviApi;
-    $sessionReq = $piletileviApi->getSessionKey($ip);
+    $sessionReq = $piletileviApi->getYellowSessionKey($ip);
 
     if ($sessionReq && !empty($sessionReq->data)) {
         $r['status'] = "success";
@@ -67,6 +70,7 @@ $app->post('/getSessionKey', function ($request, $response, $args) {
 
 $app->post('/setLanguage', function ($request, $response, $args) {
 	$dataHandler = $this->dataHandler;
+    $sessionHandler = $this->piletileviSessionHandler;
     $json = json_decode($request->getBody());
 
 	$validationErrors = $dataHandler->verifyParams(array('code', 'name'), $json->lang);
@@ -74,14 +78,18 @@ $app->post('/setLanguage', function ($request, $response, $args) {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
     
-	if (!isset($_SESSION)) {
-        session_start();
-    }
-
     if (!empty($json) ){
-        $_SESSION['lang'] = $json->lang;
+        $sessionHandler->setCurrentLanguage( $json->lang );
+		$piletileviApi = $this->piletileviApi;
+		$data = $piletileviApi->setCurrentLanguage($json->lang->code);
+
+		if ($data && $data->data->success == "true" ) {
 		$r['status'] = "success";
-		$r['message'] = 'Language set successfully.';
+			$r['message'] = 'Language switched successfully.';
+		} else {
+			$r['status'] = "error";
+			$r['message'] = 'Language switch failed';
+		}
     } else {
         $r['status'] = "failure";
         $r['message'] = 'Language set unsuccessfully.';
@@ -92,6 +100,8 @@ $app->post('/setLanguage', function ($request, $response, $args) {
 
 $app->post('/setPoint', function ($request, $response, $args) {
     $dataHandler = $this->dataHandler;
+    $sessionHandler = $this->piletileviSessionHandler;
+
     $json = json_decode($request->getBody());
 
     $validationErrors = $dataHandler->verifyParams(array('pointId'), $json);
@@ -99,13 +109,18 @@ $app->post('/setPoint', function ($request, $response, $args) {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
 
-    if (!isset($_SESSION)) {
-        session_start();
-    }
     if (!empty($json) ){
-        $_SESSION['user']->point = $json->pointId;
+        $sessionHandler->setUserPointId($json->pointId);
+		$piletileviApi = $this->piletileviApi;
+		$data = $piletileviApi->setCurrentPoint($json->pointId);
+		
+		if ($data && $data->data->success == "true" ) {
         $r['status'] = "success";
-        $r['message'] = 'Point set successfully.';
+			$r['message'] = 'Point switched successfully.';
+		} else {
+			$r['status'] = "error";
+			$r['message'] = 'Point switch failed';
+		}
     } else {
         $r['status'] = "failure";
         $r['message'] = 'Point set unsuccessfully.';
@@ -116,28 +131,17 @@ $app->post('/setPoint', function ($request, $response, $args) {
 
 $app->post('/verifySessionKey', function ($request, $response, $args) {
 	$dataHandler = $this->dataHandler;
-    $json = json_decode($request->getBody());
-
-    $validationErrors = $dataHandler->verifyParams(array('sessionkey'), $json);
-	if ($validationErrors != null) {
-		return $dataHandler->response($response, $validationErrors, 401);
-	}
-
-    $sessionkey = $json->sessionkey;
+    $sessionHandler = $this->piletileviSessionHandler;
 
     $piletileviApi = $this->piletileviApi;
-    $userData = $piletileviApi->verifySessionKey($sessionkey);
+    $userData = $piletileviApi->verifySessionKey();
 
-    if ($userData && $userData->valid == "true" && $userData->user) {
+    if ($userData && $userData->valid == "true") {
         $r['status'] = "success";
         $r['message'] = 'Verified session successfully.';
 
         $r['user'] = $userData->user;
-
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        $_SESSION['user'] = $userData->user;
+		$sessionHandler->setUser( $userData->user );
     } else {
         $r['status'] = "error";
         $r['message'] = 'Not a valid session key.';
@@ -148,6 +152,7 @@ $app->post('/verifySessionKey', function ($request, $response, $args) {
 
 $app->post('/login', function ($request, $response, $args) {
     $dataHandler = $this->dataHandler;
+    $sessionHandler = $this->piletileviSessionHandler;
     $json = json_decode($request->getBody());
 
     $validationErrors = $dataHandler->verifyParams(array('username', 'password', 'clientip'), $json->customer);
@@ -162,19 +167,23 @@ $app->post('/login', function ($request, $response, $args) {
     $piletileviApi = $this->piletileviApi;
     $userData = $piletileviApi->login($username, $password, $clientip);
 
-    if ($userData && $userData->valid == "true" && $userData->user) {
+	if ($userData && !property_exists($userData, 'errors')) {
+		if ($userData && property_exists($userData, 'valid') && $userData->valid == "true") {
         $r['status'] = "success";
         $r['message'] = 'Logged in successfully.';
 
         $r['user'] = $userData->user;
+			$r['sessionId'] = $userData->sessionId;
 
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        $_SESSION['user'] = $userData->user;
+			$sessionHandler->setSessionId($userData->sessionId);
+			$sessionHandler->setUser( $userData->user );
     } else {
         $r['status'] = "error";
         $r['message'] = 'No such user is registered';
+    }
+    } else if ($userData && property_exists($userData, 'errors')){
+        $r['status'] = "error";
+        $r['message'] = $dataHandler->getMessages($myEvents->errors);
     }
 
     return $dataHandler->response($response, $r);
@@ -224,6 +233,7 @@ $app->post('/myEvents', function ($request, $response, $args) {
 
     //$app->log->debug( print_r($myEvents,true) );
 	
+	$r = array();
 	if ($myEvents && !property_exists($myEvents, 'errors')) {
 		if ($myEvents && property_exists($myEvents, 'data')) {
 	        $r['status'] = "success";
@@ -394,6 +404,23 @@ $app->post('/translations', function ($request, $response, $args)  {
 	}
 
     $languageId = $json->languageId;
+
+    $piletileviApi = $this->piletileviApi;
+    $translations = $piletileviApi->translations($languageId);
+
+    $r["status"] = "success";
+
+	if (!empty($translations->data)) {
+        $r["translations"] = $translations->data->translations;
+	}
+
+    return $dataHandler->response($response, $r);
+});
+
+$app->get('/translations', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+
+    $languageId = "EST";
 
     $piletileviApi = $this->piletileviApi;
     $translations = $piletileviApi->translations($languageId);
@@ -2130,7 +2157,7 @@ $app->get('/ticketDownload', function ($request, $response, $args)  {
 	$hash = $request->getParam("hash");
 	$language = $request->getParam("language");
 
-	$filename = 'tickets-';
+	$filename = "tickets-";
 
 	$filter = array();
 	if ($fnr) {
@@ -2153,10 +2180,22 @@ $app->get('/ticketDownload', function ($request, $response, $args)  {
 		$filter['language'] = $language;
 	}
 
-	$filename .= '.pdf';
+	$filename .= ".pdf";
 	
     $piletileviApi = $this->piletileviApi;
     $reportResponse = $piletileviApi->downloadTicket( $filter );
+	
+	$ticketResponse = $piletileviApi->downloadTicketData($filter);
+	if ($ticketResponse && !property_exists($ticketResponse, 'errors')) {
+		$ticketData = $ticketResponse->data;
+		if ($ticketData) {
+			$filename = $dataHandler->getShortName($ticketData->event);
+			if ($ticketData->ticketsCount && intval($ticketData->ticketsCount) > 0) {
+				$filename .= "_".$ticketData->ticketsCount;
+			}
+			$filename .= ".pdf";
+		}
+	}
 	
 	return $dataHandler->responseAsPdfAttachment($response, $filename, $reportResponse);
 });
@@ -2212,12 +2251,16 @@ $app->get('/test', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
 
 	$filter = array();
+	/*
 	$filter['bookingId'] = 1178385;
 	$filter['hash'] = "6c2e5668795cba3ad4541cecfa789a54849e7c5d0983b5073d971186dffd60b2";
 	$filter['giftCode'] = "20203112852697";
+	*/
+	$filter['fnr'] = "63149690403821";
+	$filter['hash'] = "d0429732f4427c842f143853c3c38806b54d58edc2642424fb61f2e2a1795b31";
 
     $piletileviApi = $this->piletileviApi;
-    $reportResponse = $piletileviApi->removeGiftCardFromBooking($filter);
+    $reportResponse = $piletileviApi->downloadTicketData($filter);
 
 	return $dataHandler->response($response, $reportResponse);
 });
