@@ -43,18 +43,15 @@ $app->post('/getSessionKey', function ($request, $response, $args) {
 
 	$dataHandler = $this->dataHandler;
 
-	$validationErrors = $dataHandler->verifyParams(array('username', 'clientip'), $json);
+	$validationErrors = $dataHandler->verifyParams(array('clientip'), $json);
 	if ($validationErrors != null) {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
 
-    $sessionHandler = $this->piletileviSessionHandler;
-    $session = $sessionHandler->getSession();
-    $username = $json->username;
     $ip = $json->clientip;
 
     $piletileviApi = $this->piletileviApi;
-    $sessionReq = $piletileviApi->getSessionKey($username, $ip);
+    $sessionReq = $piletileviApi->getSessionKey($ip);
 
     if ($sessionReq && !empty($sessionReq->data)) {
         $r['status'] = "success";
