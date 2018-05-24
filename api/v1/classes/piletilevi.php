@@ -46,10 +46,8 @@ class PiletileviApi {
 		return self::$piletileviApi; 	
 	}
 
-	public function getYellowSessionKey($username, $remoteip){
+	public function getYellowSessionKey($remoteip){
 		$data['filter']= array ( 'remoteip' => $remoteip);
-		
-		
 		return $this->send("/user/getYellowSessionKey", $data);
 	}
 	

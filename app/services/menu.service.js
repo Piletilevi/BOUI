@@ -41,7 +41,7 @@
                     boBasicUrl = results.boBaseUrl;
 					if ($rootScope.authenticated) {
 						dataService.getIp().then(function(result) {
-							dataService.post('getSessionKey',{'username':$rootScope.user.userId,'clientip':result.ip}).then(function (sessionResults) {
+							dataService.post('getYellowSessionKey',{'clientip':result.ip}).then(function (sessionResults) {
 								if (sessionResults.status === "success") {
 									var bourl = boBasicUrl.replace("{sessionkey}", sessionResults.boSession.sessionkey);
 									$window.location.href = bourl;

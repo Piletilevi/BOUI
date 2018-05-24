@@ -40,7 +40,6 @@ $app->get('/boUrl', function ($request, $response, $args) {
 
 $app->post('/getYellowSessionKey', function ($request, $response, $args) {
     $json = json_decode($request->getBody());
-
 	$dataHandler = $this->dataHandler;
 
 	$validationErrors = $dataHandler->verifyParams(array('clientip'), $json);
@@ -48,10 +47,7 @@ $app->post('/getYellowSessionKey', function ($request, $response, $args) {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
 
-    $sessionHandler = $this->piletileviSessionHandler;
-    $session = $sessionHandler->getSession();
-    $username = $json->username;
-    $ip = $json->clientip;
+	$ip = $json->clientip;
 
     $piletileviApi = $this->piletileviApi;
     $sessionReq = $piletileviApi->getYellowSessionKey($ip);
