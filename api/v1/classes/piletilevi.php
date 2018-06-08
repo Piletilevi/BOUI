@@ -833,11 +833,10 @@ class PiletileviApi {
 		}
 		$response = $request->send();
 		
-		/*
 		$this->logger->write( $url." - start" );
+		$this->logger->write( $request );
 		$this->logger->write( $response );
 		$this->logger->write( $url." - end" );
-		*/
 		
 		if ($response->hasErrors() || $response->code == 401) {
 			$this->app->halt($response->code);
