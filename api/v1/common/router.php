@@ -13,7 +13,7 @@ $app->get('/session', function ($request, $response, $args) {
     $userData = $piletileviApi->verifySessionKey();
 
 	$this->logger->write( "verifySessionKey data: ".$userData );
-	$this->logger->write( "session: ".$sessionHandler->getSession(); );
+	$this->logger->write( "session: ".$sessionHandler->getSession() );
 	
 	$r = array();
     if (is_object($userData) && $userData && $userData->valid == "true") {
