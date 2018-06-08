@@ -49,21 +49,17 @@ $app->get('/boUrl', function ($request, $response, $args) {
 
 $app->post('/getYellowSessionKey', function ($request, $response, $args) {
     $json = json_decode($request->getBody());
-
 	$dataHandler = $this->dataHandler;
 
-	$validationErrors = $dataHandler->verifyParams(array('username', 'clientip'), $json);
+	$validationErrors = $dataHandler->verifyParams(array('clientip'), $json);
 	if ($validationErrors != null) {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
 
-    $sessionHandler = $this->piletileviSessionHandler;
-    $session = $sessionHandler->getSession();
-    $username = $json->username;
-    $ip = $json->clientip;
+	$ip = $json->clientip;
 
     $piletileviApi = $this->piletileviApi;
-    $sessionReq = $piletileviApi->getYellowSessionKey($username, $ip);
+    $sessionReq = $piletileviApi->getYellowSessionKey($ip);
 
     if ($sessionReq && !empty($sessionReq->data)) {
         $r['status'] = "success";
@@ -86,14 +82,14 @@ $app->post('/setLanguage', function ($request, $response, $args) {
 	if ($validationErrors != null) {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
-
+    
     if (!empty($json) ){
         $sessionHandler->setCurrentLanguage( $json->lang );
 		$piletileviApi = $this->piletileviApi;
 		$data = $piletileviApi->setCurrentLanguage($json->lang->code);
-		
+
 		if ($data && $data->data->success == "true" ) {
-			$r['status'] = "success";
+		$r['status'] = "success";
 			$r['message'] = 'Language switched successfully.';
 		} else {
 			$r['status'] = "error";
@@ -124,7 +120,7 @@ $app->post('/setPoint', function ($request, $response, $args) {
 		$data = $piletileviApi->setCurrentPoint($json->pointId);
 		
 		if ($data && $data->data->success == "true" ) {
-			$r['status'] = "success";
+        $r['status'] = "success";
 			$r['message'] = 'Point switched successfully.';
 		} else {
 			$r['status'] = "error";
@@ -141,7 +137,7 @@ $app->post('/setPoint', function ($request, $response, $args) {
 $app->post('/verifySessionKey', function ($request, $response, $args) {
 	$dataHandler = $this->dataHandler;
     $sessionHandler = $this->piletileviSessionHandler;
-	
+
     $piletileviApi = $this->piletileviApi;
     $userData = $piletileviApi->verifySessionKey();
 
@@ -174,18 +170,18 @@ $app->post('/login', function ($request, $response, $args) {
 
 	if ($userData && !property_exists($userData, 'errors')) {
 		if ($userData && property_exists($userData, 'valid') && $userData->valid == "true") {
-			$r['status'] = "success";
-			$r['message'] = 'Logged in successfully.';
+        $r['status'] = "success";
+        $r['message'] = 'Logged in successfully.';
 
-			$r['user'] = $userData->user;
+        $r['user'] = $userData->user;
 			$r['sessionId'] = $userData->sessionId;
-			
+
 			$sessionHandler->setSessionId($userData->sessionId);
 			$sessionHandler->setUser( $userData->user );
-		} else {
-			$r['status'] = "error";
-			$r['message'] = 'No such user is registered';
-		}
+    } else {
+        $r['status'] = "error";
+        $r['message'] = 'No such user is registered';
+    }
     } else if ($userData && property_exists($userData, 'errors')){
         $r['status'] = "error";
         $r['message'] = $dataHandler->getMessages($myEvents->errors);
@@ -2198,8 +2194,8 @@ $app->get('/ticketDownload', function ($request, $response, $args)  {
 	$filename .= ".pdf";
 	
     $piletileviApi = $this->piletileviApi;
-    $reportResponse = $piletileviApi->downloadTicket($filter);
-
+    $reportResponse = $piletileviApi->downloadTicket( $filter );
+	
 	$ticketResponse = $piletileviApi->downloadTicketData($filter);
 	if ($ticketResponse && !property_exists($ticketResponse, 'errors')) {
 		$ticketData = $ticketResponse->data;
