@@ -173,7 +173,7 @@ $app->post('/login', function ($request, $response, $args) {
     $piletileviApi = $this->piletileviApi;
     $userData = $piletileviApi->login($username, $password, $clientip);
 
-	$this->logger->write( $userData );
+	$this->logger->write( "login userData: ".$userData );
 	
 	if ($userData && !property_exists($userData, 'errors')) {
 		if ($userData && property_exists($userData, 'valid') && $userData->valid == "true") {
