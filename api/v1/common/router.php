@@ -12,7 +12,7 @@ $app->get('/session', function ($request, $response, $args) {
 	
     $userData = $piletileviApi->verifySessionKey();
 
-	$this->logger->write( "verifySessionKey data: ".$userData );
+	$this->logger->write( "verifySessionKey data: ".$userData->valid );
 	$this->logger->write( "session: ".$sessionHandler->getSession() );
 	
 	$r = array();
@@ -173,7 +173,7 @@ $app->post('/login', function ($request, $response, $args) {
     $piletileviApi = $this->piletileviApi;
     $userData = $piletileviApi->login($username, $password, $clientip);
 
-	$this->logger->write( "login userData: ".$userData );
+	$this->logger->write( "login sessiond id: ".$userData->sessionId );
 	
 	if ($userData && !property_exists($userData, 'errors')) {
 		if ($userData && property_exists($userData, 'valid') && $userData->valid == "true") {
