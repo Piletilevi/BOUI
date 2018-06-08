@@ -46,10 +46,8 @@ class PiletileviApi {
 		return self::$piletileviApi; 	
 	}
 
-	public function getYellowSessionKey($username, $remoteip){
-		$data['filter']= array ('username'=>$username, 'remoteip' => $remoteip);
-		$data['userid']= $username;
-		
+	public function getYellowSessionKey($remoteip){
+		$data['filter']= array ( 'remoteip' => $remoteip);
 		return $this->send("/user/getYellowSessionKey", $data);
 	}
 	
@@ -792,8 +790,8 @@ class PiletileviApi {
 			$data['sessionId']= $this->sessionId;
 		}
 
-		$tokenId   = base64_encode(random_bytes(32));
-		$issuedAt  = time();
+        $tokenId   = base64_encode(mcrypt_create_iv(32));
+        $issuedAt  = time();
 		$notBefore = $issuedAt - 1;        // Removing 1 sec
 		$expire    = $notBefore + 60;      // Adding 60 seconds
 		$issuer    = $envConfig["issuer"];  // Retrieve the env name from config file
@@ -811,7 +809,7 @@ class PiletileviApi {
 								->set('data', $data)
 								->sign($signer, $papiConfig["jwtsecret"])
 								->getToken();
-	
+		
 		$request = \Httpful\Request::post($uri)->body($token)->timeout($papiConfig["timeout"]);
 		
 		if ($plain) {
