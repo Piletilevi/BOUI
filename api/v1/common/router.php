@@ -8,7 +8,12 @@ $app->get('/session', function ($request, $response, $args) {
     $piletileviApi = $this->piletileviApi;
 	$sessionHandler = $this->piletileviSessionHandler;
 
+	$this->logger->write( "verifySessionKey" );
+	
     $userData = $piletileviApi->verifySessionKey();
+
+	$this->logger->write( "verifySessionKey data: ".$userData );
+	$this->logger->write( "session: ".$sessionHandler->getSession(); );
 	
 	$r = array();
     if (is_object($userData) && $userData && $userData->valid == "true") {
@@ -152,7 +157,7 @@ $app->post('/verifySessionKey', function ($request, $response, $args) {
 });
 
 $app->post('/login', function ($request, $response, $args) {
-    $dataHandler = $this->dataHandler;
+	$dataHandler = $this->dataHandler;
     $sessionHandler = $this->piletileviSessionHandler;
     $json = json_decode($request->getBody());
 
@@ -168,20 +173,24 @@ $app->post('/login', function ($request, $response, $args) {
     $piletileviApi = $this->piletileviApi;
     $userData = $piletileviApi->login($username, $password, $clientip);
 
+	$this->logger->write( $userData );
+	
 	if ($userData && !property_exists($userData, 'errors')) {
 		if ($userData && property_exists($userData, 'valid') && $userData->valid == "true") {
-        $r['status'] = "success";
-        $r['message'] = 'Logged in successfully.';
+			$r['status'] = "success";
+			$r['message'] = 'Logged in successfully.';
 
-        $r['user'] = $userData->user;
+			$r['user'] = $userData->user;
 			$r['sessionId'] = $userData->sessionId;
 
 			$sessionHandler->setSessionId($userData->sessionId);
 			$sessionHandler->setUser( $userData->user );
-    } else {
-        $r['status'] = "error";
-        $r['message'] = 'No such user is registered';
-    }
+			
+			$this->logger->write( "setting user session: ".$userData->sessionId );			
+		} else {
+			$r['status'] = "error";
+			$r['message'] = 'No such user is registered';
+		}
     } else if ($userData && property_exists($userData, 'errors')){
         $r['status'] = "error";
         $r['message'] = $dataHandler->getMessages($myEvents->errors);
