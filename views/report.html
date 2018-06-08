@@ -1,248 +1,195 @@
 <div class="col-xs-12 col-md-9 bo-center-column">
-    <bo-container backoffice-options="{'time-out': 3000}"></bo-container>
-
+    <bo-container backoffice-options="{'time-out': 5000}"></bo-container>
     <div ng-show="vm.event.name">
         <div class="bo-eventshareblock">
-            <span ng-if="hasFullAccess('api_reports_export_print')"><i class="fa fa-print"></i><a
-                    onclick="window.print();">{{'api_print'|translate}}</a> |</span>
-            <span ng-if="hasFullAccess('api_reports_export_email')"><i class="fa fa-envelope"></i><a data-toggle="modal"
-                                                                                                     data-target="#emal_popup">{{'api_email'|translate}}</a> |</span>
-			<span class="dropdown inline_dropdown" ng-if="hasFullAccess('api_reports_export_to_file')">
-				<i class="fa fa-share"></i><a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-											  aria-expanded="true">{{'api_export'|translate}}</a>
-				<ul class="table-export dropdown-menu">
-					<li>
-						<a href="" ng-click="vm.exportAsExcel(vm.currentTab)"><i class="fa fa-file-excel-o"></i>Excel</a>
-					</li>
-					<li>
-						<a href="" ng-click="vm.exportAsCsv(vm.currentTab)"><i class="fa fa-file-text-o"></i>CSV</a>
-					</li>
-				</ul>
-			</span>
-            <span ng-if="hasFullAccess('api_event_reload')">
-				| <a href="" ng-click="vm.reloadEvent()"><i class="fa fa-hand-o-left"></i>{{'api_reload_event'|translate}}</a>
-			</span>
+            <a onclick="window.print();" class="bo-link" ng-if="hasFullAccess('api_reports_export_print')">
+                <i class="fa fa-print" aria-hidden="true"></i>
+                {{'api_print'|translate}}
+            </a>
+            <a data-toggle="modal" data-target="#emal_popup" class="bo-link" ng-if="hasFullAccess('api_reports_export_email')">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                {{'api_email'|translate}}
+            </a>
+            <div class="bo-dropdown dropdown bo-inline">
+                <a class="bo-link" ng-if="hasFullAccess('api_reports_export_to_file')" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-share" aria-hidden="true"></i>
+                    {{'api_export'|translate}}
+                </a>
+                <ul class="table-export dropdown-menu">
+                    <li><a href="" ng-click="vm.exportAsExcel(vm.currentTab)"><i class="fa fa-file-excel-o"></i>&nbsp;Excel</a></li>
+                    <li><a href="" ng-click="vm.exportAsCsv(vm.currentTab)"><i class="fa fa-file-text-o"></i>&nbsp;CSV</a></li>
+                </ul>
+            </div>
+            <a class="bo-link" ng-if="hasFullAccess('api_event_reload')" ng-click="vm.reloadEvent()">
+                <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                {{'api_reload_event'|translate}}
+            </a>
         </div>
-
         <table id="{{vm.currentTab}}"
                ng-if="['overview', 'pricetype', 'priceclass', 'sectors'].indexOf(vm.currentTab) > -1"
                class="visually-hidden"></table>
-
         <div class="panel panel-default" block-ui block-ui-pattern="/concertSales/">
-            <div ng-include-template="event_summary.html" ng-include-variables="{ event: vm.event, showEditLink: false, showReportLink: false, withRevenue: hasFullAccess('api_reports_revenue') }"></div>
-        </div>
-        <div class="bo-dropdown-tabs-wrapper">
-            <div class="visible-xs">
-                <a class="dropdown-toggle btn btn-default" data-target="#reportdatatab"
-                   data-toggle="dropdown"
-                   role="button" aria-haspopup="true" aria-expanded="false">
-                    <span>{{vm.getCurrentTabName()}}</span>
-                    <i class="fa fa-chevron-down"></i>
-                </a>
+            <div class="bo-panel">
+                <div ng-include-template="event_summary.html" class="panel-body bo-panel-event"
+                     ng-include-variables="{event:vm.event, showEditLink:false, showReportLink:false, withRevenue:hasFullAccess('api_reports_revenue')}"></div>
             </div>
-            <ul class="nav nav-tabs bo-dropdown-tabs" role="tablist" id="reportdatatab">
+        </div>
+        <div class="bo-tab-container">
+            <ul class="nav nav-tabs bo-nav-tabs" role="tablist" id="reportdatatab">
                 <li ng-repeat="tab in vm.activeTabs" ng-class="{'active': vm.currentTab == tab.name}" ng-hide="tab.hiddenInShows && vm.event.isShow">
                     <a data-toggle="tab" ng-style="vm.currentTab == tab.name ? {'background-color':pointAccentColor}:{'background-color':'#fff'}"
-                       role="tab"
-                       aria-controls="{{tab.name}}"
-                       ng-click="vm.tabSelectEvent(tab.name)">
+                       role="tab" aria-controls="{{tab.name}}" ng-click="vm.tabSelectEvent(tab.name)">
                         <i class="fa" aria-hidden="true" ng-class="tab.icon"></i>
                         <span class="tab-name">{{tab.translationCode|translate}}</span>
                     </a>
                 </li>
             </ul>
         </div>
-
         <div class="tab-content bo-event-report-tab-panes" block-ui block-ui-pattern="/eventSalesReport/">
             <!-- Tab: overview -->
-            <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'overview'}"
-                 id="overview" role="tabpanel">
-                <div class="panel-body">
-
-                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
-                        <div class="row">
-                            <div class="col-sm-6 bo-inline-print">
-                                <div class="form-inline">
-                                    <div class="form-group">
-                                        <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                        <div class="input-group data_range col-xs-12">
-                                            <button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button" data-control="daterangepicker">
-                                                <input type="text" daterangepicker class="form-control"
-                                                   ng-model="vm.filterPeriod"
-                                                   daterangepicker-neutral-timezone
-                                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-                                                <span class="icon-holder">
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
-                                            <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                <span>{{vm.overviewFilter.centerName ? vm.overviewFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
-                                                <i class="fa fa-chevron-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
-                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length == 1">
-                                            {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
-                                        </span>
-                                    </div>
-                                </div>
+            <div class="tab-pane" ng-class="{'active': vm.currentTab == 'overview'}" id="overview" role="tabpanel">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-inline">
+                            <div class="form-group bo-input">
+                                <div ng-include-template="components/report_daterangepicker.html" ng-include-variables="{vm:vm}"></div>
                             </div>
-                            <div class="bo-chartcontrols col-sm-6 text-right">
-                                <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.overviewFilter.display=='tickets'}"
-                                            ng-click="vm.setOverviewDisplay('tickets')">{{'api_tickets'|translate}}
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.overviewFilter.display=='revenue'}"
-                                            ng-if="hasFullAccess('api_reports_revenue')"
-                                            ng-click="vm.setOverviewDisplay('revenue')">{{'api_revenue'|translate}}
-                                    </button>
-                                </div>
-                                <span class="visible-print">{{'api_print_display_and'|translate}}</span>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.overviewFilter.groupBy=='day'}"
-                                            ng-click="vm.setOverviewGroupBy('day')">{{'api_day'|translate}}
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.overviewFilter.groupBy=='week'}"
-                                            ng-click="vm.setOverviewGroupBy('week')">{{'api_week'|translate}}
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.overviewFilter.groupBy=='month'}"
-                                            ng-click="vm.setOverviewGroupBy('month')">{{'api_month'|translate}}
-                                    </button>
-                                </div>
+                            <div class="form-group bo-input" ng-if="vm.hasSalesPoint()">
+                                <div ng-include-template="components/report_centerdropdown.html" ng-include-variables="{vm:vm, tabFilter:vm.overviewFilter}"></div>
                             </div>
                         </div>
                     </div>
-
-                    <div ng-if="vm.overviewLineGraph.data.length === 0">
-                        <div class="bo-no-data-msg">
-                            {{'api_no_data_available'|translate}}
+                    <div class="col-sm-6 text-right">
+                        <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
+                        <div class="btn-group bo-switch-group" role="group">
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.overviewFilter.display=='tickets'}"
+                                    ng-click="vm.setOverviewDisplay('tickets')">{{'api_tickets'|translate}}
+                            </button>
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.overviewFilter.display=='revenue'}"
+                                    ng-if="hasFullAccess('api_reports_revenue')"
+                                    ng-click="vm.setOverviewDisplay('revenue')">{{'api_revenue'|translate}}
+                            </button>
+                        </div>
+                        <span class="visible-print">{{'api_print_display_and'|translate}}</span>
+                        <div class="btn-group bo-switch-group" role="group">
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.overviewFilter.groupBy=='day'}"
+                                    ng-click="vm.setOverviewGroupBy('day')">{{'api_day'|translate}}
+                            </button>
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.overviewFilter.groupBy=='week'}"
+                                    ng-click="vm.setOverviewGroupBy('week')">{{'api_week'|translate}}
+                            </button>
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.overviewFilter.groupBy=='month'}"
+                                    ng-click="vm.setOverviewGroupBy('month')">{{'api_month'|translate}}
+                            </button>
                         </div>
                     </div>
-
-                    <div ng-if="vm.overviewLineGraph.data.length > 0" class="bo-tabs-content">
-                        <div class="bo-chart bo-line-chart-container">
-                            <canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data"
-                                    chart-labels="vm.overviewLineGraph.labels"
-                                    chart-series="vm.overviewLineGraph.series"
-                                    chart-options="vm.overviewLineGraph.options"
-                                    chart-dataset-override="vm.overviewLineGraph.datasetOverride"
-                                    chart-colors="vm.overviewLineGraph.colors">
-                            </canvas>
+                </div>
+                <div ng-if="vm.overviewLineGraph.data.length === 0" class="bo-content text-center">
+                    <span>{{'api_no_data_available'|translate}}</span>
+                </div>
+                <div ng-if="vm.overviewLineGraph.data.length > 0" class="bo-content">
+                    <div class="bo-content-block">
+                        <canvas id="overviewLine" class="chart chart-line" chart-data="vm.overviewLineGraph.data"
+                                chart-labels="vm.overviewLineGraph.labels"
+                                chart-series="vm.overviewLineGraph.series"
+                                chart-options="vm.overviewLineGraph.options"
+                                chart-dataset-override="vm.overviewLineGraph.datasetOverride"
+                                chart-colors="vm.overviewLineGraph.colors">
+                        </canvas>
+                    </div>
+                    <div class="row bo-content-block">
+                        <div class="col-lg-6">
+                            <canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data"
+                                    chart-labels="vm.overviewBarGraph.labels"
+                                    chart-options="vm.overviewBarGraph.options"
+                                    chart-series="vm.overviewBarGraph.series"
+                                    chart-colors="vm.overviewBarGraph.colors"
+                                    chart-dataset-override="vm.overviewBarGraph.datasetOverride"></canvas>
                         </div>
-                        <div class="row bo-double-charts-row">
-                            <div class="col-lg-6">
-                                <div class="bo-chart">
-                                    <canvas class="chart chart-bar" chart-data="vm.overviewBarGraph.data"
-                                            chart-labels="vm.overviewBarGraph.labels"
-                                            chart-options="vm.overviewBarGraph.options"
-                                            chart-series="vm.overviewBarGraph.series"
-                                            chart-colors="vm.overviewBarGraph.colors"
-                                            chart-dataset-override="vm.overviewBarGraph.datasetOverride"></canvas>
+                        <div class="col-lg-6">
+                            <div class="bo-table bo-table-striped">
+                                <div class="bo-table-header">
+                                    <div class="row bo-table-row">
+                                        <div class="col-xs-5 bo-table-cell">{{'api_overview'|translate}}</div>
+                                        <div class="col-xs-2 bo-table-cell">{{'api_tickets'|translate}}</div>
+                                        <div class="col-xs-2 bo-table-cell">%</div>
+                                        <div class="col-xs-3 bo-table-cell" ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="bo-revenuetable table table-condensed table-small bo-table-report">
-                                    <div class="bo-tableheader">
-                                        <div class="bo-tablerow">
-                                            <div>{{'api_overview'|translate}}</div>
-                                            <div>{{'api_tickets'|translate}}</div>
-                                            <div>%</div>
-                                            <div ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</div>
+                                <div class="bo-table-body">
+                                    <div class="row bo-table-row">
+                                        <div class="col-xs-5 bo-table-cell">{{'api_overview_generated_total'|translate}}</div>
+                                        <div class="col-xs-2 bo-table-cell" data-label="{{'api_tickets'|translate}}: ">
+                                            {{vm.myOverviewBarData.generatedCount}}
+                                        </div>
+                                        <div class="col-xs-2 bo-table-cell">100%</div>
+                                        <div class="col-xs-3 bo-table-cell" data-label="{{'api_revenue'|translate}}: "
+                                            ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{vm.myOverviewBarData.generatedSum | number:2}}
+                                            {{vm.myOverviewBarData.currency}}
                                         </div>
                                     </div>
-                                    <div class="bo-tablebody">
-                                        <div class="bo-tablerow bo-table-subtitle-row">
-                                            <div>{{'api_overview_generated_total'|translate}}</div>
-                                            <div data-label="{{'api_tickets'|translate}}: ">
-                                                {{vm.myOverviewBarData.generatedCount}}
-                                            </div>
-                                            <div class="bo-reporttable-percent">100%</div>
-                                            <div data-label="{{'api_revenue'|translate}}: "
-                                                ng-if="hasFullAccess('api_reports_revenue')">
-                                                {{vm.myOverviewBarData.generatedSum | number:2}}
-                                                {{vm.myOverviewBarData.currency}}
-                                            </div>
+                                    <div class="row bo-table-row bo-table-title"
+                                         ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
+                                        <div class="col-xs-5 bo-table-cell">{{overviewData.groupName|translate}}</div>
+                                        <div class="col-xs-2 bo-table-cell" data-label="{{'api_tickets'|translate}}: ">{{overviewData.rowCount}}</div>
+                                        <div class="col-xs-2 bo-table-cell">
+                                            {{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </div>
+                                        <div class="col-xs-3 bo-table-cell" data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{overviewData.rowSum | number:2}}
+                                            {{vm.myOverviewBarData.currency}}
                                         </div>
                                     </div>
-                                    <div class="bo-tablebody" ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
-                                        <div class="bo-tablerow bo-table-title-row">
-                                            <div>{{overviewData.groupName|translate}}</div>
-                                            <div data-label="{{'api_tickets'|translate}}: ">{{overviewData.rowCount}}</div>
-                                            <div class="bo-reporttable-percent">
-                                                {{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
-                                            </div>
-                                            <div data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
-                                                {{overviewData.rowSum | number:2}}
-                                                {{vm.myOverviewBarData.currency}}
-                                            </div>
+                                </div>
+                                <div class="bo-table-body" ng-repeat="overviewData in vm.myOverviewBarData.sales"
+                                     ng-if="overviewData.groupId != 'venue_occupancy' && overviewData.groupId != 'generated'">
+                                    <div class="row bo-table-row bo-table-subtitle">
+                                        <div class="col-xs-5 bo-table-cell">
+                                            {{overviewData.groupName|translate}}
+                                        </div>
+                                        <div class="col-xs-2 bo-table-cell" data-label="{{'api_tickets'|translate}}: ">{{overviewData.rowCount}}</div>
+                                        <div class="col-xs-2 bo-table-cell">
+                                            {{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </div>
+                                        <div class="col-xs-3 bo-table-cell" data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{overviewData.rowSum | number:2}}
+                                            {{vm.myOverviewBarData.currency}}
                                         </div>
                                     </div>
-                                    <div class="bo-tablebody" ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId != 'venue_occupancy' && overviewData.groupId != 'generated'">
-                                        <div class="bo-tablerow bo-table-secondarytitle-row">
-                                            <div>
-                                                <span class="bo-table-dot-title">
-                                                    <span class="bo-dot fa fa-square"></span>
-                                                    {{overviewData.groupName|translate}}
-                                                </span>
-                                            </div>
-                                            <div data-label="{{'api_tickets'|translate}}: ">{{overviewData.rowCount}}</div>
-                                            <div class="bo-reporttable-percent">
-                                                {{vm.myOverviewBarData.generatedCount ? (overviewData.rowCount / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
-                                            </div>
-                                            <div data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
-                                                {{overviewData.rowSum | number:2}}
-                                                {{vm.myOverviewBarData.currency}}
-                                            </div>
+                                    <div ng-repeat="overviewRow in overviewData.rows" class="row bo-table-row {{overviewRow.isRefund ? 'text-danger' : ''}}">
+                                        <div class="col-xs-5 bo-table-cell">
+                                            <i class="fa fa-square" ng-attr-style="color: {{overviewRow.color}}!important;"></i>
+                                            {{overviewRow.typeName|translate}}:
                                         </div>
-                                        <div ng-repeat="overviewRow in overviewData.rows" class="bo-tablerow {{overviewRow.isRefund ? 'text-danger' : ''}}">
-                                            <div>
-                                                <span class="bo-table-dot-title">
-                                                    <span class="bo-dot fa fa-square" ng-attr-style="color: {{overviewRow.color}}!important;"></span>
-                                                    {{overviewRow.typeName|translate}}:
-                                                </span>
-                                            </div>
-                                            <div data-label="{{'api_tickets'|translate}}: ">{{overviewRow.count}}</div>
-                                            <div class="bo-reporttable-percent">
-                                                {{vm.myOverviewBarData.generatedCount ? ((overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
-                                            </div>
-                                            <div data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
-                                                {{overviewRow.sum | number:2}}
-                                                {{vm.myOverviewBarData.currency}}
-                                            </div>
+                                        <div class="col-xs-2 bo-table-cell" data-label="{{'api_tickets'|translate}}: ">{{overviewRow.count}}</div>
+                                        <div class="col-xs-2 bo-table-cell">
+                                            {{vm.myOverviewBarData.generatedCount ? ((overviewRow.isRefund ? -1 : 1) * overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </div>
+                                        <div class="col-xs-3 bo-table-cell" data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{overviewRow.sum | number:2}}
+                                            {{vm.myOverviewBarData.currency}}
                                         </div>
                                     </div>
-                                    <div class="bo-tablebody" ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
-                                        <div class="bo-tablerow bo-table-secondarytitle-row" ng-repeat="overviewRow in overviewData.rows">
-                                            <div>
-                                                <span class="bo-table-dot-title">
-                                                    <span class="bo-dot fa fa-square" ng-attr-style="color: {{overviewRow.color}}!important;"></span>
-                                                    {{overviewRow.typeName|translate}}
-                                                </span>
-                                            </div>
-                                            <div data-label="{{'api_tickets'|translate}}: ">{{overviewRow.count}}</div>
-                                            <div class="bo-reporttable-percent">
-                                                {{vm.myOverviewBarData.generatedCount ? (overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
-                                            </div>
-                                            <div data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
-                                                {{overviewRow.sum | number:2}}
-                                                {{vm.myOverviewBarData.currency}}
-                                            </div>
+                                </div>
+                                <div class="bo-table-body" ng-repeat="overviewData in vm.myOverviewBarData.sales" ng-if="overviewData.groupId == 'venue_occupancy'">
+                                    <div class="row bo-table-row bo-table-subtitle" ng-repeat="overviewRow in overviewData.rows">
+                                        <div class="col-xs-5 bo-table-cell">
+                                            <span class="fa fa-square" ng-attr-style="color: {{overviewRow.color}}!important;"></span>
+                                            {{overviewRow.typeName|translate}}
+                                        </div>
+                                        <div class="col-xs-2 bo-table-cell" data-label="{{'api_tickets'|translate}}: ">{{overviewRow.count}}</div>
+                                        <div class="col-xs-2 bo-table-cell">
+                                            {{vm.myOverviewBarData.generatedCount ? (overviewRow.count / vm.myOverviewBarData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </div>
+                                        <div class="col-xs-3 bo-table-cell" data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{overviewRow.sum | number:2}}
+                                            {{vm.myOverviewBarData.currency}}
                                         </div>
                                     </div>
                                 </div>
@@ -251,176 +198,135 @@
                     </div>
                 </div>
             </div>
-
             <!-- Tab: price types -->
-            <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'pricetype'}"
-                 id="pricetype" role="tabpanel">
-                <div class="panel-body">
-
-                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
-                        <div class="row">
-                            <div class="col-sm-6 bo-inline-print">
-                                <div class="form-inline">
-                                    <div class="form-group">
-                                        <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                        <div class="input-group data_range col-xs-12">
-											<button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button"
-                                                    data-control="daterangepicker">
-                                            <input type="text" daterangepicker class="form-control"
-                                                   ng-model="vm.filterPeriod"
-                                                   daterangepicker-neutral-timezone
-                                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-                                            <span class="icon-holder">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
-                                            <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                <span>{{vm.pricetypeFilter.centerName ? vm.pricetypeFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
-                                                <i class="fa fa-chevron-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
-                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length == 1">
-                                            {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
-                                        </span>
-                                    </div>
-                                </div>
+            <div class="tab-pane" ng-class="{'active': vm.currentTab == 'pricetype'}" id="pricetype" role="tabpanel">
+                <div class="row">
+                    <div class="col-sm-6 bo-inline-print">
+                        <div class="form-inline">
+                            <div class="form-group bo-input">
+                                <div ng-include-template="components/report_daterangepicker.html" ng-include-variables="{vm:vm}"></div>
                             </div>
-                            <div class="bo-chartcontrols col-sm-6 text-right">
+                            <div class="form-group bo-input" ng-if="vm.hasSalesPoint()">
+                                <div ng-include-template="components/report_centerdropdown.html" ng-include-variables="{vm:vm, tabFilter:vm.pricetypeFilter}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
+                        <div class="btn-group bo-switch-group" role="group">
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.pricetypeFilter.display=='tickets'}"
+                                    ng-click="vm.setPricetypeDisplay('tickets')">{{'api_tickets'|translate}}
+                            </button>
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-if="hasFullAccess('api_reports_revenue')"
+                                    ng-class="{ 'active': vm.pricetypeFilter.display=='revenue'}"
+                                    ng-click="vm.setPricetypeDisplay('revenue')">{{'api_revenue'|translate}}
+                            </button>
+                        </div>
+                        <span class="visible-print">{{'api_print_display_and'|translate}}</span>
+                        <div class="btn-group bo-switch-group" role="group">
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.pricetypeFilter.groupBy=='day'}"
+                                    ng-click="vm.setPricetypeGroupBy('day')">{{'api_day'|translate}}
+                            </button>
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.pricetypeFilter.groupBy=='week'}"
+                                    ng-click="vm.setPricetypeGroupBy('week')">{{'api_week'|translate}}
+                            </button>
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.pricetypeFilter.groupBy=='month'}"
+                                    ng-click="vm.setPricetypeGroupBy('month')">{{'api_month'|translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="vm.pricetypeLineGraph.data.length === 0" class="bo-content text-center">
+                    <span>{{'api_no_data_available'|translate}}</span>
+                </div>
+                <div ng-if="vm.pricetypeLineGraph.data.length > 0" class="bo-content">
+                    <div class="bo-content-block">
+                        <canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data"
+                                chart-labels="vm.pricetypeLineGraph.labels"
+                                chart-series="vm.pricetypeLineGraph.series"
+                                chart-options="vm.pricetypeLineGraph.options"
+                                chart-colors="vm.pricetypeLineGraph.colors"
+                                chart-dataset-override="vm.pricetypeLineGraph.datasetOverride">
+                        </canvas>
+                    </div>
+                    <div class="row bo-content-block">
+                        <div class="col-lg-6">
+                            <div class="btn-group bo-switch-group-sub pull-right" role="group">
                                 <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.pricetypeFilter.display=='tickets'}"
-                                            ng-click="vm.setPricetypeDisplay('tickets')">{{'api_tickets'|translate}}
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-if="hasFullAccess('api_reports_revenue')"
-                                            ng-class="{ 'active': vm.pricetypeFilter.display=='revenue'}"
-                                            ng-click="vm.setPricetypeDisplay('revenue')">{{'api_revenue'|translate}}
-                                    </button>
-                                </div>
-                                <span class="visible-print">{{'api_print_display_and'|translate}}</span>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.pricetypeFilter.groupBy=='day'}"
-                                            ng-click="vm.setPricetypeGroupBy('day')">{{'api_day'|translate}}
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.pricetypeFilter.groupBy=='week'}"
-                                            ng-click="vm.setPricetypeGroupBy('week')">{{'api_week'|translate}}
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.pricetypeFilter.groupBy=='month'}"
-                                            ng-click="vm.setPricetypeGroupBy('month')">{{'api_month'|translate}}
-                                    </button>
-                                </div>
+                                <button type="button" class="btn btn-default bo-switch"
+                                        ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='tickets'}"
+                                        ng-click="vm.setPricetypePieDisplay('tickets')">
+                                    {{'api_tickets'|translate}}
+                                </button>
+                                <button type="button" ng-if="hasFullAccess('api_reports_revenue')"
+                                        class="btn btn-default bo-switch"
+                                        ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='revenue'}"
+                                        ng-click="vm.setPricetypePieDisplay('revenue')">
+                                    {{'api_revenue'|translate}}
+                                </button>
                             </div>
+                            <canvas id="pricetypePie" class="chart chart-pie"
+                                    chart-data="vm.pricetypePieGraph.data"
+                                    chart-labels="vm.pricetypePieGraph.labels"
+                                    chart-options="vm.pricetypePieGraph.options"
+                                    chart-colors="vm.pricetypePieGraph.colors"></canvas>
                         </div>
-                    </div>
-                    <div ng-if="vm.pricetypeLineGraph.data.length === 0">
-                        <div class="bo-no-data-msg">
-                            {{'api_no_data_available'|translate}}
-                        </div>
-                    </div>
-                    <div ng-if="vm.pricetypeLineGraph.data.length > 0" class="bo-tabs-content">
-                        <div class="bo-chart bo-line-chart-container">
-                            <canvas id="priceTypeLine" class="chart chart-line" chart-data="vm.pricetypeLineGraph.data"
-                                    chart-labels="vm.pricetypeLineGraph.labels"
-                                    chart-series="vm.pricetypeLineGraph.series"
-                                    chart-options="vm.pricetypeLineGraph.options"
-                                    chart-colors="vm.pricetypeLineGraph.colors"
-                                    chart-dataset-override="vm.pricetypeLineGraph.datasetOverride">
-                            </canvas>
-                        </div>
-                        <div class="row bo-double-charts-row">
-                            <div class="col-lg-5">
-                                <div class="bo-chart">
-                                    <div class="bo-chart-buttons">
-                                        <div class="btn-group btn-group-sm" role="group">
-                                            <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
-                                            <button type="button" class="btn btn-sm btn-default"
-                                                    ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='tickets'}"
-                                                    ng-click="vm.setPricetypePieDisplay('tickets')">
-                                                {{'api_tickets'|translate}}
-                                            </button>
-                                            <button type="button" ng-if="hasFullAccess('api_reports_revenue')"
-                                                    class="btn btn-sm btn-default"
-                                                    ng-class="{ 'active': vm.pricetypeFilter.pieDisplay=='revenue'}"
-                                                    ng-click="vm.setPricetypePieDisplay('revenue')">
-                                                {{'api_revenue'|translate}}
-                                            </button>
-                                        </div>
+                        <div class="col-lg-6">
+                            <div class="bo-table bo-table-striped">
+                                <div class="bo-table-header">
+                                    <div class="row bo-table-row">
+                                        <div class="col-xs-5 bo-table-cell">{{'api_pricetype'|translate}}</div>
+                                        <div class="col-xs-2 bo-table-cell">{{'api_tickets'|translate}}</div>
+                                        <div class="col-xs-2 bo-table-cell">%</div>
+                                        <div class="col-xs-3 bo-table-cell" ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</div>
                                     </div>
-                                    <canvas id="pricetypePie" class="chart chart-pie"
-                                            chart-data="vm.pricetypePieGraph.data"
-                                            chart-labels="vm.pricetypePieGraph.labels"
-                                            chart-options="vm.pricetypePieGraph.options"
-                                            chart-colors="vm.pricetypePieGraph.colors"></canvas>
                                 </div>
-                            </div>
-                            <div class="col-lg-7">
-                                <div class="bo-pricetyperevenuetable table table-condensed table-small bo-table-report">
-                                    <div class="bo-tableheader">
-                                        <div class="bo-tablerow">
-                                            <div>{{'api_pricetype'|translate}}</div>
-                                            <div>{{'api_tickets'|translate}}</div>
-                                            <div>%</div>
-                                            <div ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</div>
+                                <div class="bo-table-body">
+                                    <div class="row bo-table-row bo-table-title">
+                                        <div class="col-xs-5 bo-table-cell">{{'api_issued_total'|translate}}</div>
+                                        <div class="col-xs-2 bo-table-cell" data-label="{{'api_tickets'|translate}}: ">
+                                            {{vm.myPriceTypePieData.generatedCount}}
+                                        </div>
+                                        <div class="col-xs-2 bo-table-cell">100%</div>
+                                        <div class="col-xs-3 bo-table-cell" data-label="{{'api_revenue'|translate}}: "
+                                            ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{vm.myPriceTypePieData.generatedSum | number:2}}
+                                            {{vm.myPriceTypePieData.currency}}
                                         </div>
                                     </div>
-                                    <div class="bo-tablebody">
-                                        <div class="bo-tablerow bo-table-title-row">
-                                            <div>{{'api_issued_total'|translate}}</div>
-                                            <div data-label="{{'api_tickets'|translate}}: ">
-                                                {{vm.myPriceTypePieData.generatedCount}}
-                                            </div>
-                                            <div>100%</div>
-                                            <div data-label="{{'api_revenue'|translate}}: "
-                                                ng-if="hasFullAccess('api_reports_revenue')">
-                                                {{vm.myPriceTypePieData.generatedSum | number:2}}
-                                                {{vm.myPriceTypePieData.currency}}
-                                            </div>
+                                </div>
+                                <div class="bo-table-body" ng-repeat="pricetypeData in vm.myPriceTypePieData.sales">
+                                    <div class="row bo-table-row bo-table-subtitle">
+                                        <div class="col-xs-5 bo-table-cell">{{pricetypeData.groupName|translate}}</div>
+                                        <div class="col-xs-2 bo-table-cell" data-label="{{'api_tickets'|translate}}: ">{{pricetypeData.rowCount}}</div>
+                                        <div class="col-xs-2 bo-table-cell">
+                                            {{vm.myPriceTypePieData.generatedCount ? ( pricetypeData.rowCount / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </div>
+                                        <div class="col-xs-3 bo-table-cell" data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{pricetypeData.rowSum | number:2}}
+                                            {{pricetypeData.currency}}
                                         </div>
                                     </div>
-                                    <div class="bo-tablebody" ng-repeat="pricetypeData in vm.myPriceTypePieData.sales">
-                                        <div class="bo-tablerow bo-table-secondarytitle-row">
-                                            <div>
-                                                <span class="bo-table-dot-title">
-                                                    <span class="bo-dot fa fa-square"></span>
-                                                    {{pricetypeData.groupName|translate}}
-                                                </span>
-                                            </div>
-                                            <div data-label="{{'api_tickets'|translate}}: ">{{pricetypeData.rowCount}}</div>
-                                            <div>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeData.rowCount / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</div>
-                                            <div data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
-                                                {{pricetypeData.rowSum | number:2}} {{pricetypeData.currency}}
-                                            </div>
+                                    <div class="row bo-table-row" ng-repeat="pricetypeItem in pricetypeData.priceTypes">
+                                        <div class="col-xs-5 bo-table-cell">
+                                            <i class="fa fa-square" ng-attr-style="color: {{pricetypeItem.color}}!important;"></i>
+                                            {{pricetypeItem.priceTypeName}}
+                                            <span ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">
+                                                ({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice | number:2) + "-" + (pricetypeItem.maxPrice | number:2) : (pricetypeItem.minPrice | number:2)}})
+                                            </span>
                                         </div>
-                                        <div class="bo-tablerow" ng-repeat="pricetypeItem in pricetypeData.priceTypes">
-                                            <div>
-                                                <span class="bo-table-dot-title">
-                                                    <span class="bo-dot fa fa-square" ng-attr-style="color: {{pricetypeItem.color}}!important;"></span>
-                                                    {{pricetypeItem.priceTypeName}}
-                                                    <span ng-if="pricetypeItem.minPrice > 0 && pricetypeItem.maxPrice > 0">
-                                                        ({{ pricetypeItem.minPrice != pricetypeItem.maxPrice ? (pricetypeItem.minPrice | number:2) + "-" + (pricetypeItem.maxPrice | number:2) : (pricetypeItem.minPrice | number:2)}})
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <div data-label="{{'api_tickets'|translate}}: ">{{pricetypeItem.count}}</div>
-                                            <div>{{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%</div>
-                                            <div data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
-                                                {{pricetypeItem.sum | number:2}} {{vm.myPriceTypePieData.currency}}
-                                            </div>
+                                        <div class="col-xs-2 bo-table-cell" data-label="{{'api_tickets'|translate}}: ">{{pricetypeItem.count}}</div>
+                                        <div class="col-xs-2 bo-table-cell">
+                                            {{vm.myPriceTypePieData.generatedCount ? ( pricetypeItem.count / vm.myPriceTypePieData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </div>
+                                        <div class="col-xs-3 bo-table-cell" data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{pricetypeItem.sum | number:2}}
+                                            {{vm.myPriceTypePieData.currency}}
                                         </div>
                                     </div>
                                 </div>
@@ -429,174 +335,133 @@
                     </div>
                 </div>
             </div>
-
             <!-- Tab: price classes -->
-            <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'priceclass'}"
-                 id="priceclass" role="tabpanel">
-                <div class="panel-body">
-
-                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
-                        <div class="row">
-                            <div class="col-sm-6 bo-inline-print">
-                                <div class="form-inline">
-                                    <div class="form-group">
-                                        <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                        <div class="input-group data_range col-xs-12">
-											<button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button"
-                                                    data-control="daterangepicker">
-                                            <input type="text" daterangepicker class="form-control"
-                                                   ng-model="vm.filterPeriod"
-                                                   daterangepicker-neutral-timezone
-                                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-                                            <span class="icon-holder">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+            <div class="tab-pane" ng-class="{'active': vm.currentTab == 'priceclass'}" id="priceclass" role="tabpanel">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-inline">
+                            <div class="form-group bo-input">
+                                <div ng-include-template="components/report_daterangepicker.html" ng-include-variables="{vm:vm}"></div>
+                            </div>
+                            <div class="form-group bo-input" ng-if="vm.hasSalesPoint()">
+                                <div ng-include-template="components/report_centerdropdown.html" ng-include-variables="{vm:vm, tabFilter:vm.priceclassFilter}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
+                        <div class="btn-group bo-switch-group" role="group">
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.priceclassFilter.display=='tickets'}"
+                                    ng-click="vm.setPriceclassDisplay('tickets')">{{'api_tickets'|translate}}
+                            </button>
+                            <button type="button" ng-if="hasFullAccess('api_reports_revenue')"
+                                    class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.priceclassFilter.display=='revenue'}"
+                                    ng-click="vm.setPriceclassDisplay('revenue')">{{'api_revenue'|translate}}
+                            </button>
+                        </div>
+                        <span class="visible-print">{{'api_print_display_and'|translate}}</span>
+                        <div class="btn-group bo-switch-group" role="group">
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.priceclassFilter.groupBy=='day'}"
+                                    ng-click="vm.setPriceclassGroupBy('day')">{{'api_day'|translate}}
+                            </button>
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.priceclassFilter.groupBy=='week'}"
+                                    ng-click="vm.setPriceclassGroupBy('week')">{{'api_week'|translate}}
+                            </button>
+                            <button type="button" class="btn btn-default bo-switch"
+                                    ng-class="{ 'active': vm.priceclassFilter.groupBy=='month'}"
+                                    ng-click="vm.setPriceclassGroupBy('month')">{{'api_month'|translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="vm.priceclassLineGraph.data.length === 0" class="bo-content text-center">
+                    <span>{{'api_no_data_available'|translate}}</span>
+                </div>
+                <div ng-if="vm.priceclassLineGraph.data.length > 0" class="bo-content">
+                    <div class="bo-content-block">
+                        <canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data"
+                                chart-labels="vm.priceclassLineGraph.labels"
+                                chart-series="vm.priceclassLineGraph.series"
+                                chart-options="vm.priceclassLineGraph.options"
+                                chart-colors="vm.priceclassLineGraph.colors"
+                                chart-dataset-override="vm.priceclassLineGraph.datasetOverride" height="100px">
+                        </canvas>
+                    </div>
+                    <div class="row bo-content-block">
+                        <div class="col-lg-6">
+                            <div class="btn-group bo-switch-group-sub pull-right" role="group">
+                                <button type="button" class="btn btn-default bo-switch"
+                                        ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='tickets'}"
+                                        ng-click="vm.setPriceclassPieDisplay('tickets')">
+                                    {{'api_tickets'|translate}}
+                                </button>
+                                <button type="button" ng-if="hasFullAccess('api_reports_revenue')"
+                                        class="btn btn-default bo-switch"
+                                        ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='revenue'}"
+                                        ng-click="vm.setPriceclassPieDisplay('revenue')">
+                                    {{'api_revenue'|translate}}
+                                </button>
+                            </div>
+                            <canvas id="priceclassPie" class="chart chart-pie"
+                                    chart-data="vm.priceclassPieGraph.data"
+                                    chart-labels="vm.priceclassPieGraph.labels"
+                                    chart-options="vm.priceclassPieGraph.options"
+                                    chart-colors="vm.priceclassPieGraph.colors"></canvas>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="bo-table bo-table-striped">
+                                <div class="bo-table-header">
+                                    <div class="row bo-table-row">
+                                        <div class="col-xs-5 bo-table-cell">{{'api_priceclass'|translate}}</div>
+                                        <div class="col-xs-2 bo-table-cell">{{'api_tickets'|translate}}</div>
+                                        <div class="col-xs-2 bo-table-cell">%</div>
+                                        <div class="col-xs-3 bo-table-cell" ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</div>
+                                    </div>
+                                </div>
+                                <div class="bo-table-body">
+                                    <div class="row bo-table-row bo-table-title">
+                                        <div class="col-xs-5 bo-table-cell">{{'api_issued_total'|translate}}</div>
+                                        <div class="col-xs-2 bo-table-cell" data-label="{{'api_tickets'|translate}}: ">{{vm.myPriceClassPieData.generatedCount}}</div>
+                                        <div class="col-xs-2 bo-table-cell">100%</div>
+                                        <div class="col-xs-3 bo-table-cell" data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{vm.myPriceClassPieData.generatedSum | number:2}}
+                                            {{vm.myPriceClassPieData.currency}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bo-table-body" ng-repeat="priceclassData in vm.myPriceClassPieData.sales">
+                                    <div class="row bo-table-row bo-table-subtitle">
+                                        <div class="col-xs-5 bo-table-cell">
+                                            {{priceclassData.groupName|translate}}
+                                        </div>
+                                        <div class="col-xs-2 bo-table-cell" data-label="{{'api_tickets'|translate}}: ">{{priceclassData.rowCount}}</div>
+                                        <div class="col-xs-2 bo-table-cell">
+                                            {{vm.myPriceClassPieData.generatedCount ? ( priceclassData.rowCount / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%
+                                        </div>
+                                        <div class="col-xs-3 bo-table-cell" data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{priceclassData.rowSum | number:2}}
+                                            {{priceclassData.currency}}
+                                        </div>
+                                    </div>
+                                    <div class="row bo-table-row" ng-repeat="priceclassItem in priceclassData.priceClasses">
+                                        <div class="col-xs-5 bo-table-cell">
+                                            <i class="fa fa-square" ng-attr-style="color: {{priceclassItem.color}}!important;"></i>
+                                            {{priceclassItem.priceClassName}}
+                                            <span ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">
+                                                ({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice | number:2) + "-" + (priceclassItem.maxPrice | number:2) : (priceclassItem.minPrice | number:2)}})
                                             </span>
-                                            </button>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
-                                            <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                <span>{{vm.priceclassFilter.centerName ? vm.priceclassFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
-                                                <i class="fa fa-chevron-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
-                                                    <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
-                                                </li>
-                                            </ul>
+                                        <div class="col-xs-2 bo-table-cell" data-label="{{'api_tickets'|translate}}: ">{{priceclassItem.count}}</div>
+                                        <div class="col-xs-2 bo-table-cell">
+                                            {{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%
                                         </div>
-                                        <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length == 1">
-                                            {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bo-chartcontrols col-sm-6 text-right">
-                                <span class="visible-print">{{vm.getCurrentTabCode()|translate}}. {{'api_print_display'|translate}}</span>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.priceclassFilter.display=='tickets'}"
-                                            ng-click="vm.setPriceclassDisplay('tickets')">{{'api_tickets'|translate}}
-                                    </button>
-                                    <button type="button" ng-if="hasFullAccess('api_reports_revenue')"
-                                            class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.priceclassFilter.display=='revenue'}"
-                                            ng-click="vm.setPriceclassDisplay('revenue')">{{'api_revenue'|translate}}
-                                    </button>
-                                </div>
-                                <span class="visible-print">{{'api_print_display_and'|translate}}</span>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.priceclassFilter.groupBy=='day'}"
-                                            ng-click="vm.setPriceclassGroupBy('day')">{{'api_day'|translate}}
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.priceclassFilter.groupBy=='week'}"
-                                            ng-click="vm.setPriceclassGroupBy('week')">{{'api_week'|translate}}
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-default"
-                                            ng-class="{ 'active': vm.priceclassFilter.groupBy=='month'}"
-                                            ng-click="vm.setPriceclassGroupBy('month')">{{'api_month'|translate}}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div ng-if="vm.priceclassLineGraph.data.length === 0">
-                        <div class="bo-no-data-msg">
-                            {{'api_no_data_available'|translate}}
-                        </div>
-                    </div>
-                    <div ng-if="vm.priceclassLineGraph.data.length > 0" class="bo-tabs-content">
-                        <div class="bo-chart bo-line-chart-container">
-                            <canvas id="line" class="chart chart-line" chart-data="vm.priceclassLineGraph.data"
-                                    chart-labels="vm.priceclassLineGraph.labels"
-                                    chart-series="vm.priceclassLineGraph.series"
-                                    chart-options="vm.priceclassLineGraph.options"
-                                    chart-colors="vm.priceclassLineGraph.colors"
-                                    chart-dataset-override="vm.priceclassLineGraph.datasetOverride" height="100px">
-                            </canvas>
-                        </div>
-                        <div class="row bo-double-charts-row">
-                            <div class="col-lg-5">
-                                <div class="bo-chart">
-                                    <div class="bo-chart-buttons">
-                                        <div class="btn-group btn-group-sm" role="group">
-                                            <button type="button" class="btn btn-sm btn-default"
-                                                    ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='tickets'}"
-                                                    ng-click="vm.setPriceclassPieDisplay('tickets')">
-                                                {{'api_tickets'|translate}}
-                                            </button>
-                                            <button type="button" ng-if="hasFullAccess('api_reports_revenue')"
-                                                    class="btn btn-sm btn-default"
-                                                    ng-class="{ 'active': vm.priceclassFilter.pieDisplay=='revenue'}"
-                                                    ng-click="vm.setPriceclassPieDisplay('revenue')">
-                                                {{'api_revenue'|translate}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <canvas id="priceclassPie" class="chart chart-pie"
-                                            chart-data="vm.priceclassPieGraph.data"
-                                            chart-labels="vm.priceclassPieGraph.labels"
-                                            chart-options="vm.priceclassPieGraph.options"
-                                            chart-colors="vm.priceclassPieGraph.colors"></canvas>
-                                </div>
-                            </div>
-                            <div class="col-lg-7">
-                                <div class="bo-pricetyperevenuetable table table-condensed table-small bo-table-report">
-                                    <div class="bo-tableheader">
-                                        <div class="bo-tablerow">
-                                            <div>{{'api_priceclass'|translate}}</div>
-                                            <div>{{'api_tickets'|translate}}</div>
-                                            <div>%</div>
-                                            <div ng-if="hasFullAccess('api_reports_revenue')">{{'api_revenue'|translate}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="bo-tablebody">
-                                        <div class="bo-tablerow bo-table-title-row">
-                                            <div>{{'api_issued_total'|translate}}</div>
-                                            <div data-label="{{'api_tickets'|translate}}: ">{{vm.myPriceClassPieData.generatedCount}}</div>
-                                            <div>100%</div>
-                                            <div data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
-                                                {{vm.myPriceClassPieData.generatedSum | number:2}}
-                                                {{vm.myPriceClassPieData.currency}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="bo-tablebody" ng-repeat="priceclassData in vm.myPriceClassPieData.sales">
-                                        <div class="bo-tablerow bo-table-secondarytitle-row">
-                                            <div>
-                                                <span class="bo-table-dot-title">
-                                                    <span class="bo-dot fa fa-square"></span>
-                                                    {{priceclassData.groupName|translate}}
-                                                </span>
-                                            </div>
-                                            <div data-label="{{'api_tickets'|translate}}: ">{{priceclassData.rowCount}}</div>
-                                            <div>{{vm.myPriceClassPieData.generatedCount ? ( priceclassData.rowCount / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</div>
-                                            <div data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
-                                                {{priceclassData.rowSum | number:2}}
-                                                {{priceclassData.currency}}
-                                            </div>
-                                        </div>
-                                        <div class="bo-tablerow" ng-repeat="priceclassItem in priceclassData.priceClasses">
-                                            <div>
-                                                <span class="bo-table-dot-title">
-                                                    <span class="bo-dot fa fa-square" ng-attr-style="color: {{priceclassItem.color}}!important;"></span>
-                                                    {{priceclassItem.priceClassName}}
-                                                    <span ng-if="priceclassItem.minPrice > 0 && priceclassItem.maxPrice > 0">
-                                                        ({{ priceclassItem.minPrice != priceclassItem.maxPrice ? (priceclassItem.minPrice | number:2) + "-" + (priceclassItem.maxPrice | number:2) : (priceclassItem.minPrice | number:2)}})
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <div data-label="{{'api_tickets'|translate}}: ">{{priceclassItem.count}}</div>
-                                            <div>{{vm.myPriceClassPieData.generatedCount ? ( priceclassItem.count / vm.myPriceClassPieData.generatedCount ) * 100 : 0 | number:0}}%</div>
-                                            <div data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
-                                                {{priceclassItem.sum | number:2}}
-                                                {{vm.myPriceClassPieData.currency}}
-                                            </div>
+                                        <div class="col-xs-3 bo-table-cell" data-label="{{'api_revenue'|translate}}: " ng-if="hasFullAccess('api_reports_revenue')">
+                                            {{priceclassItem.sum | number:2}}
+                                            {{vm.myPriceClassPieData.currency}}
                                         </div>
                                     </div>
                                 </div>
@@ -605,11 +470,9 @@
                     </div>
                 </div>
             </div>
-
             <!-- Tab: sections -->
-            <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'sections'}"
-                 id="sections" role="tabpanel">
-                <div class="panel-body" block-ui block-ui-pattern="/Basket|Booking|Sector/">
+            <div class="tab-pane" ng-class="{'active': vm.currentTab == 'sections'}" id="sections" role="tabpanel">
+                <div block-ui block-ui-pattern="/Basket|Booking|Sector/">
                     <div ng-if="!selectedSectionId && !vm.bookingStep" ng-include="'views/partials/booking/sections.html'"></div>
                     <div ng-if="selectedSectionId && !vm.bookingStep && !vm.reservationMode" ng-include="'views/partials/booking/places.html'"></div>
                     <div ng-if="vm.bookingStep" ng-include="'views/partials/booking/' + vm.bookingStep + '.html'"></div>

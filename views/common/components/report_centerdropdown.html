@@ -1,0 +1,16 @@
+<div ng-if="vm.event.salespoints.length > 1" class="bo-dropdown dropdown">
+    <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <span>
+            {{tabFilter.centerName ? tabFilter.centerName : 'api_all_center_ids'|translate}}
+            <i class="fa fa-chevron-down"></i>
+        </span>
+    </div>
+    <ul class="dropdown-menu">
+        <li><a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a></li>
+        <li ng-repeat="sp in vm.event.salespoints">
+            <a ng-click="vm.salesPoint = sp">{{sp.name}}</a>
+        </li>
+    </ul>
+</div>
+<input type="text" class="form-control" placeholder="{{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}"
+       ng-if="vm.event.salespoints.length == 1" disabled/>

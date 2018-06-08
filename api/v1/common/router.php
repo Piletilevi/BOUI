@@ -82,7 +82,7 @@ $app->post('/setLanguage', function ($request, $response, $args) {
         $sessionHandler->setCurrentLanguage( $json->lang );
 		$piletileviApi = $this->piletileviApi;
 		$data = $piletileviApi->setCurrentLanguage($json->lang->code);
-		
+        $r['debug'] = $data;
 		if ($data && $data->data->success == "true" ) {
 			$r['status'] = "success";
 			$r['message'] = 'Language switched successfully.';

@@ -5,7 +5,30 @@
 /* Bootstrap xs, md, lg
 ================================ */
 @media (min-width: 768px) {
+    .bo-additional-nav .navbar-right {
+        margin-right: 0;
+    }
 
+    .bo-panel-table {
+        display: table;
+        width: 100%;
+    }
+    .bo-panel-table-cell-4 {
+        display: table-cell;
+        width: 33.33%;
+    }
+    .bo-panel-table-cell-8 {
+        display: table-cell;
+        width: 66.66%;
+    }
+    .bo-panel-table-cell-12 {
+        display: table-cell;
+        width: 100%;
+    }
+    .bo-panel-table .bo-totals > span {
+        float: none!important;
+        display: block;
+    }
 }
 
 /* Bootstrap xs
@@ -72,6 +95,16 @@
 @media (min-width: 768px) and (max-width: 1199px) {
     .bo-navbar .nav > li > a > span,
     .bo-navbar .nav > li > a > .bo-double-row {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1440px;
+    }
+
+    .bo-additional-nav .dropdown-header {
         display: none;
     }
 }

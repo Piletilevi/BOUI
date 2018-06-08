@@ -1,8 +1,9 @@
-<a href="" class="dropdown-toggle bo-office-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-	<i class="fa fa-map-marker"></i>
+<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+	<i class="fa fa-map-marker" aria-hidden="true"></i>
 	<span>{{getPointName()}}</span>
 </a>
 <ul class="dropdown-menu">
-	<li ng-repeat="point in user.salesPoints" ng-click="setPoint(point.id)" ng-confirm-click="{{'api_clickConfirm'|translate}}" ng-confirm-description="api_clickConfirmDescription" ng-point-name="{{point.name}}">
-		<a href ng-class="{'bo-selected': user.point == point.id}">{{point.name}}</a></li>
+	<li ng-repeat="point in user.salesPoints" ng-click="setPoint(point.id)" ng-confirm-click="{{'api_clickConfirm'|translate}}"
+		ng-confirm-description="api_clickConfirmDescription" ng-point-name="{{point.name}}" ng-class="{'bo-selected': user.point == point.id}">
+		<a href>{{point.name}}</a></li>
 </ul>

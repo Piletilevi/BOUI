@@ -19,6 +19,7 @@
     <link href="js/bower_components/piletilevi-venuemap/dist/style.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <link href="css/media.css" rel="stylesheet">
+    <link href="css/daterangepickertheme.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -44,54 +45,48 @@
     </script>
 </head>
 <body style="height: 100%; visibility: hidden" ng-class='{forceShow: isTranslated, boLightGamma: pointMenuGamma}' autoscroll="true">
-
-<div ng-include="'views/common/template.html'" ng-if="authenticated"></div>
-<div class="visible-print">
-    <img class="bo-print-logo" ng-src="{{pointMenuLogo}}"/>
-</div>
-<div class="container bo-main-block">
-    <div class="row" ng-controller="mainController as vm" ng-if="authenticated && !filterNotNeeded">
-        <div class="col-xs-12 col-md-9 bo-center-column">
-        <div class="bo-top-filter-block row">
-            <div class="bo-top-filter-daterange col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="input-group-lg">
-                    <div class="data_range">
-                        <button class="btn btn-default bo-datarangepicker-button btn-lg" type="button"
-                                data-control="daterangepicker">
+    <div ng-include="'views/common/template.html'" ng-if="authenticated"></div>
+    <div class="visible-print">
+        <img class="bo-print-logo" ng-src="{{pointMenuLogo}}"/>
+    </div>
+    <div class="container bo-main-block">
+        <div class="row" ng-controller="mainController as vm" ng-if="authenticated && !filterNotNeeded">
+            <div class="col-xs-12 col-md-9">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" id="bo-top-filter-daterange">
+                        <div class="input-group bo-input bo-daterangepicker" data-control="daterangepicker">
                             <input type="text" class="form-control" daterangepicker-neutral-timezone
                                    ng-model="vm.filter.period"
                                    ng-attr-data-default-start-date="{{vm.defaultStartDate}}"
                                    ng-attr-data-default-end-date="{{vm.defaultEndDate}}"
                                    ng-attr-data-min-date="{{vm.minFilterDate}}"
                                    ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled/>
-                            <span class="icon-holder" ng-style="{'background-color': pointAccentColor}">
-                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                            </span>
-                        </button>
+                            <div class="bo-button input-group-btn">
+                                <button class="btn btn-default" type="button" ng-style="{'background-color': pointAccentColor }">
+                                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="bo-top-filter-search">
+                        <div class="input-group bo-input">
+                            <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}"
+                                   ng-model="vm.filter.name" key-bind="{enter:'vm.search()'}">
+                            <div class="bo-button input-group-btn">
+                                <button class="btn btn-default" type="button" ng-click="vm.search()" ng-style="{'background-color': pointAccentColor }">
+                                    <span><i class="fa fa-{{vm.reset_search ? 'close' : 'search'}}" aria-hidden="true"></i></span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="bo-top-filter-search col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                <div class="input-group input-group-lg">
-                    <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}"
-                           ng-model="vm.filter.name" key-bind="{ enter: 'vm.search()' }">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button" ng-click="vm.search()" ng-style="{'background-color': pointAccentColor}">
-                                <i class="fa fa-{{vm.reset_search ? 'close' : 'search'}}" aria-hidden="true"></i>
-                            </button>
-						</span>
-                </div>
-            </div>
+        </div>
+        <div>
+            <div data-ng-view="" id="ng-view" class="row slide-animation"></div>
         </div>
     </div>
-    </div>
-
-    <div>
-        <div data-ng-view="" id="ng-view" class="row slide-animation"></div>
-    </div>
-</div>
-    <div class="bo-print-footer visible-print" ng-include="'views/common/print_footer.html'"
-         ng-if="authenticated"></div>
+    <div class="bo-print-footer visible-print" ng-include="'views/common/print_footer.html'" ng-if="authenticated"></div>
 
     <!-- Libs -->
     <script src="myip.php"></script>

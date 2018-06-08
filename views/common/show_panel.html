@@ -1,20 +1,20 @@
-<div class="bo-showpanel panel panel-default">
-	<div class="panel-heading clearfix">
-		<h3 class="bo-showpanel-title">
-			<a ng-if="show.concertsCount" class="bo-showpanel-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events{{show.id}}" aria-expanded="false">
-				<span class="fa fa-plus-square"></span>
-				<span class="fa fa-minus-square"></span>
-				<span class="badge">{{show.concertsCount}}</span>
-				{{show.name}}
+<div class="panel panel-default">
+	<div class="bo-panel bo-panel-collapsible bo-panel-linked">
+		<div class="panel-heading clearfix">
+			<a class="bo-panel-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-events{{show.id}}" aria-expanded="false">
+				<i class="fa fa-plus-square"></i>
+				<i class="fa fa-minus-square"></i>
+				<div class="bo-badge bo-label label-primary">{{show.concertsCount}}</div>
+				<span>{{show.name}}</span>
 			</a>
-		</h3>
-	</div>
-	<div class="bo-showpanel-overview" ng-repeat="event in [show]" ng-include-template="event_summary.html"
-		 ng-include-variables="{event: show, vm: vm, user: user, linked: true, noTitle: true, withRevenue: withRevenue}"></div>
-	<div ng-if="show.concerts" id="bo-sub-events{{show.id}}" class="bo-showpanel-concerts collapse">
-		<div class="bo-showpanel-concert" ng-repeat="concert in show.concerts">
-			<div ng-include-template="event_summary.html"
-				 ng-include-variables="{event: concert, vm: vm, user: user, linked: true, withRevenue: withRevenue}"></div>
+		</div>
+		<div ng-repeat="event in [show]" ng-include-template="event_summary.html" class="panel-body bo-panel-event"
+			 ng-include-variables="{event: show, vm: vm, user: user, linked: true, noTitle: true, withRevenue: withRevenue}"></div>
+		<div ng-if="show.concerts" id="bo-sub-events{{show.id}}" class="bo-panel-sub collapse">
+			<div ng-repeat="concert in show.concerts" class="panel-body bo-panel-event">
+				<div ng-include-template="event_summary.html"
+					 ng-include-variables="{event: concert, vm: vm, user: user, linked: true, withRevenue: withRevenue}"></div>
+			</div>
 		</div>
 	</div>
 </div>
