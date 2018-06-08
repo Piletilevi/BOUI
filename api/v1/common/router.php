@@ -8,13 +8,8 @@ $app->get('/session', function ($request, $response, $args) {
     $piletileviApi = $this->piletileviApi;
 	$sessionHandler = $this->piletileviSessionHandler;
 
-	$this->logger->write( "verifySessionKey" );
-	
     $userData = $piletileviApi->verifySessionKey();
 
-	$this->logger->write( "verifySessionKey data: ".$userData->valid );
-	$this->logger->write( "session: ".$sessionHandler->getSession() );
-	
 	$r = array();
     if (is_object($userData) && $userData && $userData->valid == "true") {
 		$session = $sessionHandler->getSession();
@@ -173,8 +168,6 @@ $app->post('/login', function ($request, $response, $args) {
     $piletileviApi = $this->piletileviApi;
     $userData = $piletileviApi->login($username, $password, $clientip);
 
-	$this->logger->write( "login sessiond id: ".$userData->sessionId );
-	
 	if ($userData && !property_exists($userData, 'errors')) {
 		if ($userData && property_exists($userData, 'valid') && $userData->valid == "true") {
 			$r['status'] = "success";
@@ -185,8 +178,6 @@ $app->post('/login', function ($request, $response, $args) {
 
 			$sessionHandler->setSessionId($userData->sessionId);
 			$sessionHandler->setUser( $userData->user );
-			
-			$this->logger->write( "setting user session: ".$userData->sessionId );			
 		} else {
 			$r['status'] = "error";
 			$r['message'] = 'No such user is registered';
