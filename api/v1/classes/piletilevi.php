@@ -95,13 +95,27 @@ class PiletileviApi {
 		return $this->send( "/authentication/login", $data );
 	}
 
+	public function logout() {
+
+  		$data = array();
+		
+		return $this->send( "/authentication/logout", $data );
+	}
+
 	public function verifySessionKey() {
 
 		$data= array ();
 
-		return $this->send("/authentication/verifySessionKey", $data);
+		return $this->send("/authentication/verifySessionKey", $data );
 	}
 	
+	public function sessionDataKey() {
+
+		$data= array ();
+
+		return $this->send("/authentication/sessionData", $data);
+	}
+
 	public function languages() {
 		
 		$cacheItem = $this->cacheManager->getItem("languages");
@@ -819,7 +833,11 @@ class PiletileviApi {
 		}
 		$response = $request->send();
 		
-		//$this->logger->write( $response->code );
+		/*
+		$this->logger->write( $url." - start" );
+		$this->logger->write( $response );
+		$this->logger->write( $url." - end" );
+		*/
 		
 		if ($response->hasErrors() || $response->code == 401) {
 			$this->app->halt($response->code);

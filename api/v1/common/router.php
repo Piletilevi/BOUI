@@ -5,10 +5,19 @@ $app->get('/', function ($request, $response, $args)  {
 });
 
 $app->get('/session', function ($request, $response, $args) {
+    $piletileviApi = $this->piletileviApi;
 	$sessionHandler = $this->piletileviSessionHandler;
-    $session = $sessionHandler->getSession();
-    $r["user"] = $session["user"];
-    
+
+    $userData = $piletileviApi->verifySessionKey();
+	
+	$r = array();
+    if (is_object($userData) && $userData && $userData->valid == "true") {
+		$session = $sessionHandler->getSession();
+		$r["user"] = $session["user"];
+    } else {
+		$sessionHandler->destroySession();
+	}
+	
 	$dataHandler = $this->dataHandler;
 	return $dataHandler->response($response, $r);
 });
@@ -139,12 +148,8 @@ $app->post('/verifySessionKey', function ($request, $response, $args) {
     if ($userData && $userData->valid == "true") {
         $r['status'] = "success";
         $r['message'] = 'Verified session successfully.';
-
         $r['user'] = $userData->user;
 		$sessionHandler->setUser( $userData->user );
-    } else {
-        $r['status'] = "error";
-        $r['message'] = 'Not a valid session key.';
     }
 
 	return $dataHandler->response($response, $r);
@@ -365,11 +370,21 @@ $app->post('/changePassword', function ($request, $response, $args) {
 
 $app->get('/logout', function ($request, $response, $args) {
 	$dataHandler = $this->dataHandler;
+	$piletileviApi = $this->piletileviApi;
     $sessionHandler = $this->piletileviSessionHandler;
-    $session = $sessionHandler->destroySession();
-    $r["status"] = "info";
-    $r["message"] = "Logged out successfully";
 
+    $data = $piletileviApi->logout();
+    
+	if ($data && $data->success == "true" ) {
+		$r["status"] = "info";
+		$r["message"] = "Logged out successfully";
+    } else {
+        $r['status'] = "error";
+		$r["message"] = "Logged out failed";
+    }
+
+    $session = $sessionHandler->destroySession();
+	
 	return $dataHandler->response($response, $r);
 });
 
