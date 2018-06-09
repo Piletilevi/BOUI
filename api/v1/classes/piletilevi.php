@@ -129,20 +129,22 @@ class PiletileviApi {
 		return $languages;
 	}
 
-	public function powerbiReport($filter) {
+	public function powerbiReport($filter, $token, $ip) {
 		
 		$data['filter']= $filter;
-		$data['userid']= $this->getUserFromRequestToken();
+		$data['token']= $token;
+		$data['ip']= $ip;
 
 		$reportData = $this->send( "/report/powerbiReport", $data, true );
 
 		return $reportData;
 	}
 	
-	public function cardsReport($filter) {
+	public function cardsReport($filter, $token, $ip) {
 		
 		$data['filter']= $filter;
-		$data['userid']= $this->getUserFromRequestToken();
+		$data['token']= $token;
+		$data['ip']= $ip;
 
 		$reportData = $this->send( "/report/cards", $data, true );
 
@@ -855,10 +857,6 @@ class PiletileviApi {
 	private function getBoUrl(){
 		$papiConfig = $this->getPapiConfig();
 		return $papiConfig["oldbourl"];
-	}
-
-	private function getUserFromRequestToken(){
-		return $this->dataHandler->getUserFromToken($this->container->get("request"));
 	}
 
 	private function getPapiConfig() {

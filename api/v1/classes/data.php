@@ -54,7 +54,37 @@ class DataHandler {
 		
 		return null;
 	}
+	
+	/**
+	 * Verifying required token
+	 */
+	public function verifyToken($request) {
+		$token = $request->getParam("token");
 
+		if (!$token) {
+			// Required field(s) are missing or empty
+			// echo error json and stop the app
+			$r = array();
+			$r["status"] = "error";
+			$r["message"] = 'Invalid access token';
+			
+			return $r;
+		}
+		
+		return null;
+	}
+
+	/**
+	 * get user IP
+	 */
+	public function getUserIP() {
+		$ip = $_SERVER['REMOTE_ADDR'];
+		if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) { 
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		}
+		return $ip;
+	}
+	
 	public function convertToObject($array) {
         $object = new stdClass();
         foreach ($array as $key => $value) {
@@ -93,42 +123,6 @@ class DataHandler {
 			}
 			return join(", ", $messages);
 		}
-		return "";
-	}
-
-	/**
-	 * Verifying required token
-	 */
-	public function verifyToken($request) {
-		$token = $request->getParam("token");
-
-		if (!$this->isValidToken($token)) {
-			// Required field(s) are missing or empty
-			// echo error json and stop the app
-			$r = array();
-			$r["status"] = "error";
-			$r["message"] = 'Invalid access token';
-			
-			return $r;
-		}
-		
-		return null;
-	}
-
-	/**
-	 * Getting user from token
-	 */
-	public function getUserFromToken($request) {
-		$token = $request->getParam("token");
-		
-		$tokens = $this->getTokens();
-
-		foreach($tokens as $t=>$u) {
-			if ($token == $t) {
-				return $u;
-			}
-		}
-		
 		return "";
 	}
 
@@ -178,23 +172,6 @@ class DataHandler {
 		return $response->withHeader('Content-Type', 'application/pdf')
 					    ->withHeader('Content-Disposition', 'attachment; filename="'.$filename.'"')
 						->write($data);
-	}
-	
-	private function getTokens() {
-		return $this->settings["tokens"];
-	}
-
-	private function isValidToken($token) {
-		
-		$tokens = $this->getTokens();
-
-		foreach($tokens as $t=>$u) {
-			if ($token == $t) {
-				return true;
-			}
-		}
-		
-		return false;
 	}
 }
 

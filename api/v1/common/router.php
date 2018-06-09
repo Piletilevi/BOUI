@@ -453,16 +453,17 @@ $app->get('/powerbiReport', function ($request, $response, $args)  {
 	}
 
 	$filter = $request->getParam("filter");
+	$token = $request->getParam("token");
+	$ip = $dataHandler->getUserIP();
 
     $piletileviApi = $this->piletileviApi;
-    $reportResponse = $piletileviApi->powerbiReport( $filter );
+    $reportResponse = $piletileviApi->powerbiReport( $filter, $token, $ip );
 	
-	if ($reportResponse) {
-	    return $dataHandler->responseAsText($response, $reportResponse);
+	if ($reportResponse && !(strpos($reportResponse, 'errors') !== false)) {
+		return $dataHandler->responseAsText($response, $reportResponse);
 	} else {
-	    $r["status"] = "error";
-        $r["errors"] = array("error" => "no response");
-		return $dataHandler->response($response, $r);
+		$json = json_decode($reportResponse);
+		return $dataHandler->response($response, $json);
 	}
 });
 
@@ -474,16 +475,17 @@ $app->get('/cardsReport', function ($request, $response, $args)  {
 	}
 
 	$filter = $request->getParam("filter");
+	$token = $request->getParam("token");
+	$ip = $dataHandler->getUserIP();
 
     $piletileviApi = $this->piletileviApi;
-    $reportResponse = $piletileviApi->cardsReport( $filter );
+    $reportResponse = $piletileviApi->cardsReport( $filter, $token, $ip );
 	
-	if ($reportResponse) {
-	    return $dataHandler->responseAsText($response, $reportResponse);
+	if ($reportResponse && !(strpos($reportResponse, 'errors') !== false)) {
+		return $dataHandler->responseAsText($response, $reportResponse);
 	} else {
-	    $r["status"] = "error";
-        $r["errors"] = array("error" => "no response");
-		return $dataHandler->response($response, $r);
+		$json = json_decode($reportResponse);
+		return $dataHandler->response($response, $json);
 	}
 });
 
