@@ -85,15 +85,20 @@ $app->post('/setLanguage', function ($request, $response, $args) {
     
     if (!empty($json) ){
         $sessionHandler->setCurrentLanguage( $json->lang );
-		$piletileviApi = $this->piletileviApi;
-		$data = $piletileviApi->setCurrentLanguage($json->lang->code);
+		if ($sessionHandler->isUserExist()) {
+			$piletileviApi = $this->piletileviApi;
+			$data = $piletileviApi->setCurrentLanguage($json->lang->code);
 
-		if (is_object($data) && $data->data->success == "true" ) {
+			if (is_object($data) && $data->data->success == "true" ) {
+				$r['status'] = "success";
+				$r['message'] = 'Language switched successfully.';
+			} else {
+				$r['status'] = "error";
+				$r['message'] = 'Language switch failed';
+			}
+		} else {
 			$r['status'] = "success";
 			$r['message'] = 'Language switched successfully.';
-		} else {
-			$r['status'] = "error";
-			$r['message'] = 'Language switch failed';
 		}
     } else {
         $r['status'] = "failure";

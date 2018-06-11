@@ -71,7 +71,11 @@ class PiletileviSessionHandler {
 		
 		return $msg;
 	}
-
+	
+	public function isUserExist(){
+		return isset($_SESSION['user']);
+	}
+	
 	public function resetSession(){
 		if (!isset($_SESSION)) {
 			@session_start();
