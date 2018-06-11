@@ -71,6 +71,14 @@ class PiletileviSessionHandler {
 		
 		return $msg;
 	}
+
+	public function resetSession(){
+		if (!isset($_SESSION)) {
+			@session_start();
+		}
+		unset($_SESSION['user']);
+		unset($_SESSION['sessionId']);
+	}
 	
 	public function setSessionValue($key, $value){
         $this->checkSession();

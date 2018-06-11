@@ -156,6 +156,8 @@ $app->post('/login', function ($request, $response, $args) {
     $sessionHandler = $this->piletileviSessionHandler;
     $json = json_decode($request->getBody());
 
+	$sessionHandler->resetSession();
+	
     $validationErrors = $dataHandler->verifyParams(array('username', 'password', 'clientip'), $json->customer);
 	if ($validationErrors != null) {
 		return $dataHandler->response($response, $validationErrors, 401);
