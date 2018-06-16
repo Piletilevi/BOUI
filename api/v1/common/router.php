@@ -12,6 +12,7 @@ $app->get('/session', function ($request, $response, $args) {
 
 	$r = array();
     if (is_object($userData) && $userData && $userData->valid == "true") {
+		$sessionHandler->setUser( $userData->user );
 		$session = $sessionHandler->getSession();
 		$r["user"] = $session["user"];
     } else {
