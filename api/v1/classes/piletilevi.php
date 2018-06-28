@@ -122,7 +122,7 @@ class PiletileviApi {
 		if(is_null($languages) || !is_object($languages)) {
 			$data = array();
 			$languages = $this->send( "/language/languages", $data );
-			$cacheItem->set($languages)->expiresAfter(3600);
+			$cacheItem->set($languages)->expiresAfter(3600 * 24);
 			$this->cacheManager->save($cacheItem);
 		}
 
@@ -755,19 +755,26 @@ class PiletileviApi {
 	}
 
 	public function translations($languageId) {
-
 		$cacheItem = $this->cacheManager->getItem("translations".$languageId);
 		$translations = $cacheItem->get();
 
 		if(is_null($translations) || !is_object($translations)) {
-			$data = array("languageId" => $languageId);
-			$translations = $this->send( "/language/translations", $data );
-			$cacheItem->set($translations)->expiresAfter(3600);
-			$this->cacheManager->save($cacheItem);
+			$translations = $this->relaodCacheTranslations($languageId);
 		}
 		return $translations;
 	}
 	
+	public function relaodCacheTranslations($languageId) {
+		$cacheItem = $this->cacheManager->getItem("translations".$languageId);
+
+		$data = array("languageId" => $languageId);
+		$translations = $this->send( "/language/translations", $data );
+		$cacheItem->set($translations);
+		$this->cacheManager->save($cacheItem);
+
+		return $translations;
+	}
+
 	private function isValidUser() {
 		if (is_object($this->currentUser)) {
 			return $this->currentUser->userId > 0;

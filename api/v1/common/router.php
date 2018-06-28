@@ -435,20 +435,34 @@ $app->post('/translations', function ($request, $response, $args)  {
     return $dataHandler->response($response, $r);
 });
 
-$app->get('/translations', function ($request, $response, $args)  {
+$app->post('/reloadTranslations', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
-
-    $languageId = "EST";
-
     $piletileviApi = $this->piletileviApi;
-    $translations = $piletileviApi->translations($languageId);
 
-    $r["status"] = "success";
-
-	if (!empty($translations->data)) {
-        $r["translations"] = $translations->data->translations;
-	}
-
+    $languages = $piletileviApi->languages();
+	if ($languages && !property_exists($languages, 'errors')) {
+		$data = $languages->data;
+		if ($data) {
+			$loaded = array();
+			foreach($data as $languageObj) {
+				$languageId = $languageObj->code;
+				$translations = $piletileviApi->relaodCacheTranslations($languageId);
+				if(!is_null($translations) && is_object($translations)) {
+					$loaded[$languageId] = "loaded";
+				} else {
+					$loaded[$languageId] = "not loaded";
+				}
+			}
+			$r['status'] = $loaded;
+		} else {
+	        $r['status'] = "info";
+	        $r['message'] = "Empty result";
+		}
+    } else {
+        $r['status'] = "error";
+        $r['message'] = $dataHandler->getMessages($languages->errors);
+    }
+	
     return $dataHandler->response($response, $r);
 });
 
