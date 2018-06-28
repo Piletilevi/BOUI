@@ -812,6 +812,9 @@ class PiletileviApi {
 		if (!isset($data['sessionId']) && $this->sessionId) {
 			$data['sessionId']= $this->sessionId;
 		}
+		if (!isset($data['langId']) && is_object($this->currentLang)) {
+			$data['langId']= $this->currentLang->code;
+		}
 
 		$generator = new RandomStringGenerator;
 		
