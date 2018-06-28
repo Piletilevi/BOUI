@@ -154,23 +154,23 @@ class DataHandler {
 	}
 
 	public function responseAsCsv($response, $data) {
-		return $response->withHeader('Content-Type', 'text/csv')
+		return $response->withHeader('Content-Type', 'text/csv; charset=UTF-8')
 						->write($data);
 	}
 
 	public function responseAsXls($response, $data) {
-		return $response->withHeader('Content-Type', 'application/vnd.ms-excel')
+		return $response->withHeader('Content-Type', 'application/vnd.ms-excel; charset=UTF-8')
 						->write($data);
 	}
 
 	public function responseAsPdf($response, $data) {
-		return $response->withHeader('Content-Type', 'application/pdf')
+		return $response->withHeader('Content-Type', 'application/pdf; charset=UTF-8')
 						->write($data);
 	}
 
 	public function responseAsPdfAttachment($response, $filename, $data) {
-		return $response->withHeader('Content-Type', 'application/pdf')
-					    ->withHeader('Content-Disposition', 'attachment; filename="'.$filename.'"')
+		return $response->withHeader('Content-Type', 'application/pdf; charset=UTF-8')
+					    ->withHeader('Content-Disposition', 'attachment;filename="'.$filename.'"; filename*=UTF-8\' \''.rawurlencode($filename))
 						->write($data);
 	}
 }
