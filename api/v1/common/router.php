@@ -446,7 +446,7 @@ $app->post('/reloadTranslations', function ($request, $response, $args)  {
 			$loaded = array();
 			foreach($data as $languageObj) {
 				$languageId = $languageObj->code;
-				$translations = $piletileviApi->relaodCacheTranslations($languageId);
+				$translations = $piletileviApi->reloadCacheTranslations($languageId);
 				if(!is_null($translations) && is_object($translations)) {
 					$loaded[$languageId] = "loaded";
 				} else {
