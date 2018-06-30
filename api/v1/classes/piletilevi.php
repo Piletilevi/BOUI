@@ -757,8 +757,8 @@ class PiletileviApi {
 	public function translations($languageId) {
 		$cacheItem = $this->cacheManager->getItem("translations".$languageId);
 		$translations = $cacheItem->get();
-
-		if(is_null($translations) || !is_object($translations)) {
+		
+		if(is_null($translations) || !is_object($translations) || empty($translations->data)) {
 			$translations = $this->reloadCacheTranslations($languageId);
 		}
 		return $translations;
