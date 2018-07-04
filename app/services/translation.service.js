@@ -81,8 +81,8 @@
 
         function initialize(){
             $rootScope.setLangValue = setLangValue;
-            sessionLanguage();
             getLanguages();
+            sessionLanguage();
 
             $rootScope.$watch('language', function(newLanguage, oldLanguage) {
                 if(newLanguage && !angular.equals(newLanguage, oldLanguage)) {

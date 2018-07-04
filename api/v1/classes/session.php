@@ -56,6 +56,7 @@ class PiletileviSessionHandler {
 		if (!isset($_SESSION)) {
 			@session_start();
 		}
+
 		if(isset($_SESSION['user'])) {
 			unset($_SESSION['user']);
 			$msg="Logged Out Successfully...";
@@ -63,7 +64,24 @@ class PiletileviSessionHandler {
 		else {
 			$msg = "Not logged in...";
 		}
+
+		if(isset($_SESSION['sessionId'])) {
+			unset($_SESSION['sessionId']);
+		}
+		
 		return $msg;
+	}
+	
+	public function isUserExist(){
+		return isset($_SESSION['user']);
+	}
+	
+	public function resetSession(){
+		if (!isset($_SESSION)) {
+			@session_start();
+		}
+		unset($_SESSION['user']);
+		unset($_SESSION['sessionId']);
 	}
 	
 	public function setSessionValue($key, $value){

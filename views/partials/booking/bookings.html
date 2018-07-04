@@ -44,12 +44,12 @@
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true">
-                    <span>{{vm.bookingFilter.typeId !== null ? ((vm.bookingTypes.types | filter:{id: vm.bookingFilter.typeId}:true)[0].name) : ' --- '}}</span>
+                    <span>{{vm.bookingFilter.typeId !== null ? ((vm.bookingTypes.types | filter:{id: vm.bookingFilter.typeId}:true)[0].name ) : ' --- ' | translate}}</span>
                     <i class="fa fa-chevron-down"></i>
                 </button>
                 <ul class="dropdown-menu">
                     <li>
-                        <a ng-repeat="type in vm.bookingTypes.types" ng-click="vm.bookingFilter.typeId = type.id">{{type.name}}</a>
+                        <a ng-repeat="type in vm.bookingTypes.types" ng-click="vm.bookingFilter.typeId = type.id">{{type.name | translate}}</a>
                     </li>
                 </ul>
             </div>
@@ -58,13 +58,13 @@
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true">
-                    <span>{{vm.bookingFilter.statusId !== null ? ((vm.bookingStatuses.statuses | filter:{id: vm.bookingFilter.statusId}:true)[0].name) : ' --- '}}</span>
+                    <span>{{vm.bookingFilter.statusId !== null ? ((vm.bookingStatuses.statuses | filter:{id: vm.bookingFilter.statusId}:true)[0].name) : ' --- ' | translate}}</span>
                     <i class="fa fa-chevron-down"></i>
                 </button>
                 <ul class="dropdown-menu">
                     <li>
                         <a ng-repeat="status in vm.bookingStatuses.statuses"
-                           ng-click="vm.bookingFilter.statusId = status.id">{{status.name}}</a>
+                           ng-click="vm.bookingFilter.statusId = status.id">{{status.name | translate}}</a>
                     </li>
                 </ul>
             </div>

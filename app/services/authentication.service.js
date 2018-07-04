@@ -87,11 +87,10 @@
             });
         }
 
-        function verifySession(searchKey){
-
-            dataService.post('verifySessionKey',{ "sessionkey" : searchKey }).then(function(results){
+        function verifySession(){
+			dataService.post('verifySessionKey').then(function(results){
                 dataService.page(results);
-                if (results.status == "success"){
+                if (results && results.status == "success"){
                     dataService.get('session').then(function (results) {
                         if (results.user) {
                             $rootScope.authenticated = true;
@@ -101,8 +100,8 @@
                     });
                 }
             });
-
         }
+		
         function checkUserAuth(next){
             var nextUrl = next.$$route.originalPath;
             dataService.get('session').then(function (results) {
@@ -123,9 +122,9 @@
                 } else {
                     $rootScope.authenticated = false;
                     if(typeof($location.search().key) !== 'undefined'){
-                        var searchKey =  $location.search().key;
+                        var searchkey =  $location.search().key;
                         $location.search('key', null);
-                        verifySession(searchKey);
+                        verifySession();
                     }
 
                     if (nextUrl == '/login') {

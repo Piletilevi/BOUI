@@ -93,13 +93,27 @@ class PiletileviApi {
 		return $this->send( "/authentication/login", $data );
 	}
 
+	public function logout() {
+
+  		$data = array();
+		
+		return $this->send( "/authentication/logout", $data );
+	}
+
 	public function verifySessionKey() {
 
 		$data= array ();
 
-		return $this->send("/authentication/verifySessionKey", $data);
+		return $this->send("/authentication/verifySessionKey", $data );
 	}
 	
+	public function sessionDataKey() {
+
+		$data= array ();
+
+		return $this->send("/authentication/sessionData", $data);
+	}
+
 	public function languages() {
 		
 		$cacheItem = $this->cacheManager->getItem("languages");
@@ -108,27 +122,29 @@ class PiletileviApi {
 		if(is_null($languages) || !is_object($languages)) {
 			$data = array();
 			$languages = $this->send( "/language/languages", $data );
-			$cacheItem->set($languages)->expiresAfter(3600);
+			$cacheItem->set($languages)->expiresAfter(3600 * 24);
 			$this->cacheManager->save($cacheItem);
 		}
 
 		return $languages;
 	}
 
-	public function powerbiReport($filter) {
+	public function powerbiReport($filter, $token, $ip) {
 		
 		$data['filter']= $filter;
-		$data['userid']= $this->getUserFromRequestToken();
+		$data['token']= $token;
+		$data['ip']= $ip;
 
 		$reportData = $this->send( "/report/powerbiReport", $data, true );
 
 		return $reportData;
 	}
 	
-	public function cardsReport($filter) {
+	public function cardsReport($filter, $token, $ip) {
 		
 		$data['filter']= $filter;
-		$data['userid']= $this->getUserFromRequestToken();
+		$data['token']= $token;
+		$data['ip']= $ip;
 
 		$reportData = $this->send( "/report/cards", $data, true );
 
@@ -739,19 +755,26 @@ class PiletileviApi {
 	}
 
 	public function translations($languageId) {
-
 		$cacheItem = $this->cacheManager->getItem("translations".$languageId);
 		$translations = $cacheItem->get();
-
-		if(is_null($translations) || !is_object($translations)) {
-			$data = array("languageId" => $languageId);
-			$translations = $this->send( "/language/translations", $data );
-			$cacheItem->set($translations)->expiresAfter(3600);
-			$this->cacheManager->save($cacheItem);
+		
+		if(is_null($translations) || !is_object($translations) || empty($translations->data)) {
+			$translations = $this->reloadCacheTranslations($languageId);
 		}
 		return $translations;
 	}
 	
+	public function reloadCacheTranslations($languageId) {
+		$cacheItem = $this->cacheManager->getItem("translations".$languageId);
+
+		$data = array("languageId" => $languageId);
+		$translations = $this->send( "/language/translations", $data );
+		$cacheItem->set($translations);
+		$this->cacheManager->save($cacheItem);
+
+		return $translations;
+	}
+
 	private function isValidUser() {
 		if (is_object($this->currentUser)) {
 			return $this->currentUser->userId > 0;
@@ -789,8 +812,13 @@ class PiletileviApi {
 		if (!isset($data['sessionId']) && $this->sessionId) {
 			$data['sessionId']= $this->sessionId;
 		}
+		if (!isset($data['langId']) && is_object($this->currentLang)) {
+			$data['langId']= $this->currentLang->code;
+		}
 
-        $tokenId   = base64_encode(mcrypt_create_iv(32));
+		$generator = new RandomStringGenerator;
+		
+        $tokenId   = base64_encode($generator->generate(32));
         $issuedAt  = time();
 		$notBefore = $issuedAt - 1;        // Removing 1 sec
 		$expire    = $notBefore + 60;      // Adding 60 seconds
@@ -816,9 +844,11 @@ class PiletileviApi {
 			$request->withoutAutoParsing();
 		}
 		$response = $request->send();
-		
-		//$this->logger->write( $response->code );
-		
+		/*
+		$this->logger->write( $url." - start" );
+		$this->logger->write( $response );
+		$this->logger->write( $url." - end" );
+		*/
 		if ($response->hasErrors() || $response->code == 401) {
 			$this->app->halt($response->code);
 		}
@@ -837,10 +867,6 @@ class PiletileviApi {
 	private function getBoUrl(){
 		$papiConfig = $this->getPapiConfig();
 		return $papiConfig["oldbourl"];
-	}
-
-	private function getUserFromRequestToken(){
-		return $this->dataHandler->getUserFromToken($this->container->get("request"));
 	}
 
 	private function getPapiConfig() {
