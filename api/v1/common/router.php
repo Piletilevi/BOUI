@@ -2281,6 +2281,56 @@ $app->get('/ticketOpen', function ($request, $response, $args)  {
 	return $dataHandler->responseAsPdf($response, $reportResponse);
 });
 
+$app->put('/payment/check', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+	
+	$ip = $dataHandler->getUserIP();
+	$parameters = $request->getParams();
+    $piletileviApi = $this->piletileviApi;
+
+    $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		if ($reportResponse->data && $reportResponse->data->type=="redirect" && $reportResponse->data->url) {
+			return $response->withRedirect($reportResponse->data->url);
+		} else {
+			return $this->view->render($response, 'payment.tpl', [
+				'payment' => $reportResponse->data
+			]);
+		}
+	} else {
+	    $r["status"] = "error";
+        $r["message"] = $dataHandler->getMessages($reportResponse->errors);
+		return $dataHandler->response($response, $r);
+	}
+});
+
+$app->post('/payment/check', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+	
+	$ip = $dataHandler->getUserIP();
+	$parameters = $request->getParams();
+    $piletileviApi = $this->piletileviApi;
+
+    $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		if ($reportResponse->data && $reportResponse->data->type=="redirect" && $reportResponse->data->url) {
+			return $response->withRedirect($reportResponse->data->url);
+		} else {
+			return $this->view->render($response, 'payment.tpl', [
+				'payment' => $reportResponse->data
+			]);
+		}
+	} else {
+	    $r["status"] = "error";
+        if ($reportResponse) {
+			$r["message"] = $dataHandler->getMessages($reportResponse->errors);
+		}
+		return $dataHandler->response($response, $r);
+	}
+});
+
 $app->get('/test', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
 

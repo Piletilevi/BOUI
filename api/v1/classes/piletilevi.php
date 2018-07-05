@@ -732,6 +732,16 @@ class PiletileviApi {
 		return $response;
 	}
 	
+	public function checkPayment($parameters, $ip) {
+		
+		$parameters['ip'] = $ip;
+		$data['filter']= $parameters;
+
+		$response = $this->send( "/payment/checkPayment", $data );
+		
+		return $response;
+	}
+
 	public function addGIftCardToBooking($filter) {
 		
 		$data['filter']= $filter;
