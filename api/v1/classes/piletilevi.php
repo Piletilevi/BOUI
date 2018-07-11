@@ -528,7 +528,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$response = $this->send( "/booking/getSectorInfo", $data );
+		$response = $this->send( "/event/getSectorInfo", $data );
 		
 		return $response;
 	}
@@ -537,7 +537,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$response = $this->send( "/booking/addToBasket", $data );
+		$response = $this->send( "/basket/addToBasket", $data );
 		
 		return $response;
 	}
@@ -546,7 +546,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$response = $this->send( "/booking/removeFromBasket", $data );
+		$response = $this->send( "/basket/removeFromBasket", $data );
 		
 		return $response;
 	}
@@ -564,7 +564,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$response = $this->send( "/booking/changeBasketTicketType", $data );
+		$response = $this->send( "/basket/changeBasketTicketType", $data );
 		
 		return $response;
 	}
@@ -582,7 +582,7 @@ class PiletileviApi {
 
 		$data['filter']= $filter;
 		
-		$response = $this->send( "/booking/myBasket", $data );
+		$response = $this->send( "/basket/myBasket", $data );
 		
 		return $response;
 	}
@@ -591,7 +591,7 @@ class PiletileviApi {
 
 		$data['filter']= $filter;
 		
-		$response = $this->send( "/booking/confirmBasket", $data );
+		$response = $this->send( "/basket/confirmBasket", $data );
 		
 		return $response;
 	}
@@ -738,6 +738,15 @@ class PiletileviApi {
 		$data['filter']= $parameters;
 
 		$response = $this->send( "/payment/checkPayment", $data );
+		
+		return $response;
+	}
+
+	public function processPayment($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/payment/processPayment", $data );
 		
 		return $response;
 	}
