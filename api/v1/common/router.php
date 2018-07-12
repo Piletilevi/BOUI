@@ -2320,7 +2320,7 @@ $app->get('/payment/process', function ($request, $response, $args)  {
         $r["message"] = $dataHandler->getMessages($reportResponse->errors);
 		return $dataHandler->response($response, $r);
 	}
-}
+});
 
 $app->put('/payment/check', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
