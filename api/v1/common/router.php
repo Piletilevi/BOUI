@@ -2298,9 +2298,9 @@ $app->get('/payment/process', function ($request, $response, $args)  {
 
 	$data = array();
 	$filter = array();
-	$data['ip'] = $ip;
 	$data['ysessionId'] = $key;
 	$filter['paymentTypeId'] = $paymentTypeId;
+	$filter['ip'] = $ip;
 	if ($langId) {
 		$data['langId'] = $langId;
 	}
