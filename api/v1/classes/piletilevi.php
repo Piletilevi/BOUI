@@ -737,7 +737,7 @@ class PiletileviApi {
 		$parameters['ip'] = $ip;
 		$data['filter']= $parameters;
 
-		$response = $this->send( "/payment/checkPayment", $parameters );
+		$response = $this->send( "/payment/checkPayment", $data );
 		
 		return $response;
 	}
