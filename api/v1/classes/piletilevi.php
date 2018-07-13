@@ -737,15 +737,13 @@ class PiletileviApi {
 		$parameters['ip'] = $ip;
 		$data['filter']= $parameters;
 
-		$response = $this->send( "/payment/checkPayment", $data );
+		$response = $this->send( "/payment/checkPayment", $parameters );
 		
 		return $response;
 	}
 
-	public function processPayment($filter) {
+	public function processPayment($data) {
 		
-		$data['filter']= $filter;
-
 		$response = $this->send( "/payment/processPayment", $data );
 		
 		return $response;

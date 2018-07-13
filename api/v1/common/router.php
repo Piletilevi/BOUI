@@ -2296,16 +2296,18 @@ $app->get('/payment/process', function ($request, $response, $args)  {
 	$paymentTypeId = $request->getParam("paymentTypeId");
 	$langId = $request->getParam("langId");
 
+	$data = array();
 	$filter = array();
-	$filter['ip'] = $ip;
-	$filter['ysessionId'] = $key;
+	$data['ip'] = $ip;
+	$data['ysessionId'] = $key;
 	$filter['paymentTypeId'] = $paymentTypeId;
 	if ($langId) {
-		$filter['langId'] = $langId;
+		$data['langId'] = $langId;
 	}
+	$data['filter'] = $filter;
 	
     $piletileviApi = $this->piletileviApi;
-    $reportResponse = $piletileviApi->processPayment( $filter );
+    $reportResponse = $piletileviApi->processPayment( $data );
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		if ($reportResponse->data && $reportResponse->data->type=="redirect" && $reportResponse->data->url) {
