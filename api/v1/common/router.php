@@ -2287,7 +2287,8 @@ $app->get('/payment/process', function ($request, $response, $args)  {
 	$ip = $dataHandler->getUserIP();
 	$parameters = $request->getParams();
 
-	$validationErrors = $dataHandler->verifyParams(array('key', 'paymentTypeId'), $parameters);
+	//$validationErrors = $dataHandler->verifyParams(array('key', 'paymentTypeId'), $parameters);
+	$validationErrors = $dataHandler->verifyParams(array('key'), $parameters);
 	if ($validationErrors != null) {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
