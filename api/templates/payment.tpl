@@ -16,7 +16,7 @@
 	
 	<script>
 		window.onload = function(){
-		  //document.paymentForm.submit();
+		  document.paymentForm.submit();
 		};	
 	</script>
 {/block}

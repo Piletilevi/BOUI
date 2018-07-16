@@ -6,6 +6,8 @@ require_once __DIR__.'/../vendor/autoload.php';
 use \Slim\Logger\DateTimeFileWriter;
 use phpFastCache\CacheManager;
 
+date_default_timezone_set('Europe/Helsinki');
+
 $app = new \Slim\App(
 	array(
 		"settings"   => $config
