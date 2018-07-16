@@ -350,7 +350,7 @@ body {
 .bo-checkbox label::after {
     display: inline-block;
     position: absolute;
-    margin-left: 18px;
+    margin-left: 19px;
     left: 0;
     font-size: 14px;
     color: #555555;
@@ -1066,6 +1066,16 @@ body {
 }
 .bo-button > .btn-danger {
     background-color: #d93835;
+    color: #ffffff;
+}
+
+.bo-button > btn.disabled.focus,
+.bo-button > .btn.disabled:focus,
+.bo-button > .btn.disabled:hover,
+.bo-button > .btn[disabled].focus,
+.bo-button > .btn[disabled]:focus,
+.bo-button > .btn[disabled]:hover {
+    background-color: #5e7287;
     color: #ffffff;
 }
 
