@@ -13,11 +13,12 @@
 	{foreach from=$payment->fields item=field}
 		<input type="hidden" name="{$field->name}" value="{$field->value}" />
 	{/foreach}
+	<input type="submit" value="Submit">
 	</form>
 	
 	<script>
 		window.onload = function(){
-		  document.paymentForm.submit();
+		  //document.paymentForm.submit();
 		};	
 	</script>
 {/block}
