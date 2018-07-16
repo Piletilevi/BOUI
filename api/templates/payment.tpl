@@ -1,9 +1,10 @@
 {extends file="layout.tpl"}
 {block name=content}
 	<div id="info" class="overlay">
+		<div class="logo text-center"><img src="img/logo.png"></div>
 		<div class="popup">
 			<div class="content text-center">
-				Redirecting ...
+				<img class="loading-gif" src="img/loadingEP.gif">
 			</div>
 		</div>
 	</div>

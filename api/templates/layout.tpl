@@ -51,7 +51,6 @@ table {
 	border-radius: 5px;
 	width: 30%;
 	position: relative;
-	transition: all 5s ease-in-out;
 }
 .popup .content {
   font-size: 28px;
@@ -68,9 +67,20 @@ table {
 .font-bold {
 	font-weight: 600;
 	font-size: 30px;
-} 
+}
+.logo {
+    margin: 70px auto 0;
+    padding: 20px;
+    background: #5e7287;
+    border-radius: 6px 6px 0 0;
+    width: 30%;
+    position: relative;
+}
+.loading-gif {
+    max-width: 50px;
+}
 @media screen and (max-width: 700px){
-  .popup{
+  .popup, .logo {
     width: 70%;
   }
 }
