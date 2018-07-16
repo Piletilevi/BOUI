@@ -45,7 +45,7 @@ table {
   opacity: 1;
 }
 .popup {
-	margin: 70px auto;
+	margin: auto;
 	padding: 20px;
 	background: #fff;
 	border-radius: 5px;
