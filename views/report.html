@@ -479,99 +479,78 @@
                 </div>
             </div>
             <!-- Tab: locations -->
-            <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'locations'}"
-                 id="locations" role="tabpanel">
-                <div class="panel-body">
-                    <div class="bo-tabs-controls bo-salesoverview-controls clearfix">
+            <div class="tab-pane" ng-class="{'active': vm.currentTab == 'locations'}" id="locations" role="tabpanel">
+                <div class="row">
+                    <div class="col-sm-12">
                         <div class="form-inline">
-                            <div class="form-group">
-                                <span class="visible-print">{{'api_print_period'|translate}}</span>
-                                <div class="input-group data_range col-xs-12">
-                                    <button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button" data-control="daterangepicker">
-                                    <input type="text" daterangepicker class="form-control"
-                                           ng-model="vm.filterPeriod" daterangepicker-neutral-timezone
-                                           ng-attr-data-min-date="{{vm.minFilterDate}}"
-                                           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
-                                    <span class="icon-holder">
-                                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                                    </span>
-                                    </button>
-                                </div>
+                            <div class="form-group bo-input">
+                                <div ng-include-template="components/report_daterangepicker.html" ng-include-variables="{vm:vm}"></div>
                             </div>
-                            <div class="form-group">
-                                <div ng-if="vm.hasSalesPoint() && vm.event.salespoints.length > 1" class="dropdown">
-                                    <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <span>{{vm.locationsFilter.centerName ? vm.locationsFilter.centerName : 'api_all_center_ids'|translate}}</span> &nbsp;
-                                        <i class="fa fa-chevron-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a ng-click="vm.salesPoint = null">{{'api_all_center_ids'|translate}}</a>
-                                            <a ng-repeat="sp in vm.event.salespoints" ng-click="vm.salesPoint = sp">{{sp.name}}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <span ng-if="vm.hasSalesPoint() && vm.event.salespoints.length == 1">
-                                     {{'api_sale_for'|translate}} {{vm.event.salespoints[0].name}}
-                                </span>
+                            <div class="form-group bo-input" ng-if="vm.hasSalesPoint()">
+                                <div ng-include-template="components/report_centerdropdown.html" ng-include-variables="{vm:vm, tabFilter:vm.locationsFilter}"></div>
                             </div>
                         </div>
                     </div>
-                    <div ng-if="vm.myLocationsData.sales.length > 0" class="bo-tabs-content">
-                        <div class="bo-locationstable table table-condensed table-small bo-table-report">
-                            <div class="bo-tableheader">
-                                <div class="bo-tablerow">
-                                    <div></div>
-                                    <div>{{'api_locations_internet'|translate}}</div>
-                                    <div>{{'api_locations_salespoints'|translate}}</div>
-                                    <div>{{'api_locations_total'|translate}}</div>
-                                    <div>{{'api_locations_refund'|translate}}</div>
-                                    <div>%</div>
-                                    <div ng-if="hasFullAccess('api_reports_revenue')">{{'api_locations_revenue'|translate}}</div>
+                </div>
+                <div ng-if="vm.myLocationsData.sales.length === 0" class="bo-content text-center">
+                    <span>{{'api_no_data_available'|translate}}</span>
+                </div>
+                <div ng-if="vm.myLocationsData.sales.length > 0" class="bo-content">
+                    <div class="bo-content-block">
+                        <div class="bo-table bo-table-striped">
+                            <div class="bo-table-header">
+                                <div class="row bo-table-row">
+                                    <div class="col-xs-2 bo-table-cell"></div>
+                                    <div class="col-xs-1 bo-table-cell">{{'api_locations_internet'|translate}}</div>
+                                    <div class="col-xs-2 bo-table-cell">{{'api_locations_salespoints'|translate}}</div>
+                                    <div class="col-xs-2 bo-table-cell">{{'api_locations_total'|translate}}</div>
+                                    <div class="col-xs-2 bo-table-cell">{{'api_locations_refund'|translate}}</div>
+                                    <div class="col-xs-1 bo-table-cell">%</div>
+                                    <div class="col-xs-2 bo-table-cell" ng-if="hasFullAccess('api_reports_revenue')">{{'api_locations_revenue'|translate}}</div>
                                 </div>
                             </div>
-                            <div class="bo-tablebody">
-                                <div class="bo-tablerow bo-table-title-row">
-                                    <div>{{'api_locations_all_sales'|translate}}</div>
-                                    <div>{{vm.myLocationsData.salesTotal.internetCount}}</div>
-                                    <div>{{vm.myLocationsData.salesTotal.spCount}}</div>
-                                    <div>{{vm.myLocationsData.salesTotal.totalCount}}</div>
-                                    <div>{{vm.myLocationsData.salesTotal.refundCount}}</div>
-                                    <div>{{vm.myLocationsData.salesTotal.percent}}%</div>
-                                    <div ng-if="hasFullAccess('api_reports_revenue')">
+                            <div class="bo-table-body">
+                                <div class="row bo-table-row bo-table-title">
+                                    <div class="col-xs-2 bo-table-cell">{{'api_locations_all_sales'|translate}}</div>
+                                    <div class="col-xs-1 bo-table-cell">{{vm.myLocationsData.salesTotal.internetCount}}</div>
+                                    <div class="col-xs-2 bo-table-cell">{{vm.myLocationsData.salesTotal.spCount}}</div>
+                                    <div class="col-xs-2 bo-table-cell">{{vm.myLocationsData.salesTotal.totalCount}}</div>
+                                    <div class="col-xs-2 bo-table-cell">{{vm.myLocationsData.salesTotal.refundCount}}</div>
+                                    <div class="col-xs-1 bo-table-cell">{{vm.myLocationsData.salesTotal.percent}}%</div>
+                                    <div class="col-xs-2 bo-table-cell" ng-if="hasFullAccess('api_reports_revenue')">
                                         {{(vm.myLocationsData.salesTotal.totalSum) | number:2}}
                                         {{vm.myLocationsData.salesTotal.currency}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="bo-tablebody" ng-repeat="locationData in vm.myLocationsData.sales">
-                                <div class="bo-tablerow bo-table-secondarytitle-row">
-                                    <div>{{locationData.country|translate}}</div>
-                                    <div>{{locationData.internetCount}}</div>
-                                    <div>{{locationData.spCount}}</div>
-                                    <div>{{locationData.totalCount}}</div>
-                                    <div ng-class="{'text-danger': locationData.refundCount}">{{locationData.refundCount}}</div>
-                                    <div>{{(locationData.percent) | number:0}}%</div>
-                                    <div ng-if="hasFullAccess('api_reports_revenue')">
+                            <div class="bo-table-body" ng-repeat="locationData in vm.myLocationsData.sales">
+                                <div class="row bo-table-row bo-table-subtitle">
+                                    <div class="col-xs-2 bo-table-cell">{{locationData.country|translate}}</div>
+                                    <div class="col-xs-1 bo-table-cell">{{locationData.internetCount}}</div>
+                                    <div class="col-xs-2 bo-table-cell">{{locationData.spCount}}</div>
+                                    <div class="col-xs-2 bo-table-cell">{{locationData.totalCount}}</div>
+                                    <div class="col-xs-2 bo-table-cell" ng-class="{'text-danger': locationData.refundCount}">{{locationData.refundCount}}</div>
+                                    <div class="col-xs-1 bo-table-cell">{{(locationData.percent) | number:0}}%</div>
+                                    <div class="col-xs-2 bo-table-cell" ng-if="hasFullAccess('api_reports_revenue')">
                                         {{(locationData.totalSum) | number:2}}
                                         {{locationData.currency}}
                                     </div>
                                 </div>
-                                <div class="bo-tablerow"
+                                <div class="row bo-table-row"
                                      ng-repeat="city in locationData.cities"
                                      ng-if="!locationData.showAllCities && $index < 5 || locationData.showAllCities">
-                                    <div>{{city.city|translate}}</div>
-                                    <div>{{city.internetCount}}</div>
-                                    <div>{{city.spCount}}</div>
-                                    <div>{{city.totalCount}}</div>
-                                    <div ng-class="{'text-danger': city.refundCount}">{{city.refundCount}}</div>
-                                    <div>{{(city.percent) | number:0}}%</div>
-                                    <div ng-if="hasFullAccess('api_reports_revenue')">
+                                    <div class="col-xs-2 bo-table-cell">{{city.city|translate}}</div>
+                                    <div class="col-xs-1 bo-table-cell">{{city.internetCount}}</div>
+                                    <div class="col-xs-2 bo-table-cell">{{city.spCount}}</div>
+                                    <div class="col-xs-2 bo-table-cell">{{city.totalCount}}</div>
+                                    <div class="col-xs-2 bo-table-cell" ng-class="{'text-danger': city.refundCount}">{{city.refundCount}}</div>
+                                    <div class="col-xs-1 bo-table-cell">{{(city.percent) | number:0}}%</div>
+                                    <div class="col-xs-2 bo-table-cell" ng-if="hasFullAccess('api_reports_revenue')">
                                         {{(city.totalSum) | number:2}}
                                         {{city.currency}}
                                     </div>
                                 </div>
-                                <div class="bo-tablerow bo-table-expand" ng-if="locationData.cities.length > 4">
+                                <div class="bo-table-row bo-table-expand" ng-if="locationData.cities.length > 4">
                                     <div>
                                         <button class="btn btn-primary" ng-click="locationData.showAllCities = !locationData.showAllCities">
                                             <span ng-if="!locationData.showAllCities"><i class="fa fa-chevron-down"></i>{{'api_view_more'|translate}}</span>
@@ -581,16 +560,10 @@
                                     <div></div><div></div><div></div><div></div><div></div><div></div>
                                 </div>
                             </div>
-                    </div>
-                    </div>
-                    <div ng-if="vm.myLocationsData.sales.length == 0">
-                        <div class="bo-no-data-msg">
-                            {{'api_no_data_available'|translate}}
                         </div>
                     </div>
                 </div>
             </div>
-
             <!-- Tab: bookings -->
             <div class="tab-pane bo-salesoverview panel panel-default" ng-class="{'active': vm.currentTab == 'bookings'}"
                  id="bookings" role="tabpanel" block-ui block-ui-pattern="/myBookings/">
