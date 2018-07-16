@@ -48,7 +48,7 @@ table {
 	margin: auto;
 	padding: 20px;
 	background: #fff;
-	border-radius: 5px;
+	border-radius: 0 0 6px 6px;
 	width: 30%;
 	position: relative;
 }
