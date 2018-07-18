@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-sm-6">
         <div class="form-inline">
-            <div class="form-group bo-input">
+            <div class="input-group bo-input">
                 <div ng-include-template="components/report_daterangepicker.html" ng-include-variables="{vm:vm}"></div>
             </div>
-            <div class="form-group bo-input" ng-if="vm.hasSalesPoint()">
+            <div class="input-group bo-input" ng-if="vm.hasSalesPoint()">
                 <div ng-include-template="components/report_centerdropdown.html" ng-include-variables="{vm:vm, tabFilter:vm.sectorsFilter}"></div>
             </div>
         </div>

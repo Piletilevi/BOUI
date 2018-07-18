@@ -1,168 +1,201 @@
-<div class="bo-tabs-controls bo-salesoverview-controls clearfix">
-    <div class="form-inline">
-        <div class="form-group">
-            <button class="btn btn-default" type="button" ng-click="vm.resetBookingFilter()"
-                    tooltip-placement="bottom" uib-tooltip="{{'api_restore_filters'|translate}}" tooltip-append-to-body="true">
-                <i class="fa fa-times" aria-hidden="true"></i>
-            </button>
-        </div>
-        <div class="form-group">
-            <span class="visible-print">{{'api_print_period'|translate}}</span>
-            <div class="input-group data_range col-xs-12">
-                <button class="btn btn-default bo-datarangepicker-button bo-tabs-controls-item" type="button"
-                        data-control="daterangepicker">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-inline">
+            <div class="input-group bo-input">
+                <div class="bo-button bo-button-sub ng-scope" ng-if="!vm.reservationMode">
+                    <div class="btn btn-danger" ng-click="vm.resetBookingFilter()"
+                         tooltip-placement="bottom" uib-tooltip="{{'api_restore_filters'|translate}}" tooltip-append-to-body="true">
+                        <span class="ng-binding">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group bo-input">
+                <span class="visible-print">{{'api_print_period'|translate}}</span>
+                <div class="input-group bo-daterangepicker" data-control="daterangepicker">
                     <input type="text" daterangepicker class="form-control"
-                           ng-model="vm.bookingFilter.period" daterangepicker-neutral-timezone disabled/>
-                    <span class="icon-holder">
-                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                    </span>
-                </button>
+                           ng-model="vm.bookingFilter.period"
+                           daterangepicker-neutral-timezone
+                           ng-attr-data-min-date="{{vm.minFilterDate}}"
+                           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+                    <div class="input-group-addon">
+                        <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="inner-addon right-addon">
-                <i class="fa fa-search" ng-if="vm.bookingFilter.clientName == null || vm.bookingFilter.clientName != vm.bookingClientName"
-                   ng-click="vm.bookingFilter.clientName = vm.bookingClientName"></i>
-                <i class="fa fa-times" ng-if="vm.bookingFilter.clientName && vm.bookingFilter.clientName == vm.bookingClientName"
-                   ng-click="vm.bookingFilter.clientName = vm.bookingClientName = null"></i>
+            <div class="input-group bo-input">
                 <input type="text" class="form-control" ng-model="vm.bookingClientName"
-                       placeholder="{{'api_filter_by_client'|translate}}" key-bind="{ enter: 'vm.bookingFilter.clientName = vm.bookingClientName' }">
+                       placeholder="{{'api_filter_by_client'|translate}}" key-bind="{enter:'vm.bookingFilter.clientName = vm.bookingClientName'}">
+                <div class="bo-button input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span>
+                            <i class="fa fa-search" aria-hidden="true"
+                               ng-if="vm.bookingFilter.clientName == null || vm.bookingFilter.clientName != vm.bookingClientName"
+                               ng-click="vm.bookingFilter.clientName = vm.bookingClientName"></i>
+                            <i class="fa fa-times" aria-hidden="true"
+                               ng-if="vm.bookingFilter.clientName && vm.bookingFilter.clientName == vm.bookingClientName"
+                               ng-click="vm.bookingFilter.clientName = vm.bookingClientName = null"></i>
+                        </span>
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="inner-addon right-addon">
-                <i class="fa fa-search" ng-if="vm.bookingFilter.bookingNr == null || vm.bookingFilter.bookingNr != vm.bookingNr"
-                   ng-click="vm.bookingFilter.bookingNr = vm.bookingNr"></i>
-                <i class="fa fa-times" ng-if="vm.bookingFilter.bookingNr && vm.bookingFilter.bookingNr == vm.bookingNr"
-                   ng-click="vm.bookingFilter.bookingNr = vm.bookingNr = null"></i>
-
+            <div class="input-group bo-input">
                 <input type="text" class="form-control" ng-model="vm.bookingNr"
-                       placeholder="{{'api_filter_by_reservation'|translate}}" key-bind="{ enter: 'vm.bookingFilter.bookingNr = vm.bookingNr' }">
+                       placeholder="{{'api_filter_by_reservation'|translate}}" key-bind="{enter:'vm.bookingFilter.bookingNr = vm.bookingNr'}">
+                <div class="bo-button input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span>
+                            <i class="fa fa-search" aria-hidden="true"
+                               ng-if="vm.bookingFilter.bookingNr == null || vm.bookingFilter.bookingNr != vm.bookingNr"
+                               ng-click="vm.bookingFilter.bookingNr = vm.bookingNr"></i>
+                            <i class="fa fa-times" aria-hidden="true"
+                               ng-if="vm.bookingFilter.bookingNr && vm.bookingFilter.bookingNr == vm.bookingNr"
+                               ng-click="vm.bookingFilter.bookingNr = vm.bookingNr = null"></i>
+                        </span>
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="true">
-                    <span>{{vm.bookingFilter.typeId !== null ? ((vm.bookingTypes.types | filter:{id: vm.bookingFilter.typeId}:true)[0].name ) : ' --- ' | translate}}</span>
-                    <i class="fa fa-chevron-down"></i>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a ng-repeat="type in vm.bookingTypes.types" ng-click="vm.bookingFilter.typeId = type.id">{{type.name | translate}}</a>
-                    </li>
-                </ul>
+            <div class="input-group bo-input">
+                <div class="bo-dropdown dropdown">
+                    <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span>
+                            {{vm.bookingFilter.typeId !== null ? ((vm.bookingTypes.types | filter:{id:vm.bookingFilter.typeId}:true)[0].name ):' --- '|translate}}
+                            <i class="fa fa-chevron-down"></i>
+                        </span>
+                    </div>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="type in vm.bookingTypes.types">
+                            <a ng-click="vm.bookingFilter.typeId = type.id">{{type.name|translate}}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle bo-centers-dropdown" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="true">
-                    <span>{{vm.bookingFilter.statusId !== null ? ((vm.bookingStatuses.statuses | filter:{id: vm.bookingFilter.statusId}:true)[0].name) : ' --- ' | translate}}</span>
-                    <i class="fa fa-chevron-down"></i>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a ng-repeat="status in vm.bookingStatuses.statuses"
-                           ng-click="vm.bookingFilter.statusId = status.id">{{status.name | translate}}</a>
-                    </li>
-                </ul>
+            <div class="input-group bo-input">
+                <div class="bo-dropdown dropdown">
+                    <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span>
+                            {{vm.bookingFilter.statusId !== null ? ((vm.bookingStatuses.statuses | filter:{id:vm.bookingFilter.statusId}:true)[0].name):' --- '|translate}}
+                            <i class="fa fa-chevron-down"></i>
+                        </span>
+                    </div>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="status in vm.bookingStatuses.statuses">
+                            <a ng-click="vm.bookingFilter.statusId = status.id">{{status.name|translate}}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="bo-tabs-content">
-    <div class="alert alert-danger ng-binding" ng-if="!vm.myBookings.bookings && !vm.bookingFilter.loadingItems">
-        {{'api_reservation_list_no_search results'|translate}}
+<div class="bo-content" ng-if="bookingSuccessAlert || (!vm.myBookings.bookings && !vm.bookingFilter.loadingItems)">
+    <div class="bo-alert alert alert-muted" role="alert"
+         ng-if="!vm.myBookings.bookings && !vm.bookingFilter.loadingItems">
+        <span>{{"api_reservation_list_no_search"|translate}}</span>
     </div>
-    <div class="table bo-table-report bo-bookingstable" ng-if="vm.myBookings.bookings.length"
+    <div class="bo-alert alert alert-success alert-dismissible" role="alert" ng-if="bookingSuccessAlert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+        <span>{{"api_reservation_list_success"|translate}}</span>
+    </div>
+</div>
+<div class="events-loader" block-ui block-ui-pattern="/bookingList/">
+    <div ng-if="vm.myBookings.bookings.length"
          infinite-scroll="vm.getMoreBookingsData()" infinite-scroll-disabled="vm.bookingFilter.loadingItems" infinite-scroll-distance="0">
-        <div class="bo-tableheader">
-            <div class="bo-tablerow">
-                <div></div>
-                <div>{{'api_reservation_list_number'|translate}}</div>
-                <div>{{'api_reservation_list_for'|translate}}</div>
-                <div>{{'api_reservation_list_invoice'|translate}}</div>
-                <div>{{'api_reservation_list_tickets'|translate}}</div>
-                <div>{{'api_reservation_list_seats'|translate}}</div>
-                <div>{{'api_reservation_list_amount'|translate}}</div>
-            </div>
-        </div>
-        <div class="bo-tablerow" ng-if="bookingSuccessAlert">
-            <div colspan="7">
-                <div class="alert alert-success" role="alert">
-                    <span class="close" data-dismiss="alert" aria-label="close">&times;</span>
-                    {{'api_reservation_list_success'|translate}}
+        <div class="panel panel-default" ng-repeat="(key, booking) in vm.myBookings.bookings">
+            <div class="bo-panel bo-panel-collapsible">
+                <div class="panel-heading">
+                    <a class="bo-panel-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-booking{{key}}" aria-expanded="false">
+                        <span class="fa fa-plus-square"></span>
+                        <span class="fa fa-minus-square"></span>
+                        <span>
+                            {{'api_reservation_list_number'|translate}}:
+                            {{booking.number}}
+                        </span>
+                        <div class="pull-right">
+                            <div class="bo-label label-default">
+                                <span>{{(vm.bookingTypes.types | filter:{id: booking.typeId}:true)[0].name|translate}}</span>
+                            </div>
+                            <div class="bo-label label-primary">
+                                <span>{{(vm.bookingStatuses.statuses | filter:{id: booking.statusId}:true)[0].name|translate}}</span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </div>
-        </div>
-        <div class="bo-tablebody" ng-repeat="(key, booking) in vm.myBookings.bookings">
-            <div class="bo-tablerow" ng-class="{'active': key == vm.bookingsRowExpanded}">
-                <div ng-click="vm.bookingsRowExpanded = (vm.bookingsRowExpanded == key ? vm.bookingsRowExpanded = null : vm.bookingsRowExpanded = key)">
-                    <i class="fa fa-plus-square" ng-if="key != vm.bookingsRowExpanded"></i>
-                    <i class="fa fa-minus-square" ng-if="key == vm.bookingsRowExpanded"></i>
-                </div>
-                <div>
-                    <div>{{booking.number}}</div>
-                    <div>{{'api_reservation_list_reserved_on'|translate}}: {{booking.created | date:'dd.MM.yyyy'}}</div>
-                    <div>{{'api_reservation_list_expires_on'|translate}}: {{booking.expireAt | date:'dd.MM.yyyy'}}</div>
-                </div>
-                <div>
-                    <div>
-                        {{booking.personFirstName}}
-                        {{booking.personLastName}}
+                <div class="panel-body">
+                    <div class="bo-panel-table">
+                        <div class="bo-panel-table-cell-4">
+                            <div>
+                                {{'api_reservation_list_reserved_on'|translate}}:
+                                {{booking.created | date:'dd.MM.yyyy'}}
+                            </div>
+                            <div>
+                                {{'api_reservation_list_expires_on'|translate}}:
+                                {{booking.expireAt | date:'dd.MM.yyyy'}}
+                            </div>
+                        </div>
+                        <div class="bo-panel-table-cell-4">
+                            <div ng-if="booking.personFirstName || booking.personLastName || booking.email || booking.organizationName">
+                                {{'api_reservation_list_for'|translate}}:
+                                {{booking.personFirstName}}
+                                {{booking.personLastName}}
+                                <div>{{booking.email}}</div>
+                                <div ng-if="booking.organizationName">{{booking.organizationName}}</div>
+                            </div>
+                            <div>
+                                {{'api_reservation_list_reserved_by'|translate}}:
+                                {{booking.creator.firstName}}
+                                {{booking.creator.lastName}}
+                            </div>
+                            <div ng-if="booking.creator.organization">{{booking.creator.organization}}</div>
+                        </div>
+                        <div class="bo-panel-table-cell-4 text-right">
+                            <div>
+                                {{'api_reservation_list_invoice'|translate}}:
+                                <a href="{{booking.invoiceUrl}}" target="_blank">{{booking.invoiceNumber}}</a>
+                            </div>
+                            <div>
+                                {{'api_reservation_list_payment_type'|translate}}:
+                                {{booking.paymentTypeName}}
+                            </div>
+                            <div ng-show="booking.paid">{{'api_reservation_list_payment_status'|translate}}</div>
+                        </div>
                     </div>
-                    <div>{{booking.email}}</div>
-                    <div ng-if="booking.organizationName">{{booking.organizationName}}</div>
                 </div>
-                <div>
-                    <div><a href="{{booking.invoiceUrl}}" target="_blank">{{booking.invoiceNumber}}</a></div>
-                    <div>{{'api_reservation_list_payment_type'|translate}}: {{booking.paymentTypeName}}</div>
-                    <div ng-show="booking.paid">{{'api_reservation_list_payment_status'|translate}}</div>
-                </div>
-                <div>
-                    {{booking.ticketsCount}}
-                </div>
-                <div>{{booking.ticketsInfo | nl2br}}</div>
-                <div>
-                    {{booking.summa | number:2}}
-                    {{booking.currency}}
-                </div>
-            </div>
-            <div ng-if="key == vm.bookingsRowExpanded" class="active bo-tablerow bo-table-secondarytitle-row">
-                <div></div>
-                <div>{{'api_reservation_list_reserved_by'|translate}}</div>
-                <div></div>
-                <div>{{'api_reservation_list_notes'|translate}}</div>
-                <div></div>
-                <div>{{'api_reservation_list_reservation_status'|translate}}</div>
-                <div>{{'api_reservation_list_reservation_type'|translate}}</div>
-            </div>
-            <div ng-if="key == vm.bookingsRowExpanded" class="active bo-tablerow bo-expandedrow">
-                <div></div>
-                <div>
-                    <div>
-                        {{booking.creator.firstName}}
-                        {{booking.creator.lastName}}
+                <div class="bo-panel-sub collapse" id="bo-sub-booking{{key}}" aria-expanded="false" style="height: 10px;">
+                    <div class="panel-body">
+                        <div class="bo-panel-table">
+                            <div class="bo-panel-table-cell-4">
+                                <div ng-bind-html="booking.notes | nl2br"></div>
+                            </div>
+                            <div class="bo-panel-table-cell-4 text-right">
+                                <div>
+                                    {{'api_reservation_list_seats'|translate}}
+                                    {{booking.ticketsInfo | nl2br}}
+                                </div>
+                            </div>
+                            <div class="bo-panel-table-cell-4 text-right">
+                                <div>
+                                    {{'api_reservation_list_tickets'|translate}}:
+                                    {{booking.ticketsCount}}
+                                </div>
+                                <div>
+                                    {{'api_reservation_list_amount'|translate}}:
+                                    {{booking.summa | number:2}}
+                                    {{booking.currency}}
+                                </div>
+                            </div>
+                        </div>
+                        <a class="bo-link bo-link-sub text-danger pull-right" ng-click="vm.cancelBooking(booking.id)" target="_blank" ng-if="booking.statusId == 1"
+                           ng-confirm-click="{{'api_clickConfirm'|translate}}" ng-confirm-description="{{'api_clickConfirmDescription'|translate}}">
+                            <i class="fa fa-times"></i>
+                            {{'api_reservation_cancel'|translate}}
+                        </a>
                     </div>
-                    <div ng-if="booking.creator.organization">{{booking.creator.organization}}</div>
                 </div>
-                <div></div>
-                <div>
-                    <div ng-bind-html="booking.notes | nl2br"></div>
-                    <button class="btn btn-warning pull-right" ng-click="vm.cancelBooking(booking.id)" ng-if="booking.statusId == 1"
-                            ng-confirm-click="{{'api_clickConfirm'|translate}}"
-                            ng-confirm-description="api_clickConfirmDescription">
-                        <span><i class="fa fa-times"></i></span>
-                        <span>{{'api_reservation_cancel'|translate}}</span>
-                    </button>
-                </div>
-                <div></div>
-                <div>{{(vm.bookingStatuses.statuses | filter:{id: booking.statusId}:true)[0].name}}</div>
-                <div>{{(vm.bookingTypes.types | filter:{id: booking.typeId}:true)[0].name}}</div>
             </div>
         </div>
-
     </div>
-    <div class="events-loader" block-ui block-ui-pattern="/bookingList/"></div>
 </div>

@@ -100,146 +100,144 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="bo-table">
-                <div class="bo-table-body">
-                    <div class="row bo-table-row" ng-repeat="seat in vm.myBasket.basket">
-                        <div class="col-xs-2 bo-table-cell">{{'api_basket_ticket_id'|translate}} {{seat.id}}</div>
-                        <div class="col-xs-2 bo-table-cell">{{seat.sectionName}}</div>
-                        <div class="col-xs-1 bo-table-cell">
-                            <span ng-if="seat.rowName > 0">{{'api_basket_row'|translate}} {{seat.rowName}}</span>
-                            <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
-                        </div>
-                        <div class="col-xs-1 bo-table-cell">
-                            <span ng-if="seat.seatName > 0">{{'api_basket_seat'|translate}} {{seat.seatName}}</span>
-                            <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
-                        </div>
-                        <div class="col-xs-4 bo-table-cell">
-                            <div class="dropdown bo-table-dropdown" ng-if="seat.priceTypes.length > 1">
-                                <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="true">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
-                                    <i class="fa fa-chevron-down"></i>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li ng-repeat="pricetype in seat.priceTypes | filter:{active: false}">
-                                        <a href="" ng-click="vm.changeBasketTicketType(seat.id, pricetype.priceTypeId)">{{pricetype.priceTypeName}}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="bo-singletype" ng-if="seat.priceTypes.length = 1">{{seat.priceTypes[0].priceTypeName !== undefined ? (seat.priceTypes[0].priceTypeName): ' --- '}}</div>
-                        </div>
-                        <div class="col-xs-1 bo-table-cell">{{seat.price | number:2}}{{seat.currency}}</div>
-                        <div class="col-xs-1 bo-table-cell text-right">
-                            <a class="bo-link bo-link-sub text-danger" ng-click="vm.removeFromBasket(seat.id)">
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
+            <div class="input-group bo-input bo-input-sub" ng-repeat="seat in vm.myBasket.basket">
+                <div class="form-control">
+                    {{'api_basket_ticket_id'|translate}}
+                    {{seat.id}}
+                </div>
+                <div class="input-group-addon"><span>{{seat.sectionName}}</span></div>
+                <div class="input-group-addon">
+                    <span ng-if="seat.rowName > 0">
+                        {{'api_basket_row'|translate}}
+                        {{seat.rowName}}
+                    </span>
+                    <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
+                </div>
+                <div class="input-group-addon">
+                    <span ng-if="seat.seatName > 0">
+                        {{'api_basket_seat'|translate}}
+                        {{seat.seatName}}
+                    </span>
+                    <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
+                </div>
+                <div class="dropdown bo-table-dropdown form-control" ng-if="seat.priceTypes.length > 1">
+                    <button class="btn dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="true">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="pricetype in seat.priceTypes | filter:{active: false}">
+                            <a href="" ng-click="vm.changeBasketTicketType(seat.id, pricetype.priceTypeId)">{{pricetype.priceTypeName}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div ng-if="seat.priceTypes.length = 1" class="form-control">
+                    {{seat.priceTypes[0].priceTypeName !== undefined ? (seat.priceTypes[0].priceTypeName): ' --- ' | translate}}
+                </div>
+                <div class="input-group-addon">
+                    <span>
+                        {{seat.price | number:2}}
+                        {{seat.currency}}
+                    </span>
+                </div>
+                <div class="bo-button input-group-btn">
+                    <button class="btn btn-danger" type="button" ng-click="vm.removeFromBasket(seat.id)">
+                        <span><i class="fa fa-times" aria-hidden="true"></i></span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="bo-inactivearea">
+        <div class="col-md-4">
             <h4>{{'api_reservation_type'|translate}}</h4>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-inline bo-reservation-inline-buttons">
-                        <div class="btn-group btn-group-sm" role="group">
-                            <button class="btn btn-sm btn-default" ng-class="{ 'active': vm.reservation.reservationType == 'with_price'}"
-                                    type="button" ng-click="vm.changeReservationType('with_price')">
-                                {{'api_reservation_with_price'|translate}}
-                            </button>
-                            <button class="btn btn-sm btn-default" ng-class="{ 'active': vm.reservation.reservationType == 'invitation'}"
-                                    type="button" ng-click="vm.changeReservationType('invitation')">
-                                {{'api_reservation_invitation'|translate}}
-                            </button>
+            <div class="btn-group bo-switch-group-sub" role="group">
+                <button type="button" class="btn btn-default bo-switch"
+                        ng-class="{ 'active': vm.reservation.reservationType=='with_price'}"
+                        ng-click="vm.changeReservationType('with_price')">
+                    {{'api_reservation_with_price'|translate}}
+                </button>
+                <button type="button" class="btn btn-default bo-switch"
+                        ng-class="{ 'active': vm.reservation.reservationType=='invitation'}"
+                        ng-click="vm.changeReservationType('invitation')">
+                    {{'api_reservation_invitation'|translate}}
+                </button>
+            </div>
+            <h4>{{'api_reservation_expiration'|translate}}</h4>
+            <div class="input-group bo-input bo-input-sub">
+                <div class="input-group-addon">
+                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </div>
+                <datepicker date-format="dd.MM.yyyy"
+                            date-min-limit="{{vm.reservationStartDate}}"
+                            date-max-limit="{{vm.reservationEndDate}}"
+                            ng-init="vm.reservation.expireAt = vm.reservation.expireAt ? vm.reservation.expireAt : (vm.myBasket.summary.expireAt | date : 'dd.MM.y')">
+                    <input class="form-control" ng-model="vm.reservation.expireAt" type="text"/>
+                </datepicker>
+                <div class="input-group-addon">
+                    <span>{{vm.myBasket.summary.expireAt | date : "HH"}}:{{vm.myBasket.summary.expireAt | date : "mm"}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 pull-right">
+            <div class="bo-table bo-table-bordered">
+                <div class="bo-table-body">
+                    <div class="row bo-table-row">
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_amount'|translate}}</div>
+                        <div class="col-xs-9 bo-table-cell text-center">
+                            {{vm.myBasket.summary.ticketsCount}}
+                            {{'api_tickets'|translate}}
                         </div>
                     </div>
-                    <h4>{{'api_reservation_expiration'|translate}}</h4>
-                    <div class="bo-reservation-datetime">
-                        <div class="">
-                            <datepicker date-format="dd.MM.yyyy"
-                                        date-min-limit="{{vm.reservationStartDate}}"
-                                        date-max-limit="{{vm.reservationEndDate}}"
-                                        ng-init="vm.reservation.expireAt = vm.reservation.expireAt ? vm.reservation.expireAt : (vm.myBasket.summary.expireAt | date : 'dd.MM.y')">
-                                <input class="form-control" ng-model="vm.reservation.expireAt" type="text"/><i class="fa fa-calendar"></i>
-                            </datepicker>
+                    <div class="row bo-table-row">
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_subtotal'|translate}}</div>
+                        <div class="col-xs-9 bo-table-cell text-center">
+                            {{vm.myBasket.summary.sumWithoutTaxes | number:2}}
+                            {{vm.myBasket.summary.currency}}
                         </div>
-                        <div class="bo-reservation-time">
-                            <div>{{vm.myBasket.summary.expireAt | date : "HH"}}:{{vm.myBasket.summary.expireAt | date : "mm"}}</div>
+                    </div>
+                    <div class="row bo-table-row">
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_discount'|translate}}</div>
+                        <div class="col-xs-9 bo-table-cell text-center">
+                            <div class="bo-input-addremove">
+                                <div class="bo-badge bo-label" ng-click="vm.decreaseBasketDiscount()">
+                                    <i class="fa fa-minus"></i>
+                                </div>
+                                <input type="text"
+                                       ng-focus="vm.focusDiscount()"
+                                       ng-keydown="$event.keyCode === 13 && vm.addDiscount()"
+                                       ng-init="vm.reservation.discount = vm.reservation.discount ? vm.reservation.discount : vm.myBasket.summary.discount"
+                                       ng-model="vm.reservation.discount" ng-blur="vm.addDiscount()"
+                                />
+                                <div class="bo-badge bo-label" ng-click="vm.increaseBasketDiscount()">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row bo-table-row" ng-if="vm.myBasket.summary.discount">
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_discount_sum'|translate}}</div>
+                        <div class="col-xs-9 bo-table-cell text-center">
+                            {{vm.myBasket.summary.discount}}
+                            {{vm.myBasket.summary.currency}}
+                        </div>
+                    </div>
+                    <div class="row bo-table-row" ng-repeat="fee in vm.myBasket.summary.fees">
+                        <div class="col-xs-4 bo-table-cell text-right">{{fee.name}}</div>
+                        <div class="col-xs-9 bo-table-cell text-center">{{fee.price}}{{fee.currency}} x {{fee.quantity}} ({{fee.sum}}{{fee.currency}})</div>
+                    </div>
+                    <div class="row bo-table-row">
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_total'|translate}}</div>
+                        <div class="col-xs-9 bo-table-cell text-center">
+                            {{vm.myBasket.summary.sumTotal | number:2}}
+                            {{vm.myBasket.summary.currency}}
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="table table-small bo-table bo-baskettable">
-                        <div class="bo-tablebody">
-                            <div class="bo-tablerow">
-                                <div class="text-right">{{'api_basket_check_out_amount'|translate}}</div>
-                                <div class="text-center">
-                                    {{vm.myBasket.summary.ticketsCount}}
-                                    {{'api_tickets'|translate}}
-                                </div>
-                            </div>
-                            <div class="bo-tablerow">
-                                <div class="text-right">{{'api_basket_check_out_subtotal'|translate}}</div>
-                                <div class="text-center">
-                                    {{vm.myBasket.summary.sumWithoutTaxes | number:2}}
-                                    {{vm.myBasket.summary.currency}}
-                                </div>
-                            </div>
-                            <div class="bo-tablerow">
-                                <div class="text-right">{{'api_basket_check_out_discount'|translate}}</div>
-                                <div class="text-center bo-shortcell">
-                                    <div class="bo-plusminus">
-                                        <div class="bo-plusminus-button bo-plusminus-minus"
-                                             ng-click="vm.decreaseBasketDiscount()">
-                                            <i class="fa fa-minus"></i>
-                                        </div>
-                                        <input type="text" class="bo-plusminus-input"
-                                               ng-focus="vm.focusDiscount()"
-                                               ng-keydown="$event.keyCode === 13 && vm.addDiscount()"
-                                               ng-init="vm.reservation.discount = vm.reservation.discount ? vm.reservation.discount : vm.myBasket.summary.discount"
-                                               ng-model="vm.reservation.discount" ng-blur="vm.addDiscount()"/>
-                                        <div class="bo-plusminus-button bo-plusminus-plus"
-                                             ng-click="vm.increaseBasketDiscount()">
-                                            <i class="fa fa-plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bo-tablerow" ng-if="vm.myBasket.summary.discount">
-                                <div class="text-right">{{'api_basket_check_out_discount_sum'|translate}}</div>
-                                <div class="text-center">
-                                    {{vm.myBasket.summary.discount}}
-                                    {{vm.myBasket.summary.currency}}
-                                </div>
-                            </div>
-                            <div class="bo-tablerow" ng-repeat="fee in vm.myBasket.summary.fees">
-                                <div class="text-right">{{fee.name}}</div>
-                                <div class="text-center">{{fee.price}}{{fee.currency}} x {{fee.quantity}} ({{fee.sum}}{{fee.currency}})</div>
-                            </div>
-                            <div class="bo-tablerow">
-                                <div class="text-right">{{'api_basket_check_out_total'|translate}}</div>
-                                <div class="text-center">
-                                    {{vm.myBasket.summary.sumTotal | number:2}}
-                                    {{vm.myBasket.summary.currency}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="hidden-xs bo-tablefooter">
-                            <div class="bo-tablerow">
-                                <div></div>
-                                <div class="bo-no-leftright-padding">
-                                    <button class="btn btn-info bo-wide-button" ng-click="vm.goToStep4()">
-                                        {{'api_basket_reservation_proceed'|translate}}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-info bo-wide-button visible-xs" ng-click="vm.goToStep4()">
-                        {{'api_basket_reservation_proceed'|translate}}
-                    </button>
+            </div>
+            <div class="bo-button bo-button-sub pull-right">
+                <div class="btn btn-primary" ng-click="vm.goToStep4()">
+                    <span>{{'api_basket_reservation_proceed'|translate}}</span>
                 </div>
             </div>
         </div>

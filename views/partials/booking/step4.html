@@ -1,197 +1,192 @@
 <div class="row">
     <div class="col-md-6"></div>
     <div class="col-md-6 text-right">
-        <div class="bo-tabs-controls bo-reservation-controls">
-            <div class="form-inline">
-                <div class="form-group">
-                    <button class="btn btn-warning" type="button" ng-click="vm.goToSectionsStep()">
-                        {{'api_reservation_exit'|translate}}&nbsp;&nbsp;
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                    </button>
+        <div class="bo-button bo-button-main">
+            <div class="btn btn-danger" ng-click="vm.goToSectionsStep()">
+                <span>
+                    {{'api_reservation_exit'|translate}}
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bo-content">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>{{'api_basket_selected_tickets'|translate}}</h4>
+            <div class="input-group bo-input bo-input-sub" ng-repeat="seat in vm.myBasket.basket">
+                <div class="form-control">
+                    {{'api_basket_ticket_id'|translate}}
+                    {{seat.id}}
+                </div>
+                <div class="input-group-addon"><span>{{seat.sectionName}}</span></div>
+                <div class="input-group-addon">
+                    <span ng-if="seat.rowName > 0">
+                        {{'api_basket_row'|translate}}
+                        {{seat.rowName}}
+                    </span>
+                    <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
+                </div>
+                <div class="input-group-addon">
+                    <span ng-if="seat.seatName > 0">
+                        {{'api_basket_seat'|translate}}
+                        {{seat.seatName}}
+                    </span>
+                    <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
+                </div>
+                <div class="form-control">{{(seat.priceTypes | filter:{active: true})[0].priceTypeName| translate}}</div>
+                <div class="input-group-addon">
+                    <span>
+                        {{seat.price | number:2}}
+                        {{seat.currency}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>{{'api_reservation_type'|translate}}</h4>
+            <span ng-if="vm.reservation.reservationType == 'with_price'">{{'api_reservation_with_price'|translate}}</span>
+            <span ng-if="vm.reservation.reservationType == 'invitation'">{{'api_reservation_invitation'|translate}}</span>
+            <h4>{{'api_reservation_expiration'|translate}}</h4>
+            <span>
+                {{vm.reservation.expireAt}}
+                {{vm.myBasket.summary.expireAt | date : "HH:mm"}}
+            </span>
+        </div>
+        <div class="col-md-6">
+            <div class="bo-table bo-table-bordered">
+                <div class="bo-table-body">
+                    <div class="row bo-table-row">
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_amount'|translate}}</div>
+                        <div class="col-xs-9 bo-table-cell text-center">
+                            {{vm.myBasket.summary.ticketsCount}}
+                            {{'api_tickets'|translate}}
+                        </div>
+                    </div>
+                    <div class="row bo-table-row">
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_subtotal'|translate}}</div>
+                        <div class="col-xs-9 bo-table-cell text-center">
+                            {{vm.myBasket.summary.sumWithoutTaxes | number:2}}
+                            {{vm.myBasket.summary.currency}}
+                        </div>
+                    </div>
+                    <div class="row bo-table-row">
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_discount'|translate}}</div>
+                        <div class="col-xs-9 bo-table-cell text-center">{{vm.reservation.discount}}%</div>
+                    </div>
+                    <div class="row bo-table-row" ng-if="vm.myBasket.summary.discount">
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_discount_sum'|translate}}</div>
+                        <div class="col-xs-9 bo-table-cell text-center">
+                            {{vm.myBasket.summary.discount}}
+                            {{vm.myBasket.summary.currency}}
+                        </div>
+                    </div>
+                    <div class="row bo-table-row" ng-repeat="fee in vm.myBasket.summary.fees">
+                        <div class="col-xs-4 bo-table-cell text-right">{{fee.name}}</div>
+                        <div class="col-xs-9 bo-table-cell text-center">
+                            {{fee.price}}{{fee.currency}} x {{fee.quantity}}
+                            ({{fee.sum}}{{fee.currency}})
+                        </div>
+                    </div>
+                    <div class="row bo-table-row">
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_total'|translate}}</div>
+                        <div class="col-xs-9 bo-table-cell text-center">
+                            {{vm.myBasket.summary.sumTotal | number:2}}
+                            {{vm.myBasket.summary.currency}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="row bo-tabs-content">
-    <h4>{{'api_basket_selected_tickets'|translate}}</h4>
-    <table class="table table-small bo-adaptive-table-custom2">
-        <tbody>
-        <tr class="row-align-middle" ng-repeat="seat in vm.myBasket.basket">
-            <td class="bo-adaptive-table-custom2-row1">
-                {{'api_basket_ticket_id'|translate}}
-                {{seat.id}}
-            </td>
-            <td class="text-center bo-adaptive-table-custom2-row2-left">{{seat.sectionName}}</td>
-            <td class="text-center bo-adaptive-table-custom2-row2-center">
-                <span ng-if="seat.rowName > 0">
-                    {{'api_basket_row'|translate}}
-                    {{seat.rowName}}
-                </span>
-                <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
-            </td>
-            <td class="text-center bo-adaptive-table-custom2-row2-right">
-                <span ng-if="seat.seatName > 0">
-                    {{'api_basket_seat'|translate}}
-                    {{seat.seatName}}
-                </span>
-                <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
-            </td>
-            <td class="text-center bo-shortcell bo-adaptive-table-custom2-row3">
-                {{(seat.priceTypes | filter:{active: true})[0].priceTypeName}}
-            </td>
-            <td class="text-center bo-adaptive-table-custom2-row4-left">
-                {{seat.price | number:2}}
-                {{seat.currency}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div class="row bo-tabs-content">
-    <div class="col-md-6">
-        <div class="bo-reservation-selected-type">
-            <h4 class="bo-first-heading">
-                {{'api_reservation_type'|translate}}
-                <span ng-if="vm.reservation.reservationType == 'with_price'">{{'api_reservation_with_price'|translate}}</span>
-                <span ng-if="vm.reservation.reservationType == 'invitation'">{{'api_reservation_invitation'|translate}}</span>
-            </h4>
-        </div>
-        <div class="bo-reservation-selected-type">
-            <h4>
-                {{'api_reservation_expiration'|translate}}
-                <span>
-                    {{vm.reservation.expireAt}}
-                    {{vm.myBasket.summary.expireAt | date : "HH:mm"}}
-                </span>
-            </h4>
-        </div>
+<div class="bo-content" ng-if="vm.reservationFormRequredErr || vm.reservationFormEmailErr">
+    <div class="bo-alert alert alert-danger" role="alert" ng-if="vm.reservationFormRequredErr">
+        <span>{{"api_error_required_fields"|translate}}</span>
     </div>
-    <div class="col-md-6">
-        <table class="table table-small">
-            <tbody>
-            <tr>
-                <td class="text-right">{{'api_basket_check_out_amount'|translate}}</td>
-                <td class="text-center">
-                    {{vm.myBasket.summary.ticketsCount}}
-                    {{'api_tickets'|translate}}
-                </td>
-            </tr>
-            <tr>
-                <td class="text-right">{{'api_basket_check_out_subtotal'|translate}}</td>
-                <td class="text-center">
-                    {{vm.myBasket.summary.sumWithoutTaxes | number:2}}
-                    {{vm.myBasket.summary.currency}}
-                </td>
-            </tr>
-            <tr>
-                <td class="text-right">{{'api_basket_check_out_discount'|translate}}</td>
-                <td class="text-center">{{vm.reservation.discount}}%</td>
-            </tr>
-            <tr ng-if="vm.myBasket.summary.discount">
-                <td class="text-right">{{'api_basket_check_out_discount_sum'|translate}}</td>
-                <td class="text-center">
-                    {{vm.myBasket.summary.discount}}
-                    {{vm.myBasket.summary.currency}}
-                </td>
-            </tr>
-            <tr ng-repeat="fee in vm.myBasket.summary.fees">
-                <td class="text-right">{{fee.name}}</td>
-                <td class="text-center">
-                    {{fee.price}}
-                    {{fee.currency}} x {{fee.quantity}}
-                    ({{fee.sum}}
-                    {{fee.currency}})
-                </td>
-            </tr>
-            <tr>
-                <td class="text-right">{{'api_basket_check_out_total'|translate}}</td>
-                <td class="text-center">
-                    {{vm.myBasket.summary.sumTotal | number:2}}
-                    {{vm.myBasket.summary.currency}}
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="bo-alert alert alert-danger" role="alert" ng-if="vm.reservationFormEmailErr">
+        <span>{{"api_error_email_format results"|translate}}</span>
     </div>
 </div>
-<div class="row bo-tabs-content">
-    <h4 class="bo-first-heading">{{'api_reservation_meta_entity'|translate}}</h4>
-    <div class="form-inline bo-reservation-inline-buttons">
-        <div class="form-group">
-            <button class="btn btn-lg {{vm.reservation.personType == 'person' ? 'btn-primary' : 'btn-default'}}"
-                    type="button" ng-click="vm.reservation.personType = 'person'">
-                {{'api_meta_entity_private'|translate}}
-            </button>
+<div class="bo-content">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>{{'api_reservation_meta_entity'|translate}}</h4>
+            <div class="btn-group bo-switch-group-sub" role="group">
+                <button type="button" class="btn btn-default bo-switch"
+                        ng-class="{ 'active': vm.reservation.personType=='person'}"
+                        ng-click="vm.reservation.personType = 'person'">
+                    {{'api_meta_entity_private'|translate}}
+                </button>
+                <button type="button" class="btn btn-default bo-switch"
+                        ng-class="{ 'active': vm.reservation.personType=='organization'}"
+                        ng-click="vm.reservation.personType = 'organization'">
+                    {{'api_meta_entity_organization'|translate}}
+                </button>
+            </div>
         </div>
-        <span class="hidden-xs">&nbsp;</span>
-        <div class="form-group">
-            <button class="btn btn-lg {{vm.reservation.personType == 'organization' ? 'btn-primary' : 'btn-default'}}"
-                    type="button" ng-click="vm.reservation.personType = 'organization'">
-                {{'api_meta_entity_organization'|translate}}
-            </button>
-        </div>
-    </div>
-    <div class="alert alert-danger ng-binding" ng-if="vm.reservationFormRequredErr">
-        {{'api_error_required_fields results'|translate}}
-    </div>
-    <div class="alert alert-danger ng-binding" ng-if="vm.reservationFormEmailErr">
-        {{'api_error_email_format results'|translate}}
     </div>
     <form name="reservationForm" ng-submit="vm.goToStep5()" ng-class="{'submitted': vm.reservationFormFubmitted}" bs-form-errors>
-        <div class="row bo-reservation-form-block">
+        <div class="row">
             <div class="col-md-6">
                 <h4>{{'api_reservation_meta_contact'|translate}}</h4>
-                <div class="form-group">
-                    <input type="text" placeholder="{{'api_meta_contact_firstname'|translate}}*" required
-                           class="form-control" ng-model="vm.reservation.firstName"/>
+                <div class="bo-input bo-input-sub form-group">
+                    <input type="text" class="form-control" placeholder="{{'api_meta_contact_firstname'|translate}}*"
+                           ng-model="vm.reservation.firstName" required>
                 </div>
-                <div class="form-group">
-                    <input type="text" placeholder="{{'api_meta_contact_lastname'|translate}}*" required
-                           class="form-control" ng-model="vm.reservation.lastName"/>
+                <div class="bo-input bo-input-sub form-group">
+                    <input type="text" class="form-control" placeholder="{{'api_meta_contact_lastname'|translate}}*"
+                           ng-model="vm.reservation.lastName" required>
                 </div>
-                <div class="form-group">
-                    <input type="email" placeholder="{{'api_meta_contact_email'|translate}}*" required
-                           class="form-control" ng-model="vm.reservation.contactEmail"/>
+                <div class="bo-input bo-input-sub form-group">
+                    <input type="text" class="form-control" placeholder="{{'api_meta_contact_email'|translate}}*"
+                           ng-model="vm.reservation.contactEmail" required>
                 </div>
-                <div class="row bo-reservation-phone">
-                    <div class="col-md-3 form-group">
-                        <angucomplete-alt id="contact-phone-code-inp"
-                                          selected-object="vm.selectContactPhoneCode"
-                                          initial-value="vm.reservation.contactPhoneCode"
-                                          local-data="vm.countries.countries"
-                                          search-fields="phoneCodeOption"
-                                          title-field="phoneCodeOption"
-                                          focus-out="vm.blurContactPhoneCode()"
-                                          minlength="0"
-                                          input-class="form-control">
-                        </angucomplete-alt>
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        <div class="bo-input bo-input-sub">
+                            <angucomplete-alt id="contact-phone-code-inp"
+                                              selected-object="vm.selectContactPhoneCode"
+                                              initial-value="vm.reservation.contactPhoneCode"
+                                              local-data="vm.countries.countries"
+                                              search-fields="phoneCodeOption"
+                                              title-field="phoneCodeOption"
+                                              focus-out="vm.blurContactPhoneCode()"
+                                              minlength="0"
+                                              input-class="form-control">
+                            </angucomplete-alt>
+                        </div>
                     </div>
-                    <div class="col-md-9 form-group">
-                        <input type="text" placeholder="{{'api_meta_contact_phone'|translate}}"
-                               class="form-control" ng-model="vm.reservation.contactPhone"/>
+                    <div class="col-md-9">
+                        <div class="bo-input bo-input-sub">
+                            <input type="text" class="form-control" placeholder="{{'api_meta_contact_phone'|translate}}"
+                                   ng-model="vm.reservation.contactPhone"/>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <h4>{{'api_reservation_meta_address'|translate}}</h4>
-                <div class="form-group">
+                <div class="bo-input bo-input-sub form-group">
                     <input type="text" placeholder="{{'api_meta_contact_address'|translate}}"
                            class="form-control" ng-model="vm.reservation.address"/>
                 </div>
-                <div class="form-group">
+                <div class="bo-input bo-input-sub form-group">
                     <input type="text" placeholder="{{'api_meta_contact_city'|translate}}"
                            class="form-control" ng-model="vm.reservation.city"/>
                 </div>
-                <div class="form-group">
+                <div class="bo-input bo-input-sub form-group">
                     <input type="text" placeholder="{{'api_meta_contact_postal_code'|translate}}"
                            class="form-control" ng-model="vm.reservation.postalCode"/>
                 </div>
-                <div class="form-group">
+                <div class="bo-input bo-input-sub form-group">
                     <input type="text" placeholder="{{'api_meta_contact_postal_region'|translate}}"
                            class="form-control" ng-model="vm.reservation.region"/>
                 </div>
-                <div class="form-group">
+                <div class="bo-input bo-input-sub form-group">
                     <angucomplete-alt id="contact-country-inp" placeholder="{{'api_meta_contact_country'|translate}}"
                                       selected-object="vm.selectContactCountry"
                                       initial-value="vm.reservation.contactCountry"
@@ -202,78 +197,71 @@
                                       minlength="0"
                                       input-class="form-control">
                     </angucomplete-alt>
-                    <!--
-                    <div class="dropdown">
-                        <select class="form-control" ng-model="vm.reservation.countryId"
-                                ng-options="c.id as c.name for c in vm.countries.countries">
-                        </select>
-                    </div>
-                    -->
                 </div>
             </div>
         </div>
-        <div class="bo-reservation-form-block">
-            <h4 class="bo-first-heading" ng-if="vm.reservation.personType == 'organization'">
-                {{'api_reservation_meta_organization'|translate}}</h4>
-            <div class="row">
-                <div class="col-md-6">
-                    <div ng-if="vm.reservation.personType == 'organization'">
-                        <div class="form-group">
-                            <input type="text" placeholder="{{'api_meta_organization'|translate}}*" required
-                                   class="form-control"
-                                   ng-model="vm.reservation.organizationName"/>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" placeholder="{{'api_meta_organization_reg'|translate}}" class="form-control"
-                                   ng-model="vm.reservation.regNumber"/>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" placeholder="{{'api_meta_organization_vat'|translate}}" class="form-control"
-                                   ng-model="vm.reservation.vatNumber"/>
-                        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4 ng-if="vm.reservation.personType == 'organization'">{{'api_reservation_meta_organization'|translate}}</h4>
+                <div ng-if="vm.reservation.personType == 'organization'">
+                    <div class="bo-input bo-input-sub form-group">
+                        <input type="text" placeholder="{{'api_meta_organization'|translate}}*" required
+                               class="form-control"
+                               ng-model="vm.reservation.organizationName"/>
+                    </div>
+                    <div class="bo-input bo-input-sub form-group">
+                        <input type="text" placeholder="{{'api_meta_organization_reg'|translate}}" class="form-control"
+                               ng-model="vm.reservation.regNumber"/>
+                    </div>
+                    <div class="bo-input bo-input-sub form-group">
+                        <input type="text" placeholder="{{'api_meta_organization_vat'|translate}}" class="form-control"
+                               ng-model="vm.reservation.vatNumber"/>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="form-group">
-                        <textarea class="form-control" placeholder="{{'api_reservation_meta_notes'|translate}}"
-                                  ng-model="vm.reservation.notes"></textarea>
-                        </div>
-                    </div>
+            </div>
+            <div class="col-md-6">
+                <div class="bo-input bo-input-sub form-group">
+                    <textarea class="form-control" placeholder="{{'api_reservation_meta_notes'|translate}}"
+                              ng-model="vm.reservation.notes"></textarea>
                 </div>
             </div>
         </div>
         <h4 class="bo-first-heading">{{'api_reservation_meta_email'|translate}}</h4>
-        <div class="form-horizontal">
-            <div class="form-group">
-                <label class="col-sm-2 control-label bo-control-label">{{'api_reservation_meta_from'|translate}}</label>
-                <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-6">
+                <label>{{'api_reservation_meta_from'|translate}}</label>
+                <div class="bo-input bo-input-sub form-group">
                     <input type="text" class="form-control" ng-model="vm.reservation.from" required/>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label bo-control-label">{{'api_reservation_meta_subject'|translate}}</label>
-                <div class="col-md-10">
+            <div class="col-md-6">
+                <label>{{'api_reservation_meta_subject'|translate}}</label>
+                <div class="bo-input bo-input-sub form-group">
                     <input type="text" class="form-control" ng-model="vm.reservation.subject" required/>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label bo-control-label">{{'api_reservation_meta_body'|translate}}</label>
-                <div class="col-md-10">
-                    <textarea class="form-control" ng-model="vm.reservation.body" required></textarea>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>{{'api_reservation_meta_body'|translate}}</label>
+                <div class="bo-input bo-input-sub form-group">
+                    <textarea rows="18" class="form-control" ng-model="vm.reservation.body" required></textarea>
                 </div>
             </div>
         </div>
-
-        <div class="bo-reservation-footer-butons">
-            <div class="row">
-                <div class="col-xs-6 text-left">
-                    <button class="btn btn-default" ng-click="vm.goToStep2()">{{'api_reservation_edit'|translate}}</button>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="bo-button bo-button-sub">
+                    <div class="btn btn-primary" ng-click="vm.goToStep2()">
+                        <span>{{'api_reservation_edit'|translate}}</span>
+                    </div>
                 </div>
-                <div class="col-xs-6 text-right">
-                    <button type="submit" ng-click="vm.validateReservationForm()" class="btn btn-info">
-                        {{'api_reservation_meta_confirm'|translate}}
-                    </button>
+            </div>
+            <div class="col-xs-6">
+                <div class="bo-button bo-button-sub pull-right">
+                    <div class="btn btn-success" ng-click="vm.validateReservationForm()">
+                        <span>{{'api_reservation_meta_confirm'|translate}}</span>
+                    </div>
                 </div>
             </div>
         </div>
