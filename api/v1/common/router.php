@@ -2295,11 +2295,13 @@ $app->get('/payment/process', function ($request, $response, $args)  {
 	$key = $request->getParam("key");
 	$paymentTypeId = $request->getParam("paymentTypeId");
 	$langId = $request->getParam("langId");
+	$lastConcertId = $request->getParam("m_kontsert");
 
 	$data = array();
 	$filter = array();
 	$data['ysessionId'] = $key;
 	$filter['paymentTypeId'] = $paymentTypeId;
+	$filter['lastConcertId'] = $lastConcertId;
 	$filter['ip'] = $ip;
 	if ($langId) {
 		$data['langId'] = $langId;
