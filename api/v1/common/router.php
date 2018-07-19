@@ -2294,7 +2294,7 @@ $app->get('/payment/process', function ($request, $response, $args)  {
 	
 	$key = $request->getParam("key");
 	$paymentTypeId = $request->getParam("paymentTypeId");
-	$langId = $request->getParam("langId");
+	$langId = $request->getParam("lang");
 	$lastConcertId = $request->getParam("m_kontsert");
 
 	$data = array();
