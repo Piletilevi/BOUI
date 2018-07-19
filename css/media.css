@@ -4,7 +4,7 @@
 
 /* Bootstrap xs, md, lg
 ================================ */
-@media (min-width: 768px) {
+@media (min-width: 769px) {
     .bo-additional-nav .navbar-right {
         margin-right: 0;
     }
@@ -33,8 +33,8 @@
 
 /* Bootstrap xs
 ================================ */
-@media (max-width: 767px) {
-    .bo-nav-tabs > li > a > .tab-name {
+@media (max-width: 768px) {
+    .bo-nav-tabs .tab-name {
         display: none;
     }
     .bo-nav-tabs.nav-stacked > li > a > .tab-name {
@@ -82,19 +82,37 @@
         right: 0;
         left: auto;
     }
+    .navbar-nav .open .dropdown-menu .dropdown-header,
+    .navbar-nav .open .dropdown-menu > li > a {
+        padding: 2px 8px;
+    }
 }
 
 /* Bootstrap sm
 ================================ */
-@media (min-width: 768px) and (max-width: 992px) {
-
+@media (min-width: 769px) and (max-width: 991px) {
+    .bo-sidebar .bo-panel-table > .bo-panel-table-cell-4 {
+        display: table-cell;
+        width: 33.33%;
+    }
+    .bo-sidebar .bo-panel-table > .bo-panel-table-cell-8 {
+        display: table-cell;
+        width: 66.66%;
+    }
+    .bo-sidebar .bo-panel-table > .bo-panel-table-cell-12 {
+        display: table-cell;
+        width: 100%;
+    }
 }
 
 /* Custom ranges
 ================================ */
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (min-width: 769px) and (max-width: 1199px) {
     .bo-navbar .nav > li > a > span,
     .bo-navbar .nav > li > a > .bo-double-row {
+        display: none;
+    }
+    .bo-nav-tabs-crowded .tab-name {
         display: none;
     }
 }
@@ -106,5 +124,38 @@
 
     .bo-additional-nav .dropdown-header {
         display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .bo-sidebar {
+        margin-top: 18px;
+    }
+}
+
+/* Mobile
+================================ */
+@media (max-width: 425px) {
+    .bo-nav-tabs .bo-badge {
+        float: right;
+    }
+    .bo-nav-tabs-addon {
+        margin-left: 8px;
+    }
+    .bo-nav-tabs > li {
+        float: none;
+    }
+    .bo-nav-tabs .tab-name {
+        display: inline-block;
+    }
+
+    .bo-additional-nav .dropdown-menu.bo-dropdown-wide-3 {
+        right: -324%;
+    }
+    .bo-additional-nav .dropdown-menu.bo-dropdown-wide-2 {
+        right: -216%;
+    }
+    .bo-additional-nav .dropdown-menu.bo-dropdown-wide-1 {
+        right: -108%;
     }
 }

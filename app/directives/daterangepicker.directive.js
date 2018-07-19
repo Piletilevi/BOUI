@@ -74,13 +74,13 @@
 						'<a href="#" id="lastWeekLink">' + $translate.instant('api_calendar_last_week') + '</a>' +
 						'<a href="#" id="lastMonthLink">' + $translate.instant('api_calendar_last_month') + '</a></div>' +
 						'<div class="daterangepicker_input_wrapper">' +
-						'<div class="daterangepicker_input">' +
+						'<div class="daterangepicker_input bo-input bo-input-sub">' +
 						'<input class="input-mini form-control" type="text" name="daterangepicker_start" value="" />' +
 						'<div class="calendar-time">' +
 						'<div></div>' +
 						'<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
 						'</div>' +
-						'</div><div class="daterangepicker_separator">-</div><div class="daterangepicker_input">' +
+						'</div><div class="daterangepicker_separator">-</div><div class="daterangepicker_input bo-input bo-input-sub">' +
 						'<input class="input-mini form-control" type="text" name="daterangepicker_end" value="" />' +
 						'<div class="calendar-time">' +
 						'<div></div>' +

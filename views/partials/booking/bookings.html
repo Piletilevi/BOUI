@@ -118,7 +118,7 @@
                             <div class="bo-label label-default">
                                 <span>{{(vm.bookingTypes.types | filter:{id: booking.typeId}:true)[0].name|translate}}</span>
                             </div>
-                            <div class="bo-label label-primary">
+                            <div class="bo-label" ng-class="{'label-success':booking.statusId==2,'label-danger':booking.statusId==3,'label-primary':booking.statusId==1}">
                                 <span>{{(vm.bookingStatuses.statuses | filter:{id: booking.statusId}:true)[0].name|translate}}</span>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                                 <div>{{booking.email}}</div>
                                 <div ng-if="booking.organizationName">{{booking.organizationName}}</div>
                             </div>
-                            <div>
+                            <div ng-if="booking.creator.firstName || booking.creator.lastName">
                                 {{'api_reservation_list_reserved_by'|translate}}:
                                 {{booking.creator.firstName}}
                                 {{booking.creator.lastName}}

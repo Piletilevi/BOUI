@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-md-9 bo-center-column">
+<div class="col-md-9">
     <bo-container backoffice-options="{'time-out': 5000}"></bo-container>
     <div ng-show="vm.event.name">
         <div class="bo-header">
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="bo-tab-container">
-            <ul class="nav nav-tabs bo-nav-tabs" role="tablist" id="reportdatatab">
+            <ul class="nav nav-tabs bo-nav-tabs bo-nav-tabs-crowded" role="tablist" id="reportdatatab">
                 <li ng-repeat="tab in vm.activeTabs" ng-class="{'active': vm.currentTab == tab.name}" ng-hide="tab.hiddenInShows && vm.event.isShow">
                     <a data-toggle="tab" ng-style="vm.currentTab == tab.name ? {'background-color':pointAccentColor}:{'background-color':'#fff'}"
                        role="tab" aria-controls="{{tab.name}}" ng-click="vm.tabSelectEvent(tab.name)">
@@ -706,7 +706,7 @@
         </div>
     </div>
 </div>
-<div ng-show="vm.event.name" ng-if="vm.relatedEvents" ng-include-template="related_events.html"
+<div class="col-md-3" ng-show="vm.event.name" ng-if="vm.relatedEvents" ng-include-template="related_events.html"
      ng-include-variables="{ related: vm.relatedEvents, vm: vm, user: user }"></div>
 
 <script language="JavaScript">

@@ -13,10 +13,8 @@
 				<li ng-if="authenticated && !user.salesPoints[1]">
 					<a class="bo-not-linked"><span class="hidden-sm">{{getPointName()}}</span></a>
 				</li>
-				<li ng-if="authenticated">
-					<a href="#">
-						<i class="fa fa-envelope" ng-if="hasFullAccess('api_header_messages')" aria-hidden="true"></i>
-					</a>
+				<li ng-if="authenticated && hasFullAccess('api_header_messages')">
+					<a href><i class="fa fa-envelope" aria-hidden="true"></i></a>
 				</li>
 				<li class="bo-dropdown dropdown" ng-if="authenticated" ng-include="'views/common/user_menu.html'"></li>
 				<li class="bo-dropdown dropdown" ng-include="'views/common/languages.html'"></li>

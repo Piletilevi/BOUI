@@ -5,9 +5,9 @@
     angular.module('boApp')
         .controller('dashboardController', DashboardController);
 
-    DashboardController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'eventService', 'newsService'];
+    DashboardController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$window', 'eventService', 'newsService'];
 
-    function DashboardController($scope, $rootScope, $routeParams, $location, eventService, newsService) {
+    function DashboardController($scope, $rootScope, $routeParams, $location, $window, eventService, newsService) {
 
         //initially set those objects to null to avoid undefined error
         var vm = this;

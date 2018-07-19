@@ -139,6 +139,8 @@
 	border-color: #cdd2d8;
 	text-align: center;
 	font-size: 14px;
+	border: none;
+	margin: 0;
 }
 
 .daterangepicker .input-mini:focus {
@@ -152,7 +154,6 @@
 	width: 6%;
 	text-align: center;
 	vertical-align: middle;
-	margin-bottom: 5px;
 	color: #cdd2d8;
 }
 
@@ -198,17 +199,26 @@
 .daterangepicker .applyBtn {
 	float: left;
 	width: 47%;
+	color: #fff;
+	border: none;
+	background-color: #3584d9;
 }
 
 .daterangepicker .cancelBtn {
 	position: absolute;
 	right: 10px;
 	top: 9px;
+	color: #fff;
+	border: none;
+	background-color: #5e7287;
 }
 
 .daterangepicker .resetBtn {
 	float: right;
 	width: 47%;
+	color: #fff;
+	border: none;
+	background-color: #d93835;
 }
 
 .daterangepicker .bootstrap-select {
