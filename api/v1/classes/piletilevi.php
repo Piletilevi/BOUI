@@ -510,7 +510,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$reportData = $this->send( "/ticket/download", $data, true );
+		$reportData = $this->sendOnce( "/ticket/download", $data, true );
 		
 		return $reportData;
 	}
@@ -519,7 +519,7 @@ class PiletileviApi {
 		
 		$data['filter']= $filter;
 
-		$ticketData = $this->send( "/ticket/downloadData", $data );
+		$ticketData = $this->sendOnce( "/ticket/downloadData", $data );
 		
 		return $ticketData;
 	}
@@ -737,14 +737,14 @@ class PiletileviApi {
 		$parameters['ip'] = $ip;
 		$data['filter']= $parameters;
 
-		$response = $this->send( "/payment/checkPayment", $data );
+		$response = $this->sendOnce( "/payment/checkPayment", $data );
 		
 		return $response;
 	}
 
 	public function processPayment($data) {
 		
-		$response = $this->send( "/payment/processPayment", $data );
+		$response = $this->sendOnce( "/payment/processPayment", $data );
 		
 		return $response;
 	}
@@ -822,11 +822,15 @@ class PiletileviApi {
 		return $response->body;
 	}
 	
-	private function send($url, $data, $plain = false) {
+	private function sendOnce($url, $data) {
+		return $this->send( $url, $data, false, false );
+	}
+
+	private function send($url, $data, $plain = false, $withSessionId = true) {
 		$papiConfig = $this->getPapiConfig();
 		$envConfig = $this->getEnvConfig();
 
-		if (!isset($data['sessionId']) && $this->sessionId) {
+		if ($withSessionId && !isset($data['sessionId']) && $this->sessionId) {
 			$data['sessionId']= $this->sessionId;
 		}
 		if (!isset($data['langId']) && is_object($this->currentLang)) {
@@ -848,7 +852,7 @@ class PiletileviApi {
 		
 		$token = (new Builder())->setId($tokenId)
 								->setIssuer($issuer)
-								->setIssuedAt($issuedAt)
+								//->setIssuedAt($issuedAt)
 								->setNotBefore($notBefore)
 								->setExpiration($expire)
 								->set('data', $data)
