@@ -1,0 +1,11 @@
+<span class="visible-print">{{'api_print_period'|translate}}</span>
+<div class="input-group bo-daterangepicker" data-control="daterangepicker">
+    <input type="text" daterangepicker class="form-control"
+           ng-model="vm.filterPeriod"
+           daterangepicker-neutral-timezone
+           ng-attr-data-min-date="{{vm.minFilterDate}}"
+           ng-attr-data-max-date="{{vm.maxFilterDate}}" disabled/>
+    <div class="input-group-addon">
+        <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    </div>
+</div>

@@ -2,6 +2,6 @@
 	<i class="fa fa-globe"></i>
 </a>
 <ul class="dropdown-menu">
-	<li ng-repeat="lang in languages" ng-click="setLangValue(lang)">
-		<a href ng-class="{'bo-selected': language.code == lang.code}">{{lang.code|lowercase}}</a></li>
+	<li ng-repeat="lang in languages" ng-click="setLangValue(lang)" ng-class="{'bo-selected': language.code == lang.code}">
+		<a href>{{lang.code|lowercase}}</a></li>
 </ul>

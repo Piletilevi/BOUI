@@ -24,7 +24,7 @@
 						$('.bo-confirm-modal').remove();
 
 						modalElement = document.createElement('div');
-						modalElement.className = 'modal fade bo-modal bo-confirm-modal';
+						modalElement.className = 'modal bo-modal fade';
 
 						var modalDialogElement = document.createElement('div');
 						modalDialogElement.className = 'modal-dialog';
@@ -39,12 +39,11 @@
 						modalContentElement.appendChild(modalHeaderElement);
 
 						var modalHeaderCloseElement = document.createElement('button');
-						modalHeaderCloseElement.className = 'btn btn-sm btn-default bo-close-btn bo-confirm-modal-close';
+						modalHeaderCloseElement.className = 'close';
 						modalHeaderCloseElement.innerHTML = '<i class="fa fa-times"></i>';
 						modalHeaderElement.appendChild(modalHeaderCloseElement);
 
 						var modalHeaderMessageElement = document.createElement('h4');
-						modalHeaderMessageElement.className = 'modal-title';
 						modalHeaderMessageElement.innerHTML = message;
 						modalHeaderElement.appendChild(modalHeaderMessageElement);
 
@@ -57,14 +56,21 @@
 						modalFooterElement.className = 'modal-footer';
 						modalContentElement.appendChild(modalFooterElement);
 
-						var modalFooterSendElement = document.createElement('button');
-						modalFooterSendElement.className = 'btn btn-default bo-confirm-modal-submit';
-						modalFooterSendElement.innerHTML = $translate.instant('api_send');
+						var modalFooterSendElement = document.createElement('div');
+                        modalFooterSendElement.className = 'bo-button bo-button-sub';
+                        modalFooterSendElement.style.marginRight = '5px';
+						var modalFooterSendChildElement = document.createElement('div');
+                        modalFooterSendChildElement.className = 'btn btn-primary';
+                        modalFooterSendChildElement.innerHTML = '<span>' + $translate.instant('api_send') + '</span>';
+                        modalFooterSendElement.appendChild(modalFooterSendChildElement);
 						modalFooterElement.appendChild(modalFooterSendElement);
 
-						var modalFooterCloseElement = document.createElement('button');
-						modalFooterCloseElement.className = 'btn btn-default bo-confirm-modal-close';
-						modalFooterCloseElement.innerHTML = $translate.instant('api_cancel');
+						var modalFooterCloseElement = document.createElement('div');
+                        modalFooterCloseElement.className = 'bo-button bo-button-sub';
+                        var modalFooterCloseChildElement = document.createElement('div');
+                        modalFooterCloseChildElement.className = 'btn btn-default';
+                        modalFooterCloseChildElement.innerHTML = '<span>' + $translate.instant('api_cancel') + '</span>';
+                        modalFooterCloseElement.appendChild(modalFooterCloseChildElement);
 						modalFooterElement.appendChild(modalFooterCloseElement);
 
 						document.body.appendChild(modalElement);

@@ -1,135 +1,114 @@
-<div class="page-content col-xs-12">
-
+<div class="col-md-6 col-md-offset-3">
 	<div class="row">
-		<div class="space-6"></div>
 		<div class="col-sm-10 col-sm-offset-1">
-			<div id="login-box" class="login-box visible bo-widgetbox no-border">
-				<div class="bo-widgetbox-header navbar-inverse">
-					<a class="" href><img src="img/logo.png" /></a>
-					<ul class="nav navbar-nav navbar-right bo-widgetbox-languages">
-						<li class="dropdown bo-language-dropdown" ng-include="'views/common/languages.html'"></li>
-					</ul>
-				</div>
-				<div class="bo-widgetbox-body">
-					<div class="bo-widgetbox-main">
-						<bo-container backoffice-options="{'time-out': 3000}"></bo-container>
-						<div class="alert alert-danger" ng-if="vm.expired">{{"api_login_session_expired"|translate}}</div>
-						<div class="row">
-							<div class="col-sm-12">
-								<h4 class="header blue lighter bigger">
-									<i class="icon-coffee green"></i>
-									{{"api_login_to_bo"|translate}}
-								</h4>
+			<div id="login-box" class="bo-widgetbox">
+				<div class="panel panel-default">
+					<div class="bo-panel">
+						<div class="bo-navbar navbar-default">
+							<div class="container-fluid">
+								<div class="navbar-header">
+									<a class="navbar-brand bo-navbar-logo" href="#"><img src="img/logo.png"></a>
+								</div>
+								<div class="bo-additional-nav navbar-right">
+									<ul class="nav navbar-nav">
+										<li class="dropdown bo-dropdown" ng-include="'views/common/languages.html'"></li>
+									</ul>
+								</div>
 							</div>
 						</div>
-						<div class="space-16"></div>
-
-						<form name="loginForm" class="form-horizontal" role="form">
-							<div class="form-group">
-								<div class="col-sm-12">
-									<div class="block input-icon input-icon-right">
-										<input type="text" class="form-control input-lg" placeholder={{"bo_adm151"|translate}} name="username" ng-model="vm.login.username" required focus />
-										<i class="ace-icon fa fa-user"></i>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-12">
-									<div class="block input-icon input-icon-right">
-										<input type="password" class="form-control input-lg" placeholder={{"bo_adm152"|translate}} ng-model="vm.login.password" required />
-										<i class="ace-icon fa fa-lock"></i>
-									</div>
-								</div>
-							</div>
-							<div class="space"></div>
-							<div class="clearfix bo-widgetbox-buttons-area">
-								<div class="row">
-									<div class="col-sm-6 col-xs-12">
-										<div class="bo-smallcheckbox">
-											<div class="checkbox">
-												<input type="checkbox" id="remember-me" ng-model="vm.login.rememberMe">
-												<label for="remember-me">{{"api_login_remember"|translate}}</label>
-											</div>
-										</div>
-									</div>
-									<div class="visible-xs col-xs-12">&nbsp;</div>
-									<div class="col-sm-6 col-xs-12">
-										<button class="width-35 pull-right btn btn-primary extra_width_button" ng-click="vm.doLogin(vm.login)" data-ng-disabled="loginForm.$invalid">
-											<!--<i class="ace-icon fa fa-key"></i>-->
-											{{"pood_336"|translate}}
+						<div class="panel-body bo-content-muted">
+							<div class="row bo-panel-row">
+								<div class="col-md-10 col-md-offset-1">
+									<bo-container backoffice-options="{'time-out': 5000}"></bo-container>
+									<div class="bo-alert alert alert-warning alert-dismissible" role="alert" ng-if="vm.expired">
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<i class="fa fa-times" aria-hidden="true"></i>
 										</button>
+										<span>{{"api_login_session_expired"|translate}}</span>
 									</div>
-								</div>
-							</div>
-							<div class="space-4"></div>
-						</form>
-
-					</div><!-- /bo-widgetbox-main -->
-				</div><!-- /bo-widgetbox-body -->
-				<!--password restore is hidden now-->
-				<div class="bo-widgetbox-footer" style="display: none;">
-					<div class="row">
-						<div class="col-sm-12 text-center">
-							<a data-target="#forgotten" class="bo-forgotten-toggle collapsed" data-toggle="collapse" aria-expanded="false">Cant remember your username/password?</a>
-						</div>
-					</div>
-				</div>
-				<div id="forgotten" class="collapse" style="display: none;">
-					<div class="bo-widgetbox-forgotten">
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="row">
-									<div class="col-sm-12">
-										<h4 class="header blue lighter bigger">
-											<i class="icon-coffee green"></i>
-											Reset password
-										</h4>
-									</div>
-								</div>
-								<div class="space-16"></div>
-								<form class="form-horizontal" role="form">
-									<div class="form-group">
-										<div class="col-sm-12">
-											<div class="block input-icon input-icon-right">
-												<input type="text" class="form-control input-lg" placeholder="First name" name="username" />
-												<i class="ace-icon fa fa-user"></i>
+									<h4>{{"api_login_to_bo"|translate}}</h4>
+									<form name="loginForm" role="form">
+										<div class="form-group">
+											<div class="bo-input">
+												<input type="text" class="form-control" placeholder={{"bo_adm151"|translate}} name="username"
+													   ng-model="vm.login.username" required focus />
+												<i class="fa fa-user"></i>
 											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-sm-12">
-											<div class="block input-icon input-icon-right">
-												<input type="text" class="form-control input-lg" placeholder="Last name" required />
-												<i class="ace-icon fa fa-user"></i>
+										<div class="form-group">
+											<div class="bo-input">
+												<input type="password" class="form-control" placeholder={{"bo_adm152"|translate}}
+													   ng-model="vm.login.password" required />
+												<i class="fa fa-lock"></i>
 											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-sm-12">
-											<div class="block input-icon input-icon-right">
-												<input type="text" class="form-control input-lg" placeholder="Email" required />
-												<i class="ace-icon fa fa-envelope"></i>
-											</div>
-										</div>
-									</div>
-									<div class="space"></div>
-									<div class="clearfix bo-widgetbox-buttons-area">
 										<div class="row">
-											<div class="col-sm-12">
-												<button type="submit" class="width-35 pull-right btn btn-primary extra_width_button">
-													Send new password
-												</button>
+											<div class="col-sm-6">
+												<div class="bo-checkbox">
+													<input type="checkbox" id="remember-me" ng-model="vm.login.rememberMe">
+													<label for="remember-me">{{"api_login_remember"|translate}}</label>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="bo-button bo-button-main pull-right">
+													<div class="btn btn-default" ng-click="vm.doLogin(vm.login)" data-ng-disabled="loginForm.$invalid">
+														<span>{{"pood_336"|translate}}</span>
+													</div>
+												</div>
 											</div>
 										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div id="resetPasswordForm" ng-if="vm.passwordReset">
+							<div class="panel-footer">
+								<div class="row bo-panel-row">
+									<div class="col-md-10 col-md-offset-1 text-right">
+										<a data-target="#forgotten" class="bo-link collapsed" data-toggle="collapse" aria-expanded="false">
+											{{"api_password_forget"|translate}}
+										</a>
 									</div>
-									<div class="space-4"></div>
-								</form>
+								</div>
+							</div>
+							<div id="forgotten" class="panel-body collapse">
+								<div class="bo-widgetbox-forgotten">
+									<div class="row bo-panel-row">
+										<div class="col-md-10 col-md-offset-1">
+											<h4>{{"api_password_reset"|translate}}</h4>
+											<form name="resetForm" role="form">
+												<div class="form-group">
+													<div class="bo-input bo-input-sub">
+														<input type="text" class="form-control" placeholder={{"api_meta_contact_firstname"|translate}} required />
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="bo-input bo-input-sub">
+														<input type="text" class="form-control" placeholder={{"api_meta_contact_lastname"|translate}} required />
+														<i class="fa fa-user"></i>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="bo-input bo-input-sub">
+														<input type="text" class="form-control" placeholder={{"api_meta_contact_email"|translate}} required />
+														<i class="fa fa-envelope"></i>
+													</div>
+												</div>
+												<div class="bo-button bo-button-sub pull-right">
+													<div class="btn btn-default">
+														<span>{{"api_password_send"|translate}}</span>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div><!-- /login-box -->
-
-		</div><!-- /position-relative -->
+			</div>
+		</div>
 	</div>
-</div><!-- /.page-content -->
+</div>

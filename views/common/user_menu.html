@@ -1,12 +1,13 @@
 <a href class="dropdown-toggle bo-user-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 	<i class="fa fa-user" aria-hidden="true"></i>
-	<span class="bo-user"><span class="bo-user-name">{{user.name}}</span><br />{{user.organization}}</span></a>
-<ul class="dropdown-menu">
+	<span class="bo-double-row">{{user.name}}<br />{{user.organization}}</span>
+</a>
+<ul class="dropdown-menu bo-dropdown-wide-1">
 	<li class="dropdown-header">
-		<i class="fa fa-fw fa-user" aria-hidden="true"></i>{{user.name}}<span ng-if="user.organization">&nbsp;-&nbsp;{{user.organization}}</span>
+		{{user.name}}<span ng-if="user.organization">&nbsp;-&nbsp;{{user.organization}}</span>
 	</li>
 	<li><a href ng-click="toChangePassword();" ng-if="hasFullAccess('api_header_password_change')"><i class="fa fa-fw fa-unlock-alt"></i>{{"api_menu_change_password"|translate}}</a></li>
 	<li><a href ng-click="logout();"><i class="fa fa-fw fa-sign-out"></i>{{"pood_002"|translate}}</a></li>
-	<li><div class="dropdown-divider"></div></li>
+	<li role="separator" class="divider"></li>
 	<li><a href ng-click="toOldBO();"><i class="fa fa-fw fa-archive"></i>{{"api_menu_to_old_bo"|translate}}</a></li>
 </ul>

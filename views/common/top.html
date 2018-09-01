@@ -1,61 +1,52 @@
-<nav class="navbar navbar-inverse" ng-style="{'background-color': pointMenuBackgroundColor,'border-color': pointMenuGamma ? pointMenuGammaAccent:'#ffffff'}">
+<nav class="bo-navbar navbar navbar-default" ng-style="{'background-color': pointMenuBackgroundColor,'border-color': pointMenuGamma ? pointMenuGammaAccent:'#ffffff'}">
 	<div class="container">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
 				<span class="sr-only">Toggle navigation</span>
 				<i class="fa fa-bars fa-lg" aria-hidden="true"></i>
 			</button>
-			<div class="bo-header">
-				<a class="navbar-brand bo-logo" href="#/dashboard"><img ng-src="{{pointMenuLogo}}" /></a>
-				<ul class="nav navbar-nav bo-header-additional-icons visible-xs">
-					<li class="dropdown" ng-if="authenticated" ng-include="'views/common/user_menu.html'">
-					</li><li>
-						<a href="#"><i class="fa fa-envelope"></i></a>
-					</li><li class="dropdown" ng-if="authenticated && user.salesPoints[1]" ng-include="'views/common/sales_points.html'">
-					</li><li class="dropdown bo-language-dropdown"ng-include="'views/common/languages.html'">
-					</li>
-				</ul>
-			</div>
+			<a class="navbar-brand bo-navbar-logo" href="#/dashboard"><img src="{{pointMenuLogo}}" /></a>
 		</div>
-		<div id="menu" class="collapse navbar-collapse">
+		<div class="bo-additional-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right">
+				<li class="bo-dropdown dropdown" ng-if="authenticated && user.salesPoints[1]" ng-include="'views/common/sales_points.html'"></li>
+				<li ng-if="authenticated && !user.salesPoints[1]">
+					<a class="bo-not-linked"><span class="hidden-sm">{{getPointName()}}</span></a>
+				</li>
+				<li ng-if="authenticated && hasFullAccess('api_header_messages')">
+					<a href><i class="fa fa-envelope" aria-hidden="true"></i></a>
+				</li>
+				<li class="bo-dropdown dropdown" ng-if="authenticated" ng-include="'views/common/user_menu.html'"></li>
+				<li class="bo-dropdown dropdown" ng-include="'views/common/languages.html'"></li>
+			</ul>
+		</div>
+		<div class="collapse navbar-collapse navbar-left" id="navbar-menu">
 			<ul class="nav navbar-nav" ng-if="authenticated">
 				<li ng-if="hasFullAccess('api_salespoint')">
 					<a href>
 						<i class="fa fa-ticket" aria-hidden="true"></i>
-						<span class="hidden-md hidden-sm">{{'bo_elem040'|translate}}</span>
+						<span>{{'bo_elem040'|translate}}</span>
 					</a>
 				</li>
 				<li ng-if="hasFullAccess('api_bo')">
 					<a href>
-						<i class="fa fa-suitcase" aria-hidden="true"></i>
-						<span class="hidden-md hidden-sm" ng-cloak>{{'meny_02'|translate }}</span>
+						<i class="fa fa-briefcase" aria-hidden="true"></i>
+						<span>{{'meny_02'|translate}}</span>
 					</a>
 				</li>
 				<li ng-if="hasFullAccess('api_administration')">
 					<a href>
 						<i class="fa fa-cogs" aria-hidden="true"></i>
-						<span class="hidden-md hidden-sm" ng-cloak>{{'meny_03'|translate }}</span>
+						<span>{{'meny_03'|translate}}</span>
 					</a>
 				</li>
-				<li class="active" ng-if="hasFullAccess('api_reports')">
+				<li ng-if="hasFullAccess('api_reports')" class="active">
 					<a href="#/dashboard/" ng-style="{'background-color': pointMenuGamma ? pointMenuGammaAccent:'#ffffff'}">
 						<i class="fa fa-bar-chart" aria-hidden="true"></i>
-						<span class="hidden-md hidden-sm" ng-cloak>{{'meny_05'|translate }}</span>
+						<span>{{'meny_05'|translate}}</span>
 					</a>
 				</li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown" ng-if="authenticated && user.salesPoints[1]" ng-include="'views/common/sales_points.html'"></li>
-				<li class="" ng-if="authenticated && !user.salesPoints[1]">
-					<a class="not-clickable" href><span class="hidden-sm">{{getPointName()}}</span></a>
-				</li>
-				<li ng-if="authenticated" class="header_message_link">
-					<a href="#"><i class="fa fa-envelope" ng-if="hasFullAccess('api_header_messages')" aria-hidden="true"></i>
-						<span class="visible-xs-inline">Messages</span></a>
-				</li>
-				<li class="dropdown" ng-if="authenticated" ng-include="'views/common/user_menu.html'"></li>
-				<li class="dropdown bo-language-dropdown" ng-include="'views/common/languages.html'"></li>
-			</ul>
 		</div>
-	</div><!-- /.container-fluid -->
+	</div>
 </nav>

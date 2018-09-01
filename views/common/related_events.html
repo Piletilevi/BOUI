@@ -1,18 +1,24 @@
-<div class="col-md-3 bo-sidebar" ng-if="related && related.id" block-ui block-ui-pattern="/relatedEvents/">
-	<div class="panel panel-default bo-onsale bo-relatedpanel">
-		<div class="panel-heading">
-			<span class="badge" ng-if="related.concertsCount">{{related.concertsCount}}</span> {{related.name}}
+<div class="bo-sidebar" ng-if="related && related.id" block-ui block-ui-pattern="/relatedEvents/">
+	<div class="panel panel-default">
+		<div class="bo-panel bo-panel-linked">
+			<div class="panel-heading clearfix">
+				<div class="bo-badge bo-label label-primary" ng-if="related.concertsCount">{{related.concertsCount}}</div>
+				<span>{{related.name}}</span>
+			</div>
+			<div ng-include-template="event_summary.html" class="panel-body bo-panel-event"
+				 ng-include-variables="{ event: related, vm: vm, user: user, linked: true, noTitle: true, withRevenue: hasFullAccess('api_reports_revenue') }"></div>
+			<div ng-if="related.concerts" class="bo-panel-sub">
+				<div ng-repeat="concertItem in related.concerts" class="panel-body bo-panel-event">
+					<div ng-include-template="event_summary.html"
+						 ng-include-variables="{ event: concertItem, vm: vm, user: user, linked: true, withRevenue: hasFullAccess('api_reports_revenue') }"></div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<a class="bo-link" ng-if="vm.hasMoreRelatedEvents(related)" ng-click="vm.getMoreRelatedEvents(vm.event)">
+					<i class="fa fa-chevron-down" aria-hidden="true"></i>
+					{{'api_view_all_events_on_sale'|translate}}
+				</a>
+			</div>
 		</div>
-		<ul class="list-group">
-			<li class="list-group-item bo-relatedpanel-show" ng-include-template="event_summary.html"
-				ng-include-variables="{ event: related, vm: vm, user: user, linked: true, noTitle: true, withRevenue: hasFullAccess('api_reports_revenue') }"></li>
-			<li class="list-group-item bo-relatedpanel-concert" ng-repeat="concertItem in related.concerts" ng-include-template="event_summary.html"
-				ng-include-variables="{ event: concertItem, vm: vm, user: user, linked: true, withRevenue: hasFullAccess('api_reports_revenue') }"></li>
-			<li class="list-group-item" ng-if="vm.hasMoreRelatedEvents(related)">
-				<a class="bo-onsale-viewall" href ng-click="vm.getMoreRelatedEvents(vm.event)"><i class="fa fa-ellipsis-h" aria-hidden="true"></i>{{'api_view_all_events_on_sale'|translate}}</a>
-			</li>
-		</ul>
 	</div>
 </div>
-
-
