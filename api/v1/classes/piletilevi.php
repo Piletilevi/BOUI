@@ -792,6 +792,11 @@ class PiletileviApi {
 		return $translations;
 	}
 
+	public function reloadApiTranslations() {
+		$response = $this->send( "/language/reload", $data );
+		return $response;
+	}
+
 	private function isValidUser() {
 		if (is_object($this->currentUser)) {
 			return $this->currentUser->userId > 0;

@@ -454,6 +454,8 @@ $app->post('/reloadTranslations', function ($request, $response, $args)  {
 				}
 			}
 			$r['status'] = $loaded;
+			
+			$piletileviApi->reloadApiTranslations();
 		} else {
 	        $r['status'] = "info";
 	        $r['message'] = "Empty result";
