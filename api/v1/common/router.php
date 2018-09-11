@@ -491,25 +491,52 @@ $app->get('/powerbiReport', function ($request, $response, $args)  {
 });
 
 $app->get('/cardsReport', function ($request, $response, $args)  {
-	$dataHandler = $this->dataHandler;
-	$validationError = $dataHandler->verifyToken($request);
-	if ($validationError != null) {
-		return $dataHandler->response($response, $validationError, 401);
-	}
+    $dataHandler = $this->dataHandler;
+    $validationError = $dataHandler->verifyToken($request);
+    if ($validationError != null) {
+        return $dataHandler->response($response, $validationError, 401);
+    }
 
-	$filter = $request->getParam("filter");
-	$token = $request->getParam("token");
-	$ip = $dataHandler->getUserIP();
+    $filter = $request->getParam("filter");
+    $token = $request->getParam("token");
+    $ip = $dataHandler->getUserIP();
 
     $piletileviApi = $this->piletileviApi;
     $reportResponse = $piletileviApi->cardsReport( $filter, $token, $ip );
-	
-	if ($reportResponse && !(strpos($reportResponse, 'errors') !== false)) {
-		return $dataHandler->responseAsText($response, $reportResponse);
-	} else {
-		$json = json_decode($reportResponse);
-		return $dataHandler->response($response, $json);
-	}
+
+    if ($reportResponse && !(strpos($reportResponse, 'errors') !== false)) {
+        return $dataHandler->responseAsText($response, $reportResponse);
+    } else {
+        $json = json_decode($reportResponse);
+        return $dataHandler->response($response, $json);
+    }
+});
+
+$app->get('/ticket/status', function ($request, $response, $args) use ($app) {
+    $dataHandler = $this->dataHandler;
+    $validationError = $dataHandler->verifyToken($request);
+    if ($validationError != null) {
+        return $dataHandler->response($response, $validationError, 401);
+    }
+
+    $filter = array();
+    $filter['barcode'] = $request->getParam("barcode");
+
+    $token = $request->getParam("token");
+    $ip = $dataHandler->getUserIP();
+
+    $logger = $app->getContainer()->get("logger");
+    $logger->write("ticket/status caller ip: ".$ip);
+
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->ticketPurchaseStatus( $filter, $token, $ip );
+
+    if ($reportResponse && !(strpos($reportResponse, 'errors') !== false)) {
+        return $dataHandler->responseAsText($response, $reportResponse);
+    } else {
+        $json = json_decode($reportResponse);
+        return $dataHandler->response($response, $json);
+    }
 });
 
 $app->post('/concertInfo', function ($request, $response, $args)  {

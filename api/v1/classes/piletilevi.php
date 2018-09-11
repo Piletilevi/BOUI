@@ -150,6 +150,16 @@ class PiletileviApi {
 
 		return $reportData;
 	}
+    public function ticketPurchaseStatus($filter, $token, $ip) {
+
+        $data['filter']= $filter;
+        $data['token']= $token;
+        $data['ip']= $ip;
+
+        $reportData = $this->send( "/ticket/status", $data, true );
+
+        return $reportData;
+    }
 
 	public function myEvents($filter) {
 		
@@ -870,12 +880,10 @@ class PiletileviApi {
 			$request->withoutAutoParsing();
 		}
 		$response = $request->send();
-		/*
-		$this->logger->write( $url." - start" );
-		$this->logger->write( $response );
-		$this->logger->write( $url." - end" );
-		*/
+		
 		if ($response->hasErrors() || $response->code == 401) {
+            $this->logger->write( "Error causing body:" );
+            $this->logger->write( $response->body );
 			$this->app->halt($response->code);
 		}
 		if ($plain) { 
