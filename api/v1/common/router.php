@@ -525,8 +525,8 @@ $app->get('/ticket/status', function ($request, $response, $args) use ($app) {
     $token = $request->getParam("token");
     $ip = $dataHandler->getUserIP();
 
-    $logger = $app->getContainer()->get("logger");
-    $logger->write("ticket/status caller ip: ".$ip);
+    //$logger = $app->getContainer()->get("logger");
+    //$logger->write("ticket/status caller ip: ".$ip);
 
     $piletileviApi = $this->piletileviApi;
     $reportResponse = $piletileviApi->ticketPurchaseStatus( $filter, $token, $ip );

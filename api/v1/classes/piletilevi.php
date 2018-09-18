@@ -882,8 +882,8 @@ class PiletileviApi {
 		$response = $request->send();
 		
 		if ($response->hasErrors() || $response->code == 401) {
-            $this->logger->write( "Error causing body:" );
-            $this->logger->write( $response->body );
+            //$this->logger->write( "Error causing body:" );
+            //$this->logger->write( $response->body );
 			$this->app->halt($response->code);
 		}
 		if ($plain) { 
