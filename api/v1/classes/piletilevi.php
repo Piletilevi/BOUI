@@ -161,6 +161,17 @@ class PiletileviApi {
         return $reportData;
     }
 
+    public function clientPurchaseHistory($filter, $token, $ip) {
+
+        $data['filter']= $filter;
+        $data['token']= $token;
+        $data['ip']= $ip;
+
+        $reportData = $this->send( "/report/purchaseHistory", $data, true );
+
+        return $reportData;
+    }
+
 	public function myEvents($filter) {
 		
 		$filter['limit'] = 5;

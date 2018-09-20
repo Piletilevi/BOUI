@@ -539,6 +539,33 @@ $app->get('/ticket/status', function ($request, $response, $args) use ($app) {
     }
 });
 
+$app->get('/report/purchaseHistory', function ($request, $response, $args) use ($app) {
+    $dataHandler = $this->dataHandler;
+    $validationError = $dataHandler->verifyToken($request);
+    if ($validationError != null) {
+        return $dataHandler->response($response, $validationError, 401);
+    }
+
+    $filter = array();
+    $filter['userCode'] = $request->getParam("userCode");
+
+    $token = $request->getParam("token");
+    $ip = $dataHandler->getUserIP();
+
+    $logger = $app->getContainer()->get("logger");
+    $logger->write("report/purchaseHistory caller ip: ".$ip);
+
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->clientPurchaseHistory( $filter, $token, $ip );
+
+    if ($reportResponse && !(strpos($reportResponse, 'errors') !== false)) {
+        return $dataHandler->responseAsText($response, $reportResponse);
+    } else {
+        $json = json_decode($reportResponse);
+        return $dataHandler->response($response, $json);
+    }
+});
+
 $app->post('/concertInfo', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
     $json = json_decode($request->getBody());
