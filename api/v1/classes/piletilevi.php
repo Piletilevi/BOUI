@@ -161,11 +161,12 @@ class PiletileviApi {
         return $reportData;
     }
 
-    public function clientPurchaseHistory($filter, $token, $ip) {
+    public function clientPurchaseHistory($filter, $token, $ip, $langId) {
 
         $data['filter']= $filter;
         $data['token']= $token;
         $data['ip']= $ip;
+        $data['langId']= $langId;
 
         $reportData = $this->send( "/report/purchaseHistory", $data, true );
 

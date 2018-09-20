@@ -548,6 +548,7 @@ $app->get('/report/purchaseHistory', function ($request, $response, $args) use (
 
     $filter = array();
     $filter['userCode'] = $request->getParam("userCode");
+    $langId = $request->getParam("lang");
 
     $token = $request->getParam("token");
     $ip = $dataHandler->getUserIP();
@@ -556,14 +557,11 @@ $app->get('/report/purchaseHistory', function ($request, $response, $args) use (
     $logger->write("report/purchaseHistory caller ip: ".$ip);
 
     $piletileviApi = $this->piletileviApi;
-    $reportResponse = $piletileviApi->clientPurchaseHistory( $filter, $token, $ip );
+    $reportResponse = $piletileviApi->clientPurchaseHistory( $filter, $token, $ip, $langId );
 
-    if ($reportResponse && !(strpos($reportResponse, 'errors') !== false)) {
-        return $dataHandler->responseAsText($response, $reportResponse);
-    } else {
-        $json = json_decode($reportResponse);
-        return $dataHandler->response($response, $json);
-    }
+	$json = json_decode($reportResponse);
+	return $dataHandler->response($response, $json);
+
 });
 
 $app->post('/concertInfo', function ($request, $response, $args)  {
