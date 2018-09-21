@@ -1109,8 +1109,10 @@
                     !angular.equals(newFilter.statusId, oldFilter.statusId) ||
                     !angular.equals(newFilter.typeId, oldFilter.typeId
                 ))) {
-                $rootScope.bookingSuccessAlert = false;
-                eventService.getBookingsData(vm.bookingFilter);
+                if (vm.currentTab == 'bookings') {
+                    $rootScope.bookingSuccessAlert = false;
+                    eventService.getBookingsData(vm.bookingFilter);
+                }
             }
         }, true);
 
