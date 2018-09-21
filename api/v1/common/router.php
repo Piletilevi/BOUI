@@ -1868,7 +1868,7 @@ $app->post('/bookingList', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
     $json = json_decode($request->getBody());
 
-	$validationErrors = $dataHandler->verifyParams(array('concertId'), $json->filter);
+	$validationErrors = $dataHandler->verifyParams(array('eventId'), $json->filter);
 	if ($validationErrors != null) {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
