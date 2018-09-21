@@ -905,7 +905,6 @@
         function getBookingsData(filter, callback) {
             filter.loadingItems = true;
             filter.start = null;
-            console.log(filter);
             dataService.post('bookingList', {filter: filter}).then(function (results) {
                 dataService.page(results);
                 if (results.status == 'success') {
