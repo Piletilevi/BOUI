@@ -1878,7 +1878,8 @@ $app->post('/bookingList', function ($request, $response, $args)  {
 	}
 
 	$filter = array();
-	$filter['concertId'] = $json->filter->concertId;
+	$filter['eventId'] = $json->filter->eventId;
+    $filter['isShow'] = $json->filter->isShow;
 
 	if (property_exists($json->filter, 'bookingNr')) {
 		$filter['bookingNr'] = $json->filter->bookingNr;

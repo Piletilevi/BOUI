@@ -131,7 +131,8 @@
         };
         vm.sectorsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
         vm.defaultBookingFilter = {
-            concertId: $routeParams.id,
+            eventId: $routeParams.id,
+            isShow: $routeParams.type == 'show',
             period: {
                 startDate: moment().subtract(1, 'years'),
                 endDate: moment().add(1, 'days')
