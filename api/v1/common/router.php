@@ -2440,8 +2440,8 @@ $app->get('/test', function ($request, $response, $args)  {
 	$filter['hash'] = "6c2e5668795cba3ad4541cecfa789a54849e7c5d0983b5073d971186dffd60b2";
 	$filter['giftCode'] = "20203112852697";
 	*/
-	$filter['fnr'] = "63149690403821";
-	$filter['hash'] = "d0429732f4427c842f143853c3c38806b54d58edc2642424fb61f2e2a1795b31";
+	$filter['fnr'] = "171853185";
+	$filter['hash'] = "10db62e25b9e062d4d042d9bb002287bc1a16e7fee37783402a1376023f2d963";
 
     $piletileviApi = $this->piletileviApi;
     $reportResponse = $piletileviApi->downloadTicketData($filter);

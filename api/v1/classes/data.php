@@ -82,6 +82,10 @@ class DataHandler {
 		if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) { 
 			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 		}
+		if ($ip) {
+			$iplist = explode("," $ip);
+			$ip = $iplist[0];
+		}
 		return $ip;
 	}
 	
