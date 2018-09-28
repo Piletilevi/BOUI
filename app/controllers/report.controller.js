@@ -131,7 +131,8 @@
         };
         vm.sectorsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
         vm.defaultBookingFilter = {
-            concertId: $routeParams.id,
+            eventId: $routeParams.id,
+            isShow: $routeParams.type == 'show',
             period: {
                 startDate: moment().subtract(1, 'years'),
                 endDate: moment().add(1, 'days')
@@ -1108,8 +1109,10 @@
                     !angular.equals(newFilter.statusId, oldFilter.statusId) ||
                     !angular.equals(newFilter.typeId, oldFilter.typeId
                 ))) {
-                $rootScope.bookingSuccessAlert = false;
-                eventService.getBookingsData(vm.bookingFilter);
+                if (vm.currentTab == 'bookings') {
+                    $rootScope.bookingSuccessAlert = false;
+                    eventService.getBookingsData(vm.bookingFilter);
+                }
             }
         }, true);
 

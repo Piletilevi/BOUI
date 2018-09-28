@@ -525,8 +525,8 @@ $app->get('/ticket/status', function ($request, $response, $args) use ($app) {
     $token = $request->getParam("token");
     $ip = $dataHandler->getUserIP();
 
-    $logger = $app->getContainer()->get("logger");
-    $logger->write("ticket/status caller ip: ".$ip);
+    //$logger = $app->getContainer()->get("logger");
+    //$logger->write("ticket/status caller ip: ".$ip);
 
     $piletileviApi = $this->piletileviApi;
     $reportResponse = $piletileviApi->ticketPurchaseStatus( $filter, $token, $ip );
@@ -537,6 +537,31 @@ $app->get('/ticket/status', function ($request, $response, $args) use ($app) {
         $json = json_decode($reportResponse);
         return $dataHandler->response($response, $json);
     }
+});
+
+$app->get('/report/purchaseHistory', function ($request, $response, $args) use ($app) {
+    $dataHandler = $this->dataHandler;
+    $validationError = $dataHandler->verifyToken($request);
+    if ($validationError != null) {
+        return $dataHandler->response($response, $validationError, 401);
+    }
+
+    $filter = array();
+    $filter['userCode'] = $request->getParam("userCode");
+    $langId = $request->getParam("lang");
+
+    $token = $request->getParam("token");
+    $ip = $dataHandler->getUserIP();
+
+    $logger = $app->getContainer()->get("logger");
+    $logger->write("report/purchaseHistory caller ip: ".$ip);
+
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->clientPurchaseHistory( $filter, $token, $ip, $langId );
+
+	$json = json_decode($reportResponse);
+	return $dataHandler->response($response, $json);
+
 });
 
 $app->post('/concertInfo', function ($request, $response, $args)  {
@@ -1843,7 +1868,7 @@ $app->post('/bookingList', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
     $json = json_decode($request->getBody());
 
-	$validationErrors = $dataHandler->verifyParams(array('concertId'), $json->filter);
+	$validationErrors = $dataHandler->verifyParams(array('eventId'), $json->filter);
 	if ($validationErrors != null) {
 		return $dataHandler->response($response, $validationErrors, 401);
 	}
@@ -1853,7 +1878,8 @@ $app->post('/bookingList', function ($request, $response, $args)  {
 	}
 
 	$filter = array();
-	$filter['concertId'] = $json->filter->concertId;
+	$filter['eventId'] = $json->filter->eventId;
+    $filter['isShow'] = $json->filter->isShow;
 
 	if (property_exists($json->filter, 'bookingNr')) {
 		$filter['bookingNr'] = $json->filter->bookingNr;
