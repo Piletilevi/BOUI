@@ -482,7 +482,7 @@ $app->get('/powerbiReport', function ($request, $response, $args)  {
     $piletileviApi = $this->piletileviApi;
     $reportResponse = $piletileviApi->powerbiReport( $filter, $token, $ip );
 	
-	if ($reportResponse && !(strpos($reportResponse, 'errors') !== false)) {
+	if ($reportResponse && !(strpos($reportResponse, 'errors') !== 0)) {
 		return $dataHandler->responseAsText($response, $reportResponse);
 	} else {
 		$json = json_decode($reportResponse);
@@ -504,7 +504,7 @@ $app->get('/cardsReport', function ($request, $response, $args)  {
     $piletileviApi = $this->piletileviApi;
     $reportResponse = $piletileviApi->cardsReport( $filter, $token, $ip );
 
-    if ($reportResponse && !(strpos($reportResponse, 'errors') !== false)) {
+    if ($reportResponse && !(strpos($reportResponse, 'errors') !== 0)) {
         return $dataHandler->responseAsText($response, $reportResponse);
     } else {
         $json = json_decode($reportResponse);
@@ -531,7 +531,7 @@ $app->get('/ticket/status', function ($request, $response, $args) use ($app) {
     $piletileviApi = $this->piletileviApi;
     $reportResponse = $piletileviApi->ticketPurchaseStatus( $filter, $token, $ip );
 
-    if ($reportResponse && !(strpos($reportResponse, 'errors') !== false)) {
+    if ($reportResponse && !(strpos($reportResponse, 'errors') !== 0)) {
         return $dataHandler->responseAsText($response, $reportResponse);
     } else {
         $json = json_decode($reportResponse);
