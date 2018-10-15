@@ -553,8 +553,8 @@ $app->get('/report/purchaseHistory', function ($request, $response, $args) use (
     $token = $request->getParam("token");
     $ip = $dataHandler->getUserIP();
 
-    $logger = $app->getContainer()->get("logger");
-    $logger->write("report/purchaseHistory caller ip: ".$ip);
+   // $logger = $app->getContainer()->get("logger");
+   // $logger->write("report/purchaseHistory caller ip: ".$ip);
 
     $piletileviApi = $this->piletileviApi;
     $reportResponse = $piletileviApi->clientPurchaseHistory( $filter, $token, $ip, $langId );
