@@ -559,9 +559,7 @@ $app->get('/report/purchaseHistory', function ($request, $response, $args) use (
     $piletileviApi = $this->piletileviApi;
     $reportResponse = $piletileviApi->clientPurchaseHistory( $filter, $token, $ip, $langId );
 
-	$json = json_decode($reportResponse);
-	return $dataHandler->response($response, $json);
-
+	return $dataHandler->response($response, $reportResponse);
 });
 
 $app->post('/concertInfo', function ($request, $response, $args)  {

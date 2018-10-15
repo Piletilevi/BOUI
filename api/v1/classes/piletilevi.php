@@ -168,7 +168,7 @@ class PiletileviApi {
         $data['ip']= $ip;
         $data['langId']= $langId;
 
-        $reportData = $this->send( "/report/purchaseHistory", $data, true );
+        $reportData = $this->send( "/report/purchaseHistory", $data );
 
         return $reportData;
     }
