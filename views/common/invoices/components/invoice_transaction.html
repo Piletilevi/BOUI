@@ -1,0 +1,60 @@
+<div ng-click="">
+    <div class="clearfix" style="margin-bottom: 5px">
+        <div class="bo-label label-default pull-right">
+            <span>Not generated</span> <!-- transaction count -->
+        </div>
+        <div class="bo-checkbox bo-checkbox-nolabel bo-checkbox-sub">
+            <input type="checkbox" id="transactionCheck{{id}}">
+            <label for="transactionCheck{{id}}"></label>
+        </div>
+    </div>
+    <div class="bo-panel-table">
+        <div class="bo-panel-table-cell-4 bo-info">
+            <div ng-if="false">
+                <span><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;01.01.2001 - 02.01.2001</span> <!-- event daterange -->
+            </div>
+            <div ng-if="true">
+                <span><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;01.01.2001</span> <!-- event start date -->
+                <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;12:00</span> <!-- event start time -->
+            </div>
+            <div ng-if="true">
+                <span><i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;Salespoint Name</span>
+            </div>
+            <div ng-if="true">
+                <span><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Buyer Name</span>
+            </div>
+        </div>
+        <div class="bo-panel-table-cell-4 clearfix">
+            <div ng-if="true">
+                <div class="bo-table bo-table-plain pull-right text-right" style="margin-bottom:0">
+                    <div class="bo-table-body">
+                        <div class="row bo-table-row bo-table-subtitle">
+                            <div class="col-xs-2 bo-table-cell">2</div>
+                            <div class="col-xs-10 bo-table-cell">
+                                25.00
+                                €
+                            </div>
+                        </div>
+                        <div class="row bo-table-row">
+                            <div class="col-xs-2 bo-table-cell">1</div>
+                            <div class="col-xs-10 bo-table-cell">
+                                13.60
+                                €
+                            </div>
+                        </div>
+                        <div class="row bo-table-row" ng-if="id == 1">
+                            <div class="col-xs-2 bo-table-cell">1</div>
+                            <div class="col-xs-10 bo-table-cell">
+                                11.40
+                                €
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bo-button bo-button-sub">
+        <div class="btn btn-primary"><span><i class="fa fa-pencil" aria-hidden="true"></i></span></div>
+    </div>
+</div>

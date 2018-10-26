@@ -144,7 +144,9 @@
             getBookingStatuses: getBookingStatuses,
             getBookingTypes: getBookingTypes,
 			reloadEvent: reloadEvent,
-            goToEvent: goToEvent
+            goToEvent: goToEvent,
+            goToEvents: goToEvents,
+            goToEventTransactions: goToEventTransactions
         };
         return service;
 
@@ -184,6 +186,14 @@
                 }
             };
             $window.location.href = "#/report/" + pointId + "/" + eventType() + "/" + event.id;
+        }
+
+        function goToEvents() {
+            $window.location.href = "#/invoices/";
+        }
+
+        function goToEventTransactions(event) {
+            $window.location.href = "#/invoices/" + event.id + "/transactions";
         }
 
         function getMyEvents(filter) {

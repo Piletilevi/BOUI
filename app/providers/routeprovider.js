@@ -66,6 +66,18 @@
                 controller: 'dashboardController',
                 controllerAs: 'vm'
             })
+            .when('/invoices/', {
+                title: 'Invoices',
+                templateUrl: 'views/common/invoices/invoice_events.html',
+                controller: 'invoiceController',
+                controllerAs: 'vm'
+            })
+            .when('/invoices/:eventId/transactions', {
+                title: 'Invoices',
+                templateUrl: 'views/common/invoices/invoice_transactions.html',
+                controller: 'invoiceController',
+                controllerAs: 'vm'
+            })
             .when('/', {
                 title: 'Login',
                 templateUrl: 'views/login.html',
@@ -85,7 +97,7 @@
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;
             authService.checkUserAuth(next);
-            $rootScope.filterNotNeeded = ($location.path() == '/changepassword');
+            $rootScope.filterNotNeeded = ($location.path() == '/changepassword') || ($location.path().indexOf("invoices") > -1);
         });
 
         $rootScope.$on('$routeChangeSuccess', function(){

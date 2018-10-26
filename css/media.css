@@ -86,6 +86,12 @@
     .navbar-nav .open .dropdown-menu > li > a {
         padding: 2px 8px;
     }
+
+    .bo-sidebar .affix {
+        position: static;
+        float: right;
+        margin-right: 0;
+    }
 }
 
 /* Bootstrap sm
@@ -102,6 +108,11 @@
     .bo-sidebar .bo-panel-table > .bo-panel-table-cell-12 {
         display: table-cell;
         width: 100%;
+    }
+    .bo-sidebar .affix {
+        position: static;
+        float: right;
+        margin-right: 0;
     }
 }
 
