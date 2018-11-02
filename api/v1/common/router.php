@@ -562,6 +562,124 @@ $app->get('/report/purchaseHistory', function ($request, $response, $args) use (
 	return $dataHandler->response($response, $reportResponse);
 });
 
+$app->post('/invoiceEvents', function ($request, $response, $args)  {
+    $dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+    $filter = array();
+	$filter['name'] = $json->filter->name;
+    $filter['promoter'] = $json->filter->promoter;
+    if (property_exists($json->filter, 'period')) {
+        if (property_exists($json->filter->period, 'startDate')) {
+            $filter['startDate'] = $json->filter->period->startDate;
+        }
+        if (property_exists($json->filter->period, 'endDate')) {
+            $filter['endDate'] = $json->filter->period->endDate;
+        }
+    }
+    $piletileviApi = $this->piletileviApi;
+    $dataResponse = $piletileviApi->invoiceAction("/event/invoiceEvents", $filter);
+
+    $r = array();
+    if ($dataResponse && !property_exists($dataResponse, 'errors')) {
+        if ($dataResponse && property_exists($dataResponse, 'data')) {
+            $r['status'] = "success";
+            $r['data'] = $dataResponse->data;
+        } else {
+            $r['status'] = "info";
+            $r['message'] = "Empty result";
+        }
+    } else if ($dataResponse && property_exists($dataResponse, 'errors')){
+        $r['status'] = "error";
+        $r['message'] = $dataHandler->getMessages($dataResponse->errors);
+    }
+    return $dataHandler->response($response, $r);
+});
+
+$app->post('/invoiceTransactions', function ($request, $response, $args)  {
+    $dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+    $filter = array();
+    $filter['concertId'] = $json->filter->concertId;
+    $piletileviApi = $this->piletileviApi;
+    $dataResponse = $piletileviApi->invoiceAction("/event/transactions", $filter);
+
+    $r = array();
+    if ($dataResponse && !property_exists($dataResponse, 'errors')) {
+        $r["status"] = "success";
+        $r["data"] = $dataResponse;
+    } else {
+        $r["status"] = "error";
+        $r["message"] = $dataHandler->getMessages($dataResponse->errors);
+    }
+    return $dataHandler->response($response, $r);
+});
+
+$app->post('/invoiceInfo', function ($request, $response, $args)  {
+    $dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+    $filter = array();
+    $filter['concertId'] = $json->filter->concertId;
+    $filter['transactionId'] = $json->filter->transactionId;
+    $piletileviApi = $this->piletileviApi;
+    $dataResponse = $piletileviApi->invoiceAction("/invoice/info", $filter);
+
+    $r = array();
+    if ($dataResponse && !property_exists($dataResponse, 'errors')) {
+        $r["status"] = "success";
+        $r["data"] = $dataResponse;
+    } else {
+        $r["status"] = "error";
+        $r["message"] = $dataHandler->getMessages($dataResponse->errors);
+    }
+    return $dataHandler->response($response, $r);
+});
+
+$app->post('/invoiceSave', function ($request, $response, $args)  {
+    $dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+    $filter = array();
+    $filter['concertId'] = $json->filter->concertId;
+    $filter['transactionId'] = $json->filter->transactionId;
+    if (property_exists($json->filter, 'buyerName')) {
+        $filter['buyerName'] = $json->filter->buyerName;
+    }
+    if (property_exists($json->filter, 'email')) {
+        $filter['email'] = $json->filter->email;
+    }
+    if (property_exists($json->filter, 'address')) {
+        $filter['address'] = $json->filter->address;
+    }
+    if (property_exists($json->filter, 'vatCode')) {
+        $filter['vatCode'] = $json->filter->vatCode;
+    }
+    if (property_exists($json->filter, 'companyCode')) {
+        $filter['companyCode'] = $json->filter->companyCode;
+    }
+    if (property_exists($json->filter, 'companyCode')) {
+        $filter['companyCode'] = $json->filter->companyCode;
+    }
+    if (property_exists($json->filter, 'additionalInfo')) {
+        $filter['additionalInfo'] = $json->filter->additionalInfo;
+    }
+
+    $piletileviApi = $this->piletileviApi;
+    $dataResponse = $piletileviApi->invoiceAction("/invoice/save", $filter);
+
+    $r = array();
+    if ($dataResponse && !property_exists($dataResponse, 'errors')) {
+        $r["status"] = "success";
+        $r["data"] = $dataResponse;
+    } else {
+        $r["status"] = "error";
+        $r["message"] = $dataHandler->getMessages($dataResponse->errors);
+    }
+    return $dataHandler->response($response, $r);
+});
+
 $app->post('/concertInfo', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
     $json = json_decode($request->getBody());
