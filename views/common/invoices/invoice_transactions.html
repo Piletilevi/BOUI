@@ -1,7 +1,7 @@
 <div class="col-xs-12 col-md-9">
     <div id="boInvoiceTransactionsWrapper"> <!-- if Transactions view -->
         <div id="scrollBlock" infinite-scroll="vm.getMoreTransactions()" infinite-scroll-disabled="vm.currentFilter.loadingItems">
-            <div ng-repeat="transactionItem in vm.myTransactions.transactions">
+            <div ng-repeat="transactionItem in vm.myTransactions">
                 <div class="panel panel-default">
                     <div class="bo-panel">
                         <div class="panel-body bo-panel-invoice" ng-include-template="invoices/components/invoice_transaction.html"

@@ -568,9 +568,15 @@ $app->post('/invoiceEvents', function ($request, $response, $args)  {
 
     $filter = array();
 	$filter['name'] = $json->filter->name;
-    $filter['promoter'] = $json->filter->promoter;
-    $filter['start'] = $json->filter->start;
-    $filter['limit'] = $json->filter->limit;
+    if (property_exists($json->filter, 'promoter')) {
+        $filter['promoter'] = $json->filter->promoter;
+    }
+    if (property_exists($json->filter, 'start')) {
+        $filter['start'] = $json->filter->start;
+    }
+    if (property_exists($json->filter, 'limit')) {
+        $filter['limit'] = $json->filter->limit;
+    }
     if (property_exists($json->filter, 'period')) {
         if (property_exists($json->filter->period, 'startDate')) {
             $filter['startDate'] = $json->filter->period->startDate;
@@ -584,9 +590,9 @@ $app->post('/invoiceEvents', function ($request, $response, $args)  {
 
     $r = array();
     if ($dataResponse && !property_exists($dataResponse, 'errors')) {
-        if ($dataResponse && property_exists($dataResponse, 'data')) {
+        if ($dataResponse && property_exists($dataResponse, 'events')) {
             $r['status'] = "success";
-            $r['data'] = $dataResponse->data;
+            $r['data'] = $dataResponse->events;
         } else {
             $r['status'] = "info";
             $r['message'] = "Empty result";
@@ -604,18 +610,35 @@ $app->post('/invoiceTransactions', function ($request, $response, $args)  {
 
     $filter = array();
     $filter['concertId'] = $json->filter->concertId;
-    $filter['start'] = $json->filter->start;
-    $filter['limit'] = $json->filter->limit;
+    if (property_exists($json->filter, 'start')) {
+        $filter['start'] = $json->filter->start;
+    }
+    if (property_exists($json->filter, 'limit')) {
+        $filter['limit'] = $json->filter->limit;
+    }
+    if (property_exists($json->filter, 'period')) {
+        if (property_exists($json->filter->period, 'startDate')) {
+            $filter['startDate'] = $json->filter->period->startDate;
+        }
+        if (property_exists($json->filter->period, 'endDate')) {
+            $filter['endDate'] = $json->filter->period->endDate;
+        }
+    }
     $piletileviApi = $this->piletileviApi;
     $dataResponse = $piletileviApi->invoiceAction("/event/transactions", $filter);
 
     $r = array();
     if ($dataResponse && !property_exists($dataResponse, 'errors')) {
-        $r["status"] = "success";
-        $r["data"] = $dataResponse;
-    } else {
-        $r["status"] = "error";
-        $r["message"] = $dataHandler->getMessages($dataResponse->errors);
+        if ($dataResponse && property_exists($dataResponse, 'transactions')) {
+            $r['status'] = "success";
+            $r['data'] = $dataResponse->transactions;
+        } else {
+            $r['status'] = "info";
+            $r['message'] = "Empty result";
+        }
+    } else if ($dataResponse && property_exists($dataResponse, 'errors')){
+        $r['status'] = "error";
+        $r['message'] = $dataHandler->getMessages($dataResponse->errors);
     }
     return $dataHandler->response($response, $r);
 });

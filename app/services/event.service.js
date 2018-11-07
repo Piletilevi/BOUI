@@ -171,7 +171,8 @@
             getInvoiceTransactionInfo: getInvoiceTransactionInfo,
             setTransactionInfo: setTransactionInfo,
             getDateFromUnix: getDateFromUnix,
-            getTimeFromUnix: getTimeFromUnix
+            getTimeFromUnix: getTimeFromUnix,
+            setCurrentInvoiceEvent: setCurrentInvoiceEvent
         };
         return service;
 
@@ -227,7 +228,7 @@
         }
 
         function goToEventTransactions(event) {
-            currentInvoiceEvent = event;
+            setCurrentInvoiceEvent(event);
             $window.location.href = "#/invoices/" + event.id + "/transactions";
         }
 
@@ -1003,6 +1004,9 @@
             dataService.post('invoiceEvents', {filter: filter}).then(function (results) {
                 dataService.page(results);
                 myInvoiceEvents = results != undefined && results.status == 'success' ? results.data : [];
+                if (!angular.equals(currentInvoiceEvent, myInvoiceEvents[0])) {
+                    setCurrentInvoiceEvent(myInvoiceEvents[0]);
+                }
                 filter.loadingItems = false;
             });
         }
@@ -1030,6 +1034,9 @@
                 }
             }
         }
+        function setCurrentInvoiceEvent(event) {
+            currentInvoiceEvent = event;
+        }
 
         function getInvoiceTransactions(filter) {
             if (filter.concertId > 0) {
@@ -1038,7 +1045,7 @@
                     dataService.page(results);
                     myInvoiceTransactions = results != undefined && results.status == 'success' ? results.data : [];
                     if (results != undefined && results.status == 'success') {
-                        setTransactionInfo(myInvoiceTransactions.transactions);
+                        setTransactionInfo(myInvoiceTransactions);
                     }
                     filter.loadingItems = false;
                 });
@@ -1059,7 +1066,7 @@
                         dataService.page(results);
                         myInvoiceTransactions = results != undefined && results.status == 'success' ? results.data : [];
                         if (results != undefined && results.status == 'success') {
-                            setTransactionInfo(myInvoiceTransactions.transactions);
+                            setTransactionInfo(myInvoiceTransactions);
                         }
                         filter.loadingItems = false;
                     });
@@ -1097,17 +1104,18 @@
         function getDateFromUnix(unixTime) {
             var date = new Date(unixTime*1000);
             var year = date.getFullYear();
-            var month = "0" + date.getMonth();
+            var month = "0" + (date.getMonth() + 1);
             var day = "0" + date.getDate();
+            console.log(month);
             var formattedDate = day.substr(-2) + "." + month.substr(-2) + "." + year;
             return formattedDate;
         }
 
         function getTimeFromUnix(unixTime) {
             var date = new Date(unixTime*1000);
-            var hours = date.getHours();
+            var hours = "0" + date.getHours();
             var minutes = "0" + date.getMinutes();
-            var formattedTime = hours + ":" + minutes.substr(-2);
+            var formattedTime = hours.substr(-2) + ":" + minutes.substr(-2);
             return formattedTime;
         }
 
