@@ -72,7 +72,7 @@
                 controller: 'invoiceController',
                 controllerAs: 'vm'
             })
-            .when('/invoices/:eventId/transactions', {
+            .when('/invoices/:eventId/:viewName', {
                 title: 'Invoices',
                 templateUrl: 'views/common/invoices/invoice_transactions.html',
                 controller: 'invoiceController',

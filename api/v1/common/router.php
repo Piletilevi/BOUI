@@ -569,6 +569,8 @@ $app->post('/invoiceEvents', function ($request, $response, $args)  {
     $filter = array();
 	$filter['name'] = $json->filter->name;
     $filter['promoter'] = $json->filter->promoter;
+    $filter['start'] = $json->filter->start;
+    $filter['limit'] = $json->filter->limit;
     if (property_exists($json->filter, 'period')) {
         if (property_exists($json->filter->period, 'startDate')) {
             $filter['startDate'] = $json->filter->period->startDate;
@@ -602,6 +604,8 @@ $app->post('/invoiceTransactions', function ($request, $response, $args)  {
 
     $filter = array();
     $filter['concertId'] = $json->filter->concertId;
+    $filter['start'] = $json->filter->start;
+    $filter['limit'] = $json->filter->limit;
     $piletileviApi = $this->piletileviApi;
     $dataResponse = $piletileviApi->invoiceAction("/event/transactions", $filter);
 

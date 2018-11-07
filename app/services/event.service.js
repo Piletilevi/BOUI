@@ -13,6 +13,10 @@
         var myOpenEvents = null;
         var myDraftEvents = null;
         var myPastEvents = null;
+        var myInvoiceEvents = null;
+        var myInvoiceTransactions = null;
+        var currentInvoiceTransaction = null;
+        var currentInvoiceEvent = null;
         var myOpenCount = 0;
         var myDraftCount = 0;
         var myPastCount = 0;
@@ -45,6 +49,18 @@
             },
             myPastEvents: function () {
                 return myPastEvents
+            },
+            myInvoiceEvents: function () {
+                return myInvoiceEvents
+            },
+            myInvoiceTransactions: function () {
+                return myInvoiceTransactions
+            },
+            currentInvoiceTransaction: function () {
+                return currentInvoiceTransaction
+            },
+            currentInvoiceEvent: function () {
+                return currentInvoiceEvent
             },
             myOpenCount: function () {
                 return myOpenCount
@@ -107,9 +123,13 @@
                 return bookingTypes
             },
             reset: reset,
+            resetInvoice: resetInvoice,
             getMyEvents: getMyEvents,
             getMyEventsCount: getMyEventsCount,
+            getInvoiceEvents: getInvoiceEvents,
             getMoreEvents: getMoreEvents,
+            getMoreInvoiceEvents: getMoreInvoiceEvents,
+            getMoreInvoiceTransactions: getMoreInvoiceTransactions,
             getRelatedEvents: getRelatedEvents,
             getMoreRelatedEvents: getMoreRelatedEvents,
             hasMoreRelatedEvents: hasMoreRelatedEvents,
@@ -146,7 +166,12 @@
 			reloadEvent: reloadEvent,
             goToEvent: goToEvent,
             goToEvents: goToEvents,
-            goToEventTransactions: goToEventTransactions
+            goToEventTransactions: goToEventTransactions,
+            getInvoiceTransactions: getInvoiceTransactions,
+            getInvoiceTransactionInfo: getInvoiceTransactionInfo,
+            setTransactionInfo: setTransactionInfo,
+            getDateFromUnix: getDateFromUnix,
+            getTimeFromUnix: getTimeFromUnix
         };
         return service;
 
@@ -176,6 +201,15 @@
             bookingTypes = null;
         }
 
+        function resetInvoice(view) {
+            myInvoiceEvents = null;
+            myInvoiceTransactions = null;
+            currentInvoiceTransaction = null;
+            if (!angular.equals(view, "transactions")) {
+                currentInvoiceEvent = null;
+            }
+        }
+
         function goToEvent(pointId,event) {
             var eventType = function() {
                 if (event.isShow) {
@@ -193,6 +227,7 @@
         }
 
         function goToEventTransactions(event) {
+            currentInvoiceEvent = event;
             $window.location.href = "#/invoices/" + event.id + "/transactions";
         }
 
@@ -961,6 +996,119 @@
                     bookingTypes = results.data;
                 }
             });
+        }
+
+        function getInvoiceEvents(filter) {
+            filter.loadingItems = true;
+            dataService.post('invoiceEvents', {filter: filter}).then(function (results) {
+                dataService.page(results);
+                myInvoiceEvents = results != undefined && results.status == 'success' ? results.data : [];
+                filter.loadingItems = false;
+            });
+        }
+        function getMoreInvoiceEvents(filter) {
+            if (filter == null) {
+                return;
+            }
+            if (filter.loadingItems) {
+                return;
+            }
+            if (myInvoiceEvents != null && myInvoiceEvents.length > 0) {
+                if (myInvoiceEvents.length % 5 == 0 && filter.start != myInvoiceEvents.length + 1) {
+                    filter.loadingItems = true;
+                    filter.start = myInvoiceEvents.length + 1;
+                    dataService.post('invoiceEvents', {filter: filter}).then(function (results) {
+                        if (results.status == 'success') {
+                            results.data.forEach(function (eventItem) {
+                                if (myInvoiceEvents !== null ) {
+                                    myInvoiceEvents.push(eventItem);
+                                }
+                            });
+                        }
+                        filter.loadingItems = false;
+                    });
+                }
+            }
+        }
+
+        function getInvoiceTransactions(filter) {
+            if (filter.concertId > 0) {
+                filter.loadingItems = true;
+                dataService.post('invoiceTransactions', {filter: filter}).then(function (results) {
+                    dataService.page(results);
+                    myInvoiceTransactions = results != undefined && results.status == 'success' ? results.data : [];
+                    if (results != undefined && results.status == 'success') {
+                        setTransactionInfo(myInvoiceTransactions.transactions);
+                    }
+                    filter.loadingItems = false;
+                });
+            }
+        }
+        function getMoreInvoiceTransactions(filter) {
+            if (filter == null) {
+                return;
+            }
+            if (filter.loadingItems) {
+                return;
+            }
+            if (myInvoiceTransactions != null && myInvoiceTransactions.length > 0) {
+                if (myInvoiceTransactions.length % 5 == 0 && filter.start != myInvoiceTransactions.length + 1) {
+                    filter.loadingItems = true;
+                    filter.start = myInvoiceTransactions.length + 1;
+                    dataService.post('invoiceTransactions', {filter: filter}).then(function (results) {
+                        dataService.page(results);
+                        myInvoiceTransactions = results != undefined && results.status == 'success' ? results.data : [];
+                        if (results != undefined && results.status == 'success') {
+                            setTransactionInfo(myInvoiceTransactions.transactions);
+                        }
+                        filter.loadingItems = false;
+                    });
+                }
+            }
+        }
+
+        function getInvoiceTransactionInfo(filter) {
+            if (filter.concertId > 0 && filter.transactionId > 0) {
+                filter.loadingItems = true;
+                dataService.post('invoiceInfo', {filter: filter}).then(function (results) {
+                    dataService.page(results);
+                    currentInvoiceTransaction = results != undefined && results.status == 'success' ? results.data : [];
+                    filter.loadingItems = false;
+                });
+            }
+        }
+
+        function setTransactionInfo(transactionsList) {
+            angular.forEach(transactionsList, function(transactionItem) {
+                transactionItem.dateString = getDateFromUnix(transactionItem.datetime);
+                transactionItem.timeString = getTimeFromUnix(transactionItem.datetime);
+                if (angular.equals(transactionItem.statusName, "generated")) {
+                    transactionItem.labelStyle = "primary";
+                }
+                else if (angular.equals(transactionItem.statusName, "sent")) {
+                    transactionItem.labelStyle = "success";
+                }
+                else {
+                    transactionItem.labelStyle = "default";
+                }
+            });
+        }
+
+        function getDateFromUnix(unixTime) {
+            var date = new Date(unixTime*1000);
+            var year = date.getFullYear();
+            var month = "0" + date.getMonth();
+            var day = "0" + date.getDate();
+            var formattedDate = day.substr(-2) + "." + month.substr(-2) + "." + year;
+            return formattedDate;
+        }
+
+        function getTimeFromUnix(unixTime) {
+            var date = new Date(unixTime*1000);
+            var hours = date.getHours();
+            var minutes = "0" + date.getMinutes();
+            var formattedTime = hours + ":" + minutes.substr(-2);
+            return formattedTime;
         }
 
     }

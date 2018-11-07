@@ -1,52 +1,42 @@
-<div ng-click="">
+<div>
     <div class="clearfix" style="margin-bottom: 5px">
-        <div class="bo-label label-default pull-right">
-            <span>Not generated</span> <!-- transaction count -->
+        <div ng-if="transactionItem.invoiceStatus" class="bo-label label-{{transactionItem.labelStyle}} pull-right">
+            <span>{{transactionItem.statusLabel|translate}}</span>
         </div>
         <div class="bo-checkbox bo-checkbox-nolabel bo-checkbox-sub">
-            <input type="checkbox" id="transactionCheck{{id}}">
-            <label for="transactionCheck{{id}}"></label>
+            <input type="checkbox" id="transactionCheck{{transactionItem.id}}">
+            <label for="transactionCheck{{transactionItem.id}}"></label>
         </div>
     </div>
     <div class="bo-panel-table">
         <div class="bo-panel-table-cell-4 bo-info">
-            <div ng-if="false">
-                <span><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;01.01.2001 - 02.01.2001</span> <!-- event daterange -->
+            <div>
+                <span><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{transactionItem.dateString}}</span>
+                <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{transactionItem.timeString}}</span>
             </div>
-            <div ng-if="true">
-                <span><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;01.01.2001</span> <!-- event start date -->
-                <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;12:00</span> <!-- event start time -->
+            <div ng-if="transactionItem.salespoint">
+                <span><i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;{{transactionItem.salespoint}}</span>
             </div>
-            <div ng-if="true">
-                <span><i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;Salespoint Name</span>
-            </div>
-            <div ng-if="true">
-                <span><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Buyer Name</span>
+            <div ng-if="transactionItem.buyer">
+                <span><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;{{transactionItem.buyer}}</span>
             </div>
         </div>
         <div class="bo-panel-table-cell-4 clearfix">
-            <div ng-if="true">
+            <div ng-if="transactionItem.amount > 0">
                 <div class="bo-table bo-table-plain pull-right text-right" style="margin-bottom:0">
                     <div class="bo-table-body">
-                        <div class="row bo-table-row bo-table-subtitle">
-                            <div class="col-xs-2 bo-table-cell">2</div>
+                        <div class="row bo-table-row bo-table-subtitle"> <!-- totals -->
+                            <div class="col-xs-2 bo-table-cell">{{transactionItem.amount}}</div>
                             <div class="col-xs-10 bo-table-cell">
-                                25.00
-                                €
+                                {{transactionItem.total}}
+                                {{transactionItem.currency}}
                             </div>
                         </div>
-                        <div class="row bo-table-row">
-                            <div class="col-xs-2 bo-table-cell">1</div>
+                        <div class="row bo-table-row" ng-repeat="transactionPrice in transactionItem.prices">
+                            <div class="col-xs-2 bo-table-cell">{{transactionPrice.amount}}</div>
                             <div class="col-xs-10 bo-table-cell">
-                                13.60
-                                €
-                            </div>
-                        </div>
-                        <div class="row bo-table-row" ng-if="id == 1">
-                            <div class="col-xs-2 bo-table-cell">1</div>
-                            <div class="col-xs-10 bo-table-cell">
-                                11.40
-                                €
+                                {{transactionPrice.price}}
+                                {{transactionItem.currency}}
                             </div>
                         </div>
                     </div>
@@ -54,7 +44,7 @@
             </div>
         </div>
     </div>
-    <div class="bo-button bo-button-sub">
+    <div class="bo-button bo-button-sub" ng-click="vm.setCurrentTransaction(transactionItem)">
         <div class="btn btn-primary"><span><i class="fa fa-pencil" aria-hidden="true"></i></span></div>
     </div>
 </div>

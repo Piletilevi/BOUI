@@ -7,123 +7,187 @@
 
     function InvoiceController($scope, $rootScope, $routeParams, $location, eventService, $cookies) {
         var vm = this;
-        vm.view = "";
-        vm.eventsCount = 0;
+        vm.view = {
+            name: $routeParams.viewName ? $routeParams.viewName : 'events',
+            currentEvent: null,
+            currentTransaction: null
+        };
+
         vm.defaultStartDate = moment().subtract(30, 'days');
         vm.defaultEndDate = moment().add(1, 'years');
-
-        vm.filter = {
+        vm.eventsFilter = {
             period: {startDate: vm.defaultStartDate, endDate: vm.defaultEndDate},
             name: '',
+            promoter: '',
             loadingItems: false,
-            groupByShow: false,
+            start: 0,
+            limit: 20
         };
+        setDateUtcOffset(vm.eventsFilter);
+        vm.transactionsFilter = {
+            period: {startDate: vm.defaultStartDate, endDate: vm.defaultEndDate},
+            loadingItems: false,
+            concertId: 0,
+            start: 0,
+            limit: 20
+        };
+        setDateUtcOffset(vm.transactionsFilter);
 
-        var startDateUtcOffset = moment(vm.filter.period.startDate).utcOffset();
-        vm.filter.period.startDate = moment(vm.filter.period.startDate).utc().add(startDateUtcOffset, 'm').startOf('day');
-
-        var endDateUtcOffset = moment(vm.filter.period.endDate).utcOffset();
-        vm.filter.period.endDate = moment(vm.filter.period.endDate).utc().add(endDateUtcOffset, 'm').endOf('day');
-
-        if($cookies.getObject('boInvoicesFilter')) {
-            vm.filter = $cookies.getObject('boInvoicesFilter').filter;
-            vm.reset_search = $cookies.getObject('boInvoicesFilter').resetSearch;
-            vm.filter.period.startDate = moment(vm.filter.period.startDate).utc().startOf('day');
-            vm.filter.period.endDate = moment(vm.filter.period.endDate).utc().startOf('day');
+        if (angular.equals(vm.view.name, "events")) {
+            vm.currentFilter = angular.copy(vm.eventsFilter);
+        }
+        else if (angular.equals(vm.view.name, "transactions")) {
+            vm.currentFilter = angular.copy(vm.transactionsFilter);
         }
 
-        vm.eventsFilter = angular.copy(vm.filter);
+        if($cookies.getObject('boInvoiceEventsFilter')) {
+            vm.eventsFilter = $cookies.getObject('boInvoiceEventsFilter').filter;
+            vm.reset_search = $cookies.getObject('boInvoiceEventsFilter').resetSearch;
+            vm.eventsFilter.period.startDate = moment(vm.eventsFilter.period.startDate).utc().startOf('day');
+            vm.eventsFilter.period.endDate = moment(vm.eventsFilter.period.endDate).utc().startOf('day');
+        }
+        if($cookies.getObject('boInvoiceTransactionsFilter')) {
+            vm.transactionsFilter = $cookies.getObject('boInvoiceTransactionsFilter').filter;
+            vm.reset_search = $cookies.getObject('boInvoiceTransactionsFilter').resetSearch;
+            vm.transactionsFilter.period.startDate = moment(vm.transactionsFilter.period.startDate).utc().startOf('day');
+            vm.transactionsFilter.period.endDate = moment(vm.transactionsFilter.period.endDate).utc().startOf('day');
+        }
 
-        vm.getMoreEvents = function () {
-            eventService.getMoreEvents(vm.filter);
-        };
-        vm.goToEventTransactions = function (event) {
-            eventService.goToEventTransactions(event);
-        };
         vm.goToEvents = function () {
             eventService.goToEvents();
+        };
+        vm.goToEventTransactions = function (event) {
+            vm.view.name = "transactions";
+            eventService.goToEventTransactions(event);
+        };
+        vm.setCurrentTransaction = function (transaction) {
+            vm.view.currentTransaction = transaction;
+        };
+
+        vm.getMoreEvents = function () {
+            eventService.getMoreInvoiceEvents(vm.currentFilter);
+        };
+        vm.getMoreTransactions = function () {
+            eventService.getMoreInvoiceTransactions(vm.currentFilter);
+        };
+
+        vm.getTransactionDate = function (transaction) {
+            transaction.dateString = eventService.getDateFromUnix(transaction.datetime);
+        };
+        vm.getTransactionTime = function (transaction) {
+            transaction.timeString = eventService.getTimeFromUnix(transaction.datetime);
         };
 
         $scope.$watch(
             function () {
-                vm.eventsCount = eventService.myOpenCount();
-                vm.myEvents = eventService.myOpenEvents();
-                $rootScope.hideEvents = false;
+                vm.myEvents = eventService.myInvoiceEvents();
+                vm.myTransactions = eventService.myInvoiceTransactions();
+                vm.view.currentEvent = eventService.currentInvoiceEvent();
+                vm.view.currentTransaction = eventService.currentInvoiceTransaction();
             }
         );
 
         var userListener = $scope.$watch('$root.user', function () {
             if ($rootScope.user) {
                 userListener();
-                if (angular.isUndefined(vm.filter)) {
-                    vm.filter = angular.copy(vm.eventsFilter);
-                    eventService.getMyEvents(vm.filter);
+                if (angular.equals(vm.view.name, "events")) {
+                    if (angular.isUndefined(vm.eventsFilter)) {
+                        vm.eventsFilter = angular.copy(vm.currentFilter);
+                        eventService.getInvoiceEvents(vm.eventsFilter);
+                    }
+                }
+                else if (angular.equals(vm.view.name, "transactions")) {
+                    if (angular.isUndefined(vm.transactionsFilter)) {
+                        vm.transactionsFilter = angular.copy(vm.currentFilter);
+                        eventService.getInvoiceEvents(vm.transactionsFilter);
+                    }
+                }
+            }
+        });
+        $scope.$watch('$root.user.point', function (newValue, oldValue) {
+            if (newValue && oldValue && newValue !== oldValue) {
+                eventService.resetInvoice();
+                if (angular.equals(vm.view.name, "events")) {
+                    eventService.getInvoiceEvents(vm.eventsFilter);
+                }
+                else if (angular.equals(vm.view.name, "transactions")) {
+                    eventService.getInvoiceEvents(vm.transactionsFilter);
                 }
             }
         });
 
         $scope.$watch('$routeParams.eventId', function (newValue, oldValue) {
-            if($routeParams.eventId > 0) {
-                vm.currentEvent = {
-                    id:$routeParams.eventId,
-                    isShow:false
+            if($routeParams.eventId > 0 && (vm.view.currentEvent == null || !angular.equals($routeParams.eventId, vm.view.currentEvent.id))) {
+                vm.view.currentEvent = {
+                    id: $routeParams.eventId,
+                    isShow: false
                 };
-                eventService.getEventInfo(vm.currentEvent);
+                vm.transactionsFilter.concertId = $routeParams.eventId;
+                eventService.getEventInfo(vm.view.currentEvent);
+                eventService.currentInvoiceEvent = vm.view.currentEvent;
+                eventService.getInvoiceTransactions(vm.transactionsFilter);
+                /*
+                 var tempFilter = {
+                 name: 'cid:' + $routeParams.eventId,
+                 loadingItems: false
+                 };
+                 eventService.getInvoiceEvents(tempFilter);
+                 if (eventService.myInvoiceEvents() != null) {
+                 vm.view.currentEvent = eventService.myInvoiceEvents().events[0];
+                 eventService.currentInvoiceEvent = vm.view.currentEvent;
+                 }
+                 */
             }
         });
 
-        $scope.$watch('vm.currentEvent', function (newValue, oldValue) {
-            console.log(vm.currentEvent);
-        });
-
-        $scope.$watch('vm.eventsFilter', function (newEventsFilter, oldEventsFilter) {
-            if (angular.isUndefined(vm.filter) || angular.isUndefined(newEventsFilter)) {
+        $scope.$watch('vm.currentFilter', function (newEventsFilter, oldEventsFilter) {
+            if (angular.isUndefined(vm.currentFilter) || angular.isUndefined(newEventsFilter)) {
                 return;
             }
-            if (!angular.equals(oldEventsFilter.period, vm.filter.period) ||
-                !angular.equals(oldEventsFilter.name, vm.filter.name)) {
-                vm.filter = angular.copy(newEventsFilter);
-                eventService.reset();
-                eventService.getMyEvents(vm.filter);
+            if (angular.equals(vm.view.name, "events")) {
+                if (!angular.equals(oldEventsFilter.period, vm.eventsFilter.period) ||
+                    !angular.equals(oldEventsFilter.name, vm.eventsFilter.name) ||
+                    !angular.equals(oldEventsFilter.promoter, vm.eventsFilter.promoter)) {
+                    vm.eventsFilter = angular.copy(newEventsFilter);
+                    eventService.resetInvoice(vm.view.name);
+                    eventService.getInvoiceEvents(vm.eventsFilter);
+                }
+            }
+            else if (angular.equals(vm.view.name, "transactions")) {
+                if (!angular.equals(oldEventsFilter.period, vm.transactionsFilter.period)) {
+                    vm.transactionsFilter = angular.copy(newEventsFilter);
+                    eventService.resetInvoice(vm.view.name);
+                    eventService.getInvoiceTransactions(vm.transactionsFilter);
+                }
             }
         });
 
-        $scope.$watch('$root.user.point', function (newFilter, oldFilter) {
-            if (newFilter && oldFilter && newFilter !== oldFilter) {
-                eventService.reset();
-                eventService.getMyEvents(vm.filter);
-            }
-        });
-
-        function assignEventsFilter() {
-            $cookies.putObject('boInvoicesFilter', {filter: vm.filter, resetSearch: vm.reset_search});
-            vm.eventsFilter = angular.copy(vm.filter);
-            if ($location.path().indexOf("invoices") == -1) {
-                $location.path('invoices');
-            }
-        }
-
-        $scope.$watch('vm.filter.period', function (newPeriod, oldPeriod) {
+        $scope.$watch('vm.eventsFilter.period', function (newPeriod, oldPeriod) {
             if (!angular.isUndefined(oldPeriod) && !angular.equals(newPeriod, oldPeriod)) {
                 assignEventsFilter();
             }
         });
-
-        $scope.$watch('vm.filter.name', function (newFilter, oldFilter) {
+        $scope.$watch('vm.eventsFilter.name', function (newFilter, oldFilter) {
+            if (newFilter !== oldFilter && vm.reset_search) {
+                vm.reset_search = false;
+            }
+        });
+        $scope.$watch('vm.eventsFilter.promoter', function (newFilter, oldFilter) {
             if (newFilter !== oldFilter && vm.reset_search) {
                 vm.reset_search = false;
             }
         });
 
-        $scope.$watch('vm.filter.status', function (newValue, oldValue) {
-            if( vm.filter.status !== "onsale" ) {
-                vm.filter.status = "onsale";
+        $scope.$watch('vm.transactionsFilter.period', function (newPeriod, oldPeriod) {
+            if (!angular.isUndefined(oldPeriod) && !angular.equals(newPeriod, oldPeriod)) {
+                assignTransactionsFilter();
             }
         });
 
         vm.search = function () {
             if (vm.reset_search) {
-                vm.filter.name = '';
+                vm.eventsFilter.name = '';
+                vm.eventsFilter.promoter = '';
                 vm.reset_search = false;
             }
             else {
@@ -131,5 +195,27 @@
             }
             assignEventsFilter();
         };
+
+        function setDateUtcOffset (filter) {
+            var startDateUtcOffset = moment(filter.period.startDate).utcOffset();
+            filter.period.startDate = moment(filter.period.startDate).utc().add(startDateUtcOffset, 'm').startOf('day');
+            var endDateUtcOffset = moment(filter.period.endDate).utcOffset();
+            filter.period.endDate = moment(filter.period.endDate).utc().add(endDateUtcOffset, 'm').endOf('day');
+        }
+
+        function assignEventsFilter() {
+            $cookies.putObject('boInvoiceEventsFilter', {filter: vm.eventsFilter, resetSearch: vm.reset_search});
+            vm.currentFilter = vm.eventsFilter;
+            if ($location.path().indexOf("invoices") == -1) {
+                $location.path('invoices');
+            }
+        }
+        function assignTransactionsFilter() {
+            $cookies.putObject('boInvoiceTransactionsFilter', {filter: vm.transactionsFilter, resetSearch: vm.reset_search});
+            vm.currentFilter = vm.transactionsFilter;
+            if ($location.path().indexOf("invoices") == -1) {
+                $location.path('invoices');
+            }
+        }
     }
 })();
