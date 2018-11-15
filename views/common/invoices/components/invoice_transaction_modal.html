@@ -1,0 +1,106 @@
+<div class="modal bo-modal" id="transactionModal" role="dialog" style="display:none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" block-ui block-ui-pattern="/invoiceInfo/">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="vm.removeCurrentTransaction()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+                <div class="bo-title">
+                    {{vm.view.currentTransaction.transactionId}}&nbsp;/
+                    {{vm.view.currentEvent.name}}&nbsp;-
+                    {{vm.view.currentTransaction.dateString}}
+                    {{vm.view.currentTransaction.timeString}}
+                </div>
+            </div>
+            <div class="modal-body" ng-if="vm.view.currentTransaction.info">
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="bo-table bo-table-bordered">
+                            <div class="bo-table-body">
+                                <div class="row bo-table-row" ng-if="vm.view.currentTransaction.info.invoiceDate > 0">
+                                    <div class="col-xs-6 bo-table-cell ng-binding">{{'api_invoice_date'|translate}}</div>
+                                    <div class="col-xs-6 bo-table-cell text-right ng-binding">{{vm.view.currentTransaction.info.dateString}}</div>
+                                </div>
+                                <div class="row bo-table-row" ng-if="vm.view.currentTransaction.info.orderNumber > 0">
+                                    <div class="col-xs-6 bo-table-cell ng-binding">{{'api_invoice_referenceNr'|translate}}</div>
+                                    <div class="col-xs-6 bo-table-cell text-right ng-binding">{{vm.view.currentTransaction.info.orderNumber}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group">
+                            <div class="bo-input bo-input-sub" id="invoiceForm-buyer">
+                                <input type="text" class="form-control" placeholder="{{'api_invoice_buyerName'|translate}}"
+                                       ng-model="vm.view.currentTransaction.info.buyerName" name="buyerName">
+                                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="bo-input bo-input-sub" id="invoiceForm-buyerEmail">
+                                <input type="text" class="form-control" placeholder="{{'api_invoice_buyerEmail'|translate}}"
+                                       ng-model="vm.view.currentTransaction.info.email" name="buyerEmail">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="bo-input bo-input-sub" id="invoiceForm-address">
+                                <input type="text" class="form-control" placeholder="{{'api_meta_contact_address'|translate}}"
+                                       ng-model="vm.view.currentTransaction.info.address" name="address">
+                                <i class="fa fa-home" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="bo-input bo-input-sub" id="invoiceForm-companyCode">
+                                <input type="text" class="form-control" placeholder="{{'api_meta_organization_reg'|translate}}"
+                                       ng-model="vm.view.currentTransaction.info.companyCode" name="companyCode">
+                                <i class="fa fa-industry" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="bo-input bo-input-sub" id="invoiceForm-vatCode">
+                                <input type="text" class="form-control" placeholder="{{'api_meta_organization_vat'|translate}}"
+                                       ng-model="vm.view.currentTransaction.info.vatCode" name="vatCode">
+                                <i class="fa fa-percent" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="form-group bo-input bo-input-sub" id="invoiceForm-additionalInfo">
+                            <textarea rows="3" class="bo-textarea form-control" placeholder="{{'api_meta_additionalInfo'|translate}}"
+                                      ng-model="vm.view.currentTransaction.info.additionalInfo" name="additionalInfo"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div ng-if="vm.view.currentTransaction.info.tickets">
+                            <div class="bo-table bo-table-bordered">
+                                <div class="bo-table-body">
+                                    <div class="row bo-table-row bo-table-header">
+                                        <div class="col-xs-7 bo-table-cell">{{'api_tickets'|translate}}</div>
+                                        <div class="col-xs-5 bo-table-cell">{{'api_price'|translate}}</div>
+                                    </div>
+                                    <div class="row bo-table-row" ng-repeat="ticketItem in vm.view.currentTransaction.info.tickets">
+                                        <div class="col-xs-7 bo-table-cell">{{ticketItem.ticketId}}</div>
+                                        <div class="col-xs-5 bo-table-cell">
+                                            {{ticketItem.price}}
+                                            {{vm.view.currentTransaction.currency}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="bo-button bo-button-sub">
+                    <div class="btn btn-success">
+                        <span>{{'api_send'|translate}}</span>
+                    </div>
+                </div>
+                <div class="bo-button bo-button-sub" ng-click="vm.saveTransactionInfo(vm.view.currentTransaction)">
+                    <div class="btn btn-primary">
+                        <span>{{'api_save'|translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

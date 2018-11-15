@@ -165,14 +165,17 @@
             getBookingTypes: getBookingTypes,
 			reloadEvent: reloadEvent,
             goToEvent: goToEvent,
-            goToEvents: goToEvents,
+            goToInvoiceEvents: goToInvoiceEvents,
             goToEventTransactions: goToEventTransactions,
             getInvoiceTransactions: getInvoiceTransactions,
             getInvoiceTransactionInfo: getInvoiceTransactionInfo,
-            setTransactionInfo: setTransactionInfo,
+            setTransactionsInfo: setTransactionsInfo,
+            setTransactionDateTime: setTransactionDateTime,
             getDateFromUnix: getDateFromUnix,
             getTimeFromUnix: getTimeFromUnix,
-            setCurrentInvoiceEvent: setCurrentInvoiceEvent
+            setCurrentInvoiceEvent: setCurrentInvoiceEvent,
+            removeCurrentTransaction: removeCurrentTransaction,
+            saveInvoiceTransactionInfo: saveInvoiceTransactionInfo
         };
         return service;
 
@@ -223,7 +226,8 @@
             $window.location.href = "#/report/" + pointId + "/" + eventType() + "/" + event.id;
         }
 
-        function goToEvents() {
+        function goToInvoiceEvents() {
+            resetInvoice("events");
             $window.location.href = "#/invoices/";
         }
 
@@ -1000,12 +1004,21 @@
         }
 
         function getInvoiceEvents(filter) {
+            if (filter == null) {
+                return;
+            }
+            if (filter.loadingItems) {
+                return;
+            }
             filter.loadingItems = true;
             dataService.post('invoiceEvents', {filter: filter}).then(function (results) {
                 dataService.page(results);
-                myInvoiceEvents = results != undefined && results.status == 'success' ? results.data : [];
-                if (!angular.equals(currentInvoiceEvent, myInvoiceEvents[0])) {
-                    setCurrentInvoiceEvent(myInvoiceEvents[0]);
+                myInvoiceEvents = results != undefined && results.status == 'success' ? results.events : [];
+                if (results != undefined && results.status == 'success') {
+                    setInvoiceEventPromoters(myInvoiceEvents,results.promoters);
+                    if (!angular.equals(currentInvoiceEvent, myInvoiceEvents[0])) {
+                        setCurrentInvoiceEvent(myInvoiceEvents[0]);
+                    }
                 }
                 filter.loadingItems = false;
             });
@@ -1022,8 +1035,9 @@
                     filter.loadingItems = true;
                     filter.start = myInvoiceEvents.length + 1;
                     dataService.post('invoiceEvents', {filter: filter}).then(function (results) {
-                        if (results.status == 'success') {
-                            results.data.forEach(function (eventItem) {
+                        if (results != undefined && results.status == 'success') {
+                            setInvoiceEventPromoters(results.events,results.promoters);
+                            results.events.forEach(function (eventItem) {
                                 if (myInvoiceEvents !== null ) {
                                     myInvoiceEvents.push(eventItem);
                                 }
@@ -1037,20 +1051,38 @@
         function setCurrentInvoiceEvent(event) {
             currentInvoiceEvent = event;
         }
+        function setInvoiceEventPromoters(events,promoters) {
+            events.forEach(function (event) {
+                promoters.forEach(function (promoter) {
+                    if (event.promoterId == promoter.id) {
+                        event.promoter = promoter;
+                    }
+                });
+            });
+        }
 
         function getInvoiceTransactions(filter) {
+            if (filter == null) {
+                return;
+            }
+            if (filter.loadingItems) {
+                return;
+            }
+            filter.start = 0;
+            filter.limit = 10;
             if (filter.concertId > 0) {
                 filter.loadingItems = true;
                 dataService.post('invoiceTransactions', {filter: filter}).then(function (results) {
                     dataService.page(results);
                     myInvoiceTransactions = results != undefined && results.status == 'success' ? results.data : [];
                     if (results != undefined && results.status == 'success') {
-                        setTransactionInfo(myInvoiceTransactions);
+                        setTransactionsInfo(myInvoiceTransactions);
                     }
                     filter.loadingItems = false;
                 });
             }
         }
+
         function getMoreInvoiceTransactions(filter) {
             if (filter == null) {
                 return;
@@ -1058,37 +1090,93 @@
             if (filter.loadingItems) {
                 return;
             }
+            if (filter.noMoreTransactions) {
+                return;
+            }
             if (myInvoiceTransactions != null && myInvoiceTransactions.length > 0) {
-                if (myInvoiceTransactions.length % 5 == 0 && filter.start != myInvoiceTransactions.length + 1) {
-                    filter.loadingItems = true;
-                    filter.start = myInvoiceTransactions.length + 1;
-                    dataService.post('invoiceTransactions', {filter: filter}).then(function (results) {
-                        dataService.page(results);
-                        myInvoiceTransactions = results != undefined && results.status == 'success' ? results.data : [];
-                        if (results != undefined && results.status == 'success') {
-                            setTransactionInfo(myInvoiceTransactions);
-                        }
-                        filter.loadingItems = false;
-                    });
+                filter.loadingItems = true;
+                if (filter.start == 0) {
+                    filter.start = filter.limit + 1;
+                } else {
+                    filter.start = filter.start + filter.limit;
                 }
+                dataService.post('invoiceTransactions', {filter: filter}).then(function (results) {
+                    dataService.page(results);
+                    var moreTransactions = results != undefined && results.status == 'success' ? results.data : [];
+                    if (results != undefined && results.status == 'success') {
+                        filter.noMoreTransactions = false;
+                        combineTransactionInfoArrays(myInvoiceTransactions,moreTransactions);
+                        setTransactionsInfo(myInvoiceTransactions);
+                    }
+                    else filter.noMoreTransactions = true;
+                    filter.loadingItems = false;
+                });
             }
         }
+        function combineTransactionInfoArrays(baseArray,newArray) {
+            var result = baseArray.map(val => {
+                const newValue = newArray.filter(v => v.transactionId === val.transactionId)[0];
+                var index = newArray.indexOf(newValue);
+                if (index > -1) {
+                    newArray.splice(index, 1);
+                }
+                newArray.indexOf(newValue);
+                if (typeof(newValue) != "undefined") {
+                    newValue.amount = newValue.amount + val.amount;
+                    newValue.total = newValue.total + val.total;
+                    const newprices = val.prices.map( priceObj =>{
+                        const price = newValue.prices.filter(p => p.price === priceObj.price)[0];
+                        if (typeof(price) != "undefined"){
+                            price.amount = price.amount +  priceObj.amount;
+                        }
+                        return Object.assign({}, priceObj, price);
+                    });
+                    newValue.prices = newprices;
+                }
+                return Object.assign({}, val, newValue);
+            });
+            result = result.concat(newArray);
+            myInvoiceTransactions = result;
+        }
 
-        function getInvoiceTransactionInfo(filter) {
+        function getInvoiceTransactionInfo(filter,transaction) {
+            if (filter.loadingItems) {
+                return;
+            }
+            currentInvoiceTransaction = transaction;
             if (filter.concertId > 0 && filter.transactionId > 0) {
                 filter.loadingItems = true;
                 dataService.post('invoiceInfo', {filter: filter}).then(function (results) {
                     dataService.page(results);
-                    currentInvoiceTransaction = results != undefined && results.status == 'success' ? results.data : [];
+                    currentInvoiceTransaction.info = results != undefined && results.status == 'success' ? results.data : [];
+                    setTransactionDateTime(currentInvoiceTransaction.info,currentInvoiceTransaction.info.invoiceDate);
                     filter.loadingItems = false;
                 });
             }
         }
 
-        function setTransactionInfo(transactionsList) {
+        function saveInvoiceTransactionInfo(transaction) {
+            if (transaction.loadingItems) {
+                return;
+            }
+            currentInvoiceTransaction = transaction;
+            if (currentInvoiceEvent.id > 0 && currentInvoiceTransaction.transactionId > 0) {
+                transaction.loadingItems = true;
+                dataService.post('invoiceSave', {filter: transaction}).then(function (results) {
+                    dataService.page(results);
+                    currentInvoiceTransaction.info.saveResults = results != undefined ? results.status : [];
+                    transaction.loadingItems = false;
+                });
+            }
+        }
+
+        function removeCurrentTransaction() {
+            currentInvoiceTransaction = null;
+        }
+
+        function setTransactionsInfo(transactionsList) {
             angular.forEach(transactionsList, function(transactionItem) {
-                transactionItem.dateString = getDateFromUnix(transactionItem.datetime);
-                transactionItem.timeString = getTimeFromUnix(transactionItem.datetime);
+                setTransactionDateTime(transactionItem,transactionItem.datetime);
                 if (angular.equals(transactionItem.statusName, "generated")) {
                     transactionItem.labelStyle = "primary";
                 }
@@ -1101,12 +1189,16 @@
             });
         }
 
+        function setTransactionDateTime(transactionItem,unixField) {
+            transactionItem.dateString = getDateFromUnix(unixField);
+            transactionItem.timeString = getTimeFromUnix(unixField);
+        }
+
         function getDateFromUnix(unixTime) {
             var date = new Date(unixTime*1000);
             var year = date.getFullYear();
             var month = "0" + (date.getMonth() + 1);
             var day = "0" + date.getDate();
-            console.log(month);
             var formattedDate = day.substr(-2) + "." + month.substr(-2) + "." + year;
             return formattedDate;
         }

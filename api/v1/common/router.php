@@ -567,7 +567,9 @@ $app->post('/invoiceEvents', function ($request, $response, $args)  {
     $json = json_decode($request->getBody());
 
     $filter = array();
-	$filter['name'] = $json->filter->name;
+    if (property_exists($json->filter, 'name')) {
+        $filter['name'] = $json->filter->name;
+    }
     if (property_exists($json->filter, 'promoter')) {
         $filter['promoter'] = $json->filter->promoter;
     }
@@ -590,9 +592,10 @@ $app->post('/invoiceEvents', function ($request, $response, $args)  {
 
     $r = array();
     if ($dataResponse && !property_exists($dataResponse, 'errors')) {
-        if ($dataResponse && property_exists($dataResponse, 'events')) {
+        if ($dataResponse && property_exists($dataResponse, 'events' ) && property_exists($dataResponse, 'promoters')) {
             $r['status'] = "success";
-            $r['data'] = $dataResponse->events;
+            $r['events'] = $dataResponse->events;
+            $r['promoters'] = $dataResponse->promoters;
         } else {
             $r['status'] = "info";
             $r['message'] = "Empty result";
@@ -655,11 +658,16 @@ $app->post('/invoiceInfo', function ($request, $response, $args)  {
 
     $r = array();
     if ($dataResponse && !property_exists($dataResponse, 'errors')) {
-        $r["status"] = "success";
-        $r["data"] = $dataResponse;
-    } else {
-        $r["status"] = "error";
-        $r["message"] = $dataHandler->getMessages($dataResponse->errors);
+        if ($dataResponse && property_exists($dataResponse, 'transaction')) {
+            $r['status'] = "success";
+            $r['data'] = $dataResponse->transaction;
+        } else {
+            $r['status'] = "info";
+            $r['message'] = "Empty result";
+        }
+    } else if ($dataResponse && property_exists($dataResponse, 'errors')){
+        $r['status'] = "error";
+        $r['message'] = $dataHandler->getMessages($dataResponse->errors);
     }
     return $dataHandler->response($response, $r);
 });

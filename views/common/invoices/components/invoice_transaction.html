@@ -4,8 +4,8 @@
             <span>{{transactionItem.statusLabel|translate}}</span>
         </div>
         <div class="bo-checkbox bo-checkbox-nolabel bo-checkbox-sub">
-            <input type="checkbox" id="transactionCheck{{transactionItem.id}}">
-            <label for="transactionCheck{{transactionItem.id}}"></label>
+            <input type="checkbox" id="transactionCheck{{transactionItem.transactionId}}">
+            <label for="transactionCheck{{transactionItem.transactionId}}"></label>
         </div>
     </div>
     <div class="bo-panel-table">
@@ -23,19 +23,19 @@
         </div>
         <div class="bo-panel-table-cell-4 clearfix">
             <div ng-if="transactionItem.amount > 0">
-                <div class="bo-table bo-table-plain pull-right text-right" style="margin-bottom:0">
+                <div class="bo-table bo-table-plain pull-right text-right" style="margin-bottom:0;min-width:200px">
                     <div class="bo-table-body">
                         <div class="row bo-table-row bo-table-subtitle"> <!-- totals -->
-                            <div class="col-xs-2 bo-table-cell">{{transactionItem.amount}}</div>
-                            <div class="col-xs-10 bo-table-cell">
-                                {{transactionItem.total}}
+                            <div class="col-xs-4 bo-table-cell">{{transactionItem.amount}}</div>
+                            <div class="col-xs-8 bo-table-cell">
+                                {{transactionItem.total|number:2}}
                                 {{transactionItem.currency}}
                             </div>
                         </div>
                         <div class="row bo-table-row" ng-repeat="transactionPrice in transactionItem.prices">
-                            <div class="col-xs-2 bo-table-cell">{{transactionPrice.amount}}</div>
-                            <div class="col-xs-10 bo-table-cell">
-                                {{transactionPrice.price}}
+                            <div class="col-xs-4 bo-table-cell">{{transactionPrice.amount}}</div>
+                            <div class="col-xs-8 bo-table-cell">
+                                {{transactionPrice.price|number:2}}
                                 {{transactionItem.currency}}
                             </div>
                         </div>
@@ -45,6 +45,6 @@
         </div>
     </div>
     <div class="bo-button bo-button-sub" ng-click="vm.setCurrentTransaction(transactionItem)">
-        <div class="btn btn-primary"><span><i class="fa fa-pencil" aria-hidden="true"></i></span></div>
+        <div class="btn btn-primary" data-target="#transactionModal" data-toggle="modal"><span><i class="fa fa-pencil" aria-hidden="true"></i></span></div>
     </div>
 </div>

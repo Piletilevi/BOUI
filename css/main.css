@@ -273,6 +273,15 @@ body {
     margin-bottom: 8px;
 }
 
+.bo-button-overlay {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+}
+
+.bo-button-overlay > .btn {
+    padding: 7px 10px;
+}
+
 /* Forms & Input groups
 ===================== */
 .bo-input {
@@ -382,6 +391,15 @@ body {
     content: "\f00c";
 }
 
+.bo-textarea {
+    display: block;
+    overflow: hidden;
+    white-space: normal!important;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: max-content;
+}
+
 .bo-input.input-group {
     margin-bottom: 15px;
 }
@@ -453,6 +471,11 @@ body {
     margin-left: 5px;
     border-radius: 4px;
     width: calc(100% - 5px);
+}
+.bo-input-sub.input-group .form-control:last-child {
+    margin-left: 0;
+    border-radius: 4px;
+    width: 100%;
 }
 
 .input-group .form-control:first-child,
@@ -1079,6 +1102,45 @@ body {
     max-width: 322.5px;
     margin-right: 30px;
     position: fixed;
+}
+
+/* Block ui
+================================ */
+.block-ui.bo-loader {
+    min-height: 70px;
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.block-ui.bo-loader[aria-busy="false"] {
+    display: none;
+}
+
+.bo-loader .block-ui-message-container {
+    top: 12px;
+}
+.bo-loader .block-ui-message {
+    padding: 8px 20px;
+    border-radius: 4px;
+}
+
+.bo-loader .block-ui-container {
+    border-radius: 6px;
+}
+
+/* Sidenav
+================================ */
+.bo-sidenav {
+    display: block;
+}
+.bo-sidenav-dismiss, .bo-sidenav-open {
+    display: none;
+}
+
+.bo-sidenav-overlay {
+    display: none;
 }
 
 /* Bootstrap elements

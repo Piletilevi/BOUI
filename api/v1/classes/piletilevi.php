@@ -821,6 +821,7 @@ class PiletileviApi {
 	}
 
 	public function reloadApiTranslations() {
+        $data = array();
 		$response = $this->send( "/language/reload", $data );
 		return $response;
 	}

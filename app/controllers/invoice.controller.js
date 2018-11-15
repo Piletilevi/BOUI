@@ -44,15 +44,13 @@
             promoter: '',
             loadingItems: false,
             start: 0,
-            limit: 20
+            limit: 10
         };
         setDateUtcOffset(vm.eventsFilter);
         vm.transactionsFilter = {
             period: {startDate: vm.defaultStartDate, endDate: vm.defaultEndDate},
             loadingItems: false,
-            concertId: 0,
-            start: 0,
-            limit: 20
+            concertId: 0
         };
         setDateUtcOffset(vm.transactionsFilter);
 
@@ -64,7 +62,7 @@
         }
 
         vm.goToEvents = function () {
-            eventService.goToEvents();
+            eventService.goToInvoiceEvents();
         };
         vm.goToEventTransactions = function (event) {
             vm.view.name = "transactions";
@@ -72,13 +70,21 @@
         };
         vm.setCurrentTransaction = function (transaction) {
             vm.view.currentTransaction = transaction;
+            eventService.getInvoiceTransactionInfo({concertId:vm.view.currentEvent.id,transactionId:vm.view.currentTransaction.transactionId},transaction);
+        };
+        vm.removeCurrentTransaction = function () {
+            vm.view.currentTransaction = null;
+            eventService.removeCurrentTransaction();
+        };
+        vm.saveTransactionInfo = function (transaction) {
+            eventService.saveInvoiceTransactionInfo(transaction);
         };
 
         vm.getMoreEvents = function () {
-            eventService.getMoreInvoiceEvents(vm.currentFilter);
+            eventService.getMoreInvoiceEvents(vm.eventsFilter);
         };
         vm.getMoreTransactions = function () {
-            eventService.getMoreInvoiceTransactions(vm.currentFilter);
+            eventService.getMoreInvoiceTransactions(vm.transactionsFilter);
         };
 
         vm.getTransactionDate = function (transaction) {
@@ -89,19 +95,18 @@
         };
 
 
-        var userListener = $scope.$watch('$root.user', function () {
+        $scope.$watch('$root.user', function () {
             if ($rootScope.user) {
-                userListener();
                 if (angular.equals(vm.view.name, "events")) {
-                    if (angular.isUndefined(vm.eventsFilter)) {
-                        vm.eventsFilter = angular.copy(vm.currentFilter);
-                        eventService.getInvoiceEvents(vm.eventsFilter);
+                    if (!angular.isUndefined(vm.eventsFilter)) {
+                        vm.currentFilter = angular.copy(vm.eventsFilter);
+                        eventService.getInvoiceEvents(vm.currentFilter);
                     }
                 }
                 else if (angular.equals(vm.view.name, "transactions")) {
-                    if (angular.isUndefined(vm.transactionsFilter)) {
-                        vm.transactionsFilter = angular.copy(vm.currentFilter);
-                        eventService.getInvoiceEvents(vm.transactionsFilter);
+                    if (!angular.isUndefined(vm.transactionsFilter)) {
+                        vm.currentFilter = angular.copy(vm.transactionsFilter);
+                        eventService.getInvoiceEvents(vm.currentFilter);
                     }
                 }
             }
@@ -113,7 +118,19 @@
                     eventService.getInvoiceEvents(vm.eventsFilter);
                 }
                 else if (angular.equals(vm.view.name, "transactions")) {
-                    eventService.getInvoiceEvents(vm.transactionsFilter);
+                    eventService.getInvoiceTransactions(vm.transactionsFilter);
+                }
+            }
+        });
+
+        $scope.$watch('vm.view.name', function (newValue, oldValue) {
+            if (newValue && oldValue && newValue !== oldValue) {
+                eventService.resetInvoice(vm.view.name);
+                if (angular.equals(vm.view.name, "events")) {
+                    eventService.getInvoiceEvents(vm.eventsFilter);
+                }
+                else if (angular.equals(vm.view.name, "transactions")) {
+                    eventService.getInvoiceTransactions(vm.transactionsFilter);
                 }
             }
         });
@@ -204,5 +221,6 @@
                 $location.path('invoices');
             }
         }
+
     }
 })();
