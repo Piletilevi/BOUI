@@ -68,12 +68,12 @@
                 <div ng-repeat="eventItem in events">
                     <div ng-if="!eventItem.isShow" class="panel panel-default">
                         <div class="bo-panel bo-panel-linked">
-                            <div class="panel-body bo-panel-event" ng-include-template="event_summary.html"
+                            <div class="panel-body bo-panel-event" ng-include-template="common/reports/components/event_summary.html"
                                  ng-include-variables="{event:eventItem, vm:vm, showEditLink:true, withRevenue:hasFullAccess('api_reports_revenue'), user:user, linked:true}"></div>
                         </div>
                     </div>
                     <div ng-if="eventItem.isShow"
-                         ng-include-template="show_panel.html"
+                         ng-include-template="common/reports/components/show_panel.html"
                          ng-include-variables="{show:eventItem, vm:vm, withRevenue:hasFullAccess('api_reports_revenue'), user:user}"></div>
                 </div>
                 <div class="bo-content" ng-if="(events && events.length == 0) && !vm.filter.loadingItems">

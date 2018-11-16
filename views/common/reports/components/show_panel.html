@@ -8,11 +8,11 @@
 				<span>{{show.name}}</span>
 			</a>
 		</div>
-		<div ng-repeat="event in [show]" ng-include-template="event_summary.html" class="panel-body bo-panel-event"
+		<div ng-repeat="event in [show]" ng-include-template="common/reports/components/event_summary.html" class="panel-body bo-panel-event"
 			 ng-include-variables="{event: show, vm: vm, user: user, linked: true, noTitle: true, withRevenue: withRevenue}"></div>
 		<div ng-if="show.concerts" id="bo-sub-events{{show.id}}" class="bo-panel-sub collapse">
 			<div ng-repeat="concert in show.concerts" class="panel-body bo-panel-event">
-				<div ng-include-template="event_summary.html"
+				<div ng-include-template="common/reports/components/event_summary.html"
 					 ng-include-variables="{event: concert, vm: vm, user: user, linked: true, withRevenue: withRevenue}"></div>
 			</div>
 		</div>

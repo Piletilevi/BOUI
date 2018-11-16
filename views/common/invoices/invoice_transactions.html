@@ -11,7 +11,7 @@
             <div ng-repeat="transactionItem in vm.myTransactions">
                 <div class="panel panel-default">
                     <div class="bo-panel">
-                        <div class="panel-body bo-panel-invoice" ng-include-template="invoices/components/invoice_transaction.html"
+                        <div class="panel-body bo-panel-invoice" ng-include-template="common/invoices/components/invoice_transaction.html"
                              ng-include-variables="{transactionItem:transactionItem, vm:vm, user:user}"></div>
                     </div>
                 </div>

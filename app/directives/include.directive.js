@@ -8,7 +8,7 @@
 	
 	function IncludeTemplate() {
 		return {  
-			templateUrl: function(elem, attrs) { return 'views/common/' + attrs.ngIncludeTemplate; },  
+			templateUrl: function(elem, attrs) { return 'views/' + attrs.ngIncludeTemplate; },
 			restrict: 'A',  
 			scope: {  
 				'ngIncludeVariables': '&'

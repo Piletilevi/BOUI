@@ -5,11 +5,11 @@
 				<div class="bo-badge bo-label label-primary" ng-if="related.concertsCount">{{related.concertsCount}}</div>
 				<span>{{related.name}}</span>
 			</div>
-			<div ng-include-template="event_summary.html" class="panel-body bo-panel-event"
+			<div ng-include-template="common/reports/components/event_summary.html" class="panel-body bo-panel-event"
 				 ng-include-variables="{ event: related, vm: vm, user: user, linked: true, noTitle: true, withRevenue: hasFullAccess('api_reports_revenue') }"></div>
 			<div ng-if="related.concerts" class="bo-panel-sub">
 				<div ng-repeat="concertItem in related.concerts" class="panel-body bo-panel-event">
-					<div ng-include-template="event_summary.html"
+					<div ng-include-template="common/reports/components/event_summary.html"
 						 ng-include-variables="{ event: concertItem, vm: vm, user: user, linked: true, withRevenue: hasFullAccess('api_reports_revenue') }"></div>
 				</div>
 			</div>

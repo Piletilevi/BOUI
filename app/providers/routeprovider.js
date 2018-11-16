@@ -14,55 +14,55 @@
         $routeProvider
             .when('/login', {
                 title: 'Login',
-                templateUrl: 'views/login.html',
+                templateUrl: 'views/login/login.html',
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
             .when('/changepassword', {
                 title: 'Login',
-                templateUrl: 'views/change_password.html',
+                templateUrl: 'views/login/change_password.html',
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
             .when('/logout', {
                 title: 'Logout',
-                templateUrl: 'views/login.html',
+                templateUrl: 'views/login/login.html',
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
             .when('/report/:pointId/:type/:id', {
                 title: 'Report',
-                templateUrl: 'views/report.html',
+                templateUrl: 'views/common/reports/report.html',
                 controller: 'reportController',
                 controllerAs: 'vm'
             })
             .when('/report/:pointId/:type/:id/:reportType', {
                 title: 'Report',
-                templateUrl: 'views/report.html',
+                templateUrl: 'views/common/reports/report.html',
                 controller: 'reportController',
                 controllerAs: 'vm'
             })
             .when('/report/:pointId/:type/:id/:reportType/:sectorId', {
                 title: 'Report',
-                templateUrl: 'views/report.html',
+                templateUrl: 'views/common/reports/report.html',
                 controller: 'reportController',
                 controllerAs: 'vm'
             })
             .when('/report/:pointId/:type/:id/:reportType/:sectorId/:reservation', {
                 title: 'Report',
-                templateUrl: 'views/report.html',
+                templateUrl: 'views/common/reports/report.html',
                 controller: 'reportController',
                 controllerAs: 'vm'
             })
             .when('/dashboard/', {
                 title: 'Events',
-                templateUrl: 'views/events.html',
+                templateUrl: 'views/common/reports/events.html',
                 controller: 'dashboardController',
                 controllerAs: 'vm'
             })
             .when('/dashboard/:type', {
                 title: 'Events',
-                templateUrl: 'views/events.html',
+                templateUrl: 'views/common/reports/events.html',
                 controller: 'dashboardController',
                 controllerAs: 'vm'
             })
@@ -80,7 +80,7 @@
             })
             .when('/', {
                 title: 'Login',
-                templateUrl: 'views/login.html',
+                templateUrl: 'views/login/login.html',
                 controller: 'mainController',
                 controllerAs: 'vm',
                 role: '0'
