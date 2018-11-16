@@ -12,7 +12,7 @@
                     {{vm.view.currentTransaction.timeString}}
                 </div>
             </div>
-            <div class="modal-body" ng-if="vm.view.currentTransaction.info">
+            <div class="modal-body" ng-if="vm.view.currentTransaction.info" block-ui block-ui-pattern="/invoiceSave/">
                 <div class="row">
                     <div class="col-md-7">
                         <div class="bo-table bo-table-bordered">
@@ -79,7 +79,7 @@
                                     <div class="row bo-table-row" ng-repeat="ticketItem in vm.view.currentTransaction.info.tickets">
                                         <div class="col-xs-7 bo-table-cell">{{ticketItem.ticketId}}</div>
                                         <div class="col-xs-5 bo-table-cell">
-                                            {{ticketItem.price}}
+                                            {{ticketItem.price|number:2}}
                                             {{vm.view.currentTransaction.currency}}
                                         </div>
                                     </div>

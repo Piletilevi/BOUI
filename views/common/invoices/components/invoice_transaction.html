@@ -17,8 +17,8 @@
             <div ng-if="transactionItem.salespoint">
                 <span><i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;{{transactionItem.salespoint}}</span>
             </div>
-            <div ng-if="transactionItem.buyer">
-                <span><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;{{transactionItem.buyer}}</span>
+            <div ng-if="transactionItem.buyer || (transactionItem.info && transactionItem.info.buyerName)">
+                <span><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;{{transactionItem.info && transactionItem.info.buyerName ? transactionItem.info.buyerName:transactionItem.buyer}}</span>
             </div>
         </div>
         <div class="bo-panel-table-cell-4 clearfix">

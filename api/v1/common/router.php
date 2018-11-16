@@ -679,38 +679,35 @@ $app->post('/invoiceSave', function ($request, $response, $args)  {
     $filter = array();
     $filter['concertId'] = $json->filter->concertId;
     $filter['transactionId'] = $json->filter->transactionId;
-    if (property_exists($json->filter, 'buyerName')) {
-        $filter['buyerName'] = $json->filter->buyerName;
+    if (property_exists($json->filter->info, 'buyerName')) {
+        $filter['buyerName'] = $json->filter->info->buyerName;
     }
-    if (property_exists($json->filter, 'email')) {
-        $filter['email'] = $json->filter->email;
+    if (property_exists($json->filter->info, 'email')) {
+        $filter['email'] = $json->filter->info->email;
     }
-    if (property_exists($json->filter, 'address')) {
-        $filter['address'] = $json->filter->address;
+    if (property_exists($json->filter->info, 'address')) {
+        $filter['address'] = $json->filter->info->address;
     }
-    if (property_exists($json->filter, 'vatCode')) {
-        $filter['vatCode'] = $json->filter->vatCode;
+    if (property_exists($json->filter->info, 'vatCode')) {
+        $filter['vatCode'] = $json->filter->info->vatCode;
     }
-    if (property_exists($json->filter, 'companyCode')) {
-        $filter['companyCode'] = $json->filter->companyCode;
+    if (property_exists($json->filter->info, 'companyCode')) {
+        $filter['companyCode'] = $json->filter->info->companyCode;
     }
-    if (property_exists($json->filter, 'companyCode')) {
-        $filter['companyCode'] = $json->filter->companyCode;
-    }
-    if (property_exists($json->filter, 'additionalInfo')) {
-        $filter['additionalInfo'] = $json->filter->additionalInfo;
+    if (property_exists($json->filter->info, 'additionalInfo')) {
+        $filter['additionalInfo'] = $json->filter->info->additionalInfo;
     }
 
     $piletileviApi = $this->piletileviApi;
     $dataResponse = $piletileviApi->invoiceAction("/invoice/save", $filter);
-
     $r = array();
     if ($dataResponse && !property_exists($dataResponse, 'errors')) {
-        $r["status"] = "success";
-        $r["data"] = $dataResponse;
-    } else {
-        $r["status"] = "error";
-        $r["message"] = $dataHandler->getMessages($dataResponse->errors);
+        if ($dataResponse && property_exists($dataResponse, 'status')) {
+            $r['status'] = $dataResponse->status;
+        }
+    } else if ($dataResponse && property_exists($dataResponse, 'errors')){
+        $r['status'] = "error";
+        $r['message'] = $dataHandler->getMessages($dataResponse->errors);
     }
     return $dataHandler->response($response, $r);
 });

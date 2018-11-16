@@ -11,15 +11,12 @@
 		</div>
 		<div class="bo-additional-nav navbar-right">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="bo-dropdown dropdown" ng-if="authenticated && user.salesPoints[1]" ng-include="'views/common/sales_points.html'"></li>
+				<li class="bo-dropdown dropdown" ng-if="authenticated && user.salesPoints[1]" id="navSalespointMenu" ng-include="'views/common/sales_points.html'"></li>
 				<li ng-if="authenticated && !user.salesPoints[1]">
 					<a class="bo-not-linked"><span class="hidden-sm">{{getPointName()}}</span></a>
 				</li>
-				<li ng-if="authenticated && hasFullAccess('api_header_messages')">
-					<a href><i class="fa fa-envelope" aria-hidden="true"></i></a>
-				</li>
-				<li class="bo-dropdown dropdown" ng-if="authenticated" ng-include="'views/common/user_menu.html'"></li>
-				<li class="bo-dropdown dropdown" ng-include="'views/common/languages.html'"></li>
+				<li class="bo-dropdown dropdown testtest" ng-if="authenticated" id="navUserMenu" ng-include="'views/common/user_menu.html'"></li>
+				<li class="bo-dropdown dropdown" id="navLanguageMenu" ng-include="'views/common/languages.html'"></li>
 			</ul>
 		</div>
 		<div class="collapse navbar-collapse navbar-left" id="navbar-menu">
@@ -42,10 +39,16 @@
 						<span>{{'meny_03'|translate}}</span>
 					</a>
 				</li>
-				<li ng-if="hasFullAccess('api_reports')" class="active">
-					<a href="#/dashboard/" ng-style="{'background-color': pointMenuGamma ? pointMenuGammaAccent:'#ffffff'}">
+				<li ng-if="hasFullAccess('api_reports')" ng-class="{active:(isActiveMenu('dashboard') || isActiveMenu('report'))}">
+					<a href="#/dashboard/" ng-style="{'background-color': (isActiveMenu('dashboard') || isActiveMenu('report')) ? setActiveBackground():''}">
 						<i class="fa fa-bar-chart" aria-hidden="true"></i>
 						<span>{{'meny_05'|translate}}</span>
+					</a>
+				</li>
+				<li ng-if="hasFullAccess('api_reports')" ng-class="{active:isActiveMenu('invoices')}">
+					<a href="#/invoices/" ng-style="{'background-color': isActiveMenu('invoices') ? setActiveBackground():''}">
+						<i class="fa fa-align-justify" aria-hidden="true"></i>
+						<span>{{'meny_31'|translate}}</span>
 					</a>
 				</li>
 			</ul>

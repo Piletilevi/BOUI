@@ -1,93 +1,32 @@
-<div class="col-md-3 bo-sidebar pull-right">
-    <div class="panel panel-default bo-news" ng-repeat="newsItem in vm.news" ng-if="vm.news">
-        <div class="panel-heading" ng-if="$first">
-            <h2 class="hidden-xs">{{'api_news'|translate}}</h2>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-11 col-sm-11 col-md-12">
-                    <h3 class="bo-news-title">{{newsItem.title}}</h3>
-                    <p class="hidden-xs">
-                        {{newsItem.text}}
-                    </p>
-                    <a class="hidden-xs hidden-sm" href="#{{newsItem.id}}">{{'api_more'|translate}}</a>
-                    <div class="bo-news-date">{{newsItem.created}} {{'api_by'|translate}} {{newsItem.createdBy}}</div>
-                    <div class="visible-sm visible-xs bo-news-arrow">
-                        <a href=""><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+<div class="row" ng-controller="mainController as vm" ng-if="authenticated && !filterNotNeeded">
+    <div class="col-xs-12 col-md-9">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" id="bo-top-filter-daterange">
+                <div class="input-group bo-input bo-daterangepicker" data-control="daterangepicker">
+                    <input type="text" class="form-control" daterangepicker-neutral-timezone
+                           ng-model="vm.filter.period"
+                           ng-attr-data-default-start-date="{{vm.defaultStartDate}}"
+                           ng-attr-data-default-end-date="{{vm.defaultEndDate}}"
+                           ng-attr-data-min-date="{{vm.minFilterDate}}"
+                           ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled/>
+                    <div class="bo-button input-group-btn">
+                        <button class="btn btn-default" type="button" ng-style="{'background-color': pointAccentColor }">
+                            <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="bo-top-filter-search">
+                <div class="input-group bo-input">
+                    <input type="text" class="form-control" placeholder="{{'api_search_box_title'|translate}}"
+                           ng-model="vm.filter.name" key-bind="{enter:'vm.search()'}">
+                    <div class="bo-button input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="vm.search()" ng-style="{'background-color': pointAccentColor }">
+                            <span><i class="fa fa-{{vm.reset_search ? 'close' : 'search'}}" aria-hidden="true"></i></span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="col-xs-12 col-md-9">
-    <div class="bo-tab-container">
-        <ul class="nav nav-tabs bo-nav-tabs" role="tablist" id="myeventstab">
-            <li ng-class="{'active': vm.tabActive == 'onsale' }"
-                ng-show="hasFullAccess('api_reports_dashboard_tab_on_sale')">
-                <a href="#/dashboard/onsale" ng-style="vm.tabActive == 'onsale' ? {'background-color':pointAccentColor}:{'background-color':'#fff'}">
-                    <i class="fa fa-ticket"></i>
-                    <span class="tab-name">{{'api_on_sale'|translate}}</span>
-                    <div class="bo-badge bo-label" ng-style="vm.tabActive == 'onsale' ? {'color':pointAccentColor}:{'color':'#fff'}">{{vm.salesCount}}</div>
-                </a>
-            </li>
-            <li ng-class="{'active': vm.tabActive == 'draft'}"
-                ng-show="hasFullAccess('api_reports_dashboard_tab_not_active')">
-                <a href="#/dashboard/draft" ng-style="vm.tabActive == 'draft' ? {'background-color':pointAccentColor}:{'background-color':'#fff'}">
-                    <i class="fa fa-pencil"></i>
-                    <span class="tab-name">{{'api_draft'|translate}}</span>
-                    <div class="bo-badge bo-label" ng-style="vm.tabActive == 'draft' ? {'color':pointAccentColor}:{'color':'#fff'}">{{vm.draftCount}}</div>
-                </a>
-            </li>
-            <li ng-class="{'active': vm.tabActive == 'past'}"
-                ng-show="hasFullAccess('api_reports_dashboard_tab_past')">
-                <a href="#/dashboard/past" ng-style="vm.tabActive == 'past' ? {'background-color':pointAccentColor}:{'background-color':'#fff'}">
-                    <i class="fa fa-history"></i>
-                    <span class="tab-name">{{'api_past'|translate}}</span>
-                    <div class="bo-badge bo-label" ng-style="vm.tabActive == 'past' ? {'color':pointAccentColor}:{'color':'#fff'}">{{vm.pastCount}}</div>
-                </a>
-            </li>
-        </ul>
-        <div id="groupByToggler" class="bo-nav-tabs-addon btn-group bo-switch-group" ng-if="vm.tabActive === 'onsale'">
-            <button type="button" class="btn btn-default bo-switch" ng-class="{'active': vm.filter.groupByShow }"
-                    ng-click="vm.switchGrouping(true)">
-                <i class="fa fa-list-alt" aria-hidden="true"></i>
-                <span class="hidden-xs">{{'api_group_by_show'|translate}}</span>
-            </button>
-            <button type="button" class="btn btn-default bo-switch" ng-class="{'active': !vm.filter.groupByShow }"
-                    ng-click="vm.switchGrouping(false)">
-                <i class="fa fa-list" aria-hidden="true"></i>
-                <span class="hidden-xs">{{'api_group_by_concert'|translate}}</span>
-            </button>
-        </div>
-    </div>
-    <div class="bo-events-wrapper">
-        {{events = vm.events[vm.tabActive]; ""}}
-        <div>
-            <div id="scrollBlock" infinite-scroll="vm.getMoreEvents()" infinite-scroll-disabled="vm.filter.loadingItems">
-                <div ng-repeat="eventItem in events">
-                    <div ng-if="!eventItem.isShow" class="panel panel-default">
-                        <div class="bo-panel bo-panel-linked">
-                            <div class="panel-body bo-panel-event" ng-include-template="event_summary.html"
-                                 ng-include-variables="{event:eventItem, vm:vm, showEditLink:true, withRevenue:hasFullAccess('api_reports_revenue'), user:user, linked:true}"></div>
-                        </div>
-                    </div>
-                    <div ng-if="eventItem.isShow"
-                         ng-include-template="show_panel.html"
-                         ng-include-variables="{show:eventItem, vm:vm, withRevenue:hasFullAccess('api_reports_revenue'), user:user}"></div>
-                </div>
-                <div class="bo-content" ng-if="events && events.length == 0">
-                    <div class="bo-alert alert alert-danger" role="alert">
-                        <span>{{'api_no_events_found'|translate}}</span>
-                    </div>
-                </div>
-                <div class="bo-content" ng-if="!events && hideEventsForPointInit">
-                    <div class="bo-alert alert alert-warning" role="alert">
-                        <span>{{'api_eventsHidden'|translate}}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="events-loader" block-ui block-ui-pattern="/myEvents/"></div>
 </div>

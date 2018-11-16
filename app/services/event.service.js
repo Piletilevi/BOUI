@@ -237,6 +237,12 @@
         }
 
         function getMyEvents(filter) {
+            if (filter == null) {
+                return;
+            }
+            if (filter.loadingItems) {
+                return;
+            }
             if (filter.status == "onsale" && myOpenEvents != null) {
                 return;
             }
@@ -250,13 +256,12 @@
             filter.openStart = null;
             filter.draftStart = null;
             filter.pastStart = null;
-            filter.loadingItems = true;
             getMyEventsCount(filter);
             if ($rootScope.hideEvents) {
                 $rootScope.hideEvents = false;
                 return;
             }
-
+            filter.loadingItems = true;
             dataService.post('myEvents', {filter: filter}).then(function (results) {
                 dataService.page(results);
                 if (filter.status == 'onsale') {
@@ -295,7 +300,6 @@
             if ($rootScope.hideEvents) {
                 return;
             }
-
             if (filter.status == 'onsale' && myOpenEvents != null) {
                 if (myOpenEvents.length % 5 == 0 && filter.openStart != myOpenEvents.length + 1) {
                     filter.loadingItems = true;
@@ -1069,7 +1073,7 @@
                 return;
             }
             filter.start = 0;
-            filter.limit = 10;
+            filter.limit = 20;
             if (filter.concertId > 0) {
                 filter.loadingItems = true;
                 dataService.post('invoiceTransactions', {filter: filter}).then(function (results) {

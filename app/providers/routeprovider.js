@@ -55,14 +55,14 @@
                 controllerAs: 'vm'
             })
             .when('/dashboard/', {
-                title: 'Dashboard',
-                templateUrl: 'views/dashboard.html',
+                title: 'Events',
+                templateUrl: 'views/events.html',
                 controller: 'dashboardController',
                 controllerAs: 'vm'
             })
             .when('/dashboard/:type', {
-                title: 'Dashboard',
-                templateUrl: 'views/dashboard.html',
+                title: 'Events',
+                templateUrl: 'views/events.html',
                 controller: 'dashboardController',
                 controllerAs: 'vm'
             })
