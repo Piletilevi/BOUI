@@ -441,7 +441,9 @@ $app->post('/reloadTranslations', function ($request, $response, $args)  {
 
     $languages = $piletileviApi->languages();
 	if ($languages && !property_exists($languages, 'errors')) {
-		$data = $languages->data;
+		if (!property_exists($languages, 'data')) {
+            $data = $languages->data;
+		}
 		if ($data) {
 			$loaded = array();
 			foreach($data as $languageObj) {
@@ -454,7 +456,6 @@ $app->post('/reloadTranslations', function ($request, $response, $args)  {
 				}
 			}
 			$r['status'] = $loaded;
-			
 			$piletileviApi->reloadApiTranslations();
 		} else {
 	        $r['status'] = "info";
@@ -464,7 +465,6 @@ $app->post('/reloadTranslations', function ($request, $response, $args)  {
         $r['status'] = "error";
         $r['message'] = $dataHandler->getMessages($languages->errors);
     }
-	
     return $dataHandler->response($response, $r);
 });
 

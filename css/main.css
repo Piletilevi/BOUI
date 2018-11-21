@@ -230,6 +230,10 @@ body {
     cursor: default;
 }
 
+.bo-panel-table > div {
+    vertical-align: top;
+}
+
 /* Buttons
 ===================== */
 .bo-button {

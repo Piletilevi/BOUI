@@ -10,7 +10,8 @@
         vm.view = {
             name: $routeParams.viewName ? $routeParams.viewName : 'events',
             currentEvent: null,
-            currentTransaction: null
+            currentTransaction: null,
+            selectedTransactions: []
         };
 
         $scope.$watch(
@@ -94,6 +95,31 @@
             transaction.timeString = eventService.getTimeFromUnix(transaction.datetime);
         };
 
+        vm.addToSelectedTransactions = function(transactionId) {
+            if (!vm.isSelectedTransaction(transactionId)) {
+                vm.view.selectedTransactions.push(transactionId);
+            }
+        };
+        vm.removeFromSelectedTransactions = function(transactionId) {
+            if (vm.isSelectedTransaction(transactionId)) {
+                var idIndex = vm.view.selectedTransactions.findIndex(x => x == transactionId);
+                vm.view.selectedTransactions.splice(idIndex,1);
+            }
+        };
+        vm.isSelectedTransaction = function(transactionId) {
+            if (vm.view.selectedTransactions.length > 0 && vm.view.selectedTransactions.findIndex(x => x == transactionId) >= 0) {
+                return true;
+            }
+            return false;
+        };
+        vm.selectAllTransactions = function () {
+            vm.myTransactions.forEach(function (transactionItem) {
+                vm.addToSelectedTransactions(transactionItem.transactionId);
+            });
+        }
+        vm.deselectAllTransactions = function () {
+            vm.view.selectedTransactions = [];
+        }
 
         $scope.$watch('$root.user', function () {
             if ($rootScope.user) {
@@ -155,6 +181,7 @@
                     !angular.equals(oldEventsFilter.name, vm.eventsFilter.name) ||
                     !angular.equals(oldEventsFilter.promoter, vm.eventsFilter.promoter)) {
                     vm.eventsFilter = angular.copy(newEventsFilter);
+                    vm.view.selectedTransactions = [];
                     eventService.resetInvoice(vm.view.name);
                     eventService.getInvoiceEvents(vm.eventsFilter);
                 }
@@ -162,6 +189,7 @@
             else if (angular.equals(vm.view.name, "transactions")) {
                 if (!angular.equals(oldEventsFilter.period, vm.transactionsFilter.period)) {
                     vm.transactionsFilter = angular.copy(newEventsFilter);
+                    vm.view.selectedTransactions = [];
                     eventService.resetInvoice(vm.view.name);
                     eventService.getInvoiceTransactions(vm.transactionsFilter);
                 }

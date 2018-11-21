@@ -1,11 +1,24 @@
 <div>
     <div class="clearfix" style="margin-bottom: 5px">
+        <div class="btn-group bo-switch-group-sub" role="group">
+            <button type="button" class="btn btn-default bo-switch"
+                    ng-class="{'active':vm.isSelectedTransaction(transactionItem.transactionId)}"
+                    ng-click="vm.addToSelectedTransactions(transactionItem.transactionId)">
+                <i class="fa fa-fw fa-check"></i>
+            </button>
+            <button type="button" class="btn btn-default bo-switch"
+                    ng-class="{'active':!vm.isSelectedTransaction(transactionItem.transactionId)}"
+                    ng-click="vm.removeFromSelectedTransactions(transactionItem.transactionId)">
+                <i class="fa fa-fw fa-times"></i>
+            </button>
+        </div>
+        <div class="bo-button bo-button-sub pull-right" ng-click="vm.setCurrentTransaction(transactionItem)" style="margin-left:4px;">
+            <div class="btn btn-primary" data-target="#transactionModal" data-toggle="modal">
+                <span><i class="fa fa-pencil" aria-hidden="true"></i></span>
+            </div>
+        </div>
         <div ng-if="transactionItem.invoiceStatus" class="bo-label label-{{transactionItem.labelStyle}} pull-right">
             <span>{{transactionItem.statusLabel|translate}}</span>
-        </div>
-        <div class="bo-checkbox bo-checkbox-nolabel bo-checkbox-sub">
-            <input type="checkbox" id="transactionCheck{{transactionItem.transactionId}}">
-            <label for="transactionCheck{{transactionItem.transactionId}}"></label>
         </div>
     </div>
     <div class="bo-panel-table">
@@ -43,8 +56,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="bo-button bo-button-sub" ng-click="vm.setCurrentTransaction(transactionItem)">
-        <div class="btn btn-primary" data-target="#transactionModal" data-toggle="modal"><span><i class="fa fa-pencil" aria-hidden="true"></i></span></div>
     </div>
 </div>

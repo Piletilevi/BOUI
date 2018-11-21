@@ -70,13 +70,17 @@
                             <div class="btn btn-success"><span>{{'api_send'|translate}}<i class="fa fa-mail-forward" aria-hidden="true"></i></span></div>
                         </div>
                         <div class="bo-button bo-button-sub">
-                            <div class="btn btn-primary"><span>{{'api_view_report'|translate}}<i class="fa fa-th-list" aria-hidden="true"></i></span></div>
+                            <div class="btn btn-primary"><span>{{'api_view_report'|translate}}<i class="fa fa-bar-chart" aria-hidden="true"></i></span></div>
                         </div>
                     </div>
                 </div>
                 <div class="bo-content-reverse text-center" ng-if="vm.view.currentEvent.promoter">
                     <div>{{vm.view.currentEvent.promoter.name}}</div>
                     <div>{{vm.view.currentEvent.promoter.company}}</div>
+                </div>
+                <div class="text-right" ng-if="vm.myTransactions.length > 0">
+                    <a href class="bo-link bo-link-sub" ng-click="vm.selectAllTransactions()" style="margin-bottom:4px">Select all visible</a>
+                    <a href class="bo-link bo-link-sub" ng-click="vm.deselectAllTransactions()">Clear selected</a>
                 </div>
             </div>
         </div>

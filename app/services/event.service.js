@@ -796,30 +796,6 @@
             }
         }
 
-        function getWebsiteUrl(event) {
-
-            var urlParts = [],
-                links = $rootScope.eventLinks;
-
-            if (event.isShow) {
-                urlParts.push(links.showUrl);
-            } else {
-                urlParts.push(links.concertUrl);
-            }
-
-            /* TODO translate and replace url path
-             var urlParts = ['http://www.piletilevi.ee'],
-             availableLanguages = ['est', 'rus', 'eng', 'fin'],
-             currentLang = $translate.proposedLanguage().toLowerCase();
-             if(availableLanguages.indexOf(currentLang) == -1) {
-             return false;
-             }*/
-
-            //urlParts.push(currentLang);
-            urlParts.push((event.isShow ? 'show' : 'concert') + '=' + event.id);
-            return urlParts.join('');
-        }
-
         function addToBasketBulk(items, callback) {
             var pending = items.slice();
             var processItems = function() {
@@ -1186,6 +1162,9 @@
                 }
                 else if (angular.equals(transactionItem.statusName, "sent")) {
                     transactionItem.labelStyle = "success";
+                }
+                else if (angular.equals(transactionItem.statusName, "deleted")) {
+                    transactionItem.labelStyle = "danger";
                 }
                 else {
                     transactionItem.labelStyle = "default";
