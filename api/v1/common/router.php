@@ -2386,9 +2386,9 @@ $app->put('/payment/check', function ($request, $response, $args)  {
 	$parameters = $request->getParams();
     $piletileviApi = $this->piletileviApi;
 	
-	echo "aaaaaaaaa".$request->getContentCharset();
+	return $dataHandler->response($response, "aaaaaaaaa".$request->getContentCharset());
 	
-    $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
+    /*$reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		if ($reportResponse->data && $reportResponse->data->type=="redirect" && $reportResponse->data->url) {
@@ -2402,7 +2402,7 @@ $app->put('/payment/check', function ($request, $response, $args)  {
 	    $r["status"] = "error";
         $r["message"] = $dataHandler->getMessages($reportResponse->errors);
 		return $dataHandler->response($response, $r);
-	}
+	}*/
 });
 
 $app->post('/payment/check', function ($request, $response, $args)  {
