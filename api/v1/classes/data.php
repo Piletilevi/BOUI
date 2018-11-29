@@ -112,6 +112,20 @@ class DataHandler {
 		}
 		return $clearedData;
 	}
+
+	/**
+	 * Checking source encoding and convert it to utf-8
+	 */
+	public function fixEncoding($data, $encoding) {
+		if (is_array(data) && isset($encoding) && strtolower($encoding) != "utf-8") {
+			foreach ($data as $key=>$value) {
+				if (isset($value) || strlen(trim($value)) > 0) {
+					$data[$key] = mb_convert_encoding($value, "UTF-8");
+				}
+			}
+		}
+		return $data;
+	}
 	
 	public function getMessages($errors) {
 		if ($errors && is_array($errors)) {

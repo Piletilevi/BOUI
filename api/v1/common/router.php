@@ -2410,8 +2410,10 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 	$ip = $dataHandler->getUserIP();
 	$parameters = $request->getParams();
     $piletileviApi = $this->piletileviApi;
-
-	return $dataHandler->response($response, "charset=".$request->getContentCharset());
+	
+	//"charset=".$request->getContentCharset()
+	
+	return $dataHandler->response($response, $parameters);
 	/*
     $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
 	
