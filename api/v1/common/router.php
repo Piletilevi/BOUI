@@ -2413,7 +2413,8 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 	
 	//"charset=".$request->getContentCharset()
 	
-	return $dataHandler->response($response, $parameters);
+	return $dataHandler->response($response, var_dump($parameters));
+	
 	/*
     $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
 	
