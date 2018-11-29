@@ -2386,7 +2386,7 @@ $app->put('/payment/check', function ($request, $response, $args)  {
 	$parameters = $request->getParams();
     $piletileviApi = $this->piletileviApi;
 	
-	echo "aaaaaaaaa" $request->getContentCharset();
+	echo "aaaaaaaaa".$request->getContentCharset();
 	
     $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
 	
