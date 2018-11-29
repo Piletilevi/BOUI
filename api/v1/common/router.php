@@ -2413,9 +2413,6 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 	
 	$parameters = $dataHandler->fixEncoding($parameters, $request->getContentCharset());
 
-	return $dataHandler->response($response, var_dump($parameters));
-	
-	/*
     $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
@@ -2432,7 +2429,7 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 			$r["message"] = $dataHandler->getMessages($reportResponse->errors);
 		}
 		return $dataHandler->response($response, $r);
-	}*/
+	}
 });
 
 $app->get('/payment/check', function ($request, $response, $args)  {
