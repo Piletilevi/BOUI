@@ -116,15 +116,15 @@ class DataHandler {
 	/**
 	 * Checking source encoding and convert it to utf-8
 	 */
-	public function fixEncoding($data, $encoding) {
-		if (is_array(data) && isset($encoding) && strtolower($encoding) != "utf-8") {
-			foreach ($data as $key=>$value) {
-				if (isset($value) || strlen(trim($value)) > 0) {
-					$data[$key] = mb_convert_encoding($value, "UTF-8");
-				}
+	public function fixEncoding($data) {
+		if (is_array($data)) {
+			foreach ($data as $key => $value) {
+				$data[$key] = $this->fixEncoding($value);
 			}
+		} elseif (is_string($data)) {
+			return mb_convert_encoding($data, "UTF-8", "UTF-8");
 		}
-		return $data;
+		return $data;	
 	}
 	
 	public function getMessages($errors) {
