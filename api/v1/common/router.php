@@ -2385,7 +2385,9 @@ $app->put('/payment/check', function ($request, $response, $args)  {
 	$ip = $dataHandler->getUserIP();
 	$parameters = $request->getParams();
     $piletileviApi = $this->piletileviApi;
-
+	
+	echo $request->getContentCharset();
+	
     $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
