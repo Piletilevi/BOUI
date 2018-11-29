@@ -118,11 +118,10 @@ class DataHandler {
 	 */
 	public function fixEncoding($data, $encoding) {
 		if (isset($encoding) && strtolower($encoding) != "utf-8") {
-			$toEncoding = mb_detect_encoding($data);
-			/*
+			$toEncoding = "";
 			if (strtolower($encoding) == "windows-1257") {
 				$toEncoding = "ISO-8859-13";
-			}*/
+			}
 			if ($toEncoding != "") {
 				if (is_array($data)) {
 					foreach ($data as $key => $value) {
