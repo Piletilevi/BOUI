@@ -118,7 +118,7 @@ class DataHandler {
 	 */
 	public function fixEncoding($data, $encoding) {
 		if (isset($encoding) && strtolower($encoding) != "utf-8") {
-			$toEncoding = "auto";
+			$toEncoding = mb_detect_encoding($data);
 			/*
 			if (strtolower($encoding) == "windows-1257") {
 				$toEncoding = "ISO-8859-13";
