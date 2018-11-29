@@ -133,6 +133,7 @@ class DataHandler {
 				return $data;				
 			}
 		}
+		return $data;				
 	}
 	
 	public function getMessages($errors) {
