@@ -2411,8 +2411,8 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 	$parameters = $request->getParams();
     $piletileviApi = $this->piletileviApi;
 	
-	//"charset=".$request->getContentCharset()
-	
+	$parameters = $dataHandler->fixEncoding($parameters, $request->getContentCharset());
+
 	return $dataHandler->response($response, var_dump($parameters));
 	
 	/*
