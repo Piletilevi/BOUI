@@ -806,6 +806,7 @@ body {
 ===================== */
 .bo-modal .modal-dialog {
     margin: 80px auto;
+    width: 800px;
 }
 
 .bo-modal .modal-content {

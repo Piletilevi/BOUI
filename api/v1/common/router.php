@@ -443,24 +443,27 @@ $app->post('/reloadTranslations', function ($request, $response, $args)  {
 	if ($languages && !property_exists($languages, 'errors')) {
 		if (!property_exists($languages, 'data')) {
             $data = $languages->data;
-		}
-		if ($data) {
-			$loaded = array();
-			foreach($data as $languageObj) {
-				$languageId = $languageObj->code;
-				$translations = $piletileviApi->reloadCacheTranslations($languageId);
-				if(!is_null($translations) && is_object($translations)) {
-					$loaded[$languageId] = "loaded";
-				} else {
-					$loaded[$languageId] = "not loaded";
-				}
+			if ($data) {
+                $loaded = array();
+                foreach($data as $languageObj) {
+                    $languageId = $languageObj->code;
+                    $translations = $piletileviApi->reloadCacheTranslations($languageId);
+                    if(!is_null($translations) && is_object($translations)) {
+                        $loaded[$languageId] = "loaded";
+                    } else {
+                        $loaded[$languageId] = "not loaded";
+                    }
+                }
+                $r['status'] = $loaded;
+                $piletileviApi->reloadApiTranslations();
+            } else {
+				$r['status'] = "info";
+				$r['message'] = "Empty result";
 			}
-			$r['status'] = $loaded;
-			$piletileviApi->reloadApiTranslations();
 		} else {
-	        $r['status'] = "info";
-	        $r['message'] = "Empty result";
-		}
+            $r['status'] = "info";
+            $r['message'] = "Empty result";
+        }
     } else {
         $r['status'] = "error";
         $r['message'] = $dataHandler->getMessages($languages->errors);

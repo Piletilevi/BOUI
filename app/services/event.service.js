@@ -1129,7 +1129,7 @@
                 dataService.post('invoiceInfo', {filter: filter}).then(function (results) {
                     dataService.page(results);
                     currentInvoiceTransaction.info = results != undefined && results.status == 'success' ? results.data : [];
-                    setTransactionDateTime(currentInvoiceTransaction.info,currentInvoiceTransaction.info.invoiceDate);
+                    setTransactionDetails(currentInvoiceTransaction.info);
                     filter.loadingItems = false;
                 });
             }
@@ -1152,6 +1152,27 @@
 
         function removeCurrentTransaction() {
             currentInvoiceTransaction = null;
+        }
+
+        function setTransactionDetails(transactionDetails) {
+            setTransactionDateTime(transactionDetails,transactionDetails.invoiceDate);
+            if (transactionDetails.products) {
+                if (transactionDetails.products.extra) {
+                    transactionDetails.products.extraItems = [];
+                    transactionDetails.products.extra.sort(compareProducts);
+                    mergeProducts(transactionDetails.products.extra,transactionDetails.products.extraItems);
+                }
+                if (transactionDetails.products.delivery) {
+                    transactionDetails.products.deliveryItems = [];
+                    transactionDetails.products.delivery.sort(compareProducts);
+                    mergeProducts(transactionDetails.products.delivery,transactionDetails.products.deliveryItems);
+                }
+                if (transactionDetails.products.fee) {
+                    transactionDetails.products.feeItems = [];
+                    transactionDetails.products.fee.sort(compareProducts);
+                    mergeProducts(transactionDetails.products.fee,transactionDetails.products.feeItems);
+                }
+            }
         }
 
         function setTransactionsInfo(transactionsList) {
@@ -1192,6 +1213,49 @@
             var minutes = "0" + date.getMinutes();
             var formattedTime = hours.substr(-2) + ":" + minutes.substr(-2);
             return formattedTime;
+        }
+
+        function compareProducts(a,b) {
+            if (a.productName < b.productName)
+                return -1;
+            if (a.productName > b.productName)
+                return 1;
+            return 0;
+        }
+        function mergeProducts(inputArray,outputArray) {
+            var current = null;
+            var amount = 0;
+            var price = 0;
+            var newElement = null;
+            for (var i = 0; i < inputArray.length; i++) {
+                if (inputArray[i].productName != current) {
+                    if (amount > 0) {
+                        newElement = {
+                            itemName:inputArray[i].productName,
+                            persistent:inputArray[i].isPersistent,
+                            priceTotal:price,
+                            amount:amount
+                        };
+                        outputArray.push(newElement);
+                    }
+                    current = inputArray[i].productName;
+                    amount = 1;
+                    price = inputArray[i].price;
+                } else {
+                    amount++;
+                    price = price + inputArray[i].price;
+                }
+                // Last element
+                if (i == (inputArray.length - 1)) {
+                    newElement = {
+                        itemName:inputArray[i].productName,
+                        persistent:inputArray[i].isPersistent,
+                        priceTotal:price,
+                        amount:amount
+                    };
+                    outputArray.push(newElement);
+                }
+            }
         }
 
     }

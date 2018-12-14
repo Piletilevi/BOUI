@@ -7,6 +7,7 @@
 
     function InvoiceController($scope, $rootScope, $routeParams, $location, eventService, $cookies) {
         var vm = this;
+        var defaultEventDates = false;
         vm.view = {
             name: $routeParams.viewName ? $routeParams.viewName : 'events',
             currentEvent: null,
@@ -37,6 +38,7 @@
             if (vm.view.currentEvent != null) {
                 vm.defaultStartDate = vm.view.currentEvent.sellPeriod.start;
                 vm.defaultEndDate = vm.view.currentEvent.sellPeriod.end;
+                defaultEventDates = true;
             }
         }
         vm.eventsFilter = {
@@ -57,9 +59,17 @@
 
         if (angular.equals(vm.view.name, "events")) {
             vm.currentFilter = angular.copy(vm.eventsFilter);
+            if($cookies.getObject('boInvoiceEventsFilter')) {
+                vm.currentFilter = $cookies.getObject('boInvoiceEventsFilter').filter;
+                setDateUtcOffset(vm.currentFilter);
+            }
         }
         else if (angular.equals(vm.view.name, "transactions")) {
             vm.currentFilter = angular.copy(vm.transactionsFilter);
+            if($cookies.getObject('boInvoiceTransactionsFilter')) {
+                vm.currentFilter = $cookies.getObject('boInvoiceTransactionsFilter').filter;
+                setDateUtcOffset(vm.currentFilter);
+            }
         }
 
         vm.goToEvents = function () {
@@ -132,7 +142,7 @@
                 else if (angular.equals(vm.view.name, "transactions")) {
                     if (!angular.isUndefined(vm.transactionsFilter)) {
                         vm.currentFilter = angular.copy(vm.transactionsFilter);
-                        eventService.getInvoiceEvents(vm.currentFilter);
+                        eventService.getInvoiceTransactions(vm.currentFilter);
                     }
                 }
             }
@@ -238,12 +248,14 @@
         }
 
         function assignEventsFilter() {
+            $cookies.putObject('boInvoiceEventsFilter', {filter: vm.eventsFilter});
             vm.currentFilter = vm.eventsFilter;
             if ($location.path().indexOf("invoices") == -1) {
                 $location.path('invoices');
             }
         }
         function assignTransactionsFilter() {
+            $cookies.putObject('boInvoiceTransactionsFilter', {filter: vm.transactionsFilter});
             vm.currentFilter = vm.transactionsFilter;
             if ($location.path().indexOf("invoices") == -1) {
                 $location.path('invoices');

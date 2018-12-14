@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body" ng-if="vm.view.currentTransaction.info" block-ui block-ui-pattern="/invoiceSave/">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <div class="bo-table bo-table-bordered">
                             <div class="bo-table-body">
                                 <div class="row bo-table-row" ng-if="vm.view.currentTransaction.info.invoiceDate > 0">
@@ -68,18 +68,72 @@
                                       ng-model="vm.view.currentTransaction.info.additionalInfo" name="additionalInfo"></textarea>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div ng-if="vm.view.currentTransaction.info.tickets">
+                    <div class="col-md-6">
+                        <div ng-if="vm.view.currentTransaction.info.products">
+                            <div class="bo-table bo-table-bordered">
+                                <div class="bo-table-body">
+                                    <div class="row bo-table-row bo-table-header" ng-if="vm.view.currentTransaction.info.products.event">
+                                        <div class="col-xs-9 bo-table-cell">{{'api_tickets'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_price'|translate}}</div>
+                                    </div>
+                                    <div class="row bo-table-row" ng-repeat="ticketItem in vm.view.currentTransaction.info.products.event">
+                                        <div class="col-xs-9 bo-table-cell">{{ticketItem.productName}}</div>
+                                        <div class="col-xs-3 bo-table-cell">
+                                            {{ticketItem.price|number:2}}
+                                            {{vm.view.currentTransaction.currency}}
+                                        </div>
+                                    </div>
+                                    <div class="row bo-table-row bo-table-header" ng-if="vm.view.currentTransaction.info.products.feeItems">
+                                        <div class="col-xs-6 bo-table-cell">{{'api_additionalFees'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_amount'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_price'|translate}}</div>
+                                    </div>
+                                    <div class="row bo-table-row" ng-repeat="feeItem in vm.view.currentTransaction.info.products.feeItems">
+                                        <div class="col-xs-6 bo-table-cell">{{feeItem.itemName}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{feeItem.amount}}</div>
+                                        <div class="col-xs-3 bo-table-cell">
+                                            {{feeItem.priceTotal|number:2}}
+                                            {{vm.view.currentTransaction.currency}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bo-table bo-table-bordered">
+                                <div class="bo-table-body">
+                                    <div class="row bo-table-row bo-table-header" ng-if="vm.view.currentTransaction.info.products.extraItems">
+                                        <div class="col-xs-6 bo-table-cell">{{'api_serviceFees'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_amount'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_price'|translate}}</div>
+                                    </div>
+                                    <div class="row bo-table-row" ng-repeat="extraItem in vm.view.currentTransaction.info.products.extraItems">
+                                        <div class="col-xs-6 bo-table-cell">{{extraItem.itemName}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{extraItem.amount}}</div>
+                                        <div class="col-xs-3 bo-table-cell">
+                                            {{extraItem.priceTotal|number:2}}
+                                            {{vm.view.currentTransaction.currency}}
+                                        </div>
+                                    </div>
+                                    <div class="row bo-table-row bo-table-header" ng-if="vm.view.currentTransaction.info.products.deliveryItems">
+                                        <div class="col-xs-6 bo-table-cell">{{'api_deliveryFees'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_amount'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_price'|translate}}</div>
+                                    </div>
+                                    <div class="row bo-table-row" ng-repeat="deliveryItem in vm.view.currentTransaction.info.products.deliveryItems">
+                                        <div class="col-xs-6 bo-table-cell">{{deliveryItem.itemName}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{deliveryItem.amount}}</div>
+                                        <div class="col-xs-3 bo-table-cell">
+                                            {{deliveryItem.priceTotal|number:2}}
+                                            {{vm.view.currentTransaction.currency}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="bo-table bo-table-bordered">
                                 <div class="bo-table-body">
                                     <div class="row bo-table-row bo-table-header">
-                                        <div class="col-xs-7 bo-table-cell">{{'api_tickets'|translate}}</div>
-                                        <div class="col-xs-5 bo-table-cell">{{'api_price'|translate}}</div>
-                                    </div>
-                                    <div class="row bo-table-row" ng-repeat="ticketItem in vm.view.currentTransaction.info.tickets">
-                                        <div class="col-xs-7 bo-table-cell">{{ticketItem.ticketId}}</div>
-                                        <div class="col-xs-5 bo-table-cell">
-                                            {{ticketItem.price|number:2}}
+                                        <div class="col-xs-9 bo-table-cell">{{'api_total'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">
+                                            {{vm.view.currentTransaction.info.transactionTotal|number:2}}
                                             {{vm.view.currentTransaction.currency}}
                                         </div>
                                     </div>
