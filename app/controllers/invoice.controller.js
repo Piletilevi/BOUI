@@ -90,7 +90,14 @@
         vm.saveTransactionInfo = function (transaction) {
             eventService.saveInvoiceTransactionInfo(transaction);
         };
-
+        vm.deleteInvoiceInfo = function (transaction) {
+            if ( transaction.info.invoiceInfoId > 0 ) {
+                eventService.deleteInvoiceInfo(transaction);
+            }
+        };
+        vm.sendInvoiceEmail = function (transaction) {
+            eventService.sendInvoiceEmail([transaction.invoiceInfoId]);
+        };
         vm.getMoreEvents = function () {
             eventService.getMoreInvoiceEvents(vm.eventsFilter);
         };

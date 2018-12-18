@@ -707,6 +707,63 @@ $app->post('/invoiceSave', function ($request, $response, $args)  {
     if ($dataResponse && !property_exists($dataResponse, 'errors')) {
         if ($dataResponse && property_exists($dataResponse, 'status')) {
             $r['status'] = $dataResponse->status;
+            if ( property_exists($dataResponse, 'invoiceInfoId')){
+                $r['invoiceInfoId'] = $dataResponse->invoiceInfoId;
+                $r['invoiceStatus'] = $dataResponse->invoiceStatus;
+                $r['statusLabel'] = $dataResponse->statusLabel;
+                $r['buyerName'] = $dataResponse->buyerName;
+            }
+        }
+    } else if ($dataResponse && property_exists($dataResponse, 'errors')){
+        $r['status'] = "error";
+        $r['message'] = $dataHandler->getMessages($dataResponse->errors);
+    }
+    return $dataHandler->response($response, $r);
+});
+
+$app->post('/invoiceDelete', function ($request, $response, $args)  {
+    $dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+    $filter = array();
+    $filter['invoiceInfoId'] = $json->filter->invoiceInfoId;
+
+
+    $piletileviApi = $this->piletileviApi;
+    $dataResponse = $piletileviApi->invoiceAction("/invoice/delete", $filter);
+    $r = array();
+    if ($dataResponse && !property_exists($dataResponse, 'errors')) {
+        if ($dataResponse && property_exists($dataResponse, 'status')) {
+            $r['status'] = $dataResponse->status;
+            if ( property_exists($dataResponse, 'invoiceInfoId')){
+                $r['invoiceInfoId'] = $dataResponse->invoiceInfoId;
+                $r['invoiceStatus'] = $dataResponse->invoiceStatus;
+                $r['statusLabel'] = $dataResponse->statusLabel;
+                $r['buyerName'] = $dataResponse->buyerName;
+            }
+        }
+    } else if ($dataResponse && property_exists($dataResponse, 'errors')){
+        $r['status'] = "error";
+        $r['message'] = $dataHandler->getMessages($dataResponse->errors);
+    }
+    return $dataHandler->response($response, $r);
+});
+
+$app->post('/invoiceSend', function ($request, $response, $args)  {
+    $dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+    $filter = array();
+    $filter['invoiceInfoIds'] = $json->filter;
+
+
+    $piletileviApi = $this->piletileviApi;
+    $dataResponse = $piletileviApi->invoiceAction("/invoice/send", $filter);
+    $r = array();
+    if ($dataResponse && !property_exists($dataResponse, 'errors')) {
+        if ($dataResponse && property_exists($dataResponse, 'status')) {
+            $r['status'] = $dataResponse->status;
+
         }
     } else if ($dataResponse && property_exists($dataResponse, 'errors')){
         $r['status'] = "error";

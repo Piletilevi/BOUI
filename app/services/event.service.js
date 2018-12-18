@@ -175,7 +175,9 @@
             getTimeFromUnix: getTimeFromUnix,
             setCurrentInvoiceEvent: setCurrentInvoiceEvent,
             removeCurrentTransaction: removeCurrentTransaction,
-            saveInvoiceTransactionInfo: saveInvoiceTransactionInfo
+            saveInvoiceTransactionInfo: saveInvoiceTransactionInfo,
+            deleteInvoiceInfo: deleteInvoiceInfo,
+            sendInvoiceEmail: sendInvoiceEmail
         };
         return service;
 
@@ -1144,10 +1146,62 @@
                 transaction.loadingItems = true;
                 dataService.post('invoiceSave', {filter: transaction}).then(function (results) {
                     dataService.page(results);
-                    currentInvoiceTransaction.info.saveResults = results != undefined ? results.status : [];
+                    if (results != undefined && results.status == 'success' ){
+                        currentInvoiceTransaction.info.saveResults = results.status ;
+                        updateTransaction(transaction,results);
+                    }
+                    else currentInvoiceTransaction.info.saveResults =  [];
                     transaction.loadingItems = false;
+
                 });
             }
+        }
+
+        function deleteInvoiceInfo(transaction) {
+            if (transaction.loadingItems) {
+                return;
+            }
+            currentInvoiceTransaction = transaction;
+            if (currentInvoiceEvent.id > 0
+                && currentInvoiceTransaction.transactionId > 0
+                && currentInvoiceTransaction.info.invoiceInfoId > 0) {
+                transaction.loadingItems = true;
+                dataService.post('invoiceDelete', {filter: transaction}).then(function (results) {
+                    dataService.page(results);
+                    if (results != undefined && results.status == 'success' ){
+                        currentInvoiceTransaction.info.saveResults = results.status ;
+                        updateTransaction(transaction,results);
+                    }
+                    else currentInvoiceTransaction.info.saveResults =  [];
+                    transaction.loadingItems = false;
+
+                });
+            }
+        }
+
+
+        function sendInvoiceEmail(invoiceInfoIds) {
+              dataService.post('invoiceSend', {filter: invoiceInfoIds}).then(function (results) {
+                    dataService.page(results);
+
+              });
+        }
+
+
+
+
+        function  updateTransaction(transaction,newData) {
+            if(newData != undefined && newData.invoiceInfoId != undefined ) {
+                transaction.invoiceStatus = newData.invoiceStatus;
+                transaction.statusLabel = newData.statusLabel;
+                transaction.invoiceInfoId = newData.invoiceInfoId;
+                transaction.info.invoiceInfoId = newData.invoiceInfoId;
+                transaction.info.invoiceStatus = newData.invoiceStatus;
+                transaction.info.statusLabel = newData.statusLabel;
+                transaction.buyerName = newData.buyerName;
+            }
+
+            setTransactionLabel(transaction);
         }
 
         function removeCurrentTransaction() {
@@ -1178,20 +1232,25 @@
         function setTransactionsInfo(transactionsList) {
             angular.forEach(transactionsList, function(transactionItem) {
                 setTransactionDateTime(transactionItem,transactionItem.datetime);
-                if (angular.equals(transactionItem.statusName, "generated")) {
-                    transactionItem.labelStyle = "primary";
-                }
-                else if (angular.equals(transactionItem.statusName, "sent")) {
-                    transactionItem.labelStyle = "success";
-                }
-                else if (angular.equals(transactionItem.statusName, "deleted")) {
-                    transactionItem.labelStyle = "danger";
-                }
-                else {
-                    transactionItem.labelStyle = "default";
-                }
+                setTransactionLabel(transactionItem);
             });
         }
+
+        function setTransactionLabel(transactionItem){
+            console
+            if (angular.equals(transactionItem.invoiceStatus, "generated")) {
+                transactionItem.labelStyle = "primary";
+            }
+            else if (angular.equals(transactionItem.invoiceStatus, "sent")) {
+                transactionItem.labelStyle = "success";
+            }
+            else if (angular.equals(transactionItem.invoiceStatus, "deleted")) {
+                transactionItem.labelStyle = "danger";
+            }
+            else {
+                transactionItem.labelStyle = "default";
+            }
+        };
 
         function setTransactionDateTime(transactionItem,unixField) {
             transactionItem.dateString = getDateFromUnix(unixField);
