@@ -3,9 +3,9 @@
     angular.module('boApp')
         .controller('invoiceController', InvoiceController);
 
-    InvoiceController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'eventService', '$cookies'];
+    InvoiceController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'eventService', 'dataService', '$cookies'];
 
-    function InvoiceController($scope, $rootScope, $routeParams, $location, eventService, $cookies) {
+    function InvoiceController($scope, $rootScope, $routeParams, $location, eventService, dataService, $cookies) {
         var vm = this;
         var defaultEventDates = false;
         vm.view = {
@@ -111,8 +111,29 @@
 
 
         vm.viewInvoiceReport = function(){
-
+            var boBaseUrl = '';
+            dataService.getBoUrl().then(function(results) {
+                if (results.status === "success") {
+                    boBaseUrl = results.boBaseUrl;
+                    if ($rootScope.authenticated) {
+                        dataService.getIp().then(function(result) {
+                            dataService.post('getYellowSessionKey',{'clientip':result.ip}).then(function (sessionResults) {
+                                if (sessionResults.status === "success") {
+                                    var boReportUrl = boBaseUrl.replace("{sessionkey}", sessionResults.boSession.sessionkey);
+                                    boReportUrl = boReportUrl.replace("{resource}", "a_subinvoices.p");
+                                    boReportUrl = boReportUrl.concat("&concertId=").concat(vm.view.currentEvent.id);
+                                    var win = window.open(boReportUrl, '_blank');
+                                    win.focus();
+                                }
+                            });
+                        }, function(e) {
+                            //alert("error");
+                        });
+                    }
+                }
+            });
         };
+
         vm.getMoreEvents = function () {
             eventService.getMoreInvoiceEvents(vm.eventsFilter);
         };

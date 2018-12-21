@@ -41,6 +41,7 @@
 							dataService.post('getYellowSessionKey',{'clientip':result.ip}).then(function (sessionResults) {
 								if (sessionResults.status === "success") {
 									var bourl = boBasicUrl.replace("{sessionkey}", sessionResults.boSession.sessionkey);
+                                    var bourl = boBasicUrl.replace("{resource}", "menu.p");
 									$window.location.href = bourl;
 								}
 							});
