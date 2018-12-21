@@ -98,6 +98,21 @@
         vm.sendInvoiceEmail = function (transaction) {
             eventService.sendInvoiceEmail([transaction.invoiceInfoId]);
         };
+
+        vm.sendSelectedInvoiceEmails = function () {
+            console.log(vm.view.selectedTransactions);
+            var invoiceIds = vm.view.selectedTransactions.map(val => {
+                const selectedTransaction = vm.myTransactions.filter(v =>(v.transactionId === val && v.invoiceInfoId !==0))[0];
+                if (typeof(selectedTransaction) != "undefined")
+                    return selectedTransaction.invoiceInfoId;
+            }).filter(val=> (typeof(val) != "undefined"));
+            eventService.sendInvoiceEmail(invoiceIds);
+        };
+
+
+        vm.viewInvoiceReport = function(){
+
+        };
         vm.getMoreEvents = function () {
             eventService.getMoreInvoiceEvents(vm.eventsFilter);
         };

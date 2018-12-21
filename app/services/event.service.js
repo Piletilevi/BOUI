@@ -1087,7 +1087,7 @@
                     var moreTransactions = results != undefined && results.status == 'success' ? results.data : [];
                     if (results != undefined && results.status == 'success') {
                         filter.noMoreTransactions = false;
-                        combineTransactionInfoArrays(myInvoiceTransactions,moreTransactions);
+                        myInvoiceTransactions = combineTransactionInfoArrays(myInvoiceTransactions,moreTransactions);
                         setTransactionsInfo(myInvoiceTransactions);
                     }
                     else filter.noMoreTransactions = true;
@@ -1102,7 +1102,6 @@
                 if (index > -1) {
                     newArray.splice(index, 1);
                 }
-                newArray.indexOf(newValue);
                 if (typeof(newValue) != "undefined") {
                     newValue.amount = newValue.amount + val.amount;
                     newValue.total = newValue.total + val.total;
@@ -1118,7 +1117,7 @@
                 return Object.assign({}, val, newValue);
             });
             result = result.concat(newArray);
-            myInvoiceTransactions = result;
+            return result;
         }
 
         function getInvoiceTransactionInfo(filter,transaction) {
