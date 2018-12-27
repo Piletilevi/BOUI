@@ -84,6 +84,12 @@
                 </div>
             </div>
         </div>
+        <div class="bo-content" ng-if="vm.view.invoicesSentAlert.sent">
+            <div class="bo-alert alert alert-success" role="alert"
+                 ng-class="{'alert-success':vm.view.invoicesSentAlert.message == 'success','alert-danger':vm.view.invoicesSentAlert.message != 'success'}">
+                <span>{{vm.view.invoicesSentAlert.message == 'success' ? 'api_invoice_sendSuccess':'api_invoice_sendFail'|translate}}</span>
+            </div>
+        </div>
     </div>
 </div>
 <div class="bo-sidenav-overlay"></div>

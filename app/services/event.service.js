@@ -20,6 +20,10 @@
         var myOpenCount = 0;
         var myDraftCount = 0;
         var myPastCount = 0;
+        var invoicesSent = {
+            sent: false,
+            message: ""
+        };
 
         var myOverviewData = null;
         var myOverviewGraphData = null;
@@ -70,6 +74,9 @@
             },
             myPastCount: function () {
                 return myPastCount
+            },
+            invoicesSent: function () {
+                return invoicesSent
             },
             myOverviewData: function () {
                 return myOverviewData
@@ -211,6 +218,8 @@
             myInvoiceEvents = null;
             myInvoiceTransactions = null;
             currentInvoiceTransaction = null;
+            invoicesSent.sent = false;
+            invoicesSent.message = "";
             if (!angular.equals(view, "transactions")) {
                 currentInvoiceEvent = null;
             }
@@ -1178,18 +1187,18 @@
             }
         }
 
-
         function sendInvoiceEmail(invoiceInfoIds) {
-              dataService.post('invoiceSend', {filter: invoiceInfoIds}).then(function (results) {
-                    dataService.page(results);
-
-              });
+            dataService.post('invoiceSend', {filter: invoiceInfoIds}).then(function (results) {
+                dataService.page(results);
+                invoicesSent.sent = true;
+                invoicesSent.message = "";
+                if (results != undefined && results.status != null && results.status != undefined ){
+                    invoicesSent.message = results.status;
+                }
+            });
         }
 
-
-
-
-        function  updateTransaction(transaction,newData) {
+        function updateTransaction(transaction,newData) {
             if(newData != undefined && newData.invoiceInfoId != undefined ) {
                 transaction.invoiceStatus = newData.invoiceStatus;
                 transaction.statusLabel = newData.statusLabel;
@@ -1199,7 +1208,6 @@
                 transaction.info.statusLabel = newData.statusLabel;
                 transaction.buyerName = newData.buyerName;
             }
-
             setTransactionLabel(transaction);
         }
 
