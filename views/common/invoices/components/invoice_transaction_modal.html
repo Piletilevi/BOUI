@@ -15,6 +15,18 @@
             <div class="modal-body" ng-if="vm.view.currentTransaction.info" block-ui block-ui-pattern="/invoiceSave/">
                 <div class="row">
                     <div class="col-md-6">
+                        <div class="bo-alert alert" role="alert"
+                             ng-if="vm.view.currentTransaction.saveAlert"
+                             ng-class="{'alert-success':vm.view.currentTransaction.saveMessage == 'success','alert-danger':vm.view.currentTransaction.saveMessage != 'success'}">
+                            <span>{{vm.view.currentTransaction.saveMessage == 'success' ? 'api_saveSuccess':'api_saveFail'|translate}}</span>
+                        </div>
+                        <br ng-if="vm.view.currentTransaction.saveAlert">
+                        <div class="bo-alert alert" role="alert"
+                             ng-if="vm.view.currentTransaction.deleteAlert"
+                             ng-class="{'alert-success':vm.view.currentTransaction.deleteMessage == 'success','alert-danger':vm.view.currentTransaction.deleteMessage != 'success'}">
+                            <span>{{vm.view.currentTransaction.deleteMessage == 'success' ? 'api_deleteSuccess':'api_deleteFail'|translate}}</span>
+                        </div>
+                        <br ng-if="vm.view.currentTransaction.deleteAlert">
                         <div class="bo-table bo-table-bordered">
                             <div class="bo-table-body">
                                 <div class="row bo-table-row" ng-if="vm.view.currentTransaction.info.invoiceDate > 0">
@@ -149,7 +161,7 @@
                         <span>{{'api_delete'|translate}}</span>
                     </div>
                 </div>
-                <div class="bo-button bo-button-sub">
+                <div class="bo-button bo-button-sub" ng-if="vm.view.currentTransaction.invoiceStatus != 'deleted'">
                     <div class="btn btn-success" ng-if="vm.view.currentTransaction.info.invoiceInfoId" ng-click="vm.sendInvoiceEmail(vm.view.currentTransaction)" >
                         <span>{{'api_send'|translate}}</span>
                     </div>

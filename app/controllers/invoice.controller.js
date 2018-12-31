@@ -83,6 +83,8 @@
         };
         vm.setCurrentTransaction = function (transaction) {
             vm.view.currentTransaction = transaction;
+            vm.view.currentTransaction.saveAlert = false;
+            vm.view.currentTransaction.deleteAlert = false;
             eventService.getInvoiceTransactionInfo({concertId:vm.view.currentEvent.id,transactionId:vm.view.currentTransaction.transactionId},transaction);
         };
         vm.removeCurrentTransaction = function () {

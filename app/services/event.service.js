@@ -1154,13 +1154,16 @@
                 transaction.loadingItems = true;
                 dataService.post('invoiceSave', {filter: transaction}).then(function (results) {
                     dataService.page(results);
+                    transaction.deleteAlert = false;
+                    transaction.saveAlert = true;
+                    transaction.saveMessage = "";
                     if (results != undefined && results.status == 'success' ){
-                        currentInvoiceTransaction.info.saveResults = results.status ;
+                        currentInvoiceTransaction.info.saveResults = results.status;
+                        transaction.saveMessage = results.status;
                         updateTransaction(transaction,results);
                     }
-                    else currentInvoiceTransaction.info.saveResults =  [];
+                    else currentInvoiceTransaction.info.saveResults = [];
                     transaction.loadingItems = false;
-
                 });
             }
         }
@@ -1176,8 +1179,12 @@
                 transaction.loadingItems = true;
                 dataService.post('invoiceDelete', {filter: transaction}).then(function (results) {
                     dataService.page(results);
+                    transaction.saveAlert = false;
+                    transaction.deleteAlert = true;
+                    transaction.deleteMessage = "";
                     if (results != undefined && results.status == 'success' ){
-                        currentInvoiceTransaction.info.saveResults = results.status ;
+                        currentInvoiceTransaction.info.saveResults = results.status;
+                        transaction.deleteMessage = results.status;
                         updateTransaction(transaction,results);
                     }
                     else currentInvoiceTransaction.info.saveResults =  [];
@@ -1244,7 +1251,6 @@
         }
 
         function setTransactionLabel(transactionItem){
-            console
             if (angular.equals(transactionItem.invoiceStatus, "generated")) {
                 transactionItem.labelStyle = "primary";
             }
