@@ -173,6 +173,12 @@ class PiletileviApi {
         return $reportData;
     }
 
+    public function centreEvents($filter) {
+        $data['filter'] = $filter;
+        $reportData = $this->send( "/info/centreEvents", $data );
+        return $reportData;
+    }
+
     public function invoiceAction($action, $filter) {
         $data['filter']= $filter;
         $reportData = $this->send( $action, $data );

@@ -565,6 +565,20 @@ $app->get('/report/purchaseHistory', function ($request, $response, $args) use (
 	return $dataHandler->response($response, $reportResponse);
 });
 
+$app->get('/info/centreEvents', function ($request, $response, $args) use ($app) {
+    $dataHandler = $this->dataHandler;
+    $filter = array();
+    $filter['centre'] = $request->getParam("centre");
+    $timestamp = $request->getParam("timestamp");
+    if($timestamp != null) {
+        $filter['timestamp'] = $timestamp;
+    }
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->centreEvents( $filter );
+
+    return $dataHandler->response($response, $reportResponse);
+});
+
 $app->post('/invoiceEvents', function ($request, $response, $args)  {
     $dataHandler = $this->dataHandler;
     $json = json_decode($request->getBody());
