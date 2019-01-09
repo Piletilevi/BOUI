@@ -102,6 +102,20 @@
         vm.sendInvoiceEmail = function (transaction) {
             eventService.sendInvoiceEmail([transaction.invoiceInfoId]);
         };
+        vm.invoiceDownload = function (transaction) {
+            dataService.getApiUrl().then(function(results) {
+                if (results.status === "success") {
+                    eventService.downloadInvoice(transaction.invoiceInfoId, results.apiBaseUrl);
+                }
+            });
+        };
+        vm.invoiceOpen = function (transaction) {
+            dataService.getApiUrl().then(function(results) {
+                if (results.status === "success") {
+                    eventService.openInvoice(transaction.invoiceInfoId, results.apiBaseUrl);
+                }
+            });
+        };
 
         vm.sendSelectedInvoiceEmails = function () {
             var invoiceIds = vm.view.selectedTransactions.map(val => {

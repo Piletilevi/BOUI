@@ -156,19 +156,35 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="bo-button bo-button-sub">
-                    <div class="btn btn-danger"  ng-if="vm.view.currentTransaction.info.invoiceInfoId" ng-click="vm.deleteInvoiceInfo(vm.view.currentTransaction)">
-                        <span>{{'api_delete'|translate}}</span>
+                <div class="row">
+                    <div class="col-md-6 text-left" ng-if="vm.view.currentTransaction.info.invoiceInfoId && vm.view.currentTransaction.invoiceStatus != 'deleted'">
+                        <div class="bo-button bo-button-sub" ng-click="vm.invoiceDownload(vm.view.currentTransaction)">
+                            <div class="btn btn-warning">
+                                <span>{{'api_invoice_download'|translate}}<i class="fa fa-download" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                        <div class="bo-button bo-button-sub" ng-click="vm.invoiceOpen(vm.view.currentTransaction)">
+                            <div class="btn btn-info">
+                                <span>{{'api_invoice_open'|translate}}<i class="fa fa-external-link" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="bo-button bo-button-sub" ng-if="vm.view.currentTransaction.invoiceStatus != 'deleted'">
-                    <div class="btn btn-success" ng-if="vm.view.currentTransaction.info.invoiceInfoId" ng-click="vm.sendInvoiceEmail(vm.view.currentTransaction)" >
-                        <span>{{'api_send'|translate}}</span>
-                    </div>
-                </div>
-                <div class="bo-button bo-button-sub" ng-click="vm.saveTransactionInfo(vm.view.currentTransaction)">
-                    <div class="btn btn-primary">
-                        <span>{{'api_save'|translate}}</span>
+                    <div ng-class="vm.view.currentTransaction.info.invoiceInfoId && vm.view.currentTransaction.invoiceStatus != 'deleted' ? 'col-md-6':'col-md-12'">
+                        <div class="bo-button bo-button-sub">
+                            <div class="btn btn-danger"  ng-if="vm.view.currentTransaction.info.invoiceInfoId" ng-click="vm.deleteInvoiceInfo(vm.view.currentTransaction)">
+                                <span>{{'api_delete'|translate}}<i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                        <div class="bo-button bo-button-sub" ng-if="vm.view.currentTransaction.invoiceStatus != 'deleted'">
+                            <div class="btn btn-success" ng-if="vm.view.currentTransaction.info.invoiceInfoId" ng-click="vm.sendInvoiceEmail(vm.view.currentTransaction)" >
+                                <span>{{'api_send'|translate}}<i class="fa fa-share" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                        <div class="bo-button bo-button-sub" ng-click="vm.saveTransactionInfo(vm.view.currentTransaction)">
+                            <div class="btn btn-primary">
+                                <span>{{'api_save'|translate}}<i class="fa fa-floppy-o" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -184,7 +184,9 @@
             removeCurrentTransaction: removeCurrentTransaction,
             saveInvoiceTransactionInfo: saveInvoiceTransactionInfo,
             deleteInvoiceInfo: deleteInvoiceInfo,
-            sendInvoiceEmail: sendInvoiceEmail
+            sendInvoiceEmail: sendInvoiceEmail,
+            downloadInvoice: downloadInvoice,
+            openInvoice: openInvoice
         };
         return service;
 
@@ -1203,6 +1205,14 @@
                     invoicesSent.message = results.status;
                 }
             });
+        }
+
+        function openInvoice(invoiceInfoId, url) {
+            $window.open(url + '/invoiceOpen?invoiceInfoId=' + invoiceInfoId);
+        }
+
+        function downloadInvoice(invoiceInfoId, url) {
+            $window.open(url + '/invoiceDownload?invoiceInfoId=' + invoiceInfoId);
         }
 
         function updateTransaction(transaction,newData) {

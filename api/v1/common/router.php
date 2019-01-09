@@ -47,6 +47,21 @@ $app->get('/boUrl', function ($request, $response, $args) {
 	return $dataHandler->response($response, $r);
 });
 
+$app->get('/apiUrl', function ($request, $response, $args) {
+    $piletileviApi = $this->piletileviApi;
+    $urlReq = $piletileviApi->apiUrl();
+    if ($urlReq){
+        $r['status'] = "success";
+        $r['message'] = "API URL retrieved";
+        $r['apiBaseUrl'] = $urlReq;
+    } else {
+        $r['status'] = "error";
+        $r['message'] = "No API url defined";
+    }
+    $dataHandler = $this->dataHandler;
+    return $dataHandler->response($response, $r);
+});
+
 $app->post('/getYellowSessionKey', function ($request, $response, $args) {
     $json = json_decode($request->getBody());
 	$dataHandler = $this->dataHandler;
@@ -756,7 +771,6 @@ $app->post('/invoiceSend', function ($request, $response, $args)  {
     $filter = array();
     $filter['invoiceInfoIds'] = $json->filter;
 
-
     $piletileviApi = $this->piletileviApi;
     $dataResponse = $piletileviApi->invoiceAction("/invoice/send", $filter);
     $r = array();
@@ -770,6 +784,53 @@ $app->post('/invoiceSend', function ($request, $response, $args)  {
         $r['message'] = $dataHandler->getMessages($dataResponse->errors);
     }
     return $dataHandler->response($response, $r);
+});
+
+$app->post('/invoiceDownload', function ($request, $response, $args)  {
+    $dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+    $filter = array();
+    $filter['invoiceInfoId'] = $json->filter;
+
+    $piletileviApi = $this->piletileviApi;
+    $dataResponse = $piletileviApi->invoiceAction("/invoice/download", $filter);
+    $r = array();
+    if ($dataResponse && !property_exists($dataResponse, 'errors')) {
+        if ($dataResponse && property_exists($dataResponse, 'status')) {
+            $r['status'] = $dataResponse->status;
+        }
+    } else if ($dataResponse && property_exists($dataResponse, 'errors')){
+        $r['status'] = "error";
+        $r['message'] = $dataHandler->getMessages($dataResponse->errors);
+    }
+    return $dataHandler->response($response, $r);
+});
+
+$app->get('/invoiceDownload', function ($request, $response, $args)  {
+    $dataHandler = $this->dataHandler;
+
+    $filter = array();
+    $filter['invoiceInfoId'] = $request->getParam("invoiceInfoId");
+
+    $filename = "invoice-";
+    $filename .= $filter['invoiceInfoId'];
+    $filename .= ".pdf";
+
+    $piletileviApi = $this->piletileviApi;
+    $dataResponse = $piletileviApi->downloadInvoice( $filter );
+    return $dataHandler->responseAsPdfAttachment($response, $filename, $dataResponse);
+});
+
+$app->get('/invoiceOpen', function ($request, $response, $args)  {
+    $dataHandler = $this->dataHandler;
+
+    $filter = array();
+    $filter['invoiceInfoId'] = $request->getParam("invoiceInfoId");
+
+    $piletileviApi = $this->piletileviApi;
+    $dataResponse = $piletileviApi->downloadInvoice( $filter );
+    return $dataHandler->responseAsPdf($response, $dataResponse);
 });
 
 $app->post('/concertInfo', function ($request, $response, $args)  {
