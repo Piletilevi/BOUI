@@ -2372,11 +2372,27 @@ $app->get('/payment/process', function ($request, $response, $args)  {
 				'payment' => $reportResponse->data
 			]);
 		}
+	} else if( $reportResponse && property_exists($reportResponse, 'errors')) {
+        $error = new stdClass();
+        $error->message = $reportResponse->errors[0]-> message;
+
+        foreach($reportResponse->errors as $e) {
+            if ("payment.errorRedirectUrl" == $e->code) {
+                $error->errorRedirectUrl = $e->message;
+                break;
+            }
+        }
+        return $this->view->render($response, 'errorRedirect.tpl', [
+            'error' => $error
+        ]);
+
 	} else {
-	    $r["status"] = "error";
-        $r["message"] = $dataHandler->getMessages($reportResponse->errors);
-		return $dataHandler->response($response, $r);
-	}
+        return $this->view->render($response, 'errorRedirect.tpl', [
+            'error' => []
+        ]);
+
+    }
+
 });
 
 $app->put('/payment/check', function ($request, $response, $args)  {
