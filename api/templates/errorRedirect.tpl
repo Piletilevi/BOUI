@@ -22,7 +22,7 @@
                 document.getElementById("counter").innerHTML = counter.toString();
                 if (counter == 0) {
                     {if isset($error->errorRedirectUrl) }
-                        //window.location.replace("{$error->errorRedirectUrl}");
+                        window.location.replace("{$error->errorRedirectUrl}");
                     {else} window.location.replace("https://www.piletilevi.ee");
                     {/if}
                     clearInterval(interval);
