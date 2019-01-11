@@ -191,7 +191,7 @@ $app->post('/login', function ($request, $response, $args) {
 		}
     } else if ($userData && property_exists($userData, 'errors')){
         $r['status'] = "error";
-        $r['message'] = $dataHandler->getMessages($myEvents->errors);
+        $r['message'] = $dataHandler->getMessages($userData->errors);
     }
 
     return $dataHandler->response($response, $r);
@@ -2386,7 +2386,14 @@ $app->put('/payment/check', function ($request, $response, $args)  {
 	$parameters = $request->getParams();
     $piletileviApi = $this->piletileviApi;
 	
-	$parameters = $dataHandler->fixEncoding($parameters, $request->getContentCharset());
+	$contentCharset = $request->getContentCharset();
+	$headers = $request->getHeaders();
+	if ($headers && is_array($headers) && 
+	   ((is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || (is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47")) ) {
+		$contentCharset = "windows-1257";
+	}
+	
+	$parameters = $dataHandler->fixEncoding($parameters, $contentCharset);
 	
     $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
 	
@@ -2412,7 +2419,14 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 	$parameters = $request->getParams();
     $piletileviApi = $this->piletileviApi;
 	
-	$parameters = $dataHandler->fixEncoding($parameters, $request->getContentCharset());
+	$contentCharset = $request->getContentCharset();
+	$headers = $request->getHeaders();
+	if ($headers && is_array($headers) && 
+	   ((is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || (is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47")) ) {
+		$contentCharset = "windows-1257";
+	}
+	
+	$parameters = $dataHandler->fixEncoding($parameters, $contentCharset);
 	
     $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
 	
@@ -2440,7 +2454,14 @@ $app->get('/payment/check', function ($request, $response, $args)  {
     $parameters = $request->getParams();
     $piletileviApi = $this->piletileviApi;
 
-	$parameters = $dataHandler->fixEncoding($parameters, $request->getContentCharset());
+	$contentCharset = $request->getContentCharset();
+	$headers = $request->getHeaders();
+	if ($headers && is_array($headers) && 
+	   ((is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || (is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47")) ) {
+		$contentCharset = "windows-1257";
+	}
+	
+	$parameters = $dataHandler->fixEncoding($parameters, $contentCharset);
 
     $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
 
@@ -2461,9 +2482,98 @@ $app->get('/payment/check', function ($request, $response, $args)  {
     }
 });
 
-$app->get('/test', function ($request, $response, $args)  {
+$app->post('/getJobPriorities', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
 
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->getJobPriorities();
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$r["status"] = "success";
+		$r["data"] = $reportResponse->data;
+	} else {
+	    $r["status"] = "error";
+        $r["message"] = $dataHandler->getMessages($reportResponse->errors);
+	}
+	return $dataHandler->response($response, $r);
+});
+
+$app->post('/getJobFrequencies', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->getJobFrequencies();
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$r["status"] = "success";
+		$r["data"] = $reportResponse->data;
+	} else {
+	    $r["status"] = "error";
+        $r["message"] = $dataHandler->getMessages($reportResponse->errors);
+	}
+	return $dataHandler->response($response, $r);
+});
+
+$app->post('/getJobs', function ($request, $response, $args) {
+    $dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+	$filter = array();
+	if (property_exists($json->filter, 'name')) {
+		$filter['name'] = $json->filter->name;
+	}
+	if (property_exists($json->filter, 'status')) {
+		$filter['status'] = $json->filter->status;
+	}
+	if (property_exists($json->filter, 'priorityId')) {
+		$filter['priority'] = $json->filter->priorityId;
+	}
+	if (property_exists($json->filter, 'frequencyId')) {
+		$filter['frequency'] = $json->filter->frequencyId;
+	}
+	if (property_exists($json->filter, 'start')) {
+		$filter['start'] = $json->filter->start;
+	}
+
+    $piletileviApi = $this->piletileviApi;
+    $jobs = $piletileviApi->getJobs($filter);
+
+	$r = array();
+	if ($jobs && !property_exists($jobs, 'errors')) {
+		if ($jobs && property_exists($jobs, 'data')) {
+	        $r['status'] = "success";
+	        $r['data'] = $jobs->data;
+		} else {
+	        $r['status'] = "info";
+	        $r['message'] = "Empty result";
+		}
+    } else if ($jobs && property_exists($jobs, 'errors')){
+        $r['status'] = "error";
+        $r['message'] = $dataHandler->getMessages($jobs->errors);
+    }
+
+	return $dataHandler->response($response, $r);
+});
+
+$app->get('/test', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+	
+    $ip = $dataHandler->getUserIP();
+    $parameters = $request->getParams();
+	
+	$date = date("d.m.Y H:i:s");
+	
+	$fp = fopen('test.txt', 'a');
+	fwrite($fp, $date." ---------START--------\n");
+	fwrite($fp, "IP: ".$ip."\n");
+	fwrite($fp, "Content-Encoding: ".$request->getContentCharset()."\n");
+	fwrite($fp, "Request headers: \n");
+	fwrite($fp, print_r($request->getHeaders(), TRUE));
+	fwrite($fp, "Parameters: \n");
+	fwrite($fp, print_r($parameters, TRUE));
+	fwrite($fp, $date." ---------END----------\n");
+	fclose($fp);
+	
 	$filter = array();
 	/*
 	$filter['bookingId'] = 1178385;

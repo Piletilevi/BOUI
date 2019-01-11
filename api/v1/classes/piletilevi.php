@@ -789,6 +789,58 @@ class PiletileviApi {
 		return $response;
 	}
 	
+	public function getJobPriorities() {
+		
+		$languageCode = "";
+		
+		if ($this->currentLang) {
+			$languageCode = $this->currentLang->code; 
+		}
+		
+		$cacheItem = $this->cacheManager->getItem("jobPriorities".$languageCode);
+		$jobPriorities = $cacheItem->get();
+
+		if(is_null($jobPriorities) || !is_object($jobPriorities)) {
+			$data = array();
+			$jobPriorities = $this->send( "/job/getPriorities", $data );
+			$cacheItem->set($jobPriorities)->expiresAfter(3600);
+			$this->cacheManager->save($cacheItem);
+		}
+
+		return $jobPriorities;
+	}
+
+	public function getJobFrequencies() {
+		
+		$languageCode = "";
+		
+		if ($this->currentLang) {
+			$languageCode = $this->currentLang->code; 
+		}
+		
+		$cacheItem = $this->cacheManager->getItem("jobFrequencies".$languageCode);
+		$jobFrequencies = $cacheItem->get();
+
+		if(is_null($jobFrequencies) || !is_object($jobFrequencies)) {
+			$data = array();
+			$jobFrequencies = $this->send( "/job/getFrequencies", $data );
+			$cacheItem->set($jobFrequencies)->expiresAfter(3600);
+			$this->cacheManager->save($cacheItem);
+		}
+
+		return $jobFrequencies;
+	}
+
+	public function getJobs($filter) {
+		
+		$filter['limit'] = 10;
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/job/getList", $data );
+		
+		return $reportData;
+	}
+	
 	public function boUrl(){
 		return $this->getBoUrl();
 	}
