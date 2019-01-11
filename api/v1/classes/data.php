@@ -200,6 +200,14 @@ class DataHandler {
 					    ->withHeader('Content-Disposition', 'attachment;filename="'.$filename.'"; filename*=UTF-8\' \''.rawurlencode($filename))
 						->write($data);
 	}
+	
+	public function containsWord($needle, $haystack) {
+		return strpos($haystack, $needle) !== false;
+	}
+	
+	public function beginsWith($value, $prefix) {
+		return strncmp($value, $prefix, strlen($prefix)) === 0;
+	}
 }
 
 ?>

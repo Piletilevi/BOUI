@@ -2406,7 +2406,9 @@ $app->put('/payment/check', function ($request, $response, $args)  {
 	$contentCharset = $request->getContentCharset();
 	$headers = $request->getHeaders();
 	if ($headers && is_array($headers) && 
-	   ((is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || (is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47")) ) {
+	   ((is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || 
+	    (is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47") || 
+		(is_array($headers['HTTP_REFERER']) && $dataHandler->beginsWith($headers['HTTP_REFERER'][0], "https://e.seb.lt"))) ) {
 		$contentCharset = "windows-1257";
 	}
 
@@ -2449,7 +2451,9 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 	$contentCharset = $request->getContentCharset();
 	$headers = $request->getHeaders();
 	if ($headers && is_array($headers) && 
-	   ((is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || (is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47")) ) {
+	   ((is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || 
+	    (is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47") ||
+		(is_array($headers['HTTP_REFERER']) && $dataHandler->beginsWith($headers['HTTP_REFERER'][0], "https://e.seb.lt"))) ) {
 		$contentCharset = "windows-1257";
 	}
 
@@ -2494,7 +2498,9 @@ $app->get('/payment/check', function ($request, $response, $args)  {
 	$contentCharset = $request->getContentCharset();
 	$headers = $request->getHeaders();
 	if ($headers && is_array($headers) && 
-	   ((is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || (is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47")) ) {
+	   ((is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || 
+	    (is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47") ||
+		(is_array($headers['HTTP_REFERER']) && $dataHandler->beginsWith($headers['HTTP_REFERER'][0], "https://e.seb.lt"))) ) {
 		$contentCharset = "windows-1257";
 	}
 
@@ -2603,7 +2609,7 @@ $app->post('/getJobs', function ($request, $response, $args) {
 
 $app->get('/test', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
-	$logger = $this->paymentLogger;		
+	$logger = $this->logger;		
 	
 	$logger->write("aaaaaaa");
 	
