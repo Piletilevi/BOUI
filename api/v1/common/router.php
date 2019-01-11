@@ -2397,6 +2397,7 @@ $app->get('/payment/process', function ($request, $response, $args)  {
 
 $app->put('/payment/check', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
+	$logger = $this->paymentLogger;
 	
 	$ip = $dataHandler->getUserIP();
 	$parameters = $request->getParams();
@@ -2408,6 +2409,15 @@ $app->put('/payment/check', function ($request, $response, $args)  {
 	   ((is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || (is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47")) ) {
 		$contentCharset = "windows-1257";
 	}
+
+	$logger->write(" ---------START PUT--------");
+	$logger->write("IP: ".$ip);
+	$logger->write("Content-Encoding: ".$request->getContentCharset());
+	$logger->write("Request headers:");
+	$logger->write($request->getHeaders());
+	$logger->write("Parameters:");
+	$logger->write($parameters);
+	$logger->write(" ---------END PUT----------");
 	
 	$parameters = $dataHandler->fixEncoding($parameters, $contentCharset);
 	
@@ -2430,6 +2440,7 @@ $app->put('/payment/check', function ($request, $response, $args)  {
 
 $app->post('/payment/check', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
+	$logger = $this->paymentLogger;
 	
 	$ip = $dataHandler->getUserIP();
 	$parameters = $request->getParams();
@@ -2441,7 +2452,16 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 	   ((is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || (is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47")) ) {
 		$contentCharset = "windows-1257";
 	}
-	
+
+	$logger->write(" ---------START POST--------");
+	$logger->write("IP: ".$ip);
+	$logger->write("Content-Encoding: ".$request->getContentCharset());
+	$logger->write("Request headers:");
+	$logger->write($request->getHeaders());
+	$logger->write("Parameters:");
+	$logger->write($parameters);
+	$logger->write(" ---------END POST----------");
+
 	$parameters = $dataHandler->fixEncoding($parameters, $contentCharset);
 	
     $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
@@ -2465,6 +2485,7 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 
 $app->get('/payment/check', function ($request, $response, $args)  {
     $dataHandler = $this->dataHandler;
+	$logger = $this->paymentLogger;
 
     $ip = $dataHandler->getUserIP();
     $parameters = $request->getParams();
@@ -2476,6 +2497,15 @@ $app->get('/payment/check', function ($request, $response, $args)  {
 	   ((is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || (is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47")) ) {
 		$contentCharset = "windows-1257";
 	}
+
+	$logger->write(" ---------START GET--------");
+	$logger->write("IP: ".$ip);
+	$logger->write("Content-Encoding: ".$request->getContentCharset());
+	$logger->write("Request headers:");
+	$logger->write($request->getHeaders());
+	$logger->write("Parameters:");
+	$logger->write($parameters);
+	$logger->write(" ---------END GET----------");
 	
 	$parameters = $dataHandler->fixEncoding($parameters, $contentCharset);
 
@@ -2573,22 +2603,9 @@ $app->post('/getJobs', function ($request, $response, $args) {
 
 $app->get('/test', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
+	$logger = $this->paymentLogger;		
 	
-    $ip = $dataHandler->getUserIP();
-    $parameters = $request->getParams();
-	
-	$date = date("d.m.Y H:i:s");
-	
-	$fp = fopen('test.txt', 'a');
-	fwrite($fp, $date." ---------START--------\n");
-	fwrite($fp, "IP: ".$ip."\n");
-	fwrite($fp, "Content-Encoding: ".$request->getContentCharset()."\n");
-	fwrite($fp, "Request headers: \n");
-	fwrite($fp, print_r($request->getHeaders(), TRUE));
-	fwrite($fp, "Parameters: \n");
-	fwrite($fp, print_r($parameters, TRUE));
-	fwrite($fp, $date." ---------END----------\n");
-	fclose($fp);
+	$logger->write("aaaaaaa");
 	
 	$filter = array();
 	/*
