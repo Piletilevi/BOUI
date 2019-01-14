@@ -7,6 +7,12 @@
 
     function InvoiceController($scope, $rootScope, $routeParams, $location, eventService, dataService, $cookies) {
         var vm = this;
+        //check rights
+        if (!$rootScope.hasFullAccess('api_invoices')
+            || $rootScope.getValuePointParam('api_invoices') !== 'true'
+            || !$rootScope.isPointSuperCentre()){
+            $location.path('dashboard');
+        }
         vm.view = {
             name: $routeParams.viewName ? $routeParams.viewName : 'events',
             currentEvent: null,
