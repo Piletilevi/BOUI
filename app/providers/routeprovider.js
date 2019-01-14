@@ -66,6 +66,30 @@
                 controller: 'dashboardController',
                 controllerAs: 'vm'
             })
+            .when('/admin/', {
+                title: 'Admin',
+                templateUrl: 'views/admin.html',
+                controller: 'adminController',
+                controllerAs: 'vm'
+            })
+            .when('/admin/jobs', {
+                title: 'Jobs',
+                templateUrl: 'views/admin/jobs.html',
+                controller: 'jobController',
+                controllerAs: 'vm'
+            })
+            .when('/backoffice/', {
+                title: 'Backoffice',
+                templateUrl: 'views/backoffice.html',
+                controller: 'backofficeController',
+                controllerAs: 'vm'
+            })
+            .when('/backoffice/refund', {
+                title: 'Refund',
+                templateUrl: 'views/backoffice/refund.html',
+                controller: 'refundController',
+                controllerAs: 'vm'
+            })
             .when('/', {
                 title: 'Login',
                 templateUrl: 'views/login.html',
@@ -79,13 +103,14 @@
 
     }
     
-    runRouteProvider.$inject=['$rootScope', '$log', '$location', 'authService'];
+    runRouteProvider.$inject=['$rootScope', '$log', '$location', 'authService', 'menuService'];
 
-    function runRouteProvider ( $rootScope, $log, $location, authService) {
+    function runRouteProvider ( $rootScope, $log, $location, authService, menuService) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;
             authService.checkUserAuth(next);
             $rootScope.filterNotNeeded = ($location.path() == '/changepassword');
+			menuService.route($location.path())
         });
 
         $rootScope.$on('$routeChangeSuccess', function(){

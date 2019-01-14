@@ -24,29 +24,45 @@
 		</div>
 		<div class="collapse navbar-collapse navbar-left" id="navbar-menu">
 			<ul class="nav navbar-nav" ng-if="authenticated">
-				<li ng-if="hasFullAccess('api_salespoint')">
-					<a href>
+				<li ng-if="hasFullAccess('api_salespoint')" class="{{isActiveTopMenu('salespoint') ? 'active' : ''}}">
+					<a ng-if="isActiveTopMenu('salespoint')" ng-style="{'background-color': pointMenuGamma ? pointMenuGammaAccent:'#ffffff'}">
+						<i class="fa fa-ticket" aria-hidden="true"></i>
+						<span>{{'bo_elem040'|translate}}</span>
+					</a>
+					<a ng-if="!isActiveTopMenu('salespoint')" href="#/salespoint">
 						<i class="fa fa-ticket" aria-hidden="true"></i>
 						<span>{{'bo_elem040'|translate}}</span>
 					</a>
 				</li>
-				<li ng-if="hasFullAccess('api_bo')">
-					<a href>
+				<li ng-if="hasFullAccess('api_bo')" class="{{isActiveTopMenu('backoffice') ? 'active' : ''}}">
+					<a ng-if="isActiveTopMenu('backoffice')" ng-style="{'background-color': pointMenuGamma ? pointMenuGammaAccent:'#ffffff'}">
+						<i class="fa fa-briefcase" aria-hidden="true"></i>
+						<span>{{'meny_02'|translate}}</span>
+					</a>
+					<a ng-if="!isActiveTopMenu('backoffice')" href="#/backoffice">
 						<i class="fa fa-briefcase" aria-hidden="true"></i>
 						<span>{{'meny_02'|translate}}</span>
 					</a>
 				</li>
-				<li ng-if="hasFullAccess('api_administration')">
-					<a href>
+				<li ng-if="hasFullAccess('api_administration')" class="{{isActiveTopMenu('admin') ? 'active' : ''}}">
+					<a ng-if="isActiveTopMenu('admin')" ng-style="{'background-color': pointMenuGamma ? pointMenuGammaAccent:'#ffffff'}">
+						<i class="fa fa-cogs" aria-hidden="true"></i>
+						<span>{{'meny_03'|translate}}</span>
+					</a>
+					<a ng-if="!isActiveTopMenu('admin')" href="#/admin">
 						<i class="fa fa-cogs" aria-hidden="true"></i>
 						<span>{{'meny_03'|translate}}</span>
 					</a>
 				</li>
-				<li ng-if="hasFullAccess('api_reports')" class="active">
-					<a href="#/dashboard/" ng-style="{'background-color': pointMenuGamma ? pointMenuGammaAccent:'#ffffff'}">
+				<li ng-if="hasFullAccess('api_reports')" class="{{isActiveTopMenu('dashboard') ? 'active' : ''}}">
+					<a ng-if="isActiveTopMenu('dashboard')" ng-style="{'background-color': pointMenuGamma ? pointMenuGammaAccent:'#ffffff'}">
 						<i class="fa fa-bar-chart" aria-hidden="true"></i>
 						<span>{{'meny_05'|translate}}</span>
 					</a>
+					<a ng-if="!isActiveTopMenu('dashboard')" href="#/dashboard/">
+						<i class="fa fa-bar-chart" aria-hidden="true"></i>
+						<span>{{'meny_05'|translate}}</span>
+					</a>					
 				</li>
 			</ul>
 		</div>

@@ -12,10 +12,17 @@
     MenuService.$inject = ['$rootScope','$location','$window','dataService','authService'];
 
     function MenuService($rootScope,$location,$window,dataService,authService) {
-        var service = {
-            initialize:initialize,
-            toChangePassword:toChangePassword,
-            toOldBo:toOldBo
+        
+		var activeTopMenu = null;
+		var activeSubMenu = null;
+		
+		var service = {
+			initialize: initialize,
+            toChangePassword: toChangePassword,
+            toOldBo: toOldBo,
+            route: route,
+            setActiveTopMenu: setActiveTopMenu,
+			getActiveTopMenu: getActiveTopMenu
         };
         return service;
 
@@ -23,7 +30,12 @@
             $rootScope.toOldBO = toOldBo;
             $rootScope.toChangePassword = toChangePassword;
             $rootScope.logout = logout;
-
+            $rootScope.isActiveTopMenu = function(menuName) {
+                return activeTopMenu==menuName;
+            }
+            $rootScope.isActiveSubMenu = function(menuName) {
+                return activeSubMenu==menuName;
+            }
         }
 
         function toChangePassword(){
@@ -55,5 +67,34 @@
 				}
             });
         }
-    }
+		
+        function route(locationPath){
+			if (locationPath && locationPath !== '') {
+				var array = locationPath.split('/');
+				if (array.length > 1) {
+					setActiveTopMenu(array[1]);
+					if (array.length > 2) {
+						setActiveSubMenu(array[2]);
+					}
+				}
+			} 
+        }
+
+        function setActiveTopMenu(menu){
+            activeTopMenu = menu;
+        }
+		
+        function getActiveTopMenu(){
+            return activeTopMenu;
+        }
+
+        function setActiveSubMenu(menu){
+            activeSubMenu = menu;
+        }
+		
+        function getActiveSubMenu(){
+            return activeSubMenu;
+        }
+		
+	}
 })();

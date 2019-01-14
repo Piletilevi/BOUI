@@ -51,7 +51,7 @@
         <img class="bo-print-logo" ng-src="{{pointMenuLogo}}"/>
     </div>
     <div class="container bo-main-block">
-        <div class="row" ng-controller="mainController as vm" ng-if="authenticated && !filterNotNeeded">
+        <div class="row" ng-controller="mainController as vm" ng-if="authenticated && !filterNotNeeded && isActiveMenu('dashboard')">
             <div class="col-xs-12 col-md-9">
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" id="bo-top-filter-daterange">
@@ -140,6 +140,7 @@
     <script src="app/directives/daterangepickerNeutralTimezone.directive.js"></script>
     <script src="app/directives/slidingTabs.directive.js"></script>
     <script src="app/directives/bsFormErrors.directive.js"></script>
+    <script src="app/directives/csvReader.directive.js"></script>
 
     <script src="app/filters/nl2br.filter.js"></script>
 
@@ -152,9 +153,15 @@
     <script src="app/services/news.service.js"></script>
     <script src="app/services/color.service.js"></script>
     <script src="app/services/graph.service.js"></script>
+    <script src="app/services/job.service.js"></script>
+    <script src="app/services/payment.service.js"></script>
 
     <script src="app/controllers/main.controller.js"></script>
     <script src="app/controllers/dashboard.controller.js"></script>
+    <script src="app/controllers/admin.controller.js"></script>
+    <script src="app/controllers/admin/job.controller.js"></script>
+    <script src="app/controllers/backoffice.controller.js"></script>
+    <script src="app/controllers/backoffice/refund.controller.js"></script>
     <script src="app/controllers/report.controller.js"></script>
 </body>
 </html>

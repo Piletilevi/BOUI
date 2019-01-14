@@ -1,0 +1,55 @@
+<div class="col-md-9">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-inline">
+				<div class="input-group bo-input">
+					<input type="file" id="uploadFileInput" csv-reader results="vm.rows"/>
+					<div class="bo-button bo-button-sub ng-scope">
+						<div class="btn btn-primary" ng-click="vm.resetButton = true"
+							 tooltip-placement="bottom" uib-tooltip="{{'api_choose_csv'|translate}}" tooltip-append-to-body="true">
+							<span class="ng-binding">
+								<i class="fa fa-folder-open-o" aria-hidden="true"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="input-group bo-input" ng-if="vm.rows">
+					<div class="bo-button bo-button-sub ng-scope">
+						<div class="btn btn-primary" ng-click="vm.validate()"
+							 tooltip-placement="bottom" uib-tooltip="{{'api_validate_refund'|translate}}" tooltip-append-to-body="true">
+							<span class="ng-binding">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="input-group bo-input" ng-if="vm.rows">
+					<div class="bo-button bo-button-sub ng-scope">
+						<div class="btn btn-primary" ng-click="vm.process()"
+							 tooltip-placement="bottom" uib-tooltip="{{'api_process_refund'|translate}}" tooltip-append-to-body="true">
+							<span class="ng-binding">
+								<i class="fa fa-space-shuttle" aria-hidden="true"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row bo-content-block" ng-if="vm.rows">
+		<div class="bo-table bo-table-striped">
+			<div class="bo-table-header">
+				<div class="row bo-table-row">
+					<div class="col-xs-3 bo-table-cell"><input type="checkbox" /></div>
+					<div class="col-xs-5 bo-table-cell" ng-repeat="headerRow in vm.rows[0]">{{ headerRow }}</div>
+				</div>
+			</div>
+			<div class="bo-table-body">
+				<div class="row bo-table-row" ng-repeat="tableRow in vm.rows" ng-if="!$first">
+					<div class="col-xs-3 bo-table-cell"><input type="checkbox" /></div>
+					<div class="col-xs-5 bo-table-cell" ng-repeat="cell in tableRow">{{ cell }}</div>
+				</div>
+			</div>	
+		</div>			
+	</div>
+</div>

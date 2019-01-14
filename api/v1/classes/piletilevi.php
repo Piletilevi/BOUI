@@ -788,6 +788,24 @@ class PiletileviApi {
 		
 		return $response;
 	}
+
+	public function refundProcess($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/payment/refundProcess", $data );
+		
+		return $response;
+	}
+
+	public function refundValidate($filter) {
+		
+		$data['filter']= $filter;
+
+		$response = $this->send( "/payment/refundValidate", $data );
+		
+		return $response;
+	}
 	
 	public function getJobPriorities() {
 		
@@ -841,6 +859,15 @@ class PiletileviApi {
 		return $reportData;
 	}
 	
+	public function getJobsCount($filter) {
+		
+		$data['filter']= $filter;
+
+		$reportData = $this->send( "/job/getCount", $data );
+		
+		return $reportData;
+	}
+
 	public function boUrl(){
 		return $this->getBoUrl();
 	}

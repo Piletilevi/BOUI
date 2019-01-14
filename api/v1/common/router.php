@@ -2171,6 +2171,51 @@ $app->post('/removeGiftCardFromBooking', function ($request, $response, $args)  
 	return $dataHandler->response($response, $r);
 });
 
+$app->post('/refundValidate', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+	$logger = $this->logger;
+    $json = json_decode($request->getBody());
+
+	$filter = array();
+	$filter['rows'] = $json->filter;
+	
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->refundValidate( $filter );
+	
+	$logger->write($reportResponse);
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$r["status"] = "success";
+		$r["data"] = $reportResponse->data;
+	} else {
+	    $r["status"] = "error";
+        $r["errors"] = $dataHandler->getMessages($reportResponse->errors);
+	}
+
+	return $dataHandler->response($response, $r);
+});
+
+$app->post('/refundProcess', function ($request, $response, $args)  {
+	$dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+	$filter = array();
+	$filter['rows'] = $json->rows;
+	
+    $piletileviApi = $this->piletileviApi;
+    $reportResponse = $piletileviApi->refundProcess( $filter );
+	
+	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
+		$r["status"] = "success";
+		$r["data"] = $reportResponse->data;
+	} else {
+	    $r["status"] = "error";
+        $r["errors"] = $dataHandler->getMessages($reportResponse->errors);
+	}
+
+	return $dataHandler->response($response, $r);
+});
+
 $app->post('/reloadConcert', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
     $json = json_decode($request->getBody());
@@ -2606,6 +2651,32 @@ $app->post('/getJobs', function ($request, $response, $args) {
 
 	return $dataHandler->response($response, $r);
 });
+
+$app->post('/getJobsCount', function ($request, $response, $args) {
+    $dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+	$filter = array();
+    $piletileviApi = $this->piletileviApi;
+    $jobs = $piletileviApi->getJobsCount($filter);
+
+	$r = array();
+	if ($jobs && !property_exists($jobs, 'errors')) {
+		if ($jobs && property_exists($jobs, 'data')) {
+	        $r['status'] = "success";
+	        $r['data'] = $jobs->data;
+		} else {
+	        $r['status'] = "info";
+	        $r['message'] = "Empty result";
+		}
+    } else if ($jobs && property_exists($jobs, 'errors')){
+        $r['status'] = "error";
+        $r['message'] = $dataHandler->getMessages($jobs->errors);
+    }
+
+	return $dataHandler->response($response, $r);
+});
+
 
 $app->get('/test', function ($request, $response, $args)  {
 	$dataHandler = $this->dataHandler;
