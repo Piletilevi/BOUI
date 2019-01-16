@@ -1305,39 +1305,25 @@
             return 0;
         }
         function mergeProducts(inputArray,outputArray) {
-            var current = null;
-            var amount = 0;
-            var price = 0;
-            var newElement = null;
+            var newElement = {itemName:null,persistent:null,priceTotal:0,amount:0};
             for (var i = 0; i < inputArray.length; i++) {
-                if (inputArray[i].productName != current) {
-                    if (amount > 0) {
-                        newElement = {
-                            itemName:inputArray[i].productName,
-                            persistent:inputArray[i].isPersistent,
-                            priceTotal:price,
-                            amount:amount
-                        };
-                        outputArray.push(newElement);
-                    }
-                    current = inputArray[i].productName;
-                    amount = 1;
-                    price = inputArray[i].price;
-                } else {
-                    amount++;
-                    price = price + inputArray[i].price;
-                }
-                // Last element
-                if (i == (inputArray.length - 1)) {
+                if (inputArray[i].productName != newElement.itemName) {
                     newElement = {
                         itemName:inputArray[i].productName,
                         persistent:inputArray[i].isPersistent,
-                        priceTotal:price,
-                        amount:amount
+                        priceTotal:inputArray[i].price,
+                        amount:1
                     };
                     outputArray.push(newElement);
+                } else {
+                    newElement.amount++;
+                    newElement.priceTotal += inputArray[i].price;
                 }
+
+
+
             }
+
         }
 
     }
