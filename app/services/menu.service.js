@@ -8,12 +8,15 @@
         $rootScope.userMenuOpen = false;
         $rootScope.languageMenuOpen = false;
         $rootScope.salespointMenuOpen = false;
+	var activeTopMenu = null;
+	var activeSubMenu = null;
         var service = {
             initialize:initialize,
             toChangePassword:toChangePassword,
             toOldBo:toOldBo,
-            isActiveMenu:isActiveMenu,
-            setActiveBackground:setActiveBackground
+            route: route,
+            setActiveTopMenu: setActiveTopMenu,
+            getActiveTopMenu: getActiveTopMenu
         };
         return service;
 
@@ -21,8 +24,13 @@
             $rootScope.toOldBO = toOldBo;
             $rootScope.toChangePassword = toChangePassword;
             $rootScope.logout = logout;
-            $rootScope.isActiveMenu = isActiveMenu;
-            $rootScope.setActiveBackground = setActiveBackground;
+            $rootScope.isActiveTopMenu = function(menuName) {
+                return activeTopMenu==menuName;
+            }
+            $rootScope.isActiveSubMenu = function(menuName) {
+                return activeSubMenu==menuName;
+            }
+	    $rootScope.setActiveBackground = setActiveBackground;
         }
 
         function toChangePassword(){
@@ -41,7 +49,7 @@
 							dataService.post('getYellowSessionKey',{'clientip':result.ip}).then(function (sessionResults) {
 								if (sessionResults.status === "success") {
 									var bourl = boBasicUrl.replace("{sessionkey}", sessionResults.boSession.sessionkey);
-                                    var bourl = boBasicUrl.replace("{resource}", "menu.p");
+                                    					var bourl = boBasicUrl.replace("{resource}", "menu.p");
 									$window.location.href = bourl;
 								}
 							});
@@ -52,17 +60,40 @@
 				}
             });
         }
-        function isActiveMenu(menu) {
-            if ($location.path().indexOf(menu) >= 0) {
-                return true;
-            }
-            return false;
-        }
         function setActiveBackground() {
             if($rootScope.pointMenuGamma) {
                 return $rootScope.pointMenuGammaAccent;
             }
             return '#fff';
         }
+		
+        function route(locationPath){
+			if (locationPath && locationPath !== '') {
+				var array = locationPath.split('/');
+				if (array.length > 1) {
+					setActiveTopMenu(array[1]);
+					if (array.length > 2) {
+						setActiveSubMenu(array[2]);
+					}
+				}
+			} 
+        }
+
+        function setActiveTopMenu(menu){
+            activeTopMenu = menu;
+        }
+		
+        function getActiveTopMenu(){
+            return activeTopMenu;
+        }
+
+        function setActiveSubMenu(menu){
+            activeSubMenu = menu;
+        }
+		
+        function getActiveSubMenu(){
+            return activeSubMenu;
+        }
+		
     }
 })();

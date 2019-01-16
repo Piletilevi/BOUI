@@ -1,0 +1,134 @@
+<div class="col-md-9">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-inline">
+				<div class="input-group bo-input">
+					<input type="text" class="form-control" ng-model="vm.jobFilter.name"
+						   placeholder="{{'api_filter_job_name'|translate}}" key-bind="{enter:'vm.search()'}">
+				</div>
+				<div class="input-group bo-input">
+					<input type="text" class="form-control" ng-model="vm.jobFilter.status"
+						   placeholder="{{'api_filter_job_status'|translate}}" key-bind="{enter:'vm.search()'}">
+				</div>
+				<div class="input-group bo-input">
+					<div class="bo-dropdown dropdown">
+						<div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							<span>
+								{{vm.jobFilter.priorityId !== null ? ((vm.jobPriorities.priorities | filter:{id:vm.jobFilter.priorityId}:true)[0].name ):' --- '}}
+								<i class="fa fa-chevron-down"></i>
+							</span>
+						</div>
+						<ul class="dropdown-menu">
+							<li ng-repeat="priority in vm.jobPriorities.priorities">
+								<a ng-click="vm.jobFilter.priorityId = priority.id">{{priority.name}}</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="input-group bo-input">
+					<div class="bo-dropdown dropdown">
+						<div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							<span>
+								{{vm.jobFilter.frequencyId !== null ? ((vm.jobFrequencies.frequencies | filter:{id:vm.jobFilter.frequencyId}:true)[0].name ):' --- '}}
+								<i class="fa fa-chevron-down"></i>
+							</span>
+						</div>
+						<ul class="dropdown-menu">
+							<li ng-repeat="frequency in vm.jobFrequencies.frequencies">
+								<a ng-click="vm.jobFilter.frequencyId = frequency.id">{{frequency.name}}</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="input-group bo-input" ng-if="vm.resetButton">
+					<div class="bo-button bo-button-sub ng-scope">
+						<div class="btn btn-danger" ng-click="vm.resetButton = false"
+							 tooltip-placement="bottom" uib-tooltip="{{'api_restore_filters'|translate}}" tooltip-append-to-body="true">
+							<span class="ng-binding">
+								<i class="fa fa-times" aria-hidden="true"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bo-content" ng-if="!vm.jobs && !vm.jobFilter.loadingItems">
+		<div class="bo-alert alert alert-muted" role="alert">
+			<span>{{"api_job_list_no_result"|translate}}</span>
+		</div>
+	</div>
+	<div class="events-loader" block-ui block-ui-pattern="/jobList/">
+		<div ng-if="vm.jobs.length"
+			 infinite-scroll="vm.getMoreJobs()" infinite-scroll-disabled="vm.jobFilter.loadingItems" infinite-scroll-distance="0">
+			<div class="panel panel-default" ng-repeat="(key, job) in vm.jobs">
+				<div class="bo-panel bo-panel-collapsible">
+					<div class="panel-heading">
+						<a class="bo-panel-toggle collapsed" data-toggle="collapse" data-target="#bo-sub-job{{key}}" aria-expanded="false">
+							<span class="fa fa-plus-square"></span>
+							<span class="fa fa-minus-square"></span>
+							<span>
+								{{job.name}}
+							</span>
+							<div class="pull-right">
+								<div class="bo-label label-default">
+									<span>{{job.status}}</span>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="panel-body">
+						<div class="bo-panel-table">
+							<div class="bo-panel-table-cell-4">
+								<div>
+									{{'api_job_class_name'|translate}}:
+									{{job.className}}
+								</div>
+								<div>
+									{{'api_job_parameters'|translate}}:
+									{{job.parameters | nl2br}}
+								</div>
+							</div>
+							<div class="bo-panel-table-cell-4">
+								<div>
+									{{'api_job_frequency'|translate}}:
+									{{job.frequency}}
+								</div>
+								<div>
+									{{'api_job_runat'|translate}}:
+									{{job.runAt}}
+								</div>
+							</div>
+							<div class="bo-panel-table-cell-4 text-right">
+								<div>
+									{{'api_job_username'|translate}}:
+									{{job.username}}
+								</div>
+								<div>
+									{{'api_job_salesPoint'|translate}}:
+									{{job.salesPoint}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bo-panel-sub collapse" id="bo-sub-job{{key}}" aria-expanded="false" style="height: 10px;">
+						<div class="panel-body">
+							<div class="bo-panel-table">
+								<div class="panel panel-default" ng-repeat="stat in job.statistics">
+									<div>
+										{{'api_job_started'|translate}}
+										{{stat.created | date:'dd.MM.yyyy HH:MM:ss'}}
+									</div>
+									<div>
+										{{'api_job_finished'|translate}}:
+										{{stat.finished | date:'dd.MM.yyyy HH:MM:ss'}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

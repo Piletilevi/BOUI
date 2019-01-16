@@ -1,0 +1,18 @@
+<div class="bo-pills-block" ng-if="authenticated">
+	<div class="container">
+        <div class="row bo-sub-menu">
+			<div class="hidden-xs col-sm-12">
+				<ul class="nav nav-pills" ng-if="isActiveTopMenu('dashboard')">
+                    <li role="presentation" class="active" ng-if="hasFullAccess('api_reports_sub_prmtr_db')"><a href="#/dashboard/">{{'api_myevents'|translate }}</a></li>
+                    <li role="presentation" ng-if="hasFullAccess('api_reports_sub_advertisement')"><a href="#/advertisement/">{{'api_advertisement'|translate }}</a></li>
+                </ul>
+				<ul class="nav nav-pills" ng-if="isActiveTopMenu('admin')">
+                    <li role="presentation" ng-class="{'active':isActiveSubMenu('jobs')}"><a href="#/admin/jobs">{{'api_jobs'|translate }}</a></li>
+                </ul>
+				<ul class="nav nav-pills" ng-if="isActiveTopMenu('backoffice')">
+                    <li role="presentation" ng-class="{'active':isActiveSubMenu('refund')}"><a href="#/backoffice/refund">{{'api_refund'|translate }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

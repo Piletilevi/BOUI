@@ -15,37 +15,38 @@
 				<li ng-if="authenticated && !user.salesPoints[1]">
 					<a class="bo-not-linked"><span class="hidden-sm">{{getPointName()}}</span></a>
 				</li>
-				<li class="bo-dropdown dropdown testtest" ng-if="authenticated" id="navUserMenu" ng-include="'views/navigation/components/user_menu.html'"></li>
+				<li class="bo-dropdown dropdown" ng-if="authenticated" id="navUserMenu" ng-include="'views/navigation/components/user_menu.html'"></li>
 				<li class="bo-dropdown dropdown" id="navLanguageMenu" ng-include="'views/navigation/components/languages.html'"></li>
 			</ul>
 		</div>
 		<div class="collapse navbar-collapse navbar-left" id="navbar-menu">
 			<ul class="nav navbar-nav" ng-if="authenticated">
-				<li ng-if="hasFullAccess('api_salespoint')">
-					<a href>
+				<li ng-if="hasFullAccess('api_salespoint')"  ng-class="{active:isActiveTopMenu('salespoint')}">
+					<a href="#/salespoint" ng-style="{'background-color': isActiveMenu('salespoint') ? setActiveBackground():''}">
 						<i class="fa fa-ticket" aria-hidden="true"></i>
 						<span>{{'bo_elem040'|translate}}</span>
 					</a>
 				</li>
-				<li ng-if="hasFullAccess('api_bo')">
-					<a href>
+				<li ng-if="hasFullAccess('api_bo')"  ng-class="{active:isActiveTopMenu('backoffice')}">
+					<a href="#/backoffice" ng-style="{'background-color': isActiveMenu('backoffice') ? setActiveBackground():''}">
 						<i class="fa fa-briefcase" aria-hidden="true"></i>
 						<span>{{'meny_02'|translate}}</span>
 					</a>
 				</li>
-				<li ng-if="hasFullAccess('api_administration')">
-					<a href>
+				<li ng-if="hasFullAccess('api_administration')"  ng-class="{active:isActiveTopMenu('admin')}">
+					<a href="#/admin" ng-style="{'background-color': isActiveMenu('admin') ? setActiveBackground():''}">
 						<i class="fa fa-cogs" aria-hidden="true"></i>
 						<span>{{'meny_03'|translate}}</span>
 					</a>
+
 				</li>
-				<li ng-if="hasFullAccess('api_reports')" ng-class="{active:(isActiveMenu('dashboard') || isActiveMenu('report'))}">
-					<a href="#/dashboard/" ng-style="{'background-color': (isActiveMenu('dashboard') || isActiveMenu('report')) ? setActiveBackground():''}">
+				<li ng-if="hasFullAccess('api_reports')" ng-class="{active:(isActiveTopMenu('dashboard') || isActiveTopMenu('report'))}">
+					<a href="#/dashboard/" ng-style="{'background-color': isActiveTopMenu('dashboard') || isActiveTopMenu('report')? setActiveBackground():''}">
 						<i class="fa fa-bar-chart" aria-hidden="true"></i>
 						<span>{{'meny_05'|translate}}</span>
 					</a>
 				</li>
-				<li ng-if="hasFullAccess('api_invoices') && getValuePointParam('api_invoices') == 'true' && isPointSuperCentre()" ng-class="{active:isActiveMenu('invoices')}">
+				<li ng-if="hasFullAccess('api_invoices') && getValuePointParam('api_invoices') == 'true' && isPointSuperCentre()" ng-class="{active:isActiveTopMenu('invoices')}">
 					<a href="#/invoices/" ng-style="{'background-color': isActiveMenu('invoices') ? setActiveBackground():''}">
 						<i class="fa fa-align-justify" aria-hidden="true"></i>
 						<span>{{'meny_31'|translate}}</span>

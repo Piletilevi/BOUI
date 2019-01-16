@@ -3,7 +3,6 @@
 require_once __DIR__.'/../config.php';
 require_once __DIR__.'/../vendor/autoload.php';
 
-use \Slim\Logger\DateTimeFileWriter;
 use phpFastCache\CacheManager;
 
 date_default_timezone_set('Europe/Helsinki');
@@ -47,7 +46,14 @@ $container['dataHandler'] = function($c) {
 
 $container['logger'] = function($c) {
 	$settings = $c->get("settings");
-    return new DateTimeFileWriter( $settings['log'] );
+    return new FileLogger( $settings['log'] );
+};
+
+$container['paymentLogger'] = function($c) {
+	$settings = $c->get("settings");
+	$logSettings = $settings['log'];
+	$logSettings['name_prefix'] = 'paymentCheck-';
+    return new FileLogger( $logSettings );
 };
 
 $container['view'] = function($c) { 

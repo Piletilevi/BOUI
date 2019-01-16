@@ -17,7 +17,7 @@
         vm.draftCount = 0;
         vm.pastCount = 0;
         vm.tabActive = $routeParams.type ? $routeParams.type : 'onsale';
-
+		
         vm.getMoreEvents = function () {
             eventService.getMoreEvents(vm.filter);
         };

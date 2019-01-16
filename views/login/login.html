@@ -38,7 +38,7 @@
 										<div class="form-group">
 											<div class="bo-input">
 												<input type="password" class="form-control" placeholder={{"bo_adm152"|translate}}
-													   ng-model="vm.login.password" required />
+													   ng-model="vm.login.password" required key-bind="{enter:'vm.doLogin(vm.login)'}"/>
 												<i class="fa fa-lock"></i>
 											</div>
 										</div>
