@@ -7,6 +7,7 @@
 
     function InvoiceController($scope, $rootScope, $routeParams, $location, eventService, dataService, $cookies) {
         var vm = this;
+        const defaultLimit = 10 ;
         //check rights
         if (!$rootScope.hasFullAccess('api_invoices')
             || $rootScope.getValuePointParam('api_invoices') !== 'true'
@@ -52,7 +53,7 @@
             promoter: '',
             loadingItems: false,
             start: 0,
-            limit: 10
+            limit: defaultLimit
         };
         setDateUtcOffset(vm.eventsFilter);
         vm.transactionsFilter = {
@@ -308,6 +309,9 @@
         }
 
         function assignEventsFilter() {
+            //reset query start
+            vm.eventsFilter.start = 0;
+            vm.eventsFilter.limit = defaultLimit;
             $cookies.putObject('boInvoiceEventsFilter', {filter: vm.eventsFilter, resetSearch: vm.reset_search});
             vm.currentFilter = vm.eventsFilter;
             if ($location.path().indexOf("invoices") == -1) {
@@ -315,6 +319,8 @@
             }
         }
         function assignTransactionsFilter() {
+            vm.transactionsFilter.start = 0;
+            vm.transactionsFilter.limit = defaultLimit;
             $cookies.putObject('boInvoiceTransactionsFilter', {filter: vm.transactionsFilter});
             vm.currentFilter = vm.transactionsFilter;
             if ($location.path().indexOf("invoices") == -1) {
