@@ -3,6 +3,9 @@
 	
 	angular.module('boApp')
         .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+
+
+
             routeProvider($routeProvider);
             $locationProvider.hashPrefix('');
         }])
@@ -11,98 +14,113 @@
     routeProvider.$inject=['$routeProvider'];
     function routeProvider($routeProvider) {
 
+       // var originalWhen = $routeProvider.when;
+
+        $routeProvider.accessWhen = function(path, route){
+
+            route.resolve = {
+                'currentUser':function(authService){
+                    console.log("resolve");
+                    return authService.checkUser();
+                }
+            };
+
+            return $routeProvider.when(path, route);
+        };
+
         $routeProvider
-            .when('/login', {
+            .accessWhen('/login', {
                 title: 'Login',
                 templateUrl: 'views/login/login.html',
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
-            .when('/changepassword', {
+            .accessWhen('/changepassword', {
                 title: 'Login',
                 templateUrl: 'views/login/change_password.html',
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
-            .when('/logout', {
+            .accessWhen('/logout', {
                 title: 'Logout',
                 templateUrl: 'views/login/login.html',
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
-            .when('/report/:pointId/:type/:id', {
+            .accessWhen('/report/:pointId/:type/:id', {
                 title: 'Report',
                 templateUrl: 'views/common/reports/report.html',
                 controller: 'reportController',
                 controllerAs: 'vm'
             })
-            .when('/report/:pointId/:type/:id/:reportType', {
+            .accessWhen('/report/:pointId/:type/:id/:reportType', {
                 title: 'Report',
                 templateUrl: 'views/common/reports/report.html',
                 controller: 'reportController',
                 controllerAs: 'vm'
             })
-            .when('/report/:pointId/:type/:id/:reportType/:sectorId', {
+            .accessWhen('/report/:pointId/:type/:id/:reportType/:sectorId', {
                 title: 'Report',
                 templateUrl: 'views/common/reports/report.html',
                 controller: 'reportController',
                 controllerAs: 'vm'
             })
-            .when('/report/:pointId/:type/:id/:reportType/:sectorId/:reservation', {
+            .accessWhen('/report/:pointId/:type/:id/:reportType/:sectorId/:reservation', {
                 title: 'Report',
                 templateUrl: 'views/common/reports/report.html',
                 controller: 'reportController',
                 controllerAs: 'vm'
             })
-            .when('/dashboard/', {
+            .accessWhen('/dashboard/', {
                 title: 'Events',
                 templateUrl: 'views/common/reports/events.html',
                 controller: 'dashboardController',
                 controllerAs: 'vm'
             })
-            .when('/dashboard/:type', {
+            .accessWhen('/dashboard/:type', {
                 title: 'Events',
                 templateUrl: 'views/common/reports/events.html',
                 controller: 'dashboardController',
                 controllerAs: 'vm'
             })
-            .when('/invoices/', {
+            .accessWhen('/invoices/', {
                 title: 'Invoices',
                 templateUrl: 'views/common/invoices/invoice_events.html',
                 controller: 'invoiceController',
                 controllerAs: 'vm'
+
             })
-            .when('/invoices/:eventId/:viewName', {
+            .accessWhen('/invoices/:eventId/:viewName', {
                 title: 'Invoices',
                 templateUrl: 'views/common/invoices/invoice_transactions.html',
                 controller: 'invoiceController',
                 controllerAs: 'vm'
             })
- 	    .when('/admin/', {
+ 	        .accessWhen('/admin/', {
                 title: 'Admin',
                 templateUrl: 'views/common/admin/admin.html',
                 controller: 'adminController',
                 controllerAs: 'vm'
             })
-            .when('/admin/jobs', {
+            .accessWhen('/admin/jobs', {
                 title: 'Jobs',
                 templateUrl: 'views/common/admin/jobs.html',
                 controller: 'jobController',
                 controllerAs: 'vm'
             })
-            .when('/backoffice/', {
+            .accessWhen('/backoffice/', {
                 title: 'Backoffice',
                 templateUrl: 'views/common/backoffice/backoffice.html',
                 controller: 'backofficeController',
                 controllerAs: 'vm'
             })
-            .when('/backoffice/refund', {
+            .accessWhen('/backoffice/refund', {
                 title: 'Refund',
                 templateUrl: 'views/common/backoffice/refund.html',
                 controller: 'refundController',
                 controllerAs: 'vm'
             })
-            .when('/', {
+            .accessWhen('/', {
                 title: 'Login',
                 templateUrl: 'views/login/login.html',
                 controller: 'mainController',

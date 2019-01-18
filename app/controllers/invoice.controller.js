@@ -3,12 +3,13 @@
     angular.module('boApp')
         .controller('invoiceController', InvoiceController);
 
-    InvoiceController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'eventService', 'dataService', '$cookies'];
+    InvoiceController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'eventService', 'dataService', '$cookies','authService'];
 
     function InvoiceController($scope, $rootScope, $routeParams, $location, eventService, dataService, $cookies) {
         var vm = this;
         const defaultLimit = 10 ;
         //check rights
+        console.log(!$rootScope.hasFullAccess('api_invoices'));
         if (!$rootScope.hasFullAccess('api_invoices')
             || $rootScope.getValuePointParam('api_invoices') !== 'true'
             || !$rootScope.isPointSuperCentre()){
