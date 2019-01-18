@@ -28,8 +28,21 @@
         };
 
         $routeProvider
-            .accessWhen('/login', {
+            .when('/login', {
                 title: 'Login',
+                templateUrl: 'views/login/login.html',
+                controller: 'mainController',
+                controllerAs: 'vm'
+            })
+            .when('/', {
+                title: 'Login',
+                templateUrl: 'views/login/login.html',
+                controller: 'mainController',
+                controllerAs: 'vm',
+                role: '0'
+            })
+            .when('/logout', {
+                title: 'Logout',
                 templateUrl: 'views/login/login.html',
                 controller: 'mainController',
                 controllerAs: 'vm'
@@ -40,12 +53,7 @@
                 controller: 'mainController',
                 controllerAs: 'vm'
             })
-            .accessWhen('/logout', {
-                title: 'Logout',
-                templateUrl: 'views/login/login.html',
-                controller: 'mainController',
-                controllerAs: 'vm'
-            })
+
             .accessWhen('/report/:pointId/:type/:id', {
                 title: 'Report',
                 templateUrl: 'views/common/reports/report.html',
@@ -118,13 +126,6 @@
                 templateUrl: 'views/common/backoffice/refund.html',
                 controller: 'refundController',
                 controllerAs: 'vm'
-            })
-            .accessWhen('/', {
-                title: 'Login',
-                templateUrl: 'views/login/login.html',
-                controller: 'mainController',
-                controllerAs: 'vm',
-                role: '0'
             })
             .otherwise({
                 redirectTo: '/login'
