@@ -3,9 +3,10 @@
     angular.module('boApp')
         .controller('invoiceController', InvoiceController);
 
-    InvoiceController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'eventService', 'dataService', '$cookies','authService'];
+    InvoiceController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'dataService', '$cookies','invoiceService'];
 
-    function InvoiceController($scope, $rootScope, $routeParams, $location, eventService, dataService, $cookies) {
+    function InvoiceController($scope, $rootScope, $routeParams, $location, dataService, $cookies, invoiceService) {
+
         var vm = this;
         const defaultLimit = 10 ;
         //check rights
@@ -23,11 +24,11 @@
         };
         $scope.$watch(
             function () {
-                vm.myEvents = eventService.myInvoiceEvents();
-                vm.myTransactions = eventService.myInvoiceTransactions();
-                vm.view.currentEvent = eventService.currentInvoiceEvent();
-                vm.view.currentTransaction = eventService.currentInvoiceTransaction();
-                vm.view.invoicesSentAlert = eventService.invoicesSent();
+                vm.myEvents = invoiceService.myInvoiceEvents();
+                vm.myTransactions = invoiceService.myInvoiceTransactions();
+                vm.view.currentEvent = invoiceService.currentInvoiceEvent();
+                vm.view.currentTransaction = invoiceService.currentInvoiceTransaction();
+                vm.view.invoicesSentAlert = invoiceService.invoicesSent();
             }
         );
 
@@ -35,13 +36,13 @@
         vm.defaultEndDate = moment().endOf('day');
 
         if (vm.view.name == "transactions") {
-            vm.view.currentEvent = eventService.currentInvoiceEvent();
+            vm.view.currentEvent = invoiceService.currentInvoiceEvent();
             if (vm.view.currentEvent == null) {
                 var tempFilter = {
                     name: 'cid:' + $routeParams.eventId,
                     loadingItems: false
                 };
-                eventService.getInvoiceEvents(tempFilter);
+                invoiceService.getInvoiceEvents(tempFilter);
             }
             if (vm.view.currentEvent != null) {
                 vm.defaultStartDate = vm.view.currentEvent.sellPeriod.start;
@@ -83,44 +84,44 @@
         }
 
         vm.goToEvents = function () {
-            eventService.goToInvoiceEvents();
+            invoiceService.goToInvoiceEvents();
         };
         vm.goToEventTransactions = function (event) {
             vm.view.name = "transactions";
-            eventService.goToEventTransactions(event);
+            invoiceService.goToEventTransactions(event);
         };
         vm.setCurrentTransaction = function (transaction) {
             vm.view.currentTransaction = transaction;
             vm.view.currentTransaction.saveAlert = false;
             vm.view.currentTransaction.deleteAlert = false;
-            eventService.getInvoiceTransactionInfo({concertId:vm.view.currentEvent.id,transactionId:vm.view.currentTransaction.transactionId},transaction);
+            invoiceService.getInvoiceTransactionInfo({concertId:vm.view.currentEvent.id,transactionId:vm.view.currentTransaction.transactionId},transaction);
         };
         vm.removeCurrentTransaction = function () {
             vm.view.currentTransaction = null;
-            eventService.removeCurrentTransaction();
+            invoiceService.removeCurrentTransaction();
         };
         vm.saveTransactionInfo = function (transaction) {
-            eventService.saveInvoiceTransactionInfo(transaction);
+            invoiceService.saveInvoiceTransactionInfo(transaction);
         };
         vm.deleteInvoiceInfo = function (transaction) {
             if ( transaction.info.invoiceInfoId > 0 ) {
-                eventService.deleteInvoiceInfo(transaction);
+                invoiceService.deleteInvoiceInfo(transaction);
             }
         };
         vm.sendInvoiceEmail = function (transaction) {
-            eventService.sendInvoiceEmail([transaction.invoiceInfoId]);
+            invoiceService.sendInvoiceEmail([transaction.invoiceInfoId]);
         };
         vm.invoiceDownload = function (transaction) {
             dataService.getApiUrl().then(function(results) {
                 if (results.status === "success") {
-                    eventService.downloadInvoice(transaction.invoiceInfoId, results.apiBaseUrl);
+                    invoiceService.downloadInvoice(transaction.invoiceInfoId, results.apiBaseUrl);
                 }
             });
         };
         vm.invoiceOpen = function (transaction) {
             dataService.getApiUrl().then(function(results) {
                 if (results.status === "success") {
-                    eventService.openInvoice(transaction.invoiceInfoId, results.apiBaseUrl);
+                    invoiceService.openInvoice(transaction.invoiceInfoId, results.apiBaseUrl);
                 }
             });
         };
@@ -131,7 +132,7 @@
                 if (typeof(selectedTransaction) != "undefined")
                     return selectedTransaction.invoiceInfoId;
             }).filter(val=> (typeof(val) != "undefined"));
-            eventService.sendInvoiceEmail(invoiceIds);
+            invoiceService.sendInvoiceEmail(invoiceIds);
         };
 
         vm.viewInvoiceReport = function(){
@@ -159,17 +160,17 @@
         };
 
         vm.getMoreEvents = function () {
-            eventService.getMoreInvoiceEvents(vm.eventsFilter);
+            invoiceService.getMoreInvoiceEvents(vm.eventsFilter);
         };
         vm.getMoreTransactions = function () {
-            eventService.getMoreInvoiceTransactions(vm.transactionsFilter);
+            invoiceService.getMoreInvoiceTransactions(vm.transactionsFilter);
         };
 
         vm.getTransactionDate = function (transaction) {
-            transaction.dateString = eventService.getDateFromUnix(transaction.datetime);
+            transaction.dateString = invoiceService.getDateFromUnix(transaction.datetime);
         };
         vm.getTransactionTime = function (transaction) {
-            transaction.timeString = eventService.getTimeFromUnix(transaction.datetime);
+            transaction.timeString = invoiceService.getTimeFromUnix(transaction.datetime);
         };
 
         vm.addToSelectedTransactions = function(transactionId) {
@@ -200,35 +201,35 @@
 
         $scope.$watch('$root.user', function () {
             if ($rootScope.user) {
-                eventService.resetInvoice(vm.view.name);
+                invoiceService.reset(vm.view.name);
                 if (angular.equals(vm.view.name, "events")) {
-                    eventService.getInvoiceEvents(vm.eventsFilter);
+                    invoiceService.getInvoiceEvents(vm.eventsFilter);
                 }
                 else if (angular.equals(vm.view.name, "transactions")) {
-                    eventService.getInvoiceTransactions(vm.transactionsFilter);
+                    invoiceService.getInvoiceTransactions(vm.transactionsFilter);
                 }
             }
         });
         $scope.$watch('$root.user.point', function (newValue, oldValue) {
             if (newValue && oldValue && newValue !== oldValue) {
-                eventService.resetInvoice(vm.view.name);
+                invoiceService.reset(vm.view.name);
                 if (angular.equals(vm.view.name, "events")) {
-                    eventService.getInvoiceEvents(vm.eventsFilter);
+                    invoiceService.getInvoiceEvents(vm.eventsFilter);
                 }
                 else if (angular.equals(vm.view.name, "transactions")) {
-                    eventService.getInvoiceTransactions(vm.transactionsFilter);
+                    invoiceService.getInvoiceTransactions(vm.transactionsFilter);
                 }
             }
         });
 
         $scope.$watch('vm.view.name', function (newValue, oldValue) {
             if (newValue && oldValue && newValue !== oldValue) {
-                eventService.resetInvoice(vm.view.name);
+                invoiceService.reset(vm.view.name);
                 if (angular.equals(vm.view.name, "events")) {
-                    eventService.getInvoiceEvents(vm.eventsFilter);
+                    invoiceService.getInvoiceEvents(vm.eventsFilter);
                 }
                 else if (angular.equals(vm.view.name, "transactions")) {
-                    eventService.getInvoiceTransactions(vm.transactionsFilter);
+                    invoiceService.getInvoiceTransactions(vm.transactionsFilter);
                 }
             }
         });
@@ -240,7 +241,7 @@
                     isShow: false
                 };
                 vm.transactionsFilter.concertId = $routeParams.eventId;
-                eventService.getInvoiceTransactions(vm.transactionsFilter);
+                invoiceService.getInvoiceTransactions(vm.transactionsFilter);
             }
         });
 
@@ -254,16 +255,16 @@
                     !angular.equals(oldEventsFilter.promoter, vm.eventsFilter.promoter)) {
                     vm.eventsFilter = angular.copy(newEventsFilter);
                     vm.view.selectedTransactions = [];
-                    eventService.resetInvoice(vm.view.name);
-                    eventService.getInvoiceEvents(vm.eventsFilter);
+                    invoiceService.reset(vm.view.name);
+                    invoiceService.getInvoiceEvents(vm.eventsFilter);
                 }
             }
             else if (angular.equals(vm.view.name, "transactions")) {
                 if (!angular.equals(oldEventsFilter.period, vm.transactionsFilter.period)) {
                     vm.transactionsFilter = angular.copy(newEventsFilter);
                     vm.view.selectedTransactions = [];
-                    eventService.resetInvoice(vm.view.name);
-                    eventService.getInvoiceTransactions(vm.transactionsFilter);
+                    invoiceService.reset(vm.view.name);
+                    invoiceService.getInvoiceTransactions(vm.transactionsFilter);
                 }
             }
         });
