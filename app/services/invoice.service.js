@@ -5,9 +5,9 @@
         .module('boApp')
         .factory('invoiceService', InvoiceService);
 
-    InvoiceService.$inject = ['$rootScope', 'dataService', '$filter', '$window'];
+    InvoiceService.$inject = ['$rootScope', 'dataService', '$filter', '$window','$interval'];
 
-    function InvoiceService($rootScope, dataService, $filter, $window) {
+    function InvoiceService($rootScope, dataService, $filter, $window,$interval ) {
 
         var myInvoiceEvents = null;
         var myInvoiceTransactions = null;
@@ -238,6 +238,7 @@
                     dataService.page(results);
                     transaction.deleteAlert = false;
                     transaction.saveAlert = true;
+                    $interval( function(){  transaction.saveAlert = false; }, 3000);
                     transaction.saveMessage = "";
                     if (results != undefined && results.status == 'success' ){
                         currentInvoiceTransaction.info.saveResults = results.status;
@@ -249,6 +250,8 @@
                 });
             }
         }
+
+
 
         function deleteInvoiceInfo(transaction) {
             if (transaction.loadingItems) {
