@@ -9,7 +9,6 @@
         var vm = this;
         const defaultLimit = 10 ;
         //check rights
-        console.log(!$rootScope.hasFullAccess('api_invoices'));
         if (!$rootScope.hasFullAccess('api_invoices')
             || $rootScope.getValuePointParam('api_invoices') !== 'true'
             || !$rootScope.isPointSuperCentre()){
@@ -32,8 +31,9 @@
             }
         );
 
-        vm.defaultStartDate = moment().subtract(1, 'days');
-        vm.defaultEndDate = moment().subtract(1, 'days');
+        vm.defaultStartDate = moment().startOf('day');
+        vm.defaultEndDate = moment().endOf('day');
+
         if (vm.view.name == "transactions") {
             vm.view.currentEvent = eventService.currentInvoiceEvent();
             if (vm.view.currentEvent == null) {
@@ -56,13 +56,13 @@
             start: 0,
             limit: defaultLimit
         };
-        setDateUtcOffset(vm.eventsFilter);
+        getDateFromString(vm.eventsFilter);
         vm.transactionsFilter = {
             period: {startDate: vm.defaultStartDate, endDate: vm.defaultEndDate},
             loadingItems: false,
             concertId: 0
         };
-        setDateUtcOffset(vm.transactionsFilter);
+        getDateFromString(vm.transactionsFilter);
         if (angular.equals(vm.view.name, "events")) {
             vm.currentFilter = angular.copy(vm.eventsFilter);
             if($cookies.getObject('boInvoiceTransactionsFilter')) {
@@ -71,14 +71,14 @@
             if($cookies.getObject('boInvoiceEventsFilter')) {
                 vm.currentFilter = $cookies.getObject('boInvoiceEventsFilter').filter;
                 vm.reset_search = $cookies.getObject('boInvoiceEventsFilter').resetSearch;
-                setDateUtcOffset(vm.currentFilter);
+                getDateFromString(vm.currentFilter);
             }
         }
         else if (angular.equals(vm.view.name, "transactions")) {
             vm.currentFilter = angular.copy(vm.transactionsFilter);
             if($cookies.getObject('boInvoiceTransactionsFilter')) {
                 vm.currentFilter = $cookies.getObject('boInvoiceTransactionsFilter').filter;
-                setDateUtcOffset(vm.currentFilter);
+                getDateFromString(vm.currentFilter);
             }
         }
 
@@ -302,11 +302,10 @@
             assignEventsFilter();
         };
 
-        function setDateUtcOffset(filter) {
-            var startDateUtcOffset = moment(filter.period.startDate).utcOffset();
-            filter.period.startDate = moment(filter.period.startDate).utc().add(startDateUtcOffset, 'm').startOf('day');
-            var endDateUtcOffset = moment(filter.period.endDate).utcOffset();
-            filter.period.endDate = moment(filter.period.endDate).utc().add(endDateUtcOffset, 'm').endOf('day');
+
+        function getDateFromString(filter) {
+            filter.period.startDate = moment(filter.period.startDate);
+            filter.period.endDate = moment(filter.period.endDate).subtract(2, 'hours');;
         }
 
         function assignEventsFilter() {

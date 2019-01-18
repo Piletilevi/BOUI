@@ -20,7 +20,6 @@
 
             route.resolve = {
                 'currentUser':function(authService){
-                    console.log("resolve");
                     return authService.checkUser();
                 }
             };
