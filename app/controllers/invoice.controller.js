@@ -306,7 +306,7 @@
 
         function getDateFromString(filter) {
             filter.period.startDate = moment(filter.period.startDate);
-            filter.period.endDate = moment(filter.period.endDate).subtract(2, 'hours');;
+            filter.period.endDate = moment(filter.period.endDate).endOf('day').subtract(1,'day');
         }
 
         function assignEventsFilter() {

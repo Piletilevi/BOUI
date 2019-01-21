@@ -5,9 +5,9 @@
         .module('boApp')
         .factory('invoiceService', InvoiceService);
 
-    InvoiceService.$inject = ['$rootScope', 'dataService', '$filter', '$window','$interval'];
+    InvoiceService.$inject = ['$rootScope', 'dataService', '$filter', '$window', '$interval'];
 
-    function InvoiceService($rootScope, dataService, $filter, $window,$interval ) {
+    function InvoiceService($rootScope, dataService, $filter, $window, $interval ) {
 
         var myInvoiceEvents = null;
         var myInvoiceTransactions = null;
@@ -21,7 +21,7 @@
 
         var service = {
             myInvoiceEvents: function () {
-                return myInvoiceEvents;S
+                return myInvoiceEvents;
             },
             myInvoiceTransactions: function () {
                 return myInvoiceTransactions;
@@ -237,9 +237,10 @@
                 dataService.post('invoiceSave', {filter: transaction}).then(function (results) {
                     dataService.page(results);
                     transaction.deleteAlert = false;
+                    transaction.sendAlert = false;
                     transaction.saveAlert = true;
-                    $interval( function(){  transaction.saveAlert = false; }, 3000);
                     transaction.saveMessage = "";
+                    $interval( function(){ transaction.saveAlert = false; }, 5000);
                     if (results != undefined && results.status == 'success' ){
                         currentInvoiceTransaction.info.saveResults = results.status;
                         transaction.saveMessage = results.status;
@@ -250,8 +251,6 @@
                 });
             }
         }
-
-
 
         function deleteInvoiceInfo(transaction) {
             if (transaction.loadingItems) {
@@ -265,8 +264,10 @@
                 dataService.post('invoiceDelete', {filter: transaction}).then(function (results) {
                     dataService.page(results);
                     transaction.saveAlert = false;
+                    transaction.sendAlert = false;
                     transaction.deleteAlert = true;
                     transaction.deleteMessage = "";
+                    $interval( function(){ transaction.deleteAlert = false; }, 5000);
                     if (results != undefined && results.status == 'success' ){
                         currentInvoiceTransaction.info.saveResults = results.status;
                         transaction.deleteMessage = results.status;
@@ -278,14 +279,33 @@
                 });
             }
         }
-
+        //myInvoiceTransactions
         function sendInvoiceEmail(invoiceInfoIds) {
             dataService.post('invoiceSend', {filter: invoiceInfoIds}).then(function (results) {
                 dataService.page(results);
                 invoicesSent.sent = true;
                 invoicesSent.message = "";
+                $interval( function(){ invoicesSent.sent = false; }, 5000);
+                if (invoiceInfoIds.length == 1) {
+                    angular.forEach(myInvoiceTransactions, function(transaction) {
+                        if (angular.equals(transaction.invoiceInfoId,invoiceInfoIds[0])) {
+                            transaction.deleteAlert = false;
+                            transaction.saveAlert = false;
+                            transaction.sendAlert = true;
+                            transaction.sendMessage = "";
+                            $interval( function(){ transaction.sendAlert = false; }, 5000);
+                        }
+                    });
+                }
                 if (results != undefined && results.status != null && results.status != undefined ){
                     invoicesSent.message = results.status;
+                    if (invoiceInfoIds.length == 1) {
+                        angular.forEach(myInvoiceTransactions, function(transaction) {
+                            if (angular.equals(transaction.invoiceInfoId,invoiceInfoIds[0])) {
+                                transaction.sendMessage = results.status;
+                            }
+                        });
+                    }
                 }
             });
         }
@@ -293,7 +313,6 @@
         function openInvoice(invoiceInfoId, url) {
             $window.open(url + '/invoiceOpen?invoiceInfoId=' + invoiceInfoId);
         }
-
         function downloadInvoice(invoiceInfoId, url) {
             $window.open(url + '/invoiceDownload?invoiceInfoId=' + invoiceInfoId);
         }
@@ -342,7 +361,6 @@
                 setTransactionLabel(transactionItem);
             });
         }
-
         function setTransactionLabel(transactionItem){
             if (angular.equals(transactionItem.invoiceStatus, "generated")) {
                 transactionItem.labelStyle = "primary";
@@ -357,12 +375,10 @@
                 transactionItem.labelStyle = "default";
             }
         };
-
         function setTransactionDateTime(transactionItem,unixField) {
             transactionItem.dateString = getDateFromUnix(unixField);
             transactionItem.timeString = getTimeFromUnix(unixField);
         }
-
         function getDateFromUnix(unixTime) {
             var date = new Date(unixTime*1000);
             var year = date.getFullYear();
@@ -371,7 +387,6 @@
             var formattedDate = day.substr(-2) + "." + month.substr(-2) + "." + year;
             return formattedDate;
         }
-
         function getTimeFromUnix(unixTime) {
             var date = new Date(unixTime*1000);
             var hours = "0" + date.getHours();
@@ -379,6 +394,7 @@
             var formattedTime = hours.substr(-2) + ":" + minutes.substr(-2);
             return formattedTime;
         }
+
         function compareProducts(a,b) {
             if (a.productName < b.productName)
                 return -1;
@@ -401,11 +417,7 @@
                     newElement.amount++;
                     newElement.priceTotal += inputArray[i].price;
                 }
-
-
-
             }
-
         }
     };
 

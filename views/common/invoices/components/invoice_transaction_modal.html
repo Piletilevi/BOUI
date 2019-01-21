@@ -16,6 +16,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="bo-alert alert" role="alert"
+                             ng-if="vm.view.currentTransaction.sendAlert"
+                             ng-class="{'alert-success':vm.view.currentTransaction.sendMessage == 'success','alert-danger':vm.view.currentTransaction.sendMessage != 'success'}">
+                            <span>{{vm.view.currentTransaction.sendMessage == 'success' ? 'api_invoice_sendSuccess':'api_invoice_sendFail'|translate}}</span>
+                        </div>
+                        <br ng-if="vm.view.currentTransaction.sendAlert">
+                        <div class="bo-alert alert" role="alert"
                              ng-if="vm.view.currentTransaction.saveAlert"
                              ng-class="{'alert-success':vm.view.currentTransaction.saveMessage == 'success','alert-danger':vm.view.currentTransaction.saveMessage != 'success'}">
                             <span>{{vm.view.currentTransaction.saveMessage == 'success' ? 'api_saveSuccess':'api_saveFail'|translate}}</span>
