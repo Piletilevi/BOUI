@@ -10,54 +10,37 @@
 
     function PaymentService($rootScope, $translate, dataService) {
 
-        var jobs = null;
-        var jobPriorities = null;
-        var jobFrequencies = null;
+        var refundRows = null;
 
         var service = {
-            jobs: function () {
-                return jobs
-            },
-            jobPriorities: function () {
-                return jobPriorities
-            },
-            jobFrequencies: function () {
-                return jobFrequencies
+            refundRows: function () {
+                return refundRows
             },
 			refundValidate: refundValidate,
-			refundProcess: refundProcess,
-			fetchJobs: fetchJobs
+			refundProcess: refundProcess
         };
         return service;
 
-        function fetchJobs(filter) {
-            dataService.post('getJobs', {filter: filter}).then(function (results) {
+        function refundValidate(rows, filter) {
+            dataService.post('refundValidate', {filter: rows}).then(function (results) {
                 dataService.page(results);
                 if (results.status == 'success') {
-                    jobs = results.status == 'success' ? results.data : [];
+                    refundRows = results.status == 'success' ? results.data : [];
+					filter.processed = true;
                 }
             });
-			filter.loadingItems = false;
-        }
-
-        function refundValidate(filter) {
-            dataService.post('refundValidate', {filter: filter}).then(function (results) {
-                dataService.page(results);
-                if (results.status == 'success') {
-                    jobs = results.status == 'success' ? results.data : [];
-                }
-            });
-			filter.loadingItems = false;
+			filter.processed = false;
         }
 		
-        function refundProcess(filter) {
-            dataService.post('refundProcess', {filter: filter}).then(function (results) {
+        function refundProcess(rows, filter) {
+            dataService.post('refundProcess', {filter: rows}).then(function (results) {
                 dataService.page(results);
                 if (results.status == 'success') {
-                    jobs = results.status == 'success' ? results.data : [];
+                    refundRows = results.status == 'success' ? results.data : [];
+					filter.processed = true;
                 }
             });
-			filter.loadingItems = false;
+			filter.processed = false;
         }
-    }
+	}
 })();

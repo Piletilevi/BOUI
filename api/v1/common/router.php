@@ -2200,7 +2200,7 @@ $app->post('/refundProcess', function ($request, $response, $args)  {
     $json = json_decode($request->getBody());
 
 	$filter = array();
-	$filter['rows'] = $json->rows;
+	$filter['rows'] = $json->filter;
 	
     $piletileviApi = $this->piletileviApi;
     $reportResponse = $piletileviApi->refundProcess( $filter );

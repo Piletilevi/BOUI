@@ -11,30 +11,39 @@
 		var lines = content.csv.split('\n'),
 			headers = lines[0].split(content.separator),
 			columnCount = lines[0].split(content.separator).length,
-			results = [];
-
+			results = [],
+			returnData = {};
+			
+		
+		returnData['headers'] = headers;
+		
 		// For each row
-		for (var i = 0; i < lines.length; i++) {
+		for (var i = 1; i <= lines.length; i++) {
 
 			// Declare an object
 			var obj = {};
 
 			// Get our current line
-			var line = lines[i].split(new RegExp(content.separator + '(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)'));
+			var line = lines[i - 1].split(new RegExp(content.separator + '(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)'));
+			
+			if (line.length > 1) {
+				// For each header
+				for (var j = 0; j < headers.length; j++) {
 
-			// For each header
-			for (var j = 0; j < headers.length; j++) {
+					// Populate our object
+					obj[headers[j].trim()] = line[j];
+				}
 
-				// Populate our object
-				obj[headers[j].trim()] = line[j];
+				// Push our object to our result array
+				results.push(obj);
 			}
-
-			// Push our object to our result array
-			results.push(obj);
+			
 		}
-
+		
+		returnData['rows'] = results;
+		
 		// Return our array
-		return results;
+		return returnData;
 	};
 
 	function csvReader() {
@@ -42,6 +51,7 @@
 			restrict: 'A',
 			scope: {
 				results: '=',
+				headers: '=',
 				separator: '=',
 				callback: '&saveResultsCallback'
 			},
@@ -65,7 +75,17 @@
 						// Create our fileReader and get our file
 						var reader = new FileReader();
 						var file = (e.srcElement || e.target).files[0];
-
+						var isValidFile = false;
+						
+						if (file != null) {
+							var extension = file.name.split('.').pop().toLowerCase();
+							if (file.type == "application/vnd.ms-excel" && extension == "csv") {
+								isValidFile = true;
+							} else {
+								alert('Invalid file type. Please choose csv!');
+							}
+						}
+						
 						// Once the fileReader has loaded
 						reader.onload = function (e) {
 
@@ -79,15 +99,21 @@
 							scope.$apply(function () {
 
 								// Our data after it has been converted to JSON
-								scope.results = convertToJSON(data);
+								var parsedResult = convertToJSON(data);
+								if (parsedResult) {
+									scope.headers = parsedResult['headers'];
+									scope.results = parsedResult['rows'];									
+								}
 
 								// Call our callback function 
-								scope.callback(scope.results);
+								scope.callback(scope.headers, scope.results);
 							});
 						};
 
 						// Read our file contents
-						reader.readAsText(file);
+						if (isValidFile) {
+							reader.readAsText(file);
+						}
 					}
 				});
 			}
