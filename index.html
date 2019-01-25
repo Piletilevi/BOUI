@@ -49,8 +49,15 @@
     </div>
     <div class="container bo-main-block">
         <div ng-include="'views/common/dashboard.html'"></div>
-        <div>
+        <div ng-if="loadedView">
             <div data-ng-view="" id="ng-view" class="row"></div>
+        </div>
+        <div ng-if="!loadedView" class="row">
+            <div class="col-xs-offset-5 col-md-offset-5 col-xs-2 col-md-2">
+                <div class="bo-content" style="text-align: center">
+                    <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" style="color: #5e7287;"></i>
+                </div>
+            </div>
         </div>
     </div>
     <div class="bo-print-footer visible-print" ng-include="'views/print_footer.html'" ng-if="authenticated"></div>

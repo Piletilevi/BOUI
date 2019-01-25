@@ -3,9 +3,6 @@
 	
 	angular.module('boApp')
         .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-
-
-
             routeProvider($routeProvider);
             $locationProvider.hashPrefix('');
         }])
@@ -13,17 +10,12 @@
 
     routeProvider.$inject=['$routeProvider'];
     function routeProvider($routeProvider) {
-
-       // var originalWhen = $routeProvider.when;
-
-        $routeProvider.accessWhen = function(path, route){
-
+        $routeProvider.accessWhen = function(path, route) {
             route.resolve = {
                 'currentUser':function(authService){
                     return authService.checkUser();
                 }
             };
-
             return $routeProvider.when(path, route);
         };
 
@@ -130,7 +122,6 @@
             .otherwise({
                 redirectTo: '/login'
             });
-
     }
     
     runRouteProvider.$inject=['$rootScope', '$log', '$location', 'authService', 'menuService'];
@@ -142,8 +133,8 @@
             $rootScope.filterNotNeeded = ($location.path() == '/changepassword') || ($location.path().indexOf("invoices") > -1);
             menuService.route($location.path());
         });
-
         $rootScope.$on('$routeChangeSuccess', function(){
+            $rootScope.loadedView = true;
             ga('send', 'pageview', $location.path());
         });
     }

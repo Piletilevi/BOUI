@@ -105,12 +105,11 @@
 
         function checkUser(){
             var deferred = $q.defer();
-
             dataService.get('session').then(function (results) {
                 if (results.user) {
                     $rootScope.authenticated = true;
                     $rootScope.user = results.user;
-                    deferred.resolve(results.user)
+                    deferred.resolve(results.user);
                     return deferred.promise;
                 }
                 else {
@@ -119,12 +118,11 @@
                     deferred.reject("No user");
                 }
             });
-
             return deferred.promise;
         }
         function checkUserAuth(next){
             var nextUrl = next.$$route.originalPath;
-
+            $rootScope.loadedView = false;
             checkUser().then(
                 function(user){
                     pointService.setPoint($rootScope.user.point);
