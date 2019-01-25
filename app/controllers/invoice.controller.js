@@ -32,8 +32,8 @@
             }
         );
 
-        vm.defaultStartDate = moment().startOf('day');
-        vm.defaultEndDate = moment().endOf('day');
+        vm.defaultStartDate = moment().startOf('day').subtract(1,'day');
+        vm.defaultEndDate = moment().endOf('day').subtract(1,'day');
 
         if (vm.view.name == "transactions") {
             vm.view.currentEvent = invoiceService.currentInvoiceEvent();
@@ -50,20 +50,24 @@
             }
         }
         vm.eventsFilter = {
-            period: {startDate: vm.defaultStartDate, endDate: vm.defaultEndDate},
+            period: {
+                startDate: vm.defaultStartDate,
+                endDate: vm.defaultEndDate
+            },
             name: '',
             promoter: '',
             loadingItems: false,
             start: 0,
             limit: defaultLimit
         };
-        getDateFromString(vm.eventsFilter);
         vm.transactionsFilter = {
-            period: {startDate: vm.defaultStartDate, endDate: vm.defaultEndDate},
+            period: {
+                startDate: vm.defaultStartDate,
+                endDate: vm.defaultEndDate
+            },
             loadingItems: false,
             concertId: 0
         };
-        getDateFromString(vm.transactionsFilter);
         if (angular.equals(vm.view.name, "events")) {
             vm.currentFilter = angular.copy(vm.eventsFilter);
             if($cookies.getObject('boInvoiceTransactionsFilter')) {
@@ -74,13 +78,17 @@
                 vm.reset_search = $cookies.getObject('boInvoiceEventsFilter').resetSearch;
                 getDateFromString(vm.currentFilter);
             }
+            vm.eventsFilter = angular.copy(vm.currentFilter);
         }
         else if (angular.equals(vm.view.name, "transactions")) {
             vm.currentFilter = angular.copy(vm.transactionsFilter);
             if($cookies.getObject('boInvoiceTransactionsFilter')) {
                 vm.currentFilter = $cookies.getObject('boInvoiceTransactionsFilter').filter;
                 getDateFromString(vm.currentFilter);
+            } else {
+                $cookies.putObject('boInvoiceTransactionsFilter', {filter: vm.currentFilter});
             }
+            vm.transactionsFilter = angular.copy(vm.currentFilter);
         }
 
         vm.goToEvents = function () {
@@ -250,9 +258,9 @@
                 return;
             }
             if (angular.equals(vm.view.name, "events")) {
-                if (!angular.equals(oldEventsFilter.period, vm.eventsFilter.period) ||
-                    !angular.equals(oldEventsFilter.name, vm.eventsFilter.name) ||
-                    !angular.equals(oldEventsFilter.promoter, vm.eventsFilter.promoter)) {
+                if (!angular.equals(oldEventsFilter.period, newEventsFilter.period) ||
+                    !angular.equals(oldEventsFilter.name, newEventsFilter.name) ||
+                    !angular.equals(oldEventsFilter.promoter, newEventsFilter.promoter)) {
                     vm.eventsFilter = angular.copy(newEventsFilter);
                     vm.view.selectedTransactions = [];
                     invoiceService.reset(vm.view.name);
@@ -260,7 +268,7 @@
                 }
             }
             else if (angular.equals(vm.view.name, "transactions")) {
-                if (!angular.equals(oldEventsFilter.period, vm.transactionsFilter.period)) {
+                if (!angular.equals(oldEventsFilter.period, newEventsFilter.period)) {
                     vm.transactionsFilter = angular.copy(newEventsFilter);
                     vm.view.selectedTransactions = [];
                     invoiceService.reset(vm.view.name);
@@ -303,9 +311,8 @@
             assignEventsFilter();
         };
 
-
         function getDateFromString(filter) {
-            filter.period.startDate = moment(filter.period.startDate);
+            filter.period.startDate = moment(filter.period.startDate).startOf('day');
             filter.period.endDate = moment(filter.period.endDate).endOf('day').subtract(1,'day');
         }
 

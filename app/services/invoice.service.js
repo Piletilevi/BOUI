@@ -84,7 +84,9 @@
                 return;
             }
             filter.loadingItems = true;
-            dataService.post('invoiceEvents', {filter: filter}).then(function (results) {
+            var dataFilter = filter;
+            setUtcOffset(dataFilter);
+            dataService.post('invoiceEvents', {filter: dataFilter}).then(function (results) {
                 dataService.page(results);
                 myInvoiceEvents = results != undefined && results.status == 'success' ? results.events : [];
                 if (results != undefined && results.status == 'success') {
@@ -107,7 +109,9 @@
                 if (myInvoiceEvents.length % 5 == 0 && filter.start != myInvoiceEvents.length + 1) {
                     filter.loadingItems = true;
                     filter.start = myInvoiceEvents.length + 1;
-                    dataService.post('invoiceEvents', {filter: filter}).then(function (results) {
+                    var dataFilter = filter;
+                    setUtcOffset(dataFilter);
+                    dataService.post('invoiceEvents', {filter: dataFilter}).then(function (results) {
                         if (results != undefined && results.status == 'success') {
                             setInvoiceEventPromoters(results.events,results.promoters);
                             results.events.forEach(function (eventItem) {
@@ -145,7 +149,9 @@
             filter.limit = 20;
             if (filter.concertId > 0) {
                 filter.loadingItems = true;
-                dataService.post('invoiceTransactions', {filter: filter}).then(function (results) {
+                var dataFilter = filter;
+                setUtcOffset(dataFilter);
+                dataService.post('invoiceTransactions', {filter: dataFilter}).then(function (results) {
                     dataService.page(results);
                     myInvoiceTransactions = results != undefined && results.status == 'success' ? results.data : [];
                     if (results != undefined && results.status == 'success') {
@@ -173,7 +179,9 @@
                 } else {
                     filter.start = filter.start + filter.limit;
                 }
-                dataService.post('invoiceTransactions', {filter: filter}).then(function (results) {
+                var dataFilter = filter;
+                setUtcOffset(dataFilter);
+                dataService.post('invoiceTransactions', {filter: dataFilter}).then(function (results) {
                     dataService.page(results);
                     var moreTransactions = results != undefined && results.status == 'success' ? results.data : [];
                     if (results != undefined && results.status == 'success') {
@@ -417,6 +425,13 @@
                     newElement.amount++;
                     newElement.priceTotal += inputArray[i].price;
                 }
+            }
+        }
+
+        function setUtcOffset(filter) {
+            if (filter.period) {
+                filter.period.startDate = moment(filter.period.startDate).utc().add(moment(filter.period.startDate).utcOffset(), 'm');
+                filter.period.endDate = moment(filter.period.endDate).utc().add(moment(filter.period.endDate).utcOffset(), 'm');
             }
         }
     };
