@@ -95,6 +95,8 @@
                         setCurrentInvoiceEvent(myInvoiceEvents[0]);
                     }
                 }
+
+            }).finally(function () {
                 filter.loadingItems = false;
             });
         }
@@ -120,6 +122,7 @@
                                 }
                             });
                         }
+                    }).finally(function () {
                         filter.loadingItems = false;
                     });
                 }
@@ -157,6 +160,7 @@
                     if (results != undefined && results.status == 'success') {
                         setTransactionsInfo(myInvoiceTransactions);
                     }
+                }).finally(function () {
                     filter.loadingItems = false;
                 });
             }
@@ -190,6 +194,7 @@
                         setTransactionsInfo(myInvoiceTransactions);
                     }
                     else filter.noMoreTransactions = true;
+                }).finally(function () {
                     filter.loadingItems = false;
                 });
             }
@@ -250,6 +255,7 @@
                     transaction.saveMessage = "";
                     $interval( function(){ transaction.saveAlert = false; }, 5000);
                     if (results != undefined && results.status == 'success' ){
+                        console.log(results);
                         currentInvoiceTransaction.info.saveResults = results.status;
                         transaction.saveMessage = results.status;
                         updateTransaction(transaction,results);
@@ -327,6 +333,7 @@
 
         function updateTransaction(transaction,newData) {
             if(newData != undefined && newData.invoiceInfoId != undefined ) {
+                console.log("update")
                 transaction.invoiceStatus = newData.invoiceStatus;
                 transaction.statusLabel = newData.statusLabel;
                 transaction.invoiceInfoId = newData.invoiceInfoId;
