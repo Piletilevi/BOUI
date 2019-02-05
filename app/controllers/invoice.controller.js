@@ -102,7 +102,11 @@
             vm.view.currentTransaction = transaction;
             vm.view.currentTransaction.saveAlert = false;
             vm.view.currentTransaction.deleteAlert = false;
-            invoiceService.getInvoiceTransactionInfo({concertId:vm.view.currentEvent.id,transactionId:vm.view.currentTransaction.transactionId},transaction);
+            invoiceService.getInvoiceTransactionInfo({
+                    concertId:vm.view.currentEvent.id,
+                    transactionId:vm.view.currentTransaction.transactionId
+                },
+                transaction);
         };
         vm.removeCurrentTransaction = function () {
             vm.view.currentTransaction = null;

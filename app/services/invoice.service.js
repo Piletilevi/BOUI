@@ -244,6 +244,11 @@
             if (transaction.loadingItems) {
                 return;
             }
+
+            transaction.info.invoiceDate = moment(transaction.info.dateString,"DD.MM.YYYY").endOf('day');
+            transaction.info.invoiceDate = transaction.info.invoiceDate.utc();
+            transaction.info.invoiceDate = transaction.info.invoiceDate.add(transaction.info.invoiceDate.utcOffset(), 'm');
+            transaction.info.invoiceDate = transaction.info.invoiceDate.unix();
             currentInvoiceTransaction = transaction;
             if (currentInvoiceEvent.id > 0 && currentInvoiceTransaction.transactionId > 0) {
                 transaction.loadingItems = true;
@@ -255,7 +260,6 @@
                     transaction.saveMessage = "";
                     $interval( function(){ transaction.saveAlert = false; }, 5000);
                     if (results != undefined && results.status == 'success' ){
-                        console.log(results);
                         currentInvoiceTransaction.info.saveResults = results.status;
                         transaction.saveMessage = results.status;
                         updateTransaction(transaction,results);
@@ -391,7 +395,10 @@
             }
         };
         function setTransactionDateTime(transactionItem,unixField) {
-            transactionItem.dateString = getDateFromUnix(unixField);
+            transactionItem.dateString = moment.unix(
+                unixField
+            ).format("DD.MM.YYYY");
+
             transactionItem.timeString = getTimeFromUnix(unixField);
         }
         function getDateFromUnix(unixTime) {

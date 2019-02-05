@@ -35,6 +35,7 @@
                             {{vm.view.currentEvent.transactionCount > 0 ? vm.view.currentEvent.transactionCount:0}}
                         </div>
                         <span>{{vm.view.currentEvent.name}}</span>
+                        <span>{{vm.view.currentEvent.eventPeriod.start | date:'dd.MM.yyyy' }}</span>
                     </div>
                     <div class="col-md-4 col-xs-4">
                         <button type="button" class="close bo-sidenav-dismiss" id="transactionsSideNavDismiss">

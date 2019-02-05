@@ -715,6 +715,9 @@ $app->post('/invoiceSave', function ($request, $response, $args)  {
     if (property_exists($json->filter->info, 'additionalInfo')) {
         $filter['additionalInfo'] = $json->filter->info->additionalInfo;
     }
+    if (property_exists($json->filter->info, 'invoiceDate')) {
+        $filter['invoiceDate'] = $json->filter->info->invoiceDate;
+    }
 
     $piletileviApi = $this->piletileviApi;
     $dataResponse = $piletileviApi->invoiceAction("/invoice/save", $filter);

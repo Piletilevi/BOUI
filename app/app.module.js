@@ -26,6 +26,10 @@
         blockUIConfig.autoInjectBodyBlock = false;
     });
 
+    angular.module('boApp').config(function($compileProvider){
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);
+    });
+
     angular.module('boApp').run(runApp);
     runApp.$inject = ['authService', 'translationService', 'pointService', 'menuService'];
     function runApp( authService, translationService, pointService, menuService){
