@@ -47,9 +47,10 @@
 					if ($rootScope.authenticated) {
 						dataService.getIp().then(function(result) {
 							dataService.post('getYellowSessionKey',{'clientip':result.ip}).then(function (sessionResults) {
+							    console.log(sessionResults.boSession);
 								if (sessionResults.status === "success") {
 									var bourl = boBasicUrl.replace("{sessionkey}", sessionResults.boSession.sessionkey);
-                                    					var bourl = boBasicUrl.replace("{resource}", "menu.p");
+									bourl = bourl.replace("{resource}", "menu.p");
 									$window.location.href = bourl;
 								}
 							});
