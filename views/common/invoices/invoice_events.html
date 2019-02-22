@@ -1,0 +1,98 @@
+<div class="col-xs-12 col-md-9">
+    <div class="bo-sidenav-open" id="eventsSideNavOpen" ng-show="!vm.eventsFilter.loadingItems">
+        <div class="bo-button bo-button-overlay bo-button-main">
+            <div class="btn btn-default" ng-style="{'background-color': pointAccentColor }">
+                <span><i class="fa fa-th-list"></i></span>
+            </div>
+        </div>
+    </div>
+    <div id="boInvoiceEventsWrapper"> <!-- if Event view -->
+        <div id="eventsScrollBlock" infinite-scroll="vm.getMoreEvents()" infinite-scroll-disabled="vm.eventsFilter.loadingItems">
+            <div ng-repeat="eventItem in vm.myEvents">
+                <div class="panel panel-default">
+                    <div class="bo-panel bo-panel-linked">
+                        <div class="panel-body bo-panel-invoice" ng-include-template="common/invoices/components/invoice_event.html"
+                             ng-include-variables="{event:eventItem, vm:vm, user:user}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bo-content" style="margin-top:0" ng-if="(!vm.myEvents || vm.myEvents.length == 0) && !vm.eventsFilter.loadingItems && !vm.currentFilter.loadingItems">
+            <div class="bo-alert alert alert-warning" role="alert">
+                <span>{{'api_no_events_found'|translate}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="bo-loader" block-ui block-ui-pattern="/invoiceEvents/"></div>
+</div>
+<div class="col-md-3 bo-sidebar bo-sidenav" id="eventsSideNav">
+    <div class="panel affix panel-default">
+        <div class="bo-panel">
+            <div class="panel-heading clearfix">
+                <div class="row">
+                    <div class="col-md-8 col-xs-8">
+                        <span>{{'api_invoice_eventsWithInvoices'|translate}}</span>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <button type="button" class="close bo-sidenav-dismiss" id="eventsSideNavDismiss">
+                            <div class="bo-badge bo-label label-default"><i class="fa fa-times" style="padding:4px 0"></i></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="input-group bo-input bo-input-sub bo-daterangepicker" data-control="daterangepicker">
+                            <input type="text" class="form-control" daterangepicker-neutral-timezone
+                                   ng-model="vm.eventsFilter.period"
+                                   ng-attr-data-default-start-date="{{vm.defaultStartDate}}"
+                                   ng-attr-data-default-end-date="{{vm.defaultEndDate}}"
+                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled/>
+                            <div class="bo-button input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group bo-input bo-input-sub">
+                            <input type="text" class="form-control" placeholder="{{'api_organizer_reserved_promoter'|translate}}" ng-model="vm.eventsFilter.promoter">
+                        </div>
+                        <div class="input-group bo-input bo-input-sub">
+                            <input type="text" class="form-control" placeholder="{{'api_eventOrLocation'|translate}}"
+                                   ng-model="vm.eventsFilter.name" key-bind="{enter:'vm.search()'}">
+                            <div class="bo-button input-group-btn">
+                                <button class="btn btn-default" type="button" ng-click="vm.search()">
+                                    <span><i class="fa fa-{{vm.reset_search ? 'close' : 'search'}}" aria-hidden="true"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bo-sidenav-overlay"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#eventsSideNavDismiss, .bo-sidenav-overlay').on('click', function () {
+            $('#eventsSideNav').hide();
+            $('.bo-sidenav-overlay',).hide();
+        });
+        $('#eventsSideNavOpen').on('click', function () {
+            $('#eventsSideNav').show();
+            $('.bo-sidenav-overlay',).show();
+        });
+        $(window).resize(function() {
+            if($(window).width() > 991 && $('#eventsSideNav').css('display') == "none") {
+                $('#eventsSideNav').show();
+            }
+            if($(window).width() < 992 && $('#eventsSideNav').css('display') != "none") {
+                $('#eventsSideNav').hide();
+                $('.bo-sidenav-overlay',).hide();
+            }
+        });
+    });
+</script>

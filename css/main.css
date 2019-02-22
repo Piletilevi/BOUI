@@ -197,15 +197,15 @@ body {
     margin: 0;
 }
 
-.bo-panel-table .bo-info span {
+.bo-info span {
     margin-right: 15px;
 }
-.bo-panel-table .bo-info .fa {
+.bo-info .fa {
     color: #b3bcce;
     width: 22px;
     text-align: center;
 }
-.bo-panel-table .bo-totals > span {
+.bo-totals > span {
     display: inline-block;
     text-align: right;
     font-size: 1.2em;
@@ -217,11 +217,21 @@ body {
 .bo-panel-event > div {
     padding: 15px;
 }
+.bo-panel-invoice {
+    padding: 5px 0;
+}
+.bo-panel-invoice > div {
+    padding: 5px 15px;
+}
 
 .bo-panel-sub .panel-body.bo-panel-section-disabled {
     box-shadow: none!important;
     background-color: #edf0f4!important;
     cursor: default;
+}
+
+.bo-panel-table > div {
+    vertical-align: top;
 }
 
 /* Buttons
@@ -264,6 +274,16 @@ body {
     background-color: #edf0f4;
     height: 35px;
     border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.bo-button-overlay {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+}
+
+.bo-button-overlay > .btn {
+    padding: 7px 10px;
 }
 
 /* Forms & Input groups
@@ -345,6 +365,16 @@ body {
     width: 20px;
     height: 20px;
 }
+.bo-checkbox.bo-checkbox-sub {
+    display: inline-block;
+}
+.bo-checkbox-nolabel.bo-checkbox label::before {
+    position: relative;
+}
+.bo-checkbox.bo-checkbox-sub label::before {
+    border-color: #b3bcce;
+    border-radius: 4px;
+}
 .bo-checkbox label:hover::before {
     background-color: #edf0f4;
 }
@@ -356,10 +386,22 @@ body {
     font-size: 14px;
     color: #555555;
 }
+.bo-checkbox-nolabel.bo-checkbox label::after {
+    margin-left: 34px;
+}
 .bo-checkbox input[type="checkbox"]:checked + label::after,
 .bo-checkbox input[type="radio"]:checked + label::after {
     font-family: "FontAwesome";
     content: "\f00c";
+}
+
+.bo-textarea {
+    display: block;
+    overflow: hidden;
+    white-space: normal!important;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: max-content;
 }
 
 .bo-input.input-group {
@@ -369,6 +411,9 @@ body {
     padding-left: 15px;
 }
 .bo-input-sub.input-group {
+    margin-bottom: 8px;
+}
+.bo-input-sub.form-group {
     margin-bottom: 8px;
 }
 
@@ -430,6 +475,11 @@ body {
     margin-left: 5px;
     border-radius: 4px;
     width: calc(100% - 5px);
+}
+.bo-input-sub.input-group .form-control:last-child {
+    margin-left: 0;
+    border-radius: 4px;
+    width: 100%;
 }
 
 .input-group .form-control:first-child,
@@ -703,28 +753,60 @@ body {
     border-collapse: collapse;
 }
 
-.bo-table-title {
-    background-color: #5e7287!important;
+.bo-table-title.bo-table-row {
+    background-color: #5e7287;
 }
 .bo-table-title > .bo-table-cell {
     color: #fff;
-    background-color: #5e7287!important;
+    background-color: #5e7287;
     font-weight: bold;
-    border-color: transparent!important;
+    border-color: transparent;
 }
 
 .bo-table-subtitle {
-    background-color: #b3bcce!important;
+    background-color: #b3bcce;
 }
 .bo-table-subtitle > .bo-table-cell {
-    background-color: #b3bcce!important;
-    border-color: transparent!important;
+    background-color: #b3bcce;
+    border-color: transparent;
 }
+
+.bo-table-plain.bo-table {
+    background-color: transparent;
+    border-color: transparent;
+}
+.bo-table-plain .bo-table-cell:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.bo-table-plain .bo-table-cell:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.bo-table-plain .bo-table-subtitle {
+    background-color: transparent;
+}
+.bo-table-plain .bo-table-subtitle > .bo-table-cell {
+    background-color: transparent;
+    color: #5e7287;
+    border-bottom: 1px solid #5e7287;
+    font-weight: bold;
+    border-radius: 0;
+}
+.bo-table-plain .bo-table-footer .bo-table-row {
+    background-color: transparent;
+}
+.bo-table-plain .bo-table-footer .bo-table-cell {
+    color: #5e7287;
+    background-color: transparent;
+}
+
 
 /* Modal
 ===================== */
 .bo-modal .modal-dialog {
     margin: 80px auto;
+    width: 800px;
 }
 
 .bo-modal .modal-content {
@@ -923,6 +1005,9 @@ body {
     border-radius: 2px;
     padding: 5px 15px;
 }
+.bo-input-sub .dropdown-menu {
+    min-width: 100%;
+}
 
 .bo-dropdown.open .dropdown-toggle {
     background-color: #edf0f4;
@@ -931,6 +1016,7 @@ body {
 .bo-dropdown .dropdown-toggle > span {
     color: #5e7287;
     opacity: 0.8;
+    cursor: pointer;
 }
 .bo-dropdown:hover .dropdown-toggle > span,
 .bo-dropdown:focus .dropdown-toggle > span,
@@ -1009,12 +1095,57 @@ body {
 ===================== */
 .bo-sidebar {
     margin-bottom: 10px;
-    margin-top: -61px;
+    /*margin-top: -61px;*/
 }
 
 .bo-sidebar .bo-panel-table > div {
     display: block;
     width: 100%;
+}
+
+.bo-sidebar .affix {
+    max-width: 322.5px;
+    margin-right: 30px;
+    position: fixed;
+}
+
+/* Block ui
+================================ */
+.block-ui.bo-loader {
+    min-height: 70px;
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.block-ui.bo-loader[aria-busy="false"] {
+    display: none;
+}
+
+.bo-loader .block-ui-message-container {
+    top: 12px;
+}
+.bo-loader .block-ui-message {
+    padding: 8px 20px;
+    border-radius: 4px;
+}
+
+.bo-loader .block-ui-container {
+    border-radius: 6px;
+}
+
+/* Sidenav
+================================ */
+.bo-sidenav {
+    display: block;
+}
+.bo-sidenav-dismiss, .bo-sidenav-open {
+    display: none;
+}
+
+.bo-sidenav-overlay {
+    display: none;
 }
 
 /* Bootstrap elements
@@ -1188,10 +1319,10 @@ body {
 }
 
 .alert-default {
-     border: 0;
-     color: #fff;
-     background-color: #5e7287;
- }
+    border: 0;
+    color: #fff;
+    background-color: #5e7287;
+}
 .alert-success {
     border: 0;
     color: #fff;

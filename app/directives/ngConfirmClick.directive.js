@@ -61,7 +61,7 @@
                         modalFooterSendElement.style.marginRight = '5px';
 						var modalFooterSendChildElement = document.createElement('div');
                         modalFooterSendChildElement.className = 'btn btn-primary';
-                        modalFooterSendChildElement.innerHTML = '<span>' + $translate.instant('api_send') + '</span>';
+                        modalFooterSendChildElement.innerHTML = '<span>' + $translate.instant('api_yes') + '</span>';
                         modalFooterSendElement.appendChild(modalFooterSendChildElement);
 						modalFooterElement.appendChild(modalFooterSendElement);
 

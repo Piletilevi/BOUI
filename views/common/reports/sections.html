@@ -2,10 +2,10 @@
     <div class="col-sm-6">
         <div class="form-inline">
             <div class="input-group bo-input">
-                <div ng-include-template="components/report_daterangepicker.html" ng-include-variables="{vm:vm}"></div>
+                <div ng-include-template="common/reports/components/report_daterangepicker.html" ng-include-variables="{vm:vm}"></div>
             </div>
             <div class="input-group bo-input" ng-if="vm.hasSalesPoint()">
-                <div ng-include-template="components/report_centerdropdown.html" ng-include-variables="{vm:vm, tabFilter:vm.sectorsFilter}"></div>
+                <div ng-include-template="common/reports/components/report_centerdropdown.html" ng-include-variables="{vm:vm, tabFilter:vm.sectorsFilter}"></div>
             </div>
         </div>
     </div>

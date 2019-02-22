@@ -24,6 +24,7 @@
             getPointMenuGamma: getPointMenuGamma,
             getPointMenuGammaAccent: getPointMenuGammaAccent,
             getPointAccentColor: getPointAccentColor,
+            isPointSuperCentre: isPointSuperCentre,
             initialize: initialize
         };
         return service;
@@ -40,6 +41,15 @@
 			return "";
         }
 
+        function isPointSuperCentre(){
+            var point;
+
+            if ($rootScope.user.salesPoints != null) {
+                point = $rootScope.user.salesPoints.find(findPoint);
+                return point.superCentreCentreId === point.id;
+            }
+            return false;
+        }
         function getPointCountryId() {
             if ($rootScope.user.salesPoints != null) {
                 return $rootScope.user.salesPoints.find(findPoint).country;
@@ -232,6 +242,7 @@
         function initialize() {
             $rootScope.getPointName = getPointName;
             $rootScope.setPoint = setPoint;
+            $rootScope.isPointSuperCentre = isPointSuperCentre;
             $rootScope.getLogicalPointParam = function(name) {
                 var hasCentreParam = false;
                 if($rootScope.user && $rootScope.user.salesPoints) {

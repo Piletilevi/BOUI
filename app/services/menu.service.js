@@ -1,28 +1,22 @@
-/**
- * Created by kaur on 20.09.2016.
- */
 (function() {
-
     'use strict';
-
     angular
         .module('boApp')
         .factory('menuService', MenuService);
-
     MenuService.$inject = ['$rootScope','$location','$window','dataService','authService'];
-
     function MenuService($rootScope,$location,$window,dataService,authService) {
-        
-		var activeTopMenu = null;
-		var activeSubMenu = null;
-		
-		var service = {
-			initialize: initialize,
-            toChangePassword: toChangePassword,
-            toOldBo: toOldBo,
+        $rootScope.userMenuOpen = false;
+        $rootScope.languageMenuOpen = false;
+        $rootScope.salespointMenuOpen = false;
+	var activeTopMenu = null;
+	var activeSubMenu = null;
+        var service = {
+            initialize:initialize,
+            toChangePassword:toChangePassword,
+            toOldBo:toOldBo,
             route: route,
             setActiveTopMenu: setActiveTopMenu,
-			getActiveTopMenu: getActiveTopMenu
+            getActiveTopMenu: getActiveTopMenu
         };
         return service;
 
@@ -36,16 +30,15 @@
             $rootScope.isActiveSubMenu = function(menuName) {
                 return activeSubMenu==menuName;
             }
+	    $rootScope.setActiveBackground = setActiveBackground;
         }
 
         function toChangePassword(){
             $location.path("/changepassword");
         }
-
         function logout(){
             authService.logout();
         }
-
         function toOldBo() {
             var boBasicUrl = '';
             dataService.getBoUrl().then(function(results) {
@@ -56,16 +49,22 @@
 							dataService.post('getYellowSessionKey',{'clientip':result.ip}).then(function (sessionResults) {
 								if (sessionResults.status === "success") {
 									var bourl = boBasicUrl.replace("{sessionkey}", sessionResults.boSession.sessionkey);
+                                    					var bourl = boBasicUrl.replace("{resource}", "menu.p");
 									$window.location.href = bourl;
 								}
 							});
 						}, function(e) {
 							//alert("error");
 						});
-
 					}
 				}
             });
+        }
+        function setActiveBackground() {
+            if($rootScope.pointMenuGamma) {
+                return $rootScope.pointMenuGammaAccent;
+            }
+            return '#fff';
         }
 		
         function route(locationPath){
@@ -96,5 +95,5 @@
             return activeSubMenu;
         }
 		
-	}
+    }
 })();

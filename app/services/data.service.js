@@ -15,6 +15,7 @@
             get : get,
             getIp : getIp,
             getBoUrl : getBoUrl,
+            getApiUrl : getApiUrl,
             post : post,
             postBinary : postBinary,
             put : put,
@@ -48,6 +49,12 @@
         
         function getBoUrl () {
             return $http.get(serviceBase + 'boUrl').then(function(results){
+                return results.data;
+            });
+        }
+
+        function getApiUrl () {
+            return $http.get(serviceBase + 'apiUrl').then(function(results){
                 return results.data;
             });
         }

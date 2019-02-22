@@ -1,0 +1,118 @@
+<div class="col-xs-12 col-md-9">
+    <div class="bo-sidenav-open" id="transactionsSideNavOpen" ng-show="!vm.transactionsFilter.loadingItems">
+        <div class="bo-button bo-button-overlay bo-button-main">
+            <div class="btn btn-default" ng-style="{'background-color': pointAccentColor }">
+                <span><i class="fa fa-th-list"></i></span>
+            </div>
+        </div>
+    </div>
+    <div id="boInvoiceTransactionsWrapper">
+        <div id="transactionScrollBlock" infinite-scroll="vm.getMoreTransactions()" infinite-scroll-disabled="vm.transactionsFilter.loadingItems">
+            <div ng-repeat="transactionItem in vm.myTransactions">
+                <div class="panel panel-default">
+                    <div class="bo-panel">
+                        <div class="panel-body bo-panel-invoice" ng-include-template="common/invoices/components/invoice_transaction.html"
+                             ng-include-variables="{transactionItem:transactionItem, vm:vm, user:user}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bo-content" style="margin-top:0" ng-if="(!vm.myTransactions || vm.myTransactions.length == 0) && !vm.transactionsFilter.loadingItems">
+            <div class="bo-alert alert alert-warning" role="alert">
+                <span>{{'api_no_data_available'|translate}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="bo-loader" block-ui block-ui-pattern="/invoiceTransactions/"></div>
+</div>
+<div class="col-md-3 bo-sidebar bo-sidenav" id="transactionsSideNav">
+    <div class="panel affix panel-default" block-ui block-ui-pattern="/invoiceEvents/">
+        <div class="bo-panel">
+            <div class="panel-heading clearfix">
+                <div class="row">
+                    <div class="col-md-8 col-xs-8">
+                        <div class="bo-badge bo-label label-primary" ng-if="vm.view.currentEvent.transactionCount">
+                            {{vm.view.currentEvent.transactionCount > 0 ? vm.view.currentEvent.transactionCount:0}}
+                        </div>
+                        <span>{{vm.view.currentEvent.name}}</span>
+                        <span>{{vm.view.currentEvent.eventPeriod.start | date:'dd.MM.yyyy' }}</span>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <button type="button" class="close bo-sidenav-dismiss" id="transactionsSideNavDismiss">
+                            <div class="bo-badge bo-label label-default"><i class="fa fa-times" style="padding:4px 0"></i></div>
+                        </button>
+                        <button type="button" class="close" ng-click="vm.goToEvents()">
+                            <div class="bo-badge bo-label label-default"><i class="fa fa-arrow-left" style="padding:4px 0"></i></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="input-group bo-input bo-input-sub bo-daterangepicker" data-control="daterangepicker">
+                            <input type="text" class="form-control" daterangepicker-neutral-timezone
+                                   ng-model="vm.transactionsFilter.period"
+                                   ng-attr-data-default-start-date="{{vm.defaultStartDate}}"
+                                   ng-attr-data-default-end-date="{{vm.defaultEndDate}}"
+                                   ng-attr-data-min-date="{{vm.minFilterDate}}"
+                                   ng-attr-data-max-date="{{vm.maxFilterDate}}" daterangepicker disabled/>
+                            <div class="bo-button input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 text-right">
+                        <div class="bo-button bo-button-sub">
+                            <div class="btn btn-success" ng-click="vm.sendSelectedInvoiceEmails()"><span>{{'api_send'|translate}}<i class="fa fa-mail-forward" aria-hidden="true"></i></span></div>
+                        </div>
+                        <div class="bo-button bo-button-sub" >
+                            <div class="btn btn-primary" ng-click="vm.viewInvoiceReport()"><span>{{'api_view_report'|translate}}<i class="fa fa-bar-chart" aria-hidden="true"></i></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bo-content-reverse text-center" ng-if="vm.view.currentEvent.promoter">
+                    <div>{{vm.view.currentEvent.promoter.name}}</div>
+                    <div>{{vm.view.currentEvent.promoter.company}}</div>
+                </div>
+                <div class="text-right" ng-if="vm.myTransactions.length > 0">
+                    <a href class="bo-link bo-link-sub" ng-click="vm.selectAllTransactions()" style="margin-bottom:4px">Select all visible</a>
+                    <a href class="bo-link bo-link-sub" ng-click="vm.deselectAllTransactions()">Clear selected</a>
+                </div>
+            </div>
+        </div>
+        <div class="bo-content" ng-if="vm.view.invoicesSentAlert.sent">
+            <div class="bo-alert alert" role="alert"
+                 ng-class="{'alert-success':vm.view.invoicesSentAlert.message == 'success','alert-danger':vm.view.invoicesSentAlert.message != 'success'}">
+                <span>{{vm.view.invoicesSentAlert.message == 'success' ? 'api_invoice_sendSuccess':'api_invoice_sendFail'|translate}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bo-sidenav-overlay"></div>
+<div ng-include="'views/common/invoices/components/invoice_transaction_modal.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#transactionsSideNavDismiss, .bo-sidenav-overlay').on('click', function () {
+            $('#transactionsSideNav').hide();
+            $('.bo-sidenav-overlay',).hide();
+        });
+        $('#transactionsSideNavOpen').on('click', function () {
+            $('#transactionsSideNav').show();
+            $('.bo-sidenav-overlay',).show();
+        });
+        $(window).resize(function() {
+            if($(window).width() > 991 && $('#transactionsSideNav').css('display') == "none") {
+                $('#transactionsSideNav').show();
+            }
+            if($(window).width() < 992 && $('#transactionsSideNav').css('display') != "none") {
+                $('#transactionsSideNav').hide();
+                $('.bo-sidenav-overlay',).hide();
+            }
+        });
+    });
+</script>

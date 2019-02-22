@@ -17,6 +17,7 @@
         var myDraftCount = 0;
         var myPastCount = 0;
 
+
         var myOverviewData = null;
         var myOverviewGraphData = null;
         var myPriceTypeData = null;
@@ -108,14 +109,11 @@
             },
             reset: reset,
             getMyEvents: getMyEvents,
-            getMyEventsCount: getMyEventsCount,
             getMoreEvents: getMoreEvents,
             getRelatedEvents: getRelatedEvents,
             getMoreRelatedEvents: getMoreRelatedEvents,
             hasMoreRelatedEvents: hasMoreRelatedEvents,
             getEventSales: getEventSales,
-            getEventInfo: getEventInfo,
-            getEventOpSales: getEventOpSales,
             getOverviewData: getOverviewData,
             getOverviewGraphData: getOverviewGraphData,
             getPriceTypeData: getPriceTypeData,
@@ -144,7 +142,7 @@
             getBookingStatuses: getBookingStatuses,
             getBookingTypes: getBookingTypes,
 			reloadEvent: reloadEvent,
-            goToEvent: goToEvent
+            goToEvent: goToEvent,
         };
         return service;
 
@@ -174,6 +172,8 @@
             bookingTypes = null;
         }
 
+
+
         function goToEvent(pointId,event) {
             var eventType = function() {
                 if (event.isShow) {
@@ -186,7 +186,14 @@
             $window.location.href = "#/report/" + pointId + "/" + eventType() + "/" + event.id;
         }
 
+
         function getMyEvents(filter) {
+            if (filter == null) {
+                return;
+            }
+            if (filter.loadingItems) {
+                return;
+            }
             if (filter.status == "onsale" && myOpenEvents != null) {
                 return;
             }
@@ -200,13 +207,12 @@
             filter.openStart = null;
             filter.draftStart = null;
             filter.pastStart = null;
-            filter.loadingItems = true;
             getMyEventsCount(filter);
             if ($rootScope.hideEvents) {
                 $rootScope.hideEvents = false;
                 return;
             }
-
+            filter.loadingItems = true;
             dataService.post('myEvents', {filter: filter}).then(function (results) {
                 dataService.page(results);
                 if (filter.status == 'onsale') {
@@ -245,7 +251,6 @@
             if ($rootScope.hideEvents) {
                 return;
             }
-
             if (filter.status == 'onsale' && myOpenEvents != null) {
                 if (myOpenEvents.length % 5 == 0 && filter.openStart != myOpenEvents.length + 1) {
                     filter.loadingItems = true;
@@ -742,30 +747,6 @@
             }
         }
 
-        function getWebsiteUrl(event) {
-
-            var urlParts = [],
-                links = $rootScope.eventLinks;
-
-            if (event.isShow) {
-                urlParts.push(links.showUrl);
-            } else {
-                urlParts.push(links.concertUrl);
-            }
-
-            /* TODO translate and replace url path
-             var urlParts = ['http://www.piletilevi.ee'],
-             availableLanguages = ['est', 'rus', 'eng', 'fin'],
-             currentLang = $translate.proposedLanguage().toLowerCase();
-             if(availableLanguages.indexOf(currentLang) == -1) {
-             return false;
-             }*/
-
-            //urlParts.push(currentLang);
-            urlParts.push((event.isShow ? 'show' : 'concert') + '=' + event.id);
-            return urlParts.join('');
-        }
-
         function addToBasketBulk(items, callback) {
             var pending = items.slice();
             var processItems = function() {
@@ -952,6 +933,8 @@
                 }
             });
         }
+
+
 
     }
 })();

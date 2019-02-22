@@ -8,14 +8,15 @@
         .module('boApp')
         .factory('authService', AuthService);
 
-    AuthService.$inject = ['$rootScope', '$route', '$location', '$filter', 'dataService', 'pointService', 'eventService', '$cookies'];
+    AuthService.$inject = ['$rootScope', '$route', '$location', '$filter', 'dataService', 'pointService', 'eventService', '$cookies', '$q'];
 
-    function AuthService($rootScope, $route, $location, $filter, dataService, pointService, eventService, $cookies) {
+    function AuthService($rootScope, $route, $location, $filter, dataService, pointService, eventService, $cookies, $q) {
         var service = {
             initialize : initialize,
             login : login,
             logout : logout,
             verifySession : verifySession,
+            checkUser : checkUser,
             checkUserAuth : checkUserAuth,
             changePassword : changePassword,
             getRememberedUser: getRememberedUser
@@ -101,17 +102,29 @@
                 }
             });
         }
-		
-        function checkUserAuth(next){
-            var nextUrl = next.$$route.originalPath;
+
+        function checkUser(){
+            var deferred = $q.defer();
             dataService.get('session').then(function (results) {
                 if (results.user) {
                     $rootScope.authenticated = true;
                     $rootScope.user = results.user;
-                    var userPoint = $filter('filter')($rootScope.user.salesPoints, function (s) {return s.id == next.params.pointId;})[0];
-                    if(next.params.pointId && userPoint) {
-                        $rootScope.user.point = userPoint.id;
-                    }
+                    deferred.resolve(results.user);
+                    return deferred.promise;
+                }
+                else {
+                    $rootScope.authenticated = false;
+                    $rootScope.user = null;
+                    deferred.reject("No user");
+                }
+            });
+            return deferred.promise;
+        }
+        function checkUserAuth(next){
+            var nextUrl = next.$$route.originalPath;
+            $rootScope.loadedView = false;
+            checkUser().then(
+                function(user){
                     pointService.setPoint($rootScope.user.point);
                     if (typeof($location.search().key) !== 'undefined') {
                         $location.search('key', null);
@@ -119,8 +132,8 @@
                     if ( $rootScope.authenticated && nextUrl === "/" || nextUrl === '/login' ){
                         $location.path('dashboard');
                     }
-                } else {
-                    $rootScope.authenticated = false;
+                },
+                function(message){
                     if(typeof($location.search().key) !== 'undefined'){
                         var searchkey =  $location.search().key;
                         $location.search('key', null);
@@ -135,7 +148,8 @@
                         $location.path("/login");
                     }
                 }
-            });
+            );
+
         }
 
         function changePassword(change) {

@@ -1,4 +1,4 @@
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-6 col-md-offset-3" key-bind="{enter:'vm.doLogin(vm.login)'}">
 	<div class="row">
 		<div class="col-sm-10 col-sm-offset-1">
 			<div id="login-box" class="bo-widgetbox">
@@ -11,12 +11,12 @@
 								</div>
 								<div class="bo-additional-nav navbar-right">
 									<ul class="nav navbar-nav">
-										<li class="dropdown bo-dropdown" ng-include="'views/common/languages.html'"></li>
+										<li class="dropdown bo-dropdown" ng-include="'views/navigation/components/languages.html'"></li>
 									</ul>
 								</div>
 							</div>
 						</div>
-						<div class="panel-body bo-content-muted">
+						<div class="panel-body bo-content-muted" >
 							<div class="row bo-panel-row">
 								<div class="col-md-10 col-md-offset-1">
 									<bo-container backoffice-options="{'time-out': 5000}"></bo-container>

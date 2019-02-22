@@ -173,6 +173,18 @@ class PiletileviApi {
         return $reportData;
     }
 
+    public function invoiceAction($action, $filter) {
+        $data['filter']= $filter;
+        $reportData = $this->send( $action, $data );
+        return $reportData;
+    }
+
+    public function downloadInvoice($filter) {
+        $data['filter']= $filter;
+        $reportData = $this->send( "/invoice/download", $data );
+        return $reportData;
+    }
+
 	public function myEvents($filter) {
 		
 		$filter['limit'] = 5;
@@ -872,6 +884,10 @@ class PiletileviApi {
 		return $this->getBoUrl();
 	}
 
+    public function apiUrl(){
+        return $this->getApiUrl();
+    }
+
 	public function translations($languageId) {
 		$cacheItem = $this->cacheManager->getItem("translations".$languageId);
 		$translations = $cacheItem->get();
@@ -894,6 +910,7 @@ class PiletileviApi {
 	}
 
 	public function reloadApiTranslations() {
+        $data = array();
 		$response = $this->send( "/language/reload", $data );
 		return $response;
 	}
@@ -993,6 +1010,11 @@ class PiletileviApi {
 		$papiConfig = $this->getPapiConfig();
 		return $papiConfig["oldbourl"];
 	}
+
+    private function getApiUrl(){
+        $papiConfig = $this->getPapiConfig();
+        return $papiConfig["apiPath"];
+    }
 
 	private function getPapiConfig() {
 		return $this->settings["piletilevi"];
