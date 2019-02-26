@@ -133,10 +133,23 @@
             $rootScope.filterNotNeeded = ($location.path() == '/changepassword') || ($location.path().indexOf("invoices") > -1);
             menuService.route($location.path());
         });
-        $rootScope.$on('$routeChangeSuccess', function(){
-            $rootScope.loadedView = true;
-            ga('send', 'pageview', $location.path());
-        });
+        $rootScope.$on('$routeChangeSuccess',
+           handleRoutingSuccess
+        );
+        $rootScope.$on("$locationChangeSuccess",
+            handleRoutingSuccess
+        );
+
+        function handleRoutingSuccess( ){
+            if (!$rootScope.loadedView){
+                $rootScope.loadedView = true;
+                ga('send', 'pageview', $location.path());
+            }
+
+        }
+
     }
+
+
 
 })();

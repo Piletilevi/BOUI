@@ -66,7 +66,7 @@
   			  if (response.status == 401) {
                   $location.path("/login").search({expired: 1});
 			  }
-			  console.log(response);
+			 // console.log(response);
 		    });
         };
 
@@ -77,7 +77,7 @@
   			  if (response.status == 401) {
                   $location.path("/login").search({expired: 1});
 			  }
-			  console.log(response);
+			 // console.log(response);
 		    });
         };
         
@@ -88,7 +88,7 @@
   			  if (response.status == 401) {
                   $location.path("/login").search({expired: 1});
 			  }
-			  console.log(response);
+			  //console.log(response);
 		    });
         };
         
@@ -99,7 +99,7 @@
   			  if (response.status == 401) {
                   $location.path("/login").search({expired: 1});
 			  }
-			  console.log(response);
+			  //console.log(response);
 		    });
         };
     }
