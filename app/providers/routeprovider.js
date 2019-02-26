@@ -137,7 +137,7 @@
            handleRoutingSuccess
         );
         $rootScope.$on("$locationChangeSuccess",
-            handleRoutingSuccess
+            function (){ if ($location.path().indexOf("report") > -1) handleRoutingSuccess (); }
         );
 
         function handleRoutingSuccess( ){
