@@ -645,6 +645,12 @@ $app->post('/invoiceTransactions', function ($request, $response, $args)  {
             $filter['endDate'] = $json->filter->period->endDate;
         }
     }
+    if (property_exists($json->filter, 'orderNumber')) {
+        $filter['orderNumber'] = $json->filter->orderNumber;
+    }
+    if (property_exists($json->filter, 'customerName')) {
+        $filter['customerName'] = $json->filter->customerName;
+    }
     $piletileviApi = $this->piletileviApi;
     $dataResponse = $piletileviApi->invoiceAction("/event/transactions", $filter);
 

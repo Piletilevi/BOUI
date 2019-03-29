@@ -66,7 +66,9 @@
                 endDate: vm.defaultEndDate
             },
             loadingItems: false,
-            concertId: 0
+            concertId: 0,
+            orderNumber: '',
+            customerName: ''
         };
         if (angular.equals(vm.view.name, "events")) {
             vm.currentFilter = angular.copy(vm.eventsFilter);
@@ -84,6 +86,8 @@
             vm.currentFilter = angular.copy(vm.transactionsFilter);
             if($cookies.getObject('boInvoiceTransactionsFilter')) {
                 vm.currentFilter = $cookies.getObject('boInvoiceTransactionsFilter').filter;
+                vm.reset_search_ordernumber = $cookies.getObject('boInvoiceEventsFilter').resetSearchOrderNumber;
+                vm.reset_search_customername = $cookies.getObject('boInvoiceEventsFilter').resetSearchCustomerName;
                 getDateFromString(vm.currentFilter);
             } else {
                 $cookies.putObject('boInvoiceTransactionsFilter', {filter: vm.currentFilter});
@@ -257,23 +261,25 @@
             }
         });
 
-        $scope.$watch('vm.currentFilter', function (newEventsFilter, oldEventsFilter) {
-            if (angular.isUndefined(vm.currentFilter) || angular.isUndefined(newEventsFilter)) {
+        $scope.$watch('vm.currentFilter', function (newFilter, oldFilter) {
+            if (angular.isUndefined(vm.currentFilter) || angular.isUndefined(newFilter)) {
                 return;
             }
             if (angular.equals(vm.view.name, "events")) {
-                if (!angular.equals(oldEventsFilter.period, newEventsFilter.period) ||
-                    !angular.equals(oldEventsFilter.name, newEventsFilter.name) ||
-                    !angular.equals(oldEventsFilter.promoter, newEventsFilter.promoter)) {
-                    vm.eventsFilter = angular.copy(newEventsFilter);
+                if (!angular.equals(oldFilter.period, newFilter.period) ||
+                    !angular.equals(oldFilter.name, newFilter.name) ||
+                    !angular.equals(oldFilter.promoter, newFilter.promoter)) {
+                    vm.eventsFilter = angular.copy(newFilter);
                     vm.view.selectedTransactions = [];
                     invoiceService.reset(vm.view.name);
                     invoiceService.getInvoiceEvents(vm.eventsFilter);
                 }
             }
             else if (angular.equals(vm.view.name, "transactions")) {
-                if (!angular.equals(oldEventsFilter.period, newEventsFilter.period)) {
-                    vm.transactionsFilter = angular.copy(newEventsFilter);
+                if (!angular.equals(oldFilter.period, newFilter.period) ||
+                    !angular.equals(oldFilter.orderNumber, newFilter.orderNumber) ||
+                    !angular.equals(oldFilter.customerName, newFilter.customerName)) {
+                    vm.transactionsFilter = angular.copy(newFilter);
                     vm.view.selectedTransactions = [];
                     invoiceService.reset(vm.view.name);
                     invoiceService.getInvoiceTransactions(vm.transactionsFilter);
@@ -315,6 +321,10 @@
             assignEventsFilter();
         };
 
+        vm.searchTransactions = function () {
+            assignTransactionsFilter();
+        };
+
         function getDateFromString(filter) {
             filter.period.startDate = moment(filter.period.startDate).startOf('day');
             filter.period.endDate = moment(filter.period.endDate).endOf('day').subtract(1,'day');
@@ -333,7 +343,11 @@
         function assignTransactionsFilter() {
             vm.transactionsFilter.start = 0;
             vm.transactionsFilter.limit = defaultLimit;
-            $cookies.putObject('boInvoiceTransactionsFilter', {filter: vm.transactionsFilter});
+            $cookies.putObject('boInvoiceTransactionsFilter', {
+                filter: vm.transactionsFilter,
+                resetSearchOrderNumber: vm.reset_search_ordernumber,
+                resetSearchCustomerName: vm.reset_search_customername
+            });
             vm.currentFilter = vm.transactionsFilter;
             if ($location.path().indexOf("invoices") == -1) {
                 $location.path('invoices');

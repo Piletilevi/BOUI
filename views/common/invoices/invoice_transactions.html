@@ -66,6 +66,23 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="form-group bo-input bo-input-sub">
+                            <input type="text" class="form-control" placeholder="{{'api_invoice_referenceNr'|translate}}"
+                                   ng-model="vm.transactionsFilter.orderNumber">
+                        </div>
+                        <div class="input-group bo-input bo-input-sub">
+                            <input type="text" class="form-control" placeholder="{{'api_invoice_buyerName'|translate}}"
+                                   ng-model="vm.transactionsFilter.customerName">
+                            <div class="bo-button input-group-btn">
+                                <button class="btn btn-default" type="button" ng-click="vm.searchTransactions()">
+                                    <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-xs-12 col-md-12 text-right">
                         <div class="bo-button bo-button-sub">
                             <div class="btn btn-success" ng-click="vm.sendSelectedInvoiceEmails()"><span>{{'api_send'|translate}}<i class="fa fa-mail-forward" aria-hidden="true"></i></span></div>
