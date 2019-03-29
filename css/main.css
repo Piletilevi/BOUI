@@ -1032,6 +1032,8 @@ body {
 
 .bo-dropdown .dropdown-menu {
     border: 5px solid #fff;
+    max-height: 200px;
+    overflow: auto;
 }
 .dropdown-menu > li > a {
     padding: 2px 8px;
