@@ -86,8 +86,6 @@
             vm.currentFilter = angular.copy(vm.transactionsFilter);
             if($cookies.getObject('boInvoiceTransactionsFilter')) {
                 vm.currentFilter = $cookies.getObject('boInvoiceTransactionsFilter').filter;
-                vm.reset_search_ordernumber = $cookies.getObject('boInvoiceEventsFilter').resetSearchOrderNumber;
-                vm.reset_search_customername = $cookies.getObject('boInvoiceEventsFilter').resetSearchCustomerName;
                 getDateFromString(vm.currentFilter);
             } else {
                 $cookies.putObject('boInvoiceTransactionsFilter', {filter: vm.currentFilter});
@@ -345,8 +343,6 @@
             vm.transactionsFilter.limit = defaultLimit;
             $cookies.putObject('boInvoiceTransactionsFilter', {
                 filter: vm.transactionsFilter,
-                resetSearchOrderNumber: vm.reset_search_ordernumber,
-                resetSearchCustomerName: vm.reset_search_customername
             });
             vm.currentFilter = vm.transactionsFilter;
             if ($location.path().indexOf("invoices") == -1) {
