@@ -82,7 +82,7 @@
                         eventService.reset();
                         $rootScope.user = null;
                         $rootScope.authenticated = false;
-                        $location.path('login').search({expired: 1});
+                        $location.path('login');
                         $route.reload();
                     }});
             });

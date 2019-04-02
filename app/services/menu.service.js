@@ -5,18 +5,12 @@
         .factory('menuService', MenuService);
     MenuService.$inject = ['$rootScope','$location','$window','dataService','authService'];
     function MenuService($rootScope,$location,$window,dataService,authService) {
-        $rootScope.userMenuOpen = false;
-        $rootScope.languageMenuOpen = false;
-        $rootScope.salespointMenuOpen = false;
-	var activeTopMenu = null;
-	var activeSubMenu = null;
+        var activeTopMenu = null;
+        var activeSubMenu = null;
         var service = {
             initialize:initialize,
             toChangePassword:toChangePassword,
-            toOldBo:toOldBo,
-            route: route,
-            setActiveTopMenu: setActiveTopMenu,
-            getActiveTopMenu: getActiveTopMenu
+            route:route
         };
         return service;
 
@@ -25,12 +19,11 @@
             $rootScope.toChangePassword = toChangePassword;
             $rootScope.logout = logout;
             $rootScope.isActiveTopMenu = function(menuName) {
-                return activeTopMenu==menuName;
+                return angular.equals(activeTopMenu,menuName);
             }
             $rootScope.isActiveSubMenu = function(menuName) {
-                return activeSubMenu==menuName;
+                return angular.equals(activeSubMenu,menuName);
             }
-	    $rootScope.setActiveBackground = setActiveBackground;
         }
 
         function toChangePassword(){
@@ -61,13 +54,7 @@
 				}
             });
         }
-        function setActiveBackground() {
-            if($rootScope.pointMenuGamma) {
-                return $rootScope.pointMenuGammaAccent;
-            }
-            return '#fff';
-        }
-		
+
         function route(locationPath){
 			if (locationPath && locationPath !== '') {
 				var array = locationPath.split('/');
@@ -79,22 +66,12 @@
 				}
 			} 
         }
-
         function setActiveTopMenu(menu){
             activeTopMenu = menu;
         }
-		
-        function getActiveTopMenu(){
-            return activeTopMenu;
-        }
-
         function setActiveSubMenu(menu){
             activeSubMenu = menu;
         }
-		
-        function getActiveSubMenu(){
-            return activeSubMenu;
-        }
-		
+
     }
 })();

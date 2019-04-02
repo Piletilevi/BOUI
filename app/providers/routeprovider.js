@@ -130,7 +130,7 @@
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.$log = $log;
             authService.checkUserAuth(next);
-            $rootScope.filterNotNeeded = ($location.path() == '/changepassword') || ($location.path().indexOf("invoices") > -1);
+            $rootScope.filterNotNeeded = ($location.path().indexOf("dashboard") < 0) && ($location.path().indexOf("report") < 0);
             menuService.route($location.path());
         });
         $rootScope.$on('$routeChangeSuccess',

@@ -1,18 +1,50 @@
-<div class="bo-pills-block" ng-if="authenticated">
-	<div class="container">
-        <div class="row bo-sub-menu">
-			<div class="hidden-xs col-sm-12">
-				<ul class="nav nav-pills" ng-if="isActiveTopMenu('dashboard')">
-                    <li role="presentation" class="active" ng-if="hasFullAccess('api_reports_sub_prmtr_db')"><a href="#/dashboard/">{{'api_myevents'|translate }}</a></li>
-                    <li role="presentation" ng-if="hasFullAccess('api_reports_sub_advertisement')"><a href="#/advertisement/">{{'api_advertisement'|translate }}</a></li>
-                </ul>
-				<ul class="nav nav-pills" ng-if="isActiveTopMenu('admin')">
-                    <li role="presentation" ng-class="{'active':isActiveSubMenu('jobs')}"><a href="#/admin/jobs">{{'api_jobs'|translate }}</a></li>
-                </ul>
-				<ul class="nav nav-pills" ng-if="isActiveTopMenu('backoffice')">
-                    <li role="presentation" ng-class="{'active':isActiveSubMenu('refund')}"><a href="#/backoffice/refund">{{'api_refund'|translate }}</a></li>
-                </ul>
-            </div>
+<div class="row">
+    <div class="col-xs-12 col-md-9">
+        <div class="bo-tab-container">
+            <ul class="nav nav-tabs bo-nav-tabs" role="tablist" id="submenutabs">
+                <li ng-class="{'active':isActiveTopMenu('dashboard') || isActiveTopMenu('report')}"
+                    ng-if="isActiveTopMenu('dashboard') || isActiveTopMenu('report') && hasFullAccess('api_reports_sub_prmtr_db')">
+                    <a href="#/dashboard/" ng-style="{'background-color': isActiveTopMenu('dashboard') || isActiveTopMenu('report') ? pointAccentColor:'#fff'}">
+                        <i class="fa fa-th-list" aria-hidden="true"></i>
+                        <span class="tab-name">{{'api_myevents'|translate}}</span>
+                    </a>
+                </li>
+                <li ng-class="{'active':isActiveSubMenu('advertisement')}"
+                    ng-if="isActiveTopMenu('dashboard') && hasFullAccess('api_reports_sub_advertisement')">
+                    <a href="#/dashboard/advertisement" ng-style="{'background-color': isActiveSubMenu('advertisement') ? pointAccentColor:'#fff'}">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        <span class="tab-name">{{'api_advertisement'|translate}}</span>
+                    </a>
+                </li>
+                <li ng-class="{'active':!isActiveSubMenu('jobs')}"
+                    ng-if="isActiveTopMenu('admin')">
+                    <a href="#/admin/" ng-style="{'background-color': !isActiveSubMenu('jobs') ? pointAccentColor:'#fff'}">
+                        <i class="fa fa-desktop" aria-hidden="true"></i>
+                        <span class="tab-name">{{'api_dashboard'|translate}}</span>
+                    </a>
+                </li>
+                <li ng-class="{'active':isActiveSubMenu('jobs')}"
+                    ng-if="isActiveTopMenu('admin')">
+                    <a href="#/admin/jobs" ng-style="{'background-color': isActiveSubMenu('jobs') ? pointAccentColor:'#fff'}">
+                        <i class="fa fa-server" aria-hidden="true"></i>
+                        <span class="tab-name">{{'api_jobs'|translate}}</span>
+                    </a>
+                </li>
+                <li ng-class="{'active':!isActiveSubMenu('refund')}"
+                    ng-if="isActiveTopMenu('backoffice')">
+                    <a href="#/backoffice/" ng-style="{'background-color': !isActiveSubMenu('refund') ? pointAccentColor:'#fff'}">
+                        <i class="fa fa-desktop" aria-hidden="true"></i>
+                        <span class="tab-name">{{'api_dashboard'|translate}}</span>
+                    </a>
+                </li>
+                <li ng-class="{'active':isActiveSubMenu('refund')}"
+                    ng-if="isActiveTopMenu('backoffice')">
+                    <a href="#/backoffice/refund" ng-style="{'background-color': isActiveSubMenu('refund') ? pointAccentColor:'#fff'}">
+                        <i class="fa fa-reply-all" aria-hidden="true"></i>
+                        <span class="tab-name">{{'api_refund'|translate}}</span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

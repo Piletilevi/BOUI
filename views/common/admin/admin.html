@@ -1,8 +1,12 @@
 <div class="col-md-9">
 	<div class="bo-content">
-		<div class="bo-alert alert alert-muted" role="alert">
-			<div>{{"api_jobs_total_count"|translate}}: {{ vm.jobsCount.totalCount }}</div>
-			<div>{{"api_jobs_running_count"|translate}}: {{ vm.jobsCount.runningCount }}</div>
+		<div>
+			<span class="bo-title">{{"api_jobs_total_count"|translate}}:</span>
+			<div class="bo-badge bo-label">{{ vm.jobsCount.totalCount ? vm.jobsCount.totalCount:'...' }}</div>
+		</div>
+		<div>
+			<span class="bo-title">{{"api_jobs_running_count"|translate}}:</span>
+			<div class="bo-badge bo-label">{{ vm.jobsCount.runningCount ? vm.jobsCount.runningCount:'...' }}</div>
 		</div>
 	</div>
 </div>

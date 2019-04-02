@@ -18,7 +18,6 @@
             setPoint: setPoint,
             setHideEvents: setHideEvents,
             getPointMenuBackgroundColor: getPointMenuBackgroundColor,
-            getPointMenuActiveColor: getPointMenuActiveColor,
             getPointId: getPointId,
             getPointMenuLogo: getPointMenuLogo,
             getPointMenuGamma: getPointMenuGamma,
@@ -78,11 +77,10 @@
             $rootScope.user.point = pointId;
             $rootScope.pointMenuLogo = getPointMenuLogo();
             $rootScope.pointMenuBackgroundColor = getPointMenuBackgroundColor();
-            $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
             $rootScope.eventLinks = getPointLinks();
             $rootScope.pointMenuGamma = getPointMenuGamma();
-            $rootScope.pointMenuGammaAccent = getPointMenuGammaAccent();
             $rootScope.pointAccentColor = getPointAccentColor($rootScope.pointMenuGamma,$rootScope.pointMenuBackgroundColor);
+            $rootScope.pointMenuActiveColor = getPointMenuActiveColor();
             if ($rootScope.hideEventsForPointInit == null) {
                 $rootScope.hideEventsForPointInit = setHideEvents();
                 $rootScope.hideEvents = $rootScope.hideEventsForPointInit;
@@ -96,6 +94,13 @@
                     $location.path('dashboard');
                 }
             }
+        }
+
+        function getPointMenuActiveColor() {
+            if ($rootScope.pointMenuGamma) {
+                return $rootScope.pointAccentColor;
+            }
+            return '#fff';
         }
 
         function getPointAccentColor(pointGamma,pointColor) {
@@ -147,16 +152,6 @@
             }
             return "#5e7287";
         }
-        function getPointMenuActiveColor() {
-            var settings = getPointSettings();
-            if (settings != null) {
-                var setting = settings.find(getPointTopMenuColorSetting);
-                if (setting != null) {
-                    return setting.value;
-                }
-            }
-            return "";
-        }
 
         function getPointTopMenuLogo(setting) {
             if (setting != null) {
@@ -167,12 +162,6 @@
         function getPointTopMenuBackgroundColorSetting(setting) {
             if (setting != null) {
                 return setting.name === "api_topmenu_background";
-            }
-            return;
-        }
-        function getPointTopMenuColorSetting(setting) {
-            if (setting != null) {
-                return setting.name === "api_topmenu_color";
             }
             return;
         }

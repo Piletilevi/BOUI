@@ -22,32 +22,32 @@
 		<div class="collapse navbar-collapse navbar-left" id="navbar-menu">
 			<ul class="nav navbar-nav" ng-if="authenticated">
 				<li ng-if="hasFullAccess('api_salespoint')"  ng-class="{active:isActiveTopMenu('salespoint')}">
-					<a href="#/salespoint" ng-style="{'background-color': isActiveMenu('salespoint') ? setActiveBackground():''}">
+					<a href="#/salespoint" ng-style="{'background-color': isActiveTopMenu('salespoint') ? pointMenuActiveColor:pointMenuBackgroundColor}">
 						<i class="fa fa-ticket" aria-hidden="true"></i>
 						<span>{{'bo_elem040'|translate}}</span>
 					</a>
 				</li>
 				<li ng-if="hasFullAccess('api_bo')"  ng-class="{active:isActiveTopMenu('backoffice')}">
-					<a href="#/backoffice" ng-style="{'background-color': isActiveMenu('backoffice') ? setActiveBackground():''}">
+					<a href="#/backoffice" ng-style="{'background-color': isActiveTopMenu('backoffice') ? pointMenuActiveColor:pointMenuBackgroundColor}">
 						<i class="fa fa-briefcase" aria-hidden="true"></i>
 						<span>{{'meny_02'|translate}}</span>
 					</a>
 				</li>
 				<li ng-if="hasFullAccess('api_administration')"  ng-class="{active:isActiveTopMenu('admin')}">
-					<a href="#/admin" ng-style="{'background-color': isActiveMenu('admin') ? setActiveBackground():''}">
+					<a href="#/admin" ng-style="{'background-color': isActiveTopMenu('admin') ? pointMenuActiveColor:pointMenuBackgroundColor}">
 						<i class="fa fa-cogs" aria-hidden="true"></i>
 						<span>{{'meny_03'|translate}}</span>
 					</a>
 
 				</li>
 				<li ng-if="hasFullAccess('api_reports')" ng-class="{active:(isActiveTopMenu('dashboard') || isActiveTopMenu('report'))}">
-					<a href="#/dashboard/" ng-style="{'background-color': isActiveTopMenu('dashboard') || isActiveTopMenu('report')? setActiveBackground():''}">
+					<a href="#/dashboard/" ng-style="{'background-color': isActiveTopMenu('dashboard') || isActiveTopMenu('report') ? pointMenuActiveColor:pointMenuBackgroundColor}">
 						<i class="fa fa-bar-chart" aria-hidden="true"></i>
 						<span>{{'meny_05'|translate}}</span>
 					</a>
 				</li>
 				<li ng-if="hasFullAccess('api_invoices') && getValuePointParam('api_invoices') == 'true' && isPointSuperCentre()" ng-class="{active:isActiveTopMenu('invoices')}">
-					<a href="#/invoices/" ng-style="{'background-color': isActiveMenu('invoices') ? setActiveBackground():''}">
+					<a href="#/invoices/" ng-style="{'background-color': isActiveTopMenu('invoices') ? pointMenuActiveColor:pointMenuBackgroundColor}">
 						<i class="fa fa-align-justify" aria-hidden="true"></i>
 						<span>{{'meny_31'|translate}}</span>
 					</a>
