@@ -19,7 +19,7 @@
         </div>
         <div class="bo-content" style="margin-top:0" ng-if="(!vm.myTransactions || vm.myTransactions.length == 0) && !vm.transactionsFilter.loadingItems">
             <div class="bo-alert alert alert-warning" role="alert">
-                <span>{{'api_no_data_available'|translate}}</span>
+                <span>{{'api_info_no_data'|translate}}</span>
             </div>
         </div>
     </div>
@@ -68,7 +68,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <div class="form-group bo-input bo-input-sub">
-                            <input type="text" class="form-control" placeholder="{{'api_invoice_referenceNr'|translate}}"
+                            <input type="text" class="form-control" placeholder="{{'api_invoice_reference_nr'|translate}}"
                                    ng-model="vm.transactionsFilter.orderNumber">
                         </div>
                         <div class="input-group bo-input bo-input-sub">
@@ -85,7 +85,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-12 text-right">
                         <div class="bo-button bo-button-sub">
-                            <div class="btn btn-success" ng-click="vm.sendSelectedInvoiceEmails()"><span>{{'api_send'|translate}}<i class="fa fa-mail-forward" aria-hidden="true"></i></span></div>
+                            <div class="btn btn-success" ng-click="vm.sendSelectedInvoiceEmails()"><span>{{'api_general_send'|translate}}<i class="fa fa-mail-forward" aria-hidden="true"></i></span></div>
                         </div>
                         <div class="bo-button bo-button-sub" >
                             <div class="btn btn-primary" ng-click="vm.viewInvoiceReport()"><span>{{'api_view_report'|translate}}<i class="fa fa-bar-chart" aria-hidden="true"></i></span></div>
@@ -105,7 +105,7 @@
         <div class="bo-content" ng-if="vm.view.invoicesSentAlert.sent">
             <div class="bo-alert alert" role="alert"
                  ng-class="{'alert-success':vm.view.invoicesSentAlert.message == 'success','alert-danger':vm.view.invoicesSentAlert.message != 'success'}">
-                <span>{{vm.view.invoicesSentAlert.message == 'success' ? 'api_invoice_sendSuccess':'api_invoice_sendFail'|translate}}</span>
+                <span>{{vm.view.invoicesSentAlert.message == 'success' ? 'api_general_send_success':'api_general_send_fail'|translate}}</span>
             </div>
         </div>
     </div>

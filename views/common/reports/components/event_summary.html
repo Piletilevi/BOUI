@@ -18,7 +18,7 @@
 				<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{event.location}}
 			</div>
 			<div ng-if="event.isShow && event.locations">
-				<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{event.locations.length === 1 ? event.locations[0].location : ('api_different_venues' | translate)}}
+				<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{event.locations.length === 1 ? event.locations[0].location : ('api_venue_different_venues' | translate)}}
 			</div>
 		</div>
 		<div class="bo-panel-table-cell-4 bo-stats clearfix">
@@ -42,7 +42,7 @@
 				<div class="progress-bar"
 					 ng-if="event.statistics.availableTickets"
 					 ng-attr-style="flex-grow: {{event.statistics.availablePercent}}"
-					 tooltip-placement="bottom" uib-tooltip="{{'api_avail_for_sale'|translate}}" tooltip-append-to-body="true">&nbsp;{{event.statistics.availableTickets}}&nbsp;
+					 tooltip-placement="bottom" uib-tooltip="{{'api_status_available_sale'|translate}}" tooltip-append-to-body="true">&nbsp;{{event.statistics.availableTickets}}&nbsp;
 				</div>
 			</div>
 		</div>

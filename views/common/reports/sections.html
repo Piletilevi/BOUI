@@ -31,7 +31,7 @@
     </div>
 </div>
 <div ng-if="vm.mySectorsData.sales.length === 0" class="bo-content text-center">
-    <span>{{'api_no_data_available'|translate}}</span>
+    <span>{{'api_info_no_data'|translate}}</span>
 </div>
 <div ng-if="vm.mySectorsData.sales.length > 0" class="bo-content">
     <div class="row bo-content-block">
@@ -54,7 +54,7 @@
                                          tooltip-placement="bottom" uib-tooltip="{{'api_overview_reserved_total'|translate}}&nbsp;({{sectorData.statistics.bookedTickets}})"
                                          tooltip-append-to-body="true">{{sectorData.statistics.bookedTickets}}</div>
                                     <div class="progress-bar" ng-attr-style="flex-grow: {{sectorData.statistics.availablePercent}}"
-                                         tooltip-placement="bottom" uib-tooltip="{{'api_avail_for_sale'|translate}}&nbsp;({{sectorData.statistics.availableTickets}})"
+                                         tooltip-placement="bottom" uib-tooltip="{{'api_status_available_sale'|translate}}&nbsp;({{sectorData.statistics.availableTickets}})"
                                          tooltip-append-to-body="true">{{sectorData.statistics.availableTickets}}</div>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                                          tooltip-placement="bottom" uib-tooltip="{{'api_overview_reserved_total'|translate}}&nbsp;({{sectorData.statistics.bookedTickets}})"
                                          tooltip-append-to-body="true">{{sectorData.statistics.bookedTickets}}</div>
                                     <div class="progress-bar" ng-attr-style="flex-grow: {{sectorData.statistics.availablePercent}}"
-                                         tooltip-placement="bottom" uib-tooltip="{{'api_avail_for_sale'|translate}}&nbsp;({{sectorData.statistics.availableTickets}})"
+                                         tooltip-placement="bottom" uib-tooltip="{{'api_status_available_sale'|translate}}&nbsp;({{sectorData.statistics.availableTickets}})"
                                          tooltip-append-to-body="true">{{sectorData.statistics.availableTickets}}</div>
                                 </div>
                             </div>

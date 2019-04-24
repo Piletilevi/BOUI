@@ -61,7 +61,7 @@
                         modalFooterSendElement.style.marginRight = '5px';
 						var modalFooterSendChildElement = document.createElement('div');
                         modalFooterSendChildElement.className = 'btn btn-primary';
-                        modalFooterSendChildElement.innerHTML = '<span>' + $translate.instant('api_yes') + '</span>';
+                        modalFooterSendChildElement.innerHTML = '<span>' + $translate.instant('api_general_yes') + '</span>';
                         modalFooterSendElement.appendChild(modalFooterSendChildElement);
 						modalFooterElement.appendChild(modalFooterSendElement);
 
@@ -69,7 +69,7 @@
                         modalFooterCloseElement.className = 'bo-button bo-button-sub';
                         var modalFooterCloseChildElement = document.createElement('div');
                         modalFooterCloseChildElement.className = 'btn btn-default';
-                        modalFooterCloseChildElement.innerHTML = '<span>' + $translate.instant('api_cancel') + '</span>';
+                        modalFooterCloseChildElement.innerHTML = '<span>' + $translate.instant('api_general_cancel') + '</span>';
                         modalFooterCloseElement.appendChild(modalFooterCloseChildElement);
 						modalFooterElement.appendChild(modalFooterCloseElement);
 

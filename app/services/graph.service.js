@@ -298,7 +298,7 @@
                         overviewData.currency = myOverviewData.currency;
                     } else {
                         if (myOverviewData.groupName == 'api_overview_venue_occupancy') {
-                            labels.push(formatLabel($translate.instant('api_avail_for_sale')));
+                            labels.push(formatLabel($translate.instant('api_status_available_sale')));
                         } else {
                             labels.push(formatLabel($translate.instant(myOverviewData.groupName)));
                         }

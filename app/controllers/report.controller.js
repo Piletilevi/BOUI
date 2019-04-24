@@ -56,32 +56,32 @@
             {
                 accessRight: 'api_reports_pricetype',
                 name: 'pricetype',
-                translationCode: 'api_by_pricetype',
+                translationCode: 'api_pricetype',
                 icon: 'fa-tags',
             },
             {
                 accessRight: 'api_reports_priceclass',
                 name: 'priceclass',
-                translationCode: 'api_by_priceclass',
+                translationCode: 'api_priceclass',
                 icon: 'fa-cube',
             },
             {
                 accessRight: 'api_reports_sections',
                 name: 'sections',
-                translationCode: 'api_by_sectors',
+                translationCode: 'api_sector',
                 icon: 'fa-th',
                 hiddenInShows: true,
             },
             {
                 accessRight: 'api_reports_locations',
                 name: 'locations',
-                translationCode: 'api_by_locations',
+                translationCode: 'api_locations',
                 icon: 'fa-map',
             },
             {
                 accessRight: 'api_reports_reservations',
                 name: 'bookings',
-                translationCode: 'api_bookings',
+                translationCode: 'api_menu_reservations',
                 icon: 'fa-book',
             },
         ];

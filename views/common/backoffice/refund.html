@@ -6,7 +6,7 @@
 					<input type="file" id="uploadFileInput" csv-reader results="vm.rows" headers="vm.headers"/>
 					<div class="bo-button bo-button-sub ng-scope">
 						<div class="btn btn-primary" ng-click="vm.resetButton = true"
-							 tooltip-placement="bottom" uib-tooltip="{{'api_choose_csv'|translate}}" tooltip-append-to-body="true">
+							 tooltip-placement="bottom" uib-tooltip="{{'api_refund_choose_csv'|translate}}" tooltip-append-to-body="true">
 							<span class="ng-binding">
 								<i class="fa fa-folder-open-o" aria-hidden="true"></i>
 							</span>
@@ -16,7 +16,7 @@
 				<div class="input-group bo-input" ng-if="vm.rows">
 					<div class="bo-button bo-button-sub ng-scope">
 						<div class="btn btn-primary" ng-click="vm.validate()"
-							 tooltip-placement="bottom" uib-tooltip="{{'api_validate_refund'|translate}}" tooltip-append-to-body="true">
+							 tooltip-placement="bottom" uib-tooltip="{{'api_refund_validate'|translate}}" tooltip-append-to-body="true">
 							<span class="ng-binding">
 								<i class="fa fa-check-square-o" aria-hidden="true"></i>
 							</span>
@@ -26,7 +26,7 @@
 				<div class="input-group bo-input" ng-if="vm.rows">
 					<div class="bo-button bo-button-sub ng-scope">
 						<div class="btn btn-primary" ng-click="vm.process()"
-							 tooltip-placement="bottom" uib-tooltip="{{'api_process_refund'|translate}}" tooltip-append-to-body="true">
+							 tooltip-placement="bottom" uib-tooltip="{{'api_refund_process'|translate}}" tooltip-append-to-body="true">
 							<span class="ng-binding">
 								<i class="fa fa-space-shuttle" aria-hidden="true"></i>
 							</span>

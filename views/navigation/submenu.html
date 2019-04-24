@@ -6,42 +6,42 @@
                     ng-if="isActiveTopMenu('dashboard') || isActiveTopMenu('report') && hasFullAccess('api_reports_sub_prmtr_db')">
                     <a href="#/dashboard/" ng-style="{'background-color': isActiveTopMenu('dashboard') || isActiveTopMenu('report') ? pointAccentColor:'#fff'}">
                         <i class="fa fa-th-list" aria-hidden="true"></i>
-                        <span class="tab-name">{{'api_myevents'|translate}}</span>
+                        <span class="tab-name">{{'api_menu_events'|translate}}</span>
                     </a>
                 </li>
                 <li ng-class="{'active':isActiveSubMenu('advertisement')}"
                     ng-if="isActiveTopMenu('dashboard') && hasFullAccess('api_reports_sub_advertisement')">
                     <a href="#/dashboard/advertisement" ng-style="{'background-color': isActiveSubMenu('advertisement') ? pointAccentColor:'#fff'}">
                         <i class="fa fa-eye" aria-hidden="true"></i>
-                        <span class="tab-name">{{'api_advertisement'|translate}}</span>
+                        <span class="tab-name">{{'api_menu_advertisement'|translate}}</span>
                     </a>
                 </li>
                 <li ng-class="{'active':!isActiveSubMenu('jobs')}"
                     ng-if="isActiveTopMenu('admin')">
                     <a href="#/admin/" ng-style="{'background-color': !isActiveSubMenu('jobs') ? pointAccentColor:'#fff'}">
                         <i class="fa fa-desktop" aria-hidden="true"></i>
-                        <span class="tab-name">{{'api_dashboard'|translate}}</span>
+                        <span class="tab-name">{{'api_menu_dashboard'|translate}}</span>
                     </a>
                 </li>
                 <li ng-class="{'active':isActiveSubMenu('jobs')}"
                     ng-if="isActiveTopMenu('admin')">
                     <a href="#/admin/jobs" ng-style="{'background-color': isActiveSubMenu('jobs') ? pointAccentColor:'#fff'}">
                         <i class="fa fa-server" aria-hidden="true"></i>
-                        <span class="tab-name">{{'api_jobs'|translate}}</span>
+                        <span class="tab-name">{{'api_menu_jobs'|translate}}</span>
                     </a>
                 </li>
                 <li ng-class="{'active':!isActiveSubMenu('refund')}"
                     ng-if="isActiveTopMenu('backoffice')">
                     <a href="#/backoffice/" ng-style="{'background-color': !isActiveSubMenu('refund') ? pointAccentColor:'#fff'}">
                         <i class="fa fa-desktop" aria-hidden="true"></i>
-                        <span class="tab-name">{{'api_dashboard'|translate}}</span>
+                        <span class="tab-name">{{'api_menu_dashboard'|translate}}</span>
                     </a>
                 </li>
                 <li ng-class="{'active':isActiveSubMenu('refund')}"
                     ng-if="isActiveTopMenu('backoffice')">
                     <a href="#/backoffice/refund" ng-style="{'background-color': isActiveSubMenu('refund') ? pointAccentColor:'#fff'}">
                         <i class="fa fa-reply-all" aria-hidden="true"></i>
-                        <span class="tab-name">{{'api_refund'|translate}}</span>
+                        <span class="tab-name">{{'api_menu_refund'|translate}}</span>
                     </a>
                 </li>
             </ul>

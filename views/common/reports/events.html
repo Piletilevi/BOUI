@@ -10,8 +10,8 @@
                     <p class="hidden-xs">
                         {{newsItem.text}}
                     </p>
-                    <a class="hidden-xs hidden-sm" href="#{{newsItem.id}}">{{'api_more'|translate}}</a>
-                    <div class="bo-news-date">{{newsItem.created}} {{'api_by'|translate}} {{newsItem.createdBy}}</div>
+                    <a class="hidden-xs hidden-sm" href="#{{newsItem.id}}">{{'api_general_read_more'|translate}}</a>
+                    <div class="bo-news-date">{{newsItem.created}} {{'api_general_by'|translate}} {{newsItem.createdBy}}</div>
                     <div class="visible-sm visible-xs bo-news-arrow">
                         <a href=""><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </div>
@@ -27,7 +27,7 @@
                 ng-show="hasFullAccess('api_reports_dashboard_tab_on_sale')">
                 <a href="#/dashboard/onsale" ng-style="vm.tabActive == 'onsale' ? {'background-color':pointAccentColor}:{'background-color':'#fff'}">
                     <i class="fa fa-ticket"></i>
-                    <span class="tab-name">{{'api_on_sale'|translate}}</span>
+                    <span class="tab-name">{{'api_status_on_sale'|translate}}</span>
                     <div class="bo-badge bo-label" ng-style="vm.tabActive == 'onsale' ? {'color':pointAccentColor}:{'color':'#fff'}">{{vm.salesCount}}</div>
                 </a>
             </li>
@@ -35,7 +35,7 @@
                 ng-show="hasFullAccess('api_reports_dashboard_tab_not_active')">
                 <a href="#/dashboard/draft" ng-style="vm.tabActive == 'draft' ? {'background-color':pointAccentColor}:{'background-color':'#fff'}">
                     <i class="fa fa-pencil"></i>
-                    <span class="tab-name">{{'api_draft'|translate}}</span>
+                    <span class="tab-name">{{'api_status_draft'|translate}}</span>
                     <div class="bo-badge bo-label" ng-style="vm.tabActive == 'draft' ? {'color':pointAccentColor}:{'color':'#fff'}">{{vm.draftCount}}</div>
                 </a>
             </li>
@@ -43,7 +43,7 @@
                 ng-show="hasFullAccess('api_reports_dashboard_tab_past')">
                 <a href="#/dashboard/past" ng-style="vm.tabActive == 'past' ? {'background-color':pointAccentColor}:{'background-color':'#fff'}">
                     <i class="fa fa-history"></i>
-                    <span class="tab-name">{{'api_past'|translate}}</span>
+                    <span class="tab-name">{{'api_status_past'|translate}}</span>
                     <div class="bo-badge bo-label" ng-style="vm.tabActive == 'past' ? {'color':pointAccentColor}:{'color':'#fff'}">{{vm.pastCount}}</div>
                 </a>
             </li>
@@ -78,12 +78,12 @@
                 </div>
                 <div class="bo-content" ng-if="(events && events.length == 0) && !vm.filter.loadingItems">
                     <div class="bo-alert alert alert-danger" role="alert">
-                        <span>{{'api_no_events_found'|translate}}</span>
+                        <span>{{'api_info_no_events'|translate}}</span>
                     </div>
                 </div>
                 <div class="bo-content" ng-if="!events && hideEventsForPointInit && !vm.filter.loadingItems">
                     <div class="bo-alert alert alert-warning" role="alert">
-                        <span>{{'api_eventsHidden'|translate}}</span>
+                        <span>{{'api_events_hidden'|translate}}</span>
                     </div>
                 </div>
             </div>

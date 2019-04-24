@@ -18,19 +18,19 @@
                         <div class="bo-alert alert" role="alert"
                              ng-if="vm.view.currentTransaction.sendAlert"
                              ng-class="{'alert-success':vm.view.currentTransaction.sendMessage == 'success','alert-danger':vm.view.currentTransaction.sendMessage != 'success'}">
-                            <span>{{vm.view.currentTransaction.sendMessage == 'success' ? 'api_invoice_sendSuccess':'api_invoice_sendFail'|translate}}</span>
+                            <span>{{vm.view.currentTransaction.sendMessage == 'success' ? 'api_general_send_success':'api_general_send_fail'|translate}}</span>
                         </div>
                         <br ng-if="vm.view.currentTransaction.sendAlert">
                         <div class="bo-alert alert" role="alert"
                              ng-if="vm.view.currentTransaction.saveAlert"
                              ng-class="{'alert-success':vm.view.currentTransaction.saveMessage == 'success','alert-danger':vm.view.currentTransaction.saveMessage != 'success'}">
-                            <span>{{vm.view.currentTransaction.saveMessage == 'success' ? 'api_saveSuccess':'api_saveFail'|translate}}</span>
+                            <span>{{vm.view.currentTransaction.saveMessage == 'success' ? 'api_general_save_success':'api_general_save_fail'|translate}}</span>
                         </div>
                         <br ng-if="vm.view.currentTransaction.saveAlert">
                         <div class="bo-alert alert" role="alert"
                              ng-if="vm.view.currentTransaction.deleteAlert"
                              ng-class="{'alert-success':vm.view.currentTransaction.deleteMessage == 'success','alert-danger':vm.view.currentTransaction.deleteMessage != 'success'}">
-                            <span>{{vm.view.currentTransaction.deleteMessage == 'success' ? 'api_deleteSuccess':'api_deleteFail'|translate}}</span>
+                            <span>{{vm.view.currentTransaction.deleteMessage == 'success' ? 'api_general_delete_success':'api_general_delete_fail'|translate}}</span>
                         </div>
                         <br ng-if="vm.view.currentTransaction.deleteAlert">
                         <div class="bo-table bo-table-bordered">
@@ -40,7 +40,7 @@
                                     <div class="col-xs-6 bo-table-cell text-right ng-binding">{{vm.view.currentTransaction.info.dateString}}</div>
                                 </div>
                                 <div class="row bo-table-row" ng-if="vm.view.currentTransaction.info.orderNumber > 0">
-                                    <div class="col-xs-6 bo-table-cell ng-binding">{{'api_invoice_referenceNr'|translate}}</div>
+                                    <div class="col-xs-6 bo-table-cell ng-binding">{{'api_invoice_reference_nr'|translate}}</div>
                                     <div class="col-xs-6 bo-table-cell text-right ng-binding">{{vm.view.currentTransaction.info.orderNumber}}</div>
                                 </div>
                             </div>
@@ -64,41 +64,41 @@
                         </div>
                         <div class="form-group">
                             <div class="bo-input bo-input-sub" id="invoiceForm-buyer">
-                                <input type="text" class="form-control" placeholder="{{'api_invoice_buyerName'|translate}}"
+                                <input type="text" class="form-control" placeholder="{{'api_invoice_buyer_name'|translate}}"
                                        ng-model="vm.view.currentTransaction.info.buyerName" name="buyerName">
                                 <i class="fa fa-user-plus" aria-hidden="true"></i>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="bo-input bo-input-sub" id="invoiceForm-buyerEmail">
-                                <input type="text" class="form-control" placeholder="{{'api_invoice_buyerEmail'|translate}}"
+                                <input type="text" class="form-control" placeholder="{{'api_invoice_buyer_email'|translate}}"
                                        ng-model="vm.view.currentTransaction.info.email" name="buyerEmail">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="bo-input bo-input-sub" id="invoiceForm-address">
-                                <input type="text" class="form-control" placeholder="{{'api_reservation_meta_address'|translate}}"
+                                <input type="text" class="form-control" placeholder="{{'api_reservation_form_address'|translate}}"
                                        ng-model="vm.view.currentTransaction.info.address" name="address">
                                 <i class="fa fa-home" aria-hidden="true"></i>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="bo-input bo-input-sub" id="invoiceForm-companyCode">
-                                <input type="text" class="form-control" placeholder="{{'api_meta_organization_reg'|translate}}"
+                                <input type="text" class="form-control" placeholder="{{'api_form_organization_reg'|translate}}"
                                        ng-model="vm.view.currentTransaction.info.companyCode" name="companyCode">
                                 <i class="fa fa-industry" aria-hidden="true"></i>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="bo-input bo-input-sub" id="invoiceForm-vatCode">
-                                <input type="text" class="form-control" placeholder="{{'api_invoice_VATCode'|translate}}"
+                                <input type="text" class="form-control" placeholder="{{'api_invoice_vat_code'|translate}}"
                                        ng-model="vm.view.currentTransaction.info.vatCode" name="vatCode">
                                 <i class="fa fa-percent" aria-hidden="true"></i>
                             </div>
                         </div>
                         <div class="form-group bo-input bo-input-sub" id="invoiceForm-additionalInfo">
-                            <textarea rows="3" class="bo-textarea form-control" placeholder="{{'api_meta_additionalInfo'|translate}}"
+                            <textarea rows="3" class="bo-textarea form-control" placeholder="{{'api_form_additional_info'|translate}}"
                                       ng-model="vm.view.currentTransaction.info.additionalInfo" name="additionalInfo"></textarea>
                         </div>
                     </div>
@@ -107,8 +107,8 @@
                             <div class="bo-table bo-table-bordered">
                                 <div class="bo-table-body">
                                     <div class="row bo-table-row bo-table-header" ng-if="vm.view.currentTransaction.info.products.event">
-                                        <div class="col-xs-9 bo-table-cell">{{'api_tickets'|translate}}</div>
-                                        <div class="col-xs-3 bo-table-cell">{{'api_price'|translate}}</div>
+                                        <div class="col-xs-9 bo-table-cell">{{'api_general_tickets'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_cart_table_price'|translate}}</div>
                                     </div>
                                     <div class="row bo-table-row" ng-repeat="ticketItem in vm.view.currentTransaction.info.products.event">
                                         <div class="col-xs-9 bo-table-cell">{{ticketItem.productName}}</div>
@@ -118,9 +118,9 @@
                                         </div>
                                     </div>
                                     <div class="row bo-table-row bo-table-header" ng-if="vm.view.currentTransaction.info.products.feeItems">
-                                        <div class="col-xs-6 bo-table-cell">{{'api_additionalFees'|translate}}</div>
-                                        <div class="col-xs-3 bo-table-cell">{{'api_amount'|translate}}</div>
-                                        <div class="col-xs-3 bo-table-cell">{{'api_price'|translate}}</div>
+                                        <div class="col-xs-6 bo-table-cell">{{'api_fees_additional'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_general_amount'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_cart_table_price'|translate}}</div>
                                     </div>
                                     <div class="row bo-table-row" ng-repeat="feeItem in vm.view.currentTransaction.info.products.feeItems">
                                         <div class="col-xs-6 bo-table-cell">{{feeItem.itemName}}</div>
@@ -135,9 +135,9 @@
                             <div class="bo-table bo-table-bordered">
                                 <div class="bo-table-body">
                                     <div class="row bo-table-row bo-table-header" ng-if="vm.view.currentTransaction.info.products.extraItems">
-                                        <div class="col-xs-6 bo-table-cell">{{'api_serviceFees'|translate}}</div>
-                                        <div class="col-xs-3 bo-table-cell">{{'api_amount'|translate}}</div>
-                                        <div class="col-xs-3 bo-table-cell">{{'api_price'|translate}}</div>
+                                        <div class="col-xs-6 bo-table-cell">{{'api_fees_service'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_general_amount'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_cart_table_price'|translate}}</div>
                                     </div>
                                     <div class="row bo-table-row" ng-repeat="extraItem in vm.view.currentTransaction.info.products.extraItems">
                                         <div class="col-xs-6 bo-table-cell">{{extraItem.itemName}}</div>
@@ -148,9 +148,9 @@
                                         </div>
                                     </div>
                                     <div class="row bo-table-row bo-table-header" ng-if="vm.view.currentTransaction.info.products.deliveryItems">
-                                        <div class="col-xs-6 bo-table-cell">{{'api_deliveryFees'|translate}}</div>
-                                        <div class="col-xs-3 bo-table-cell">{{'api_amount'|translate}}</div>
-                                        <div class="col-xs-3 bo-table-cell">{{'api_price'|translate}}</div>
+                                        <div class="col-xs-6 bo-table-cell">{{'api_fees_delivery'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_general_amount'|translate}}</div>
+                                        <div class="col-xs-3 bo-table-cell">{{'api_cart_table_price'|translate}}</div>
                                     </div>
                                     <div class="row bo-table-row" ng-repeat="deliveryItem in vm.view.currentTransaction.info.products.deliveryItems">
                                         <div class="col-xs-6 bo-table-cell">{{deliveryItem.itemName}}</div>
@@ -165,7 +165,7 @@
                             <div class="bo-table bo-table-bordered">
                                 <div class="bo-table-body">
                                     <div class="row bo-table-row bo-table-header">
-                                        <div class="col-xs-9 bo-table-cell">{{'api_total'|translate}}</div>
+                                        <div class="col-xs-9 bo-table-cell">{{'api_cart_table_total'|translate}}</div>
                                         <div class="col-xs-3 bo-table-cell">
                                             {{vm.view.currentTransaction.info.transactionTotal|number:2}}
                                             {{vm.view.currentTransaction.currency}}
@@ -194,17 +194,17 @@
                     <div ng-class="vm.view.currentTransaction.info.invoiceInfoId && vm.view.currentTransaction.invoiceStatus != 'deleted' ? 'col-md-6':'col-md-12'">
                         <div class="bo-button bo-button-sub">
                             <div class="btn btn-danger"  ng-if="vm.view.currentTransaction.info.invoiceInfoId" ng-click="vm.deleteInvoiceInfo(vm.view.currentTransaction)">
-                                <span>{{'api_delete'|translate}}<i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                <span>{{'api_general_delete'|translate}}<i class="fa fa-trash-o" aria-hidden="true"></i></span>
                             </div>
                         </div>
                         <div class="bo-button bo-button-sub" ng-if="vm.view.currentTransaction.invoiceStatus != 'deleted'">
                             <div class="btn btn-success" ng-if="vm.view.currentTransaction.info.invoiceInfoId" ng-click="vm.sendInvoiceEmail(vm.view.currentTransaction)" >
-                                <span>{{'api_send'|translate}}<i class="fa fa-share" aria-hidden="true"></i></span>
+                                <span>{{'api_general_send'|translate}}<i class="fa fa-share" aria-hidden="true"></i></span>
                             </div>
                         </div>
                         <div class="bo-button bo-button-sub" ng-click="vm.saveTransactionInfo(vm.view.currentTransaction)">
                             <div class="btn btn-primary">
-                                <span>{{'api_save'|translate}}<i class="fa fa-floppy-o" aria-hidden="true"></i></span>
+                                <span>{{'api_general_save'|translate}}<i class="fa fa-floppy-o" aria-hidden="true"></i></span>
                             </div>
                         </div>
                     </div>

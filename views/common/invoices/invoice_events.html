@@ -19,7 +19,7 @@
         </div>
         <div class="bo-content" style="margin-top:0" ng-if="(!vm.myEvents || vm.myEvents.length == 0) && !vm.eventsFilter.loadingItems && !vm.currentFilter.loadingItems">
             <div class="bo-alert alert alert-warning" role="alert">
-                <span>{{'api_no_events_found'|translate}}</span>
+                <span>{{'api_info_no_events'|translate}}</span>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
             <div class="panel-heading clearfix">
                 <div class="row">
                     <div class="col-md-8 col-xs-8">
-                        <span>{{'api_invoice_eventsWithInvoices'|translate}}</span>
+                        <span>{{'api_invoice_events_with_invoices'|translate}}</span>
                     </div>
                     <div class="col-md-4 col-xs-4">
                         <button type="button" class="close bo-sidenav-dismiss" id="eventsSideNavDismiss">
@@ -57,10 +57,10 @@
                             </div>
                         </div>
                         <div class="form-group bo-input bo-input-sub">
-                            <input type="text" class="form-control" placeholder="{{'api_organizer_reserved_promoter'|translate}}" ng-model="vm.eventsFilter.promoter">
+                            <input type="text" class="form-control" placeholder="{{'api_organiser_reserved_promoter'|translate}}" ng-model="vm.eventsFilter.promoter">
                         </div>
                         <div class="input-group bo-input bo-input-sub">
-                            <input type="text" class="form-control" placeholder="{{'api_eventOrLocation'|translate}}"
+                            <input type="text" class="form-control" placeholder="{{'api_search_event_or_location'|translate}}"
                                    ng-model="vm.eventsFilter.name" key-bind="{enter:'vm.search()'}">
                             <div class="bo-button input-group-btn">
                                 <button class="btn btn-default" type="button" ng-click="vm.search()">

@@ -4,7 +4,7 @@
             <div class="form-group bo-input">
                 <div class="input-group">
                     <div class="form-control">
-                        {{'api_selected_section'|translate}}:
+                        {{'api_sector_selected'|translate}}:
                         {{(vm.mySectorsData.sales | filter:{sectorId: selectedSectionId})[0].name}}
                     </div>
                     <div class="bo-button input-group-btn">
@@ -34,7 +34,7 @@
                 <div class="bo-table-header">
                     <div class="row bo-table-row">
                         <div class="col-xs-5 bo-table-cell">{{'api_priceclass'|translate}}</div>
-                        <div class="col-xs-7 bo-table-cell">{{'api_tickets'|translate}}</div>
+                        <div class="col-xs-7 bo-table-cell">{{'api_general_tickets'|translate}}</div>
                     </div>
                 </div>
                 <div class="bo-table-body" ng-repeat="(ttSectorKey, ttSector) in vm.sectorInfo.ttSector">
@@ -66,10 +66,10 @@
                     <div class="row bo-table-row">
                         <div class="col-xs-5 bo-table-cell">
                             <a class="bo-link" ng-click="vm.offerTickets()">
-                                {{'api_basket_offer_tickets'|translate}}
+                                {{'api_cart_offer'|translate}}
                             </a>
                         </div>
-                        <div class="col-xs-2 bo-table-cell text-right"><b>{{'api_basket_offer_total'|translate}}:</b></div>
+                        <div class="col-xs-2 bo-table-cell text-right"><b>{{'api_cart_table_items_total'|translate}}:</b></div>
                         <div class="col-xs-5 bo-table-cell text-center"><b>{{vm.ticketsCount()}}</b></div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
 <div class="bo-content" ng-if="vm.myBasket.basket.length > 0">
     <div class="row">
         <div class="col-md-6">
-            <h4>{{'api_basket_selected_tickets'|translate}}</h4>
+            <h4>{{'api_cart_contents'|translate}}</h4>
         </div>
         <div class="col-md-6 text-right">
             <div class="bo-button bo-button-sub">
@@ -102,20 +102,20 @@
         <div class="col-md-12">
             <div class="input-group bo-input bo-input-sub" ng-repeat="seat in vm.myBasket.basket">
                 <div class="form-control">
-                    {{'api_basket_ticket_id'|translate}}
+                    {{'api_cart_table_ticket_id'|translate}}
                     {{seat.id}}
                 </div>
                 <div class="input-group-addon"><span>{{seat.sectionName}}</span></div>
                 <div class="input-group-addon">
                     <span ng-if="seat.rowName > 0">
-                        {{'api_basket_row'|translate}}
+                        {{'api_cart_table_row'|translate}}
                         {{seat.rowName}}
                     </span>
                     <span ng-if="seat.rowName == 0">{{'api_general_admission'|translate}}</span>
                 </div>
                 <div class="input-group-addon">
                     <span ng-if="seat.seatName > 0">
-                        {{'api_basket_seat'|translate}}
+                        {{'api_cart_table_seat'|translate}}
                         {{seat.seatName}}
                     </span>
                     <span ng-if="seat.seatName == 0">{{'api_general_admission'|translate}}</span>
@@ -183,21 +183,21 @@
             <div class="bo-table bo-table-bordered">
                 <div class="bo-table-body">
                     <div class="row bo-table-row">
-                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_amount'|translate}}</div>
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_cart_table_items_total'|translate}}</div>
                         <div class="col-xs-9 bo-table-cell text-center">
                             {{vm.myBasket.summary.ticketsCount}}
-                            {{'api_tickets'|translate}}
+                            {{'api_general_tickets'|translate}}
                         </div>
                     </div>
                     <div class="row bo-table-row">
-                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_subtotal'|translate}}</div>
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_cart_table_subtotal'|translate}}</div>
                         <div class="col-xs-9 bo-table-cell text-center">
                             {{vm.myBasket.summary.sumWithoutTaxes | number:2}}
                             {{vm.myBasket.summary.currency}}
                         </div>
                     </div>
                     <div class="row bo-table-row">
-                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_discount'|translate}}</div>
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_cart_discount'|translate}}</div>
                         <div class="col-xs-9 bo-table-cell text-center">
                             <div class="bo-input-addremove">
                                 <div class="bo-badge bo-label" ng-click="vm.decreaseBasketDiscount()">
@@ -216,7 +216,7 @@
                         </div>
                     </div>
                     <div class="row bo-table-row" ng-if="vm.myBasket.summary.discount">
-                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_discount_sum'|translate}}</div>
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_cart_table_discount_total'|translate}}</div>
                         <div class="col-xs-9 bo-table-cell text-center">
                             {{vm.myBasket.summary.discount}}
                             {{vm.myBasket.summary.currency}}
@@ -227,7 +227,7 @@
                         <div class="col-xs-9 bo-table-cell text-center">{{fee.price}}{{fee.currency}} x {{fee.quantity}} ({{fee.sum}}{{fee.currency}})</div>
                     </div>
                     <div class="row bo-table-row">
-                        <div class="col-xs-4 bo-table-cell text-right">{{'api_basket_check_out_total'|translate}}</div>
+                        <div class="col-xs-4 bo-table-cell text-right">{{'api_cart_table_price_total'|translate}}</div>
                         <div class="col-xs-9 bo-table-cell text-center">
                             {{vm.myBasket.summary.sumTotal | number:2}}
                             {{vm.myBasket.summary.currency}}
@@ -237,7 +237,7 @@
             </div>
             <div class="bo-button bo-button-sub pull-right">
                 <div class="btn btn-primary" ng-click="vm.goToStep4()">
-                    <span>{{'api_basket_reservation_proceed'|translate}}</span>
+                    <span>{{'api_cart_reservation_proceed'|translate}}</span>
                 </div>
             </div>
         </div>

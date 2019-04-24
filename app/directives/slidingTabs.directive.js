@@ -17,7 +17,7 @@
 					function(newValue, oldValue) {
 						if (newValue > 0) {
 							// tabs DOM should be ready
-							tabs.setTextMore($translate.instant('api_tabs_more'));
+							tabs.setTextMore($translate.instant('api_general_more'));
 							tabs.initialize();
 							unwatch();
 						}

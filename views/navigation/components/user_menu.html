@@ -6,8 +6,8 @@
 	<li class="dropdown-header">
 		{{user.name}}<span ng-if="user.organization">&nbsp;-&nbsp;{{user.organization}}</span>
 	</li>
-	<li><a href ng-click="toChangePassword();" ng-if="hasFullAccess('api_header_password_change')"><i class="fa fa-fw fa-unlock-alt"></i>{{"api_menu_change_password"|translate}}</a></li>
-	<li><a href ng-click="logout();"><i class="fa fa-fw fa-sign-out"></i>{{"pood_002"|translate}}</a></li>
+	<li><a href ng-click="toChangePassword();" ng-if="hasFullAccess('api_menu_password_change')"><i class="fa fa-fw fa-unlock-alt"></i>{{"api_user_change_password"|translate}}</a></li>
+	<li><a href ng-click="logout();"><i class="fa fa-fw fa-sign-out"></i>{{"api_login_logout"|translate}}</a></li>
 	<li role="separator" class="divider"></li>
 	<li><a href ng-click="toOldBO();"><i class="fa fa-fw fa-archive"></i>{{"api_menu_to_old_bo"|translate}}</a></li>
 </ul>

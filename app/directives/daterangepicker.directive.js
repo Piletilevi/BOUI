@@ -53,9 +53,9 @@
 				}
 
 				function renderDateTimePicker() {
-					options.locale.applyLabel = $translate.instant('api_calendar_applyLabel');
+					options.locale.applyLabel = $translate.instant('api_calendar_apply');
 					options.locale.cancelLabel = '<i class="fa fa-times" />';
-					options.locale.weekLabel = $translate.instant('api_calendar_weekLabel');
+					options.locale.weekLabel = $translate.instant('api_calendar_week');
 					options.template =
 						'<div class="daterangepicker dropdown-menu">' +
 						'<div class="calendar left">' +
@@ -109,7 +109,7 @@
 					options.template +=
 						'<div class="range_inputs">' +
 						'<button class="applyBtn" disabled="disabled" type="button"></button> ' +
-						'<button class="btn btn-default resetBtn" type="button">' + $translate.instant('api_calendar_resetLabel') + '</button>' +
+						'<button class="btn btn-default resetBtn" type="button">' + $translate.instant('api_calendar_reset') + '</button>' +
 						'<div class="clearer"></div>' +
 						'</div>' +
 						'</div>' +

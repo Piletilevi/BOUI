@@ -62,9 +62,9 @@ function VenueMapDirective($parse, $location, $translate, eventService) {
                 map.setLegendType('none');
                 map.setMassSelectable(true);
 
-                map.addTranslation('booked', $translate.instant('api_seat_booked'));
+                map.addTranslation('booked', $translate.instant('api_seat_reserved'));
                 // TODO: set proper translation for 'not_sold'
-                map.addTranslation('not_sold', $translate.instant('api_seat_booked'));
+                map.addTranslation('not_sold', $translate.instant('api_seat_reserved'));
                 map.addTranslation('available', $translate.instant('api_seat_available'));
                 map.addTranslation('selected', $translate.instant('api_seat_selected'));
                 // TODO: add other translations
