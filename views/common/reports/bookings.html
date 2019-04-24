@@ -92,7 +92,7 @@
 <div class="bo-content" ng-if="bookingSuccessAlert || (!vm.myBookings.bookings && !vm.bookingFilter.loadingItems)">
     <div class="bo-alert alert alert-muted" role="alert"
          ng-if="!vm.myBookings.bookings && !vm.bookingFilter.loadingItems">
-        <span>{{"api_reservation_list_no_search"|translate}}</span>
+        <span>{{"api_invalid_no_results"|translate}}</span>
     </div>
     <div class="bo-alert alert alert-success alert-dismissible" role="alert" ng-if="bookingSuccessAlert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
