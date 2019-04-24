@@ -3,7 +3,7 @@
 	<span>{{getPointName()}}</span>
 </a>
 <ul class="dropdown-menu bo-dropdown-wide-2">
-	<li ng-repeat="point in user.salesPoints" ng-click="setPoint(point.id)" ng-confirm-click="{{'api_clickConfirm'|translate}}"
-		ng-confirm-description="api_clickConfirmDescription" ng-point-name="{{point.name}}" ng-class="{'bo-selected': user.point == point.id}">
+	<li ng-repeat="point in user.salesPoints" ng-click="setPoint(point.id)" ng-confirm-click="{{'api_general_confirm'|translate}}"
+		ng-confirm-description="api_general_confirm_salespoint" ng-point-name="{{point.name}}" ng-class="{'bo-selected': user.point == point.id}">
 		<a href>{{point.name}}</a></li>
 </ul>
