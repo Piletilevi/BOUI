@@ -12,8 +12,11 @@
                 <i class="fa fa-fw fa-times"></i>
             </button>
         </div>
-        <div ng-if="transactionItem.orderNumber && transactionItem.orderNumber > 0" class="bo-label label-muted">
+        <div ng-if="transactionItem.orderNumber" class="bo-label label-muted">
             <span>{{transactionItem.orderNumber}}</span>
+        </div>
+        <div ng-if="transactionItem.bookingNumber" class="bo-label label-info">
+            <span>{{transactionItem.bookingNumber}}</span>
         </div>
         <div class="bo-button bo-button-sub pull-right" ng-click="vm.setCurrentTransaction(transactionItem)" style="margin-left:4px;">
             <div class="btn btn-primary" data-target="#transactionModal" data-toggle="modal">

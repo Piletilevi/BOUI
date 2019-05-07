@@ -276,7 +276,9 @@
             else if (angular.equals(vm.view.name, "transactions")) {
                 if (!angular.equals(oldFilter.period, newFilter.period) ||
                     !angular.equals(oldFilter.orderNumber, newFilter.orderNumber) ||
-                    !angular.equals(oldFilter.customerName, newFilter.customerName)) {
+                    !angular.equals(oldFilter.customerName, newFilter.customerName) ||
+                    !angular.equals(oldFilter.bookingNumber, newFilter.bookingNumber) ||
+                    !angular.equals(oldFilter.ticketId, newFilter.ticketId)){
                     vm.transactionsFilter = angular.copy(newFilter);
                     vm.view.selectedTransactions = [];
                     invoiceService.reset(vm.view.name);

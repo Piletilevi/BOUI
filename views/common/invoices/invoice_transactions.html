@@ -71,9 +71,17 @@
                             <input type="text" class="form-control" placeholder="{{'api_invoice_reference_nr'|translate}}"
                                    ng-model="vm.transactionsFilter.orderNumber">
                         </div>
-                        <div class="input-group bo-input bo-input-sub">
-                            <input type="text" class="form-control" placeholder="{{'api_invoice_buyerName'|translate}}"
+                        <div class="form-group bo-input bo-input-sub">
+                            <input type="text" class="form-control" placeholder="{{'api_invoice_buyer_name'|translate}}"
                                    ng-model="vm.transactionsFilter.customerName">
+                        </div>
+                        <div class="form-group bo-input bo-input-sub">
+                            <input type="text" class="form-control" placeholder="{{'api_invoice_booking_number'|translate}}"
+                                   ng-model="vm.transactionsFilter.bookingNumber">
+                        </div>
+                        <div class="input-group bo-input bo-input-sub">
+                            <input type="text" class="form-control" placeholder="{{'api_invoice_ticket_id'|translate}}"
+                                   ng-model="vm.transactionsFilter.ticketId">
                             <div class="bo-button input-group-btn">
                                 <button class="btn btn-default" type="button" ng-click="vm.searchTransactions()">
                                     <span><i class="fa fa-search" aria-hidden="true"></i></span>

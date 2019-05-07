@@ -651,6 +651,12 @@ $app->post('/invoiceTransactions', function ($request, $response, $args)  {
     if (property_exists($json->filter, 'customerName')) {
         $filter['customerName'] = $json->filter->customerName;
     }
+    if (property_exists($json->filter, 'bookingNumber')) {
+        $filter['bookingNumber'] = $json->filter->bookingNumber;
+    }
+    if (property_exists($json->filter, 'ticketId')) {
+        $filter['ticketId'] = $json->filter->ticketId;
+    }
     $piletileviApi = $this->piletileviApi;
     $dataResponse = $piletileviApi->invoiceAction("/event/transactions", $filter);
 
