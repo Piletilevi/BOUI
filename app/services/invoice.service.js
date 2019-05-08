@@ -337,7 +337,6 @@
 
         function updateTransaction(transaction,newData) {
             if(newData != undefined && newData.invoiceInfoId != undefined ) {
-                console.log("update")
                 transaction.invoiceStatus = newData.invoiceStatus;
                 transaction.statusLabel = newData.statusLabel;
                 transaction.invoiceInfoId = newData.invoiceInfoId;
