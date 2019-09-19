@@ -34,25 +34,29 @@
 			return (c);
 		}
 
-		function getColorByType(typeName) {
+		function getColorByType(type) {
 			var color;
-			switch(typeName) {
+			switch(type) {
 				//SOLD GROUP
-				case 'api_sold_by_internet':   color = '#58e393'; break;
-				case 'api_sold_by_salespoint': color = '#52ad9c'; break;
-				case 'api_sold_refund': 	   color = '#fe5f55'; break;
+				case 'internet': color = '#58e393'; break;
+				case 'salespoint': color = '#52ad9c'; break;
+				case 'sms': color = '#58e3b6'; break;
+                case 'pdf': color = '#52a7ad'; break;
+                case 'chair_owner': color = '#6ee783'; break;
+                case 'lodge': color = '#1ba1a1'; break;
+				case 'refund': color = '#fe5f55'; break;
 				//RESERVED GROUP
-				case 'api_organiser_reserved_client': 	color = '#4ab1e2'; break;
-				case 'api_organiser_reserved_lodge': 	color = '#17bebb'; break;
-				case 'api_organiser_reserved_promoter': color = '#0471a6'; break;
-				case 'api_organiser_seat_owner':		color = '#33658a'; break;
+				case 'reserved_client': color = '#4ab1e2'; break;
+				case 'reserved_lodge': color = '#17bebb'; break;
+				case 'reserved_promoter': color = '#0471a6'; break;
+				case 'reserved_seat_owner':	color = '#33658a'; break;
 				//ORGANIZER GROUP
-				case 'api_organiser_complimentary_without_fees': color = '#fed766'; break;
-				case 'api_organiser_refund_without_fees': 		 color = '#fe9000'; break;
-				case 'api_organiser_complimentary_with_fees': 	 color = '#f5bb00'; break;
-				case 'api_organiser_refund_with_fees': 			 color = '#ff6201'; break;
+                case 'complimentary_with_fees': color = '#f5bb00'; break;
+				case 'complimentary_without_fees': color = '#fed766'; break;
+                case 'organizer_refund_with_fees': color = '#fe9000'; break;
+				case 'organizer_refund_without_fees': color = '#ff6201'; break;
 				//VENUE_OCCUPANCY GROUP
-				case 'api_status_available_sale': color = '#5e7287'; break;
+				case 'avail_for_sale': color = '#5e7287'; break;
 			}
 			return color;
 		}

@@ -337,7 +337,7 @@
                 type: event.isShow ? 'show' : 'concert'
             }).then(function (results) {
                 relatedEvents = null;
-                if (results!==undefined) {
+                if (results!==undefined && results!==null) {
                     if (results.status == 'success') {
                         relatedEvents = results.data;
                     }

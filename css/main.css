@@ -538,6 +538,7 @@ body {
 }
 .bo-nav-tabs > li.active .bo-badge {
     background-color: #fff;
+    color: #5e7287;
 }
 
 .bo-nav-tabs > li > a {

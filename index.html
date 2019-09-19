@@ -47,7 +47,7 @@
         <img class="bo-print-logo" ng-src="{{pointMenuLogo}}"/>
     </div>
     <div class="container bo-main-block">
-        <div class="bo-header-submenu" ng-if="authenticated" ng-include="'views/navigation/submenu.html'"></div>
+        <div ng-if="authenticated" ng-include="'views/navigation/submenu.html'"></div>
         <div ng-include="'views/common/dashboard.html'"></div>
         <div ng-if="loadedView">
             <div data-ng-view="" id="ng-view" class="row"></div>

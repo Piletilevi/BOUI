@@ -247,7 +247,7 @@
                         data.push(dataItem);
                         series.push($translate.instant(type.typeName));
                         step++;
-                        var baseColor = colorService.getColorByType(type.typeName);
+                        var baseColor = colorService.getColorByType(type.type);
                         colors.push({
                             borderColor: baseColor,
                             backgroundColor: '#ffffff',
@@ -308,7 +308,7 @@
                             cats[catStep] = [];
                         }
                         myOverviewData.rows.forEach(function (overviewRow) {
-                            overviewRow.color = colorService.getColorByType(overviewRow.typeName);
+                            overviewRow.color = colorService.getColorByType(overviewRow.typeId);
                             rowSeries.push($translate.instant(overviewRow.typeName));
                             if (typeof(data[step]) == "undefined") {
                                 data[step] = [];
