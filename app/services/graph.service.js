@@ -325,10 +325,27 @@
                             barSeries[step].push($translate.instant(overviewRow.typeName));
                             step++;
                         });
+                        if (myOverviewData.groupName === 'api_overview_venue_occupancy' && myOverviewData.rows.length === 0) {
+                            rowSeries.push($translate.instant('api_status_available_sale'));
+                            if (typeof(data[step]) == "undefined") {
+                                data[step] = [];
+                            }
+                            data[step].push(overviewData.generatedCount - myOverviewData.rowCount);
+                            cats[catStep].push(overviewData.generatedCount - myOverviewData.rowCount);
+                            if (typeof(colors[step]) == "undefined") {
+                                colors[step] = [];
+                            }
+                            colors[step].push(colorService.getColorByType('avail_for_sale'));
+                            if (typeof(barSeries[step]) == "undefined") {
+                                barSeries[step] = [];
+                            }
+                            barSeries[step].push($translate.instant('api_status_available_sale'));
+                        }
                         series.push(rowSeries);
                         catStep++;
                     }
                 });
+
                 for (var i = 0; i < data.length; i++) {
                     for (var j = 0; j < cats.length; j++) {
                         var dataStep = j;
