@@ -1,14 +1,19 @@
 (function () {
-
     'use strict';
-
     angular
         .module('boApp')
         .factory('eventService', EventService);
-
     EventService.$inject = ['$rootScope', '$translate', 'dataService', '$filter', 'FileSaver', 'Blob', '$window'];
-
     function EventService($rootScope, $translate, dataService, $filter, FileSaver, Blob, $window) {
+        const SUCCESS_STATUS = 'success';
+
+        const SALE_STATUS = 'onsale';
+        const DRAFT_STATUS = 'draft';
+        const PAST_STATUS = 'past';
+
+        const GROUP_DAY = 'day';
+        const GROUP_WEEK = 'week';
+        const GROUP_MONTH = 'month';
 
         var myOpenEvents = null;
         var myDraftEvents = null;
@@ -16,8 +21,6 @@
         var myOpenCount = 0;
         var myDraftCount = 0;
         var myPastCount = 0;
-
-
         var myOverviewData = null;
         var myOverviewGraphData = null;
         var myPriceTypeData = null;
@@ -38,75 +41,29 @@
         var countries = null;
 
         var service = {
-            myOpenEvents: function () {
-                return myOpenEvents
-            },
-            myDraftEvents: function () {
-                return myDraftEvents
-            },
-            myPastEvents: function () {
-                return myPastEvents
-            },
-            myOpenCount: function () {
-                return myOpenCount
-            },
-            myDraftCount: function () {
-                return myDraftCount
-            },
-            myPastCount: function () {
-                return myPastCount
-            },
-            myOverviewData: function () {
-                return myOverviewData
-            },
-            myOverviewGraphData: function () {
-                return myOverviewGraphData
-            },
-            myPriceTypeData: function () {
-                return myPriceTypeData
-            },
-            myPriceTypeGraphData: function () {
-                return myPriceTypeGraphData
-            },
-            myPriceClassData: function () {
-                return myPriceClassData
-            },
-            myLocationsData: function () {
-                return myLocationsData
-            },
-            myPriceClassGraphData: function () {
-                return myPriceClassGraphData
-            },
-            mySectorsData: function () {
-                return mySectorsData
-            },
-            sectorInfo: function () {
-                return sectorInfo
-            },
-            countries: function () {
-                return countries
-            },
-            sectorTickets: function () {
-                return sectorTickets
-            },
-            relatedEvents: function () {
-                return relatedEvents
-            },
-            myBasket: function () {
-                return myBasket
-            },
-            myBookings: function () {
-                return myBookings
-            },
-            bookingId: function () {
-                return bookingId
-            },
-            bookingStatuses: function () {
-                return bookingStatuses
-            },
-            bookingTypes: function () {
-                return bookingTypes
-            },
+            myOpenEvents: function () { return myOpenEvents },
+            myDraftEvents: function () { return myDraftEvents },
+            myPastEvents: function () { return myPastEvents },
+            myOpenCount: function () { return myOpenCount },
+            myDraftCount: function () { return myDraftCount },
+            myPastCount: function () { return myPastCount },
+            myOverviewData: function () { return myOverviewData },
+            myOverviewGraphData: function () { return myOverviewGraphData },
+            myPriceTypeData: function () { return myPriceTypeData },
+            myPriceTypeGraphData: function () { return myPriceTypeGraphData },
+            myPriceClassData: function () { return myPriceClassData },
+            myLocationsData: function () { return myLocationsData },
+            myPriceClassGraphData: function () { return myPriceClassGraphData },
+            mySectorsData: function () { return mySectorsData },
+            sectorInfo: function () { return sectorInfo },
+            countries: function () { return countries },
+            sectorTickets: function () { return sectorTickets },
+            relatedEvents: function () { return relatedEvents },
+            myBasket: function () { return myBasket },
+            myBookings: function () { return myBookings },
+            bookingId: function () { return bookingId },
+            bookingStatuses: function () { return bookingStatuses },
+            bookingTypes: function () { return bookingTypes },
             reset: reset,
             getMyEvents: getMyEvents,
             getMoreEvents: getMoreEvents,
@@ -145,7 +102,7 @@
             goToEvent: goToEvent,
         };
         return service;
-
+        
         function reset() {
             myOpenEvents = null;
             myDraftEvents = null;
@@ -171,9 +128,7 @@
             bookingStatuses = null;
             bookingTypes = null;
         }
-
-
-
+        
         function goToEvent(pointId,event) {
             var eventType = function() {
                 if (event.isShow) {
@@ -185,24 +140,13 @@
             };
             $window.location.href = "#/report/" + pointId + "/" + eventType() + "/" + event.id;
         }
-
-
+        
         function getMyEvents(filter) {
-            if (filter == null) {
-                return;
-            }
-            if (filter.loadingItems) {
-                return;
-            }
-            if (filter.status == "onsale" && myOpenEvents != null) {
-                return;
-            }
-            if (filter.status == "past" && myPastEvents != null) {
-                return;
-            }
-            if (filter.status == "draft" && myDraftEvents != null) {
-                return;
-            }
+            if (!filter) return;
+            if (filter.loadingItems) return;
+            if (filter.status === SALE_STATUS && myOpenEvents != null) return;
+            if (filter.status === PAST_STATUS && myPastEvents != null) return;
+            if (filter.status === DRAFT_STATUS && myDraftEvents != null) return;
 
             filter.openStart = null;
             filter.draftStart = null;
@@ -215,12 +159,14 @@
             filter.loadingItems = true;
             dataService.post('myEvents', {filter: filter}).then(function (results) {
                 dataService.page(results);
-                if (filter.status == 'onsale') {
-                    myOpenEvents = results.status == 'success' ? results.data : [];
-                } else if (filter.status == 'draft') {
-                    myDraftEvents = results.status == 'success' ? results.data : [];
-                } else if (filter.status == 'past') {
-                    myPastEvents = results.status == 'success' ? results.data : [];
+                if (results) {
+                    if (filter.status === SALE_STATUS) {
+                        myOpenEvents = results.status === SUCCESS_STATUS ? results.data : [];
+                    } else if (filter.status === DRAFT_STATUS) {
+                        myDraftEvents = results.status === SUCCESS_STATUS ? results.data : [];
+                    } else if (filter.status === PAST_STATUS) {
+                        myPastEvents = results.status === SUCCESS_STATUS ? results.data : [];
+                    }
                 }
                 filter.loadingItems = false;
             });
@@ -251,12 +197,12 @@
             if ($rootScope.hideEvents) {
                 return;
             }
-            if (filter.status == 'onsale' && myOpenEvents != null) {
-                if (myOpenEvents.length % 5 == 0 && filter.openStart != myOpenEvents.length + 1) {
+            if (filter.status === SALE_STATUS && myOpenEvents != null) {
+                if (myOpenEvents.length % 5 === 0 && filter.openStart !== myOpenEvents.length + 1) {
                     filter.loadingItems = true;
                     filter.openStart = myOpenEvents.length + 1;
                     dataService.post('myEvents', {filter: filter}).then(function (results) {
-                        if (results.status == 'success') {
+                        if (results && results.status === SUCCESS_STATUS) {
                             results.data.forEach(function (eventItem) {
                                 if (myOpenEvents !== null ) {
                                     myOpenEvents.push(eventItem);
@@ -266,12 +212,12 @@
                         filter.loadingItems = false;
                     });
                 }
-            } else if (filter.status == 'draft' && myDraftEvents != null) {
-                if (myDraftEvents.length % 5 == 0 && filter.draftStart != myDraftEvents.length + 1) {
+            } else if (filter.status === DRAFT_STATUS && myDraftEvents != null) {
+                if (myDraftEvents.length % 5 === 0 && filter.draftStart !== myDraftEvents.length + 1) {
                     filter.loadingItems = true;
                     filter.draftStart = myDraftEvents.length + 1;
                     dataService.post('myEvents', {filter: filter}).then(function (results) {
-                        if (results.status == 'success') {
+                        if (results && results.status === SUCCESS_STATUS) {
                             results.data.forEach(function (eventItem) {
                                 if (myDraftEvents !== null ) {
                                     myDraftEvents.push(eventItem);
@@ -281,12 +227,12 @@
                         filter.loadingItems = false;
                     });
                 }
-            } else if (filter.status == 'past' && myPastEvents != null) {
-                if (myPastEvents.length % 5 == 0 && filter.pastStart != myPastEvents.length + 1) {
+            } else if (filter.status === PAST_STATUS && myPastEvents != null) {
+                if (myPastEvents.length % 5 === 0 && filter.pastStart !== myPastEvents.length + 1) {
                     filter.loadingItems = true;
                     filter.pastStart = myPastEvents.length + 1;
                     dataService.post('myEvents', {filter: filter}).then(function (results) {
-                        if (results.status == 'success') {
+                        if (results && results.status === SUCCESS_STATUS) {
                             results.data.forEach(function (eventItem) {
                                 if (myPastEvents !== null ) {
                                     myPastEvents.push(eventItem);
@@ -300,17 +246,14 @@
         }
 
         function hasMoreRelatedEvents(event) {
-            if (relatedEvents && relatedEvents.concerts && relatedEvents.concerts.length % 5 == 0 && relatedEvents.start != relatedEvents.concerts.length + 1) {
+            if (relatedEvents && relatedEvents.concerts && relatedEvents.concerts.length % 5 === 0 && relatedEvents.start !== relatedEvents.concerts.length + 1) {
                 return true;
             }
             return false;
         }
 
         function getMoreRelatedEvents(event) {
-
-            if (loadingRelatedItems)
-                return;
-
+            if (loadingRelatedItems) return;
             if (hasMoreRelatedEvents(event)) {
                 loadingRelatedItems = true;
                 relatedEvents.start = relatedEvents.concerts.length + 1;
@@ -319,7 +262,7 @@
                     type: event.isShow ? 'show' : 'concert',
                     start: relatedEvents.start
                 }).then(function (results) {
-                    if (results.status == 'success') {
+                    if (results && results.status === SUCCESS_STATUS) {
                         if (results.data && results.data.concerts) {
                             results.data.concerts.forEach(function (eventItem) {
                                 relatedEvents.concerts.push(eventItem);
@@ -337,18 +280,14 @@
                 type: event.isShow ? 'show' : 'concert'
             }).then(function (results) {
                 relatedEvents = null;
-                if (results!==undefined && results!==null) {
-                    if (results.status == 'success') {
-                        relatedEvents = results.data;
-                    }
+                if (results && results.status === SUCCESS_STATUS) {
+                    relatedEvents = results.data;
                 }
             });
         }
 
         function getEventSales(event) {
-            if (event.isShow) {
-                getShowSales(event);
-            } else {
+            if (!event.isShow) {
                 getConcertSales(event);
             }
         }
@@ -380,7 +319,7 @@
         function getConcertSales(event) {
             dataService.post('concertSales', {id: event.id}).then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     event.name = results.data.name;
                     event.confId = results.data.confId;
                     event.eventPeriod = results.data.eventPeriod;
@@ -407,7 +346,7 @@
             }).then(function (results) {
                 mySectorsData = null;
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     mySectorsData = results.data;
                     mySectorsData.salesTotal = {
                         soldTickets: 0,
@@ -430,7 +369,7 @@
         function getShowSales(event) {
             dataService.post('showSales', {id: event.id}).then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     event.name = results.data.name;
                     event.eventPeriod = results.data.eventPeriod;
                     event.isSamePeriod = results.data.isSamePeriod;
@@ -451,7 +390,7 @@
         function getConcertInfo(event) {
             dataService.post('concertInfo', {id: event.id}).then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     event.name = results.data.name;
                     event.confId = results.data.confId;
                     event.eventPeriod = results.data.eventPeriod;
@@ -470,7 +409,7 @@
         function getShowInfo(event) {
             dataService.post('showInfo', {id: event.id, includeConcerts: false}).then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     event.name = results.data.name;
                     event.eventPeriod = results.data.eventPeriod;
                     event.locations = results.data.locations;
@@ -489,7 +428,7 @@
         function getConcertOpSales(event, filter) {
             dataService.post('concertOpSales', {id: event.id, filter: filter}).then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     event.statistics = results.data;
                 }
             });
@@ -498,7 +437,7 @@
         function getShowOpSales(event, filter) {
             dataService.post('showOpSales', {id: event.id, filter: filter}).then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     event.statistics = results.data;
                 }
             });
@@ -512,7 +451,7 @@
             }).then(function (results) {
                 myOverviewData = null;
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     myOverviewData = results.data;
                 }
             });
@@ -526,7 +465,7 @@
             }).then(function (results) {
                 myPriceTypeData = null;
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     myPriceTypeData = results.data;
                 }
             });
@@ -540,7 +479,7 @@
             }).then(function (results) {
                 myPriceClassData = null;
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     myPriceClassData = results.data;
                 }
             });
@@ -582,7 +521,7 @@
                     });
                 }
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     myLocationsData = results.data;
                 }
             });
@@ -590,11 +529,11 @@
 
         function getOverviewGraphData(event, filter) {
             var report = '';
-            if (filter.groupBy == 'day') {
+            if (filter.groupBy === GROUP_DAY) {
                 report = 'eventSalesReportByDate';
-            } else if (filter.groupBy == 'week') {
+            } else if (filter.groupBy === GROUP_WEEK) {
                 report = 'eventSalesReportByWeek';
-            } else if (filter.groupBy == 'month') {
+            } else if (filter.groupBy === GROUP_MONTH) {
                 report = 'eventSalesReportByMonth';
             }
             if (report) {
@@ -605,7 +544,7 @@
                 }).then(function (results) {
                     myOverviewGraphData = null;
                     dataService.page(results);
-                    if (results.status == 'success') {
+                    if (results && results.status === SUCCESS_STATUS) {
                         myOverviewGraphData = results.data;
                     }
                 });
@@ -616,11 +555,11 @@
 
         function getPriceClassGraphData(event, filter) {
             var report = '';
-            if (filter.groupBy == 'day') {
+            if (filter.groupBy === GROUP_DAY) {
                 report = 'eventSalesReportByPriceClassDate';
-            } else if (filter.groupBy == 'week') {
+            } else if (filter.groupBy === GROUP_WEEK) {
                 report = 'eventSalesReportByPriceClassWeek';
-            } else if (filter.groupBy == 'month') {
+            } else if (filter.groupBy === GROUP_MONTH) {
                 report = 'eventSalesReportByPriceClassMonth';
             }
             if (report) {
@@ -631,7 +570,7 @@
                 }).then(function (results) {
                     myPriceClassGraphData = null;
                     dataService.page(results);
-                    if (results.status == 'success') {
+                    if (results && results.status === SUCCESS_STATUS) {
                         myPriceClassGraphData = results.data;
                     }
                 });
@@ -642,11 +581,11 @@
 
         function getPriceTypeGraphData(event, filter) {
             var report = '';
-            if (filter.groupBy == 'day') {
+            if (filter.groupBy === GROUP_DAY) {
                 report = 'eventSalesReportByPriceTypeDate';
-            } else if (filter.groupBy == 'week') {
+            } else if (filter.groupBy === GROUP_WEEK) {
                 report = 'eventSalesReportByPriceTypeWeek';
-            } else if (filter.groupBy == 'month') {
+            } else if (filter.groupBy === GROUP_MONTH) {
                 report = 'eventSalesReportByPriceTypeMonth';
             }
             if (report) {
@@ -657,7 +596,7 @@
                 }).then(function (results) {
                     myPriceTypeGraphData = null;
                     dataService.page(results);
-                    if (results.status == 'success') {
+                    if (results && results.status === SUCCESS_STATUS) {
                         myPriceTypeGraphData = results.data;
                     }
                 });
@@ -670,7 +609,7 @@
             dataService.post('sectionTickets', {concertId: event.id, filter: filter}).then(function (results) {
                 sectorTickets = null;
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     sectorTickets = results.data;
                 }
             });
@@ -678,27 +617,13 @@
 
         function getExportFileName(event, currentTab, type) {
             if (event.eventPeriod) {
-                return 'Report-' + currentTab + '-' + event.name + '-' + $filter('date')(event.eventPeriod.start, "dd.MM.yyyy") + '-' + $filter('date')(event.eventPeriod.end, "dd.MM.yyyy") + "." + type;
+                return 'Report-' + currentTab + '-' + event.name + '-' + $filter('date')(event.eventPeriod.start, "dd.MM.yyyy") +
+                    '-' + $filter('date')(event.eventPeriod.end, "dd.MM.yyyy") + "." + type;
             }
         };
 
         function exportAsExcel(event, currentTab, filter) {
-            var callMethod;
-            if (currentTab == 'overview') {
-                callMethod = 'getXlsByOverview';
-            } else if (currentTab == 'pricetype') {
-                callMethod = 'getXlsByPriceType';
-            } else if (currentTab == 'priceclass') {
-                callMethod = 'getXlsByPriceClass';
-            } else if (currentTab == 'sections') {
-                if (filter.sectionId) {
-                    callMethod = 'getXlsByPriceClass';
-                } else {
-                    callMethod = 'getXlsBySectors';
-                }
-            } else if (currentTab == 'locations') {
-                callMethod = 'getXlsByLocation';
-            }
+            var callMethod = getExportCallMethod(currentTab, 'Xls', filter);
             if (callMethod) {
                 dataService.postBinary(callMethod, {
                     id: event.id,
@@ -711,30 +636,8 @@
             }
         }
 
-		function reloadEvent(event) {
-            dataService.post(event.isShow ? 'reloadShow' : 'reloadConcert', {id: event.id}).then(function (results) {
-                if (results.status == 'success') {
-                }
-            });
-		}
-
         function exportAsCsv(event, currentTab, filter) {
-            var callMethod;
-            if (currentTab == 'overview') {
-                callMethod = 'getCsvByOverview';
-            } else if (currentTab == 'pricetype') {
-                callMethod = 'getCsvByPriceType';
-            } else if (currentTab == 'priceclass') {
-                callMethod = 'getCsvByPriceClass';
-            } else if (currentTab == 'sections') {
-                if (filter.sectionId) {
-                    callMethod = 'getCsvByPriceClass';
-                } else {
-                    callMethod = 'getCsvBySectors';
-                }
-            } else if (currentTab == 'locations') {
-                callMethod = 'getCsvByLocation';
-            }
+            var callMethod = getExportCallMethod(currentTab, 'Csv', filter);
             if (callMethod) {
                 dataService.postBinary(callMethod, {
                     id: event.id,
@@ -745,6 +648,32 @@
                     FileSaver.saveAs(file, getExportFileName(event, currentTab, 'csv'));
                 });
             }
+        }
+
+        function getExportCallMethod(currentTab, type, filter) {
+            var callMethod = 'get' + type;
+            switch (currentTab) {
+                case 'overview': callMethod = callMethod + 'ByOverview'; break;
+                case 'pricetype': callMethod = callMethod + 'ByPriceType'; break;
+                case 'priceclass': callMethod = callMethod + 'ByPriceClass'; break;
+                case 'locations': callMethod = callMethod + 'ByLocation'; break;
+                case 'sections':
+                    if (filter.sectionId) {
+                        callMethod = callMethod + 'ByPriceClass';
+                    } else {
+                        callMethod = callMethod + 'BySectors';
+                    }
+                    break;
+            }
+            return callMethod;
+        }
+
+        function reloadEvent(event) {
+            dataService.post(event.isShow ? 'reloadShow' : 'reloadConcert', {id: event.id}).then(function (results) {
+                if (results && results.status === SUCCESS_STATUS) {
+                    // Add success message
+                }
+            });
         }
 
         function addToBasketBulk(items, callback) {
@@ -840,7 +769,7 @@
                 concertId: item.concertId,
                 sectionId: item.sectionId
             }).then(function (results) {
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     dataService.page(results);
                     sectorInfo = results.data;
                     if(callback) {
@@ -853,7 +782,7 @@
         function getCountries() {
             dataService.post('getCountries').then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     countries = results.data;
                 }
             });
@@ -862,7 +791,7 @@
         function getMyBasket(callback, basket) {
             dataService.post('myBasket', basket).then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     myBasket = results.data;
                     if(callback) {
                         callback();
@@ -874,7 +803,7 @@
         function getMyBooking(callback, booking) {
             dataService.post('myBooking', booking).then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     myBasket = results.data;
                     if(callback) {
                         callback();
@@ -888,13 +817,13 @@
             filter.start = null;
             dataService.post('bookingList', {filter: filter}).then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     myBookings = results.data;
-                    filter.loadingItems = false;
                     if(callback) {
                         callback();
                     }
                 }
+                filter.loadingItems = false;
             });
         }
 
@@ -902,11 +831,11 @@
             if(!myBookings || !myBookings.bookings) {
                 return;
             }
-            if (!filter.loadingItems && myBookings.bookings.length % 10 == 0 && filter.start != myBookings.bookings.length + 1) {
+            if (!filter.loadingItems && myBookings.bookings.length % 10 === 0 && filter.start !== myBookings.bookings.length + 1) {
                 filter.loadingItems = true;
                 filter.start = myBookings.bookings.length + 1;
                 dataService.post('bookingList', {filter: filter}).then(function (results) {
-                    if (results.status == 'success') {
+                    if (results && results.status === SUCCESS_STATUS) {
                         results.data.bookings.forEach(function (bookingItem) {
                             myBookings.bookings.push(bookingItem);
                         });
@@ -919,7 +848,7 @@
         function getBookingStatuses() {
             dataService.post('getBookingStatuses').then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     bookingStatuses = results.data;
                 }
             });
@@ -928,7 +857,7 @@
         function getBookingTypes() {
             dataService.post('getBookingTypes').then(function (results) {
                 dataService.page(results);
-                if (results.status == 'success') {
+                if (results && results.status === SUCCESS_STATUS) {
                     bookingTypes = results.data;
                 }
             });

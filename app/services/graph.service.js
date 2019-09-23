@@ -397,6 +397,9 @@
                 newValue.sales.forEach(function (myPricetypeData) {
                     myPricetypeData.priceTypes.forEach(function (pricetypeRow) {
                         step++;
+                        if (pricetypeRow.color === '') {
+                            pricetypeRow.color = colorService.getRandomColor(myPricetypeData.priceTypes.length, step);
+                        }
                         colors.push(pricetypeRow.color);
                         if (filter.pieDisplay === 'tickets') {
                             data.push(pricetypeRow.count);
@@ -434,12 +437,17 @@
                 var ids = [];
                 var colors = [];
                 var totals = [];
+                var step = 0;
                 newValue.sales.forEach(function (sale) {
                     sale.sellTypes.forEach(function (sellType) {
                         if ($.grep(ids, function (e) {
                                 return e == parseInt(sellType.priceTypeId, 10);
                             }).length === 0) {
                             series.push(sellType.priceTypeName);
+                            if (sellType.color === '') {
+                                step++;
+                                sellType.color = colorService.getRandomColor(sale.sellTypes.length, step);
+                            }
                             colors.push(sellType.color);
                             ids.push(parseInt(sellType.priceTypeId, 10));
                         }
@@ -543,7 +551,12 @@
                 });
 
                 newValue.sales.forEach(function (myPriceclassData) {
+                    let step = 0;
                     myPriceclassData.priceClasses.forEach(function (priceclassRow) {
+                        if (priceclassRow.color === '') {
+                            step++;
+                            priceclassRow.color = colorService.getRandomColor(myPriceclassData.priceClasses.length, step);
+                        }
                         colors.push(priceclassRow.color);
                         if (filter.pieDisplay == 'tickets') {
                             data.push(priceclassRow.count);
@@ -581,13 +594,17 @@
                 var colors = [];
                 var ids = [];
                 var totals = [];
-
                 newValue.sales.forEach(function (sale) {
+                    let colorStep = 0;
                     sale.sellTypes.forEach(function (sellType) {
                         if ($.grep(series, function (e) {
                                 return e == sellType.priceClassName;
                             }).length === 0) {
                             series.push(sellType.priceClassName);
+                            if (sellType.color === '') {
+                                colorStep++;
+                                sellType.color = colorService.getRandomColor(sale.sellTypes.length, colorStep);
+                            }
                             colors.push(sellType.color);
                             ids.push(parseInt(sellType.priceClassId, 10));
                         }

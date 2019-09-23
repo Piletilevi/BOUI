@@ -9,13 +9,11 @@
     function ColorService() {
         
 		var service = {
-			getRandomColor : getRandomColor,
-			getColorByType : getColorByType
+			getRandomColor: getRandomColor,
+			getColorByType: getColorByType
         };
         return service;
 
-		// This function generates vibrant, "evenly spaced" colours (i.e. no clustering). 
-		// This is ideal for creating easily distinguishable vibrant markers in Google Maps and other apps.
 		function getRandomColor(numOfSteps, step) {
 			var r, g, b;
 			var h = step / numOfSteps;
