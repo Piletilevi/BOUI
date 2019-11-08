@@ -21,28 +21,30 @@
 				<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{event.locations.length === 1 ? event.locations[0].location : ('api_venue_different_venues' | translate)}}
 			</div>
 		</div>
-		<div class="bo-panel-table-cell-4 bo-stats clearfix">
-			<div class="bo-statslabels text-muted">
-				<span class="bo-statlabel text-success">{{event.statistics.soldTickets || 0}}</span>&nbsp;/&nbsp;
-				<span class="bo-statlabel text-primary">{{event.statistics.bookedTickets || 0}}</span>&nbsp;/&nbsp;
-				<span class="bo-statlabel text-default">{{event.statistics.availableTickets || 0}}</span>
-				<span class="bo-statlabel pull-right" tooltip-placement="right" uib-tooltip="Sale status" tooltip-append-to-body="true">
+		<div ng-if="event.statistics">
+			<div class="bo-panel-table-cell-4 bo-stats clearfix">
+				<div class="bo-statslabels text-muted">
+					<span class="bo-statlabel text-success">{{event.statistics.soldTickets || 0}}</span>&nbsp;/&nbsp;
+					<span class="bo-statlabel text-primary">{{event.statistics.bookedTickets || 0}}</span>&nbsp;/&nbsp;
+					<span class="bo-statlabel text-default">{{event.statistics.availableTickets || 0}}</span>
+					<span class="bo-statlabel pull-right" tooltip-placement="right" uib-tooltip="Sale status" tooltip-append-to-body="true">
 					<i class="fa fa-minus-circle" aria-hidden="true"></i>
 				</span>
-			</div>
-			<div class="bo-statsbar progress">
-				<div class="progress-bar progress-bar-success"
-					 ng-if="event.statistics.soldTickets" ng-attr-style="flex-grow: {{event.statistics.soldPercent}}"
-					 tooltip-placement="bottom" uib-tooltip="{{'api_overview_sold_total'|translate}}" tooltip-append-to-body="true">&nbsp;{{event.statistics.soldTickets}}&nbsp;
 				</div>
-				<div class="progress-bar progress-bar-primary"
-					 ng-if="event.statistics.bookedTickets" ng-attr-style="flex-grow: {{event.statistics.bookedPercent}}"
-					 tooltip-placement="bottom" uib-tooltip="{{'api_overview_reserved_total'|translate}}" tooltip-append-to-body="true">&nbsp;{{event.statistics.bookedTickets}}&nbsp;
-				</div>
-				<div class="progress-bar"
-					 ng-if="event.statistics.availableTickets"
-					 ng-attr-style="flex-grow: {{event.statistics.availablePercent}}"
-					 tooltip-placement="bottom" uib-tooltip="{{'api_status_available_sale'|translate}}" tooltip-append-to-body="true">&nbsp;{{event.statistics.availableTickets}}&nbsp;
+				<div class="bo-statsbar progress">
+					<div class="progress-bar progress-bar-success"
+						 ng-if="event.statistics.soldTickets" ng-attr-style="flex-grow: {{event.statistics.soldPercent}}"
+						 tooltip-placement="bottom" uib-tooltip="{{'api_overview_sold_total'|translate}}" tooltip-append-to-body="true">&nbsp;{{event.statistics.soldTickets}}&nbsp;
+					</div>
+					<div class="progress-bar progress-bar-primary"
+						 ng-if="event.statistics.bookedTickets" ng-attr-style="flex-grow: {{event.statistics.bookedPercent}}"
+						 tooltip-placement="bottom" uib-tooltip="{{'api_overview_reserved_total'|translate}}" tooltip-append-to-body="true">&nbsp;{{event.statistics.bookedTickets}}&nbsp;
+					</div>
+					<div class="progress-bar"
+						 ng-if="event.statistics.availableTickets"
+						 ng-attr-style="flex-grow: {{event.statistics.availablePercent}}"
+						 tooltip-placement="bottom" uib-tooltip="{{'api_status_available_sale'|translate}}" tooltip-append-to-body="true">&nbsp;{{event.statistics.availableTickets}}&nbsp;
+					</div>
 				</div>
 			</div>
 		</div>

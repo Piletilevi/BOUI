@@ -287,7 +287,10 @@
         }
 
         function getEventSales(event) {
-            if (!event.isShow) {
+            if (event.isShow) {
+                getShowSales(event);
+            }
+            else {
                 getConcertSales(event);
             }
         }
