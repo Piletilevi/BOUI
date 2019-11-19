@@ -47,10 +47,10 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="bo-panel-table-cell-4 bo-totals clearfix">
-			<span class="pull-left">{{event.statistics.soldPercent || 0}}%</span>
-			<span class="pull-right" ng-if="withRevenue">{{event.statistics.soldSumma | number:2 }} {{event.statistics.currency}}</span>
+			<div class="bo-panel-table-cell-4 bo-totals clearfix">
+				<span class="pull-left">{{event.statistics.soldPercent || 0}}%</span>
+				<span class="pull-right" ng-if="withRevenue">{{event.statistics.soldSumma | number:2 }} {{event.statistics.currency}}</span>
+			</div>
 		</div>
 	</div>
 	<div ng-if="!linked" class="text-right">
