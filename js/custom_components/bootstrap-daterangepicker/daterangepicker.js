@@ -646,8 +646,6 @@
             var daysInLastMonth = moment([lastYear, lastMonth]).daysInMonth();
             var dayOfWeek = firstDay.day();
 
-            this.locale.monthNames = moment.monthsShort();
-            this.locale.daysOfWeek = moment.weekdaysMin();
             //initialize a 6 rows x 7 columns array for the calendar
             var calendar = [];
             calendar.firstDay = firstDay;
@@ -664,7 +662,7 @@
 
             if (dayOfWeek == this.locale.firstDay)
                 startDay = daysInLastMonth - 6;
-
+            
             var curDate = moment([lastYear, lastMonth, startDay, 12, minute, second]);
 
             var col, row;
