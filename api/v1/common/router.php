@@ -2699,11 +2699,7 @@ $app->get('/payment/process', function ($request, $response, $args)  {
 		if ($reportResponse->data && $reportResponse->data->type=="redirect" && $reportResponse->data->url) {
 			return $response->withRedirect($reportResponse->data->url);
 		} else {
-			$template = 'payment.tpl';
-			if ($reportResponse->data->template) {
-				$template = $reportResponse->data->template;
-			}
-			return $this->view->render($response, $template, [
+			return $this->view->render($response, 'payment.tpl', [
 				'payment' => $reportResponse->data
 			]);
 		}
