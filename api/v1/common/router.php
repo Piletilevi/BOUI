@@ -2699,7 +2699,11 @@ $app->get('/payment/process', function ($request, $response, $args)  {
 		if ($reportResponse->data && $reportResponse->data->type=="redirect" && $reportResponse->data->url) {
 			return $response->withRedirect($reportResponse->data->url);
 		} else {
-			return $this->view->render($response, 'payment.tpl', [
+			$template = 'payment.tpl';
+			if ($reportResponse->data->template) {
+				$template = $reportResponse->data->template;
+			}
+			return $this->view->render($response, $template, [
 				'payment' => $reportResponse->data
 			]);
 		}
@@ -2759,8 +2763,14 @@ $app->put('/payment/check', function ($request, $response, $args)  {
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		if ($reportResponse->data && $reportResponse->data->type=="redirect" && $reportResponse->data->url) {
 			return $response->withRedirect($reportResponse->data->url);
+		} else if ($reportResponse->data && $reportResponse->data->type=="json" && $reportResponse->data->response) {
+			return $dataHandler->response($response, $reportResponse->data->response);
 		} else {
-			return $this->view->render($response, 'payment.tpl', [
+			$template = 'payment.tpl';
+			if ($reportResponse->data->template) {
+				$template = $reportResponse->data->template;
+			}
+			return $this->view->render($response, $template, [
 				'payment' => $reportResponse->data
 			]);
 		}
@@ -2804,8 +2814,14 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		if ($reportResponse->data && $reportResponse->data->type=="redirect" && $reportResponse->data->url) {
 			return $response->withRedirect($reportResponse->data->url);
+		} else if ($reportResponse->data && $reportResponse->data->type=="json" && $reportResponse->data->response) {
+			return $dataHandler->response($response, $reportResponse->data->response);
 		} else {
-			return $this->view->render($response, 'payment.tpl', [
+			$template = 'payment.tpl';
+			if ($reportResponse->data->template) {
+				$template = $reportResponse->data->template;
+			}
+			return $this->view->render($response, $template, [
 				'payment' => $reportResponse->data
 			]);
 		}
@@ -2851,10 +2867,16 @@ $app->get('/payment/check', function ($request, $response, $args)  {
     if ($reportResponse && !property_exists($reportResponse, 'errors')) {
         if ($reportResponse->data && $reportResponse->data->type=="redirect" && $reportResponse->data->url) {
             return $response->withRedirect($reportResponse->data->url);
+		} else if ($reportResponse->data && $reportResponse->data->type=="json" && $reportResponse->data->response) {
+			return $dataHandler->response($response, $reportResponse->data->response);
         } else {
-            return $this->view->render($response, 'payment.tpl', [
-                'payment' => $reportResponse->data
-            ]);
+			$template = 'payment.tpl';
+			if ($reportResponse->data->template) {
+				$template = $reportResponse->data->template;
+			}
+			return $this->view->render($response, $template, [
+				'payment' => $reportResponse->data
+			]);
         }
     } else {
         $r["status"] = "error";
