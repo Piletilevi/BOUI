@@ -5,10 +5,21 @@
 	<script>
 		window.onload = function(){
 		    var NEOWidgetHost = "https://widget.neopay.lt";
-			var data = "{$payment->fields[0]->value}";
+			{foreach from=$payment->fields item=field}
+			{if $field->name == 'token'}
+			var data = "{$field->value}";
+			{/if}
+			{/foreach}
 			NEOWidget.initialize(
 				NEOWidgetHost,
-				data
+				data,
+				{literal}{{/literal}
+				{foreach from=$payment->fields item=field name=fldLoop}
+				{if $field->name != 'token'}
+					'{$field->name}': '{$field->value}'{if not $smarty.foreach.fldLoop.last},{/if}
+				{/if}
+				{/foreach}
+				{literal}}{/literal}
 			);
 		};	
 	</script>
