@@ -2736,6 +2736,7 @@ $app->put('/payment/check', function ($request, $response, $args)  {
 	
 	$ip = $dataHandler->getUserIP();
 	$parameters = $request->getParams();
+	$parameters['requestMethod'] = "PUT";
     $piletileviApi = $this->piletileviApi;
 	
 	$contentCharset = $request->getContentCharset();
@@ -2787,6 +2788,7 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 	
 	$ip = $dataHandler->getUserIP();
 	$parameters = $request->getParams();
+	$parameters['requestMethod'] = "POST";
     $piletileviApi = $this->piletileviApi;
 	
 	$contentCharset = $request->getContentCharset();
@@ -2809,7 +2811,7 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 
 	$parameters = $dataHandler->fixEncoding($parameters, $contentCharset);
 	
-    $reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
+	$reportResponse = $piletileviApi->checkPayment( $parameters, $ip );
 	
 	if ($reportResponse && !property_exists($reportResponse, 'errors')) {
 		if ($reportResponse->data && $reportResponse->data->type=="redirect" && $reportResponse->data->url) {
@@ -2840,6 +2842,7 @@ $app->get('/payment/check', function ($request, $response, $args)  {
 
     $ip = $dataHandler->getUserIP();
     $parameters = $request->getParams();
+	$parameters['requestMethod'] = "GET";
     $piletileviApi = $this->piletileviApi;
 
 	$contentCharset = $request->getContentCharset();
