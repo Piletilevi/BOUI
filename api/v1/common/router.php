@@ -406,7 +406,7 @@ $app->get('/logout', function ($request, $response, $args) {
 	return $dataHandler->response($response, $r);
 });
 
-$app->get('/languages', function() use ($app) {
+$app->get('/languages', function($response) use ($app) {
 	$dataHandler = $this->dataHandler;
 	$piletileviApi = $this->piletileviApi;
     $languages = $piletileviApi->languages();
@@ -2738,17 +2738,10 @@ $app->put('/payment/check', function ($request, $response, $args)  {
 	$parameters = $request->getParams();
 	$parameters['requestMethod'] = "PUT";
     $piletileviApi = $this->piletileviApi;
-	
-	$contentCharset = $request->getContentCharset();
-	$headers = $request->getHeaders();
-	if ($headers && is_array($headers) && 
-	   ((isset($headers['HTTP_ORIGIN']) && is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || 
-	    (isset($headers['HTTP_X_FORWARDED_FOR']) && is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47") || 
-		(isset($headers['HTTP_REFERER']) && is_array($headers['HTTP_REFERER']) && $dataHandler->beginsWith($headers['HTTP_REFERER'][0], "https://e.seb.lt"))) ) {
-		$contentCharset = "windows-1257";
-	}
 
-	$logger->write(" ---------START PUT--------");
+    $contentCharset = getCharset($request, $dataHandler);
+
+    $logger->write(" ---------START PUT--------");
 	$logger->write("IP: ".$ip);
 	$logger->write("Content-Encoding: ".$request->getContentCharset());
 	$logger->write("Request headers:");
@@ -2790,15 +2783,8 @@ $app->post('/payment/check', function ($request, $response, $args)  {
 	$parameters = $request->getParams();
 	$parameters['requestMethod'] = "POST";
     $piletileviApi = $this->piletileviApi;
-	
-	$contentCharset = $request->getContentCharset();
-	$headers = $request->getHeaders();
-	if ($headers && is_array($headers) && 
-	   ((isset($headers['HTTP_ORIGIN']) && is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || 
-	    (isset($headers['HTTP_X_FORWARDED_FOR']) && is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47") ||
-		(isset($headers['HTTP_REFERER']) && is_array($headers['HTTP_REFERER']) && $dataHandler->beginsWith($headers['HTTP_REFERER'][0], "https://e.seb.lt"))) ) {
-		$contentCharset = "windows-1257";
-	}
+
+    $contentCharset = getCharset($request, $dataHandler);
 
 	$logger->write(" ---------START POST--------");
 	$logger->write("IP: ".$ip);
@@ -2845,14 +2831,7 @@ $app->get('/payment/check', function ($request, $response, $args)  {
 	$parameters['requestMethod'] = "GET";
     $piletileviApi = $this->piletileviApi;
 
-	$contentCharset = $request->getContentCharset();
-	$headers = $request->getHeaders();
-	if ($headers && is_array($headers) && 
-	   ((isset($headers['HTTP_ORIGIN']) && is_array($headers['HTTP_ORIGIN']) && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt") || 
-	    (isset($headers['HTTP_X_FORWARDED_FOR']) && is_array($headers['HTTP_X_FORWARDED_FOR']) && $headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47") ||
-		(isset($headers['HTTP_REFERER']) && is_array($headers['HTTP_REFERER']) && $dataHandler->beginsWith($headers['HTTP_REFERER'][0], "https://e.seb.lt"))) ) {
-		$contentCharset = "windows-1257";
-	}
+    $contentCharset = getCharset($request, $dataHandler);
 
 	$logger->write(" ---------START GET--------");
 	$logger->write("IP: ".$ip);
@@ -3010,4 +2989,30 @@ $app->get('/test', function ($request, $response, $args)  {
 	return $dataHandler->response($response, $reportResponse);
 });
 
+function getCharset($request, $dataHandler)
+{
+    $contentCharset = $request->getContentCharset();
+    $headers = $request->getHeaders();
+    $sebContentCharset = applySEBCharset($headers, $dataHandler);
+    if ($sebContentCharset != "")  $contentCharset = $sebContentCharset;
+    return $contentCharset;
+}
+function applySEBCharset($headers, $dataHandler)
+{
+    if ($headers && is_array($headers) &&
+        (
+            (isset($headers['HTTP_ORIGIN'])
+                && is_array($headers['HTTP_ORIGIN'])
+                && $headers['HTTP_ORIGIN'][0] == "https://e.seb.lt")
+            || (isset($headers['HTTP_X_FORWARDED_FOR'])
+                && is_array($headers['HTTP_X_FORWARDED_FOR'])
+                && ($headers['HTTP_X_FORWARDED_FOR'][0] == "194.176.58.47"
+                    || $headers['HTTP_X_FORWARDED_FOR'][0] == "78.24.199.174"))
+            || (isset($headers['HTTP_REFERER'])
+                && is_array($headers['HTTP_REFERER'])
+                && $dataHandler->beginsWith($headers['HTTP_REFERER'][0], "https://e.seb.lt")))) {
+        $contentCharset = "windows-1257";
+    }
+    return $contentCharset;
+}
 ?>
