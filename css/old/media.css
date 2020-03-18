@@ -221,7 +221,6 @@
 	.bo-sub-menu,
 	header,
 	#locations,
-	#bookings,
 	.bo-detailed-report-link,
 	.bo-header-submenu,
 	.bo-eventsummary-links,
@@ -466,10 +465,6 @@
 
 	.bo-tabs-controls .form-inline > .form-group {
 		margin-left: 0;
-	}
-
-	.bo-make-reservation-button {
-		width: 100%;
 	}
 
 	.bo-eventshareblock {
@@ -983,14 +978,6 @@
 		display: block;
 	}
 
-	.bo-reservation-phone .form-group:first-child {
-		padding-right: 6px;
-	}
-
-	.bo-reservation-phone .form-group:last-child {
-		padding-left: 0;
-	}
-
 	.dropdown-header {
 		display: none;
 	}
@@ -1006,17 +993,4 @@
 		width: 100%;
 	}
 
-	.bo-reservation-datetime .form-control {
-		padding-left: 6px;
-		padding-right: 6px;
-	}
-
-	.bo-reservation-footer-butons > .row > div {
-		width: 100%;
-		margin-bottom: 10px;
-	}
-
-	.bo-reservation-footer-butons > .row > div  .btn {
-		width: 100%;
-	}
 }

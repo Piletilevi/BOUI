@@ -1672,24 +1672,6 @@ button.bo-sectionselector-item.list-group-item {
 	opacity: 1;
 }
 
-.bo-bookingstable .bo-tablebody > .bo-tablerow > div {
-	border-bottom: 5px solid #edf0f4;
-}
-.bo-bookingstable .bo-tablebody > .bo-tablerow.active > div {
-	border-bottom: 0;
-}
-.bo-bookingstable .bo-tablebody > .bo-expandedrow.active > div {
-	border-bottom: 5px solid #edf0f4;
-}
-
-.bo-bookingstable .bo-tablebody > .bo-tablerow > div > .fa {
-	color: #5e7287;
-	opacity: 0.8;
-}
-.bo-bookingstable .bo-tablebody > .bo-tablerow > div:hover > .fa {
-	opacity: 1;
-}
-
 .bo-adaptive-table-custom1 .bo-tablebody > .bo-tablerow:first-child > div:first-child {
 	border-top-left-radius: 6px;
 }
@@ -1763,28 +1745,7 @@ button.bo-sectionselector-item.list-group-item {
 	min-width: 280px;
 }
 
-.bo-baskettable .bo-tablebody > .bo-tablerow > div {
-	border-bottom: 1px solid #edf0f4;
-	border-right: 1px solid #edf0f4;
-}
-.bo-baskettable .bo-tablebody > .bo-tablerow:first-child > div:first-child {
-	border-top-left-radius: 6px;
-}
-.bo-baskettable .bo-tablebody > .bo-tablerow:last-child > div:first-child {
-	border-bottom-left-radius: 6px;
-}
-.bo-baskettable .bo-tablebody > .bo-tablerow:first-child > div:last-child {
-	border-top-right-radius: 6px;
-}
-.bo-baskettable .bo-tablebody > .bo-tablerow:last-child > div:last-child {
-	border-bottom-right-radius: 6px;
-}
-.bo-baskettable .bo-tablebody > .bo-tablerow > div:last-child {
-	border-right: none;
-}
-.bo-baskettable .bo-tablebody > .bo-tablerow:last-child > div {
-	border-bottom: none;
-}
+
 
 /* Chart
 ================================ */
@@ -2411,122 +2372,6 @@ button.bo-sectionselector-item.list-group-item {
 	padding: 0;
 }
 
-/* reservation
-================================ */
-
-.bo-reservation-selected-section-title {
-	padding-top: 7px;
-}
-
-.bo-reservation-table {
-	margin-bottom: 28px;
-}
-
-.bo-reservation-table tr td {
-	/*padding: 2px 0 3px;*/
-	line-height: 26px;
-}
-
-.bo-reservation-table tr td:first-child {
-	min-width: 125px;
-	padding-right: 15px;
-}
-
-.bo-reservation-table-title {
-	margin-bottom: 15px;
-}
-
-.bo-reservation-email-data {
-	margin-bottom: 80px;
-}
-
-.bo-reservation-inline-buttons {
-	margin-bottom: 10px;
-}
-.bo-reservation-inline-buttons > .btn-group {
-	border: 5px solid #edf0f4;
-	border-radius: 6px;
-	background-color: #edf0f4;
-}
-.bo-reservation-inline-buttons > .btn-group > .btn {
-	padding: 0 12px;
-	height: 35px;
-	border-radius: 4px!important;
-	background-color: #edf0f4;
-	color: #5e7287;
-	opacity: 0.8;
-}
-.bo-reservation-inline-buttons > .btn-group > .btn:active {
-	background-color: #edf0f4!important;
-	opacity: 1;
-}
-.bo-reservation-inline-buttons > .btn-group > .btn:hover {
-	opacity: 1;
-}
-
-.bo-reservation-inline-buttons > .btn-group > .btn.active {
-	background-color: #fff;
-	opacity: 1;
-}
-
-.bo-reservation-selected-type {
-	margin-bottom: 19px;
-}
-
-.bo-reservation-form-block {
-	margin-bottom: 21px;
-}
-
-.bo-reservation-footer-butons {
-	padding-top: 4px;
-}
-
-.bo-reservation-datetime {
-	display: flex;
-	justify-content: flex-start;
-	margin-bottom: 14px;
-}
-
-.bo-reservation-datetime > div + div {
-	margin-left: 5px;
-}
-
-.bo-reservation-time {
-	border: 5px solid #edf0f4;
-	background-color: #edf0f4;
-	border-radius: 6px;
-	color: #5e7287;
-}
-.bo-reservation-time > div {
-	border-radius: 4px;
-	padding: 7px;
-	height: 35px;
-}
-
-.bo-reservation-datetime .form-control {
-	border: none;
-	background-color: #fff;
-	border-radius: 4px;
-	color: #5e7287;
-	height: 35px;
-}
-.bo-reservation-datetime datepicker > i {
-	opacity: 0.8;
-	color: #5e7287;
-	top: 11px;
-	right: 11px;
-	position: absolute;
-}
-.bo-reservation-datetime datepicker:hover > i, .bo-reservation-datetime datepicker:focus > i, .bo-reservation-datetime datepicker:active > i {
-	opacity: 1;
-}
-
-.bo-reservation-datetime datepicker {
-	border: 5px solid #edf0f4;
-	background-color: #edf0f4;
-	border-radius: 6px;
-}
-
 /* tabledrop
 ================================ */
 
@@ -2677,17 +2522,6 @@ tbody:not(.collapsed) .bo-tabledrop-master td,
 	padding-right: 30px;
 }
 
-.btn.btn-bookings {
-	text-decoration: none;
-	padding: 2px 10px;
-	margin: 7px 0 0 10px;
-	background: #ff4172;
-	color: #fff;
-}
-
-.btn.btn-bookings:hover {
-	color: #fff;
-}
 
 /* Datepicker */
 

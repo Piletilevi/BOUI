@@ -566,88 +566,7 @@ class PiletileviApi {
 		
 		return $response;
 	}
-	
-	public function addToBasket($filter) {
-		
-		$data['filter']= $filter;
 
-		$response = $this->send( "/basket/addToBasket", $data );
-		
-		return $response;
-	}
-
-	public function removeFromBasket($filter) {
-		
-		$data['filter']= $filter;
-
-		$response = $this->send( "/basket/removeFromBasket", $data );
-		
-		return $response;
-	}
-	
-	public function removeFromBooking($filter) {
-		
-		$data['filter']= $filter;
-
-		$response = $this->send( "/booking/removeFromBooking", $data );
-		
-		return $response;
-	}
-
-	public function changeBasketTicketType($filter) {
-		
-		$data['filter']= $filter;
-
-		$response = $this->send( "/basket/changeBasketTicketType", $data );
-		
-		return $response;
-	}
-
-	public function changeBookingTicketType($filter) {
-		
-		$data['filter']= $filter;
-
-		$response = $this->send( "/booking/changeBookingTicketType", $data );
-		
-		return $response;
-	}
-
-	public function myBasket($filter) {
-
-		$data['filter']= $filter;
-		
-		$response = $this->send( "/basket/myBasket", $data );
-		
-		return $response;
-	}
-
-	public function confirmBasket($filter) {
-
-		$data['filter']= $filter;
-		
-		$response = $this->send( "/basket/confirmBasket", $data );
-		
-		return $response;
-	}
-
-	public function confirmBooking($filter) {
-
-		$data['filter']= $filter;
-		
-		$response = $this->send( "/booking/confirmBooking", $data );
-		
-		return $response;
-	}
-
-	public function bookingList($filter) {
-
-		$filter['limit'] = 10;
-		$data['filter']= $filter;
-		
-		$response = $this->send( "/booking/bookingList", $data );
-		
-		return $response;
-	}
 
 	public function reloadConcert($filter) {
 
@@ -688,84 +607,6 @@ class PiletileviApi {
 		return $countries;
 	}
 
-	public function getBookingTypes() {
-		
-		$languageCode = "";
-		
-		if ($this->currentLang) {
-			$languageCode = $this->currentLang->code; 
-		}
-		
-		$cacheItem = $this->cacheManager->getItem("bookingTypes".$languageCode);
-		$bookingTypes = $cacheItem->get();
-
-		if(is_null($bookingTypes) || !is_object($bookingTypes)) {
-			$data = array();
-			$bookingTypes = $this->send( "/booking/getBookingTypes", $data );
-			$cacheItem->set($bookingTypes)->expiresAfter(3600);
-			$this->cacheManager->save($cacheItem);
-		}
-
-		return $bookingTypes;
-	}
-
-	public function getBookingStatuses() {
-		
-		$languageCode = "";
-		
-		if ($this->currentLang) {
-			$languageCode = $this->currentLang->code; 
-		}
-		
-		$cacheItem = $this->cacheManager->getItem("bookingStatuses".$languageCode);
-		$bookingStatuses = $cacheItem->get();
-
-		if(is_null($bookingStatuses) || !is_object($bookingStatuses)) {
-			$data = array();
-			$bookingStatuses = $this->send( "/booking/getBookingStatuses", $data );
-			$cacheItem->set($bookingStatuses)->expiresAfter(3600);
-			$this->cacheManager->save($cacheItem);
-		}
-
-		return $bookingStatuses;
-	}
-
-	public function cancelBooking($filter) {
-		
-		$data['filter']= $filter;
-
-		$response = $this->send( "/booking/cancelBooking", $data );
-		
-		return $response;
-	}
-
-	public function myBooking($filter) {
-		
-		$data['filter']= $filter;
-
-		$response = $this->send( "/booking/myBooking", $data );
-		
-		return $response;
-	}
-	
-	public function bookingPayment($filter) {
-		
-		$data['filter']= $filter;
-
-		$response = $this->send( "/payment/getBooking", $data );
-		
-		return $response;
-	}
-
-	public function paymentByBookingId($filter) {
-		
-		$data['filter']= $filter;
-
-		$response = $this->send( "/payment/paymentByBookingId", $data );
-		
-		return $response;
-	}
-	
 	public function checkPayment($parameters, $ip) {
 		
 		$parameters['ip'] = $ip;
@@ -779,24 +620,6 @@ class PiletileviApi {
 	public function processPayment($data) {
 		
 		$response = $this->sendOnce( "/payment/processPayment", $data );
-		
-		return $response;
-	}
-
-	public function addGIftCardToBooking($filter) {
-		
-		$data['filter']= $filter;
-
-		$response = $this->send( "/payment/addGIftCardToBooking", $data );
-		
-		return $response;
-	}
-
-	public function removeGiftCardFromBooking($filter) {
-		
-		$data['filter']= $filter;
-
-		$response = $this->send( "/payment/removeGiftCardFromBooking", $data );
 		
 		return $response;
 	}

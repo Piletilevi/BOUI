@@ -77,13 +77,7 @@
                 name: 'locations',
                 translationCode: 'api_locations',
                 icon: 'fa-map',
-            },
-            {
-                accessRight: 'api_reports_reservations',
-                name: 'bookings',
-                translationCode: 'api_menu_reservations',
-                icon: 'fa-book',
-            },
+            }
         ];
         vm.activeTabs = [];
 
@@ -130,17 +124,8 @@
             centerId: ''
         };
         vm.sectorsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
-        vm.defaultBookingFilter = {
-            eventId: $routeParams.id,
-            isShow: $routeParams.type == 'show',
-            period: {
-                startDate: moment().subtract(1, 'years'),
-                endDate: moment().add(1, 'days')
-            },
-			statusId: 1,
-            typeId: 0
-        };
-        vm.bookingFilter = angular.copy(vm.defaultBookingFilter);
+;
+
         vm.locationsFilter = {period: {startDate: null, endDate: null}, centerId: ''};
         vm.reset_search = false;
         vm.overviewBarGraph = graphService.overviewBarGraph;
@@ -150,16 +135,7 @@
         vm.priceclassPieGraph = graphService.priceclassPieGraph;
         vm.priceclassLineGraph = graphService.priceclassLineGraph;
 
-        vm.filters = [vm.overviewFilter, vm.pricetypeFilter, vm.priceclassFilter, vm.sectorsFilter, vm.locationsFilter, vm.bookingFilter];
-
-        vm.reservation = {
-            reservationType: 'with_price',
-            personType: 'person',
-            concertId: $routeParams.id
-        };
-        vm.reservationStartDate = moment().subtract(1, 'days');
-        vm.reservationMode = $routeParams.reservation ? 'basket' : false;
-        // vm.printPdf = pdfService.printPdf;
+        vm.filters = [vm.overviewFilter, vm.pricetypeFilter, vm.priceclassFilter, vm.sectorsFilter, vm.locationsFilter];
 
         vm.goToEvent = function (pointId,event) {
             eventService.goToEvent(pointId,event);
@@ -252,26 +228,11 @@
                 vm.priceclassFilter.sectionId = null;
                 eventService.getPriceClassData(vm.event, vm.priceclassFilter);
                 eventService.getPriceClassGraphData(vm.event, vm.priceclassFilter);
-            } else if (tab == 'sections' && !$routeParams.reservation) {
+            } else if (tab == 'sections') {
                 eventService.getSectorsData(vm.event, vm.sectorsFilter);
             }
             else if (tab == 'locations') {
                 eventService.getLocationsData(vm.event, vm.locationsFilter);
-            }
-            else if (tab == 'bookings') {
-                eventService.getBookingsData(vm.bookingFilter, function () {
-                    if ($rootScope.bookingId) {
-                        setTimeout(function () {
-                            angular.forEach(vm.myBookings.bookings, function (value, key) {
-                                if (value.id == $rootScope.bookingId) {
-                                    vm.bookingsRowExpanded = key;
-                                }
-                            });
-                        });
-                    }
-                });
-                eventService.getBookingStatuses();
-                eventService.getBookingTypes();
             }
             if (tab != 'sections') {
                 $scope.selectedSectionId = false;
@@ -294,10 +255,6 @@
             return '';
         };
 
-        vm.getReservationMode = function () {
-            $scope.reservationMode = vm.reservationMode;
-        };
-
         vm.setSelectedSectionId = function (selectedSectionId) {
             $scope.selectedSectionId = selectedSectionId;
             var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/' + selectedSectionId + '/';
@@ -305,135 +262,7 @@
             vm.priceclassFilter.sectionId = selectedSectionId;
             eventService.getPriceClassData(vm.event, vm.priceclassFilter);
             eventService.getSectorTickets(vm.event, vm.priceclassFilter);
-            if (vm.reservationMode) {
-                newPath += 'reservation/';
-                eventService.getSectorsData(vm.event, vm.sectorsFilter);
-                vm.getMyReservation();
-            } 
             $location.update_path(newPath);
-        };
-
-        vm.addSeatsToBasket = function (selectedSeatsIds) {
-            if (!$rootScope.hasFullAccess('api_make_reservation') || !vm.event.active || !vm.reservationMode) {
-                return;
-            }
-            var basketItems = [];
-            for (var i= 0; i < selectedSeatsIds.length; ++i) {
-                basketItems.push(                {
-                    concertId: $routeParams.id,
-                    sectionId: $scope.selectedSectionId,
-                    seatId: selectedSeatsIds[i]
-                });
-            }
-            eventService.addToBasketBulk(basketItems, function () {
-                vm.getMyReservation();
-            });
-        };
-        vm.removeSelectedSeatId = function (selectedSeatId) {
-            if ($rootScope.hasFullAccess('api_make_reservation') && vm.event.active && vm.reservationMode) {
-                eventService.removeFromBasket(
-                    {
-                        concertId: $routeParams.id,
-                        sectionId: $scope.selectedSectionId,
-                        seatId: selectedSeatId
-                    }, function () {
-                        vm.getMyReservation();
-                    }
-                );
-            }
-        };
-
-        vm.changeReservationType = function (reservationType) {
-            if (vm.reservation.reservationType != reservationType) {
-                vm.reservation.reservationType = reservationType;
-                if (reservationType == 'invitation') {
-                    vm.myBasket.summary.reservationSumTotal = angular.copy(vm.myBasket.summary.sumTotal);
-                    vm.myBasket.summary.sumTotal = 0;
-                }
-                else if (reservationType == 'with_price' && vm.myBasket.summary.reservationSumTotal) {
-                    vm.myBasket.summary.sumTotal = angular.copy(vm.myBasket.summary.reservationSumTotal);
-                }
-            }
-        };
-
-        vm.getMyReservation = function (bookingId) {
-            if (!$scope.selectedSectionId && !bookingId) {
-                return;
-            }
-            var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/' + $scope.selectedSectionId + '/reservation/';
-            $location.update_path(newPath);
-            if (vm.reservationMode == 'basket') {
-                eventService.getMyBasket(
-                    function () {
-                        eventService.getSectorInfo(
-                            {
-                                concertId: $routeParams.id,
-                                sectionId: $scope.selectedSectionId
-                            }, function () {
-                                vm.goToStep2();
-                            });
-                    }
-                );
-            } else if (vm.reservationMode == 'booking') {
-                eventService.getMyBooking(
-                    function () {
-                        eventService.getSectorInfo(
-                            {
-                                bookingId: $routeParams.id,
-                                sectionId: $scope.selectedSectionId
-                            }, function () {
-                                vm.goToStep2();
-                            });
-                    }, {bookingId: bookingId}
-                );
-            }
-        };
-
-        vm.getMyBasket = function () {
-            vm.reservationMode = 'basket';
-            vm.event.seatsMapConfig.seatClick = true;
-            vm.getMyReservation();
-        };
-
-        vm.getMyBooking = function (bookingId) {
-            vm.reservationMode = 'booking';
-            vm.event.seatsMapConfig.seatClick = true;
-            vm.getMyReservation(bookingId);
-        };
-
-        vm.resetBookingFilter = function () {
-            vm.bookingClientName = null;
-            vm.bookingNr = null;
-            vm.bookingFilter = angular.copy(vm.defaultBookingFilter);
-        };
-
-        vm.confirmReservation = function () {
-            vm.reservationToConfirm = angular.copy(vm.reservation);
-            var basketExpireAt = moment(vm.myBasket.summary.expireAt);
-            vm.reservationToConfirm.expireAt = moment(vm.reservationToConfirm.expireAt, 'DD-MM-YYYY HH:mm');
-            vm.reservationToConfirm.expireAt = vm.reservationToConfirm.expireAt.hour(basketExpireAt.get('hours'));
-            vm.reservationToConfirm.expireAt = vm.reservationToConfirm.expireAt.minute(basketExpireAt.get('minutes'));
-            vm.reservationToConfirm.expireAt = vm.reservationToConfirm.expireAt.second(basketExpireAt.get('seconds'));
-            vm.reservationToConfirm.expireAt = vm.reservationToConfirm.expireAt.format('YYYY-MM-DDTHH:mm:ss');
-
-            vm.reservationToConfirm.contactPhone = vm.reservation.contactPhoneCode + ' ' + vm.reservation.contactPhone;
-            var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/bookings';
-            if (vm.reservationMode == 'basket') {
-                eventService.confirmBasket(
-                    vm.reservationToConfirm, function () {
-                        vm.myBasket = {};
-                        $rootScope.bookingSuccessAlert = true;
-                        $rootScope.bookingId = eventService.bookingId();
-                        $location.path(newPath);
-                    }
-                );
-            } else if (vm.reservationMode == 'booking') {
-                eventService.confirmBooking(
-                    vm.reservationToConfirm, function () {
-                        $location.path(newPath);
-                    }
-                );
-            }
         };
 
         vm.resetSelectedSectionId = function () {
@@ -452,320 +281,9 @@
             return vm.event != null && vm.event.salespoints != null && vm.event.salespoints.length > 1;
         };
 
-        vm.prepareEmailContent = function (emailContent) {
-            emailContent = emailContent.replace(/#api_add_event/g, vm.event.name);
-            emailContent = emailContent.replace(/#api_add_firstname/g, vm.reservation.firstName);
-            emailContent = emailContent.replace(/#api_add_lastname/g, vm.reservation.lastName);
-            emailContent = emailContent.replace(/#api_add_reservation_expiration/g, vm.reservation.expireAt);
-            emailContent = emailContent.replace(/#api_add_invoice_number/g, '<a href="#">Invoice Number<a\/>');
-            emailContent = emailContent.replace(/#api_add_made_by_firstname/g, $rootScope.user.firstName);
-            emailContent = emailContent.replace(/#api_add_made_by_lastname/g, $rootScope.user.lastName);
-            emailContent = emailContent.replace(/#api_add_made_by_organization/g, $rootScope.user.organization);
-            emailContent = emailContent.replace(/\n/g, "<br />");
-            return $sce.trustAsHtml(emailContent);
-        };
 
-        /* Reservations */
 
-        vm.cancelBooking = function (bookingId) {
-            eventService.cancelBooking(
-                bookingId, function () {
-                    eventService.getBookingsData(vm.bookingFilter);
-                }
-            );
-        };
-
-        /* Booking form */
-
-        vm.removeFromBasket = function (ticketId) {
-            if(!ticketId || vm.myBasket.basket.length == 1) {
-                vm.prevDiscount = 0;
-            }
-            eventService.removeFromBasket(
-                ticketId, function () {
-                    if (vm.reservationMode == 'basket') {
-                        eventService.getMyBasket(
-                            null, vm.reservation
-                        );
-                    } else if (vm.reservationMode == 'booking') {
-                        eventService.getMyBooking(null, vm.reservation);
-                    }
-                    eventService.getSectorInfo(
-                        {
-                            concertId: $routeParams.id,
-                            sectionId: $scope.selectedSectionId
-                        });
-                }
-            );
-        };
-
-        vm.changeBasketTicketType = function (ticketId, typeId) {
-            angular.forEach($filter('filter')(vm.myBasket.basket, {'id': ticketId})[0].priceTypes, function (priceType) {
-                priceType.active = (priceType.priceTypeId == typeId);
-            });
-            if (vm.reservationMode == 'basket') {
-                eventService.changeBasketTicketType(ticketId, typeId,
-                    function () {
-                        eventService.getMyBasket(
-                            null, vm.reservation
-                        );
-                    }
-                );
-            }
-            else if (vm.reservationMode == 'booking') {
-                eventService.changeBookingTicketType(ticketId, typeId,
-                    function () {
-                        eventService.getMyBooking();
-                    }
-                );
-            }
-        };
-
-        vm.validateReservationForm = function () {
-            vm.reservationFormFubmitted = true;
-            vm.reservationFormRequredErr = !vm.reservation.firstName || !vm.reservation.lastName || !vm.reservation.from;
-            vm.reservationFormEmailErr = !/\S+@\S+\.\S+/.test(vm.reservation.contactEmail);
-        };
-
-        vm.goToSectionsStep = function (reservationMode) {
-            vm.bookingStep = null;
-            vm.reservationMode = reservationMode;
-            vm.event.seatsMapConfig.seatClick = reservationMode;
-            var newPath = '/report/' + $routeParams.pointId + '/' + $routeParams.type + '/' + $routeParams.id + '/sections/';
-            $location.update_path(newPath);
-            $scope.selectedSectionId = false;
-        };
-
-        vm.goToStep2 = function () {
-            vm.bookingStep = 'step2-3';
-        };
-
-        vm.goToStep4 = function () {
-            eventService.getCountries();
-            if (!vm.reservation.from) {
-                vm.reservation.from = $rootScope.user.email;
-            }
-            vm.defaultReservationSubject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
-            vm.defaultReservationBody = $translate.instant("api_reservation_email_body" + pointService.getPointId());
-            vm.defaultInvitationSubject = $translate.instant("api_invitation_email_subject" + pointService.getPointId());
-            vm.defaultInvitationBody = $translate.instant("api_invitation_email_body" + pointService.getPointId());
-
-            if (!vm.reservation.subject) {
-                if (vm.reservation.reservationType == 'invitation') {
-					vm.reservation.subject = vm.defaultInvitationSubject;
-				} else {
-					vm.reservation.subject = vm.defaultReservationSubject;
-				}
-            }
-            if (!vm.reservation.body) {
-                if (vm.reservation.reservationType == 'invitation') {
-					vm.reservation.body = vm.defaultInvitationBody;
-				} else {
-					vm.reservation.body = vm.defaultReservationBody;
-				}
-            }
-            if (typeof vm.reservation.countryId == 'undefined') {
-                vm.reservation.countryId = pointService.getPointCountryId();
-            }
-            if(!vm.reservation.contactPhoneCode) {
-                vm.reservation.contactPhoneCode = vm.defaultContactPhoneCode;
-            }
-            vm.bookingStep = 'step4';
-        };
-
-        vm.goToStep5 = function () {
-            if (!vm.reservation.contactPhone) {
-                vm.reservation.contactPhoneCode = null;
-            }
-            if (!vm.reservation.address) {
-                vm.reservation.countryId = null;
-            }
-            vm.bookingStep = 'step5';
-        };
-
-        vm.decreaseTicketsCount = function (ttSectorData) {
-            if (ttSectorData.selected > 0) {
-                ttSectorData.selected--;
-            }
-        };
-
-        vm.addDiscount = function () {
-            if(vm.prevDiscount == vm.reservation.discount) {
-                return;
-            }
-            vm.prevDiscount = vm.reservation.discount;
-            if (typeof vm.reservation.discount === 'undefined') {
-                vm.reservation.discount = 0;
-            }
-            else {
-                if (!vm.reservation.discount) {
-                    vm.reservation.discount = 0;
-                }
-                if (vm.reservationMode == 'basket') {
-                    eventService.getMyBasket(
-                        null, vm.reservation
-                    );
-                } else if (vm.reservationMode == 'booking') {
-                    eventService.getMyBooking(
-                        null, vm.reservation
-                    );
-                }
-            }
-        };
-
-        vm.focusDiscount = function () {
-            if (vm.reservation.discount == 0) {
-                delete vm.reservation.discount;
-            }
-        };
-
-        vm.increaseTicketsCount = function (ttSectorData) {
-            if (ttSectorData.selected < ttSectorData.freeTotal) {
-                ttSectorData.selected++;
-            }
-        };
-
-        vm.ticketsCount = function () {
-            var ticketsCount = 0;
-            angular.forEach(vm.sectorInfo.ttSector, function (ttSector) {
-                angular.forEach(ttSector.ttSectorData, function (ttSectorData) {
-                    ticketsCount += parseInt(ttSectorData.selected, 10);
-                });
-            });
-            return !isNaN(ticketsCount) ? ticketsCount : 0;
-        };
-
-        vm.offerTickets = function () {
-            var classes = {},
-                sectionId = null;
-            if (vm.ticketsCount() > 0) {
-                angular.forEach(vm.sectorInfo.ttSector, function (ttSector) {
-                    if (!sectionId) {
-                        sectionId = ttSector.sectorId;
-                    }
-                    angular.forEach(ttSector.ttSectorData, function (ttSectorData) {
-                        if (ttSectorData.selected > 0) {
-                            classes[ttSectorData.priceClass] = ttSectorData.selected;
-                        }
-                        ttSectorData.selected = 0;
-                    });
-                });
-                eventService.addToBasket(
-                    {
-                        concertId: $routeParams.id,
-                        sectionId: sectionId,
-                        classes: classes
-                    }, function () {
-                        if (vm.reservationMode == 'basket') {
-                            if (!vm.myBasket.basket) {
-                                vm.reservation.discount = 0;
-                            }
-                            eventService.getMyBasket(
-                                null, vm.reservation
-                            );
-                        } else if (vm.reservationMode == 'booking') {
-                            eventService.getMyBasket(
-                                null, vm.reservation
-                            );
-                        }
-
-                        eventService.getSectorInfo( {
-                            concertId: $routeParams.id,
-                            sectionId: $scope.selectedSectionId
-                        });
-                    }
-                );
-            }
-
-        };
-
-        vm.decreaseBasketDiscount = function () {
-            if (vm.reservation.discount > 0) {
-                vm.reservation.discount--;
-                vm.addDiscount();
-            }
-        };
-
-        vm.increaseBasketDiscount = function () {
-            if (vm.reservation.discount < 100) {
-                vm.reservation.discount++;
-                vm.addDiscount();
-            }
-        };
-
-        vm.validateQuantity = function (ttSectorData) {
-            ttSectorData.selected = parseInt(ttSectorData.selected, 10);
-            if (ttSectorData.selected <= 0 || isNaN(ttSectorData.selected)) {
-                ttSectorData.selected = 0;
-            }
-            else if (ttSectorData.selected > ttSectorData.freeTotal) {
-                ttSectorData.selected = ttSectorData.freeTotal;
-            }
-        };
-
-        vm.focusPriceClassQuantity = function (ttSectorData) {
-            if (ttSectorData.selected == 0) {
-                delete ttSectorData.selected;
-            }
-        };
-
-        vm.blurPriceClassQuantity = function (ttSectorData) {
-            if (!ttSectorData.selected) {
-                ttSectorData.selected = 0;
-            }
-        };
-
-        vm.selectContactPhoneCode = function (selectedContactPhoneCode) {
-            if (selectedContactPhoneCode) {
-                vm.reservation.contactPhoneCode = '+' + selectedContactPhoneCode.originalObject.areaCode;
-                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-phone-code-inp', vm.reservation.contactPhoneCode);
-            }
-        };
-        vm.blurContactPhoneCode = function (selectedContactPhoneCode) {
-            var contactPhoneCode = $('#contact-phone-code-inp_value').val(),
-                selectedCountry = null;
-            angular.forEach(vm.countries.countries, function (country) {
-                if (parseInt(contactPhoneCode, 10) == country.areaCode || contactPhoneCode == country.name ) {
-                    selectedCountry = country;
-                }
-            });
-            if (!selectedCountry) {
-                vm.reservation.contactPhoneCode = vm.defaultContactPhoneCode;
-                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-phone-code-inp', vm.reservation.contactPhoneCode);
-            }
-        };
-
-        vm.selectContactCountry = function (selectedContactCountry) {
-            if (selectedContactCountry) {
-                vm.reservation.countryId = selectedContactCountry.originalObject.id;
-                vm.reservation.contactCountry = selectedContactCountry.originalObject.name;
-                vm.reservation.contactPhoneCode = '+' + selectedContactCountry.originalObject.areaCode;
-                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-country-inp', vm.reservation.contactCountry);
-                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-phone-code-inp', vm.reservation.contactPhoneCode);
-            }
-        };
-        vm.blurContactCountry = function (selectedContactCountry) {
-            var contactCountry = $('#contact-country-inp_value').val(), selectedCountry = null;
-            angular.forEach(vm.countries.countries, function (country) {
-                if (contactCountry == country.name) {
-                    selectedCountry = country;
-                }
-            });
-            if (!selectedCountry) {
-                vm.reservation.countryId = vm.defaultContactCountry.id;
-                vm.reservation.contactCountry = vm.defaultContactCountry.name;
-                $scope.$broadcast('angucomplete-alt:changeInput', 'contact-country-inp', vm.reservation.contactCountry);
-            }
-        };
-
-        vm.getMoreBookingsData = function () {
-            eventService.getMoreBookingsData(vm.bookingFilter);
-        };
-
-        $scope.getReservationMode = vm.getReservationMode;
         $scope.setSelectedSectionId = vm.setSelectedSectionId;
-        $scope.addSeatsToBasket = vm.addSeatsToBasket;
-        $scope.removeSelectedSeatId = vm.removeSelectedSeatId;
         $scope.setMouseoverSectionId = vm.setMouseoverSectionId;
 
         /* watchers */
@@ -814,10 +332,6 @@
                 vm.myPriceTypeLineData = eventService.myPriceTypeGraphData();
                 vm.myPriceClassPieData = eventService.myPriceClassData();
                 vm.myPriceClassLineData = eventService.myPriceClassGraphData();
-                vm.myBasket = eventService.myBasket();
-                vm.myBookings = eventService.myBookings();
-                vm.bookingStatuses = eventService.bookingStatuses();
-                vm.bookingTypes = eventService.bookingTypes();
                 vm.sectorInfo = eventService.sectorInfo();
                 vm.mySectorsData = eventService.mySectorsData();
                 vm.myLocationsData = eventService.myLocationsData();
@@ -827,39 +341,6 @@
             }
         );
 
-        $scope.$watch('vm.myBasket', function(newValue, oldValue) {
-            if (!angular.equals(newValue, oldValue)) {
-                var seatArray = [];
-                angular.forEach(vm.myBasket.basket, function(seat) {
-                    seatArray.push(seat.seatId);
-                });
-                vm.event.selectedSeats = seatArray;
-            }
-        });
-
-        $scope.$watch('vm.countries', function (newValue, oldValue) {
-            if (!angular.equals(newValue, oldValue)) {
-                angular.forEach(newValue.countries, function (country) {
-                    country.phoneCodeOption = country.name + ' (+' + country.areaCode + ')';
-                    country.countryOption = country.name;
-                });
-                if (typeof vm.reservation.contactPhoneCode == 'undefined' && vm.reservation.countryId) {
-                    var country = $filter('filter')(vm.countries.countries, function (country) {
-                        return country.id == vm.reservation.countryId;
-                    });
-                    if (country.length > 0) {
-                        var contactPhoneCode = '+' + country[0].areaCode;
-                        var contactCountry = {
-                            id: country[0].id,
-                            name: country[0].name
-                        };
-                        vm.defaultContactPhoneCode = contactPhoneCode;
-                        vm.defaultContactCountry = contactCountry;
-                        vm.reservation.contactPhoneCode = contactPhoneCode;
-                    }
-                }
-            }
-        }, true);
 
         $scope.$watch('selectedSectionId', function (newValue, oldValue) {
             if (newValue && !angular.equals(newValue, oldValue)) {
@@ -885,24 +366,6 @@
                 if (vm.currentTab == 'overview') {
                     graphService.renderOverviewBarGraph(vm.myOverviewBarData, vm.myOverviewBarData, vm.overviewBarGraph);
                     graphService.renderOverviewLineGraph(vm.myOverviewLineData, vm.overviewFilter, vm.overviewLineGraph);
-                }
-                if (vm.currentTab == 'sections') {
-                    if (vm.reservation.subject == vm.defaultReservationSubject) {
-                        vm.defaultReservationSubject = $translate.instant("api_reservation_email_subject" + pointService.getPointId());
-                        vm.reservation.subject = vm.defaultReservationSubject;
-                    }
-                    if (vm.reservation.subject == vm.defaultInvitationSubject) {
-                        vm.defaultInvitationSubject = $translate.instant("api_invitation_email_subject" + pointService.getPointId());
-                        vm.reservation.subject = vm.defaultInvitationSubject;
-                    }
-                    if (vm.reservation.body == vm.defaultReservationBody) {
-                        vm.defaultReservationBody = $translate.instant("api_reservation_email_body" + pointService.getPointId());
-                        vm.reservation.body = vm.defaultReservationBody;
-                    }
-                    if (vm.reservation.body == vm.defaultInvitationBody) {
-                        vm.defaultInvitationBody = $translate.instant("api_invitation_email_body" + pointService.getPointId());
-                        vm.reservation.body = vm.defaultInvitationBody;
-                    }
                 }
             }
         });
@@ -1064,8 +527,6 @@
                 vm.locationsFilter.period.endDate = newSellPeriod.end;
                 vm.minFilterDate = vm.overviewFilter.period.startDate;
                 vm.maxFilterDate = vm.overviewFilter.period.endDate;
-                vm.bookingFilter.period.startDate = newSellPeriod.start;
-                vm.defaultBookingFilter.period.startDate = newSellPeriod.start;
                 vm.tabSelectEvent(vm.currentTab);
             }
         });
@@ -1101,21 +562,6 @@
             }
         });
 
-        $scope.$watch('vm.bookingFilter', function (newFilter, oldFilter) {
-            if (oldFilter && (
-                    !angular.equals(newFilter.period, oldFilter.period) ||
-                    !angular.equals(newFilter.clientName, oldFilter.clientName) ||
-                    !angular.equals(newFilter.bookingNr, oldFilter.bookingNr) ||
-                    !angular.equals(newFilter.statusId, oldFilter.statusId) ||
-                    !angular.equals(newFilter.typeId, oldFilter.typeId
-                ))) {
-                if (vm.currentTab == 'bookings') {
-                    $rootScope.bookingSuccessAlert = false;
-                    eventService.getBookingsData(vm.bookingFilter);
-                }
-            }
-        }, true);
-
         $scope.$watch('vm.salesPoint', function (newSalesPoint, oldSalesPoint) {
             if (oldSalesPoint !== newSalesPoint) {
                 angular.forEach(vm.filters, function (filter) {
@@ -1126,16 +572,7 @@
             }
         });
 
-        $scope.$watch('vm.reservation.discount', function (newDiscount, oldDiscount) {
-            if (typeof newDiscount !== 'undefined') {
-                vm.reservation.discount = parseInt(newDiscount, 10);
-            }
-            if (vm.reservation.discount > 100) {
-                vm.reservation.discount = 100;
-            } else if (vm.reservation.discount < 0) {
-                vm.reservation.discount = 0;
-            }
-        });
+
 
     }
 

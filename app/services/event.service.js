@@ -32,11 +32,6 @@
         var sectorTickets = null;
         var relatedEvents = null;
         var loadingRelatedItems = false;
-        var myBasket = null;
-        var myBookings = null;
-        var bookingId = null;
-        var bookingStatuses = null;
-        var bookingTypes = null;
         var sectorInfo = null;
         var countries = null;
 
@@ -59,11 +54,6 @@
             countries: function () { return countries },
             sectorTickets: function () { return sectorTickets },
             relatedEvents: function () { return relatedEvents },
-            myBasket: function () { return myBasket },
-            myBookings: function () { return myBookings },
-            bookingId: function () { return bookingId },
-            bookingStatuses: function () { return bookingStatuses },
-            bookingTypes: function () { return bookingTypes },
             reset: reset,
             getMyEvents: getMyEvents,
             getMoreEvents: getMoreEvents,
@@ -84,21 +74,7 @@
             getSectorTickets: getSectorTickets,
             exportAsExcel: exportAsExcel,
             exportAsCsv: exportAsCsv,
-            addToBasket: addToBasket,
-            addToBasketBulk: addToBasketBulk,
-            confirmBasket: confirmBasket,
-            confirmBooking: confirmBooking,
-            removeFromBasket: removeFromBasket,
-            cancelBooking: cancelBooking,
-            changeBasketTicketType: changeBasketTicketType,
-            changeBookingTicketType: changeBookingTicketType,
-            getMyBasket: getMyBasket,
-            getMyBooking: getMyBooking,
-            getBookingsData: getBookingsData,
-            getMoreBookingsData: getMoreBookingsData,
-            getBookingStatuses: getBookingStatuses,
-            getBookingTypes: getBookingTypes,
-			reloadEvent: reloadEvent,
+            reloadEvent: reloadEvent,
             goToEvent: goToEvent,
         };
         return service;
@@ -122,11 +98,6 @@
             countries = null;
             sectorTickets = null;
             relatedEvents = null;
-            myBasket = null;
-            myBookings = null;
-            bookingId = null;
-            bookingStatuses = null;
-            bookingTypes = null;
         }
         
         function goToEvent(pointId,event) {
@@ -679,93 +650,7 @@
             });
         }
 
-        function addToBasketBulk(items, callback) {
-            var pending = items.slice();
-            var processItems = function() {
-                if (pending.length > 0) {
-                    var item = pending[0];
-                    pending.splice(0, 1);
-                    addToBasket(item, processItems);
-                } else {
-                    callback();
-                }
-            };
-            processItems();
-        }
 
-        function addToBasket(item, callback) {
-            dataService.post('addToBasket', {
-                concertId: item.concertId,
-                sectionId: item.sectionId,
-                classes: item.classes,
-                seatId: item.seatId,
-            }).then(function (results) {
-                if (results.hasOwnProperty('succeeded') && callback) {
-                    callback();
-                }
-            });
-        }
-
-        function removeFromBasket(ticketId, callback) {
-            dataService.post('removeFromBasket', {
-                ticketId: ticketId
-            }).then(function (results) {
-                if (results.hasOwnProperty('succeeded') && callback) {
-                    callback();
-                }
-            });
-        }
-
-        function cancelBooking(bookingId, callback) {
-            dataService.post('cancelBooking', {
-                bookingId: bookingId
-            }).then(function (results) {
-                if (results.hasOwnProperty('succeeded') && callback) {
-                    callback();
-                }
-            });
-        }
-
-        function changeBasketTicketType(ticketId, typeId, callback) {
-            dataService.post('changeBasketTicketType', {
-                ticketId: ticketId,
-                typeId: typeId
-            }).then(function (results) {
-                if (results.hasOwnProperty('succeeded') && callback) {
-                    callback();
-                }
-            });
-        }
-
-        function changeBookingTicketType(ticketId, typeId, callback) {
-            dataService.post('changeBookingTicketType', {
-                ticketId: ticketId,
-                typeId: typeId
-            }).then(function (results) {
-                if (results.hasOwnProperty('succeeded') && callback) {
-                    callback();
-                }
-            });
-        }
-
-        function confirmBasket(reservation, callback) {
-            dataService.post('confirmBasket', reservation).then(function (results) {
-                if (results.hasOwnProperty('succeeded')) {
-                    bookingId = results.bookingId;
-                    if (callback) {
-                        callback();
-                    }
-                }
-            });
-        }
-
-        function confirmBooking(booking, callback) {
-            dataService.post('confirmBooking', booking).then(function (results) {
-                if (results.hasOwnProperty('succeeded') && callback) {
-                    callback();
-                }
-            });
-        }
 
         function getSectorInfo(item, callback) {
             dataService.post('getSectorInfo', {
@@ -791,80 +676,6 @@
             });
         }
 
-        function getMyBasket(callback, basket) {
-            dataService.post('myBasket', basket).then(function (results) {
-                dataService.page(results);
-                if (results && results.status === SUCCESS_STATUS) {
-                    myBasket = results.data;
-                    if(callback) {
-                        callback();
-                    }
-                }
-            });
-        }
-
-        function getMyBooking(callback, booking) {
-            dataService.post('myBooking', booking).then(function (results) {
-                dataService.page(results);
-                if (results && results.status === SUCCESS_STATUS) {
-                    myBasket = results.data;
-                    if(callback) {
-                        callback();
-                    }
-                }
-            });
-        }
-
-        function getBookingsData(filter, callback) {
-            filter.loadingItems = true;
-            filter.start = null;
-            dataService.post('bookingList', {filter: filter}).then(function (results) {
-                dataService.page(results);
-                if (results && results.status === SUCCESS_STATUS) {
-                    myBookings = results.data;
-                    if(callback) {
-                        callback();
-                    }
-                }
-                filter.loadingItems = false;
-            });
-        }
-
-        function getMoreBookingsData(filter) {
-            if(!myBookings || !myBookings.bookings) {
-                return;
-            }
-            if (!filter.loadingItems && myBookings.bookings.length % 10 === 0 && filter.start !== myBookings.bookings.length + 1) {
-                filter.loadingItems = true;
-                filter.start = myBookings.bookings.length + 1;
-                dataService.post('bookingList', {filter: filter}).then(function (results) {
-                    if (results && results.status === SUCCESS_STATUS) {
-                        results.data.bookings.forEach(function (bookingItem) {
-                            myBookings.bookings.push(bookingItem);
-                        });
-                    }
-                    filter.loadingItems = false;
-                });
-            }
-        }
-
-        function getBookingStatuses() {
-            dataService.post('getBookingStatuses').then(function (results) {
-                dataService.page(results);
-                if (results && results.status === SUCCESS_STATUS) {
-                    bookingStatuses = results.data;
-                }
-            });
-        }
-
-        function getBookingTypes() {
-            dataService.post('getBookingTypes').then(function (results) {
-                dataService.page(results);
-                if (results && results.status === SUCCESS_STATUS) {
-                    bookingTypes = results.data;
-                }
-            });
-        }
 
 
 
