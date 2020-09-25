@@ -8,9 +8,9 @@
         .module('boApp')
         .factory('authService', AuthService);
 
-    AuthService.$inject = ['$rootScope', '$route', '$location', '$filter', 'dataService', 'pointService', 'eventService', '$cookies', '$q'];
+    AuthService.$inject = ['$rootScope', '$route', '$location', '$filter', 'dataService', 'pointService', 'eventService','translationService', '$cookies', '$q'];
 
-    function AuthService($rootScope, $route, $location, $filter, dataService, pointService, eventService, $cookies, $q) {
+    function AuthService($rootScope, $route, $location, $filter, dataService, pointService, eventService,translationService, $cookies, $q) {
         var service = {
             initialize : initialize,
             login : login,
@@ -45,6 +45,7 @@
                     .then(function (results) {
                         dataService.page(results);
                         if (results.status == "success") {
+                            translationService.setLangValue($rootScope.language);
                             var redirectUrl = localStorage.getItem('redirectUrl');
                             if(redirectUrl) {
                                 localStorage.removeItem('redirectUrl');

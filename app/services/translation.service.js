@@ -72,6 +72,7 @@
         }
 
         function setLangValue(lang){
+           // console.log(lang);
             if (lang !== $rootScope.language) {
                 $translate.use(lang.code);
                 $rootScope.language = lang;
