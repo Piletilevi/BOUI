@@ -16,7 +16,11 @@
 				{literal}{{/literal}
 				{foreach from=$payment->fields item=field name=fldLoop}
 				{if $field->name != 'token'}
+					{if $field->type == 'array'}
+					'{$field->name}': {$field->value}{if not $smarty.foreach.fldLoop.last},{/if}
+					{else}
 					'{$field->name}': '{$field->value}'{if not $smarty.foreach.fldLoop.last},{/if}
+					{/if}
 				{/if}
 				{/foreach}
 				{literal}}{/literal}
