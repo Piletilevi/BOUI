@@ -28,6 +28,7 @@
 <div class="col-md-3 bo-sidebar bo-sidenav" id="eventsSideNav">
     <div class="panel affix panel-default">
         <div class="bo-panel">
+
             <div class="panel-heading clearfix">
                 <div class="row">
                     <div class="col-md-8 col-xs-8">
@@ -71,6 +72,16 @@
                     </div>
                 </div>
             </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                    <div class="bo-button input-group-btn" style="width:100%;">
+                        <div class="btn btn-success" style="width:100%;" ng-click="vm.addPromoterInvoiceRequest()"  ng-disabled="!vm.eventsFilter.promoter && !vm.eventsFilter.period"><span>{{'api_invoices_create_promoter_invoices'|translate}}</span></div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <bo-container backoffice-options="{'time-out': 5000}"></bo-container>
         </div>
     </div>
 </div>

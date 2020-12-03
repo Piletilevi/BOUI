@@ -321,6 +321,10 @@
             assignEventsFilter();
         };
 
+        vm.addPromoterInvoiceRequest = function() {
+            invoiceService.addPromoterInvoiceRequest(vm.eventsFilter);
+        }
+
         vm.searchTransactions = function () {
             assignTransactionsFilter();
         };

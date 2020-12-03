@@ -51,7 +51,8 @@
             deleteInvoiceInfo: deleteInvoiceInfo,
             sendInvoiceEmail: sendInvoiceEmail,
             downloadInvoice: downloadInvoice,
-            openInvoice: openInvoice
+            openInvoice: openInvoice,
+            addPromoterInvoiceRequest: addPromoterInvoiceRequest
         };
         return service;
 
@@ -64,6 +65,29 @@
             if (!angular.equals(view, "transactions")) {
                 currentInvoiceEvent = null;
             }
+        }
+        function addPromoterInvoiceRequest(filter){
+            if (filter == null) {
+                return;
+            }
+            if (filter.loadingItems) {
+                return;
+            }
+            filter.loadingItems = true;
+            var dataFilter = filter;
+            setUtcOffset(dataFilter);
+            dataService.post('addPromoterInvoiceRequest', {filter: dataFilter}).then(function (results) {
+                dataService.page(results);
+              /*
+                if (results != undefined && results.status == 'success') {
+
+                }
+              */
+
+            }).finally(function () {
+                filter.loadingItems = false;
+            });
+
         }
 
         function goToInvoiceEvents() {
@@ -87,14 +111,13 @@
             var dataFilter = filter;
             setUtcOffset(dataFilter);
             dataService.post('invoiceEvents', {filter: dataFilter}).then(function (results) {
-                dataService.page(results);
                 myInvoiceEvents = results != undefined && results.status == 'success' ? results.events : [];
                 if (results != undefined && results.status == 'success') {
-                    setInvoiceEventPromoters(myInvoiceEvents,results.promoters);
+                    setInvoiceEventPromoters(myInvoiceEvents, results.promoters);
                     if (!angular.equals(currentInvoiceEvent, myInvoiceEvents[0])) {
                         setCurrentInvoiceEvent(myInvoiceEvents[0]);
                     }
-                }
+                } else dataService.page(results);
 
             }).finally(function () {
                 filter.loadingItems = false;
@@ -121,7 +144,7 @@
                                     myInvoiceEvents.push(eventItem);
                                 }
                             });
-                        }
+                        } else dataService.page(results);
                     }).finally(function () {
                         filter.loadingItems = false;
                     });

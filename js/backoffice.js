@@ -13,9 +13,9 @@
         //'extendedTimeout':0,// Set timeOut and extendedTimeout to 0 to make it sticky
         'icon-classes': {
             error: 'bo-alert alert alert-danger',
-            info: 'bo-info',
-            success: 'bo-success',
-            warning: 'bo-warning'
+            info: 'bo-alert alert alert-info',
+            success: 'bo-alert alert alert-success',
+            warning: 'bo-alert alert alert-waring'
         },
         'body-output-type': '', // Options: '', 'trustedHtml', 'template'
         'body-template': '',

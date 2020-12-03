@@ -625,6 +625,45 @@ $app->post('/invoiceEvents', function ($request, $response, $args)  {
     return $dataHandler->response($response, $r);
 });
 
+
+$app->post('/addPromoterInvoiceRequest', function ($request, $response, $args)  {
+    $dataHandler = $this->dataHandler;
+    $json = json_decode($request->getBody());
+
+    $filter = array();
+    if (property_exists($json->filter, 'promoter')) {
+        $filter['promoter'] = $json->filter->promoter;
+    }
+    if (property_exists($json->filter, 'period')) {
+        if (property_exists($json->filter->period, 'startDate')) {
+            $filter['startDate'] = $json->filter->period->startDate;
+        }
+        if (property_exists($json->filter->period, 'endDate')) {
+            $filter['endDate'] = $json->filter->period->endDate;
+        }
+    }
+    $piletileviApi = $this->piletileviApi;
+    $dataResponse = $piletileviApi->invoiceAction("/invoice/addPromoterInvoiceRequest", $filter);
+    $this->logger->write($dataResponse);
+    $this->logger->write("test");
+    $r = array();
+    if ($dataResponse && !property_exists($dataResponse, 'errors')) {
+        if ($dataResponse && property_exists($dataResponse, 'status' )) {
+            $r['status'] = $dataResponse->status;
+            $r['message'] = $dataResponse->message;
+        }
+        else{
+            $r['status'] = 'error';
+            $r['message'] = 'Invalid response';
+        }
+    } else if ($dataResponse && property_exists($dataResponse, 'errors')){
+        $r['status'] = "error";
+        $r['message'] = $dataHandler->getMessages($dataResponse->errors);
+    }
+    return $dataHandler->response($response, $r);
+});
+
+
 $app->post('/invoiceTransactions', function ($request, $response, $args)  {
     $dataHandler = $this->dataHandler;
     $json = json_decode($request->getBody());
