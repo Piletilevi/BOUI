@@ -2533,9 +2533,11 @@ $app->get('/test', function ($request, $response, $args)  {
 function getCharset($request, $dataHandler)
 {
     $contentCharset = $request->getContentCharset();
+    /*
     $headers = $request->getHeaders();
     $sebContentCharset = applySEBCharset($headers, $dataHandler);
     if ($sebContentCharset != "")  $contentCharset = $sebContentCharset;
+    */
     return $contentCharset;
 }
 function applySEBCharset($headers, $dataHandler)
